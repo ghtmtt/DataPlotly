@@ -65,17 +65,31 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for k, v in self.plot_types.items():
             self.plot_combo.addItem(k, v)
 
+        self.subcombo.clear()
+        self.sub_dict = OrderedDict([
+            (self.tr('SinglePlot'), 'single'),
+            (self.tr('SubPlots'), 'subplots')
+        ])
+
+        for k, v in self.sub_dict.items():
+                self.subcombo.addItem(k, v)
+
 
 
         # connect to the functions to clean the UI and fill with the correct widgets
         # self.fillTabProperties()
         self.refreshWidgets()
+        self.refreshWidgets2()
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
+        self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
+
+        self.x_combo.setLayer(self.layer_combo.currentLayer())
+        self.y_combo.setLayer(self.layer_combo.currentLayer())
 
 
         self.draw_btn.clicked.connect(self.plotProperties)
         self.addTrace_btn.clicked.connect(self.createPlot)
-        # self.remove_button.clicked.connect(self.removeTrace)
+        self.clear_btn.clicked.connect(self.removeTrace)
 
         self.plot_traces = {}
 
@@ -109,12 +123,22 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # same for Box and Bar
         self.orientation_combo.clear()
         self.orientation_box = OrderedDict([
-        (self.tr('Vertical'), 'v'),
-        (self.tr('Horizontal'), 'h')
+            (self.tr('Vertical'), 'v'),
+            (self.tr('Horizontal'), 'h')
         ])
         for k, v in self.orientation_box.items():
             self.orientation_combo.addItem(k, v)
 
+        # Box outliers
+        self.outliers_combo.clear()
+        self.outliers_dict = OrderedDict([
+            (self.tr('No Outliers'), False),
+            (self.tr('Standard Outliers'), 'outliers'),
+            (self.tr('Suspected Outliers'), 'suspectedoutliers'),
+            (self.tr('All Points'), 'all')
+        ])
+        for k, v in self.outliers_dict.items():
+            self.outliers_combo.addItem(k, v)
 
         # according to the plot type, change the label names
 
@@ -130,8 +154,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.orientation_label.setText('Box Orientation')
 
             self.statistic_type = OrderedDict([
-            (self.tr('None'), 'None'),
-            (self.tr('Mean'), 'mean'),
+            (self.tr('None'), False),
+            (self.tr('Mean'), True),
             (self.tr('Standard Deviation'), 'sd'),
             ])
 
@@ -207,9 +231,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.orientation_label: ['bar', 'box'],
             self.orientation_combo: ['bar', 'box'],
             self.box_statistic_label: ['box'],
-            self.box_statistic_combo: ['box']
+            self.box_statistic_combo: ['box'],
+            self.outliers_label: ['box'],
+            self.outliers_combo: ['box']
         }
-
 
 
         # enable the widget according to the plot type
@@ -221,6 +246,23 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                 k.setEnabled(False)
                 k.setVisible(False)
 
+
+    def refreshWidgets2(self):
+        '''
+        just refresh the UI to make the radiobuttons visible when SubPlots
+        '''
+
+        # enable radio buttons for subplots
+        if self.subcombo.currentText() == 'SubPlots':
+            self.radio_rows.setEnabled(True)
+            self.radio_rows.setVisible(True)
+            self.radio_columns.setEnabled(True)
+            self.radio_columns.setVisible(True)
+        else:
+            self.radio_rows.setEnabled(False)
+            self.radio_rows.setVisible(False)
+            self.radio_columns.setEnabled(False)
+            self.radio_columns.setVisible(False)
 
     def plotProperties(self):
         '''
@@ -245,7 +287,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             marker_size = self.marker_size.value(),
             box_orientation = self.orientation_box[self.orientation_combo.currentText()],
             marker = self.marker_types[self.marker_type_combo.currentText()],
-            opacity = (100 - self.alpha_slid.value()) / 100.0
+            opacity = (100 - self.alpha_slid.value()) / 100.0,
+            box_stat = self.statistic_type[self.box_statistic_combo.currentText()],
+            box_outliers = self.outliers_dict[self.outliers_combo.currentText()]
         )
 
 
@@ -255,17 +299,20 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # build the layout customizations
         self.p.layoutProperties(
+            legend = self.show_legend_check.isChecked(),
             title = self.plot_title_line.text()
         )
 
         # call the method and build the final layout
         self.p.buildLayout()
 
-        self.plot_traces[self.idx] = self.p
+        # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
+        pid = ('{}_{}'.format(str(self.idx), self.p.plot_type))
 
-        print(self.plot_traces)
-        print(self.plot_traces[self.idx].plot_type)
+        # create default dictionary that contains all the plot and properties
+        self.plot_traces[pid] = self.p
 
+        # just add 1 to the index
         self.idx += 1
 
 
@@ -274,8 +321,41 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         '''
         call the method to effectively draw the final plot
         '''
+        if self.sub_dict[self.subcombo.currentText()] == 'single':
 
-        self.p.buildFigure()
+            # plot single plot
+            if len(self.plot_traces) <= 1:
+                self.p.buildFigure()
+
+            # to plot many graphs in the same figure
+            else:
+                # plot list ready to be called within go.Figure
+                pl = []
+                # layout list
+                ll = None
+
+                for k, v in self.plot_traces.items():
+                    pl.append(v.trace[0])
+                    ll = v.layout
+
+                self.p.buildFigures(pl)
+
+        elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
+
+            gr = len(self.plot_traces)
+            pl = []
+
+            for k, v in self.plot_traces.items():
+                pl.append(v.trace[0])
+
+            if self.radio_rows.isChecked():
+
+                self.p.buildSubPlots('row', 1, gr, pl)
+
+            elif self.radio_columns.isChecked():
+
+                self.p.buildSubPlots('col', gr, 1, pl)
+
 
 
     def removeTrace(self):
@@ -283,10 +363,14 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         remove the selected rows in the table and delete the plot parameters
         from the dictionary
         '''
-        selection = self.traceTable.selectionModel()
-        rows = selection.selectedRows()
+        # selection = self.traceTable.selectionModel()
+        # rows = selection.selectedRows()
+        #
+        # for row in reversed(rows):
+        #     index = row.row()
+        #     self.traceTable.removeRow(row.row())
+        #     del self.plot_dict[row.row() + 1]
 
-        for row in reversed(rows):
-            index = row.row()
-            self.traceTable.removeRow(row.row())
-            del self.plot_dict[row.row() + 1]
+        # delete the entire dictionary
+        del self.plot_traces
+        self.plot_traces = {}

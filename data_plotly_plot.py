@@ -1,5 +1,6 @@
 import plotly
 import plotly.graph_objs as go
+from plotly import tools
 
 
 class Plot(object):
@@ -16,8 +17,6 @@ class Plot(object):
         dictionary with all the plot properties
         '''
 
-        self.plot_properties = {}
-
         for k, v in kwargs.items():
             self.plot_properties[k] = v
 
@@ -27,7 +26,10 @@ class Plot(object):
     def buildTrace(self, plot_type):
         '''
         build the Trace that will be plotted depensing on the plot type
+        this method here is the one performing the real job
         '''
+
+        self.plot_type = plot_type
 
         if plot_type == 'scatter':
             self.trace = [go.Scatter(
@@ -51,19 +53,32 @@ class Plot(object):
             )]
 
         elif plot_type == 'box':
+
+            # NULL value in the Field is empty
+            if not self.plot_properties['x']:
+                self.plot_properties['x'] = None
+
+            # flip the variables according to the box orientation
+            if self.plot_properties['box_orientation'] == 'h':
+                self.plot_properties['x'], self.plot_properties['y'] = self.plot_properties['y'], self.plot_properties['x']
+
             self.trace = [go.Box(
-            y = self.plot_properties['y']
+                x = self.plot_properties['x'],
+                y = self.plot_properties['y'],
+                boxmean = self.plot_properties['box_stat'],
+                orientation = self.plot_properties['box_orientation'],
+                boxpoints = self.plot_properties['box_outliers']
             )]
+
+            print(self.plot_properties['x'])
 
         return self.trace
 
 
-    def layoutProperties(self, * args, **kwargs):
+    def layoutProperties(self, *args, **kwargs):
         '''
         build the layout customizations
         '''
-
-        self.plot_layout = {}
 
         for k, v in kwargs.items():
             self.plot_layout[k] = v
@@ -74,7 +89,7 @@ class Plot(object):
     def buildLayout(self):
 
         self.layout = go.Layout(
-            showlegend = True,
+            showlegend = self.plot_layout['legend'],
             title = self.plot_layout['title']
         )
 
@@ -83,8 +98,39 @@ class Plot(object):
 
     def buildFigure(self):
         '''
-        draw the final plot
+        draw the final plot (single plot)
         '''
 
         fig = go.Figure(data = self.trace, layout = self.layout)
+        plotly.offline.plot(fig)
+
+
+    def buildFigures(self, ptrace):
+        '''
+        draw the final plot (multi plot)
+        '''
+
+        figures = go.Figure(data = ptrace)
+        plotly.offline.plot(figures)
+
+
+    def buildSubPlots(self, grid, row, column, ptrace):
+        '''
+        draw subplots
+        '''
+
+        if grid == 'row':
+
+            fig = tools.make_subplots(rows=row, cols=column)
+
+            for i, itm in enumerate(ptrace):
+                    fig.append_trace(itm, row, i+1)
+
+        elif grid == 'col':
+
+            fig = tools.make_subplots(rows=row, cols=column)
+
+            for i, itm in enumerate(ptrace):
+                    fig.append_trace(itm, i+1, column)
+
         plotly.offline.plot(fig)
