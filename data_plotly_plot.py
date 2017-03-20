@@ -1,6 +1,7 @@
 import plotly
 import plotly.graph_objs as go
 from plotly import tools
+from .plot_web_view import plotWebView
 
 
 class Plot(object):
@@ -65,12 +66,18 @@ class Plot(object):
             self.trace = [go.Box(
                 x = self.plot_properties['x'],
                 y = self.plot_properties['y'],
+                name = self.plot_properties['y_name'],
                 boxmean = self.plot_properties['box_stat'],
                 orientation = self.plot_properties['box_orientation'],
-                boxpoints = self.plot_properties['box_outliers']
+                boxpoints = self.plot_properties['box_outliers'],
+                fillcolor = self.plot_properties['in_color'],
+                line = dict(
+                    color = self.plot_properties['out_color'],
+                    width = self.plot_properties['marker_width']
+                    ),
+                opacity = self.plot_properties['opacity']
             )]
 
-            print(self.plot_properties['x'])
 
         return self.trace
 
@@ -134,3 +141,15 @@ class Plot(object):
                     fig.append_trace(itm, i+1, column)
 
         plotly.offline.plot(fig)
+
+
+    # webview failed attempt
+    def buildWeb(self):
+        '''
+        draw the final plot (single plot)
+        '''
+
+        fig = go.Figure(data = self.trace, layout = self.layout)
+        self.pp = plotly.offline.plot(fig, output_type='div')
+
+        return self.pp

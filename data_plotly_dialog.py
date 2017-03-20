@@ -28,14 +28,19 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QFont
+from PyQt5.QtCore import QUrl
+from PyQt5.QtWebKit import QWebSettings
 from qgis.gui import *
 import plotly
 import plotly.graph_objs as go
 
 from .utils import *
 from .data_plotly_plot import *
+from .plot_web_view import plotWebView
+
 
 from collections import OrderedDict
+import tempfile
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
@@ -83,6 +88,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
 
+        self.mGroupBox_2.collapsedStateChanged.connect(self.refreshWidgets)
+
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
 
@@ -94,6 +101,17 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_traces = {}
 
         self.idx = 1
+
+
+        # load the customized webview in the widget
+        # w = plotWebView()
+        # layout = QVBoxLayout()
+        # layout.setContentsMargins(0,0,0,0)
+        # layout.setSpacing(0)
+        # layout.addWidget(w)
+        # w.show()
+        # self.webview = w
+        # self.webViewPage.setLayout(layout)
 
 
 
@@ -211,8 +229,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.out_color_combo: ['all'],
             self.marker_width_lab: ['all'],
             self.marker_width: ['all'],
-            self.marker_size_lab: ['scatter', 'box'],
-            self.marker_size: ['scatter', 'box'],
+            self.marker_size_lab: ['scatter'],
+            self.marker_size: ['scatter'],
             self.marker_type_lab: ['scatter'],
             self.marker_type_combo: ['scatter'],
             self.alpha_lab: ['all'],
@@ -321,9 +339,34 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         '''
         call the method to effectively draw the final plot
         '''
+
+        # html = self.p.buildWeb()
+        #
+        #
+        # html = html.replace(
+        #     '</script><div',
+        #     '</script><table width="100%"><tr><td><div')
+        # html+= '</td></tr></table>'
+        #
+        # tmpdir = tempfile.mkdtemp()
+        # predictable_filename = 'dataplot.html'
+        # tpath = os.path.join(tmpdir, predictable_filename)
+        # print(tpath)
+        # with open(tpath, 'w') as afile:
+        #     afile.write(html)
+        # tptp = 'http://www.earthworks-jobs.com/index.shtml'
+        # dddd = '/home/matteo/Downloads/dio.html'
+        # dddd = '/home/matteo/Downloads/plot3.html'
+        # self.webview.load(QUrl.fromLocalFile(tpath))
+        # self.webview.settings().setAttribute(QWebSettings.LocalContentCanAccessRemoteUrls, True)
+        # self.webview.setHtml(html, baseUrl=QUrl().fromLocalFile(tpath))
+
+
+
+
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
-            # plot single plot
+            # plot single plot, che the object dictionary lenght
             if len(self.plot_traces) <= 1:
                 self.p.buildFigure()
 
@@ -340,6 +383,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
                 self.p.buildFigures(pl)
 
+        # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
 
             gr = len(self.plot_traces)
@@ -348,10 +392,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             for k, v in self.plot_traces.items():
                 pl.append(v.trace[0])
 
+            # plot in single row and many columns
             if self.radio_rows.isChecked():
 
                 self.p.buildSubPlots('row', 1, gr, pl)
 
+            # plot in single column and many rows
             elif self.radio_columns.isChecked():
 
                 self.p.buildSubPlots('col', gr, 1, pl)
