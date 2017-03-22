@@ -117,18 +117,18 @@ class Plot(object):
         draw the final plot (multi plot)
         '''
 
-        figures = go.Figure(data = ptrace)
+        figures = go.Figure(data = ptrace, layout = self.layout)
         plotly.offline.plot(figures)
 
 
-    def buildSubPlots(self, grid, row, column, ptrace):
+    def buildSubPlots(self, grid, row, column, ptrace, tit_lst):
         '''
         draw subplots
         '''
 
         if grid == 'row':
 
-            fig = tools.make_subplots(rows=row, cols=column)
+            fig = tools.make_subplots(rows=row, cols=column, subplot_titles=tit_lst)
 
             for i, itm in enumerate(ptrace):
                     fig.append_trace(itm, row, i+1)

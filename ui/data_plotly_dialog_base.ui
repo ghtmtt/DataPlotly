@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>645</width>
+    <width>382</width>
     <height>559</height>
    </rect>
   </property>
@@ -32,6 +32,7 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <zorder>mGroupBox</zorder>
     </widget>
    </item>
    <item row="1" column="0" colspan="5">
@@ -92,78 +93,6 @@
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0">
-            <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
-             <property name="title">
-              <string>Plot Parameters</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_4">
-              <item row="1" column="1">
-               <widget class="QgsFieldExpressionWidget" name="x_combo">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="x_label">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>X Field</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="y_label">
-                <property name="text">
-                 <string>Y Field</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QgsMapLayerComboBox" name="layer_combo">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="layer_label">
-                <property name="text">
-                 <string>Layer</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QgsFieldExpressionWidget" name="y_combo">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
            <item row="1" column="0">
             <widget class="QgsCollapsibleGroupBox" name="mGroupBox_2">
              <property name="title">
@@ -315,6 +244,84 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="0" column="0">
+            <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
+             <property name="title">
+              <string>Plot Parameters</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="0">
+               <widget class="QLabel" name="layer_label">
+                <property name="text">
+                 <string>Layer</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QgsMapLayerComboBox" name="layer_combo">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="x_label">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>70</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>X Field</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QgsFieldExpressionWidget" name="x_combo">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="y_label">
+                <property name="text">
+                 <string>Y Field</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QgsFieldExpressionWidget" name="y_combo">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
           </layout>
           <zorder>mGroupBox</zorder>

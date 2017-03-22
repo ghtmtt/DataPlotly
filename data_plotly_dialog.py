@@ -57,6 +57,14 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
 
+        # add bar to the main (left) window
+        self.bar = QgsMessageBar()
+        self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed )
+        self.setLayout(QGridLayout())
+        self.layout().addWidget(self.bar, 0,0,1,0)
+
+
+
 
         # ordered dictionary of plot types
         self.plot_types = OrderedDict([
@@ -125,20 +133,29 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.widgetType is a dict of widget depending on the plot type chosen
         'all': is for all the plot type, else the name of the plot is
         explicitated
+
+        BE AWARE: if cycles are just for widgets that already exist! If a widget
+        is proper to a specific plot and is put within the if statement, the
+        method p.buildProperties will fail!
+        In the statement there have to be only widgets that, for example, need
+        to be re-rendered (label name...)
         '''
 
         # get the plot type from the combobox
         self.ptype = self.plot_types[self.plot_combo.currentText()]
 
 
-        # widget general customizations
+        # Widget general customizations
+
+
         self.x_label.setText('X Field')
         ff = QFont()
         ff.setPointSizeF(9)
         self.x_label.setFont(ff)
+        self.x_label.setFixedWidth(70)
 
 
-        # same for Box and Bar
+        # BoxPlot and BarPlot orientation (same values)
         self.orientation_combo.clear()
         self.orientation_box = OrderedDict([
             (self.tr('Vertical'), 'v'),
@@ -147,7 +164,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for k, v in self.orientation_box.items():
             self.orientation_combo.addItem(k, v)
 
-        # Box outliers
+        # BoxPlot outliers
         self.outliers_combo.clear()
         self.outliers_dict = OrderedDict([
             (self.tr('No Outliers'), False),
@@ -158,68 +175,68 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for k, v in self.outliers_dict.items():
             self.outliers_combo.addItem(k, v)
 
+
+        # BoxPlot statistic types
+        self.statistic_type = OrderedDict([
+        (self.tr('None'), False),
+        (self.tr('Mean'), True),
+        (self.tr('Standard Deviation'), 'sd'),
+        ])
+        self.box_statistic_combo.clear()
+        for k, v in self.statistic_type.items():
+            self.box_statistic_combo.addItem(k, v)
+
+
+        # ScatterPlot marker types
+        self.marker_types = OrderedDict([
+        (self.tr('Points'), 'markers'),
+        (self.tr('Lines'), 'lines'),
+        (self.tr('Points and Lines'), 'lines+markers')
+        ])
+        self.marker_type_combo.clear()
+        for k, v in self.marker_types.items():
+            self.marker_type_combo.addItem(k, v)
+
+        # BarPlot bar mode
+        self.bar_modes = OrderedDict([
+        (self.tr('Grouped'), 'group'),
+        (self.tr('Stacked'), 'stack'),
+        ])
+        self.bar_mode_combo.clear()
+        for k, v in self.bar_modes.items():
+            self.bar_mode_combo.addItem(k, v)
+
+
         # according to the plot type, change the label names
 
-        # Box Plot
+        # BoxPlot
         if self.ptype == 'box':
             self.x_label.setText('Grouping Field\n(Optional)')
             # set the horizontal and vertical size of the label
-            self.x_label.setSizePolicy(QSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred))
+            # self.x_label.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
             # reduce the label font size
             ff = QFont()
             ff.setPointSizeF(8.5)
             self.x_label.setFont(ff)
+            self.x_label.setFixedWidth(80)
             self.orientation_label.setText('Box Orientation')
-
-            self.statistic_type = OrderedDict([
-            (self.tr('None'), False),
-            (self.tr('Mean'), True),
-            (self.tr('Standard Deviation'), 'sd'),
-            ])
-
-            self.box_statistic_combo.clear()
-            for k, v in self.statistic_type.items():
-                self.box_statistic_combo.addItem(k, v)
-
             self.in_color_lab.setText('Box Color')
 
 
-
-        # some custom for plot widget and other UI stuff
+        # ScatterPlot
         if self.ptype == 'scatter':
-            # ordered dictionary of marker types for Scatter Plot
-            self.marker_types = OrderedDict([
-            (self.tr('Points'), 'markers'),
-            (self.tr('Lines'), 'lines'),
-            (self.tr('Points and Lines'), 'lines+markers')
-            ])
-
-            # fill the combo box with the dictionary value
-            self.marker_type_combo.clear()
-            for k, v in self.marker_types.items():
-                self.marker_type_combo.addItem(k, v)
-
             self.in_color_lab.setText('Marker Color')
 
 
-        # Bar Plot
+        # BarPlot
         if self.ptype == 'bar':
-            # ordered dictionary of bar modes for Bar Plot
-            self.bar_modes = OrderedDict([
-            (self.tr('Grouped'), 'group'),
-            (self.tr('Stacked'), 'stack'),
-            ])
-            self.bar_mode_combo.clear()
-            for k, v in self.bar_modes.items():
-                self.bar_mode_combo.addItem(k, v)
-
             self.orientation_label.setText('Bar Orientation')
             self.in_color_lab.setText('Bar Color')
 
 
-
+        # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
-        # plot widgets
+        # plot properties
             self.layer_combo: ['all'],
             self.x_combo: ['all'],
             self.y_combo: ['all'],
@@ -238,6 +255,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.alpha_num: ['all'],
             self.bar_mode_lab: ['bar'],
             self.bar_mode_combo: ['bar'],
+
         # layout customization
             self.show_legend_check: ['all'],
             self.plot_title_lab: ['all'],
@@ -281,6 +299,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.radio_rows.setVisible(False)
             self.radio_columns.setEnabled(False)
             self.radio_columns.setVisible(False)
+
 
     def plotProperties(self):
         '''
@@ -333,6 +352,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # just add 1 to the index
         self.idx += 1
 
+        self.bar.pushMessage("Plot added to the basket", level=QgsMessageBar.INFO, duration=2)
+
 
 
     def createPlot(self):
@@ -362,6 +383,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # self.webview.setHtml(html, baseUrl=QUrl().fromLocalFile(tpath))
 
 
+        if not self.plot_traces:
+            self.bar.pushMessage("Basket is empty, add some plot!", level=QgsMessageBar.CRITICAL, duration=2)
+            return
 
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
@@ -388,6 +412,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
             gr = len(self.plot_traces)
             pl = []
+            tt = tuple([v.layout['title'] for v in self.plot_traces.values()])
+
 
             for k, v in self.plot_traces.items():
                 pl.append(v.trace[0])
@@ -395,7 +421,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # plot in single row and many columns
             if self.radio_rows.isChecked():
 
-                self.p.buildSubPlots('row', 1, gr, pl)
+
+
+                self.p.buildSubPlots('row', 1, gr, pl, tt)
 
             # plot in single column and many rows
             elif self.radio_columns.isChecked():
@@ -420,3 +448,4 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # delete the entire dictionary
         del self.plot_traces
         self.plot_traces = {}
+        self.bar.pushMessage("Plot removed from the basket", level=QgsMessageBar.INFO, duration=2)
