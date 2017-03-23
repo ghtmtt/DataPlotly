@@ -98,6 +98,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         self.mGroupBox_2.collapsedStateChanged.connect(self.refreshWidgets)
 
+        # fill filed combo box when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
 
