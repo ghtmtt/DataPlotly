@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>366</width>
+    <width>408</width>
     <height>559</height>
    </rect>
   </property>
@@ -77,7 +77,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>324</width>
+            <width>366</width>
             <height>349</height>
            </rect>
           </property>
@@ -283,7 +283,7 @@
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QgsFieldExpressionWidget" name="x_combo">
+               <widget class="QgsFieldExpressionWidget" name="x_combo" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
@@ -300,7 +300,7 @@
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QgsFieldExpressionWidget" name="y_combo">
+               <widget class="QgsFieldExpressionWidget" name="y_combo" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
@@ -336,7 +336,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>310</width>
+            <width>352</width>
             <height>373</height>
            </rect>
           </property>
@@ -469,7 +469,7 @@
      </widget>
      <widget class="QWidget" name="plot_tab">
       <attribute name="title">
-       <string>Plot Table</string>
+       <string>Plot Basket</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
        <item row="2" column="0">
@@ -518,7 +518,7 @@
        <item row="1" column="0">
         <widget class="QPushButton" name="remove_button">
          <property name="text">
-          <string>Remove Trace From List</string>
+          <string>Remove Single Plot From List</string>
          </property>
         </widget>
        </item>
@@ -561,7 +561,7 @@
    <item row="4" column="2">
     <widget class="QPushButton" name="draw_btn">
      <property name="text">
-      <string>Add Plot</string>
+      <string>Add Plot to Basket</string>
      </property>
     </widget>
    </item>
@@ -575,7 +575,7 @@
    <item row="4" column="1">
     <widget class="QPushButton" name="clear_btn">
      <property name="text">
-      <string>Clear Plot</string>
+      <string>Empty Basket</string>
      </property>
     </widget>
    </item>
