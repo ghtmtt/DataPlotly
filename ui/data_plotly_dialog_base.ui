@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>382</width>
+    <width>366</width>
     <height>559</height>
    </rect>
   </property>
@@ -24,17 +24,6 @@
    <item row="0" column="1" colspan="3">
     <widget class="QComboBox" name="plot_combo"/>
    </item>
-   <item row="0" column="5" rowspan="5">
-    <widget class="QWidget" name="webViewPage" native="true">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <zorder>mGroupBox</zorder>
-    </widget>
-   </item>
    <item row="1" column="0" colspan="5">
     <widget class="QTabWidget" name="tab_property">
      <property name="sizePolicy">
@@ -45,7 +34,7 @@
      </property>
      <property name="maximumSize">
       <size>
-       <width>350</width>
+       <width>16777215</width>
        <height>16777215</height>
       </size>
      </property>
@@ -347,12 +336,25 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>324</width>
-            <height>349</height>
+            <width>310</width>
+            <height>373</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
-           <item row="6" column="1" colspan="3">
+           <item row="3" column="1" colspan="3">
+            <widget class="QLineEdit" name="x_axis_title"/>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="bar_mode_lab">
+             <property name="text">
+              <string>Bar Mode</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" colspan="3">
+            <widget class="QLineEdit" name="plot_title_line"/>
+           </item>
+           <item row="7" column="1" colspan="3">
             <widget class="QComboBox" name="bar_mode_combo"/>
            </item>
            <item row="0" column="0">
@@ -365,23 +367,10 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1" rowspan="2" colspan="3">
+           <item row="4" column="1" rowspan="2" colspan="3">
             <widget class="QLineEdit" name="y_axis_title"/>
            </item>
-           <item row="1" column="1" colspan="3">
-            <widget class="QLineEdit" name="plot_title_line"/>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="orientation_label">
-             <property name="text">
-              <string>Bar orientation</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1" colspan="3">
-            <widget class="QComboBox" name="orientation_combo"/>
-           </item>
-           <item row="9" column="0" colspan="4">
+           <item row="11" column="0" colspan="4">
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -394,24 +383,24 @@
              </property>
             </spacer>
            </item>
-           <item row="2" column="1" colspan="3">
-            <widget class="QLineEdit" name="x_axis_title"/>
-           </item>
            <item row="6" column="0">
-            <widget class="QLabel" name="bar_mode_lab">
+            <widget class="QLabel" name="orientation_label">
              <property name="text">
-              <string>Bar Mode</string>
+              <string>Bar orientation</string>
              </property>
             </widget>
            </item>
-           <item row="7" column="0">
+           <item row="6" column="1" colspan="3">
+            <widget class="QComboBox" name="orientation_combo"/>
+           </item>
+           <item row="9" column="0">
             <widget class="QLabel" name="box_statistic_label">
              <property name="text">
               <string>Show Statistics</string>
              </property>
             </widget>
            </item>
-           <item row="7" column="1" colspan="3">
+           <item row="9" column="1" colspan="3">
             <widget class="QComboBox" name="box_statistic_combo"/>
            </item>
            <item row="1" column="0">
@@ -421,29 +410,56 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <widget class="QLabel" name="x_axis_label">
              <property name="text">
               <string>X Label</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="0" rowspan="2">
+           <item row="4" column="0" rowspan="2">
             <widget class="QLabel" name="y_axis_label">
              <property name="text">
               <string>Y Label</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="0">
+           <item row="10" column="0">
             <widget class="QLabel" name="outliers_label">
              <property name="text">
               <string>Outliers</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="1" colspan="3">
+           <item row="10" column="1" colspan="3">
             <widget class="QComboBox" name="outliers_combo"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="bar_legend_label">
+             <property name="text">
+              <string>Field Name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="3">
+            <widget class="QLineEdit" name="bar_legend_title"/>
+           </item>
+           <item row="0" column="3">
+            <widget class="QCheckBox" name="range_slider_combo">
+             <property name="text">
+              <string>Show RangeSlider</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="hist_norm_label">
+             <property name="text">
+              <string>Normalization</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1" colspan="3">
+            <widget class="QComboBox" name="hist_norm_combo"/>
            </item>
           </layout>
          </widget>
@@ -451,9 +467,9 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="plot_tab">
       <attribute name="title">
-       <string>Plot List</string>
+       <string>Plot Table</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
        <item row="2" column="0">
@@ -471,6 +487,12 @@
        </item>
        <item row="0" column="0">
         <widget class="QTableWidget" name="traceTable">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
          <column>
           <property name="text">
            <string>Trace ID</string>
@@ -481,16 +503,31 @@
            <string>Plot Type</string>
           </property>
          </column>
+         <column>
+          <property name="text">
+           <string>X</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Y</string>
+          </property>
+         </column>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QPushButton" name="remove_button">
          <property name="text">
-          <string>Remove Trace</string>
+          <string>Remove Trace From List</string>
          </property>
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Help</string>
+      </attribute>
      </widget>
     </widget>
    </item>
@@ -524,14 +561,14 @@
    <item row="4" column="2">
     <widget class="QPushButton" name="draw_btn">
      <property name="text">
-      <string>Draw Plot</string>
+      <string>Add Plot</string>
      </property>
     </widget>
    </item>
    <item row="4" column="3">
     <widget class="QPushButton" name="addTrace_btn">
      <property name="text">
-      <string>Add Trace</string>
+      <string>Draw Plot</string>
      </property>
     </widget>
    </item>
@@ -548,24 +585,24 @@
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgscollapsiblegroupbox.h</header>
+   <header>qgis.gui.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsColorButton</class>
    <extends>QPushButton</extends>
-   <header>qgscolorbutton.h</header>
+   <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
-   <header>qgsfieldexpressionwidget.h</header>
+   <header>qgis.gui</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgsmaplayercombobox.h</header>
+   <header>qgis.gui</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -631,6 +668,54 @@
     <hint type="destinationlabel">
      <x>260</x>
      <y>209</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>x_combo</sender>
+   <signal>fieldChanged(QString)</signal>
+   <receiver>x_axis_title</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>224</x>
+     <y>178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>y_combo</sender>
+   <signal>fieldChanged(QString)</signal>
+   <receiver>y_axis_title</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>224</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>205</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>y_combo</sender>
+   <signal>fieldChanged(QString)</signal>
+   <receiver>bar_legend_title</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>224</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>172</y>
     </hint>
    </hints>
   </connection>

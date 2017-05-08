@@ -26,7 +26,6 @@ import os
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
-from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWebKit import QWebSettings
@@ -57,39 +56,34 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
 
-        # add bar to the main (left) window
+        # add bar to the main (upper part) window
         self.bar = QgsMessageBar()
-        self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed )
+        self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.setLayout(QGridLayout())
-        self.layout().addWidget(self.bar, 0,0,1,0)
+        self.layout().addWidget(self.bar, 0, 0, 1, 0)
 
-
-
-
-        # ordered dictionary of plot types
+        # PlotTypes combobox
         self.plot_types = OrderedDict([
-        (self.tr('Bar Plot'), 'bar'),
-        (self.tr('Scatter Plot'), 'scatter'),
-        (self.tr('Box Plot'), 'box')
+            (self.tr('Scatter Plot'), 'scatter'),
+            (self.tr('Box Plot'), 'box'),
+            (self.tr('Bar Plot'), 'bar'),
+            (self.tr('Histogram'), 'histogram')
         ])
-
-        # fill the combo box with the dictionary value
         self.plot_combo.clear()
         for k, v in self.plot_types.items():
             self.plot_combo.addItem(k, v)
 
+        # SubPlots combobox
         self.subcombo.clear()
         self.sub_dict = OrderedDict([
             (self.tr('SinglePlot'), 'single'),
             (self.tr('SubPlots'), 'subplots')
         ])
-
         for k, v in self.sub_dict.items():
-                self.subcombo.addItem(k, v)
+            self.subcombo.addItem(k, v)
 
-
-
-        # connect to the functions to clean the UI and fill with the correct widgets
+        # connect to the functions to clean the UI and fill with the correct
+        # widgets
         # self.fillTabProperties()
         self.refreshWidgets()
         self.refreshWidgets2()
@@ -102,15 +96,14 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
 
-
         self.draw_btn.clicked.connect(self.plotProperties)
         self.addTrace_btn.clicked.connect(self.createPlot)
         self.clear_btn.clicked.connect(self.removeTrace)
+        self.remove_button.clicked.connect(self.removeTraceFromTable)
 
         self.plot_traces = {}
 
         self.idx = 1
-
 
         # load the customized webview in the widget
         # w = plotWebView()
@@ -121,8 +114,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # w.show()
         # self.webview = w
         # self.webViewPage.setLayout(layout)
-
-
 
     def refreshWidgets(self):
         '''
@@ -135,7 +126,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         'all': is for all the plot type, else the name of the plot is
         explicitated
 
-        BE AWARE: if cycles are just for widgets that already exist! If a widget
+        BE AWARE: if loops are just for widgets that already exist! If a widget
         is proper to a specific plot and is put within the if statement, the
         method p.buildProperties will fail!
         In the statement there have to be only widgets that, for example, need
@@ -145,9 +136,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # get the plot type from the combobox
         self.ptype = self.plot_types[self.plot_combo.currentText()]
 
-
         # Widget general customizations
-
 
         self.x_label.setText('X Field')
         ff = QFont()
@@ -155,8 +144,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.x_label.setFont(ff)
         self.x_label.setFixedWidth(70)
 
-
-        # BoxPlot and BarPlot orientation (same values)
+        # BoxPlot BarPlot and Histogram orientation (same values)
         self.orientation_combo.clear()
         self.orientation_box = OrderedDict([
             (self.tr('Vertical'), 'v'),
@@ -176,23 +164,21 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for k, v in self.outliers_dict.items():
             self.outliers_combo.addItem(k, v)
 
-
         # BoxPlot statistic types
         self.statistic_type = OrderedDict([
-        (self.tr('None'), False),
-        (self.tr('Mean'), True),
-        (self.tr('Standard Deviation'), 'sd'),
+            (self.tr('None'), False),
+            (self.tr('Mean'), True),
+            (self.tr('Standard Deviation'), 'sd'),
         ])
         self.box_statistic_combo.clear()
         for k, v in self.statistic_type.items():
             self.box_statistic_combo.addItem(k, v)
 
-
         # ScatterPlot marker types
         self.marker_types = OrderedDict([
-        (self.tr('Points'), 'markers'),
-        (self.tr('Lines'), 'lines'),
-        (self.tr('Points and Lines'), 'lines+markers')
+            (self.tr('Points'), 'markers'),
+            (self.tr('Lines'), 'lines'),
+            (self.tr('Points and Lines'), 'lines+markers')
         ])
         self.marker_type_combo.clear()
         for k, v in self.marker_types.items():
@@ -200,13 +186,25 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # BarPlot bar mode
         self.bar_modes = OrderedDict([
-        (self.tr('Grouped'), 'group'),
-        (self.tr('Stacked'), 'stack'),
+            (self.tr('Grouped'), 'group'),
+            (self.tr('Stacked'), 'stack'),
+            (self.tr('Overlay'), 'overlay')
         ])
         self.bar_mode_combo.clear()
         for k, v in self.bar_modes.items():
             self.bar_mode_combo.addItem(k, v)
 
+        # Histogram normalization mode
+        self.normalization = OrderedDict([
+            (self.tr('Enumerated'), ''),
+            (self.tr('Percents'), 'percent'),
+            (self.tr('Probability'), 'probability'),
+            (self.tr('Density'), 'density'),
+            (self.tr('Prob Density'), 'probability density'),
+        ])
+        self.hist_norm_combo.clear()
+        for k, v in self.normalization.items():
+            self.hist_norm_combo.addItem(k, v)
 
         # according to the plot type, change the label names
 
@@ -223,24 +221,22 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.orientation_label.setText('Box Orientation')
             self.in_color_lab.setText('Box Color')
 
-
         # ScatterPlot
         if self.ptype == 'scatter':
             self.in_color_lab.setText('Marker Color')
-
 
         # BarPlot
         if self.ptype == 'bar':
             self.orientation_label.setText('Bar Orientation')
             self.in_color_lab.setText('Bar Color')
 
-
         # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
-        # plot properties
+            # plot properties
             self.layer_combo: ['all'],
             self.x_combo: ['all'],
-            self.y_combo: ['all'],
+            self.y_label: ['scatter', 'bar', 'box'],
+            self.y_combo: ['scatter', 'bar', 'box'],
             self.in_color_lab: ['all'],
             self.in_color_combo: ['all'],
             self.out_color_lab: ['all'],
@@ -254,10 +250,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.alpha_lab: ['all'],
             self.alpha_slid: ['all'],
             self.alpha_num: ['all'],
-            self.bar_mode_lab: ['bar'],
-            self.bar_mode_combo: ['bar'],
+            self.bar_mode_lab: ['bar', 'histogram'],
+            self.bar_mode_combo: ['bar', 'histogram'],
+            self.bar_legend_label: ['bar'],
+            self.bar_legend_title: ['bar'],
 
-        # layout customization
+            # layout customization
             self.show_legend_check: ['all'],
             self.plot_title_lab: ['all'],
             self.plot_title_line: ['all'],
@@ -265,14 +263,16 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.x_axis_title: ['all'],
             self.y_axis_label: ['all'],
             self.y_axis_title: ['all'],
-            self.orientation_label: ['bar', 'box'],
-            self.orientation_combo: ['bar', 'box'],
+            self.orientation_label: ['bar', 'box', 'histogram'],
+            self.orientation_combo: ['bar', 'box', 'histogram'],
             self.box_statistic_label: ['box'],
             self.box_statistic_combo: ['box'],
             self.outliers_label: ['box'],
-            self.outliers_combo: ['box']
+            self.outliers_combo: ['box'],
+            self.range_slider_combo: ['scatter'],
+            self.hist_norm_label: ['histogram'],
+            self.hist_norm_combo: ['histogram']
         }
-
 
         # enable the widget according to the plot type
         for k, v in self.widgetType.items():
@@ -282,7 +282,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             else:
                 k.setEnabled(False)
                 k.setVisible(False)
-
 
     def refreshWidgets2(self):
         '''
@@ -301,7 +300,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.radio_columns.setEnabled(False)
             self.radio_columns.setVisible(False)
 
-
     def plotProperties(self):
         '''
         call the class and make the object to define the generic plot properties
@@ -315,47 +313,88 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # plot method to have a dictionary of the properties
         self.p.buildProperties(
-            x = getFields(self.layer_combo, self.x_combo),
-            y = getFields(self.layer_combo, self.y_combo),
-            x_name = self.x_combo.currentText(),
-            y_name = self.y_combo.currentText(),
-            in_color = hex_to_rgb(self.in_color_combo),
-            out_color = hex_to_rgb(self.out_color_combo),
-            marker_width = self.marker_width.value(),
-            marker_size = self.marker_size.value(),
-            box_orientation = self.orientation_box[self.orientation_combo.currentText()],
-            marker = self.marker_types[self.marker_type_combo.currentText()],
-            opacity = (100 - self.alpha_slid.value()) / 100.0,
-            box_stat = self.statistic_type[self.box_statistic_combo.currentText()],
-            box_outliers = self.outliers_dict[self.outliers_combo.currentText()]
+            x=getFields(self.layer_combo, self.x_combo),
+            y=getFields(self.layer_combo, self.y_combo),
+            x_name=self.x_combo.currentText(),
+            y_name=self.y_combo.currentText(),
+            in_color=hex_to_rgb(self.in_color_combo),
+            out_color=hex_to_rgb(self.out_color_combo),
+            marker_width=self.marker_width.value(),
+            marker_size=self.marker_size.value(),
+            box_orientation=self.orientation_box[self.orientation_combo.currentText()],
+            marker=self.marker_types[self.marker_type_combo.currentText()],
+            opacity=(100 - self.alpha_slid.value()) / 100.0,
+            box_stat=self.statistic_type[self.box_statistic_combo.currentText()],
+            box_outliers=self.outliers_dict[self.outliers_combo.currentText()],
+            bar_name=self.bar_legend_title.text(),
+            normalization=self.normalization[self.hist_norm_combo.currentText()]
         )
-
 
         # build the final trace that will be used
         self.p.buildTrace(self.ptype)
 
-
         # build the layout customizations
         self.p.layoutProperties(
-            legend = self.show_legend_check.isChecked(),
-            title = self.plot_title_line.text()
+            legend=self.show_legend_check.isChecked(),
+            title=self.plot_title_line.text(),
+            x_title=self.x_axis_title.text(),
+            y_title=self.y_axis_title.text(),
+            range_slider=dict(visible=self.range_slider_combo.isChecked(), borderwidth=1),
+            bar_mode=self.bar_modes[self.bar_mode_combo.currentText()]
         )
 
         # call the method and build the final layout
-        self.p.buildLayout()
+        self.p.buildLayout(self.ptype)
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
-        pid = ('{}_{}'.format(str(self.idx), self.p.plot_type))
+        self.pid = ('{}_{}'.format(str(self.idx), self.p.plot_type))
 
         # create default dictionary that contains all the plot and properties
-        self.plot_traces[pid] = self.p
+        self.plot_traces[self.pid] = self.p
+
+        # call the function and fill the table
+        self.addTraceToTable()
 
         # just add 1 to the index
         self.idx += 1
 
         self.bar.pushMessage("Plot added to the basket", level=QgsMessageBar.INFO, duration=2)
 
+    def addTraceToTable(self):
+        '''
+        add the created trace to the table traceTable
+        '''
+        row = self.traceTable.rowCount()
+        self.traceTable.insertRow(row)
 
+        # fill the table with each paramter entered
+        self.traceTable.setItem(row, 0, QTableWidgetItem(str(self.pid)))
+        self.traceTable.setItem(row, 1, QTableWidgetItem(str(self.p.plot_type)))
+        self.traceTable.setItem(row, 2, QTableWidgetItem(str(self.x_combo.currentText())))
+        self.traceTable.setItem(row, 3, QTableWidgetItem(str(self.y_combo.currentText())))
+
+    def removeTraceFromTable(self):
+
+        if not self.plot_traces:
+            self.bar.pushMessage("No traces in the basket to delete!",
+                                 level=QgsMessageBar.CRITICAL, duration=2)
+            return
+
+        selection = self.traceTable.selectionModel()
+        rows = selection.selectedRows()
+
+        plot_list = []
+
+        for row in reversed(rows):
+            index = row.row()
+            plot_list.append(self.traceTable.item(index, 0).text())
+            self.traceTable.removeRow(row.row())
+
+        # remove also the selected row from the plot dictionary
+        for p in plot_list:
+            del self.plot_traces[p]
+
+        self.bar.pushMessage("Plot removed from the basket", level=QgsMessageBar.INFO, duration=2)
 
     def createPlot(self):
         '''
@@ -383,11 +422,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # self.webview.settings().setAttribute(QWebSettings.LocalContentCanAccessRemoteUrls, True)
         # self.webview.setHtml(html, baseUrl=QUrl().fromLocalFile(tpath))
 
-
         if not self.plot_traces:
-            self.bar.pushMessage("Basket is empty, add some plot!", level=QgsMessageBar.CRITICAL, duration=2)
+            self.bar.pushMessage("Basket is empty, add some plot!",
+                                 level=QgsMessageBar.CRITICAL, duration=3)
             return
-
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
@@ -415,14 +453,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             pl = []
             tt = tuple([v.layout['title'] for v in self.plot_traces.values()])
 
-
             for k, v in self.plot_traces.items():
                 pl.append(v.trace[0])
 
             # plot in single row and many columns
             if self.radio_rows.isChecked():
-
-
 
                 self.p.buildSubPlots('row', 1, gr, pl, tt)
 
@@ -431,22 +466,16 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
                 self.p.buildSubPlots('col', gr, 1, pl)
 
-
-
     def removeTrace(self):
         '''
         remove the selected rows in the table and delete the plot parameters
         from the dictionary
         '''
-        # selection = self.traceTable.selectionModel()
-        # rows = selection.selectedRows()
-        #
-        # for row in reversed(rows):
-        #     index = row.row()
-        #     self.traceTable.removeRow(row.row())
-        #     del self.plot_dict[row.row() + 1]
+
+        self.traceTable.setRowCount(0)
 
         # delete the entire dictionary
         del self.plot_traces
         self.plot_traces = {}
+        self.idx = 1
         self.bar.pushMessage("Plot removed from the basket", level=QgsMessageBar.INFO, duration=2)
