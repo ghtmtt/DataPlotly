@@ -26,7 +26,7 @@ import os
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWebKit import QWebSettings
 from qgis.gui import *
@@ -64,11 +64,19 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
-            (self.tr('Scatter Plot'), 'scatter'),
-            (self.tr('Box Plot'), 'box'),
-            (self.tr('Bar Plot'), 'bar'),
-            (self.tr('Histogram'), 'histogram')
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterplot.png')), self.tr('Scatter Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/boxplot.png')), self.tr('Box Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/barplot.png')), self.tr('Bar Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/histogram.png')), self.tr('Histogram'))
         ])
+
+        self.plot_types2 = OrderedDict([
+            ('Scatter Plot', 'scatter'),
+            ('Box Plot', 'box'),
+            ('Bar Plot', 'bar'),
+            ('Histogram', 'histogram'),
+        ])
+
         self.plot_combo.clear()
         for k, v in self.plot_types.items():
             self.plot_combo.addItem(k, v)
@@ -84,11 +92,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # connect to the functions to clean the UI and fill with the correct
         # widgets
-        # self.fillTabProperties()
         self.refreshWidgets()
         self.refreshWidgets2()
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
+        self.marker_type_combo.currentIndexChanged.connect(self.refreshWidgets3)
 
         self.mGroupBox_2.collapsedStateChanged.connect(self.refreshWidgets)
 
@@ -137,7 +145,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         '''
 
         # get the plot type from the combobox
-        self.ptype = self.plot_types[self.plot_combo.currentText()]
+        self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
         # Widget general customizations
 
@@ -186,6 +194,56 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.marker_type_combo.clear()
         for k, v in self.marker_types.items():
             self.marker_type_combo.addItem(k, v)
+
+        # Point types
+        self.point_types = OrderedDict([
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/circle.png')), 'circle'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/square.png')), 'square'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/diamond.png')), 'diamond'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/cross.png')), 'cross'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/x.png')), 'x'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/triangle.png')), 'triangle'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/penta.png')), 'penta'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/star.png')), 'star'),
+        ])
+
+        self.point_types2 = OrderedDict([
+            ('circle', 0),
+            ('square', 1),
+            ('diamond', 2),
+            ('cross', 3),
+            ('x', 4),
+            ('triangle', 5),
+            ('penta', 13),
+            ('star', 17),
+        ])
+
+        self.point_combo.clear()
+        for k, v in self.point_types.items():
+            self.point_combo.addItem(k, '', v)
+
+        self.line_types = OrderedDict([
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/solid.png')), self.tr('Solid Line')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/dot.png')), self.tr('Dot Line')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/dash.png')), self.tr('Dash Line')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/longdash.png')), self.tr('Long Dash Line')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/dotdash.png')), self.tr('Dot Dash Line')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/longdashdot.png', )), self.tr('Long Dash Dot Line')),
+        ])
+
+        self.line_types2 = OrderedDict([
+            ('Solid Line', 'solid'),
+            ('Dot Line', 'dot'),
+            ('Dash Line', 'dash'),
+            ('Long Dash Line', 'longdash'),
+            ('Dot Dash Line', 'dashdot'),
+            ('Long Dash Dot Line', 'longdashdot'),
+        ])
+
+        self.line_combo.clear()
+        for k, v in self.line_types.items():
+            self.line_combo.addItem(k, v)
+
 
         # BarPlot bar mode
         self.bar_modes = OrderedDict([
@@ -257,6 +315,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.bar_mode_combo: ['bar', 'histogram'],
             self.bar_legend_label: ['bar'],
             self.bar_legend_title: ['bar'],
+            self.point_lab: ['scatter'],
+            self.point_combo: ['scatter'],
+            self.line_lab: ['scatter'],
+            self.line_combo: ['scatter'],
 
             # layout customization
             self.show_legend_check: ['all'],
@@ -303,13 +365,47 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.radio_columns.setEnabled(False)
             self.radio_columns.setVisible(False)
 
+    def refreshWidgets3(self):
+        '''
+        refresh the UI according to Point, Lines or both choosen for the symbols
+        of scatterplot
+        '''
+
+        if self.marker_type_combo.currentText() == 'Points':
+            self.point_lab.setEnabled(True)
+            self.point_lab.setVisible(True)
+            self.point_combo.setEnabled(True)
+            self.point_combo.setVisible(True)
+            self.line_lab.setEnabled(False)
+            self.line_lab.setVisible(False)
+            self.line_combo.setEnabled(False)
+            self.line_combo.setVisible(False)
+        elif self.marker_type_combo.currentText() == 'Lines':
+            self.point_lab.setEnabled(False)
+            self.point_lab.setVisible(False)
+            self.point_combo.setEnabled(False)
+            self.point_combo.setVisible(False)
+            self.line_lab.setEnabled(True)
+            self.line_lab.setVisible(True)
+            self.line_combo.setEnabled(True)
+            self.line_combo.setVisible(True)
+        else:
+            self.point_lab.setEnabled(True)
+            self.point_lab.setVisible(True)
+            self.point_combo.setEnabled(True)
+            self.point_combo.setVisible(True)
+            self.line_lab.setEnabled(True)
+            self.line_lab.setVisible(True)
+            self.line_combo.setEnabled(True)
+            self.line_combo.setVisible(True)
+
     def plotProperties(self):
         '''
         call the class and make the object to define the generic plot properties
         '''
 
         # get the plot type from the combo box
-        self.ptype = self.plot_types[self.plot_combo.currentText()]
+        self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
         # plot object
         self.p = Plot()
@@ -324,6 +420,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             out_color=hex_to_rgb(self.out_color_combo),
             marker_width=self.marker_width.value(),
             marker_size=self.marker_size.value(),
+            marker_symbol=self.point_types2[self.point_combo.currentData()],
+            line_dash=self.line_types2[self.line_combo.currentText()],
             box_orientation=self.orientation_box[self.orientation_combo.currentText()],
             marker=self.marker_types[self.marker_type_combo.currentText()],
             opacity=(100 - self.alpha_slid.value()) / 100.0,
