@@ -63,6 +63,7 @@ class Plot(object):
                 marker=dict(
                     color=self.plot_properties['in_color'],
                     size=self.plot_properties['marker_size'],
+                    symbol=self.plot_properties['marker_symbol'],
                     line=dict(
                         color=self.plot_properties['out_color'],
                         width=self.plot_properties['marker_width']
@@ -70,7 +71,8 @@ class Plot(object):
                 ),
                 line=dict(
                     color=self.plot_properties['in_color'],
-                    width=self.plot_properties['marker_width']
+                    width=self.plot_properties['marker_width'],
+                    dash=self.plot_properties['line_dash']
                 ),
                 opacity=self.plot_properties['opacity']
             )]
