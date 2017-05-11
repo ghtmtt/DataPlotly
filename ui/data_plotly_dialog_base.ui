@@ -408,8 +408,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>276</width>
-            <height>373</height>
+            <width>431</width>
+            <height>421</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -600,6 +600,11 @@
       <attribute name="title">
        <string>Help</string>
       </attribute>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <widget class="QWidget" name="help_widget" native="true"/>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

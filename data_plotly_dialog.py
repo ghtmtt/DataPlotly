@@ -29,6 +29,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWebKit import QWebSettings
+from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
 import plotly
 import plotly.graph_objs as go
@@ -115,6 +116,16 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_traces = {}
 
         self.idx = 1
+
+        # load the help hatml page into the help widget
+        layout = QVBoxLayout()
+        self.help_widget.setLayout(layout)
+        # temporary url to repository
+        help_url = QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.txt')
+        help_view = QWebView()
+        help_view.load(help_url)
+        layout.addWidget(help_view)
+
 
         # load the customized webview in the widget
         # w = plotWebView()
