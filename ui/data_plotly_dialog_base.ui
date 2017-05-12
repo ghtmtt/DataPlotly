@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
+    <width>854</width>
     <height>631</height>
    </rect>
   </property>
@@ -125,7 +125,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>431</width>
+            <width>370</width>
             <height>421</height>
            </rect>
           </property>
@@ -408,7 +408,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>431</width>
+            <width>370</width>
             <height>421</height>
            </rect>
           </property>
@@ -606,6 +606,16 @@
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item row="1" column="5">
+    <widget class="QWidget" name="plot_qview" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
     </widget>
    </item>
   </layout>

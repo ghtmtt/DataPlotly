@@ -1,7 +1,8 @@
 import plotly
 import plotly.graph_objs as go
 from plotly import tools
-from .plot_web_view import plotWebView
+import tempfile
+import os
 
 
 class Plot(object):
@@ -214,10 +215,26 @@ class Plot(object):
         draw the final plot (single plot)
 
         call the go.Figure plotly method and build the figure object
+        adjust the html file and add some line
+        save the html plot file in a temporary directory and return the path
+        that can be loaded in the QWebView
         '''
 
         fig = go.Figure(data=self.trace, layout=self.layout)
-        plotly.offline.plot(fig)
+
+        # first lines of additional html with the link to the plotly javascrit
+        self.raw_plot = '<head><meta charset="utf-8" /></head>''<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        # call the plot method without all the javascript code
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        # last line to close the html file
+        self.raw_plot += '</body></html>'
+
+        self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
+        self.plot_file = open(self.plot_path, "w")
+        self.plot_file.write(self.raw_plot)
+        self.plot_file.close()
+
+        return self.plot_path
 
     def buildFigures(self, ptrace):
         '''
@@ -225,7 +242,20 @@ class Plot(object):
         '''
 
         figures = go.Figure(data=ptrace, layout=self.layout)
-        plotly.offline.plot(figures)
+
+        # first lines of additional html with the link to the plotly javascrit
+        self.raw_plot = '<head><meta charset="utf-8" /></head>''<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        # call the plot method without all the javascript code
+        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False)
+        # last line to close the html file
+        self.raw_plot += '</body></html>'
+
+        self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
+        self.plot_file = open(self.plot_path, "w")
+        self.plot_file.write(self.raw_plot)
+        self.plot_file.close()
+
+        return self.plot_path
 
     def buildSubPlots(self, grid, row, column, ptrace, tit_lst):
         '''
@@ -246,15 +276,18 @@ class Plot(object):
             for i, itm in enumerate(ptrace):
                 fig.append_trace(itm, i + 1, column)
 
-        plotly.offline.plot(fig)
+        # plotly.offline.plot(fig)
 
-    # webview failed attempt
-    def buildWeb(self):
-        '''
-        draw the final plot (single plot)
-        '''
+        # first lines of additional html with the link to the plotly javascrit
+        self.raw_plot = '<head><meta charset="utf-8" /></head>''<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        # call the plot method without all the javascript code
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        # last line to close the html file
+        self.raw_plot += '</body></html>'
 
-        fig = go.Figure(data=self.trace, layout=self.layout)
-        self.pp = plotly.offline.plot(fig, output_type='div')
+        self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
+        self.plot_file = open(self.plot_path, "w")
+        self.plot_file.write(self.raw_plot)
+        self.plot_file.close()
 
-        return self.pp
+        return self.plot_path

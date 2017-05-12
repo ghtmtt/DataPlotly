@@ -513,37 +513,20 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         call the method to effectively draw the final plot
         '''
 
-        # html = self.p.buildWeb()
-        #
-        #
-        # html = html.replace(
-        #     '</script><div',
-        #     '</script><table width="100%"><tr><td><div')
-        # html+= '</td></tr></table>'
-        #
-        # tmpdir = tempfile.mkdtemp()
-        # predictable_filename = 'dataplot.html'
-        # tpath = os.path.join(tmpdir, predictable_filename)
-        # print(tpath)
-        # with open(tpath, 'w') as afile:
-        #     afile.write(html)
-        # tptp = 'http://www.earthworks-jobs.com/index.shtml'
-        # dddd = '/home/matteo/Downloads/dio.html'
-        # dddd = '/home/matteo/Downloads/plot3.html'
-        # self.webview.load(QUrl.fromLocalFile(tpath))
-        # self.webview.settings().setAttribute(QWebSettings.LocalContentCanAccessRemoteUrls, True)
-        # self.webview.setHtml(html, baseUrl=QUrl().fromLocalFile(tpath))
-
         if not self.plot_traces:
             self.bar.pushMessage("Basket is empty, add some plot!",
                                  level=QgsMessageBar.CRITICAL, duration=3)
             return
 
+        # load the help hatml page into the help widget
+        layoutw = QVBoxLayout()
+        self.plot_qview.setLayout(layoutw)
+
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
             # plot single plot, che the object dictionary lenght
             if len(self.plot_traces) <= 1:
-                self.p.buildFigure()
+                plot_path = self.p.buildFigure()
 
             # to plot many graphs in the same figure
             else:
@@ -556,7 +539,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                     pl.append(v.trace[0])
                     ll = v.layout
 
-                self.p.buildFigures(pl)
+                plot_path = self.p.buildFigures(pl)
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
@@ -571,12 +554,18 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # plot in single row and many columns
             if self.radio_rows.isChecked():
 
-                self.p.buildSubPlots('row', 1, gr, pl, tt)
+                plot_path = self.p.buildSubPlots('row', 1, gr, pl, tt)
 
             # plot in single column and many rows
             elif self.radio_columns.isChecked():
 
-                self.p.buildSubPlots('col', gr, 1, pl)
+                plot_path = self.p.buildSubPlots('col', gr, 1, pl)
+
+        # temporary url to repository
+        plot_url = QUrl.fromLocalFile(plot_path)
+        plot_view = QWebView()
+        plot_view.load(plot_url)
+        layoutw.addWidget(plot_view)
 
     def removeTrace(self):
         '''
