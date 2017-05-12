@@ -112,6 +112,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addTrace_btn.clicked.connect(self.createPlot)
         self.clear_btn.clicked.connect(self.removeTrace)
         self.remove_button.clicked.connect(self.removeTraceFromTable)
+        # self.save_button.clicked.connect(self.savePlot)
 
         self.plot_traces = {}
 
@@ -519,8 +520,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             return
 
         # load the help hatml page into the help widget
-        layoutw = QVBoxLayout()
-        self.plot_qview.setLayout(layoutw)
+        self.layoutw = QVBoxLayout()
+        self.plot_qview.setLayout(self.layoutw)
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
@@ -563,9 +564,13 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # temporary url to repository
         plot_url = QUrl.fromLocalFile(plot_path)
-        plot_view = QWebView()
-        plot_view.load(plot_url)
-        layoutw.addWidget(plot_view)
+        self.plot_view = QWebView()
+        self.plot_view.load(plot_url)
+        self.layoutw.addWidget(self.plot_view)
+
+        # connet to simple function that reloads the view
+        self.refreshPlotView()
+
 
     def removeTrace(self):
         '''
@@ -580,3 +585,17 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_traces = {}
         self.idx = 1
         self.bar.pushMessage("Plot removed from the basket", level=QgsMessageBar.INFO, duration=2)
+
+    def refreshPlotView(self):
+        '''
+        just resfresh the view, if the reload method is called immediatly after
+        the view creation it won't reload the page
+        '''
+
+        self.plot_view.reload()
+
+    def savePlot(self):
+        '''
+        browse a folder and save the plot as a screenshot of the QWebView
+        the native plotly button does not work
+        '''
