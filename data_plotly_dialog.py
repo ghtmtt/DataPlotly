@@ -26,8 +26,8 @@ import os
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QFont, QIcon
-from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QFont, QIcon, QImage, QPainter
+from PyQt5.QtCore import QUrl, QFileInfo
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
@@ -112,7 +112,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addTrace_btn.clicked.connect(self.createPlot)
         self.clear_btn.clicked.connect(self.removeTrace)
         self.remove_button.clicked.connect(self.removeTraceFromTable)
-        # self.save_button.clicked.connect(self.savePlot)
+        self.browse_btn.clicked.connect(self.chooseDir)
+        self.save_plot_btn.clicked.connect(self.savePlot)
 
         self.plot_traces = {}
 
@@ -126,17 +127,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         help_view = QWebView()
         help_view.load(help_url)
         layout.addWidget(help_view)
-
-
-        # load the customized webview in the widget
-        # w = plotWebView()
-        # layout = QVBoxLayout()
-        # layout.setContentsMargins(0,0,0,0)
-        # layout.setSpacing(0)
-        # layout.addWidget(w)
-        # w.show()
-        # self.webview = w
-        # self.webViewPage.setLayout(layout)
 
     def refreshWidgets(self):
         '''
@@ -594,8 +584,33 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         self.plot_view.reload()
 
+    def chooseDir(self):
+        '''
+        open a file Dialog to choose the path to save the plot
+        '''
+        self.plot_file = QFileDialog.getSaveFileName(self, "Save plot", "", "*.png")
+
+        self.plot_file = self.plot_file[0]
+        self.plot_file += '.png'
+
+        self.dir_line.setText(self.plot_file)
+
+
+
     def savePlot(self):
         '''
         browse a folder and save the plot as a screenshot of the QWebView
         the native plotly button does not work
         '''
+
+        try:
+            frame = self.plot_view.page().mainFrame()
+            self.plot_view.page().setViewportSize(frame.contentsSize())
+            # render image
+            image = QImage(self.plot_view.page().viewportSize(), QImage.Format_ARGB32)
+            painter = QPainter(image)
+            frame.render(painter)
+            painter.end()
+            image.save(self.plot_file)
+        except:
+            self.bar.pushMessage("No path chosen, please select a path to save the plot", level=QgsMessageBar.WARNING, duration=4)

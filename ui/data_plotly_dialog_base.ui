@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>469</width>
+    <width>587</width>
     <height>631</height>
    </rect>
   </property>
@@ -14,10 +14,27 @@
    <string>Data Plotly</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="4" column="3">
+    <widget class="QPushButton" name="addTrace_btn">
+     <property name="text">
+      <string>Draw Plot</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="3">
+    <widget class="QComboBox" name="subcombo"/>
+   </item>
+   <item row="4" column="1" colspan="2">
+    <widget class="QPushButton" name="draw_btn">
+     <property name="text">
+      <string>Add Plot to Basket</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0" colspan="5">
     <widget class="QTabWidget" name="tab_property">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -67,8 +84,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>396</width>
-            <height>421</height>
+            <width>338</width>
+            <height>416</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
@@ -350,8 +367,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>370</width>
-            <height>421</height>
+            <width>338</width>
+            <height>416</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -550,13 +567,6 @@
      </widget>
     </widget>
    </item>
-   <item row="4" column="2">
-    <widget class="QPushButton" name="draw_btn">
-     <property name="text">
-      <string>Add Plot to Basket</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0" colspan="2">
     <widget class="QRadioButton" name="radio_rows">
      <property name="text">
@@ -567,23 +577,17 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1" colspan="3">
-    <widget class="QComboBox" name="subcombo"/>
-   </item>
-   <item row="1" column="5">
-    <widget class="QWidget" name="plot_qview" native="true">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="2" colspan="2">
     <widget class="QRadioButton" name="radio_columns">
      <property name="text">
       <string>Plot in Columns</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Type of Plot</string>
      </property>
     </widget>
    </item>
@@ -594,27 +598,47 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" colspan="3">
+   <item row="0" column="1" colspan="4">
     <widget class="QComboBox" name="plot_combo"/>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Type of Plot</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
+   <item row="4" column="0">
     <widget class="QPushButton" name="clear_btn">
      <property name="text">
       <string>Empty Basket</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="3">
-    <widget class="QPushButton" name="addTrace_btn">
+   <item row="3" column="6">
+    <widget class="QToolButton" name="browse_btn">
      <property name="text">
-      <string>Draw Plot</string>
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5" colspan="2">
+    <widget class="QWidget" name="plot_qview" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="5" colspan="2">
+    <widget class="QPushButton" name="save_plot_btn">
+     <property name="text">
+      <string>Save Plot</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="5">
+    <widget class="QLineEdit" name="dir_line">
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
