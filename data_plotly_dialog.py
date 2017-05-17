@@ -503,7 +503,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for p in plot_list:
             del self.plot_traces[p]
 
-        self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=2)
+            # refresh the plot view by removing the selected plot
+            self.createPlot()
+            self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=2)
 
     def createPlot(self):
         '''
