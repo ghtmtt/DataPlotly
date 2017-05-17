@@ -108,12 +108,13 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
 
-        self.draw_btn.clicked.connect(self.plotProperties)
-        self.addTrace_btn.clicked.connect(self.createPlot)
+        self.draw_btn.clicked.connect(self.createPlot)
+        self.addTrace_btn.clicked.connect(self.plotProperties)
         self.clear_btn.clicked.connect(self.removeTrace)
         self.remove_button.clicked.connect(self.removeTraceFromTable)
         self.browse_btn.clicked.connect(self.chooseDir)
         self.save_plot_btn.clicked.connect(self.savePlot)
+        self.refresh_btn.clicked.connect(self.clearPlotView)
 
         self.plot_traces = {}
 
@@ -127,6 +128,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         help_view = QWebView()
         help_view.load(help_url)
         layout.addWidget(help_view)
+
+        self.layoutw = QVBoxLayout()
+        self.plot_qview.setLayout(self.layoutw)
+        self.plot_view = QWebView()
 
     def refreshWidgets(self):
         '''
@@ -510,14 +515,14 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             return
 
         # load the help hatml page into the help widget
-        self.layoutw = QVBoxLayout()
-        self.plot_qview.setLayout(self.layoutw)
+        # self.layoutw = QVBoxLayout()
+        # self.plot_qview.setLayout(self.layoutw)
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
             # plot single plot, che the object dictionary lenght
             if len(self.plot_traces) <= 1:
-                plot_path = self.p.buildFigure()
+                self.plot_path = self.p.buildFigure()
 
             # to plot many graphs in the same figure
             else:
@@ -530,7 +535,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                     pl.append(v.trace[0])
                     ll = v.layout
 
-                plot_path = self.p.buildFigures(pl)
+                self.plot_path = self.p.buildFigures(pl)
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
@@ -545,22 +550,21 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # plot in single row and many columns
             if self.radio_rows.isChecked():
 
-                plot_path = self.p.buildSubPlots('row', 1, gr, pl, tt)
+                self.plot_path = self.p.buildSubPlots('row', 1, gr, pl, tt)
 
             # plot in single column and many rows
             elif self.radio_columns.isChecked():
 
-                plot_path = self.p.buildSubPlots('col', gr, 1, pl)
+                self.plot_path = self.p.buildSubPlots('col', gr, 1, pl)
 
         # temporary url to repository
-        plot_url = QUrl.fromLocalFile(plot_path)
-        self.plot_view = QWebView()
-        self.plot_view.load(plot_url)
-        self.layoutw.addWidget(self.plot_view)
+        # self.plot_url = QUrl.fromLocalFile(plot_path)
+        # self.plot_view = QWebView()
+        # self.plot_view.load(plot_url)
+        # self.layoutw.addWidget(self.plot_view)
 
-        # connet to simple function that reloads the view
+        # connect to simple function that reloads the view
         self.refreshPlotView()
-
 
     def removeTrace(self):
         '''
@@ -582,7 +586,26 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         the view creation it won't reload the page
         '''
 
-        self.plot_view.reload()
+        # self.layoutw = QVBoxLayout()
+        # self.plot_qview.setLayout(self.layoutw)
+        self.plot_url = QUrl.fromLocalFile(self.plot_path)
+        # self.plot_view = QWebView()
+        self.plot_view.load(self.plot_url)
+        self.layoutw.addWidget(self.plot_view)
+        # self.plot_view.setFixedSize(100, 250)
+        # print(self.plot_view.page().mainFrame)
+        # self.plot_view.reload()
+        # self.plot_view.pageAction(QWebPage.Reload)
+
+    def clearPlotView(self):
+        '''
+        clear the content of the QWebView by loading an empty url
+        '''
+        try:
+            self.plot_view.load(QUrl(''))
+            self.layoutw.addWidget(self.plot_view)
+        except:
+            pass
 
     def chooseDir(self):
         '''
@@ -594,8 +617,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_file += '.png'
 
         self.dir_line.setText(self.plot_file)
-
-
 
     def savePlot(self):
         '''

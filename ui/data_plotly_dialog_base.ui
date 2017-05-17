@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="3">
-    <widget class="QPushButton" name="addTrace_btn">
+    <widget class="QPushButton" name="draw_btn">
      <property name="text">
       <string>Draw Plot</string>
      </property>
@@ -25,11 +25,14 @@
     <widget class="QComboBox" name="subcombo"/>
    </item>
    <item row="4" column="1" colspan="2">
-    <widget class="QPushButton" name="draw_btn">
+    <widget class="QPushButton" name="addTrace_btn">
      <property name="text">
       <string>Add Plot to Basket</string>
      </property>
     </widget>
+   </item>
+   <item row="0" column="1" colspan="4">
+    <widget class="QComboBox" name="plot_combo"/>
    </item>
    <item row="1" column="0" colspan="5">
     <widget class="QTabWidget" name="tab_property">
@@ -85,7 +88,7 @@
             <x>0</x>
             <y>0</y>
             <width>338</width>
-            <height>416</height>
+            <height>391</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
@@ -367,8 +370,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>338</width>
-            <height>416</height>
+            <width>276</width>
+            <height>373</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -598,9 +601,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" colspan="4">
-    <widget class="QComboBox" name="plot_combo"/>
-   </item>
    <item row="4" column="0">
     <widget class="QPushButton" name="clear_btn">
      <property name="text">
@@ -639,6 +639,13 @@
      </property>
      <property name="readOnly">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="2">
+    <widget class="QPushButton" name="refresh_btn">
+     <property name="text">
+      <string>Refresh Plot View</string>
      </property>
     </widget>
    </item>
