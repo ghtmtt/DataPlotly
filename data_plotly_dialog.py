@@ -128,10 +128,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         help_view.load(help_url)
         layout.addWidget(help_view)
 
+        # load the webview of the plot a the first running of the plugin
         self.layoutw = QVBoxLayout()
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
-        self.plot_view.load(QUrl(''))
         self.layoutw.addWidget(self.plot_view)
 
     def refreshWidgets(self):
@@ -583,9 +583,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_url = QUrl.fromLocalFile(self.plot_path)
         self.plot_view.load(self.plot_url)
         self.layoutw.addWidget(self.plot_view)
-        # frame = self.plot_view.page().mainFrame()
-        # self.plot_view.page().setViewportSize(frame.contentsSize())
-        # self.resize(frame.contentsSize())
 
     def clearPlotView(self):
         '''
@@ -601,7 +598,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         '''
         open a file Dialog to choose the path to save the plot
         '''
-        self.plot_file = QFileDialog.getSaveFileName(self, "Save plot", "", "*.png")
+        self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.png")
 
         self.plot_file = self.plot_file[0]
         self.plot_file += '.png'
