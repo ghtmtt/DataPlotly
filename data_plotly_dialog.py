@@ -68,7 +68,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterplot.png')), self.tr('Scatter Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/boxplot.png')), self.tr('Box Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/barplot.png')), self.tr('Bar Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/histogram.png')), self.tr('Histogram'))
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/histogram.png')), self.tr('Histogram')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.png')), self.tr('Pie Plot'))
         ])
 
         self.plot_types2 = OrderedDict([
@@ -76,6 +77,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             ('Box Plot', 'box'),
             ('Bar Plot', 'bar'),
             ('Histogram', 'histogram'),
+            ('Pie Plot', 'pie'),
         ])
 
         self.plot_combo.clear()
@@ -304,8 +306,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # plot properties
             self.layer_combo: ['all'],
             self.x_combo: ['all'],
-            self.y_label: ['scatter', 'bar', 'box'],
-            self.y_combo: ['scatter', 'bar', 'box'],
+            self.y_label: ['scatter', 'bar', 'box', 'pie'],
+            self.y_combo: ['scatter', 'bar', 'box', 'pie'],
             self.in_color_lab: ['all'],
             self.in_color_combo: ['all'],
             self.out_color_lab: ['all'],
@@ -519,7 +521,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
-            # plot single plot, che the object dictionary lenght
+            # plot single plot, check the object dictionary lenght
             if len(self.plot_traces) <= 1:
                 self.plot_path = self.p.buildFigure()
 
@@ -554,7 +556,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # plot in single column and many rows
             elif self.radio_columns.isChecked():
 
-                self.plot_path = self.p.buildSubPlots('col', gr, 1, pl)
+                self.plot_path = self.p.buildSubPlots('col', gr, 1, pl, tt)
 
         # connect to simple function that reloads the view
         self.refreshPlotView()

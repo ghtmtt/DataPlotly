@@ -137,6 +137,13 @@ class Plot(object):
                 opacity=self.plot_properties['opacity']
             )]
 
+        elif plot_type == 'pie':
+
+            self.trace = [go.Pie(
+                labels=self.plot_properties['x'],
+                values=self.plot_properties['y']
+            )]
+
         return self.trace
 
     def layoutProperties(self, *args, **kwargs):
@@ -208,7 +215,20 @@ class Plot(object):
         elif plot_type == 'histogram':
             self.layout['barmode'] = self.plot_layout['bar_mode']
 
+        elif plot_type == 'pie':
+            self.layout['xaxis'].update(showgrid=False),
+            self.layout['xaxis'].update(zeroline=False),
+            self.layout['xaxis'].update(showline=False),
+            self.layout['xaxis'].update(autotick=False),
+            self.layout['xaxis'].update(showticklabels=False),
+            self.layout['yaxis'].update(showgrid=False),
+            self.layout['yaxis'].update(zeroline=False),
+            self.layout['yaxis'].update(showline=False),
+            self.layout['yaxis'].update(autotick=False),
+            self.layout['yaxis'].update(showticklabels=False),
+
         return self.layout
+        print(self.layout)
 
     def buildFigure(self):
         '''
