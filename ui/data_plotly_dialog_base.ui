@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
+    <width>1154</width>
     <height>631</height>
    </rect>
   </property>
@@ -21,9 +21,6 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1" colspan="3">
-    <widget class="QComboBox" name="subcombo"/>
-   </item>
    <item row="4" column="1" colspan="2">
     <widget class="QPushButton" name="addTrace_btn">
      <property name="text">
@@ -34,6 +31,13 @@
    <item row="0" column="1" colspan="4">
     <widget class="QComboBox" name="plot_combo"/>
    </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Plot Type</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0" colspan="5">
     <widget class="QTabWidget" name="tab_property">
      <property name="sizePolicy">
@@ -41,6 +45,12 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>460</width>
+       <height>0</height>
+      </size>
      </property>
      <property name="maximumSize">
       <size>
@@ -87,8 +97,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>338</width>
-            <height>391</height>
+            <width>436</width>
+            <height>416</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
@@ -370,8 +380,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>276</width>
-            <height>373</height>
+            <width>436</width>
+            <height>416</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -580,24 +590,10 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="2" colspan="2">
-    <widget class="QRadioButton" name="radio_columns">
-     <property name="text">
-      <string>Plot in Columns</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Type of Plot</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Plot Type</string>
      </property>
     </widget>
    </item>
@@ -608,31 +604,37 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="6">
+   <item row="3" column="7">
     <widget class="QToolButton" name="browse_btn">
      <property name="text">
       <string>...</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="5" colspan="2">
-    <widget class="QWidget" name="plot_qview" native="true">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+   <item row="4" column="5">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-    </widget>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
-   <item row="4" column="5" colspan="2">
+   <item row="4" column="6" colspan="2">
     <widget class="QPushButton" name="save_plot_btn">
      <property name="text">
       <string>Save Plot</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="5">
+   <item row="2" column="1" colspan="4">
+    <widget class="QComboBox" name="subcombo"/>
+   </item>
+   <item row="3" column="5" colspan="2">
     <widget class="QLineEdit" name="dir_line">
      <property name="text">
       <string notr="true"/>
@@ -642,10 +644,20 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="1" colspan="2">
-    <widget class="QPushButton" name="refresh_btn">
+   <item row="3" column="2" colspan="2">
+    <widget class="QRadioButton" name="radio_columns">
      <property name="text">
-      <string>Refresh Plot View</string>
+      <string>Plot in Columns</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5" colspan="3">
+    <widget class="QWidget" name="plot_qview" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
     </widget>
    </item>

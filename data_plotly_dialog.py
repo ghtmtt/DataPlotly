@@ -114,7 +114,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.remove_button.clicked.connect(self.removeTraceFromTable)
         self.browse_btn.clicked.connect(self.chooseDir)
         self.save_plot_btn.clicked.connect(self.savePlot)
-        self.refresh_btn.clicked.connect(self.clearPlotView)
 
         self.plot_traces = {}
 
@@ -132,6 +131,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.layoutw = QVBoxLayout()
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
+        self.plot_view.load(QUrl(''))
+        self.layoutw.addWidget(self.plot_view)
 
     def refreshWidgets(self):
         '''
@@ -466,7 +467,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # just add 1 to the index
         self.idx += 1
 
-        self.bar.pushMessage("Plot added to the basket", level=QgsMessageBar.INFO, duration=2)
+        self.bar.pushMessage(self.tr("Plot added to the basket"), level=QgsMessageBar.INFO, duration=2)
 
     def addTraceToTable(self):
         '''
@@ -484,7 +485,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
     def removeTraceFromTable(self):
 
         if not self.plot_traces:
-            self.bar.pushMessage("No traces in the basket to delete!",
+            self.bar.pushMessage(self.tr("No traces in the basket to delete!"),
                                  level=QgsMessageBar.CRITICAL, duration=2)
             return
 
@@ -502,7 +503,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for p in plot_list:
             del self.plot_traces[p]
 
-        self.bar.pushMessage("Plot removed from the basket", level=QgsMessageBar.INFO, duration=2)
+        self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=2)
 
     def createPlot(self):
         '''
@@ -510,13 +511,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         '''
 
         if not self.plot_traces:
-            self.bar.pushMessage("Basket is empty, add some plot!",
+            self.bar.pushMessage(self.tr("Basket is empty, add some plot!"),
                                  level=QgsMessageBar.CRITICAL, duration=3)
             return
-
-        # load the help hatml page into the help widget
-        # self.layoutw = QVBoxLayout()
-        # self.plot_qview.setLayout(self.layoutw)
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
@@ -524,7 +521,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             if len(self.plot_traces) <= 1:
                 self.plot_path = self.p.buildFigure()
 
-            # to plot many graphs in the same figure
+            # to plot many plots in the same figure
             else:
                 # plot list ready to be called within go.Figure
                 pl = []
@@ -557,12 +554,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
                 self.plot_path = self.p.buildSubPlots('col', gr, 1, pl)
 
-        # temporary url to repository
-        # self.plot_url = QUrl.fromLocalFile(plot_path)
-        # self.plot_view = QWebView()
-        # self.plot_view.load(plot_url)
-        # self.layoutw.addWidget(self.plot_view)
-
         # connect to simple function that reloads the view
         self.refreshPlotView()
 
@@ -578,7 +569,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         del self.plot_traces
         self.plot_traces = {}
         self.idx = 1
-        self.bar.pushMessage("Plot removed from the basket", level=QgsMessageBar.INFO, duration=2)
+        self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=2)
+
+        # call the method to completely clean the plot view and the QWebWidget
+        self.clearPlotView()
 
     def refreshPlotView(self):
         '''
@@ -586,16 +580,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         the view creation it won't reload the page
         '''
 
-        # self.layoutw = QVBoxLayout()
-        # self.plot_qview.setLayout(self.layoutw)
         self.plot_url = QUrl.fromLocalFile(self.plot_path)
-        # self.plot_view = QWebView()
         self.plot_view.load(self.plot_url)
         self.layoutw.addWidget(self.plot_view)
-        # self.plot_view.setFixedSize(100, 250)
-        # print(self.plot_view.page().mainFrame)
-        # self.plot_view.reload()
-        # self.plot_view.pageAction(QWebPage.Reload)
+        # frame = self.plot_view.page().mainFrame()
+        # self.plot_view.page().setViewportSize(frame.contentsSize())
+        # self.resize(frame.contentsSize())
 
     def clearPlotView(self):
         '''
@@ -633,5 +623,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             frame.render(painter)
             painter.end()
             image.save(self.plot_file)
+            self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
         except:
-            self.bar.pushMessage("No path chosen, please select a path to save the plot", level=QgsMessageBar.WARNING, duration=4)
+            self.bar.pushMessage(self.tr("Please select a directory to save the plot"), level=QgsMessageBar.WARNING, duration=4)
