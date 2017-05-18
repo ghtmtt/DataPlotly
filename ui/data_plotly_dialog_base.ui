@@ -97,8 +97,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>436</width>
-            <height>416</height>
+            <width>422</width>
+            <height>425</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
@@ -327,7 +327,7 @@
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QgsFieldExpressionWidget" name="x_combo" native="true">
+               <widget class="QgsFieldExpressionWidget" name="x_combo">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
@@ -344,7 +344,7 @@
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QgsFieldExpressionWidget" name="y_combo" native="true">
+               <widget class="QgsFieldExpressionWidget" name="y_combo">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                   <horstretch>0</horstretch>
@@ -380,8 +380,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>436</width>
-            <height>416</height>
+            <width>276</width>
+            <height>373</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
@@ -667,7 +667,7 @@
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis.gui.h</header>
+   <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -696,12 +696,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>197</x>
-     <y>394</y>
+     <x>310</x>
+     <y>525</y>
     </hint>
     <hint type="destinationlabel">
-     <x>286</x>
-     <y>394</y>
+     <x>424</x>
+     <y>527</y>
     </hint>
    </hints>
   </connection>
@@ -712,12 +712,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>298</x>
-     <y>401</y>
+     <x>424</x>
+     <y>527</y>
     </hint>
     <hint type="destinationlabel">
-     <x>272</x>
-     <y>401</y>
+     <x>370</x>
+     <y>525</y>
     </hint>
    </hints>
   </connection>
@@ -764,8 +764,8 @@
      <y>178</y>
     </hint>
     <hint type="destinationlabel">
-     <x>239</x>
-     <y>172</y>
+     <x>250</x>
+     <y>218</y>
     </hint>
    </hints>
   </connection>
@@ -780,8 +780,8 @@
      <y>218</y>
     </hint>
     <hint type="destinationlabel">
-     <x>239</x>
-     <y>205</y>
+     <x>250</x>
+     <y>251</y>
     </hint>
    </hints>
   </connection>

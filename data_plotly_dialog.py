@@ -301,6 +301,14 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.orientation_label.setText('Bar Orientation')
             self.in_color_lab.setText('Bar Color')
 
+        # PiePlot
+        if self.ptype == 'pie':
+            self.x_label.setText('Grouping Field')
+            ff = QFont()
+            ff.setPointSizeF(8.5)
+            self.x_label.setFont(ff)
+            self.x_label.setFixedWidth(80)
+
         # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
             # plot properties
@@ -308,19 +316,20 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.x_combo: ['all'],
             self.y_label: ['scatter', 'bar', 'box', 'pie'],
             self.y_combo: ['scatter', 'bar', 'box', 'pie'],
-            self.in_color_lab: ['all'],
-            self.in_color_combo: ['all'],
-            self.out_color_lab: ['all'],
-            self.out_color_combo: ['all'],
-            self.marker_width_lab: ['all'],
-            self.marker_width: ['all'],
+            self.in_color_lab: ['scatter', 'bar', 'box', 'histogram'],
+            self.in_color_combo: ['scatter', 'bar', 'box', 'histogram'],
+            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram'],
+            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram'],
+            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram'],
+            self.marker_width: ['scatter', 'bar', 'box', 'histogram'],
             self.marker_size_lab: ['scatter'],
             self.marker_size: ['scatter'],
             self.marker_type_lab: ['scatter'],
             self.marker_type_combo: ['scatter'],
-            self.alpha_lab: ['all'],
-            self.alpha_slid: ['all'],
-            self.alpha_num: ['all'],
+            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram'],
+            self.alpha_slid: ['scatter', 'bar', 'box', 'histogram'],
+            self.alpha_num: ['scatter', 'bar', 'box', 'histogram'],
+            self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
             self.bar_legend_label: ['bar'],
@@ -334,10 +343,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.show_legend_check: ['all'],
             self.plot_title_lab: ['all'],
             self.plot_title_line: ['all'],
-            self.x_axis_label: ['all'],
-            self.x_axis_title: ['all'],
-            self.y_axis_label: ['all'],
-            self.y_axis_title: ['all'],
+            self.x_axis_label: ['scatter', 'bar', 'box', 'histogram'],
+            self.x_axis_title: ['scatter', 'bar', 'box', 'histogram'],
+            self.y_axis_label: ['scatter', 'bar', 'box', 'histogram'],
+            self.y_axis_title: ['scatter', 'bar', 'box', 'histogram'],
             self.orientation_label: ['bar', 'box', 'histogram'],
             self.orientation_combo: ['bar', 'box', 'histogram'],
             self.box_statistic_label: ['box'],
