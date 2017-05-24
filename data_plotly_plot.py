@@ -144,6 +144,13 @@ class Plot(object):
                 values=self.plot_properties['y']
             )]
 
+        elif plot_type == '2dhistogram':
+
+            self.trace = [go.Histogram2d(
+                x=self.plot_properties['x'],
+                y=self.plot_properties['y']
+            )]
+
         return self.trace
 
     def layoutProperties(self, *args, **kwargs):

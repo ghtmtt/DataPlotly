@@ -36,8 +36,6 @@ import plotly.graph_objs as go
 
 from .utils import *
 from .data_plotly_plot import *
-from .plot_web_view import plotWebView
-
 
 from collections import OrderedDict
 import tempfile
@@ -69,7 +67,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/boxplot.png')), self.tr('Box Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/barplot.png')), self.tr('Bar Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/histogram.png')), self.tr('Histogram')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.png')), self.tr('Pie Plot'))
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.png')), self.tr('Pie Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.png')), self.tr('2D Histogram')),
         ])
 
         self.plot_types2 = OrderedDict([
@@ -78,6 +77,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             ('Bar Plot', 'bar'),
             ('Histogram', 'histogram'),
             ('Pie Plot', 'pie'),
+            ('2D Histogram', '2dhistogram'),
         ])
 
         self.plot_combo.clear()
@@ -313,9 +313,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.widgetType = {
             # plot properties
             self.layer_combo: ['all'],
+            self.x_label: ['all'],
             self.x_combo: ['all'],
-            self.y_label: ['scatter', 'bar', 'box', 'pie'],
-            self.y_combo: ['scatter', 'bar', 'box', 'pie'],
+            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram'],
+            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram'],
             self.in_color_lab: ['scatter', 'bar', 'box', 'histogram'],
             self.in_color_combo: ['scatter', 'bar', 'box', 'histogram'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'histogram'],
@@ -614,7 +615,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.png")
 
         self.plot_file = self.plot_file[0]
-        self.plot_file += '.png'
+        if self.plot_file:
+            self.plot_file += '.png'
 
         self.dir_line.setText(self.plot_file)
 
@@ -632,7 +634,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             painter = QPainter(image)
             frame.render(painter)
             painter.end()
-            image.save(self.plot_file)
-            self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+            if self.plot_file:
+                image.save(self.plot_file)
+                self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+            else:
+                self.bar.pushMessage(self.tr("Please give a name to the plot"), level=QgsMessageBar.WARNING, duration=4)
+
         except:
             self.bar.pushMessage(self.tr("Please select a directory to save the plot"), level=QgsMessageBar.WARNING, duration=4)
