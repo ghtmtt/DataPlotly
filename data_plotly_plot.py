@@ -33,7 +33,7 @@ class Plot(object):
 
         return self.plot_properties
 
-    def buildTrace(self, plot_type):
+    def buildTrace(self, *args, **kwargs):
         '''
         build the final trace calling the go.xxx plotly method
         this method here is the one performing the real job
@@ -45,14 +45,16 @@ class Plot(object):
         p = Plot()
         # call the method that builds the dictionary of the properties
         p.buildProperties(x = ...)  #all the kwargs arguments
-        p.buildTrace(plot_type)  #plot_type needed to build the correct plot
+        p.buildTrace(plot_type='scatter') #plot_type needed to build the
+        correct layout and it has to be a string like 'scatter', 'barplot', ...
 
         print(p.trace)
         # this is the final plotly object
         {['opacity': 1.0, 'type': 'bar', 'name': 'ID', ...]}
         '''
 
-        self.plot_type = plot_type
+        # retieve the plot_type from the kwargs and assign it to the variable
+        plot_type = kwargs['plot_type']
 
         if plot_type == 'scatter':
 
@@ -109,6 +111,7 @@ class Plot(object):
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 name=self.plot_properties['bar_name'],
+                orientation=self.plot_properties['box_orientation'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
                     line=dict(
@@ -151,6 +154,14 @@ class Plot(object):
                 y=self.plot_properties['y']
             )]
 
+        elif plot_type == 'polar':
+
+            self.trace = [go.Area(
+                r=self.plot_properties['x'],
+                t=self.plot_properties['y'],
+                mode='markers'
+            )]
+
         return self.trace
 
     def layoutProperties(self, *args, **kwargs):
@@ -174,7 +185,7 @@ class Plot(object):
 
         return self.plot_layout
 
-    def buildLayout(self, plot_type):
+    def buildLayout(self, *args, **kwargs):
         '''
         build the final layout calling the go.Layout plotly method
 
@@ -187,15 +198,16 @@ class Plot(object):
         p = Plot()
         # call the method that builds the dictionary of the properties
         p.layoutProperties(title = ...)  #all the kwarg arguments
-        p.buildLayout(plot_type)  #plot_type needed to build the correct layout
+        p.buildLayout(plot_type='scatter')  #plot_type needed to build the
+        correct layout and it has to be a string like 'scatter', 'barplot', ...
 
         print(p.layout)
         # this is the final plotly object
         {'xaxis': {'title': 'VALORE'}, 'title': 'Title'...}
-
         '''
 
-        self.plot_type = plot_type
+        # retieve the plot_type from the kwargs and assign it to the variable
+        plot_type = kwargs['plot_type']
 
         # flip the variables according to the box orientation
         if self.plot_properties['box_orientation'] == 'h':
@@ -237,9 +249,8 @@ class Plot(object):
             self.layout['yaxis'].update(showticklabels=False),
 
         return self.layout
-        print(self.layout)
 
-    def buildFigure(self):
+    def buildFigure(self, *args, **kwargs):
         '''
         draw the final plot (single plot)
 
@@ -248,6 +259,8 @@ class Plot(object):
         save the html plot file in a temporary directory and return the path
         that can be loaded in the QWebView
         '''
+
+        plot_type = kwargs['plot_type']
 
         fig = go.Figure(data=self.trace, layout=self.layout)
 
@@ -265,12 +278,45 @@ class Plot(object):
 
         return self.plot_path
 
-    def buildFigures(self, ptrace):
+    def buildFigures(self, *args, **kwargs):
         '''
         draw the final plot (multi plot)
+
+        this method can take many arguments in order to correct render the plots
+        depending on the plot type chosen.
+        It is necessary because for bar and histogram plots, it the user wants
+        to have stacked or overlayed plots, an unique self.layout layout is
+        necessary. Without this addition these last options will be useless.
+
+        For bar and histogram plots it deletes the existing layouts and creates
+        the last and correct layout object
+
+        Console usage:
+        p = Plot()
+        # call the method that builds the dictionary of the properties
+        p.buildFigures(pl=pl, ptype=ptype)
+        # pl (plot object) is the trace, so the plot object with all its
+        properties
+        # plot_type (string) is the plot_type ('scatter', 'bar')
+
+        self.layout is DELETED, so the final layout is taken from the LAST plot
+        configuration added
         '''
 
-        figures = go.Figure(data=ptrace, layout=self.layout)
+        # assign the variables from the kwargs arguments
+        plot_type = kwargs['plot_type']
+        ptrace = kwargs['pl']
+
+        # check if the plot type and render the correct figure
+        if plot_type == 'bar' or 'histogram':
+            del self.layout
+            self.layout = go.Layout(
+                barmode = self.plot_layout['bar_mode']
+            )
+            figures = go.Figure(data=ptrace, layout=self.layout)
+
+        else:
+            figures = go.Figure(data=ptrace, layout=self.layout)
 
         # first lines of additional html with the link to the plotly javascrit
         self.raw_plot = '<head><meta charset="utf-8" /></head>''<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'

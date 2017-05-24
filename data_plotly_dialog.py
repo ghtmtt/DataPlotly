@@ -69,6 +69,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/histogram.png')), self.tr('Histogram')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.png')), self.tr('Pie Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.png')), self.tr('2D Histogram')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.png')), self.tr('Polar Plot')),
         ])
 
         self.plot_types2 = OrderedDict([
@@ -78,6 +79,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             ('Histogram', 'histogram'),
             ('Pie Plot', 'pie'),
             ('2D Histogram', '2dhistogram'),
+            ('Polar Plot', 'polar'),
         ])
 
         self.plot_combo.clear()
@@ -315,8 +317,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.layer_combo: ['all'],
             self.x_label: ['all'],
             self.x_combo: ['all'],
-            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram'],
-            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram'],
+            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar'],
+            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar'],
             self.in_color_lab: ['scatter', 'bar', 'box', 'histogram'],
             self.in_color_combo: ['scatter', 'bar', 'box', 'histogram'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'histogram'],
@@ -426,7 +428,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
-
         # plot object
         self.p = Plot()
 
@@ -452,7 +453,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         )
 
         # build the final trace that will be used
-        self.p.buildTrace(self.ptype)
+        self.p.buildTrace(
+            plot_type=self.ptype
+        )
 
         # build the layout customizations
         self.p.layoutProperties(
@@ -465,7 +468,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         )
 
         # call the method and build the final layout
-        self.p.buildLayout(self.ptype)
+        self.p.buildLayout(
+            plot_type= self.ptype
+        )
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = ('{}_{}'.format(str(self.idx), self.p.plot_type))
@@ -533,7 +538,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
             # plot single plot, check the object dictionary lenght
             if len(self.plot_traces) <= 1:
-                self.plot_path = self.p.buildFigure()
+                self.plot_path = self.p.buildFigure(plot_type=self.ptype)
 
             # to plot many plots in the same figure
             else:
@@ -546,7 +551,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                     pl.append(v.trace[0])
                     ll = v.layout
 
-                self.plot_path = self.p.buildFigures(pl)
+                self.plot_path = self.p.buildFigures(pl=pl, plot_type=self.ptype)
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
