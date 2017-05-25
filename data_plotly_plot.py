@@ -156,10 +156,26 @@ class Plot(object):
 
         elif plot_type == 'polar':
 
-            self.trace = [go.Area(
+            self.trace = [go.Scatter(
                 r=self.plot_properties['x'],
                 t=self.plot_properties['y'],
-                mode='markers'
+                mode=self.plot_properties['marker'],
+                name=self.plot_properties['y_name'],
+                marker=dict(
+                    color=self.plot_properties['in_color'],
+                    size=self.plot_properties['marker_size'] + 100,
+                    symbol=self.plot_properties['marker_symbol'],
+                    line=dict(
+                        color=self.plot_properties['out_color'],
+                        width=self.plot_properties['marker_width']
+                    )
+                ),
+                line=dict(
+                    color=self.plot_properties['in_color'],
+                    width=self.plot_properties['marker_width'],
+                    dash=self.plot_properties['line_dash']
+                ),
+                opacity=self.plot_properties['opacity'],
             )]
 
         return self.trace
