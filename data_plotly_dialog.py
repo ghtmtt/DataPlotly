@@ -429,10 +429,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
         # plot object
-        self.p = Plot()
+        self.plotobject = Plot()
 
         # plot method to have a dictionary of the properties
-        self.p.buildProperties(
+        self.plotobject.buildProperties(
             x=getFields(self.layer_combo, self.x_combo),
             y=getFields(self.layer_combo, self.y_combo),
             x_name=self.x_combo.currentText(),
@@ -453,12 +453,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         )
 
         # build the final trace that will be used
-        self.p.buildTrace(
+        self.plotobject.buildTrace(
             plot_type=self.ptype
         )
 
         # build the layout customizations
-        self.p.layoutProperties(
+        self.plotobject.layoutProperties(
             legend=self.show_legend_check.isChecked(),
             title=self.plot_title_line.text(),
             x_title=self.x_axis_title.text(),
@@ -468,7 +468,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         )
 
         # call the method and build the final layout
-        self.p.buildLayout(
+        self.plotobject.buildLayout(
             plot_type= self.ptype
         )
 
@@ -476,7 +476,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.pid = ('{}_{}'.format(str(self.idx), self.ptype))
 
         # create default dictionary that contains all the plot and properties
-        self.plot_traces[self.pid] = self.p
+        self.plot_traces[self.pid] = self.plotobject
 
         # call the function and fill the table
         self.addTraceToTable()
@@ -538,7 +538,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
             # plot single plot, check the object dictionary lenght
             if len(self.plot_traces) <= 1:
-                self.plot_path = self.p.buildFigure(plot_type=self.ptype)
+                self.plot_path = self.plotobject.buildFigure(plot_type=self.ptype)
 
             # to plot many plots in the same figure
             else:
@@ -551,7 +551,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                     pl.append(v.trace[0])
                     ll = v.layout
 
-                self.plot_path = self.p.buildFigures(pl=pl, plot_type=self.ptype)
+                self.plot_path = self.plotobject.buildFigures(pl=pl, plot_type=self.ptype)
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
@@ -566,12 +566,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # plot in single row and many columns
             if self.radio_rows.isChecked():
 
-                self.plot_path = self.p.buildSubPlots('row', 1, gr, pl, tt)
+                self.plot_path = self.plotobject.buildSubPlots('row', 1, gr, pl, tt)
 
             # plot in single column and many rows
             elif self.radio_columns.isChecked():
 
-                self.plot_path = self.p.buildSubPlots('col', gr, 1, pl, tt)
+                self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
 
         # connect to simple function that reloads the view
         self.refreshPlotView()
