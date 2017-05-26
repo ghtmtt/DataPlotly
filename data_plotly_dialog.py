@@ -127,7 +127,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         layout = QVBoxLayout()
         self.help_widget.setLayout(layout)
         # temporary url to repository
-        help_url = QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.txt')
+        help_url = QUrl('http://dataplotly.readthedocs.io/en/latest/index.html')
         help_view = QWebView()
         help_view.load(help_url)
         layout.addWidget(help_view)
