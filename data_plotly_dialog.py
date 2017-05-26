@@ -473,7 +473,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         )
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
-        self.pid = ('{}_{}'.format(str(self.idx), self.p.plot_type))
+        self.pid = ('{}_{}'.format(str(self.idx), self.ptype))
 
         # create default dictionary that contains all the plot and properties
         self.plot_traces[self.pid] = self.p
@@ -495,7 +495,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # fill the table with each paramter entered
         self.traceTable.setItem(row, 0, QTableWidgetItem(str(self.pid)))
-        self.traceTable.setItem(row, 1, QTableWidgetItem(str(self.p.plot_type)))
+        self.traceTable.setItem(row, 1, QTableWidgetItem(str(self.ptype)))
         self.traceTable.setItem(row, 2, QTableWidgetItem(str(self.x_combo.currentText())))
         self.traceTable.setItem(row, 3, QTableWidgetItem(str(self.y_combo.currentText())))
 
