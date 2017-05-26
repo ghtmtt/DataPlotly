@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    installation.rst
+   basic_usage.rst
 
 Indices and tables
 ==================
