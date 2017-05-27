@@ -63,6 +63,8 @@ class Plot(object):
                 y=self.plot_properties['y'],
                 mode=self.plot_properties['marker'],
                 name=self.plot_properties['y_name'],
+                # text=self.plot_properties['hover_text'],
+                # hoverinfo = "text",
                 marker=dict(
                     color=self.plot_properties['in_color'],
                     size=self.plot_properties['marker_size'],
@@ -178,6 +180,14 @@ class Plot(object):
                 opacity=self.plot_properties['opacity'],
             )]
 
+        # elif plot_type == 'scatter3d':
+        #
+        #     self.trace = [go.Scatter3d(
+        #         x=self.plot_properties['x'],
+        #         y=self.plot_properties['y'],
+        #         z=self.plot_properties['hover_text'],
+        #     )]
+
         return self.trace
 
     def layoutProperties(self, *args, **kwargs):
@@ -281,7 +291,7 @@ class Plot(object):
         fig = go.Figure(data=self.trace, layout=self.layout)
 
         # first lines of additional html with the link to the plotly javascrit
-        self.raw_plot = '<head><meta charset="utf-8" /></head>''<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
         # last line to close the html file
@@ -335,7 +345,7 @@ class Plot(object):
             figures = go.Figure(data=ptrace, layout=self.layout)
 
         # first lines of additional html with the link to the plotly javascrit
-        self.raw_plot = '<head><meta charset="utf-8" /></head>''<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False)
         # last line to close the html file
@@ -370,7 +380,7 @@ class Plot(object):
         # plotly.offline.plot(fig)
 
         # first lines of additional html with the link to the plotly javascrit
-        self.raw_plot = '<head><meta charset="utf-8" /></head>''<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
         # last line to close the html file

@@ -13,6 +13,13 @@ Contents:
 
    installation.rst
    basic_usage.rst
+   scatterplot.rst
+   boxplot.rst
+   barplot.rst
+   histogram.rst
+   pieplot.rst
+   2dhistogram.rst
+   polarplot.rst
 
 Indices and tables
 ==================

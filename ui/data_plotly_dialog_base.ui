@@ -380,15 +380,15 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>276</width>
-            <height>373</height>
+            <width>436</width>
+            <height>416</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_5">
            <item row="3" column="1" colspan="3">
             <widget class="QLineEdit" name="x_axis_title"/>
            </item>
-           <item row="7" column="0">
+           <item row="8" column="0">
             <widget class="QLabel" name="bar_mode_lab">
              <property name="text">
               <string>Bar Mode</string>
@@ -398,7 +398,7 @@
            <item row="1" column="1" colspan="3">
             <widget class="QLineEdit" name="plot_title_line"/>
            </item>
-           <item row="7" column="1" colspan="3">
+           <item row="8" column="1" colspan="3">
             <widget class="QComboBox" name="bar_mode_combo"/>
            </item>
            <item row="0" column="0">
@@ -414,7 +414,7 @@
            <item row="4" column="1" rowspan="2" colspan="3">
             <widget class="QLineEdit" name="y_axis_title"/>
            </item>
-           <item row="11" column="0" colspan="4">
+           <item row="12" column="0" colspan="4">
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -427,24 +427,24 @@
              </property>
             </spacer>
            </item>
-           <item row="6" column="0">
+           <item row="7" column="0">
             <widget class="QLabel" name="orientation_label">
              <property name="text">
               <string>Bar orientation</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="1" colspan="3">
+           <item row="7" column="1" colspan="3">
             <widget class="QComboBox" name="orientation_combo"/>
            </item>
-           <item row="9" column="0">
+           <item row="10" column="0">
             <widget class="QLabel" name="box_statistic_label">
              <property name="text">
               <string>Show Statistics</string>
              </property>
             </widget>
            </item>
-           <item row="9" column="1" colspan="3">
+           <item row="10" column="1" colspan="3">
             <widget class="QComboBox" name="box_statistic_combo"/>
            </item>
            <item row="1" column="0">
@@ -468,14 +468,14 @@
              </property>
             </widget>
            </item>
-           <item row="10" column="0">
+           <item row="11" column="0">
             <widget class="QLabel" name="outliers_label">
              <property name="text">
               <string>Outliers</string>
              </property>
             </widget>
            </item>
-           <item row="10" column="1" colspan="3">
+           <item row="11" column="1" colspan="3">
             <widget class="QComboBox" name="outliers_combo"/>
            </item>
            <item row="2" column="0">
@@ -495,15 +495,25 @@
              </property>
             </widget>
            </item>
-           <item row="8" column="0">
+           <item row="9" column="0">
             <widget class="QLabel" name="hist_norm_label">
              <property name="text">
               <string>Normalization</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="1" colspan="3">
+           <item row="9" column="1" colspan="3">
             <widget class="QComboBox" name="hist_norm_combo"/>
+           </item>
+           <item row="6" column="1" colspan="3">
+            <widget class="QgsFieldExpressionWidget" name="z_combo"/>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="info_label">
+             <property name="text">
+              <string>Hover Infos</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -696,12 +706,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>310</x>
-     <y>525</y>
+     <x>370</x>
+     <y>485</y>
     </hint>
     <hint type="destinationlabel">
      <x>424</x>
-     <y>527</y>
+     <y>487</y>
     </hint>
    </hints>
   </connection>
@@ -713,11 +723,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>424</x>
-     <y>527</y>
+     <y>487</y>
     </hint>
     <hint type="destinationlabel">
      <x>370</x>
-     <y>525</y>
+     <y>485</y>
     </hint>
    </hints>
   </connection>
@@ -798,6 +808,22 @@
     <hint type="destinationlabel">
      <x>239</x>
      <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>layer_combo</sender>
+   <signal>layerChanged(QgsMapLayer*)</signal>
+   <receiver>z_combo</receiver>
+   <slot>setLayer(QgsMapLayer*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>139</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>295</x>
+     <y>274</y>
     </hint>
    </hints>
   </connection>

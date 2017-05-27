@@ -1,23 +1,23 @@
-# This file contains metadata for your plugin. Since 
-# version 2.0 of QGIS this is the proper way to supply 
-# information about a plugin. The old method of 
-# embedding metadata in __init__.py will 
+# This file contains metadata for your plugin. Since
+# version 2.0 of QGIS this is the proper way to supply
+# information about a plugin. The old method of
+# embedding metadata in __init__.py will
 # is no longer supported since version 2.0.
 
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
 name=Data Plotly
-qgisMinimumVersion=2.0
+qgisMinimumVersion=2.99
 description=D3 Plots for QGIS
 version=0.1
-author=matteo ghetta
+author=Matteo Ghetta
 email=matteo.ghetta@gmail.com
 
-about=Draw awsome D3 plots in QGIS
+about=Draw D3 plots in QGIS
 
-tracker=https://github.com/ghtmtt/DataPlot/issues
-repository=https://github.com/ghtmtt/DataPlot
+tracker=https://github.com/ghtmtt/DataPlotly/issues
+repository=https://github.com/ghtmtt/DataPlotly
 # End of mandatory metadata
 
 # Recommended items:
@@ -28,7 +28,7 @@ repository=https://github.com/ghtmtt/DataPlot
 # Tags are comma separated with spaces allowed
 tags=python, d3, plots, vector, graphs
 
-homepage=https://github.com/ghtmtt/DataPlot
+homepage=https://github.com/ghtmtt/DataPlotly
 category=Plugins
 icon=icon.png
 # experimental flag
@@ -36,4 +36,3 @@ experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
-
