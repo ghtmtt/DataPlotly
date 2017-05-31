@@ -8,9 +8,10 @@
 
 [general]
 name=Data Plotly
-qgisMinimumVersion=2.99
+qgisMinimumVersion=2.9
+qgisMaximumVersion=3.99
 description=D3 Plots for QGIS
-version=0.1
+version=0.2
 author=Matteo Ghetta
 email=matteo.ghetta@gmail.com
 
