@@ -13,6 +13,10 @@ class Plot(object):
 
     plot_layout = {}
 
+    # path of javascript files
+    polyfillpath = os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
+    plotlypath = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly.min.js')
+
     def buildProperties(self, *args, **kwargs):
         '''
         dictionary with all the plot properties and return the object
@@ -290,8 +294,8 @@ class Plot(object):
 
         fig = go.Figure(data=self.trace, layout=self.layout)
 
-        # first lines of additional html with the link to the plotly javascrit
-        self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        # first lines of additional html with the link to the local javascript
+        self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
         # last line to close the html file
@@ -344,8 +348,8 @@ class Plot(object):
         else:
             figures = go.Figure(data=ptrace, layout=self.layout)
 
-        # first lines of additional html with the link to the plotly javascrit
-        self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        # first lines of additional html with the link to the local javascript
+        self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False)
         # last line to close the html file
@@ -379,8 +383,8 @@ class Plot(object):
 
         # plotly.offline.plot(fig)
 
-        # first lines of additional html with the link to the plotly javascrit
-        self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
+        # first lines of additional html with the link to the local javascript
+        self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
         # last line to close the html file
