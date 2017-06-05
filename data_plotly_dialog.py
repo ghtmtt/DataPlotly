@@ -59,7 +59,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.setLayout(QGridLayout())
-        self.layout().addWidget(self.bar, 0, 0, 1, 0)
+        self.layout().insertWidget(0, self.bar)
+        # self.layout().addWidget(self.bar, 0, 0, 2, 0)
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
@@ -70,7 +71,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.png')), self.tr('Pie Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.png')), self.tr('2D Histogram')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.png')), self.tr('Polar Plot')),
-            # (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.png')), self.tr('Scatter Plot 3D')),
         ])
 
         self.plot_types2 = OrderedDict([
@@ -81,7 +81,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             ('Pie Plot', 'pie'),
             ('2D Histogram', '2dhistogram'),
             ('Polar Plot', 'polar'),
-            # ('Scatter Plot 3D', 'scatter3d'),
         ])
 
         self.plot_combo.clear()
@@ -113,7 +112,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # fill filed combo box when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
-        self.z_combo.setLayer(self.layer_combo.currentLayer())
 
         self.draw_btn.clicked.connect(self.createPlot)
         self.addTrace_btn.clicked.connect(self.plotProperties)
@@ -142,6 +140,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         plot_view_settings = self.plot_view.settings()
         plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
+        plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
 
     def refreshWidgets(self):
@@ -326,7 +325,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar'],
             self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar'],
             self.info_label: ['scatter'],
-            self.z_combo: ['scatter'],
+            self.info_combo: ['scatter'],
             self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar'],
             self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar'],
@@ -443,7 +442,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plotobject.buildProperties(
             x=getFields(self.layer_combo, self.x_combo),
             y=getFields(self.layer_combo, self.y_combo),
-            hover_text=getFields(self.layer_combo, self.z_combo),
+            hover_text=getFields(self.layer_combo, self.info_combo),
             x_name=self.x_combo.currentText(),
             y_name=self.y_combo.currentText(),
             in_color=hex_to_rgb(self.in_color_combo),

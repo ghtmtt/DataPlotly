@@ -3,6 +3,7 @@ import plotly.graph_objs as go
 from plotly import tools
 import tempfile
 import os
+import platform
 
 
 class Plot(object):
@@ -14,8 +15,14 @@ class Plot(object):
     plot_layout = {}
 
     # path of javascript files
-    polyfillpath = os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
-    plotlypath = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly.min.js')
+    if platform.system() == 'Windows':
+        polyfillpath = 'file:///'
+        plotlypath = 'file:///'
+        polyfillpath += os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
+        plotlypath += os.path.join(os.path.dirname(__file__), 'jsscripts/plotly.min.js')
+    else:
+        polyfillpath = os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
+        plotlypath = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly.min.js')
 
     def buildProperties(self, *args, **kwargs):
         '''
@@ -184,14 +191,6 @@ class Plot(object):
                 opacity=self.plot_properties['opacity'],
             )]
 
-        # elif plot_type == 'scatter3d':
-        #
-        #     self.trace = [go.Scatter3d(
-        #         x=self.plot_properties['x'],
-        #         y=self.plot_properties['y'],
-        #         z=self.plot_properties['hover_text'],
-        #     )]
-
         return self.trace
 
     def layoutProperties(self, *args, **kwargs):
@@ -276,7 +275,10 @@ class Plot(object):
             self.layout['yaxis'].update(zeroline=False),
             self.layout['yaxis'].update(showline=False),
             self.layout['yaxis'].update(autotick=False),
-            self.layout['yaxis'].update(showticklabels=False),
+            self.layout['yaxis'].update(showticklabels=False)
+
+        # elif plot_type == 'scatter3d':
+            # self.layout['zaxis'] =
 
         return self.layout
 
