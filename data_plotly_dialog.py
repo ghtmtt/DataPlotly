@@ -611,13 +611,21 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_view.load(self.plot_url)
         self.layoutw.addWidget(self.plot_view)
 
+        self.raw_plot_text.clear()
+        with open(self.plot_path, 'r') as myfile:
+            plot_text = myfile.read()
+
+        self.raw_plot_text.setPlainText(plot_text)
+
     def clearPlotView(self):
         '''
-        clear the content of the QWebView by loading an empty url
+        clear the content of the QWebView by loading an empty url and clear the
+        raw text of the QPlainTextEdit
         '''
         try:
             self.plot_view.load(QUrl(''))
             self.layoutw.addWidget(self.plot_view)
+            self.raw_plot_text.clear()
         except:
             pass
 
