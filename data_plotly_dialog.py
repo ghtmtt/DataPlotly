@@ -39,6 +39,7 @@ from .data_plotly_plot import *
 
 from collections import OrderedDict
 import tempfile
+from shutil import copyfile
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
@@ -117,8 +118,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.addTrace_btn.clicked.connect(self.plotProperties)
         self.clear_btn.clicked.connect(self.removeTrace)
         self.remove_button.clicked.connect(self.removeTraceFromTable)
-        self.browse_btn.clicked.connect(self.chooseDir)
-        self.save_plot_btn.clicked.connect(self.savePlot)
+        # self.browse_btn.clicked.connect(self.chooseDir)
+        self.save_plot_btn.clicked.connect(self.savePlotAsImage)
+        self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
+        self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.png')))
+        self.save_plot_html_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_html.png')))
 
         self.plot_traces = {}
 
@@ -629,23 +633,16 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         except:
             pass
 
-    def chooseDir(self):
+    def savePlotAsImage(self):
         '''
-        open a file Dialog to choose the path to save the plot
+        save the current plot view as png image.
+        The user can choose the path and the file name
         '''
         self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.png")
 
         self.plot_file = self.plot_file[0]
         if self.plot_file:
             self.plot_file += '.png'
-
-        self.dir_line.setText(self.plot_file)
-
-    def savePlot(self):
-        '''
-        browse a folder and save the plot as a screenshot of the QWebView
-        the native plotly button does not work
-        '''
 
         try:
             frame = self.plot_view.page().mainFrame()
@@ -658,8 +655,21 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.plot_file:
                 image.save(self.plot_file)
                 self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
-            else:
-                self.bar.pushMessage(self.tr("Please give a name to the plot"), level=QgsMessageBar.WARNING, duration=4)
-
         except:
             self.bar.pushMessage(self.tr("Please select a directory to save the plot"), level=QgsMessageBar.WARNING, duration=4)
+
+    def savePlotAsHtml(self):
+        '''
+        save the plot as html local file. Basically just let the user choose
+        where to save the already existing html file created by plotly
+        '''
+
+        self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
+
+        self.plot_file = self.plot_file[0]
+        if self.plot_file:
+            self.plot_file += '.html'
+
+        if self.plot_file:
+            copyfile(self.plot_path, self.plot_file)
+            self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)

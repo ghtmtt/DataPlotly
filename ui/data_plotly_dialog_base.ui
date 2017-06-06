@@ -648,7 +648,7 @@
      </widget>
      <widget class="QWidget" name="layoutWidget">
       <layout class="QGridLayout" name="gridLayout_10">
-       <item row="0" column="0" colspan="3">
+       <item row="0" column="0" colspan="4">
         <widget class="QWidget" name="plot_qview" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -658,20 +658,22 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QLineEdit" name="dir_line">
-         <property name="text">
-          <string notr="true"/>
+       <item row="2" column="2" colspan="2">
+        <widget class="QPushButton" name="save_plot_btn">
+         <property name="toolTip">
+          <string>Export as image</string>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="statusTip">
+          <string/>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QToolButton" name="browse_btn">
+         <property name="whatsThis">
+          <string/>
+         </property>
+         <property name="accessibleDescription">
+          <string/>
+         </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -688,10 +690,13 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="1" colspan="2">
-        <widget class="QPushButton" name="save_plot_btn">
+       <item row="2" column="1">
+        <widget class="QPushButton" name="save_plot_html_btn">
+         <property name="toolTip">
+          <string>Export as html</string>
+         </property>
          <property name="text">
-          <string>Save Plot</string>
+          <string/>
          </property>
         </widget>
        </item>
