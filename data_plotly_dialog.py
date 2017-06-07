@@ -31,6 +31,7 @@ from PyQt5.QtCore import QUrl, QFileInfo
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
+from qgis.core import QgsNetworkAccessManager
 import plotly
 import plotly.graph_objs as go
 
@@ -139,6 +140,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.layoutw = QVBoxLayout()
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
+        self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
         plot_view_settings = self.plot_view.settings()
         plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
