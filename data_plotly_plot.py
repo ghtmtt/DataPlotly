@@ -62,8 +62,8 @@ class Plot(object):
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 mode=self.plot_properties['marker'],
-                name=self.plot_properties['y_name'],
-                # text=self.plot_properties['hover_text'],
+                #name=self.plot_properties['y_name'],
+                name=self.plot_properties['featureIds'],
                 # hoverinfo = "text",
                 marker=dict(
                     color=self.plot_properties['in_color'],
@@ -276,6 +276,39 @@ class Plot(object):
 
         return self.layout
 
+    def js_callback(self,code_string):
+        '''
+        returns a script section containing on plot user events and
+        callback to python on status change event
+        '''
+        mark_start = 'Plotly.newPlot("'
+        mark_end = '", [{"type":'
+        idx_start = code_string.find(mark_start) + len (mark_start)
+        idx_end = code_string.find(mark_end)
+        div_elem = code_string[idx_start:idx_end]
+        return """
+<script type="text/javascript">
+var plotly_div = document.getElementById('%s')
+var plotly_data = plotly_div.data
+console.log(plotly_data)
+plotly_div.on('plotly_click', function(data){
+    console.log(data)
+    featureId = plotly_data[0].name[data.points[0].pointNumber]
+    window.status = JSON.stringify([featureId]);
+});
+plotly_div.on('plotly_selected', function(data){
+    console.log(data)
+    featureIds = []
+    data.points.forEach(function(pt) {
+        featureIds.push(plotly_data[0].name[pt.pointNumber])
+    });
+    console.log(featureIds)
+    window.status = JSON.stringify(featureIds);
+});
+</script>
+        """ % div_elem
+        
+
     def buildFigure(self, *args, **kwargs):
         '''
         draw the final plot (single plot)
@@ -294,6 +327,8 @@ class Plot(object):
         self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        # insert callback for javascript events
+        self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file
         self.raw_plot += '</body></html>'
 
@@ -348,6 +383,8 @@ class Plot(object):
         self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False)
+        # insert callback for javascript events
+        self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file
         self.raw_plot += '</body></html>'
 
@@ -383,6 +420,8 @@ class Plot(object):
         self.raw_plot = '<head><meta charset="utf-8" /><script src="https://cdn.plot.ly/plotly-latest.min.js"></script></head>'
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        # insert callback for javascript events
+        self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file
         self.raw_plot += '</body></html>'
 
