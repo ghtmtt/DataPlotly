@@ -22,7 +22,6 @@
 """
 
 import os
-import json
 
 from PyQt5 import uic
 from PyQt5 import QtWidgets
@@ -32,7 +31,6 @@ from PyQt5.QtCore import QUrl, QFileInfo
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
-from qgis.core import QgsNetworkAccessManager
 import plotly
 import plotly.graph_objs as go
 
@@ -41,14 +39,13 @@ from .data_plotly_plot import *
 
 from collections import OrderedDict
 import tempfile
-from shutil import copyfile
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
 
 
 class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
-    def __init__(self, module, parent=None):
+    def __init__(self, parent=None):
         """Constructor."""
         super(DataPlotlyDialog, self).__init__(parent)
         # Set up the user interface from Designer.
@@ -57,14 +54,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-        self.module = module
 
         # add bar to the main (upper part) window
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.setLayout(QGridLayout())
-        self.layout().insertWidget(0, self.bar)
-        # self.layout().addWidget(self.bar, 0, 0, 2, 0)
+        self.layout().addWidget(self.bar, 0, 0, 1, 0)
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
@@ -75,6 +70,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.png')), self.tr('Pie Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.png')), self.tr('2D Histogram')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.png')), self.tr('Polar Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterplot3d.png')), self.tr('Scatter Plot 3D')),
         ])
 
         self.plot_types2 = OrderedDict([
@@ -85,6 +81,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             ('Pie Plot', 'pie'),
             ('2D Histogram', '2dhistogram'),
             ('Polar Plot', 'polar'),
+            ('Scatter Plot 3D', 'scatter3d'),
         ])
 
         self.plot_combo.clear()
@@ -116,16 +113,14 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # fill filed combo box when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
+        self.z_combo.setLayer(self.layer_combo.currentLayer())
 
         self.draw_btn.clicked.connect(self.createPlot)
         self.addTrace_btn.clicked.connect(self.plotProperties)
         self.clear_btn.clicked.connect(self.removeTrace)
         self.remove_button.clicked.connect(self.removeTraceFromTable)
-        # self.browse_btn.clicked.connect(self.chooseDir)
-        self.save_plot_btn.clicked.connect(self.savePlotAsImage)
-        self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
-        self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.png')))
-        self.save_plot_html_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_html.png')))
+        self.browse_btn.clicked.connect(self.chooseDir)
+        self.save_plot_btn.clicked.connect(self.savePlot)
 
         self.plot_traces = {}
 
@@ -144,32 +139,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.layoutw = QVBoxLayout()
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
-        self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
-        self.plot_view.statusBarMessage.connect(self.getJSmessage)
         plot_view_settings = self.plot_view.settings()
         plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
-
-    def getJSmessage(self,status):
-        '''
-        landing method for statusBarMessage signal coming from PLOT.js_callback
-        it decodes feature ids of clicked or selected plot elements, 
-        selects on map canvas and triggers a pan/zoom to them
-        '''
-        try:
-            ids = json.JSONDecoder().decode(status)
-        except:
-            ids = None
-        print (ids)
-        if ids:
-            self.layer_combo.currentLayer().selectByIds(ids)
-            if len(ids) > 1:
-                self.module.iface.actionZoomToSelected().trigger()
-            else:
-                self.module.iface.actionPanToSelected().trigger()
-        
 
     def refreshWidgets(self):
         '''
@@ -350,32 +324,34 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.layer_combo: ['all'],
             self.x_label: ['all'],
             self.x_combo: ['all'],
-            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar'],
-            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar'],
+            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'scatter3d'],
+            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'scatter3d'],
+            self.z_label: ['scatter3d'],
+            self.z_combo: ['scatter3d'],
             self.info_label: ['scatter'],
             self.info_combo: ['scatter'],
-            self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.marker_size_lab: ['scatter', 'polar'],
-            self.marker_size: ['scatter', 'polar'],
-            self.marker_type_lab: ['scatter'],
-            self.marker_type_combo: ['scatter'],
-            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar'],
-            self.alpha_slid: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.alpha_num: ['scatter', 'bar', 'box', 'histogram'],
-            self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar'],
+            self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'scatter3d'],
+            self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'scatter3d'],
+            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'scatter3d'],
+            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'scatter3d'],
+            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'scatter3d'],
+            self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'scatter3d'],
+            self.marker_size_lab: ['scatter', 'polar', 'scatter3d'],
+            self.marker_size: ['scatter', 'polar', 'scatter3d'],
+            self.marker_type_lab: ['scatter', 'scatter3d'],
+            self.marker_type_combo: ['scatter', 'scatter3d'],
+            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar', 'scatter3d'],
+            self.alpha_slid: ['scatter', 'bar', 'box', 'histogram', 'polar', 'scatter3d'],
+            self.alpha_num: ['scatter', 'bar', 'box', 'histogram', 'scatter3d'],
+            self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'scatter3d'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
             self.bar_legend_label: ['bar'],
             self.bar_legend_title: ['bar'],
-            self.point_lab: ['scatter'],
-            self.point_combo: ['scatter'],
-            self.line_lab: ['scatter'],
-            self.line_combo: ['scatter'],
+            self.point_lab: ['scatter', 'scatter3d'],
+            self.point_combo: ['scatter', 'scatter3d'],
+            self.line_lab: ['scatter', 'scatter3d'],
+            self.line_combo: ['scatter', 'scatter3d'],
 
             # layout customization
             self.show_legend_check: ['all'],
@@ -385,6 +361,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.x_axis_title: ['scatter', 'bar', 'box', 'histogram'],
             self.y_axis_label: ['scatter', 'bar', 'box', 'histogram'],
             self.y_axis_title: ['scatter', 'bar', 'box', 'histogram'],
+            self.z_axis_label: ['scatter3d'],
+            self.z_axis_title: ['scatter3d'],
             self.orientation_label: ['bar', 'box', 'histogram'],
             self.orientation_combo: ['bar', 'box', 'histogram'],
             self.box_statistic_label: ['box'],
@@ -470,10 +448,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plotobject.buildProperties(
             x=getFields(self.layer_combo, self.x_combo),
             y=getFields(self.layer_combo, self.y_combo),
-            featureIds=getFields(self.layer_combo, None),
+            z=getFields(self.layer_combo, self.z_combo),
             hover_text=getFields(self.layer_combo, self.info_combo),
             x_name=self.x_combo.currentText(),
             y_name=self.y_combo.currentText(),
+            z_name=self.z_combo.currentText(),
             in_color=hex_to_rgb(self.in_color_combo),
             out_color=hex_to_rgb(self.out_color_combo),
             marker_width=self.marker_width.value(),
@@ -640,34 +619,33 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_view.load(self.plot_url)
         self.layoutw.addWidget(self.plot_view)
 
-        self.raw_plot_text.clear()
-        with open(self.plot_path, 'r') as myfile:
-            plot_text = myfile.read()
-
-        self.raw_plot_text.setPlainText(plot_text)
-
     def clearPlotView(self):
         '''
-        clear the content of the QWebView by loading an empty url and clear the
-        raw text of the QPlainTextEdit
+        clear the content of the QWebView by loading an empty url
         '''
         try:
             self.plot_view.load(QUrl(''))
             self.layoutw.addWidget(self.plot_view)
-            self.raw_plot_text.clear()
         except:
             pass
 
-    def savePlotAsImage(self):
+    def chooseDir(self):
         '''
-        save the current plot view as png image.
-        The user can choose the path and the file name
+        open a file Dialog to choose the path to save the plot
         '''
         self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.png")
 
         self.plot_file = self.plot_file[0]
         if self.plot_file:
             self.plot_file += '.png'
+
+        self.dir_line.setText(self.plot_file)
+
+    def savePlot(self):
+        '''
+        browse a folder and save the plot as a screenshot of the QWebView
+        the native plotly button does not work
+        '''
 
         try:
             frame = self.plot_view.page().mainFrame()
@@ -680,21 +658,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             if self.plot_file:
                 image.save(self.plot_file)
                 self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+            else:
+                self.bar.pushMessage(self.tr("Please give a name to the plot"), level=QgsMessageBar.WARNING, duration=4)
+
         except:
             self.bar.pushMessage(self.tr("Please select a directory to save the plot"), level=QgsMessageBar.WARNING, duration=4)
-
-    def savePlotAsHtml(self):
-        '''
-        save the plot as html local file. Basically just let the user choose
-        where to save the already existing html file created by plotly
-        '''
-
-        self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
-
-        self.plot_file = self.plot_file[0]
-        if self.plot_file:
-            self.plot_file += '.html'
-
-        if self.plot_file:
-            copyfile(self.plot_path, self.plot_file)
-            self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
