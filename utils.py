@@ -6,13 +6,19 @@ def getFields(lay, exp):
     '''
 
     vl = lay.currentLayer()
-    field = exp.currentText()
+    if exp:
+        field = exp.currentText()
+    else:
+        field = None
 
     data = []
 
     # get the data from the layer
     # no expression
-    if not exp.currentField()[1]:
+    if not field:
+        for i in vl.getFeatures():
+            data.append(i.id())
+    elif not exp.currentField()[1]:
         for i in vl.getFeatures():
             data.append(i[field])
     # if expression is selected

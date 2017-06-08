@@ -22,6 +22,7 @@
 """
 
 import os
+import json
 
 from PyQt5 import uic
 from PyQt5 import QtWidgets
@@ -31,6 +32,7 @@ from PyQt5.QtCore import QUrl, QFileInfo
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
+from qgis.core import QgsNetworkAccessManager
 import plotly
 import plotly.graph_objs as go
 
@@ -46,7 +48,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 
 class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
-    def __init__(self, parent=None):
+    def __init__(self, module, parent=None):
         """Constructor."""
         super(DataPlotlyDialog, self).__init__(parent)
         # Set up the user interface from Designer.
@@ -55,6 +57,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+        self.module = module
 
         # add bar to the main (upper part) window
         self.bar = QgsMessageBar()
@@ -141,11 +144,32 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.layoutw = QVBoxLayout()
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
+        self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
+        self.plot_view.statusBarMessage.connect(self.getJSmessage)
         plot_view_settings = self.plot_view.settings()
         plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
+
+    def getJSmessage(self,status):
+        '''
+        landing method for statusBarMessage signal coming from PLOT.js_callback
+        it decodes feature ids of clicked or selected plot elements, 
+        selects on map canvas and triggers a pan/zoom to them
+        '''
+        try:
+            ids = json.JSONDecoder().decode(status)
+        except:
+            ids = None
+        print (ids)
+        if ids:
+            self.layer_combo.currentLayer().selectByIds(ids)
+            if len(ids) > 1:
+                self.module.iface.actionZoomToSelected().trigger()
+            else:
+                self.module.iface.actionPanToSelected().trigger()
+        
 
     def refreshWidgets(self):
         '''
@@ -446,6 +470,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plotobject.buildProperties(
             x=getFields(self.layer_combo, self.x_combo),
             y=getFields(self.layer_combo, self.y_combo),
+            featureIds=getFields(self.layer_combo, None),
             hover_text=getFields(self.layer_combo, self.info_combo),
             x_name=self.x_combo.currentText(),
             y_name=self.y_combo.currentText(),
