@@ -313,7 +313,7 @@ plotly_div.on('plotly_selected', function(data){
 });
 </script>
         """ % div_elem
-        
+
 
     def buildFigure(self, *args, **kwargs):
         '''
@@ -332,7 +332,7 @@ plotly_div.on('plotly_selected', function(data){
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file
@@ -388,7 +388,7 @@ plotly_div.on('plotly_selected', function(data){
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False)
+        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False, show_link=False)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file
@@ -425,7 +425,7 @@ plotly_div.on('plotly_selected', function(data){
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file
