@@ -117,11 +117,15 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
 
+        # connect the signal of selection changed of the layer to the refreshing function
+        self.layer_combo.currentLayer().selectionChanged.connect(self.refreshSelected)
+        # conncet the function also when launching the plugin the first time
+        self.refreshSelected()
+
         self.draw_btn.clicked.connect(self.createPlot)
         self.addTrace_btn.clicked.connect(self.plotProperties)
         self.clear_btn.clicked.connect(self.removeTrace)
         self.remove_button.clicked.connect(self.removeTraceFromTable)
-        # self.browse_btn.clicked.connect(self.chooseDir)
         self.save_plot_btn.clicked.connect(self.savePlotAsImage)
         self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
         self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.png')))
@@ -152,24 +156,25 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
 
-    def getJSmessage(self,status):
+    def getJSmessage(self, status):
         '''
         landing method for statusBarMessage signal coming from PLOT.js_callback
-        it decodes feature ids of clicked or selected plot elements, 
+        it decodes feature ids of clicked or selected plot elements,
         selects on map canvas and triggers a pan/zoom to them
         '''
         try:
             ids = json.JSONDecoder().decode(status)
         except:
             ids = None
-        print (ids)
+        print('sono io', ids)
+        print(status)
         if ids:
             self.layer_combo.currentLayer().selectByIds(ids)
             if len(ids) > 1:
                 self.module.iface.actionZoomToSelected().trigger()
             else:
                 self.module.iface.actionPanToSelected().trigger()
-        
+
 
     def refreshWidgets(self):
         '''
@@ -229,6 +234,26 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.box_statistic_combo.clear()
         for k, v in self.statistic_type.items():
             self.box_statistic_combo.addItem(k, v)
+
+        # BoxPlot and ScatterPlot X axis type
+        self.x_axis_type = OrderedDict([
+            (self.tr('Linear'), 'linear'),
+            (self.tr('Logarithmic'), 'log'),
+            (self.tr('Categorized'), 'category'),
+        ])
+        self.x_axis_mode_combo.clear()
+        for k, v in self.x_axis_type.items():
+            self.x_axis_mode_combo.addItem(k, v)
+
+        # BoxPlot and ScatterPlot Y axis type
+        self.y_axis_type = OrderedDict([
+            (self.tr('Linear'), 'linear'),
+            (self.tr('Logarithmic'), 'log'),
+            (self.tr('Categorized'), 'category'),
+        ])
+        self.y_axis_mode_combo.clear()
+        for k, v in self.y_axis_type.items():
+            self.y_axis_mode_combo.addItem(k, v)
 
         # ScatterPlot marker types
         self.marker_types = OrderedDict([
@@ -385,6 +410,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.x_axis_title: ['scatter', 'bar', 'box', 'histogram'],
             self.y_axis_label: ['scatter', 'bar', 'box', 'histogram'],
             self.y_axis_title: ['scatter', 'bar', 'box', 'histogram'],
+            self.x_axis_mode_label: ['scatter', 'box'],
+            self.y_axis_mode_label: ['scatter', 'box'],
+            self.x_axis_mode_combo: ['scatter', 'box'],
+            self.y_axis_mode_combo: ['scatter', 'box'],
+            self.invert_x_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
+            self.invert_y_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
             self.orientation_label: ['bar', 'box', 'histogram'],
             self.orientation_combo: ['bar', 'box', 'histogram'],
             self.box_statistic_label: ['box'],
@@ -456,10 +487,29 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
 
+    def refreshSelected(self):
+        '''
+        refresh the checkbox of selected features if the layer has some selection
+        '''
+        if self.layer_combo.currentLayer().selectedFeatures():
+            self.selected_feature_check.setEnabled(True)
+        else:
+            self.selected_feature_check.setEnabled(False)
+
     def plotProperties(self):
         '''
         call the class and make the object to define the generic plot properties
         '''
+
+        # set the variable to invert the x and y axis order
+        self.x_invert = True
+        if self.invert_x_check.isChecked():
+            self.x_invert = "reversed"
+        print(self.x_invert)
+        self.y_invert = True
+        if self.invert_y_check.isChecked():
+            self.y_invert = "reversed"
+        print(self.y_invert)
 
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
@@ -468,10 +518,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # plot method to have a dictionary of the properties
         self.plotobject.buildProperties(
-            x=getFields(self.layer_combo, self.x_combo),
-            y=getFields(self.layer_combo, self.y_combo),
+            # x=getFields(self.layer_combo, self.x_combo),
+            x=self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            y=self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            # y=getFields(self.layer_combo, self.y_combo),
             featureIds=getFields(self.layer_combo, None),
-            hover_text=getFields(self.layer_combo, self.info_combo),
+            hover_text=self.layer_combo.currentLayer().getValues(self.info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             x_name=self.x_combo.currentText(),
             y_name=self.y_combo.currentText(),
             in_color=hex_to_rgb(self.in_color_combo),
@@ -501,7 +553,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             x_title=self.x_axis_title.text(),
             y_title=self.y_axis_title.text(),
             range_slider=dict(visible=self.range_slider_combo.isChecked(), borderwidth=1),
-            bar_mode=self.bar_modes[self.bar_mode_combo.currentText()]
+            bar_mode=self.bar_modes[self.bar_mode_combo.currentText()],
+            x_type=self.x_axis_type[self.x_axis_mode_combo.currentText()],
+            y_type=self.y_axis_type[self.y_axis_mode_combo.currentText()],
+            x_inv=self.x_invert,
+            y_inv=self.y_invert,
         )
 
         # call the method and build the final layout

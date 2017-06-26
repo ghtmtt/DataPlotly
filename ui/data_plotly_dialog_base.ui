@@ -138,8 +138,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>750</width>
-                <height>425</height>
+                <width>819</width>
+                <height>453</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
@@ -345,7 +345,7 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="0">
+                  <item row="2" column="0">
                    <widget class="QLabel" name="x_label">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -370,14 +370,14 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="0">
+                  <item row="3" column="0">
                    <widget class="QLabel" name="y_label">
                     <property name="text">
                      <string>Y Field</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1">
+                  <item row="2" column="1">
                    <widget class="QgsFieldExpressionWidget" name="x_combo">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -387,13 +387,23 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="1">
+                  <item row="3" column="1">
                    <widget class="QgsFieldExpressionWidget" name="y_combo">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QCheckBox" name="selected_feature_check">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Use only selected features</string>
                     </property>
                    </widget>
                   </item>
@@ -424,8 +434,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>750</width>
-                <height>413</height>
+                <width>819</width>
+                <height>491</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
@@ -435,14 +445,14 @@
                <item row="3" column="1" colspan="2">
                 <widget class="QLineEdit" name="x_axis_title"/>
                </item>
-               <item row="8" column="0">
+               <item row="10" column="0">
                 <widget class="QLabel" name="bar_mode_lab">
                  <property name="text">
                   <string>Bar Mode</string>
                  </property>
                 </widget>
                </item>
-               <item row="8" column="1" colspan="2">
+               <item row="10" column="1" colspan="2">
                 <widget class="QComboBox" name="bar_mode_combo"/>
                </item>
                <item row="0" column="0">
@@ -458,7 +468,7 @@
                <item row="4" column="1" rowspan="2" colspan="2">
                 <widget class="QLineEdit" name="y_axis_title"/>
                </item>
-               <item row="12" column="0" colspan="3">
+               <item row="14" column="0" colspan="3">
                 <spacer name="verticalSpacer_2">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
@@ -471,24 +481,24 @@
                  </property>
                 </spacer>
                </item>
-               <item row="7" column="0">
+               <item row="9" column="0">
                 <widget class="QLabel" name="orientation_label">
                  <property name="text">
                   <string>Bar orientation</string>
                  </property>
                 </widget>
                </item>
-               <item row="7" column="1" colspan="2">
+               <item row="9" column="1" colspan="2">
                 <widget class="QComboBox" name="orientation_combo"/>
                </item>
-               <item row="10" column="0">
+               <item row="12" column="0">
                 <widget class="QLabel" name="box_statistic_label">
                  <property name="text">
                   <string>Show Statistics</string>
                  </property>
                 </widget>
                </item>
-               <item row="10" column="1" colspan="2">
+               <item row="12" column="1" colspan="2">
                 <widget class="QComboBox" name="box_statistic_combo"/>
                </item>
                <item row="1" column="0">
@@ -512,14 +522,14 @@
                  </property>
                 </widget>
                </item>
-               <item row="11" column="0">
+               <item row="13" column="0">
                 <widget class="QLabel" name="outliers_label">
                  <property name="text">
                   <string>Outliers</string>
                  </property>
                 </widget>
                </item>
-               <item row="11" column="1" colspan="2">
+               <item row="13" column="1" colspan="2">
                 <widget class="QComboBox" name="outliers_combo"/>
                </item>
                <item row="2" column="0">
@@ -539,14 +549,14 @@
                  </property>
                 </widget>
                </item>
-               <item row="9" column="0">
+               <item row="11" column="0">
                 <widget class="QLabel" name="hist_norm_label">
                  <property name="text">
                   <string>Normalization</string>
                  </property>
                 </widget>
                </item>
-               <item row="9" column="1" colspan="2">
+               <item row="11" column="1" colspan="2">
                 <widget class="QComboBox" name="hist_norm_combo"/>
                </item>
                <item row="6" column="0">
@@ -558,6 +568,40 @@
                </item>
                <item row="6" column="1" colspan="2">
                 <widget class="QgsFieldExpressionWidget" name="info_combo"/>
+               </item>
+               <item row="7" column="0">
+                <widget class="QCheckBox" name="invert_x_check">
+                 <property name="text">
+                  <string>Invert X Axis</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="0">
+                <widget class="QCheckBox" name="invert_y_check">
+                 <property name="text">
+                  <string>Invert Y Axis</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="1">
+                <widget class="QLabel" name="x_axis_mode_label">
+                 <property name="text">
+                  <string>X Axis Mode</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="2">
+                <widget class="QComboBox" name="x_axis_mode_combo"/>
+               </item>
+               <item row="8" column="1">
+                <widget class="QLabel" name="y_axis_mode_label">
+                 <property name="text">
+                  <string>Y Axis Mode</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="2">
+                <widget class="QComboBox" name="y_axis_mode_combo"/>
                </item>
               </layout>
              </widget>
@@ -743,8 +787,8 @@
      <y>145</y>
     </hint>
     <hint type="destinationlabel">
-     <x>222</x>
-     <y>167</y>
+     <x>327</x>
+     <y>224</y>
     </hint>
    </hints>
   </connection>
@@ -755,12 +799,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>218</y>
+     <x>329</x>
+     <y>264</y>
     </hint>
     <hint type="destinationlabel">
-     <x>250</x>
-     <y>251</y>
+     <x>418</x>
+     <y>252</y>
     </hint>
    </hints>
   </connection>
@@ -775,8 +819,8 @@
      <y>139</y>
     </hint>
     <hint type="destinationlabel">
-     <x>260</x>
-     <y>209</y>
+     <x>365</x>
+     <y>264</y>
     </hint>
    </hints>
   </connection>
@@ -787,12 +831,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>218</y>
+     <x>329</x>
+     <y>264</y>
     </hint>
     <hint type="destinationlabel">
-     <x>239</x>
-     <y>172</y>
+     <x>407</x>
+     <y>186</y>
     </hint>
    </hints>
   </connection>
@@ -803,12 +847,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>178</y>
+     <x>329</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
-     <x>250</x>
-     <y>218</y>
+     <x>418</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -819,12 +863,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>424</x>
-     <y>487</y>
+     <x>822</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
-     <x>370</x>
-     <y>485</y>
+     <x>484</x>
+     <y>514</y>
     </hint>
    </hints>
   </connection>
@@ -835,12 +879,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>370</x>
-     <y>485</y>
+     <x>484</x>
+     <y>514</y>
     </hint>
     <hint type="destinationlabel">
-     <x>424</x>
-     <y>487</y>
+     <x>822</x>
+     <y>516</y>
     </hint>
    </hints>
   </connection>
@@ -855,8 +899,8 @@
      <y>139</y>
     </hint>
     <hint type="destinationlabel">
-     <x>295</x>
-     <y>274</y>
+     <x>463</x>
+     <y>292</y>
     </hint>
    </hints>
   </connection>
