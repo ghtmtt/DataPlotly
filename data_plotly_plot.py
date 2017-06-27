@@ -73,9 +73,11 @@ class Plot(object):
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 mode=self.plot_properties['marker'],
-                #name=self.plot_properties['y_name'],
-                name=self.plot_properties['featureIds'],
-                # hoverinfo = "text",
+                name=self.plot_properties['y_name'],
+                # name=self.plot_properties['featureIds'],
+                # hoverinfo='none',
+                text=self.plot_properties['additional_hover_text'],
+                hoverinfo=self.plot_properties['hover_text'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
                     size=self.plot_properties['marker_size'],
@@ -246,12 +248,20 @@ class Plot(object):
             showlegend=self.plot_layout['legend'],
             title=self.plot_layout['title'],
             xaxis=dict(
-                title=self.plot_layout['x_title']
+                title=self.plot_layout['x_title'],
+                autorange=self.plot_layout['x_inv']
             ),
             yaxis=dict(
-                title=self.plot_layout['y_title']
+                title=self.plot_layout['y_title'],
+                autorange=self.plot_layout['y_inv']
             )
         )
+
+        # update the x and y axis and add the linear and log only if the data are numeric
+        if isinstance(self.plot_properties['x'][0], (int, float)):
+            self.layout['xaxis'].update(type=self.plot_layout['x_type'])
+        if isinstance(self.plot_properties['y'][0], (int, float)):
+            self.layout['yaxis'].update(type=self.plot_layout['y_type'])
 
         # update layout properties depending on the plot type
         if plot_type == 'scatter':
@@ -289,7 +299,7 @@ class Plot(object):
         '''
         mark_start = 'Plotly.newPlot("'
         mark_end = '", [{"type":'
-        idx_start = code_string.find(mark_start) + len (mark_start)
+        idx_start = code_string.find(mark_start) + len(mark_start)
         idx_end = code_string.find(mark_end)
         div_elem = code_string[idx_start:idx_end]
         return """
@@ -378,7 +388,7 @@ plotly_div.on('plotly_selected', function(data){
         if plot_type == 'bar' or 'histogram':
             del self.layout
             self.layout = go.Layout(
-                barmode = self.plot_layout['bar_mode']
+                barmode=self.plot_layout['bar_mode']
             )
             figures = go.Figure(data=ptrace, layout=self.layout)
 

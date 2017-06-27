@@ -1,5 +1,6 @@
 from qgis.core import *
 
+
 def getFields(lay, exp):
     '''
     from a QgsFieldExpressionWidget to a list of data
@@ -29,9 +30,7 @@ def getFields(lay, exp):
         # for i in vl.getFeatures():
             # data.append(expr.evaluate(i, vl.pendingFields()))
 
-
     return data
-
 
 
 def hex_to_rgb(value):

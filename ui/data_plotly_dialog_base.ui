@@ -435,24 +435,47 @@
                 <x>0</x>
                 <y>0</y>
                 <width>819</width>
-                <height>491</height>
+                <height>530</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
+               <item row="9" column="2">
+                <widget class="QComboBox" name="y_axis_mode_combo"/>
+               </item>
+               <item row="14" column="0">
+                <widget class="QLabel" name="outliers_label">
+                 <property name="text">
+                  <string>Outliers</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="0" colspan="3">
+                <spacer name="verticalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>255</width>
+                   <height>222</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
                <item row="1" column="1" colspan="2">
                 <widget class="QLineEdit" name="plot_title_line"/>
                </item>
                <item row="3" column="1" colspan="2">
                 <widget class="QLineEdit" name="x_axis_title"/>
                </item>
-               <item row="10" column="0">
+               <item row="11" column="0">
                 <widget class="QLabel" name="bar_mode_lab">
                  <property name="text">
                   <string>Bar Mode</string>
                  </property>
                 </widget>
                </item>
-               <item row="10" column="1" colspan="2">
+               <item row="11" column="1" colspan="2">
                 <widget class="QComboBox" name="bar_mode_combo"/>
                </item>
                <item row="0" column="0">
@@ -468,37 +491,24 @@
                <item row="4" column="1" rowspan="2" colspan="2">
                 <widget class="QLineEdit" name="y_axis_title"/>
                </item>
-               <item row="14" column="0" colspan="3">
-                <spacer name="verticalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>255</width>
-                   <height>222</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="9" column="0">
+               <item row="10" column="0">
                 <widget class="QLabel" name="orientation_label">
                  <property name="text">
                   <string>Bar orientation</string>
                  </property>
                 </widget>
                </item>
-               <item row="9" column="1" colspan="2">
+               <item row="10" column="1" colspan="2">
                 <widget class="QComboBox" name="orientation_combo"/>
                </item>
-               <item row="12" column="0">
+               <item row="13" column="0">
                 <widget class="QLabel" name="box_statistic_label">
                  <property name="text">
                   <string>Show Statistics</string>
                  </property>
                 </widget>
                </item>
-               <item row="12" column="1" colspan="2">
+               <item row="13" column="1" colspan="2">
                 <widget class="QComboBox" name="box_statistic_combo"/>
                </item>
                <item row="1" column="0">
@@ -522,14 +532,7 @@
                  </property>
                 </widget>
                </item>
-               <item row="13" column="0">
-                <widget class="QLabel" name="outliers_label">
-                 <property name="text">
-                  <string>Outliers</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="13" column="1" colspan="2">
+               <item row="14" column="1" colspan="2">
                 <widget class="QComboBox" name="outliers_combo"/>
                </item>
                <item row="2" column="0">
@@ -549,14 +552,14 @@
                  </property>
                 </widget>
                </item>
-               <item row="11" column="0">
+               <item row="12" column="0">
                 <widget class="QLabel" name="hist_norm_label">
                  <property name="text">
                   <string>Normalization</string>
                  </property>
                 </widget>
                </item>
-               <item row="11" column="1" colspan="2">
+               <item row="12" column="1" colspan="2">
                 <widget class="QComboBox" name="hist_norm_combo"/>
                </item>
                <item row="6" column="0">
@@ -566,42 +569,49 @@
                  </property>
                 </widget>
                </item>
-               <item row="6" column="1" colspan="2">
-                <widget class="QgsFieldExpressionWidget" name="info_combo"/>
-               </item>
-               <item row="7" column="0">
+               <item row="8" column="0">
                 <widget class="QCheckBox" name="invert_x_check">
                  <property name="text">
                   <string>Invert X Axis</string>
                  </property>
                 </widget>
                </item>
-               <item row="8" column="0">
+               <item row="9" column="0">
                 <widget class="QCheckBox" name="invert_y_check">
                  <property name="text">
                   <string>Invert Y Axis</string>
                  </property>
                 </widget>
                </item>
-               <item row="7" column="1">
+               <item row="8" column="1">
                 <widget class="QLabel" name="x_axis_mode_label">
                  <property name="text">
                   <string>X Axis Mode</string>
                  </property>
                 </widget>
                </item>
-               <item row="7" column="2">
+               <item row="8" column="2">
                 <widget class="QComboBox" name="x_axis_mode_combo"/>
                </item>
-               <item row="8" column="1">
+               <item row="9" column="1">
                 <widget class="QLabel" name="y_axis_mode_label">
                  <property name="text">
                   <string>Y Axis Mode</string>
                  </property>
                 </widget>
                </item>
-               <item row="8" column="2">
-                <widget class="QComboBox" name="y_axis_mode_combo"/>
+               <item row="6" column="1" colspan="2">
+                <widget class="QComboBox" name="info_combo"/>
+               </item>
+               <item row="7" column="0">
+                <widget class="QLabel" name="additional_info_label">
+                 <property name="text">
+                  <string>Additional Hover Label</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="1" colspan="2">
+                <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
                </item>
               </layout>
              </widget>
@@ -891,16 +901,16 @@
   <connection>
    <sender>layer_combo</sender>
    <signal>layerChanged(QgsMapLayer*)</signal>
-   <receiver>info_combo</receiver>
+   <receiver>additional_info_combo</receiver>
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>273</x>
-     <y>139</y>
+     <x>473</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
-     <x>463</x>
-     <y>292</y>
+     <x>565</x>
+     <y>314</y>
     </hint>
    </hints>
   </connection>

@@ -117,11 +117,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
 
-        # connect the signal of selection changed of the layer to the refreshing function
-        self.layer_combo.currentLayer().selectionChanged.connect(self.refreshSelected)
-        # conncet the function also when launching the plugin the first time
-        self.refreshSelected()
-
         self.draw_btn.clicked.connect(self.createPlot)
         self.addTrace_btn.clicked.connect(self.plotProperties)
         self.clear_btn.clicked.connect(self.removeTrace)
@@ -149,31 +144,29 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
         self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
-        self.plot_view.statusBarMessage.connect(self.getJSmessage)
+        # self.plot_view.statusBarMessage.connect(self.getJSmessage)
         plot_view_settings = self.plot_view.settings()
         plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
 
-    def getJSmessage(self, status):
-        '''
-        landing method for statusBarMessage signal coming from PLOT.js_callback
-        it decodes feature ids of clicked or selected plot elements,
-        selects on map canvas and triggers a pan/zoom to them
-        '''
-        try:
-            ids = json.JSONDecoder().decode(status)
-        except:
-            ids = None
-        print('sono io', ids)
-        print(status)
-        if ids:
-            self.layer_combo.currentLayer().selectByIds(ids)
-            if len(ids) > 1:
-                self.module.iface.actionZoomToSelected().trigger()
-            else:
-                self.module.iface.actionPanToSelected().trigger()
+    # def getJSmessage(self, status):
+    #     '''
+    #     landing method for statusBarMessage signal coming from PLOT.js_callback
+    #     it decodes feature ids of clicked or selected plot elements,
+    #     selects on map canvas and triggers a pan/zoom to them
+    #     '''
+    #     try:
+    #         ids = json.JSONDecoder().decode(status)
+    #     except:
+    #         ids = None
+    #     if ids:
+    #         self.layer_combo.currentLayer().selectByIds(ids)
+    #         if len(ids) > 1:
+    #             self.module.iface.actionZoomToSelected().trigger()
+    #         else:
+    #             self.module.iface.actionPanToSelected().trigger()
 
 
     def refreshWidgets(self):
@@ -369,6 +362,17 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.x_label.setFont(ff)
             self.x_label.setFixedWidth(80)
 
+        # info combo for data hovering
+        self.info_hover = OrderedDict([
+            (self.tr('All Values'), 'all'),
+            (self.tr('X Values'), 'x'),
+            (self.tr('Y Values'), 'y'),
+            (self.tr('No Data'), 'none')
+        ])
+        self.info_combo.clear()
+        for k, v in self.info_hover.items():
+            self.info_combo.addItem(k, v)
+
         # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
             # plot properties
@@ -424,7 +428,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.outliers_combo: ['box'],
             self.range_slider_combo: ['scatter'],
             self.hist_norm_label: ['histogram'],
-            self.hist_norm_combo: ['histogram']
+            self.hist_norm_combo: ['histogram'],
+            self.additional_info_label: ['scatter'],
+            self.additional_info_combo: ['scatter'],
         }
 
         # enable the widget according to the plot type
@@ -487,15 +493,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
 
-    def refreshSelected(self):
-        '''
-        refresh the checkbox of selected features if the layer has some selection
-        '''
-        if self.layer_combo.currentLayer().selectedFeatures():
-            self.selected_feature_check.setEnabled(True)
-        else:
-            self.selected_feature_check.setEnabled(False)
-
     def plotProperties(self):
         '''
         call the class and make the object to define the generic plot properties
@@ -505,11 +502,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.x_invert = True
         if self.invert_x_check.isChecked():
             self.x_invert = "reversed"
-        print(self.x_invert)
         self.y_invert = True
         if self.invert_y_check.isChecked():
             self.y_invert = "reversed"
-        print(self.y_invert)
 
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
@@ -521,9 +516,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # x=getFields(self.layer_combo, self.x_combo),
             x=self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             y=self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
-            # y=getFields(self.layer_combo, self.y_combo),
-            featureIds=getFields(self.layer_combo, None),
-            hover_text=self.layer_combo.currentLayer().getValues(self.info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            # featureIds=getFields(self.layer_combo, None),
+            hover_text=self.info_hover[self.info_combo.currentText()],
+            additional_hover_text=self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             x_name=self.x_combo.currentText(),
             y_name=self.y_combo.currentText(),
             in_color=hex_to_rgb(self.in_color_combo),
@@ -540,6 +535,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             bar_name=self.bar_legend_title.text(),
             normalization=self.normalization[self.hist_norm_combo.currentText()]
         )
+
+        # a = getFields2(self.layer_combo, self.x_combo)
 
         # build the final trace that will be used
         self.plotobject.buildTrace(
@@ -562,7 +559,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # call the method and build the final layout
         self.plotobject.buildLayout(
-            plot_type= self.ptype
+            plot_type=self.ptype
         )
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
