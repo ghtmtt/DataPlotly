@@ -357,23 +357,10 @@ class Plot(object):
                     ticksuffix='%'
                 ),
             )
-#
-#
-# layout2 = go.Layout(
-#     title = 'pippo',
-#     ternary = dict(
-#         aaxis = dict(
-#         title='ciao'
-#         )
-#     )
-# )
-
-        # elif plot_type == 'scatter3d':
-            # self.layout['zaxis'] =
 
         return self.layout
 
-    def js_callback(self,code_string):
+    def js_callback(self, code_string):
         '''
         returns a script section containing on plot user events and
         callback to python on status change event
