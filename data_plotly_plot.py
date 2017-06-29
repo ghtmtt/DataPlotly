@@ -166,7 +166,8 @@ class Plot(object):
 
             self.trace = [go.Histogram2d(
                 x=self.plot_properties['x'],
-                y=self.plot_properties['y']
+                y=self.plot_properties['y'],
+                colorscale=self.plot_properties['color_scale'],
             )]
 
         elif plot_type == 'polar':
@@ -191,6 +192,47 @@ class Plot(object):
                     dash=self.plot_properties['line_dash']
                 ),
                 opacity=self.plot_properties['opacity'],
+            )]
+
+        elif plot_type == 'ternary':
+
+            # prepare the hover text to display if the additional combobox is empty or not
+            # this setting is necessary to overwrite the standard hovering labels
+            if self.plot_properties['additional_hover_text'] == []:
+                text = [self.plot_properties['x_name'] + ': {}'.format(self.plot_properties['x'][k]) + '<br>{}: {}'.format(self.plot_properties['y_name'], self.plot_properties['y'][k]) + '<br>{}: {}'.format(self.plot_properties['z_name'], self.plot_properties['z'][k]) for k in range(len(self.plot_properties['x']))]
+            else:
+                text = [self.plot_properties['x_name'] + ': {}'.format(self.plot_properties['x'][k]) + '<br>{}: {}'.format(self.plot_properties['y_name'], self.plot_properties['y'][k]) + '<br>{}: {}'.format(self.plot_properties['z_name'], self.plot_properties['z'][k]) + '<br>{}'.format(self.plot_properties['additional_hover_text'][k]) for k in range(len(self.plot_properties['x']))]
+
+            self.trace = [go.Scatterternary(
+                a=self.plot_properties['x'],
+                b=self.plot_properties['y'],
+                c=self.plot_properties['z'],
+                name=self.plot_properties['x_name'] + ' + ' + self.plot_properties['y_name'] + ' + ' + self.plot_properties['z_name'],
+                hoverinfo='text',
+                text=text,
+                mode='markers',
+                marker=dict(
+                    color=self.plot_properties['in_color'],
+                    size=self.plot_properties['marker_size'],
+                    symbol=self.plot_properties['marker_symbol'],
+                    line=dict(
+                        color=self.plot_properties['out_color'],
+                        width=self.plot_properties['marker_width']
+                    )
+                ),
+                opacity=self.plot_properties['opacity']
+            )]
+
+        elif plot_type == 'contour':
+
+            self.trace = [go.Contour(
+                z=[self.plot_properties['x'], self.plot_properties['y']],
+                contours=dict(
+                    coloring=self.plot_properties['cont_type'],
+                    showlines=self.plot_properties['show_lines']
+                ),
+                colorscale=self.plot_properties['color_scale'],
+                opacity=self.plot_properties['opacity']
             )]
 
         return self.trace
@@ -286,6 +328,45 @@ class Plot(object):
             self.layout['yaxis'].update(showline=False),
             self.layout['yaxis'].update(autotick=False),
             self.layout['yaxis'].update(showticklabels=False)
+
+        elif plot_type == 'ternary':
+            self.layout['xaxis'].update(title=''),
+            self.layout['xaxis'].update(showgrid=False),
+            self.layout['xaxis'].update(zeroline=False),
+            self.layout['xaxis'].update(showline=False),
+            self.layout['xaxis'].update(autotick=False),
+            self.layout['xaxis'].update(showticklabels=False),
+            self.layout['yaxis'].update(title=''),
+            self.layout['yaxis'].update(showgrid=False),
+            self.layout['yaxis'].update(zeroline=False),
+            self.layout['yaxis'].update(showline=False),
+            self.layout['yaxis'].update(autotick=False),
+            self.layout['yaxis'].update(showticklabels=False)
+            self.layout['ternary'] = dict(
+                sum=100,
+                aaxis=dict(
+                    title=self.plot_layout['x_title'],
+                    ticksuffix='%',
+                ),
+                baxis=dict(
+                    title=self.plot_layout['y_title'],
+                    ticksuffix='%'
+                ),
+                caxis=dict(
+                    title=self.plot_layout['z_title'],
+                    ticksuffix='%'
+                ),
+            )
+#
+#
+# layout2 = go.Layout(
+#     title = 'pippo',
+#     ternary = dict(
+#         aaxis = dict(
+#         title='ciao'
+#         )
+#     )
+# )
 
         # elif plot_type == 'scatter3d':
             # self.layout['zaxis'] =
