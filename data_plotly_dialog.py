@@ -562,14 +562,16 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         set the legend from the fields combo boxes
         '''
         self.legend_title_string = ''
-        self.legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
-        self.legend_title.setText(self.legend_title_string)
 
-        if self.ptype == 'box' or 'bar':
+        if self.ptype == 'box' or self.ptype == 'bar':
             self.legend_title.setText(self.y_combo.currentText())
 
-        if self.ptype == 'histogram':
+        elif self.ptype == 'histogram':
             self.legend_title.setText(self.x_combo.currentText())
+
+        else:
+            self.legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
+            self.legend_title.setText(self.legend_title_string)
 
     def plotProperties(self):
         '''
