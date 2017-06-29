@@ -73,7 +73,7 @@ class Plot(object):
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 mode=self.plot_properties['marker'],
-                name=self.plot_properties['y_name'],
+                name=self.plot_properties['name'],
                 # name=self.plot_properties['featureIds'],
                 # hoverinfo='none',
                 text=self.plot_properties['additional_hover_text'],
@@ -108,7 +108,7 @@ class Plot(object):
             self.trace = [go.Box(
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
-                name=self.plot_properties['y_name'],
+                name=self.plot_properties['name'],
                 boxmean=self.plot_properties['box_stat'],
                 orientation=self.plot_properties['box_orientation'],
                 boxpoints=self.plot_properties['box_outliers'],
@@ -124,8 +124,8 @@ class Plot(object):
 
             self.trace = [go.Bar(
                 x=self.plot_properties['x'],
-                y=self.plot_properties['y'],
-                name=self.plot_properties['bar_name'],
+                # y=self.plot_properties['y'],
+                name=self.plot_properties['name'],
                 orientation=self.plot_properties['box_orientation'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
@@ -142,7 +142,7 @@ class Plot(object):
             self.trace = [go.Histogram(
                 x=self.plot_properties['x'],
                 y=self.plot_properties['x'],
-                name=self.plot_properties['x_name'],
+                name=self.plot_properties['name'],
                 orientation=self.plot_properties['box_orientation'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
@@ -302,8 +302,11 @@ class Plot(object):
         # update the x and y axis and add the linear and log only if the data are numeric
         if isinstance(self.plot_properties['x'][0], (int, float)):
             self.layout['xaxis'].update(type=self.plot_layout['x_type'])
-        if isinstance(self.plot_properties['y'][0], (int, float)):
-            self.layout['yaxis'].update(type=self.plot_layout['y_type'])
+        try:
+            if isinstance(self.plot_properties['y'][0], (int, float)):
+                self.layout['yaxis'].update(type=self.plot_layout['y_type'])
+        except:
+            pass
 
         # update layout properties depending on the plot type
         if plot_type == 'scatter':

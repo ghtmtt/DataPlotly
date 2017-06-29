@@ -118,9 +118,13 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
 
-        # fill filed combo box when launching the UI
+        # fill combo boxes when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
+
+        # connect the combo boxes to the setLegend function
+        self.x_combo.fieldChanged.connect(self.setLegend)
+        self.y_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.createPlot)
         self.addTrace_btn.clicked.connect(self.plotProperties)
@@ -452,8 +456,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
-            self.bar_legend_label: ['bar'],
-            self.bar_legend_title: ['bar'],
+            self.legend_label: ['all'],
+            self.legend_title: ['all'],
             self.point_lab: ['scatter', 'ternary'],
             self.point_combo: ['scatter', 'ternary'],
             self.line_lab: ['scatter'],
@@ -470,8 +474,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.plot_title_line: ['all'],
             self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', 'ternary'],
             self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', 'ternary'],
-            self.y_axis_label: ['scatter', 'bar', 'box', 'histogram', 'ternary'],
-            self.y_axis_title: ['scatter', 'bar', 'box', 'histogram', 'ternary'],
+            self.y_axis_label: ['scatter', 'box', 'histogram', 'ternary'],
+            self.y_axis_title: ['scatter', 'box', 'histogram', 'ternary'],
             self.z_axis_label: ['ternary'],
             self.z_axis_title: ['ternary'],
             self.x_axis_mode_label: ['scatter', 'box'],
@@ -553,6 +557,20 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
 
+    def setLegend(self):
+        '''
+        set the legend from the fields combo boxes
+        '''
+        self.legend_title_string = ''
+        self.legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
+        self.legend_title.setText(self.legend_title_string)
+
+        if self.ptype == 'box' or 'bar':
+            self.legend_title.setText(self.y_combo.currentText())
+
+        if self.ptype == 'histogram':
+            self.legend_title.setText(self.x_combo.currentText())
+
     def plotProperties(self):
         '''
         call the class and make the object to define the generic plot properties
@@ -594,7 +612,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             opacity=(100 - self.alpha_slid.value()) / 100.0,
             box_stat=self.statistic_type[self.box_statistic_combo.currentText()],
             box_outliers=self.outliers_dict[self.outliers_combo.currentText()],
-            bar_name=self.bar_legend_title.text(),
+            name=self.legend_title.text(),
             normalization=self.normalization[self.hist_norm_combo.currentText()],
             cont_type=self.contour_type[self.contour_type_combo.currentText()],
             color_scale=self.col_scale[self.color_scale_combo.currentText()],

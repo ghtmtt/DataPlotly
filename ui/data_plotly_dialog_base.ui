@@ -479,7 +479,7 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>819</width>
+                <width>362</width>
                 <height>563</height>
                </rect>
               </property>
@@ -588,14 +588,14 @@
                 <widget class="QComboBox" name="outliers_combo"/>
                </item>
                <item row="2" column="0">
-                <widget class="QLabel" name="bar_legend_label">
+                <widget class="QLabel" name="legend_label">
                  <property name="text">
-                  <string>Field Name</string>
+                  <string>Legend Title</string>
                  </property>
                 </widget>
                </item>
                <item row="2" column="1" colspan="2">
-                <widget class="QLineEdit" name="bar_legend_title"/>
+                <widget class="QLineEdit" name="legend_title"/>
                </item>
                <item row="0" column="2">
                 <widget class="QCheckBox" name="range_slider_combo">
@@ -886,22 +886,6 @@
     <hint type="destinationlabel">
      <x>365</x>
      <y>264</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>y_combo</sender>
-   <signal>fieldChanged(QString)</signal>
-   <receiver>bar_legend_title</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>329</x>
-     <y>264</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>374</x>
-     <y>186</y>
     </hint>
    </hints>
   </connection>
