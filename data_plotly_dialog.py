@@ -109,6 +109,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.refreshWidgets()
         self.refreshWidgets2()
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
+        self.plot_combo.currentIndexChanged.connect(self.helpPage)
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
         self.marker_type_combo.currentIndexChanged.connect(self.refreshWidgets3)
 
@@ -135,13 +136,13 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.idx = 1
 
         # load the help hatml page into the help widget
-        layout = QVBoxLayout()
-        self.help_widget.setLayout(layout)
+        self.layouth = QVBoxLayout()
+        self.help_widget.setLayout(self.layouth)
         # temporary url to repository
-        help_url = QUrl('http://dataplotly.readthedocs.io/en/latest/index.html')
-        help_view = QWebView()
-        help_view.load(help_url)
-        layout.addWidget(help_view)
+        help_url = QUrl.fromLocalFile(os.path.join(os.path.dirname(__file__), 'help/build/html/index.html'))
+        self.help_view = QWebView()
+        self.help_view.load(help_url)
+        self.layouth.addWidget(self.help_view)
 
         # load the webview of the plot a the first running of the plugin
         self.layoutw = QVBoxLayout()
@@ -154,6 +155,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
+
+        # get the plot type from the combobox
+        self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
     # def getJSmessage(self, status):
     #     '''
@@ -171,6 +175,21 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
     #             self.module.iface.actionZoomToSelected().trigger()
     #         else:
     #             self.module.iface.actionPanToSelected().trigger()
+
+    def helpPage(self):
+        '''
+        change the page of the manual according to the plot type selected
+        '''
+
+        self.help_view.load(QUrl(''))
+        self.layouth.addWidget(self.help_view)
+        help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/{}.html'.format(self.ptype))
+        # check if the file exists, else open the default home page
+        if not os.path.exists(help_link):
+            help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/index.html')
+
+        help_url = QUrl.fromLocalFile(help_link)
+        self.help_view.load(help_url)
 
 
     def refreshWidgets(self):
@@ -621,7 +640,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # just add 1 to the index
         self.idx += 1
 
-        self.bar.pushMessage(self.tr("Plot added to the basket"), level=QgsMessageBar.INFO, duration=2)
+        self.bar.pushMessage(self.tr("Plot added to the basket"), level=QgsMessageBar.INFO, duration=1)
 
     def addTraceToTable(self):
         '''
@@ -659,7 +678,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
             # refresh the plot view by removing the selected plot
             self.createPlot()
-            self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=2)
+            self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=1)
 
     def createPlot(self):
         '''
@@ -668,7 +687,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         if not self.plot_traces:
             self.bar.pushMessage(self.tr("Basket is empty, add some plot!"),
-                                 level=QgsMessageBar.CRITICAL, duration=3)
+                                 level=QgsMessageBar.CRITICAL, duration=2)
             return
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':

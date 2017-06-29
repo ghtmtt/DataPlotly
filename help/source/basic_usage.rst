@@ -32,4 +32,4 @@ To add other plot just select other fields of the same layer or of a different
 layer, customize the plot settings (e.g. changing the color, opacity, etc.) and
 add the plot to the basket.
 
-Mre instructions are coming soon.
+More instructions are coming soon.

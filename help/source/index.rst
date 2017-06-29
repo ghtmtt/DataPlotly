@@ -11,15 +11,19 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   intro.rst
    installation.rst
    basic_usage.rst
-   scatterplot.rst
-   boxplot.rst
-   barplot.rst
+   scatter.rst
+   box.rst
+   bar.rst
    histogram.rst
-   pieplot.rst
+   pie.rst
    2dhistogram.rst
-   polarplot.rst
+   polar.rst
+   ternary.rst
+   contour.rst
+   more_plots.rst
 
 Indices and tables
 ==================
