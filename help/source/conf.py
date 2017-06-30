@@ -102,6 +102,14 @@ html_theme_options = {
     'display_version': False
 }
 
+html_context = {
+    # Enable the "Edit in GitHub link within the header of each page.
+    'display_github': True,
+    'github_user': 'ghtmtt',
+    'github_repo': 'DataPlotly',
+    'github_version': 'master/help/source/'
+}
+
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
 
