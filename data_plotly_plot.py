@@ -122,9 +122,12 @@ class Plot(object):
 
         elif plot_type == 'bar':
 
+            if self.plot_properties['box_orientation'] == 'h':
+                self.plot_properties['x'], self.plot_properties['y'] = self.plot_properties['y'], self.plot_properties['x']
+
             self.trace = [go.Bar(
                 x=self.plot_properties['x'],
-                # y=self.plot_properties['y'],
+                y=self.plot_properties['y'],
                 name=self.plot_properties['name'],
                 orientation=self.plot_properties['box_orientation'],
                 marker=dict(
