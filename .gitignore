@@ -1,6 +1,2 @@
 *.pyc
-<<<<<<< HEAD
-help/build/*
-=======
->>>>>>> upstream/master
 .idea/*
