@@ -74,7 +74,7 @@ class Plot(object):
                 y=self.plot_properties['y'],
                 mode=self.plot_properties['marker'],
                 name=self.plot_properties['name'],
-                # name=self.plot_properties['featureIds'],
+                ids=self.plot_properties['featureIds'],
                 # hoverinfo='none',
                 text=self.plot_properties['additional_hover_text'],
                 hoverinfo=self.plot_properties['hover_text'],
@@ -167,6 +167,7 @@ class Plot(object):
             self.trace = [go.Histogram2d(
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
+                ids=self.plot_properties['featureIds'],
                 colorscale=self.plot_properties['color_scale'],
             )]
 
@@ -175,6 +176,7 @@ class Plot(object):
             self.trace = [go.Scatter(
                 r=self.plot_properties['x'],
                 t=self.plot_properties['y'],
+                ids=self.plot_properties['featureIds'],
                 mode=self.plot_properties['marker'],
                 name=self.plot_properties['y_name'],
                 marker=dict(
@@ -379,15 +381,17 @@ var plotly_div = document.getElementById('%s')
 var plotly_data = plotly_div.data
 console.log(plotly_data)
 plotly_div.on('plotly_click', function(data){
+    console.log("CLICK")
     console.log(data)
-    featureId = plotly_data[0].name[data.points[0].pointNumber]
+    featureId = plotly_data[0].ids[data.points[0].pointNumber]
     window.status = JSON.stringify([featureId]);
 });
 plotly_div.on('plotly_selected', function(data){
+    console.log("SELECT")
     console.log(data)
     featureIds = []
     data.points.forEach(function(pt) {
-        featureIds.push(plotly_data[0].name[pt.pointNumber])
+        featureIds.push(parseInt(pt.id))
     });
     console.log(featureIds)
     window.status = JSON.stringify(featureIds);
