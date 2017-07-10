@@ -75,16 +75,20 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.png')), self.tr('Pie Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.png')), self.tr('2D Histogram')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.png')), self.tr('Polar Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterternary.png')), self.tr('Ternary Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/contour.png')), self.tr('Contour Plot')),
         ])
 
         self.plot_types2 = OrderedDict([
-            ('Scatter Plot', 'scatter'),
-            ('Box Plot', 'box'),
-            ('Bar Plot', 'bar'),
-            ('Histogram', 'histogram'),
-            ('Pie Plot', 'pie'),
-            ('2D Histogram', '2dhistogram'),
-            ('Polar Plot', 'polar'),
+            (self.tr('Scatter Plot'), 'scatter'),
+            (self.tr('Box Plot'), 'box'),
+            (self.tr('Bar Plot'), 'bar'),
+            (self.tr('Histogram'), 'histogram'),
+            (self.tr('Pie Plot'), 'pie'),
+            (self.tr('2D Histogram'), '2dhistogram'),
+            (self.tr('Polar Plot'), 'polar'),
+            (self.tr('Ternary Plot'), 'ternary'),
+            (self.tr('Contour Plot'), 'contour'),
         ])
 
         self.plot_combo.clear()
@@ -105,6 +109,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.refreshWidgets()
         self.refreshWidgets2()
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
+        self.plot_combo.currentIndexChanged.connect(self.helpPage)
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
         self.marker_type_combo.currentIndexChanged.connect(self.refreshWidgets3)
 
@@ -113,15 +118,18 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
 
-        # fill filed combo box when launching the UI
+        # fill combo boxes when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
+
+        # connect the combo boxes to the setLegend function
+        self.x_combo.fieldChanged.connect(self.setLegend)
+        self.y_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.createPlot)
         self.addTrace_btn.clicked.connect(self.plotProperties)
         self.clear_btn.clicked.connect(self.removeTrace)
         self.remove_button.clicked.connect(self.removeTraceFromTable)
-        # self.browse_btn.clicked.connect(self.chooseDir)
         self.save_plot_btn.clicked.connect(self.savePlotAsImage)
         self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
         self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.png')))
@@ -132,44 +140,61 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.idx = 1
 
         # load the help hatml page into the help widget
-        layout = QVBoxLayout()
-        self.help_widget.setLayout(layout)
+        self.layouth = QVBoxLayout()
+        self.help_widget.setLayout(self.layouth)
         # temporary url to repository
-        help_url = QUrl('http://dataplotly.readthedocs.io/en/latest/index.html')
-        help_view = QWebView()
-        help_view.load(help_url)
-        layout.addWidget(help_view)
+        help_url = QUrl.fromLocalFile(os.path.join(os.path.dirname(__file__), 'help/build/html/index.html'))
+        self.help_view = QWebView()
+        self.help_view.load(help_url)
+        self.layouth.addWidget(self.help_view)
 
         # load the webview of the plot a the first running of the plugin
         self.layoutw = QVBoxLayout()
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
         self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
-        self.plot_view.statusBarMessage.connect(self.getJSmessage)
+        # self.plot_view.statusBarMessage.connect(self.getJSmessage)
         plot_view_settings = self.plot_view.settings()
         plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
 
-    def getJSmessage(self,status):
+        # get the plot type from the combobox
+        self.ptype = self.plot_types2[self.plot_combo.currentText()]
+
+    # def getJSmessage(self, status):
+    #     '''
+    #     landing method for statusBarMessage signal coming from PLOT.js_callback
+    #     it decodes feature ids of clicked or selected plot elements,
+    #     selects on map canvas and triggers a pan/zoom to them
+    #     '''
+    #     try:
+    #         ids = json.JSONDecoder().decode(status)
+    #     except:
+    #         ids = None
+    #     if ids:
+    #         self.layer_combo.currentLayer().selectByIds(ids)
+    #         if len(ids) > 1:
+    #             self.module.iface.actionZoomToSelected().trigger()
+    #         else:
+    #             self.module.iface.actionPanToSelected().trigger()
+
+    def helpPage(self):
         '''
-        landing method for statusBarMessage signal coming from PLOT.js_callback
-        it decodes feature ids of clicked or selected plot elements, 
-        selects on map canvas and triggers a pan/zoom to them
+        change the page of the manual according to the plot type selected
         '''
-        try:
-            ids = json.JSONDecoder().decode(status)
-        except:
-            ids = None
-        print (ids)
-        if ids:
-            self.layer_combo.currentLayer().selectByIds(ids)
-            if len(ids) > 1:
-                self.module.iface.actionZoomToSelected().trigger()
-            else:
-                self.module.iface.actionPanToSelected().trigger()
-        
+
+        self.help_view.load(QUrl(''))
+        self.layouth.addWidget(self.help_view)
+        help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/{}.html'.format(self.ptype))
+        # check if the file exists, else open the default home page
+        if not os.path.exists(help_link):
+            help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/index.html')
+
+        help_url = QUrl.fromLocalFile(help_link)
+        self.help_view.load(help_url)
+
 
     def refreshWidgets(self):
         '''
@@ -230,6 +255,26 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for k, v in self.statistic_type.items():
             self.box_statistic_combo.addItem(k, v)
 
+        # BoxPlot and ScatterPlot X axis type
+        self.x_axis_type = OrderedDict([
+            (self.tr('Linear'), 'linear'),
+            (self.tr('Logarithmic'), 'log'),
+            (self.tr('Categorized'), 'category'),
+        ])
+        self.x_axis_mode_combo.clear()
+        for k, v in self.x_axis_type.items():
+            self.x_axis_mode_combo.addItem(k, v)
+
+        # BoxPlot and ScatterPlot Y axis type
+        self.y_axis_type = OrderedDict([
+            (self.tr('Linear'), 'linear'),
+            (self.tr('Logarithmic'), 'log'),
+            (self.tr('Categorized'), 'category'),
+        ])
+        self.y_axis_mode_combo.clear()
+        for k, v in self.y_axis_type.items():
+            self.y_axis_mode_combo.addItem(k, v)
+
         # ScatterPlot marker types
         self.marker_types = OrderedDict([
             (self.tr('Points'), 'markers'),
@@ -289,7 +334,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for k, v in self.line_types.items():
             self.line_combo.addItem(k, v)
 
-
         # BarPlot bar mode
         self.bar_modes = OrderedDict([
             (self.tr('Grouped'), 'group'),
@@ -312,14 +356,43 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         for k, v in self.normalization.items():
             self.hist_norm_combo.addItem(k, v)
 
+        # Contour Plot rendering type
+        self.contour_type = OrderedDict([
+            (self.tr('Fill'), 'fill'),
+            (self.tr('Heatmap'), 'heatmap'),
+            (self.tr('Only Lines'), 'lines'),
+        ])
+        self.contour_type_combo.clear()
+        for k, v in self.contour_type.items():
+            self.contour_type_combo.addItem(k, v)
+
+        # Contour Plot color scale
+        self.col_scale = OrderedDict([
+            (self.tr('OrangeToRed'), 'pairs'),
+            (self.tr('Grey Scale'), 'Greys'),
+            (self.tr('Green Scale'), 'Greens'),
+            (self.tr('Fire Scale'), 'Hot'),
+            (self.tr('BlueYellowRed'), 'Portland'),
+            (self.tr('BlueGreenRed'), 'Jet'),
+            (self.tr('BlueToRed'), 'RdBu'),
+            (self.tr('BlueToRed Soft'), 'Bluered'),
+            (self.tr('BlackRedYellowBlue'), 'Blackbody'),
+            (self.tr('Terrain'), 'Earth'),
+            (self.tr('Electric Scale'), 'Electric'),
+            (self.tr('RedOrangeYellow'), 'YIOrRd'),
+            (self.tr('DeepblueBlueWhite'), 'YIGnBu'),
+            (self.tr('BlueWhitePurple'), 'Picnic'),
+        ])
+        self.color_scale_combo.clear()
+        for k, v in self.col_scale.items():
+            self.color_scale_combo.addItem(k, v)
+
         # according to the plot type, change the label names
 
         # BoxPlot
         if self.ptype == 'box':
             self.x_label.setText('Grouping Field\n(Optional)')
-            # set the horizontal and vertical size of the label
-            # self.x_label.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
-            # reduce the label font size
+            # set the horizontal and vertical size of the label and reduce the label font size
             ff = QFont()
             ff.setPointSizeF(8.5)
             self.x_label.setFont(ff)
@@ -328,7 +401,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.in_color_lab.setText('Box Color')
 
         # ScatterPlot
-        if self.ptype == 'scatter':
+        if self.ptype == 'scatter' or 'ternary':
             self.in_color_lab.setText('Marker Color')
 
         # BarPlot
@@ -344,47 +417,73 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.x_label.setFont(ff)
             self.x_label.setFixedWidth(80)
 
+        # info combo for data hovering
+        self.info_hover = OrderedDict([
+            (self.tr('All Values'), 'all'),
+            (self.tr('X Values'), 'x'),
+            (self.tr('Y Values'), 'y'),
+            (self.tr('No Data'), 'none')
+        ])
+        self.info_combo.clear()
+        for k, v in self.info_hover.items():
+            self.info_combo.addItem(k, v)
+
         # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
             # plot properties
             self.layer_combo: ['all'],
             self.x_label: ['all'],
             self.x_combo: ['all'],
-            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar'],
-            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar'],
+            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour'],
+            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour'],
+            self.z_label: ['ternary'],
+            self.z_combo: ['ternary'],
             self.info_label: ['scatter'],
             self.info_combo: ['scatter'],
-            self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.marker_size_lab: ['scatter', 'polar'],
-            self.marker_size: ['scatter', 'polar'],
+            self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.marker_size_lab: ['scatter', 'polar', 'ternary'],
+            self.marker_size: ['scatter', 'polar', 'ternary'],
             self.marker_type_lab: ['scatter'],
             self.marker_type_combo: ['scatter'],
-            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar'],
-            self.alpha_slid: ['scatter', 'bar', 'box', 'histogram', 'polar'],
-            self.alpha_num: ['scatter', 'bar', 'box', 'histogram'],
-            self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar'],
+            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.alpha_slid: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.alpha_num: ['scatter', 'bar', 'box', 'histogram', 'ternary'],
+            self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
-            self.bar_legend_label: ['bar'],
-            self.bar_legend_title: ['bar'],
-            self.point_lab: ['scatter'],
-            self.point_combo: ['scatter'],
+            self.legend_label: ['all'],
+            self.legend_title: ['all'],
+            self.point_lab: ['scatter', 'ternary'],
+            self.point_combo: ['scatter', 'ternary'],
             self.line_lab: ['scatter'],
             self.line_combo: ['scatter'],
+            self.color_scale_label: ['contour', '2dhistogram'],
+            self.color_scale_combo: ['contour', '2dhistogram'],
+            self.contour_type_label: ['contour'],
+            self.contour_type_combo: ['contour'],
+            self.show_lines_check: ['contour'],
 
             # layout customization
             self.show_legend_check: ['all'],
             self.plot_title_lab: ['all'],
             self.plot_title_line: ['all'],
-            self.x_axis_label: ['scatter', 'bar', 'box', 'histogram'],
-            self.x_axis_title: ['scatter', 'bar', 'box', 'histogram'],
-            self.y_axis_label: ['scatter', 'bar', 'box', 'histogram'],
-            self.y_axis_title: ['scatter', 'bar', 'box', 'histogram'],
+            self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', 'ternary'],
+            self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', 'ternary'],
+            self.y_axis_label: ['scatter', 'box', 'histogram', 'ternary'],
+            self.y_axis_title: ['scatter', 'box', 'histogram', 'ternary'],
+            self.z_axis_label: ['ternary'],
+            self.z_axis_title: ['ternary'],
+            self.x_axis_mode_label: ['scatter', 'box'],
+            self.y_axis_mode_label: ['scatter', 'box'],
+            self.x_axis_mode_combo: ['scatter', 'box'],
+            self.y_axis_mode_combo: ['scatter', 'box'],
+            self.invert_x_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
+            self.invert_y_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
             self.orientation_label: ['bar', 'box', 'histogram'],
             self.orientation_combo: ['bar', 'box', 'histogram'],
             self.box_statistic_label: ['box'],
@@ -393,7 +492,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.outliers_combo: ['box'],
             self.range_slider_combo: ['scatter'],
             self.hist_norm_label: ['histogram'],
-            self.hist_norm_combo: ['histogram']
+            self.hist_norm_combo: ['histogram'],
+            self.additional_info_label: ['scatter', 'ternary'],
+            self.additional_info_combo: ['scatter', 'ternary'],
         }
 
         # enable the widget according to the plot type
@@ -456,10 +557,34 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
 
+    def setLegend(self):
+        '''
+        set the legend from the fields combo boxes
+        '''
+        self.legend_title_string = ''
+
+        if self.ptype == 'box' or self.ptype == 'bar':
+            self.legend_title.setText(self.y_combo.currentText())
+
+        elif self.ptype == 'histogram':
+            self.legend_title.setText(self.x_combo.currentText())
+
+        else:
+            self.legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
+            self.legend_title.setText(self.legend_title_string)
+
     def plotProperties(self):
         '''
         call the class and make the object to define the generic plot properties
         '''
+
+        # set the variable to invert the x and y axis order
+        self.x_invert = True
+        if self.invert_x_check.isChecked():
+            self.x_invert = "reversed"
+        self.y_invert = True
+        if self.invert_y_check.isChecked():
+            self.y_invert = "reversed"
 
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
@@ -468,12 +593,16 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # plot method to have a dictionary of the properties
         self.plotobject.buildProperties(
-            x=getFields(self.layer_combo, self.x_combo),
-            y=getFields(self.layer_combo, self.y_combo),
-            featureIds=getFields(self.layer_combo, None),
-            hover_text=getFields(self.layer_combo, self.info_combo),
+            # x=getFields(self.layer_combo, self.x_combo),
+            x=self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            y=self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            z=self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            # featureIds=getFields(self.layer_combo, None),
+            hover_text=self.info_hover[self.info_combo.currentText()],
+            additional_hover_text=self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             x_name=self.x_combo.currentText(),
             y_name=self.y_combo.currentText(),
+            z_name=self.z_combo.currentText(),
             in_color=hex_to_rgb(self.in_color_combo),
             out_color=hex_to_rgb(self.out_color_combo),
             marker_width=self.marker_width.value(),
@@ -485,9 +614,14 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             opacity=(100 - self.alpha_slid.value()) / 100.0,
             box_stat=self.statistic_type[self.box_statistic_combo.currentText()],
             box_outliers=self.outliers_dict[self.outliers_combo.currentText()],
-            bar_name=self.bar_legend_title.text(),
-            normalization=self.normalization[self.hist_norm_combo.currentText()]
+            name=self.legend_title.text(),
+            normalization=self.normalization[self.hist_norm_combo.currentText()],
+            cont_type=self.contour_type[self.contour_type_combo.currentText()],
+            color_scale=self.col_scale[self.color_scale_combo.currentText()],
+            show_lines=self.show_lines_check.isChecked()
         )
+
+        # a = getFields2(self.layer_combo, self.x_combo)
 
         # build the final trace that will be used
         self.plotobject.buildTrace(
@@ -500,13 +634,18 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             title=self.plot_title_line.text(),
             x_title=self.x_axis_title.text(),
             y_title=self.y_axis_title.text(),
+            z_title=self.z_axis_title.text(),
             range_slider=dict(visible=self.range_slider_combo.isChecked(), borderwidth=1),
-            bar_mode=self.bar_modes[self.bar_mode_combo.currentText()]
+            bar_mode=self.bar_modes[self.bar_mode_combo.currentText()],
+            x_type=self.x_axis_type[self.x_axis_mode_combo.currentText()],
+            y_type=self.y_axis_type[self.y_axis_mode_combo.currentText()],
+            x_inv=self.x_invert,
+            y_inv=self.y_invert,
         )
 
         # call the method and build the final layout
         self.plotobject.buildLayout(
-            plot_type= self.ptype
+            plot_type=self.ptype
         )
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
@@ -521,7 +660,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # just add 1 to the index
         self.idx += 1
 
-        self.bar.pushMessage(self.tr("Plot added to the basket"), level=QgsMessageBar.INFO, duration=2)
+        self.bar.pushMessage(self.tr("Plot added to the basket"), level=QgsMessageBar.INFO, duration=1)
 
     def addTraceToTable(self):
         '''
@@ -559,7 +698,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
             # refresh the plot view by removing the selected plot
             self.createPlot()
-            self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=2)
+            self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=1)
 
     def createPlot(self):
         '''
@@ -568,7 +707,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         if not self.plot_traces:
             self.bar.pushMessage(self.tr("Basket is empty, add some plot!"),
-                                 level=QgsMessageBar.CRITICAL, duration=3)
+                                 level=QgsMessageBar.CRITICAL, duration=2)
             return
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
@@ -592,23 +731,27 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
+            try:
+                gr = len(self.plot_traces)
+                pl = []
+                tt = tuple([v.layout['title'] for v in self.plot_traces.values()])
 
-            gr = len(self.plot_traces)
-            pl = []
-            tt = tuple([v.layout['title'] for v in self.plot_traces.values()])
+                for k, v in self.plot_traces.items():
+                    pl.append(v.trace[0])
 
-            for k, v in self.plot_traces.items():
-                pl.append(v.trace[0])
+                # plot in single row and many columns
+                if self.radio_rows.isChecked():
 
-            # plot in single row and many columns
-            if self.radio_rows.isChecked():
+                    self.plot_path = self.plotobject.buildSubPlots('row', 1, gr, pl, tt)
 
-                self.plot_path = self.plotobject.buildSubPlots('row', 1, gr, pl, tt)
+                # plot in single column and many rows
+                elif self.radio_columns.isChecked():
 
-            # plot in single column and many rows
-            elif self.radio_columns.isChecked():
-
-                self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
+                    self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
+            except:
+                self.bar.pushMessage(self.tr("Plot types are not comapatible for subplotting. Please remove the plot from the Plot Basket"),
+                             level=QgsMessageBar.CRITICAL, duration=3)
+                return
 
         # connect to simple function that reloads the view
         self.refreshPlotView()

@@ -73,9 +73,11 @@ class Plot(object):
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 mode=self.plot_properties['marker'],
-                #name=self.plot_properties['y_name'],
-                name=self.plot_properties['featureIds'],
-                # hoverinfo = "text",
+                name=self.plot_properties['name'],
+                # name=self.plot_properties['featureIds'],
+                # hoverinfo='none',
+                text=self.plot_properties['additional_hover_text'],
+                hoverinfo=self.plot_properties['hover_text'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
                     size=self.plot_properties['marker_size'],
@@ -106,7 +108,7 @@ class Plot(object):
             self.trace = [go.Box(
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
-                name=self.plot_properties['y_name'],
+                name=self.plot_properties['name'],
                 boxmean=self.plot_properties['box_stat'],
                 orientation=self.plot_properties['box_orientation'],
                 boxpoints=self.plot_properties['box_outliers'],
@@ -122,8 +124,8 @@ class Plot(object):
 
             self.trace = [go.Bar(
                 x=self.plot_properties['x'],
-                y=self.plot_properties['y'],
-                name=self.plot_properties['bar_name'],
+                # y=self.plot_properties['y'],
+                name=self.plot_properties['name'],
                 orientation=self.plot_properties['box_orientation'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
@@ -140,7 +142,7 @@ class Plot(object):
             self.trace = [go.Histogram(
                 x=self.plot_properties['x'],
                 y=self.plot_properties['x'],
-                name=self.plot_properties['x_name'],
+                name=self.plot_properties['name'],
                 orientation=self.plot_properties['box_orientation'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
@@ -164,7 +166,8 @@ class Plot(object):
 
             self.trace = [go.Histogram2d(
                 x=self.plot_properties['x'],
-                y=self.plot_properties['y']
+                y=self.plot_properties['y'],
+                colorscale=self.plot_properties['color_scale'],
             )]
 
         elif plot_type == 'polar':
@@ -189,6 +192,47 @@ class Plot(object):
                     dash=self.plot_properties['line_dash']
                 ),
                 opacity=self.plot_properties['opacity'],
+            )]
+
+        elif plot_type == 'ternary':
+
+            # prepare the hover text to display if the additional combobox is empty or not
+            # this setting is necessary to overwrite the standard hovering labels
+            if self.plot_properties['additional_hover_text'] == []:
+                text = [self.plot_properties['x_name'] + ': {}'.format(self.plot_properties['x'][k]) + '<br>{}: {}'.format(self.plot_properties['y_name'], self.plot_properties['y'][k]) + '<br>{}: {}'.format(self.plot_properties['z_name'], self.plot_properties['z'][k]) for k in range(len(self.plot_properties['x']))]
+            else:
+                text = [self.plot_properties['x_name'] + ': {}'.format(self.plot_properties['x'][k]) + '<br>{}: {}'.format(self.plot_properties['y_name'], self.plot_properties['y'][k]) + '<br>{}: {}'.format(self.plot_properties['z_name'], self.plot_properties['z'][k]) + '<br>{}'.format(self.plot_properties['additional_hover_text'][k]) for k in range(len(self.plot_properties['x']))]
+
+            self.trace = [go.Scatterternary(
+                a=self.plot_properties['x'],
+                b=self.plot_properties['y'],
+                c=self.plot_properties['z'],
+                name=self.plot_properties['x_name'] + ' + ' + self.plot_properties['y_name'] + ' + ' + self.plot_properties['z_name'],
+                hoverinfo='text',
+                text=text,
+                mode='markers',
+                marker=dict(
+                    color=self.plot_properties['in_color'],
+                    size=self.plot_properties['marker_size'],
+                    symbol=self.plot_properties['marker_symbol'],
+                    line=dict(
+                        color=self.plot_properties['out_color'],
+                        width=self.plot_properties['marker_width']
+                    )
+                ),
+                opacity=self.plot_properties['opacity']
+            )]
+
+        elif plot_type == 'contour':
+
+            self.trace = [go.Contour(
+                z=[self.plot_properties['x'], self.plot_properties['y']],
+                contours=dict(
+                    coloring=self.plot_properties['cont_type'],
+                    showlines=self.plot_properties['show_lines']
+                ),
+                colorscale=self.plot_properties['color_scale'],
+                opacity=self.plot_properties['opacity']
             )]
 
         return self.trace
@@ -246,12 +290,23 @@ class Plot(object):
             showlegend=self.plot_layout['legend'],
             title=self.plot_layout['title'],
             xaxis=dict(
-                title=self.plot_layout['x_title']
+                title=self.plot_layout['x_title'],
+                autorange=self.plot_layout['x_inv']
             ),
             yaxis=dict(
-                title=self.plot_layout['y_title']
+                title=self.plot_layout['y_title'],
+                autorange=self.plot_layout['y_inv']
             )
         )
+
+        # update the x and y axis and add the linear and log only if the data are numeric
+        if isinstance(self.plot_properties['x'][0], (int, float)):
+            self.layout['xaxis'].update(type=self.plot_layout['x_type'])
+        try:
+            if isinstance(self.plot_properties['y'][0], (int, float)):
+                self.layout['yaxis'].update(type=self.plot_layout['y_type'])
+        except:
+            pass
 
         # update layout properties depending on the plot type
         if plot_type == 'scatter':
@@ -277,19 +332,45 @@ class Plot(object):
             self.layout['yaxis'].update(autotick=False),
             self.layout['yaxis'].update(showticklabels=False)
 
-        # elif plot_type == 'scatter3d':
-            # self.layout['zaxis'] =
+        elif plot_type == 'ternary':
+            self.layout['xaxis'].update(title=''),
+            self.layout['xaxis'].update(showgrid=False),
+            self.layout['xaxis'].update(zeroline=False),
+            self.layout['xaxis'].update(showline=False),
+            self.layout['xaxis'].update(autotick=False),
+            self.layout['xaxis'].update(showticklabels=False),
+            self.layout['yaxis'].update(title=''),
+            self.layout['yaxis'].update(showgrid=False),
+            self.layout['yaxis'].update(zeroline=False),
+            self.layout['yaxis'].update(showline=False),
+            self.layout['yaxis'].update(autotick=False),
+            self.layout['yaxis'].update(showticklabels=False)
+            self.layout['ternary'] = dict(
+                sum=100,
+                aaxis=dict(
+                    title=self.plot_layout['x_title'],
+                    ticksuffix='%',
+                ),
+                baxis=dict(
+                    title=self.plot_layout['y_title'],
+                    ticksuffix='%'
+                ),
+                caxis=dict(
+                    title=self.plot_layout['z_title'],
+                    ticksuffix='%'
+                ),
+            )
 
         return self.layout
 
-    def js_callback(self,code_string):
+    def js_callback(self, code_string):
         '''
         returns a script section containing on plot user events and
         callback to python on status change event
         '''
         mark_start = 'Plotly.newPlot("'
         mark_end = '", [{"type":'
-        idx_start = code_string.find(mark_start) + len (mark_start)
+        idx_start = code_string.find(mark_start) + len(mark_start)
         idx_end = code_string.find(mark_end)
         div_elem = code_string[idx_start:idx_end]
         return """
@@ -313,7 +394,7 @@ plotly_div.on('plotly_selected', function(data){
 });
 </script>
         """ % div_elem
-        
+
 
     def buildFigure(self, *args, **kwargs):
         '''
@@ -332,7 +413,7 @@ plotly_div.on('plotly_selected', function(data){
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file
@@ -378,7 +459,7 @@ plotly_div.on('plotly_selected', function(data){
         if plot_type == 'bar' or 'histogram':
             del self.layout
             self.layout = go.Layout(
-                barmode = self.plot_layout['bar_mode']
+                barmode=self.plot_layout['bar_mode']
             )
             figures = go.Figure(data=ptrace, layout=self.layout)
 
@@ -388,7 +469,7 @@ plotly_div.on('plotly_selected', function(data){
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False)
+        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False, show_link=False)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file
@@ -425,7 +506,7 @@ plotly_div.on('plotly_selected', function(data){
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False)
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
         # last line to close the html file

@@ -138,21 +138,152 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>750</width>
-                <height>425</height>
+                <width>819</width>
+                <height>571</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
+               <item row="2" column="0">
+                <spacer name="verticalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="0">
+                <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
+                 <property name="title">
+                  <string>Plot Parameters</string>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_4">
+                  <item row="1" column="1">
+                   <widget class="QCheckBox" name="selected_feature_check">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Use only selected features</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="layer_label">
+                    <property name="text">
+                     <string>Layer</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QgsMapLayerComboBox" name="layer_combo">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="x_label">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>20</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>X Field</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="y_label">
+                    <property name="text">
+                     <string>Y Field</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QgsFieldExpressionWidget" name="x_combo">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QgsFieldExpressionWidget" name="y_combo">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="z_label">
+                    <property name="text">
+                     <string>Z field</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QgsFieldExpressionWidget" name="z_combo"/>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
                <item row="1" column="0">
                 <widget class="QgsCollapsibleGroupBox" name="mGroupBox_2">
                  <property name="title">
                   <string>Properties</string>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_8">
-                  <item row="5" column="0">
+                  <item row="2" column="1" colspan="3">
+                   <widget class="QComboBox" name="marker_type_combo"/>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QgsColorButton" name="in_color_combo">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="0">
                    <widget class="QLabel" name="alpha_lab">
                     <property name="text">
                      <string>Transparency</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="contour_type_label">
+                    <property name="text">
+                     <string>Contour Type</string>
                     </property>
                    </widget>
                   </item>
@@ -163,7 +294,7 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="1" colspan="2">
+                  <item row="7" column="1" colspan="2">
                    <widget class="QSlider" name="alpha_slid">
                     <property name="maximum">
                      <number>100</number>
@@ -193,17 +324,7 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1">
-                   <widget class="QgsColorButton" name="in_color_combo">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="3">
+                  <item row="7" column="3">
                    <widget class="QSpinBox" name="alpha_num">
                     <property name="maximum">
                      <number>100</number>
@@ -217,13 +338,6 @@
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="2">
-                   <widget class="QLabel" name="marker_size_lab">
-                    <property name="text">
-                     <string>Marker Size</string>
                     </property>
                    </widget>
                   </item>
@@ -257,6 +371,42 @@
                     </property>
                    </widget>
                   </item>
+                  <item row="3" column="1">
+                   <widget class="QComboBox" name="point_combo"/>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="line_lab">
+                    <property name="text">
+                     <string>Line Type</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QComboBox" name="line_combo"/>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="color_scale_label">
+                    <property name="text">
+                     <string>Color Scale</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1" colspan="3">
+                   <widget class="QComboBox" name="color_scale_combo"/>
+                  </item>
+                  <item row="5" column="1" colspan="2">
+                   <widget class="QComboBox" name="contour_type_combo"/>
+                  </item>
+                  <item row="5" column="3">
+                   <widget class="QCheckBox" name="show_lines_check">
+                    <property name="text">
+                     <string>Show Lines</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="0" column="3">
                    <widget class="QSpinBox" name="marker_size">
                     <property name="sizePolicy">
@@ -273,21 +423,12 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1">
-                   <widget class="QComboBox" name="point_combo"/>
-                  </item>
-                  <item row="2" column="1" colspan="3">
-                   <widget class="QComboBox" name="marker_type_combo"/>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="line_lab">
+                  <item row="0" column="2">
+                   <widget class="QLabel" name="marker_size_lab">
                     <property name="text">
-                     <string>Line Type</string>
+                     <string>Marker Size</string>
                     </property>
                    </widget>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QComboBox" name="line_combo"/>
                   </item>
                  </layout>
                  <zorder>out_color_lab</zorder>
@@ -307,97 +448,11 @@
                  <zorder>point_combo</zorder>
                  <zorder>line_lab</zorder>
                  <zorder>line_combo</zorder>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <spacer name="verticalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="0" column="0">
-                <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
-                 <property name="title">
-                  <string>Plot Parameters</string>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_4">
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="layer_label">
-                    <property name="text">
-                     <string>Layer</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QgsMapLayerComboBox" name="layer_combo">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="x_label">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>20</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>70</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>X Field</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="y_label">
-                    <property name="text">
-                     <string>Y Field</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QgsFieldExpressionWidget" name="x_combo">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QgsFieldExpressionWidget" name="y_combo">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <zorder>contour_type_label</zorder>
+                 <zorder>contour_type_combo</zorder>
+                 <zorder>color_scale_combo</zorder>
+                 <zorder>color_scale_label</zorder>
+                 <zorder>show_lines_check</zorder>
                 </widget>
                </item>
               </layout>
@@ -424,25 +479,55 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>750</width>
-                <height>413</height>
+                <width>362</width>
+                <height>563</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
+               <item row="9" column="1">
+                <widget class="QLabel" name="x_axis_mode_label">
+                 <property name="text">
+                  <string>X Axis Mode</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="10" column="2">
+                <widget class="QComboBox" name="y_axis_mode_combo"/>
+               </item>
+               <item row="16" column="0" colspan="3">
+                <spacer name="verticalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>255</width>
+                   <height>222</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="15" column="0">
+                <widget class="QLabel" name="outliers_label">
+                 <property name="text">
+                  <string>Outliers</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="1" colspan="2">
                 <widget class="QLineEdit" name="plot_title_line"/>
                </item>
                <item row="3" column="1" colspan="2">
                 <widget class="QLineEdit" name="x_axis_title"/>
                </item>
-               <item row="8" column="0">
+               <item row="12" column="0">
                 <widget class="QLabel" name="bar_mode_lab">
                  <property name="text">
                   <string>Bar Mode</string>
                  </property>
                 </widget>
                </item>
-               <item row="8" column="1" colspan="2">
+               <item row="12" column="1" colspan="2">
                 <widget class="QComboBox" name="bar_mode_combo"/>
                </item>
                <item row="0" column="0">
@@ -458,37 +543,24 @@
                <item row="4" column="1" rowspan="2" colspan="2">
                 <widget class="QLineEdit" name="y_axis_title"/>
                </item>
-               <item row="12" column="0" colspan="3">
-                <spacer name="verticalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>255</width>
-                   <height>222</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="7" column="0">
+               <item row="11" column="0">
                 <widget class="QLabel" name="orientation_label">
                  <property name="text">
                   <string>Bar orientation</string>
                  </property>
                 </widget>
                </item>
-               <item row="7" column="1" colspan="2">
+               <item row="11" column="1" colspan="2">
                 <widget class="QComboBox" name="orientation_combo"/>
                </item>
-               <item row="10" column="0">
+               <item row="14" column="0">
                 <widget class="QLabel" name="box_statistic_label">
                  <property name="text">
                   <string>Show Statistics</string>
                  </property>
                 </widget>
                </item>
-               <item row="10" column="1" colspan="2">
+               <item row="14" column="1" colspan="2">
                 <widget class="QComboBox" name="box_statistic_combo"/>
                </item>
                <item row="1" column="0">
@@ -512,25 +584,18 @@
                  </property>
                 </widget>
                </item>
-               <item row="11" column="0">
-                <widget class="QLabel" name="outliers_label">
-                 <property name="text">
-                  <string>Outliers</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="11" column="1" colspan="2">
+               <item row="15" column="1" colspan="2">
                 <widget class="QComboBox" name="outliers_combo"/>
                </item>
                <item row="2" column="0">
-                <widget class="QLabel" name="bar_legend_label">
+                <widget class="QLabel" name="legend_label">
                  <property name="text">
-                  <string>Field Name</string>
+                  <string>Legend Title</string>
                  </property>
                 </widget>
                </item>
                <item row="2" column="1" colspan="2">
-                <widget class="QLineEdit" name="bar_legend_title"/>
+                <widget class="QLineEdit" name="legend_title"/>
                </item>
                <item row="0" column="2">
                 <widget class="QCheckBox" name="range_slider_combo">
@@ -539,25 +604,69 @@
                  </property>
                 </widget>
                </item>
-               <item row="9" column="0">
+               <item row="13" column="0">
                 <widget class="QLabel" name="hist_norm_label">
                  <property name="text">
                   <string>Normalization</string>
                  </property>
                 </widget>
                </item>
-               <item row="9" column="1" colspan="2">
+               <item row="13" column="1" colspan="2">
                 <widget class="QComboBox" name="hist_norm_combo"/>
                </item>
-               <item row="6" column="0">
+               <item row="7" column="0">
                 <widget class="QLabel" name="info_label">
                  <property name="text">
                   <string>Hover Infos</string>
                  </property>
                 </widget>
                </item>
+               <item row="9" column="0">
+                <widget class="QCheckBox" name="invert_x_check">
+                 <property name="text">
+                  <string>Invert X Axis</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="10" column="0">
+                <widget class="QCheckBox" name="invert_y_check">
+                 <property name="text">
+                  <string>Invert Y Axis</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="2">
+                <widget class="QComboBox" name="x_axis_mode_combo"/>
+               </item>
+               <item row="10" column="1">
+                <widget class="QLabel" name="y_axis_mode_label">
+                 <property name="text">
+                  <string>Y Axis Mode</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="1" colspan="2">
+                <widget class="QComboBox" name="info_combo"/>
+               </item>
+               <item row="8" column="0">
+                <widget class="QLabel" name="additional_info_label">
+                 <property name="text">
+                  <string>Additional Hover Label</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="1" colspan="2">
+                <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
+               </item>
+               <item row="6" column="0">
+                <widget class="QLabel" name="z_axis_label">
+                 <property name="text">
+                  <string>Z Label</string>
+                 </property>
+                </widget>
+               </item>
                <item row="6" column="1" colspan="2">
-                <widget class="QgsFieldExpressionWidget" name="info_combo"/>
+                <widget class="QLineEdit" name="z_axis_title"/>
                </item>
               </layout>
              </widget>
@@ -743,8 +852,8 @@
      <y>145</y>
     </hint>
     <hint type="destinationlabel">
-     <x>222</x>
-     <y>167</y>
+     <x>327</x>
+     <y>224</y>
     </hint>
    </hints>
   </connection>
@@ -755,12 +864,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>218</y>
+     <x>329</x>
+     <y>264</y>
     </hint>
     <hint type="destinationlabel">
-     <x>250</x>
-     <y>251</y>
+     <x>374</x>
+     <y>252</y>
     </hint>
    </hints>
   </connection>
@@ -775,24 +884,8 @@
      <y>139</y>
     </hint>
     <hint type="destinationlabel">
-     <x>260</x>
-     <y>209</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>y_combo</sender>
-   <signal>fieldChanged(QString)</signal>
-   <receiver>bar_legend_title</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>224</x>
-     <y>218</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>239</x>
-     <y>172</y>
+     <x>365</x>
+     <y>264</y>
     </hint>
    </hints>
   </connection>
@@ -803,12 +896,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>178</y>
+     <x>329</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
-     <x>250</x>
-     <y>218</y>
+     <x>374</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
@@ -819,12 +912,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>424</x>
-     <y>487</y>
+     <x>822</x>
+     <y>556</y>
     </hint>
     <hint type="destinationlabel">
-     <x>370</x>
-     <y>485</y>
+     <x>598</x>
+     <y>554</y>
     </hint>
    </hints>
   </connection>
@@ -835,28 +928,60 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>370</x>
-     <y>485</y>
+     <x>598</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
-     <x>424</x>
-     <y>487</y>
+     <x>822</x>
+     <y>556</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>layer_combo</sender>
    <signal>layerChanged(QgsMapLayer*)</signal>
-   <receiver>info_combo</receiver>
+   <receiver>additional_info_combo</receiver>
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>273</x>
-     <y>139</y>
+     <x>473</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
-     <x>295</x>
-     <y>274</y>
+     <x>374</x>
+     <y>331</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>layer_combo</sender>
+   <signal>layerChanged(QgsMapLayer*)</signal>
+   <receiver>z_combo</receiver>
+   <slot>setLayer(QgsMapLayer*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>260</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>277</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>z_combo</sender>
+   <signal>fieldChanged(QString)</signal>
+   <receiver>z_axis_title</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>473</x>
+     <y>287</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>270</x>
+     <y>272</y>
     </hint>
    </hints>
   </connection>
