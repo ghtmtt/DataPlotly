@@ -153,7 +153,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
         self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
-        # self.plot_view.statusBarMessage.connect(self.getJSmessage)
+        self.plot_view.statusBarMessage.connect(self.getJSmessage)
         plot_view_settings = self.plot_view.settings()
         plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
         plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
@@ -163,22 +163,23 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # get the plot type from the combobox
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
-    # def getJSmessage(self, status):
-    #     '''
-    #     landing method for statusBarMessage signal coming from PLOT.js_callback
-    #     it decodes feature ids of clicked or selected plot elements,
-    #     selects on map canvas and triggers a pan/zoom to them
-    #     '''
-    #     try:
-    #         ids = json.JSONDecoder().decode(status)
-    #     except:
-    #         ids = None
-    #     if ids:
-    #         self.layer_combo.currentLayer().selectByIds(ids)
-    #         if len(ids) > 1:
-    #             self.module.iface.actionZoomToSelected().trigger()
-    #         else:
-    #             self.module.iface.actionPanToSelected().trigger()
+    def getJSmessage(self, status):
+        '''
+        landing method for statusBarMessage signal coming from PLOT.js_callback
+        it decodes feature ids of clicked or selected plot elements,
+        selects on map canvas and triggers a pan/zoom to them
+        '''
+        try:
+            ids = json.JSONDecoder().decode(status)
+        except:
+            ids = None
+        #print ('STATUS',status,ids)
+        if ids:
+            self.layer_combo.currentLayer().selectByIds(ids)
+            if len(ids) > 1:
+                self.module.iface.actionZoomToSelected().trigger()
+            else:
+                self.module.iface.actionPanToSelected().trigger()
 
     def helpPage(self):
         '''
@@ -597,7 +598,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             x=self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             y=self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             z=self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
-            # featureIds=getFields(self.layer_combo, None),
+            featureIds=getFields(self.layer_combo, None),
             hover_text=self.info_hover[self.info_combo.currentText()],
             additional_hover_text=self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             x_name=self.x_combo.currentText(),
