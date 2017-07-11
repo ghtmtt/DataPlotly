@@ -383,18 +383,30 @@ console.log(plotly_data)
 plotly_div.on('plotly_click', function(data){
     console.log("CLICK")
     console.log(data)
-    featureId = plotly_data[0].ids[data.points[0].pointNumber]
+    try {
+        featureId = plotly_data[0].ids[data.points[0].pointNumber]
+    }
+    catch(err) {
+        console.log("Error selecting on graph: "+err)
+        location.reload();
+    }
     window.status = JSON.stringify([featureId]);
 });
 plotly_div.on('plotly_selected', function(data){
     console.log("SELECT")
     console.log(data)
-    featureIds = []
-    data.points.forEach(function(pt) {
-        featureIds.push(parseInt(pt.id))
-    });
-    console.log(featureIds)
-    window.status = JSON.stringify(featureIds);
+    try {
+        featureIds = []
+        data.points.forEach(function(pt) {
+            featureIds.push(parseInt(pt.id))
+        });
+        console.log(featureIds)
+        window.status = JSON.stringify(featureIds);
+    }
+    catch(err) {
+        console.log("Error selecting on graph: "+err)
+        location.reload();
+    }
 });
 </script>
         """ % div_elem
