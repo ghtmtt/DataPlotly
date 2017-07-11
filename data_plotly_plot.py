@@ -122,9 +122,12 @@ class Plot(object):
 
         elif plot_type == 'bar':
 
+            if self.plot_properties['box_orientation'] == 'h':
+                self.plot_properties['x'], self.plot_properties['y'] = self.plot_properties['y'], self.plot_properties['x']
+
             self.trace = [go.Bar(
                 x=self.plot_properties['x'],
-                # y=self.plot_properties['y'],
+                y=self.plot_properties['y'],
                 name=self.plot_properties['name'],
                 orientation=self.plot_properties['box_orientation'],
                 marker=dict(
@@ -390,11 +393,6 @@ plotly_div.on('plotly_click', function(data){
         console.log("Error selecting on graph: "+err)
         location.reload();
     }
-    window.status = JSON.stringify([featureId]);
-});
-plotly_div.on('plotly_selected', function(data){
-    console.log("SELECT")
-    console.log(data)
     try {
         featureIds = []
         data.points.forEach(function(pt) {
