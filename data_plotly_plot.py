@@ -305,8 +305,12 @@ class Plot(object):
         )
 
         # update the x and y axis and add the linear and log only if the data are numeric
-        if isinstance(self.plot_properties['x'][0], (int, float)):
-            self.layout['xaxis'].update(type=self.plot_layout['x_type'])
+        # pass if field is empty
+        try:
+            if isinstance(self.plot_properties['x'][0], (int, float)):
+                self.layout['xaxis'].update(type=self.plot_layout['x_type'])
+        except:
+            pass
         try:
             if isinstance(self.plot_properties['y'][0], (int, float)):
                 self.layout['yaxis'].update(type=self.plot_layout['y_type'])
