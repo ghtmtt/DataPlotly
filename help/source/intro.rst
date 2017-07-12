@@ -15,7 +15,7 @@ the mouse on the plot. For each plot tons of customization are available.
   simple plot example
 
 
-DataPlotly embrace the idea of **plot container**, in other words the user can create
+DataPlotly embrace the idea of **Plot Container**; in other words the user can create
 different plot types and overlay them in the same plot canvas or load them in
 different plot canvas.
 

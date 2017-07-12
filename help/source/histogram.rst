@@ -1,2 +1,43 @@
+.. _histogram:
+
 Histogram
 =========
+Here you will find the guide to every parameter of the histogram. If you
+need more generic information please see :ref:`basic_usage`.
+
+.. image:: /img/histogram/histogram.png
+  :scale: 50%
+
+Plot Properties
+---------------
+``Layer``: the combobox will display all the vector layer loaded in QGIS
+
+``X``: the x field
+
+``Marker Color``: the inner color of the bar
+
+``Stroke Color``: the color of the outer bar
+
+``Stroke Width``: the width of the stroke
+
+``Transparency``: transparecy level of the bar
+
+Plot Customizations
+-------------------
+``Show Legend``: show the legend of the current plot
+
+``Plot Title``: the plot title
+
+``Legend Title``: the title of the legend
+
+``X Label``: X label text
+
+``Invert X Axis``: check if you want to invert the ordering of the x axis
+
+``Invert Y Axis``: check if you want to invert the ordering of the y axis
+
+``Box Orientation``: the orientation of the bar, either *Horizontal* or *Vertical*
+
+``Bar Mode``: choose if you want to group, stack or overlay the data
+
+``Normalization``: different type of bins calculations are available

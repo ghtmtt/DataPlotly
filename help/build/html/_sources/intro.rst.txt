@@ -5,27 +5,34 @@ Data Plotly
 Data Plotly is a python plugin for QGIS that allows the creation of `D3 <https://d3js.org/>`_
 like plots thanks to the `Plotly library <https://plot.ly/>`_ and the python API.
 
-Plots are not static so the user can easily get some information of the object
-in the plot view while many other customizations are possible.
+Plots are totally **dynamic** so the user can easily get may information by hovering
+the mouse on the plot. For each plot tons of customization are available.
 
-.. figure:: /img/intro/example.png
-  :scale: 50%
+.. figure:: /img/intro/scatter_example.png
+  :scale: 70%
   :align: center
 
-  plot example
+  simple plot example
 
 
-DataPlotly is intended to be a **plot container** so the user can create different
-plot types in the same or in different plot canvas.
+DataPlotly embrace the idea of **Plot Container**; in other words the user can create
+different plot types and overlay them in the same plot canvas or load them in
+different plot canvas.
 
-Each plot type has its own configurations and customizations so it is easy for
-the user to choose the best solution that fits the needs.
+.. figure:: /img/intro/example.png
+  :scale: 70%
+  :align: center
 
-Besides the interactive plot canvas, plots can be exported as `png` images or as
-pure `html` files that can be opened with an external browser keeping in that way
-the plot *interactivity* (e.g. zooming in or out).
+  different plot type in the same map canvas
 
-Finally, plot raw html code can be copied and pasted somewhere else, for example
+Each plot type has its own configurations and customizations: it is very easy for
+the user to choose the best solution that fits all the needs.
+
+Besides the interactive plot canvas, plots can be exported as `png` static images
+or as pure `html` files. `html` files be opened with a browser keeping in that way
+the plot *interactivity* (e.g. zooming in or out and getting hovering information).
+
+Finally, **plot raw html code** can be copied and pasted somewhere else, for example
 in html frame of the QGIS map composer or in an external website.
 
 `Plotly library <https://plot.ly/>`_ javascript code is saved in the local plugin

@@ -150,7 +150,9 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
+            
+              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/intro.rst" class="fa fa-github"> Edit on GitHub</a>
+            
           
         
       </li>
@@ -167,20 +169,25 @@
 <h1>Data Plotly<a class="headerlink" href="#data-plotly" title="Permalink to this headline">¶</a></h1>
 <p>Data Plotly is a python plugin for QGIS that allows the creation of <a class="reference external" href="https://d3js.org/">D3</a>
 like plots thanks to the <a class="reference external" href="https://plot.ly/">Plotly library</a> and the python API.</p>
-<p>Plots are not static so the user can easily get some information of the object
-in the plot view while many other customizations are possible.</p>
+<p>Plots are totally <strong>dynamic</strong> so the user can easily get may information by hovering
+the mouse on the plot. For each plot tons of customization are available.</p>
 <div class="figure align-center" id="id2">
-<a class="reference internal image-reference" href="_images/example.png"><img alt="_images/example.png" src="_images/example.png" style="width: 578.0px; height: 319.0px;" /></a>
-<p class="caption"><span class="caption-text">plot example</span></p>
+<a class="reference internal image-reference" href="_images/scatter_example.png"><img alt="_images/scatter_example.png" src="_images/scatter_example.png" style="width: 956.1999999999999px; height: 518.6999999999999px;" /></a>
+<p class="caption"><span class="caption-text">simple plot example</span></p>
 </div>
-<p>DataPlotly is intended to be a <strong>plot container</strong> so the user can create different
-plot types in the same or in different plot canvas.</p>
-<p>Each plot type has its own configurations and customizations so it is easy for
-the user to choose the best solution that fits the needs.</p>
-<p>Besides the interactive plot canvas, plots can be exported as <cite>png</cite> images or as
-pure <cite>html</cite> files that can be opened with an external browser keeping in that way
-the plot <em>interactivity</em> (e.g. zooming in or out).</p>
-<p>Finally, plot raw html code can be copied and pasted somewhere else, for example
+<p>DataPlotly embrace the idea of <strong>Plot Container</strong>; in other words the user can create
+different plot types and overlay them in the same plot canvas or load them in
+different plot canvas.</p>
+<div class="figure align-center" id="id3">
+<a class="reference internal image-reference" href="_images/example.png"><img alt="_images/example.png" src="_images/example.png" style="width: 809.1999999999999px; height: 446.59999999999997px;" /></a>
+<p class="caption"><span class="caption-text">different plot type in the same map canvas</span></p>
+</div>
+<p>Each plot type has its own configurations and customizations: it is very easy for
+the user to choose the best solution that fits all the needs.</p>
+<p>Besides the interactive plot canvas, plots can be exported as <cite>png</cite> static images
+or as pure <cite>html</cite> files. <cite>html</cite> files be opened with a browser keeping in that way
+the plot <em>interactivity</em> (e.g. zooming in or out and getting hovering information).</p>
+<p>Finally, <strong>plot raw html code</strong> can be copied and pasted somewhere else, for example
 in html frame of the QGIS map composer or in an external website.</p>
 <p><a class="reference external" href="https://plot.ly/">Plotly library</a> javascript code is saved in the local plugin
 folder so the plugin is usable also without any Internet connection.</p>

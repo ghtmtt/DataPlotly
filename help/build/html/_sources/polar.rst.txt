@@ -1,2 +1,35 @@
+.. _polar:
+
 Polar Plot
 ==========
+Here you will find the guide to every parameter of the polar plot. If you
+need more generic information please see the :ref:`basic_usage`.
+
+.. image:: /img/polar/polar.png
+  :scale: 50%
+
+Plot Properties
+---------------
+``Layer``: the combobox will display all the vector layer loaded in QGIS
+
+``X Field``: the x field
+
+``Y Field``: the y field
+
+``Marker Color``: the inner color of the marker
+
+``Marker Size``: the size of the marker
+
+``Stroke Color``: the color of the outer marker
+
+``Stroke Width``: the width of the stroke
+
+``Transparency``: transparecy level of the marker/line
+
+Plot Customizations
+-------------------
+``Show Legend``: show the legend of the current plot
+
+``Plot Title``: the plot title
+
+``Legend Title``: the title of the legend

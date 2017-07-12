@@ -12,7 +12,6 @@ Contents:
    :maxdepth: 2
 
    intro.rst
-   installation.rst
    basic_usage.rst
    scatter.rst
    box.rst
@@ -23,7 +22,6 @@ Contents:
    polar.rst
    ternary.rst
    contour.rst
-   more_plots.rst
 
 Indices and tables
 ==================
