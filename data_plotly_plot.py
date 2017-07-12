@@ -170,7 +170,7 @@ class Plot(object):
             self.trace = [go.Histogram2d(
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
-                ids=self.plot_properties['featureIds'],
+                # ids=self.plot_properties['featureIds'],
                 colorscale=self.plot_properties['color_scale'],
             )]
 
