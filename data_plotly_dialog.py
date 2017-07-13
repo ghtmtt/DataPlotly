@@ -64,7 +64,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.setLayout(QGridLayout())
         self.layout().insertWidget(0, self.bar)
-        # self.layout().addWidget(self.bar, 0, 0, 2, 0)
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
@@ -118,6 +117,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
 
+        self.layer_combo.currentIndexChanged.connect(self.setCheckState)
+        self.setCheckState()
+
         # fill combo boxes when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
@@ -162,6 +164,17 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # get the plot type from the combobox
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
+
+    def setCheckState(self):
+        '''
+        change the selected_feature_check checkbox accordingly with the current
+        layer selection state
+        '''
+        if self.layer_combo.currentLayer().selectedFeatures():
+            self.selected_feature_check.setEnabled(True)
+        else:
+            self.selected_feature_check.setEnabled(False)
+            self.selected_feature_check.setChecked(False)
 
     def getJSmessage(self, status):
         '''
