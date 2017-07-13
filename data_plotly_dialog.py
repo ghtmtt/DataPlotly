@@ -172,11 +172,14 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         change the selected_feature_check checkbox accordingly with the current
         layer selection state
         '''
-        if self.layer_combo.currentLayer().selectedFeatures():
-            self.selected_feature_check.setEnabled(True)
-        else:
-            self.selected_feature_check.setEnabled(False)
-            self.selected_feature_check.setChecked(False)
+        try:
+            if self.layer_combo.currentLayer().selectedFeatures():
+                self.selected_feature_check.setEnabled(True)
+            else:
+                self.selected_feature_check.setEnabled(False)
+                self.selected_feature_check.setChecked(False)
+        except:
+            pass
 
     def getJSmessage(self, status):
         '''
