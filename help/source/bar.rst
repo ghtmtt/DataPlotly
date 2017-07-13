@@ -12,15 +12,15 @@ Plot Properties
 ---------------
 ``Layer``: the combobox will display all the vector layer loaded in QGIS
 
-``X``: the x field
+``X``: the X field
 
-``Y Field``: the y field
+``Y Field``: the Y field
 
-``Bar Color``: the inner color of the bar
+``Bar Color``: color of the bar
 
-``Stroke Color``: the color of the outer bar
+``Stroke Color``: border color
 
-``Stroke Width``: the width of the stroke
+``Stroke Width``: the width of the border
 
 ``Transparency``: transparecy level of the bar
 
@@ -33,6 +33,8 @@ Plot Customizations
 ``Legend Title``: the title of the legend
 
 ``X Label``: X label text
+
+``Y Label``: Y label text
 
 ``Invert X Axis``: check if you want to invert the ordering of the x axis
 

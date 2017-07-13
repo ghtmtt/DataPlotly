@@ -2,23 +2,22 @@
 
 DataPlotly Basic Usage
 ======================
-Data Plotly interface has been designed in order to be simple but, at the same time,
-complete with many options and customizations.
+DataPlotly interface has been designed in order to be simple but, at the same time,
+complete and with many options and customizations available.
 
-One all the settings, ``x`` and ``y`` column, colors, labels, etc have been set
-by the user, the plot is not directly shown, but it will be put into the so called
-**Plot Basket**.
+Once you have defined all the settings, ``x`` and ``y`` column, colors, labels, etc,
+the plot is not directly shown, but it will be put into the so called **Plot Basket**.
 
 The **Plot Basket** will store the plot(s) before they will be rendered. The
 **Plot Basket** is very handy when many plots are shown in the plot canvas and
-the user wants to ge trid of just one of them.
+you want to remove just one of them.
 
 .. _add_plot:
 
 Add and remove a Plot
 ---------------------
 
-Data Plotly workflow is pretty straightforward:
+DataPlotly workflow is pretty straightforward:
 
 1. choose the plot type (1)
 2. set the layer and the field(s) you want to plot (2)
@@ -36,7 +35,7 @@ Single Plot From List`` button. The plot canvas will be automatically refreshed.
 
 Multi Plots
 -----------
-DataPlotly allows the creation of many different plots. Plots can be shows on
+DataPlotly allows the creation of many different plots. Plots can be shown on
 the same plot canvas (overlapping) or each plot can be drawn in different rows
 or columns (subplots).
 
@@ -74,7 +73,7 @@ You just have to choose the plots and the fields as described in the section
 combobox and choose if the plots have to be drawn in rows (default parameter)
 or in columns.
 
-The following pcitures show plots in rows and in columns:
+The following pictures show plots in rows and in columns:
 
 .. image:: /img/basic_usage/basic4.png
   :scale: 50%
@@ -90,8 +89,8 @@ The following pcitures show plots in rows and in columns:
 
 Save Plot
 ---------
-Saving a plot, actually the plot canvas, is very simple. YOu can choose to save
-the plot as a png image or as html file.
+Saving a plot, actually the plot canvas, is very simple. You can choose to save
+the plot as a ``png`` image or as ``html`` file.
 
 .. note:: saving the image as ``html`` file will keep the interactivity of the plot
 
@@ -105,13 +104,13 @@ the image, both static or interactive.
 Raw Plot Code
 -------------
 In addition to saving the plot as image or html file (see :ref:`save`) you can
-also copy the raw ``html+js`` code of the plot and embed it somewhere else.
+also copy the raw ``html`` code of the plot and embed it somewhere else.
 
 A good place where to copy/paste the raw code is the html frame of the print
 composer of QGIS.
 
 In order to copy the plot code, after the plot creation, just go in the ``Raw Plot``
-tab: here you can see a long (sensless) string. **Right Click** on the tab and
+tab: here you can see a long string. **Right Click** on the tab and
 choose ``Select All``, then **Right Click** again and choose ``Copy`` (of course
 you can use keyboard shortcuts ``Ctrl + A`` for select all and ``Ctrl + C`` for copy):
 
@@ -122,7 +121,8 @@ you can use keyboard shortcuts ``Ctrl + A`` for select all and ``Ctrl + C`` for 
 Then you have your plot code copied in memory: you just have to choose where to
 paste it.
 
-In the following example, the ``html code`` is pasted in the **html frame**:
+In the following example, the ``html code`` is pasted in the **html frame** of
+the print composer:
 
 1. open the print composer and add an ``html frame`` (1)
 2. paste the code in the ``Source`` space (2)
@@ -143,7 +143,7 @@ will elaborate the data so that they can be correctly displayed.
 Thanks to the QGIS API and custom widget, it is possible to add also **Expressions**
 instead of pure layer fields (e.g. ``field + 10``, ``field1 * field2``, etc).
 
-You can use the Expression editor to add complex expressions (``(field1 + 10) * (field2 * 10)``)
+You can use the Expression editor to add complex expressions (e.g. ``(field1 + 10) * (field2 * 10)``)
 or you can type the expression directly in the combo box. Expressions are evaluated
 *on the fly*, so if the string is red, then the expression is not valid.
 

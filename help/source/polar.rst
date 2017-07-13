@@ -12,17 +12,17 @@ Plot Properties
 ---------------
 ``Layer``: the combobox will display all the vector layer loaded in QGIS
 
-``X Field``: the x field
+``X Field``: the X field
 
-``Y Field``: the y field
+``Y Field``: the Y field
 
-``Marker Color``: the inner color of the marker
+``Marker Color``: marker color
 
 ``Marker Size``: the size of the marker
 
-``Stroke Color``: the color of the outer marker
+``Stroke Color``: border color
 
-``Stroke Width``: the width of the stroke
+``Stroke Width``: the width of the border
 
 ``Transparency``: transparecy level of the marker/line
 

@@ -12,13 +12,13 @@ Plot Properties
 ---------------
 ``Layer``: the combobox will display all the vector layer loaded in QGIS
 
-``X``: the x field
+``X``: the X field
 
-``Marker Color``: the inner color of the bar
+``Marker Color``: color of the bar
 
-``Stroke Color``: the color of the outer bar
+``Stroke Color``: border color
 
-``Stroke Width``: the width of the stroke
+``Stroke Width``: the width of the border
 
 ``Transparency``: transparecy level of the bar
 
@@ -36,7 +36,7 @@ Plot Customizations
 
 ``Invert Y Axis``: check if you want to invert the ordering of the y axis
 
-``Box Orientation``: the orientation of the bar, either *Horizontal* or *Vertical*
+``Bar Orientation``: the orientation of the bar, either *Horizontal* or *Vertical*
 
 ``Bar Mode``: choose if you want to group, stack or overlay the data
 

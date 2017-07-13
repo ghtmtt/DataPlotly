@@ -16,13 +16,13 @@ Plot Properties
 ``Grouping Field (Optional)``: the grouping field. If no field are added, a generic
 box plot for the Y value will be displayed
 
-``Y Field``: the y field
+``Y Field``: the Y field
 
-``Marker Color``: the inner color of the box
+``Marker Color``: color of the box
 
-``Stroke Color``: the color of the outer box
+``Stroke Color``: border color
 
-``Stroke Width``: the width of the stroke
+``Stroke Width``: the width of the border
 
 ``Transparency``: transparecy level of the box
 

@@ -113,7 +113,6 @@
 <li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more_plots.html">Adding other plots</a></li>
 </ul>
 
             
@@ -181,17 +180,16 @@
             
   <div class="section" id="dataplotly-basic-usage">
 <span id="basic-usage"></span><h1>DataPlotly Basic Usage<a class="headerlink" href="#dataplotly-basic-usage" title="Permalink to this headline">¶</a></h1>
-<p>Data Plotly interface has been designed in order to be simple but, at the same time,
-complete with many options and customizations.</p>
-<p>One all the settings, <code class="docutils literal"><span class="pre">x</span></code> and <code class="docutils literal"><span class="pre">y</span></code> column, colors, labels, etc have been set
-by the user, the plot is not directly shown, but it will be put into the so called
-<strong>Plot Basket</strong>.</p>
+<p>DataPlotly interface has been designed in order to be simple but, at the same time,
+complete and with many options and customizations available.</p>
+<p>Once you have defined all the settings, <code class="docutils literal"><span class="pre">x</span></code> and <code class="docutils literal"><span class="pre">y</span></code> column, colors, labels, etc,
+the plot is not directly shown, but it will be put into the so called <strong>Plot Basket</strong>.</p>
 <p>The <strong>Plot Basket</strong> will store the plot(s) before they will be rendered. The
 <strong>Plot Basket</strong> is very handy when many plots are shown in the plot canvas and
-the user wants to ge trid of just one of them.</p>
+you want to remove just one of them.</p>
 <div class="section" id="add-and-remove-a-plot">
 <span id="add-plot"></span><h2>Add and remove a Plot<a class="headerlink" href="#add-and-remove-a-plot" title="Permalink to this headline">¶</a></h2>
-<p>Data Plotly workflow is pretty straightforward:</p>
+<p>DataPlotly workflow is pretty straightforward:</p>
 <ol class="arabic simple">
 <li>choose the plot type (1)</li>
 <li>set the layer and the field(s) you want to plot (2)</li>
@@ -206,7 +204,7 @@ you want to remove by clicking on the row, and finally click on the <code class=
 </div>
 <div class="section" id="multi-plots">
 <h2>Multi Plots<a class="headerlink" href="#multi-plots" title="Permalink to this headline">¶</a></h2>
-<p>DataPlotly allows the creation of many different plots. Plots can be shows on
+<p>DataPlotly allows the creation of many different plots. Plots can be shown on
 the same plot canvas (overlapping) or each plot can be drawn in different rows
 or columns (subplots).</p>
 <div class="section" id="overlapping-plots">
@@ -235,7 +233,7 @@ in a messy plot canvas.</p>
 <a class="reference internal" href="#add-plot"><span class="std std-ref">Add and remove a Plot</span></a> but you have to specify the <code class="docutils literal"><span class="pre">SubPlots</span></code> parameter from the
 combobox and choose if the plots have to be drawn in rows (default parameter)
 or in columns.</p>
-<p>The following pcitures show plots in rows and in columns:</p>
+<p>The following pictures show plots in rows and in columns:</p>
 <a class="reference internal image-reference" href="_images/basic4.png"><img alt="_images/basic4.png" src="_images/basic4.png" style="width: 578.0px; height: 312.0px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -246,8 +244,8 @@ or in columns.</p>
 </div>
 <div class="section" id="save-plot">
 <span id="save"></span><h2>Save Plot<a class="headerlink" href="#save-plot" title="Permalink to this headline">¶</a></h2>
-<p>Saving a plot, actually the plot canvas, is very simple. YOu can choose to save
-the plot as a png image or as html file.</p>
+<p>Saving a plot, actually the plot canvas, is very simple. You can choose to save
+the plot as a <code class="docutils literal"><span class="pre">png</span></code> image or as <code class="docutils literal"><span class="pre">html</span></code> file.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">saving the image as <code class="docutils literal"><span class="pre">html</span></code> file will keep the interactivity of the plot</p>
@@ -259,17 +257,18 @@ the image, both static or interactive.</p>
 <div class="section" id="raw-plot-code">
 <h2>Raw Plot Code<a class="headerlink" href="#raw-plot-code" title="Permalink to this headline">¶</a></h2>
 <p>In addition to saving the plot as image or html file (see <a class="reference internal" href="#save"><span class="std std-ref">Save Plot</span></a>) you can
-also copy the raw <code class="docutils literal"><span class="pre">html+js</span></code> code of the plot and embed it somewhere else.</p>
+also copy the raw <code class="docutils literal"><span class="pre">html</span></code> code of the plot and embed it somewhere else.</p>
 <p>A good place where to copy/paste the raw code is the html frame of the print
 composer of QGIS.</p>
 <p>In order to copy the plot code, after the plot creation, just go in the <code class="docutils literal"><span class="pre">Raw</span> <span class="pre">Plot</span></code>
-tab: here you can see a long (sensless) string. <strong>Right Click</strong> on the tab and
+tab: here you can see a long string. <strong>Right Click</strong> on the tab and
 choose <code class="docutils literal"><span class="pre">Select</span> <span class="pre">All</span></code>, then <strong>Right Click</strong> again and choose <code class="docutils literal"><span class="pre">Copy</span></code> (of course
 you can use keyboard shortcuts <code class="docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">A</span></code> for select all and <code class="docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">C</span></code> for copy):</p>
 <a class="reference internal image-reference" href="_images/basic7.png"><img alt="_images/basic7.png" src="_images/basic7.png" style="width: 578.0px; height: 312.0px;" /></a>
 <p>Then you have your plot code copied in memory: you just have to choose where to
 paste it.</p>
-<p>In the following example, the <code class="docutils literal"><span class="pre">html</span> <span class="pre">code</span></code> is pasted in the <strong>html frame</strong>:</p>
+<p>In the following example, the <code class="docutils literal"><span class="pre">html</span> <span class="pre">code</span></code> is pasted in the <strong>html frame</strong> of
+the print composer:</p>
 <ol class="arabic simple">
 <li>open the print composer and add an <code class="docutils literal"><span class="pre">html</span> <span class="pre">frame</span></code> (1)</li>
 <li>paste the code in the <code class="docutils literal"><span class="pre">Source</span></code> space (2)</li>
@@ -286,7 +285,7 @@ paste it.</p>
 will elaborate the data so that they can be correctly displayed.</p>
 <p>Thanks to the QGIS API and custom widget, it is possible to add also <strong>Expressions</strong>
 instead of pure layer fields (e.g. <code class="docutils literal"><span class="pre">field</span> <span class="pre">+</span> <span class="pre">10</span></code>, <code class="docutils literal"><span class="pre">field1</span> <span class="pre">*</span> <span class="pre">field2</span></code>, etc).</p>
-<p>You can use the Expression editor to add complex expressions (<code class="docutils literal"><span class="pre">(field1</span> <span class="pre">+</span> <span class="pre">10)</span> <span class="pre">*</span> <span class="pre">(field2</span> <span class="pre">*</span> <span class="pre">10)</span></code>)
+<p>You can use the Expression editor to add complex expressions (e.g. <code class="docutils literal"><span class="pre">(field1</span> <span class="pre">+</span> <span class="pre">10)</span> <span class="pre">*</span> <span class="pre">(field2</span> <span class="pre">*</span> <span class="pre">10)</span></code>)
 or you can type the expression directly in the combo box. Expressions are evaluated
 <em>on the fly</em>, so if the string is red, then the expression is not valid.</p>
 <a class="reference internal image-reference" href="_images/basic9.png"><img alt="_images/basic9.png" src="_images/basic9.png" style="width: 578.0px; height: 313.0px;" /></a>

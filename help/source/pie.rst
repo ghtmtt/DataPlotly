@@ -14,7 +14,7 @@ Plot Properties
 
 ``Grouping``: the grouping field
 
-``Y Field``: the y field
+``Y Field``: the Y field
 
 Plot Customizations
 -------------------

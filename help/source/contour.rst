@@ -12,9 +12,9 @@ Plot Properties
 ---------------
 ``Layer``: the combobox will display all the vector layer loaded in QGIS
 
-``X Field``: the x field
+``X Field``: the X field
 
-``Y Field``: the y field
+``Y Field``: the Y field
 
 ``Contour Type``: choose the type of countour:
 
