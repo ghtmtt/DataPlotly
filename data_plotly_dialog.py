@@ -123,10 +123,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # fill combo boxes when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
+        self.z_combo.setLayer(self.layer_combo.currentLayer())
 
         # connect the combo boxes to the setLegend function
         self.x_combo.fieldChanged.connect(self.setLegend)
         self.y_combo.fieldChanged.connect(self.setLegend)
+        self.z_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.createPlot)
         self.addTrace_btn.clicked.connect(self.plotProperties)
