@@ -488,7 +488,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.plot_title_line: ['all'],
             self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary'],
             self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary'],
-            self.y_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary'],
+            self.y_axis_label: ['scatter', 'bar', 'box', '2dhistogram', 'ternary'],
             self.y_axis_title: ['scatter', 'bar', 'box', '2dhistogram', 'ternary'],
             self.z_axis_label: ['ternary'],
             self.z_axis_title: ['ternary'],
