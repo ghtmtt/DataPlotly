@@ -43,3 +43,15 @@ def hex_to_rgb(value):
     col = tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
     final = 'rgb' + str(col)
     return final
+
+def getIds(layer):
+    '''
+    get the ID as list of the layer
+    '''
+
+    layer_id = []
+
+    for i in layer.getFeatures():
+        layer_id.append(i.id())
+
+    return layer_id
