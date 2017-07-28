@@ -191,7 +191,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             ids = json.JSONDecoder().decode(status)
         except:
             ids = None
-        #print ('STATUS',status,ids)
+        # print ('STATUS',status,ids)
         if ids:
             self.layer_combo.currentLayer().selectByIds(ids)
             if len(ids) > 1:
@@ -616,7 +616,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             x=self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             y=self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             z=self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
-            featureIds=getFields(self.layer_combo, None),
+            # featureIds are the ID of each feature needed for the selection and zooming method
+            featureIds=getIds(self.layer_combo.currentLayer()),
             hover_text=self.info_hover[self.info_combo.currentText()],
             additional_hover_text=self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             x_name=self.x_combo.currentText(),
@@ -640,7 +641,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             show_lines=self.show_lines_check.isChecked()
         )
 
-        # a = getFields2(self.layer_combo, self.x_combo)
 
         # build the final trace that will be used
         self.plotobject.buildTrace(
