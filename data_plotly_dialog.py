@@ -117,8 +117,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
 
-        self.layer_combo.currentIndexChanged.connect(self.setCheckState)
         self.setCheckState()
+        try:
+            self.layer_combo.currentIndexChanged.connect(self.setCheckState)
+        except:
+            pass
+
 
         # fill combo boxes when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
