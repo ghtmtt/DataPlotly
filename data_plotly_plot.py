@@ -381,18 +381,28 @@ class Plot(object):
 
         js_str = '''
         <script>
+        // additional js function to select and click on the data
+        // returns the ids of the selected/clicked feature
+        
         var plotly_div = document.getElementById('ReplaceTheDiv')
         var plotly_data = plotly_div.data
-        console.log(plotly_data)
+        //console.log(plotly_data)
         plotly_div.on('plotly_selected', function(data){
         featureId = plotly_data[0].ids[data.points[0].pointNumber]
         featureIds = []
         data.points.forEach(function(pt){
         featureIds.push(parseInt(pt.id))
             })
-        console.log(featureIds)
+        //console.log(featureIds)
         window.status = JSON.stringify(featureIds)
         })
+        plotly_div.on('plotly_click', function(data){
+        featureId = plotly_data[0].ids[data.points[0].pointNumber]
+        featureIds = []
+        featureIds.push(parseInt(featureId))
+        //console.log(featureIds)
+        window.status = JSON.stringify(featureIds)
+        });
         </script>'''
 
         return js_str
