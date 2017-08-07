@@ -135,7 +135,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.z_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.createPlot)
-        self.addTrace_btn.clicked.connect(self.plotProperties)
         self.clear_btn.clicked.connect(self.removeTrace)
         self.remove_button.clicked.connect(self.removeTraceFromTable)
         self.save_plot_btn.clicked.connect(self.savePlotAsImage)
@@ -611,7 +610,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
-        # plot object
+
+        # plot instance
         self.plotobject = Plot()
 
         # plot method to have a dictionary of the properties
@@ -683,8 +683,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # just add 1 to the index
         self.idx += 1
 
-        self.bar.pushMessage(self.tr("Plot added to the basket"), level=QgsMessageBar.INFO, duration=1)
-
     def addTraceToTable(self):
         '''
         add the created trace to the table traceTable
@@ -726,7 +724,13 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
     def createPlot(self):
         '''
         call the method to effectively draw the final plot
+
+        before creating the plot, it calls the method plotProperties in order
+        to create the plot instance with all the properties taken from the UI
         '''
+
+        # call the method to build all the Plot plotProperties
+        self.plotProperties()
 
         if not self.plot_traces:
             self.bar.pushMessage(self.tr("Basket is empty, add some plot!"),
