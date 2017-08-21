@@ -109,6 +109,7 @@ class Plot(object):
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 name=self.plot_properties['name'],
+                ids=self.plot_properties['featureBox'],
                 boxmean=self.plot_properties['box_stat'],
                 orientation=self.plot_properties['box_orientation'],
                 boxpoints=self.plot_properties['box_outliers'],
@@ -129,6 +130,7 @@ class Plot(object):
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 name=self.plot_properties['name'],
+                ids=self.plot_properties['featureBox'],
                 orientation=self.plot_properties['box_orientation'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
@@ -396,11 +398,25 @@ class Plot(object):
         //console.log(featureIds)
         window.status = JSON.stringify(featureIds)
         })
+
         plotly_div.on('plotly_click', function(data){
+        var featureIds = [];
+        var featureIds = [];
+
+        for(var i=0; i < data.points.length; i++){
+
+        if(data.points[i].data.type == 'scatter'){
         featureId = plotly_data[0].ids[data.points[0].pointNumber]
-        featureIds = []
-        featureIds.push(parseInt(featureId))
-        //console.log(featureIds)
+        featureIds.push(featureId)
+        }
+
+        else {
+        featureIds.push(data.points[i].x)
+        }
+            }
+
+        console.log(featureIds)
+        console.log(featureIds)
         window.status = JSON.stringify(featureIds)
         });
         </script>'''

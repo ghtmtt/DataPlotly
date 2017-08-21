@@ -189,18 +189,47 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         landing method for statusBarMessage signal coming from PLOT.js_callback
         it decodes feature ids of clicked or selected plot elements,
         selects on map canvas and triggers a pan/zoom to them
+
+        the method handles several exceptions:
+            the first try/except is due to the connection to the init method
+
+            check the ptype and perform operations coherent to the type
         '''
+
         try:
             ids = json.JSONDecoder().decode(status)
         except:
             ids = None
-        # print ('STATUS',status,ids)
-        if ids:
-            self.layer_combo.currentLayer().selectByIds(ids)
-            if len(ids) > 1:
-                self.module.iface.actionZoomToSelected().trigger()
-            else:
-                self.module.iface.actionPanToSelected().trigger()
+        print('STATUS', status, ids)
+
+
+        if self.ptype == 'scatter':
+            try:
+                self.layer_combo.currentLayer().selectByIds(ids)
+                if len(ids) > 1:
+                    self.module.iface.actionZoomToSelected().trigger()
+                else:
+                    self.module.iface.actionPanToSelected().trigger()
+            except:
+                pass
+
+        else:
+            try:
+                # build the expression from the x_combobox
+                exp = ''' "{}" = '{}' '''.format(self.x_combo.currentText(), ids[0])
+                print(exp)
+                # set the iterator with the expression as filter in feature request
+                request = QgsFeatureRequest().setFilterExpression(exp)
+                it = self.layer_combo.currentLayer().getFeatures(request)
+                # Set the selection
+                self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                if len(ids) > 1:
+                    self.module.iface.actionZoomToSelected().trigger()
+                else:
+                    self.module.iface.actionPanToSelected().trigger()
+
+            except:
+                pass
 
     def helpPage(self):
         '''
@@ -614,14 +643,23 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # plot instance
         self.plotobject = Plot()
 
+        # shortcut to clear the code in the following dictionary
+        xx = self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
+
+        yy = self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
+
+        zz = self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
+
         # plot method to have a dictionary of the properties
         self.plotobject.buildProperties(
             # x=getFields(self.layer_combo, self.x_combo),
-            x=self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
-            y=self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
-            z=self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            x=xx,
+            y=yy,
+            z=zz,
             # featureIds are the ID of each feature needed for the selection and zooming method
             featureIds=getIds(self.layer_combo.currentLayer()),
+            # featureBox=sorted(set(xx), key=xx.index),
+            featureBox=getSortedId(self.layer_combo.currentLayer(), xx),
             hover_text=self.info_hover[self.info_combo.currentText()],
             additional_hover_text=self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             x_name=self.x_combo.currentText(),
@@ -650,6 +688,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plotobject.buildTrace(
             plot_type=self.ptype
         )
+
+
+        ff = getIdJs(self.layer_combo.currentLayer(), self.x_combo.currentText())
+        print(ff)
+
+        print(getSortedId(self.layer_combo.currentLayer(), xx))
 
         # build the layout customizations
         self.plotobject.layoutProperties(

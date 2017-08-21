@@ -55,3 +55,44 @@ def getIds(layer):
         layer_id.append(i.id())
 
     return layer_id
+
+def getIdJs(layer, field):
+    '''
+    return a list of unique items that can be used as ids
+    '''
+
+    d_id = {}
+
+    f1 = [i[field] for i in layer.getFeatures()]
+    f2 = [i.id() for i in layer.getFeatures()]
+
+    for i, j in zip(f1, f2):
+        if i not in d_id:
+            d_id[i] = []
+        d_id[i].append(j)
+
+    return d_id
+
+def getSortedId(layer, field_list):
+    '''
+    return a list with values needed for js interaction
+
+    the function creates the list so that the final order of the items is the
+    same of that visible in the Plot Canvas and so the clicked element returns
+    the correct id
+
+    layer: a valid QgsVectorLayer, useful with self.layer_combo.currentLayer()
+    field_list: a list of values (e.g. taken from the attribute table)
+    '''
+
+    l = []
+
+    # don't sort the list if the item is integer or float (check the first item)
+    if type(field_list[0]) == (int or float):
+        l = list(set(field_list))
+
+    # sort the list if items are strings
+    else:
+        l = sorted(set(field_list), key=field_list.index)
+
+    return l
