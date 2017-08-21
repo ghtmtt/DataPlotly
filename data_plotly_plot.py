@@ -76,6 +76,7 @@ class Plot(object):
                 mode=self.plot_properties['marker'],
                 name=self.plot_properties['name'],
                 ids=self.plot_properties['featureIds'],
+                customdata=self.plot_properties['custom'],
                 text=self.plot_properties['additional_hover_text'],
                 hoverinfo=self.plot_properties['hover_text'],
                 marker=dict(
@@ -110,6 +111,7 @@ class Plot(object):
                 y=self.plot_properties['y'],
                 name=self.plot_properties['name'],
                 ids=self.plot_properties['featureBox'],
+                customdata=self.plot_properties['custom'],
                 boxmean=self.plot_properties['box_stat'],
                 orientation=self.plot_properties['box_orientation'],
                 boxpoints=self.plot_properties['box_outliers'],
@@ -388,36 +390,51 @@ class Plot(object):
 
         var plotly_div = document.getElementById('ReplaceTheDiv')
         var plotly_data = plotly_div.data
-        //console.log(plotly_data)
+
+        // selecting function
         plotly_div.on('plotly_selected', function(data){
-        featureId = plotly_data[0].ids[data.points[0].pointNumber]
+        var dds = {};
         featureIds = []
         data.points.forEach(function(pt){
         featureIds.push(parseInt(pt.id))
+        dds["id"] = featureIds
+        dds["mode"] = 'selection'
+
             })
-        //console.log(featureIds)
-        window.status = JSON.stringify(featureIds)
+        console.log(dds)
+        window.status = JSON.stringify(dds)
         })
 
+        // clicking function
         plotly_div.on('plotly_click', function(data){
         var featureIds = [];
-        var featureIds = [];
+        var dd = {};
 
         for(var i=0; i < data.points.length; i++){
 
         if(data.points[i].data.type == 'scatter'){
         featureId = plotly_data[0].ids[data.points[0].pointNumber]
         featureIds.push(featureId)
+        dd["uid"] = data.points[i].data.uid
+        dd["id"] = featureId
+        dd["type"] = data.points[i].data.type
+        dd["field"] = data.points[i].data.customdata
+        dd["mode"] = 'clicking'
+        console.log(featureId)
         }
 
         else {
-        featureIds.push(data.points[i].x)
+        dd["uid"] = data.points[i].data.uid
+        dd["id"] = data.points[i].x
+        dd["type"] = data.points[i].data.type
+        dd["field"] = data.points[i].data.customdata
+        dd["mode"] = 'clicking'
         }
             }
 
-        console.log(featureIds)
-        console.log(featureIds)
-        window.status = JSON.stringify(featureIds)
+        console.log(dd)
+        var ff = []
+        window.status = JSON.stringify(dd)
         });
         </script>'''
 

@@ -193,43 +193,53 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         the method handles several exceptions:
             the first try/except is due to the connection to the init method
 
-            check the ptype and perform operations coherent to the type
+            second try/except looks into the decoded status, that is, it decodes
+            the js dictionary and loop where it is necessary
+
+            the dic js dictionary contains several information useful to handle
+            correctly every operation
         '''
 
         try:
-            ids = json.JSONDecoder().decode(status)
+            dic = json.JSONDecoder().decode(status)
         except:
-            ids = None
-        print('STATUS', status, ids)
+            dic = None
 
+        print('STATUS', status, dic)
 
-        if self.ptype == 'scatter':
-            try:
-                self.layer_combo.currentLayer().selectByIds(ids)
-                if len(ids) > 1:
+        try:
+            # check the user behavior linked to the js script
+
+            # if a selection event is performed
+            if dic['mode'] == 'selection':
+                self.layer_combo.currentLayer().selectByIds(dic['id'])
+                self.module.iface.actionZoomToSelected().trigger()
+
+            # if a clicking event is performed
+            elif dic["mode"] == 'clicking':
+                if dic['type'] == 'scatter':
+                    self.layer_combo.currentLayer().selectByIds([dic['id']])
                     self.module.iface.actionZoomToSelected().trigger()
-                else:
                     self.module.iface.actionPanToSelected().trigger()
-            except:
-                pass
-
-        else:
-            try:
-                # build the expression from the x_combobox
-                exp = ''' "{}" = '{}' '''.format(self.x_combo.currentText(), ids[0])
-                print(exp)
-                # set the iterator with the expression as filter in feature request
-                request = QgsFeatureRequest().setFilterExpression(exp)
-                it = self.layer_combo.currentLayer().getFeatures(request)
-                # Set the selection
-                self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
-                if len(ids) > 1:
-                    self.module.iface.actionZoomToSelected().trigger()
                 else:
-                    self.module.iface.actionPanToSelected().trigger()
+                    # build the expression from the x_combobox
+                    exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])
+                    # print(exp)
+                    # set the iterator with the expression as filter in feature request
+                    request = QgsFeatureRequest().setFilterExpression(exp)
+                    it = self.layer_combo.currentLayer().getFeatures(request)
+                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                    if len(ids) > 1:
+                        self.module.iface.actionZoomToSelected().trigger()
+                        self.module.iface.actionPanToSelected().trigger()
+                    else:
+                        self.module.iface.actionPanToSelected().trigger()
+                        self.module.iface.actionPanToSelected().trigger()
 
-            except:
-                pass
+        except:
+            print('passo')
+            pass
+
 
     def helpPage(self):
         '''
@@ -645,9 +655,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # shortcut to clear the code in the following dictionary
         xx = self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
-
         yy = self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
-
         zz = self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
 
         # plot method to have a dictionary of the properties
@@ -660,6 +668,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             featureIds=getIds(self.layer_combo.currentLayer()),
             # featureBox=sorted(set(xx), key=xx.index),
             featureBox=getSortedId(self.layer_combo.currentLayer(), xx),
+            custom=self.x_combo.currentText(),
             hover_text=self.info_hover[self.info_combo.currentText()],
             additional_hover_text=self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             x_name=self.x_combo.currentText(),
@@ -690,10 +699,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         )
 
 
-        ff = getIdJs(self.layer_combo.currentLayer(), self.x_combo.currentText())
-        print(ff)
+        # ff = getIdJs(self.layer_combo.currentLayer(), self.x_combo.currentText())
+        # print(ff)
 
-        print(getSortedId(self.layer_combo.currentLayer(), xx))
+        # print(getSortedId(self.layer_combo.currentLayer(), xx))
 
         # build the layout customizations
         self.plotobject.layoutProperties(
