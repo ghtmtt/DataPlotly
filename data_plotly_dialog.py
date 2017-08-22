@@ -128,6 +128,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.x_combo.setLayer(self.layer_combo.currentLayer())
         self.y_combo.setLayer(self.layer_combo.currentLayer())
         self.z_combo.setLayer(self.layer_combo.currentLayer())
+        self.additional_info_combo.setLayer(self.layer_combo.currentLayer())
 
         # connect the combo boxes to the setLegend function
         self.x_combo.fieldChanged.connect(self.setLegend)
@@ -205,7 +206,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         except:
             dic = None
 
-        print('STATUS', status, dic)
+        # print('STATUS', status, dic)
 
         try:
             # check the user behavior linked to the js script
@@ -222,22 +223,17 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                     self.module.iface.actionZoomToSelected().trigger()
                     self.module.iface.actionPanToSelected().trigger()
                 else:
-                    # build the expression from the x_combobox
+                    # build the expression from the js dic (customdata)
                     exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])
                     # print(exp)
                     # set the iterator with the expression as filter in feature request
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
-                    if len(ids) > 1:
-                        self.module.iface.actionZoomToSelected().trigger()
-                        self.module.iface.actionPanToSelected().trigger()
-                    else:
-                        self.module.iface.actionPanToSelected().trigger()
-                        self.module.iface.actionPanToSelected().trigger()
+                    self.module.iface.actionZoomToSelected().trigger()
+                    self.module.iface.actionPanToSelected().trigger()
 
         except:
-            print('passo')
             pass
 
 

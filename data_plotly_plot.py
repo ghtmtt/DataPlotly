@@ -133,6 +133,7 @@ class Plot(object):
                 y=self.plot_properties['y'],
                 name=self.plot_properties['name'],
                 ids=self.plot_properties['featureBox'],
+                customdata=self.plot_properties['custom'],
                 orientation=self.plot_properties['box_orientation'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
@@ -166,7 +167,7 @@ class Plot(object):
 
             self.trace = [go.Pie(
                 labels=self.plot_properties['x'],
-                values=self.plot_properties['y']
+                values=self.plot_properties['y'],
             )]
 
         elif plot_type == '2dhistogram':
@@ -174,7 +175,7 @@ class Plot(object):
             self.trace = [go.Histogram2d(
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
-                colorscale=self.plot_properties['color_scale'],
+                colorscale=self.plot_properties['color_scale']
             )]
 
         elif plot_type == 'polar':
@@ -182,7 +183,6 @@ class Plot(object):
             self.trace = [go.Scatter(
                 r=self.plot_properties['x'],
                 t=self.plot_properties['y'],
-                ids=self.plot_properties['featureIds'],
                 mode=self.plot_properties['marker'],
                 name=self.plot_properties['y_name'],
                 marker=dict(
@@ -394,14 +394,14 @@ class Plot(object):
         // selecting function
         plotly_div.on('plotly_selected', function(data){
         var dds = {};
+        dds["mode"] = 'selection'
+
         featureIds = []
         data.points.forEach(function(pt){
         featureIds.push(parseInt(pt.id))
         dds["id"] = featureIds
-        dds["mode"] = 'selection'
-
             })
-        console.log(dds)
+        //console.log(dds)
         window.status = JSON.stringify(dds)
         })
 
@@ -409,18 +409,16 @@ class Plot(object):
         plotly_div.on('plotly_click', function(data){
         var featureIds = [];
         var dd = {};
+        dd["mode"] = 'clicking'
 
         for(var i=0; i < data.points.length; i++){
 
         if(data.points[i].data.type == 'scatter'){
-        featureId = plotly_data[0].ids[data.points[0].pointNumber]
-        featureIds.push(featureId)
         dd["uid"] = data.points[i].data.uid
-        dd["id"] = featureId
+        dd["id"] = data.points[i].pointNumber
         dd["type"] = data.points[i].data.type
         dd["field"] = data.points[i].data.customdata
-        dd["mode"] = 'clicking'
-        console.log(featureId)
+        //console.log(featureIds)
         }
 
         else {
@@ -428,12 +426,10 @@ class Plot(object):
         dd["id"] = data.points[i].x
         dd["type"] = data.points[i].data.type
         dd["field"] = data.points[i].data.customdata
-        dd["mode"] = 'clicking'
         }
             }
 
-        console.log(dd)
-        var ff = []
+        //console.log(dd)
         window.status = JSON.stringify(dd)
         });
         </script>'''
