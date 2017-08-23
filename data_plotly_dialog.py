@@ -917,3 +917,39 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         if self.plot_file:
             copyfile(self.plot_path, self.plot_file)
             self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+
+
+    def showPlot(self, plot_dict, lay_dict):
+        '''
+        creates a simple plot (not all he options available) from a dictionary
+        as input
+        '''
+
+        plot = Plot()
+        plot.buildProperties(**plot_dict["plot_prop"])
+        plot.buildTrace(
+            plot_type=plot_dict['plot_type']
+        )
+        plot.layoutProperties(**lay_dict)
+        plot.buildLayout(
+            plot_type=plot_dict['plot_type']
+        )
+
+        standalone_plot_path = plot.buildFigure(plot_type=plot_dict['plot_type'])
+        standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
+
+
+        # start and create the webview with the plot
+        plot_view2 = QWebView()
+        plot_view2.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
+        plot_view_settings2 = plot_view2.settings()
+        plot_view_settings2.setAttribute(QWebSettings.WebGLEnabled, True)
+        plot_view_settings2.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
+        plot_view_settings2.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
+
+
+        # plot_path2 = '/home/matteo/plotly2.html'
+        global plot_view2
+        # plot_url2 = QUrl.fromLocalFile(plot_path2)
+        plot_view2.load(standalone_plot_url)
+        plot_view2.show()
