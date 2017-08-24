@@ -136,8 +136,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.z_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.createPlot)
-        self.clear_btn.clicked.connect(self.removeTrace)
-        self.remove_button.clicked.connect(self.removeTraceFromTable)
+        self.clear_btn.clicked.connect(self.clearPlotView)
         self.save_plot_btn.clicked.connect(self.savePlotAsImage)
         self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
         self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.png')))
@@ -214,14 +213,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # if a selection event is performed
             if dic['mode'] == 'selection':
                 self.layer_combo.currentLayer().selectByIds(dic['id'])
-                self.module.iface.actionZoomToSelected().trigger()
 
             # if a clicking event is performed
             elif dic["mode"] == 'clicking':
                 if dic['type'] == 'scatter':
                     self.layer_combo.currentLayer().selectByIds([dic['id']])
-                    self.module.iface.actionZoomToSelected().trigger()
-                    self.module.iface.actionPanToSelected().trigger()
                 else:
                     # build the expression from the js dic (customdata)
                     exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])
@@ -230,8 +226,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
-                    self.module.iface.actionZoomToSelected().trigger()
-                    self.module.iface.actionPanToSelected().trigger()
 
         except:
             pass
@@ -727,7 +721,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_traces[self.pid] = self.plotobject
 
         # call the function and fill the table
-        self.addTraceToTable()
+        # self.addTraceToTable()
 
         # just add 1 to the index
         self.idx += 1
@@ -745,30 +739,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.traceTable.setItem(row, 2, QTableWidgetItem(str(self.x_combo.currentText())))
         self.traceTable.setItem(row, 3, QTableWidgetItem(str(self.y_combo.currentText())))
 
-    def removeTraceFromTable(self):
-
-        if not self.plot_traces:
-            self.bar.pushMessage(self.tr("No traces in the basket to delete!"),
-                                 level=QgsMessageBar.CRITICAL, duration=2)
-            return
-
-        selection = self.traceTable.selectionModel()
-        rows = selection.selectedRows()
-
-        plot_list = []
-
-        for row in reversed(rows):
-            index = row.row()
-            plot_list.append(self.traceTable.item(index, 0).text())
-            self.traceTable.removeRow(row.row())
-
-        # remove also the selected row from the plot dictionary
-        for p in plot_list:
-            del self.plot_traces[p]
-
-            # refresh the plot view by removing the selected plot
-            self.createPlot()
-            self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=1)
 
     def createPlot(self):
         '''
@@ -832,23 +802,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # connect to simple function that reloads the view
         self.refreshPlotView()
 
-    def removeTrace(self):
-        '''
-        remove the selected rows in the table and delete the plot parameters
-        from the dictionary
-        '''
-
-        self.traceTable.setRowCount(0)
-
-        # delete the entire dictionary
-        del self.plot_traces
-        self.plot_traces = {}
-        self.idx = 1
-        self.bar.pushMessage(self.tr("Plot removed from the basket"), level=QgsMessageBar.INFO, duration=2)
-
-        # call the method to completely clean the plot view and the QWebWidget
-        self.clearPlotView()
-
     def refreshPlotView(self):
         '''
         just resfresh the view, if the reload method is called immediatly after
@@ -870,6 +823,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         clear the content of the QWebView by loading an empty url and clear the
         raw text of the QPlainTextEdit
         '''
+
+        del self.plot_traces
+        self.plot_traces = {}
+
         try:
             self.plot_view.load(QUrl(''))
             self.layoutw.addWidget(self.plot_view)
