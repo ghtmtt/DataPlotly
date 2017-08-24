@@ -213,14 +213,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # if a selection event is performed
             if dic['mode'] == 'selection':
                 self.layer_combo.currentLayer().selectByIds(dic['id'])
-                self.module.iface.actionZoomToSelected().trigger()
 
             # if a clicking event is performed
             elif dic["mode"] == 'clicking':
                 if dic['type'] == 'scatter':
                     self.layer_combo.currentLayer().selectByIds([dic['id']])
-                    self.module.iface.actionZoomToSelected().trigger()
-                    self.module.iface.actionPanToSelected().trigger()
                 else:
                     # build the expression from the js dic (customdata)
                     exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])
@@ -229,8 +226,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
-                    self.module.iface.actionZoomToSelected().trigger()
-                    self.module.iface.actionPanToSelected().trigger()
 
         except:
             pass
