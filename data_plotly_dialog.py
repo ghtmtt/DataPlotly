@@ -796,6 +796,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         it just calls 2 existing methods
         '''
 
+        print(self.plot_traces)
         self.clearPlotView()
         self.createPlot()
 
@@ -928,12 +929,13 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         plot_dic["layout_prop"]["y_title"]=None
         plot_dic["layout_prop"]["z_title"]=None
         plot_dic["layout_prop"]["xaxis"] = None
-        plot_dic["layout_prop"]["range_slider"]=None
         plot_dic["layout_prop"]["bar_mode"]=None
         plot_dic["layout_prop"]["x_type"]=None
         plot_dic["layout_prop"]["y_type"]=None
         plot_dic["layout_prop"]["x_inv"]=None
         plot_dic["layout_prop"]["y_inv"]=None
+        plot_dic['layout_prop']["range_slider"] = {}
+        plot_dic['layout_prop']["range_slider"]["visible"] = False
 
 
         # set some dialog widget from the input dictionary
@@ -976,4 +978,5 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plot_view.load(standalone_plot_url)
         self.layoutw.addWidget(self.plot_view)
 
+        # enable the Update Button to allow the updating of the plot
         self.update_btn.setEnabled(True)
