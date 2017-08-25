@@ -136,6 +136,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.z_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.createPlot)
+        self.update_btn.clicked.connect(self.UpdatePlot)
         self.clear_btn.clicked.connect(self.clearPlotView)
         self.save_plot_btn.clicked.connect(self.savePlotAsImage)
         self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
@@ -720,24 +721,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # create default dictionary that contains all the plot and properties
         self.plot_traces[self.pid] = self.plotobject
 
-        # call the function and fill the table
-        # self.addTraceToTable()
-
         # just add 1 to the index
         self.idx += 1
 
-    def addTraceToTable(self):
-        '''
-        add the created trace to the table traceTable
-        '''
-        row = self.traceTable.rowCount()
-        self.traceTable.insertRow(row)
-
-        # fill the table with each paramter entered
-        self.traceTable.setItem(row, 0, QTableWidgetItem(str(self.pid)))
-        self.traceTable.setItem(row, 1, QTableWidgetItem(str(self.ptype)))
-        self.traceTable.setItem(row, 2, QTableWidgetItem(str(self.x_combo.currentText())))
-        self.traceTable.setItem(row, 3, QTableWidgetItem(str(self.y_combo.currentText())))
+        # enable the Update Plot button
+        self.update_btn.setEnabled(True)
 
 
     def createPlot(self):
@@ -802,6 +790,17 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # connect to simple function that reloads the view
         self.refreshPlotView()
 
+    def UpdatePlot(self):
+        '''
+        simple method to update the plot in the Plot Canvas
+        it just calls 2 existing methods
+        '''
+
+        self.clearPlotView()
+        self.createPlot()
+
+
+
     def refreshPlotView(self):
         '''
         just resfresh the view, if the reload method is called immediatly after
@@ -831,6 +830,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.plot_view.load(QUrl(''))
             self.layoutw.addWidget(self.plot_view)
             self.raw_plot_text.clear()
+            # disable the Update Plot Button
+            self.update_btn.setEnabled(False)
         except:
             pass
 
@@ -878,7 +879,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def showPlot(self, plot_input_dic):
         '''
-        creates a simple plot (not all he options available) from a dictionary
+        creates a simple plot (not all options available) from a dictionary
         as input
         '''
 
@@ -889,6 +890,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # plot properties
         plot_dic = {}
         plot_dic["plot_type"]=None
+        plot_dic["layer"]=None
         plot_dic["plot_prop"] = {}
         plot_dic["plot_prop"]["x"]=None
         plot_dic["plot_prop"]["y"]=None
@@ -926,7 +928,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         plot_dic["layout_prop"]["y_title"]=None
         plot_dic["layout_prop"]["z_title"]=None
         plot_dic["layout_prop"]["xaxis"] = None
-        # plot_dic["layout_prop"]["xaxis"]["rangeslider"]={"visible" = False}
         plot_dic["layout_prop"]["range_slider"]=None
         plot_dic["layout_prop"]["bar_mode"]=None
         plot_dic["layout_prop"]["x_type"]=None
@@ -934,14 +935,20 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         plot_dic["layout_prop"]["x_inv"]=None
         plot_dic["layout_prop"]["y_inv"]=None
 
-        print(plot_dic["plot_prop"])
+
+        # set some dialog widget from the input dictionary
+        # self.plot_combo.clear()
+        for k, v in self.plot_types.items():
+            if self.plot_types[k] == plot_input_dic["plot_type"]:
+                self.plot_combo.addItem(k, v)
+        self.layer_combo.setLayer(plot_input_dic["layer"])
+        self.x_combo.setField(plot_input_dic["plot_prop"]["x_name"])
+        self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
 
         # update the plot_prop
         for k in plot_dic["plot_prop"]:
             if k not in plot_input_dic["plot_prop"]:
                 plot_input_dic["plot_prop"][k] = plot_dic["plot_prop"][k]
-
-        print(plot_input_dic["plot_prop"])
 
         # update the layout_prop
         for k in plot_dic["layout_prop"]:
@@ -968,3 +975,5 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         self.plot_view.load(standalone_plot_url)
         self.layoutw.addWidget(self.plot_view)
+
+        self.update_btn.setEnabled(True)
