@@ -963,21 +963,21 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                 plot_input_dic["layout_prop"][k] = plot_dic["layout_prop"][k]
 
         # create Plot instance
-        plot = Plot()
+        plot_standalone = Plot()
 
         # initialize plot properties and build them
-        plot.buildProperties(**plot_input_dic["plot_prop"])
-        plot.buildTrace(
+        plot_standalone.buildProperties(**plot_input_dic["plot_prop"])
+        plot_standalone.buildTrace(
             plot_type=plot_input_dic['plot_type']
         )
 
         # initialize layout properties and build them
-        plot.layoutProperties(**plot_input_dic["layout_prop"])
-        plot.buildLayout(
+        plot_standalone.layoutProperties(**plot_input_dic["layout_prop"])
+        plot_standalone.buildLayout(
             plot_type=plot_input_dic['plot_type']
         )
 
-        standalone_plot_path = plot.buildFigure(plot_type=plot_input_dic['plot_type'])
+        standalone_plot_path = plot_standalone.buildFigure(plot_type=plot_input_dic['plot_type'])
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
 
         self.plot_view.load(standalone_plot_url)
@@ -985,3 +985,18 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # enable the Update Button to allow the updating of the plot
         self.update_btn.setEnabled(True)
+
+
+        # the following code is necessary to let the user add other plots in
+        # different plot canvas after the creation of the standolone plot
+
+        # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
+        self.pid = ('{}_{}'.format(str(self.idx), plot_input_dic["plot_type"]))
+
+        # create default dictionary that contains all the plot and properties
+        self.plot_traces[self.pid] = plot_standalone
+
+        # just add 1 to the index
+        self.idx += 1
+
+        print(self.plot_traces)
