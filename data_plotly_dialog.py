@@ -876,37 +876,95 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
 
 
-    def showPlot(self, plot_dict, lay_dict):
+    def showPlot(self, plot_input_dic):
         '''
         creates a simple plot (not all he options available) from a dictionary
         as input
         '''
 
+
+        # keys of the nested plot_prop and layout_prop have to be the SAME of
+        # those created in buildProperties and buildLayout method
+        # prepare the default dictionary with None values
+        # plot properties
+        plot_dic = {}
+        plot_dic["plot_type"]=None
+        plot_dic["plot_prop"] = {}
+        plot_dic["plot_prop"]["x"]=None
+        plot_dic["plot_prop"]["y"]=None
+        plot_dic["plot_prop"]["z"]=None,
+        plot_dic["plot_prop"]["marker"]=None
+        plot_dic["plot_prop"]["featureIds"]=None
+        plot_dic["plot_prop"]["featureBox"]=None
+        plot_dic["plot_prop"]["custom"]=None
+        plot_dic["plot_prop"]["hover_text"]=None
+        plot_dic["plot_prop"]["additional_hover_text"]=None
+        plot_dic["plot_prop"]["x_name"]=None
+        plot_dic["plot_prop"]["y_name"]=None
+        plot_dic["plot_prop"]["z_name"]=None
+        plot_dic["plot_prop"]["in_color"]=None
+        plot_dic["plot_prop"]["out_color"]=None
+        plot_dic["plot_prop"]["marker_width"]=None
+        plot_dic["plot_prop"]["marker_size"]=None
+        plot_dic["plot_prop"]["marker_symbol"]=None
+        plot_dic["plot_prop"]["line_dash"]=None
+        plot_dic["plot_prop"]["box_orientation"]=None
+        plot_dic["plot_prop"]["opacity"]=None
+        plot_dic["plot_prop"]["box_stat"]=None
+        plot_dic["plot_prop"]["box_outliers"]=None
+        plot_dic["plot_prop"]["name"]=None
+        plot_dic["plot_prop"]["normalization"]=None
+        plot_dic["plot_prop"]["cont_type"]=None
+        plot_dic["plot_prop"]["color_scale"]=None
+        plot_dic["plot_prop"]["show_lines"]=None
+
+        # layout nested dictionary
+        plot_dic["layout_prop"] = {}
+        plot_dic["layout_prop"]['title']='Plot Title'
+        plot_dic["layout_prop"]['legend']=True
+        plot_dic["layout_prop"]["x_title"]=None
+        plot_dic["layout_prop"]["y_title"]=None
+        plot_dic["layout_prop"]["z_title"]=None
+        plot_dic["layout_prop"]["xaxis"] = None
+        # plot_dic["layout_prop"]["xaxis"]["rangeslider"]={"visible" = False}
+        plot_dic["layout_prop"]["range_slider"]=None
+        plot_dic["layout_prop"]["bar_mode"]=None
+        plot_dic["layout_prop"]["x_type"]=None
+        plot_dic["layout_prop"]["y_type"]=None
+        plot_dic["layout_prop"]["x_inv"]=None
+        plot_dic["layout_prop"]["y_inv"]=None
+
+        print(plot_dic["plot_prop"])
+
+        # update the plot_prop
+        for k in plot_dic["plot_prop"]:
+            if k not in plot_input_dic["plot_prop"]:
+                plot_input_dic["plot_prop"][k] = plot_dic["plot_prop"][k]
+
+        print(plot_input_dic["plot_prop"])
+
+        # update the layout_prop
+        for k in plot_dic["layout_prop"]:
+            if k not in plot_input_dic["layout_prop"]:
+                plot_input_dic["layout_prop"][k] = plot_dic["layout_prop"][k]
+
+        # create Plot instance
         plot = Plot()
-        plot.buildProperties(**plot_dict["plot_prop"])
+
+        # initialize plot properties and build them
+        plot.buildProperties(**plot_input_dic["plot_prop"])
         plot.buildTrace(
-            plot_type=plot_dict['plot_type']
-        )
-        plot.layoutProperties(**lay_dict)
-        plot.buildLayout(
-            plot_type=plot_dict['plot_type']
+            plot_type=plot_input_dic['plot_type']
         )
 
-        standalone_plot_path = plot.buildFigure(plot_type=plot_dict['plot_type'])
+        # initialize layout properties and build them
+        plot.layoutProperties(**plot_input_dic["layout_prop"])
+        plot.buildLayout(
+            plot_type=plot_input_dic['plot_type']
+        )
+
+        standalone_plot_path = plot.buildFigure(plot_type=plot_input_dic['plot_type'])
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
 
-
-        # start and create the webview with the plot
-        plot_view2 = QWebView()
-        plot_view2.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
-        plot_view_settings2 = plot_view2.settings()
-        plot_view_settings2.setAttribute(QWebSettings.WebGLEnabled, True)
-        plot_view_settings2.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
-        plot_view_settings2.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
-
-
-        # plot_path2 = '/home/matteo/plotly2.html'
-        global plot_view2
-        # plot_url2 = QUrl.fromLocalFile(plot_path2)
-        plot_view2.load(standalone_plot_url)
-        plot_view2.show()
+        self.plot_view.load(standalone_plot_url)
+        self.layoutw.addWidget(self.plot_view)

@@ -192,3 +192,8 @@ class DataPlotly:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
+
+    def loadPlot(self, plot_dic):
+
+        self.dlg.showPlot(plot_dic)
+        self.run()
