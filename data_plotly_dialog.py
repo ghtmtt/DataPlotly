@@ -939,10 +939,15 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
 
         # set some dialog widget from the input dictionary
-        # self.plot_combo.clear()
-        for k, v in self.plot_types.items():
-            if self.plot_types[k] == plot_input_dic["plot_type"]:
-                self.plot_combo.addItem(k, v)
+        # plot type in the plot_combo combobox
+        for k, v in self.plot_types2.items():
+            if self.plot_types2[k] == plot_input_dic["plot_type"]:
+                for ii, kk in enumerate(self.plot_types.keys()):
+                    if self.plot_types[kk] == k:
+                        self.plot_combo.setItemIcon(ii, kk)
+                        self.plot_combo.setItemText(ii, k)
+                        self.plot_combo.setCurrentIndex(ii)
+
         self.layer_combo.setLayer(plot_input_dic["layer"])
         self.x_combo.setField(plot_input_dic["plot_prop"]["x_name"])
         self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
