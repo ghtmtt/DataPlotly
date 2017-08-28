@@ -651,13 +651,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # plot method to have a dictionary of the properties
         self.plotobject.buildProperties(
-            # x=getFields(self.layer_combo, self.x_combo),
             x=xx,
             y=yy,
             z=zz,
             # featureIds are the ID of each feature needed for the selection and zooming method
             featureIds=getIds(self.layer_combo.currentLayer()),
-            # featureBox=sorted(set(xx), key=xx.index),
             featureBox=getSortedId(self.layer_combo.currentLayer(), xx),
             custom=self.x_combo.currentText(),
             hover_text=self.info_hover[self.info_combo.currentText()],
@@ -689,11 +687,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             plot_type=self.ptype
         )
 
-
-        # ff = getIdJs(self.layer_combo.currentLayer(), self.x_combo.currentText())
-        # print(ff)
-
-        # print(getSortedId(self.layer_combo.currentLayer(), xx))
 
         # build the layout customizations
         self.plotobject.layoutProperties(
@@ -739,6 +732,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # call the method to build all the Plot plotProperties
         self.plotProperties()
 
+        print (dir(self.plot_traces['1_scatter']))
+
+
         if not self.plot_traces:
             self.bar.pushMessage(self.tr("Basket is empty, add some plot!"),
                                  level=QgsMessageBar.CRITICAL, duration=2)
@@ -783,7 +779,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
                     self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
             except:
-                self.bar.pushMessage(self.tr("Plot types are not comapatible for subplotting. Please remove the plot from the Plot Basket"),
+                self.bar.pushMessage(self.tr("Plot types are not comapatible for subplotting"),
                              level=QgsMessageBar.CRITICAL, duration=3)
                 return
 
@@ -796,8 +792,16 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         it just calls 2 existing methods
         '''
 
+        print(sorted(self.plot_traces.keys())[-1])
+
+
+        del sorted(self.plot_traces.keys())[-1]
+
+        print(sorted(self.plot_traces.keys())[-1])
+
         print(self.plot_traces)
-        self.clearPlotView()
+
+        # self.clearPlotView()
         self.createPlot()
 
 
@@ -882,6 +886,31 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         '''
         creates a simple plot (not all options available) from a dictionary
         as input
+
+        Code usage example:
+
+        #import the plugins of QGIS
+        from qgis.utils import plugins
+        # create the instace of the plugin
+        myplugin = plugins['DataPlotly']
+
+        # create a dictionary of values that will be elaborated by the method
+
+        vl = iface.activeLayer()
+        # empty dictionary that should filled up with GUI values
+        dq = {}
+        dq['plot_prop'] = {}
+        dq['layout_prop'] = {}
+        # plot type
+        dq['plot_type'] = 'scatter'
+        # vector layer
+        dq["layer"] = vl
+        # minimum X and Y axis values
+        dq['plot_prop']['x'] = [i["some_field"] for i in vl.getFeatures()]
+        dq['plot_prop']['y'] = [i["some_field"] for i in vl.getFeatures()]
+
+        # call the final method
+        myplugin.loadPlot(dq)
         '''
 
 
@@ -948,9 +977,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                         self.plot_combo.setItemText(ii, k)
                         self.plot_combo.setCurrentIndex(ii)
 
-        self.layer_combo.setLayer(plot_input_dic["layer"])
-        self.x_combo.setField(plot_input_dic["plot_prop"]["x_name"])
-        self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
+        try:
+            self.layer_combo.setLayer(plot_input_dic["layer"])
+            self.x_combo.setField(plot_input_dic["plot_prop"]["x_name"])
+            self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
+        except:
+            pass
 
         # update the plot_prop
         for k in plot_dic["plot_prop"]:
@@ -999,4 +1031,4 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # just add 1 to the index
         self.idx += 1
 
-        print(self.plot_traces)
+        print(sorted(self.plot_traces.keys())[-1])
