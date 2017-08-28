@@ -641,72 +641,75 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
-        # plot instance
-        self.plotobject = Plot()
+        # # plot instance
+        # self.plotobject = Plot()
 
         # shortcut to clear the code in the following dictionary
         xx = self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
         yy = self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
         zz = self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
 
-        # plot method to have a dictionary of the properties
-        self.plotobject.buildProperties(
-            x=xx,
-            y=yy,
-            z=zz,
+        # dictionary of all the plot properties
+        plot_properties = {
+            'x':xx,
+            'y':yy,
+            'z':zz,
             # featureIds are the ID of each feature needed for the selection and zooming method
-            featureIds=getIds(self.layer_combo.currentLayer()),
-            featureBox=getSortedId(self.layer_combo.currentLayer(), xx),
-            custom=self.x_combo.currentText(),
-            hover_text=self.info_hover[self.info_combo.currentText()],
-            additional_hover_text=self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
-            x_name=self.x_combo.currentText(),
-            y_name=self.y_combo.currentText(),
-            z_name=self.z_combo.currentText(),
-            in_color=hex_to_rgb(self.in_color_combo),
-            out_color=hex_to_rgb(self.out_color_combo),
-            marker_width=self.marker_width.value(),
-            marker_size=self.marker_size.value(),
-            marker_symbol=self.point_types2[self.point_combo.currentData()],
-            line_dash=self.line_types2[self.line_combo.currentText()],
-            box_orientation=self.orientation_box[self.orientation_combo.currentText()],
-            marker=self.marker_types[self.marker_type_combo.currentText()],
-            opacity=(100 - self.alpha_slid.value()) / 100.0,
-            box_stat=self.statistic_type[self.box_statistic_combo.currentText()],
-            box_outliers=self.outliers_dict[self.outliers_combo.currentText()],
-            name=self.legend_title.text(),
-            normalization=self.normalization[self.hist_norm_combo.currentText()],
-            cont_type=self.contour_type[self.contour_type_combo.currentText()],
-            color_scale=self.col_scale[self.color_scale_combo.currentText()],
-            show_lines=self.show_lines_check.isChecked()
-        )
-
-
-        # build the final trace that will be used
-        self.plotobject.buildTrace(
-            plot_type=self.ptype
-        )
+            'featureIds':getIds(self.layer_combo.currentLayer()),
+            'featureBox':getSortedId(self.layer_combo.currentLayer(), xx),
+            'custom':self.x_combo.currentText(),
+            'hover_text':self.info_hover[self.info_combo.currentText()],
+            'additional_hover_text':self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            'x_name':self.x_combo.currentText(),
+            'y_name':self.y_combo.currentText(),
+            'z_name':self.z_combo.currentText(),
+            'in_color':hex_to_rgb(self.in_color_combo),
+            'out_color':hex_to_rgb(self.out_color_combo),
+            'marker_width':self.marker_width.value(),
+            'marker_size':self.marker_size.value(),
+            'marker_symbol':self.point_types2[self.point_combo.currentData()],
+            'line_dash':self.line_types2[self.line_combo.currentText()],
+            'box_orientation':self.orientation_box[self.orientation_combo.currentText()],
+            'marker':self.marker_types[self.marker_type_combo.currentText()],
+            'opacity':(100 - self.alpha_slid.value()) / 100.0,
+            'box_stat':self.statistic_type[self.box_statistic_combo.currentText()],
+            'box_outliers':self.outliers_dict[self.outliers_combo.currentText()],
+            'name':self.legend_title.text(),
+            'normalization':self.normalization[self.hist_norm_combo.currentText()],
+            'cont_type':self.contour_type[self.contour_type_combo.currentText()],
+            'color_scale':self.col_scale[self.color_scale_combo.currentText()],
+            'show_lines':self.show_lines_check.isChecked()
+        }
 
 
         # build the layout customizations
-        self.plotobject.layoutProperties(
-            legend=self.show_legend_check.isChecked(),
-            title=self.plot_title_line.text(),
-            x_title=self.x_axis_title.text(),
-            y_title=self.y_axis_title.text(),
-            z_title=self.z_axis_title.text(),
-            range_slider=dict(visible=self.range_slider_combo.isChecked(), borderwidth=1),
-            bar_mode=self.bar_modes[self.bar_mode_combo.currentText()],
-            x_type=self.x_axis_type[self.x_axis_mode_combo.currentText()],
-            y_type=self.y_axis_type[self.y_axis_mode_combo.currentText()],
-            x_inv=self.x_invert,
-            y_inv=self.y_invert,
-        )
+        layout_properties = {
+            'legend':self.show_legend_check.isChecked(),
+            'title':self.plot_title_line.text(),
+            'x_title':self.x_axis_title.text(),
+            'y_title':self.y_axis_title.text(),
+            'z_title':self.z_axis_title.text(),
+            'range_slider':dict(visible=self.range_slider_combo.isChecked(), borderwidth=1),
+            'bar_mode':self.bar_modes[self.bar_mode_combo.currentText()],
+            'x_type':self.x_axis_type[self.x_axis_mode_combo.currentText()],
+            'y_type':self.y_axis_type[self.y_axis_mode_combo.currentText()],
+            'x_inv':self.x_invert,
+            'y_inv':self.y_invert,
+        }
+
+
+        # plot instance
+        self.plotobject = Plot(self.ptype, plot_properties, layout_properties)
+
+        # build the final trace that will be used
+        self.plotobject.buildTrace()
+
+        print(self.plotobject.trace)
 
         # call the method and build the final layout
-        self.plotobject.buildLayout(
-            plot_type=self.ptype
-        )
+        self.plotobject.buildLayout()
+
+        print(self.plotobject.layout)
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = ('{}_{}'.format(str(self.idx), self.ptype))
@@ -731,8 +734,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # call the method to build all the Plot plotProperties
         self.plotProperties()
-
-        print (dir(self.plot_traces['1_scatter']))
 
 
         if not self.plot_traces:
@@ -994,20 +995,16 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             if k not in plot_input_dic["layout_prop"]:
                 plot_input_dic["layout_prop"][k] = plot_dic["layout_prop"][k]
 
+
+        plot_type=plot_input_dic['plot_type']
         # create Plot instance
-        plot_standalone = Plot()
+        plot_standalone = Plot(plot_type, plot_input_dic["plot_prop"], plot_input_dic["layout_prop"])
 
         # initialize plot properties and build them
-        plot_standalone.buildProperties(**plot_input_dic["plot_prop"])
-        plot_standalone.buildTrace(
-            plot_type=plot_input_dic['plot_type']
-        )
+        plot_standalone.buildTrace()
 
         # initialize layout properties and build them
-        plot_standalone.layoutProperties(**plot_input_dic["layout_prop"])
-        plot_standalone.buildLayout(
-            plot_type=plot_input_dic['plot_type']
-        )
+        plot_standalone.buildLayout()
 
         standalone_plot_path = plot_standalone.buildFigure(plot_type=plot_input_dic['plot_type'])
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
