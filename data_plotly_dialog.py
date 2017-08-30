@@ -641,10 +641,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
-        # # plot instance
-        # self.plotobject = Plot()
-
-        # shortcut to clear the code in the following dictionary
+        # shortcut to shorten the code in the following dictionary
         xx = self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
         yy = self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
         zz = self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
@@ -704,12 +701,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # build the final trace that will be used
         self.plotobject.buildTrace()
 
-        print(self.plotobject.trace)
-
         # call the method and build the final layout
         self.plotobject.buildLayout()
-
-        print(self.plotobject.layout)
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = ('{}_{}'.format(str(self.idx), self.ptype))
@@ -793,14 +786,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         it just calls 2 existing methods
         '''
 
-        print(sorted(self.plot_traces.keys())[-1])
-
-
-        del sorted(self.plot_traces.keys())[-1]
-
-        print(sorted(self.plot_traces.keys())[-1])
-
-        print(self.plot_traces)
+        # print(self.plot_traces['1_scatter'].trace[0]['x'])
 
         # self.clearPlotView()
         self.createPlot()
@@ -996,7 +982,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                 plot_input_dic["layout_prop"][k] = plot_dic["layout_prop"][k]
 
 
+        # get the plot type from the input dictionary
         plot_type=plot_input_dic['plot_type']
+
         # create Plot instance
         plot_standalone = Plot(plot_type, plot_input_dic["plot_prop"], plot_input_dic["layout_prop"])
 
@@ -1015,7 +1003,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # enable the Update Button to allow the updating of the plot
         self.update_btn.setEnabled(True)
 
-
         # the following code is necessary to let the user add other plots in
         # different plot canvas after the creation of the standolone plot
 
@@ -1027,5 +1014,3 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # just add 1 to the index
         self.idx += 1
-
-        print(sorted(self.plot_traces.keys())[-1])
