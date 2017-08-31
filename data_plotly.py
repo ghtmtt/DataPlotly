@@ -194,6 +194,9 @@ class DataPlotly:
             pass
 
     def loadPlot(self, plot_dic):
+        '''
+        call the method to load the DataPlotly dialog with a given dictionary
+        '''
 
         self.dlg.showPlot(plot_dic)
         self.run()

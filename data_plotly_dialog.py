@@ -874,6 +874,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         creates a simple plot (not all options available) from a dictionary
         as input
 
+        plot_input_dic has to be a dictionary with some fixed keys, see below 
+
         Code usage example:
 
         #import the plugins of QGIS
