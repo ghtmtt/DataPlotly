@@ -782,15 +782,15 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def UpdatePlot(self):
         '''
-        simple method to update the plot in the Plot Canvas
-        it just calls 2 existing methods
+        updates only the LAST plot created
+        get the key of the last plot created and delete it from the plot container
+        and call the method to create the plot with the updated settings
         '''
 
-        # print(self.plot_traces['1_scatter'].trace[0]['x'])
+        plot_to_update = (sorted(self.plot_traces.keys())[-1])
+        del self.plot_traces[plot_to_update]
 
-        # self.clearPlotView()
         self.createPlot()
-
 
 
     def refreshPlotView(self):
