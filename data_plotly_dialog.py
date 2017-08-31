@@ -136,6 +136,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.z_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.createPlot)
+        self.update_btn.clicked.connect(self.UpdatePlot)
         self.clear_btn.clicked.connect(self.clearPlotView)
         self.save_plot_btn.clicked.connect(self.savePlotAsImage)
         self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
@@ -640,79 +641,68 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
-        # plot instance
-        self.plotobject = Plot()
-
-        # shortcut to clear the code in the following dictionary
+        # shortcut to shorten the code in the following dictionary
         xx = self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
         yy = self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
         zz = self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
 
-        # plot method to have a dictionary of the properties
-        self.plotobject.buildProperties(
-            # x=getFields(self.layer_combo, self.x_combo),
-            x=xx,
-            y=yy,
-            z=zz,
+        # dictionary of all the plot properties
+        plot_properties = {
+            'x':xx,
+            'y':yy,
+            'z':zz,
             # featureIds are the ID of each feature needed for the selection and zooming method
-            featureIds=getIds(self.layer_combo.currentLayer()),
-            # featureBox=sorted(set(xx), key=xx.index),
-            featureBox=getSortedId(self.layer_combo.currentLayer(), xx),
-            custom=self.x_combo.currentText(),
-            hover_text=self.info_hover[self.info_combo.currentText()],
-            additional_hover_text=self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
-            x_name=self.x_combo.currentText(),
-            y_name=self.y_combo.currentText(),
-            z_name=self.z_combo.currentText(),
-            in_color=hex_to_rgb(self.in_color_combo),
-            out_color=hex_to_rgb(self.out_color_combo),
-            marker_width=self.marker_width.value(),
-            marker_size=self.marker_size.value(),
-            marker_symbol=self.point_types2[self.point_combo.currentData()],
-            line_dash=self.line_types2[self.line_combo.currentText()],
-            box_orientation=self.orientation_box[self.orientation_combo.currentText()],
-            marker=self.marker_types[self.marker_type_combo.currentText()],
-            opacity=(100 - self.alpha_slid.value()) / 100.0,
-            box_stat=self.statistic_type[self.box_statistic_combo.currentText()],
-            box_outliers=self.outliers_dict[self.outliers_combo.currentText()],
-            name=self.legend_title.text(),
-            normalization=self.normalization[self.hist_norm_combo.currentText()],
-            cont_type=self.contour_type[self.contour_type_combo.currentText()],
-            color_scale=self.col_scale[self.color_scale_combo.currentText()],
-            show_lines=self.show_lines_check.isChecked()
-        )
+            'featureIds':getIds(self.layer_combo.currentLayer()),
+            'featureBox':getSortedId(self.layer_combo.currentLayer(), xx),
+            'custom':self.x_combo.currentText(),
+            'hover_text':self.info_hover[self.info_combo.currentText()],
+            'additional_hover_text':self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            'x_name':self.x_combo.currentText(),
+            'y_name':self.y_combo.currentText(),
+            'z_name':self.z_combo.currentText(),
+            'in_color':hex_to_rgb(self.in_color_combo),
+            'out_color':hex_to_rgb(self.out_color_combo),
+            'marker_width':self.marker_width.value(),
+            'marker_size':self.marker_size.value(),
+            'marker_symbol':self.point_types2[self.point_combo.currentData()],
+            'line_dash':self.line_types2[self.line_combo.currentText()],
+            'box_orientation':self.orientation_box[self.orientation_combo.currentText()],
+            'marker':self.marker_types[self.marker_type_combo.currentText()],
+            'opacity':(100 - self.alpha_slid.value()) / 100.0,
+            'box_stat':self.statistic_type[self.box_statistic_combo.currentText()],
+            'box_outliers':self.outliers_dict[self.outliers_combo.currentText()],
+            'name':self.legend_title.text(),
+            'normalization':self.normalization[self.hist_norm_combo.currentText()],
+            'cont_type':self.contour_type[self.contour_type_combo.currentText()],
+            'color_scale':self.col_scale[self.color_scale_combo.currentText()],
+            'show_lines':self.show_lines_check.isChecked()
+        }
 
-
-        # build the final trace that will be used
-        self.plotobject.buildTrace(
-            plot_type=self.ptype
-        )
-
-
-        # ff = getIdJs(self.layer_combo.currentLayer(), self.x_combo.currentText())
-        # print(ff)
-
-        # print(getSortedId(self.layer_combo.currentLayer(), xx))
 
         # build the layout customizations
-        self.plotobject.layoutProperties(
-            legend=self.show_legend_check.isChecked(),
-            title=self.plot_title_line.text(),
-            x_title=self.x_axis_title.text(),
-            y_title=self.y_axis_title.text(),
-            z_title=self.z_axis_title.text(),
-            range_slider=dict(visible=self.range_slider_combo.isChecked(), borderwidth=1),
-            bar_mode=self.bar_modes[self.bar_mode_combo.currentText()],
-            x_type=self.x_axis_type[self.x_axis_mode_combo.currentText()],
-            y_type=self.y_axis_type[self.y_axis_mode_combo.currentText()],
-            x_inv=self.x_invert,
-            y_inv=self.y_invert,
-        )
+        layout_properties = {
+            'legend':self.show_legend_check.isChecked(),
+            'title':self.plot_title_line.text(),
+            'x_title':self.x_axis_title.text(),
+            'y_title':self.y_axis_title.text(),
+            'z_title':self.z_axis_title.text(),
+            'range_slider':dict(visible=self.range_slider_combo.isChecked(), borderwidth=1),
+            'bar_mode':self.bar_modes[self.bar_mode_combo.currentText()],
+            'x_type':self.x_axis_type[self.x_axis_mode_combo.currentText()],
+            'y_type':self.y_axis_type[self.y_axis_mode_combo.currentText()],
+            'x_inv':self.x_invert,
+            'y_inv':self.y_invert,
+        }
+
+
+        # plot instance
+        self.plotobject = Plot(self.ptype, plot_properties, layout_properties)
+
+        # build the final trace that will be used
+        self.plotobject.buildTrace()
 
         # call the method and build the final layout
-        self.plotobject.buildLayout(
-            plot_type=self.ptype
-        )
+        self.plotobject.buildLayout()
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = ('{}_{}'.format(str(self.idx), self.ptype))
@@ -720,24 +710,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # create default dictionary that contains all the plot and properties
         self.plot_traces[self.pid] = self.plotobject
 
-        # call the function and fill the table
-        # self.addTraceToTable()
-
         # just add 1 to the index
         self.idx += 1
 
-    def addTraceToTable(self):
-        '''
-        add the created trace to the table traceTable
-        '''
-        row = self.traceTable.rowCount()
-        self.traceTable.insertRow(row)
-
-        # fill the table with each paramter entered
-        self.traceTable.setItem(row, 0, QTableWidgetItem(str(self.pid)))
-        self.traceTable.setItem(row, 1, QTableWidgetItem(str(self.ptype)))
-        self.traceTable.setItem(row, 2, QTableWidgetItem(str(self.x_combo.currentText())))
-        self.traceTable.setItem(row, 3, QTableWidgetItem(str(self.y_combo.currentText())))
+        # enable the Update Plot button
+        self.update_btn.setEnabled(True)
 
 
     def createPlot(self):
@@ -750,6 +727,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # call the method to build all the Plot plotProperties
         self.plotProperties()
+
 
         if not self.plot_traces:
             self.bar.pushMessage(self.tr("Basket is empty, add some plot!"),
@@ -795,12 +773,25 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
                     self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
             except:
-                self.bar.pushMessage(self.tr("Plot types are not comapatible for subplotting. Please remove the plot from the Plot Basket"),
+                self.bar.pushMessage(self.tr("Plot types are not comapatible for subplotting"),
                              level=QgsMessageBar.CRITICAL, duration=3)
                 return
 
         # connect to simple function that reloads the view
         self.refreshPlotView()
+
+    def UpdatePlot(self):
+        '''
+        updates only the LAST plot created
+        get the key of the last plot created and delete it from the plot container
+        and call the method to create the plot with the updated settings
+        '''
+
+        plot_to_update = (sorted(self.plot_traces.keys())[-1])
+        del self.plot_traces[plot_to_update]
+
+        self.createPlot()
+
 
     def refreshPlotView(self):
         '''
@@ -831,6 +822,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.plot_view.load(QUrl(''))
             self.layoutw.addWidget(self.plot_view)
             self.raw_plot_text.clear()
+            # disable the Update Plot Button
+            self.update_btn.setEnabled(False)
         except:
             pass
 
@@ -874,3 +867,152 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         if self.plot_file:
             copyfile(self.plot_path, self.plot_file)
             self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+
+
+    def showPlot(self, plot_input_dic):
+        '''
+        creates a simple plot (not all options available) from a dictionary
+        as input
+
+        plot_input_dic has to be a dictionary with some fixed keys, see below 
+
+        Code usage example:
+
+        #import the plugins of QGIS
+        from qgis.utils import plugins
+        # create the instace of the plugin
+        myplugin = plugins['DataPlotly']
+
+        # create a dictionary of values that will be elaborated by the method
+
+        vl = iface.activeLayer()
+        # empty dictionary that should filled up with GUI values
+        dq = {}
+        dq['plot_prop'] = {}
+        dq['layout_prop'] = {}
+        # plot type
+        dq['plot_type'] = 'scatter'
+        # vector layer
+        dq["layer"] = vl
+        # minimum X and Y axis values
+        dq['plot_prop']['x'] = [i["some_field"] for i in vl.getFeatures()]
+        dq['plot_prop']['y'] = [i["some_field"] for i in vl.getFeatures()]
+
+        # call the final method
+        myplugin.loadPlot(dq)
+        '''
+
+
+        # keys of the nested plot_prop and layout_prop have to be the SAME of
+        # those created in buildProperties and buildLayout method
+        # prepare the default dictionary with None values
+        # plot properties
+        plot_dic = {}
+        plot_dic["plot_type"]=None
+        plot_dic["layer"]=None
+        plot_dic["plot_prop"] = {}
+        plot_dic["plot_prop"]["x"]=None
+        plot_dic["plot_prop"]["y"]=None
+        plot_dic["plot_prop"]["z"]=None,
+        plot_dic["plot_prop"]["marker"]=None
+        plot_dic["plot_prop"]["featureIds"]=None
+        plot_dic["plot_prop"]["featureBox"]=None
+        plot_dic["plot_prop"]["custom"]=None
+        plot_dic["plot_prop"]["hover_text"]=None
+        plot_dic["plot_prop"]["additional_hover_text"]=None
+        plot_dic["plot_prop"]["x_name"]=None
+        plot_dic["plot_prop"]["y_name"]=None
+        plot_dic["plot_prop"]["z_name"]=None
+        plot_dic["plot_prop"]["in_color"]=None
+        plot_dic["plot_prop"]["out_color"]=None
+        plot_dic["plot_prop"]["marker_width"]=None
+        plot_dic["plot_prop"]["marker_size"]=None
+        plot_dic["plot_prop"]["marker_symbol"]=None
+        plot_dic["plot_prop"]["line_dash"]=None
+        plot_dic["plot_prop"]["box_orientation"]=None
+        plot_dic["plot_prop"]["opacity"]=None
+        plot_dic["plot_prop"]["box_stat"]=None
+        plot_dic["plot_prop"]["box_outliers"]=None
+        plot_dic["plot_prop"]["name"]=None
+        plot_dic["plot_prop"]["normalization"]=None
+        plot_dic["plot_prop"]["cont_type"]=None
+        plot_dic["plot_prop"]["color_scale"]=None
+        plot_dic["plot_prop"]["show_lines"]=None
+
+        # layout nested dictionary
+        plot_dic["layout_prop"] = {}
+        plot_dic["layout_prop"]['title']='Plot Title'
+        plot_dic["layout_prop"]['legend']=True
+        plot_dic["layout_prop"]["x_title"]=None
+        plot_dic["layout_prop"]["y_title"]=None
+        plot_dic["layout_prop"]["z_title"]=None
+        plot_dic["layout_prop"]["xaxis"] = None
+        plot_dic["layout_prop"]["bar_mode"]=None
+        plot_dic["layout_prop"]["x_type"]=None
+        plot_dic["layout_prop"]["y_type"]=None
+        plot_dic["layout_prop"]["x_inv"]=None
+        plot_dic["layout_prop"]["y_inv"]=None
+        plot_dic['layout_prop']["range_slider"] = {}
+        plot_dic['layout_prop']["range_slider"]["visible"] = False
+
+
+        # set some dialog widget from the input dictionary
+        # plot type in the plot_combo combobox
+        for k, v in self.plot_types2.items():
+            if self.plot_types2[k] == plot_input_dic["plot_type"]:
+                for ii, kk in enumerate(self.plot_types.keys()):
+                    if self.plot_types[kk] == k:
+                        self.plot_combo.setItemIcon(ii, kk)
+                        self.plot_combo.setItemText(ii, k)
+                        self.plot_combo.setCurrentIndex(ii)
+
+        try:
+            self.layer_combo.setLayer(plot_input_dic["layer"])
+            self.x_combo.setField(plot_input_dic["plot_prop"]["x_name"])
+            self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
+        except:
+            pass
+
+        # update the plot_prop
+        for k in plot_dic["plot_prop"]:
+            if k not in plot_input_dic["plot_prop"]:
+                plot_input_dic["plot_prop"][k] = plot_dic["plot_prop"][k]
+
+        # update the layout_prop
+        for k in plot_dic["layout_prop"]:
+            if k not in plot_input_dic["layout_prop"]:
+                plot_input_dic["layout_prop"][k] = plot_dic["layout_prop"][k]
+
+
+        # get the plot type from the input dictionary
+        plot_type=plot_input_dic['plot_type']
+
+        # create Plot instance
+        plot_standalone = Plot(plot_type, plot_input_dic["plot_prop"], plot_input_dic["layout_prop"])
+
+        # initialize plot properties and build them
+        plot_standalone.buildTrace()
+
+        # initialize layout properties and build them
+        plot_standalone.buildLayout()
+
+        standalone_plot_path = plot_standalone.buildFigure(plot_type=plot_input_dic['plot_type'])
+        standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
+
+        self.plot_view.load(standalone_plot_url)
+        self.layoutw.addWidget(self.plot_view)
+
+        # enable the Update Button to allow the updating of the plot
+        self.update_btn.setEnabled(True)
+
+        # the following code is necessary to let the user add other plots in
+        # different plot canvas after the creation of the standolone plot
+
+        # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
+        self.pid = ('{}_{}'.format(str(self.idx), plot_input_dic["plot_type"]))
+
+        # create default dictionary that contains all the plot and properties
+        self.plot_traces[self.pid] = plot_standalone
+
+        # just add 1 to the index
+        self.idx += 1

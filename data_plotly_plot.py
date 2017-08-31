@@ -9,11 +9,11 @@ import re
 
 class Plot(object):
 
-    plot_type = ''
-
-    plot_properties = {}
-
-    plot_layout = {}
+    # plot_type = ''
+    #
+    # plot_properties = {}
+    #
+    # plot_layout = {}
 
     # path of javascript files
     if platform.system() == 'Windows':
@@ -25,27 +25,15 @@ class Plot(object):
         polyfillpath = os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
         plotlypath = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly.min.js')
 
-    def buildProperties(self, *args, **kwargs):
-        '''
-        dictionary with all the plot properties and return the object
 
-        self.plot_properties is final objcet containing all the properties
+    def __init__(self, plot_type, plot_properties, plot_layout):
 
-        Console usage:
+        self.plot_type = plot_type
+        self.plot_properties = plot_properties
+        self.plot_layout = plot_layout
 
-        p = Plot()
-        p.buildProperties(x = ..., )  #all the kwargs arguments
-        print(p.plot_properties) # returns the dictionary with all the values
 
-        {'marker_width': 1, 'marker_size': 10, 'box_outliers': False .......}
-        '''
-
-        for k, v in kwargs.items():
-            self.plot_properties[k] = v
-
-        return self.plot_properties
-
-    def buildTrace(self, *args, **kwargs):
+    def buildTrace(self):
         '''
         build the final trace calling the go.xxx plotly method
         this method here is the one performing the real job
@@ -66,9 +54,10 @@ class Plot(object):
         '''
 
         # retieve the plot_type from the kwargs and assign it to the variable
-        plot_type = kwargs['plot_type']
+        # plot_type = kwargs['plot_type']
 
-        if plot_type == 'scatter':
+
+        if self.plot_type == 'scatter':
 
             self.trace = [go.Scatter(
                 x=self.plot_properties['x'],
@@ -96,7 +85,7 @@ class Plot(object):
                 opacity=self.plot_properties['opacity']
             )]
 
-        elif plot_type == 'box':
+        elif self.plot_type == 'box':
 
             # NULL value in the Field is empty
             if not self.plot_properties['x']:
@@ -123,7 +112,7 @@ class Plot(object):
                 opacity=self.plot_properties['opacity']
             )]
 
-        elif plot_type == 'bar':
+        elif self.plot_type == 'bar':
 
             if self.plot_properties['box_orientation'] == 'h':
                 self.plot_properties['x'], self.plot_properties['y'] = self.plot_properties['y'], self.plot_properties['x']
@@ -145,7 +134,7 @@ class Plot(object):
                 opacity=self.plot_properties['opacity']
             )]
 
-        elif plot_type == 'histogram':
+        elif self.plot_type == 'histogram':
 
             self.trace = [go.Histogram(
                 x=self.plot_properties['x'],
@@ -163,14 +152,14 @@ class Plot(object):
                 opacity=self.plot_properties['opacity']
             )]
 
-        elif plot_type == 'pie':
+        elif self.plot_type == 'pie':
 
             self.trace = [go.Pie(
                 labels=self.plot_properties['x'],
                 values=self.plot_properties['y'],
             )]
 
-        elif plot_type == '2dhistogram':
+        elif self.plot_type == '2dhistogram':
 
             self.trace = [go.Histogram2d(
                 x=self.plot_properties['x'],
@@ -178,7 +167,7 @@ class Plot(object):
                 colorscale=self.plot_properties['color_scale']
             )]
 
-        elif plot_type == 'polar':
+        elif self.plot_type == 'polar':
 
             self.trace = [go.Scatter(
                 r=self.plot_properties['x'],
@@ -202,7 +191,7 @@ class Plot(object):
                 opacity=self.plot_properties['opacity'],
             )]
 
-        elif plot_type == 'ternary':
+        elif self.plot_type == 'ternary':
 
             # prepare the hover text to display if the additional combobox is empty or not
             # this setting is necessary to overwrite the standard hovering labels
@@ -231,7 +220,7 @@ class Plot(object):
                 opacity=self.plot_properties['opacity']
             )]
 
-        elif plot_type == 'contour':
+        elif self.plot_type == 'contour':
 
             self.trace = [go.Contour(
                 z=[self.plot_properties['x'], self.plot_properties['y']],
@@ -245,28 +234,7 @@ class Plot(object):
 
         return self.trace
 
-    def layoutProperties(self, *args, **kwargs):
-        '''
-        build the layout customizations and return the object
-
-        self.plot_layout is the final objcet containing the layout properties
-
-        Console usage:
-
-        p = Plot()
-        p.layoutProperties()  #all the kwargs arguments
-        print(p.plot_layout) # returns the dictionary with all the values
-
-
-        {'title': 'Plot Title', 'legend': True, ..... }
-        '''
-
-        for k, v in kwargs.items():
-            self.plot_layout[k] = v
-
-        return self.plot_layout
-
-    def buildLayout(self, *args, **kwargs):
+    def buildLayout(self):
         '''
         build the final layout calling the go.Layout plotly method
 
@@ -288,7 +256,7 @@ class Plot(object):
         '''
 
         # retieve the plot_type from the kwargs and assign it to the variable
-        plot_type = kwargs['plot_type']
+        # plot_type = kwargs['plot_type']
 
         # flip the variables according to the box orientation
         if self.plot_properties['box_orientation'] == 'h':
@@ -321,16 +289,16 @@ class Plot(object):
             pass
 
         # update layout properties depending on the plot type
-        if plot_type == 'scatter':
+        if self.plot_type == 'scatter':
             self.layout['xaxis'].update(rangeslider=self.plot_layout['range_slider'])
 
-        elif plot_type == 'bar':
+        elif self.plot_type == 'bar':
             self.layout['barmode'] = self.plot_layout['bar_mode']
 
-        elif plot_type == 'histogram':
+        elif self.plot_type == 'histogram':
             self.layout['barmode'] = self.plot_layout['bar_mode']
 
-        elif plot_type == 'pie':
+        elif self.plot_type == 'pie':
             self.layout['xaxis'].update(title=''),
             self.layout['xaxis'].update(showgrid=False),
             self.layout['xaxis'].update(zeroline=False),
@@ -344,7 +312,7 @@ class Plot(object):
             self.layout['yaxis'].update(autotick=False),
             self.layout['yaxis'].update(showticklabels=False)
 
-        elif plot_type == 'ternary':
+        elif self.plot_type == 'ternary':
             self.layout['xaxis'].update(title=''),
             self.layout['xaxis'].update(showgrid=False),
             self.layout['xaxis'].update(zeroline=False),
