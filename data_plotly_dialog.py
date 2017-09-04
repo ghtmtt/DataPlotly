@@ -48,7 +48,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 
 class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
-    def __init__(self, module, parent=None):
+    def __init__(self, parent=None):
         """Constructor."""
         super(DataPlotlyDialog, self).__init__(parent)
         # Set up the user interface from Designer.
@@ -57,7 +57,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-        self.module = module
 
         # add bar to the main (upper part) window
         self.bar = QgsMessageBar()
@@ -874,7 +873,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         creates a simple plot (not all options available) from a dictionary
         as input
 
-        plot_input_dic has to be a dictionary with some fixed keys, see below 
+        plot_input_dic has to be a dictionary with some fixed keys, see below
 
         Code usage example:
 
