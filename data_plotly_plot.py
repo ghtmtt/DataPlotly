@@ -99,7 +99,6 @@ class Plot(object):
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 name=self.plot_properties['name'],
-                ids=self.plot_properties['featureBox'],
                 customdata=self.plot_properties['custom'],
                 boxmean=self.plot_properties['box_stat'],
                 orientation=self.plot_properties['box_orientation'],
@@ -377,16 +376,19 @@ class Plot(object):
         plotly_div.on('plotly_click', function(data){
         var featureIds = [];
         var dd = {};
+
         dd["mode"] = 'clicking'
 
         for(var i=0; i < data.points.length; i++){
 
         if(data.points[i].data.type == 'scatter'){
         dd["uid"] = data.points[i].data.uid
-        dd["id"] = data.points[i].pointNumber
         dd["type"] = data.points[i].data.type
-        dd["field"] = data.points[i].data.customdata
-        //console.log(featureIds)
+
+        data.points.forEach(function(pt){
+        dd["fid"] = pt.id
+            })
+
         }
 
         else {
@@ -397,7 +399,6 @@ class Plot(object):
         }
             }
 
-        //console.log(dd)
         window.status = JSON.stringify(dd)
         });
         </script>'''

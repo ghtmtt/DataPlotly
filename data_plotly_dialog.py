@@ -217,7 +217,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # if a clicking event is performed
             elif dic["mode"] == 'clicking':
                 if dic['type'] == 'scatter':
-                    self.layer_combo.currentLayer().selectByIds([dic['id']])
+                    self.layer_combo.currentLayer().selectByIds([dic['fid']])
                 else:
                     # build the expression from the js dic (customdata)
                     exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])
@@ -651,7 +651,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             'y':yy,
             'z':zz,
             # featureIds are the ID of each feature needed for the selection and zooming method
-            'featureIds':getIds(self.layer_combo.currentLayer()),
+            'featureIds':getIds(self.layer_combo.currentLayer(), self.selected_feature_check.isChecked()),
             'featureBox':getSortedId(self.layer_combo.currentLayer(), xx),
             'custom':self.x_combo.currentText(),
             'hover_text':self.info_hover[self.info_combo.currentText()],

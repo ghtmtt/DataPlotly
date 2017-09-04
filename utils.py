@@ -44,18 +44,6 @@ def hex_to_rgb(value):
     final = 'rgb' + str(col)
     return final
 
-def getIds(layer):
-    '''
-    get the ID as list of the layer
-    '''
-
-    layer_id = []
-
-    for i in layer.getFeatures():
-        layer_id.append(i.id())
-
-    return layer_id
-
 def getIdJs(layer, field):
     '''
     return a list of unique items that can be used as ids
@@ -96,3 +84,19 @@ def getSortedId(layer, field_list):
         l = sorted(set(field_list), key=field_list.index)
 
     return l
+
+def getIds(layer, checkstate):
+    '''
+    get the ids list by checking if features are selectedFeatures
+    '''
+
+    ids = []
+
+    if checkstate:
+        for i in layer.selectedFeatures():
+            ids.append(i.id())
+    else:
+        for i in layer.getFeatures():
+            ids.append(i.id())
+
+    return ids
