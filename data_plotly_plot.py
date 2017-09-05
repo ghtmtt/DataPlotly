@@ -376,6 +376,7 @@ class Plot(object):
         plotly_div.on('plotly_click', function(data){
         var featureIds = [];
         var dd = {};
+        dd["fidd"] = data.points[0].id
 
         dd["mode"] = 'clicking'
 

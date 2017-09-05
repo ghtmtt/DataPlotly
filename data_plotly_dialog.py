@@ -205,7 +205,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         except:
             dic = None
 
-        # print('STATUS', status, dic)
+        print('STATUS', status, dic)
 
         try:
             # check the user behavior linked to the js script
@@ -217,7 +217,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             # if a clicking event is performed
             elif dic["mode"] == 'clicking':
                 if dic['type'] == 'scatter':
-                    self.layer_combo.currentLayer().selectByIds([dic['fid']])
+                    self.layer_combo.currentLayer().selectByIds([dic['fidd']])
                 else:
                     # build the expression from the js dic (customdata)
                     exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])

@@ -99,4 +99,6 @@ def getIds(layer, checkstate):
         for i in layer.getFeatures():
             ids.append(i.id())
 
+    ids.sort()
+
     return ids
