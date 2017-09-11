@@ -1,36 +1,27 @@
+# -*- coding: utf-8 -*-
+"""
+/***************************************************************************
+ DataPlotlyDialog
+                                 A QGIS plugin
+ D3 Plots for QGIS
+                             -------------------
+        begin                : 2017-03-05
+        git sha              : $Format:%H$
+        copyright            : (C) 2017 by matteo ghetta
+        email                : matteo.ghetta@gmail.com
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+"""
+
 from qgis.core import *
-
-
-def getFields(lay, exp):
-    '''
-    from a QgsFieldExpressionWidget to a list of data
-    '''
-
-    vl = lay.currentLayer()
-    if exp:
-        field = exp.currentText()
-    else:
-        field = None
-
-    data = []
-
-    # get the data from the layer
-    # no expression
-    if not field:
-        for i in vl.getFeatures():
-            data.append(i.id())
-    elif not exp.currentField()[1]:
-        for i in vl.getFeatures():
-            data.append(i[field])
-    # if expression is selected
-    else:
-        # expression name
-        fil = exp.currentField()[0]
-        # expr = QgsExpression(fil)
-        # for i in vl.getFeatures():
-            # data.append(expr.evaluate(i, vl.pendingFields()))
-
-    return data
 
 
 def hex_to_rgb(value):
@@ -43,23 +34,6 @@ def hex_to_rgb(value):
     col = tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
     final = 'rgb' + str(col)
     return final
-
-def getIdJs(layer, field):
-    '''
-    return a list of unique items that can be used as ids
-    '''
-
-    d_id = {}
-
-    f1 = [i[field] for i in layer.getFeatures()]
-    f2 = [i.id() for i in layer.getFeatures()]
-
-    for i, j in zip(f1, f2):
-        if i not in d_id:
-            d_id[i] = []
-        d_id[i].append(j)
-
-    return d_id
 
 def getSortedId(layer, field_list):
     '''

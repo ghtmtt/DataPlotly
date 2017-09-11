@@ -24,8 +24,7 @@
 import os
 import json
 
-from PyQt5 import uic
-from PyQt5 import QtWidgets
+from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QIcon, QImage, QPainter
 from PyQt5.QtCore import QUrl, QFileInfo
@@ -205,7 +204,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         except:
             dic = None
 
-        print('STATUS', status, dic)
+        # print('STATUS', status, dic)
 
         try:
             # check the user behavior linked to the js script

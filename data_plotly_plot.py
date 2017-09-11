@@ -1,3 +1,26 @@
+# -*- coding: utf-8 -*-
+"""
+/***************************************************************************
+ DataPlotlyDialog
+                                 A QGIS plugin
+ D3 Plots for QGIS
+                             -------------------
+        begin                : 2017-03-05
+        git sha              : $Format:%H$
+        copyright            : (C) 2017 by matteo ghetta
+        email                : matteo.ghetta@gmail.com
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+"""
+
 import plotly
 import plotly.graph_objs as go
 from plotly import tools
