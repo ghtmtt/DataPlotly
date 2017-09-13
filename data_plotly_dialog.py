@@ -727,16 +727,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.plotProperties()
 
 
-        if not self.plot_traces:
-            self.bar.pushMessage(self.tr("Basket is empty, add some plot!"),
-                                 level=QgsMessageBar.CRITICAL, duration=2)
-            return
-
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
             # plot single plot, check the object dictionary lenght
             if len(self.plot_traces) <= 1:
-                self.plot_path = self.plotobject.buildFigure(plot_type=self.ptype)
+                self.plot_path = self.plotobject.buildFigure()
 
             # to plot many plots in the same figure
             else:
@@ -749,7 +744,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
                     pl.append(v.trace[0])
                     ll = v.layout
 
-                self.plot_path = self.plotobject.buildFigures(pl=pl, plot_type=self.ptype)
+                self.plot_path = self.plotobject.buildFigures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
@@ -813,7 +808,6 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         raw text of the QPlainTextEdit
         '''
 
-        del self.plot_traces
         self.plot_traces = {}
 
         try:
@@ -994,7 +988,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # initialize layout properties and build them
         plot_standalone.buildLayout()
 
-        standalone_plot_path = plot_standalone.buildFigure(plot_type=plot_input_dic['plot_type'])
+        standalone_plot_path = plot_standalone.buildFigure()
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
 
         self.plot_view.load(standalone_plot_url)

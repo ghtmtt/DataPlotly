@@ -31,14 +31,21 @@ import re
 
 
 class Plot(object):
+    '''
+    Plot Class that creates the initial Plot object
 
-    # plot_type = ''
-    #
-    # plot_properties = {}
-    #
-    # plot_layout = {}
+    Console usage:
+    # create the object
+    p = Plot(plot_type, plot_properties, layout_properties)
+    # where:
+        # plot_type (string): 'scatter'
+        # plot_properties (dictionary): {'x':[1,2,3], 'marker_width': 10}
+        # layout_properties (dictionary): {'legend'; True, 'title': 'Plot Title'}
 
-    # path of javascript files
+    The object created is ready to be elaborated by the other methods
+    '''
+
+    # create fixed class variables as paths for local javascript files
     if platform.system() == 'Windows':
         polyfillpath = 'file:///'
         plotlypath = 'file:///'
@@ -61,24 +68,18 @@ class Plot(object):
         build the final trace calling the go.xxx plotly method
         this method here is the one performing the real job
 
-        this method takes the dictionary with all the properties and build the
-        plotly trace that is returned and available
+        From the initial object created (e.g. p = Plot(plot_type, plot_properties,
+        layout_properties)) this methods checks the plot_type and elaborates the
+        plot_properties dictionary passed
 
         Console usage:
-        p = Plot()
-        # call the method that builds the dictionary of the properties
-        p.buildProperties(x = ...)  #all the kwargs arguments
-        p.buildTrace(plot_type='scatter') #plot_type needed to build the
-        correct layout and it has to be a string like 'scatter', 'barplot', ...
+        # create the initial object
+        p = Plot(plot_type, plot_properties, layout_properties)
+        # call the method
+        p.buildTrace()
 
-        print(p.trace)
-        # this is the final plotly object
-        {['opacity': 1.0, 'type': 'bar', 'name': 'ID', ...]}
+        Returns the final Plot Trace (final Plot object, AKA go.xxx plot type)
         '''
-
-        # retieve the plot_type from the kwargs and assign it to the variable
-        # plot_type = kwargs['plot_type']
-
 
         if self.plot_type == 'scatter':
 
@@ -260,25 +261,18 @@ class Plot(object):
         '''
         build the final layout calling the go.Layout plotly method
 
-        this method takes the dictionary with all the layout properties and
-        builds the final Layout that is returned and available
-
-        depending on the plot_type, properties of specific plot will be added
+        From the initial object created (e.g. p = Plot(plot_type, plot_properties,
+        layout_properties)) this methods checks the plot_type and elaborates the
+        layout_properties dictionary passed
 
         Console usage:
-        p = Plot()
-        # call the method that builds the dictionary of the properties
-        p.layoutProperties(title = ...)  #all the kwarg arguments
-        p.buildLayout(plot_type='scatter')  #plot_type needed to build the
-        correct layout and it has to be a string like 'scatter', 'barplot', ...
+        # create the initial object
+        p = Plot(plot_type, plot_properties, layout_properties)
+        # call the method
+        p.buildLayout()
 
-        print(p.layout)
-        # this is the final plotly object
-        {'xaxis': {'title': 'VALORE'}, 'title': 'Title'...}
+        Returns the final Plot Layout (final Layout object, AKA go.Layout)
         '''
-
-        # retieve the plot_type from the kwargs and assign it to the variable
-        # plot_type = kwargs['plot_type']
 
         # flip the variables according to the box orientation
         if self.plot_properties['box_orientation'] == 'h':
@@ -367,7 +361,8 @@ class Plot(object):
 
     def js_callback(self, code_string):
         '''
-        return a string that will be used together with the plot creation
+        returns a string that is added to the end of the plot. This string is
+        necessary for the interaction between plot and map objects
 
         WARNING! The string ReplaceTheDiv is a default string that will be
         replaced in a second moment
@@ -430,17 +425,30 @@ class Plot(object):
         return js_str
 
 
-    def buildFigure(self, *args, **kwargs):
+    def buildFigure(self):
         '''
         draw the final plot (single plot)
 
-        call the go.Figure plotly method and build the figure object
-        adjust the html file and add some line
+        call the go.Figure plotly method and build the figure object adjust the
+        html file and add some line (including the js_string for the interaction)
         save the html plot file in a temporary directory and return the path
         that can be loaded in the QWebView
-        '''
 
-        plot_type = kwargs['plot_type']
+        This method is directly usable after the plot object has been created and
+        the 2 methods (buildTrace and buildLayout) have been called
+
+        Returns the final html path containing the plot
+
+        Console usage:
+        # create the initial object
+        p = Plot(plot_type, plot_properties, layout_properties)
+        # call the methods to create the Trace and the Layout
+        p.buildTrace()
+        p.buildLayout()
+
+        # finally create the Figure
+        fig = p.buildFigure()
+        '''
 
         fig = go.Figure(data=self.trace, layout=self.layout)
 
@@ -463,34 +471,39 @@ class Plot(object):
 
         return self.plot_path
 
-    def buildFigures(self, *args, **kwargs):
+    def buildFigures(self, plot_type, ptrace):
         '''
-        draw the final plot (multi plot)
+        Overlaps plots on the same map canvas
 
-        this method can take many arguments in order to correct render the plots
-        depending on the plot type chosen.
-        It is necessary because for bar and histogram plots, it the user wants
-        to have stacked or overlayed plots, an unique self.layout layout is
-        necessary. Without this addition these last options will be useless.
+        params:
+            plot_type (string): 'scatter'
+            ptrace (list of Plot Traces): list of all the different Plot Traces
 
-        For bar and histogram plots it deletes the existing layouts and creates
-        the last and correct layout object
-
-        Console usage:
-        p = Plot()
-        # call the method that builds the dictionary of the properties
-        p.buildFigures(pl=pl, ptype=ptype)
-        # pl (plot object) is the trace, so the plot object with all its
-        properties
-        # plot_type (string) is the plot_type ('scatter', 'bar')
+        plot_type argument in necessary for Bar and Histogram plots when the
+        options stack is chosen.
+        In this case the layouts of the firsts plot are deleted and only the last
+        one is taken into account (so to have the stack option).
 
         self.layout is DELETED, so the final layout is taken from the LAST plot
         configuration added
+
+        Returns the final html path containing the plot with the js_string for
+        the interaction
+
+        Console usage:
+        # create the initial object
+        p = Plot(plot_type, plot_properties, layout_properties)
+        # call the methods to create the Trace and the Layout
+        p.buildTrace()
+        p.buildLayout()
+
+        # finally create the Figure
+        fig = p.buildFigures(plot_type, ptrace)
         '''
 
         # assign the variables from the kwargs arguments
-        plot_type = kwargs['plot_type']
-        ptrace = kwargs['pl']
+        # plot_type = kwargs['plot_type']
+        # ptrace = kwargs['pl']
 
         # check if the plot type and render the correct figure
         if plot_type == 'bar' or 'histogram':
@@ -523,7 +536,27 @@ class Plot(object):
 
     def buildSubPlots(self, grid, row, column, ptrace, tit_lst):
         '''
-        draw subplots
+        Draws plot in different plot canvases (not overlapping)
+
+        params:
+            grid (string): 'row' or 'col'. Plot are created in rows or columns
+            row (int): number of rows (if row is selected)
+            column (int): number of columns (if column is selected)
+            ptrace (list of Plot Traces): list of all the different Plot Traces
+            tit_lst (tuple): tuple containing the plot titles
+
+        Returns the final html path containing the plot with the js_string for
+        the interaction
+
+        Console usage:
+        # create the initial object
+        p = Plot(plot_type, plot_properties, layout_properties)
+        # call the methods to create the Trace and the Layout
+        p.buildTrace()
+        p.buildLayout()
+
+        # finally create the Figure
+        fig = p.buildSubPlots('row', 1, gr, pl, tt)
         '''
 
         if grid == 'row':
@@ -539,8 +572,6 @@ class Plot(object):
 
             for i, itm in enumerate(ptrace):
                 fig.append_trace(itm, i + 1, column)
-
-        # plotly.offline.plot(fig)
 
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
