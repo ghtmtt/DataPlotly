@@ -172,7 +172,10 @@ class Plot(object):
                     )
                 ),
                 histnorm=self.plot_properties['normalization'],
-                opacity=self.plot_properties['opacity']
+                opacity=self.plot_properties['opacity'],
+                cumulative=dict(
+                    enabled=self.plot_properties['cumulative']
+                    )
             )]
 
         elif self.plot_type == 'pie':
