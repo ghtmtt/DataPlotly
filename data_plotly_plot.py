@@ -385,11 +385,16 @@ class Plot(object):
         plotly_div.on('plotly_selected', function(data){
         var dds = {};
         dds["mode"] = 'selection'
+        dds["type"] = data.points[0].data.type
 
-        featureIds = []
+        featureIds = [];
+        featureIdsTernary = [];
+        
         data.points.forEach(function(pt){
         featureIds.push(parseInt(pt.id))
+        featureIdsTernary.push(parseInt(pt.pointNumber))
         dds["id"] = featureIds
+        dds["tid"] = featureIdsTernary
             })
         //console.log(dds)
         window.status = JSON.stringify(dds)

@@ -211,7 +211,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
             # if a selection event is performed
             if dic['mode'] == 'selection':
-                self.layer_combo.currentLayer().selectByIds(dic['id'])
+                if dic['type'] == 'scatter':
+                    self.layer_combo.currentLayer().selectByIds(dic['id'])
+                else:
+                    self.layer_combo.currentLayer().selectByIds(dic['tid'])
+
 
             # if a clicking event is performed
             elif dic["mode"] == 'clicking':
