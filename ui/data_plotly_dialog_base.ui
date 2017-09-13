@@ -787,24 +787,24 @@
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgscollapsiblegroupbox.h</header>
+   <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsColorButton</class>
    <extends>QPushButton</extends>
-   <header>qgscolorbutton.h</header>
+   <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
-   <header>qgsfieldexpressionwidget.h</header>
+   <header>qgis.gui</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgsmaplayercombobox.h</header>
+   <header>qgis.gui</header>
   </customwidget>
  </customwidgets>
  <resources/>
