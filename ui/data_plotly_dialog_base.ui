@@ -496,12 +496,15 @@
               <property name="geometry">
                <rect>
                 <x>0</x>
-                <y>-253</y>
+                <y>-281</y>
                 <width>819</width>
-                <height>591</height>
+                <height>624</height>
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
+               <item row="2" column="1" colspan="2">
+                <widget class="QLineEdit" name="legend_title"/>
+               </item>
                <item row="15" column="0">
                 <widget class="QLabel" name="hist_norm_label">
                  <property name="text">
@@ -516,7 +519,7 @@
                  </property>
                 </widget>
                </item>
-               <item row="19" column="0" colspan="3">
+               <item row="20" column="0" colspan="3">
                 <spacer name="verticalSpacer_2">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
@@ -619,9 +622,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1" colspan="2">
-                <widget class="QLineEdit" name="legend_title"/>
-               </item>
                <item row="0" column="2">
                 <widget class="QCheckBox" name="range_slider_combo">
                  <property name="text">
@@ -690,6 +690,26 @@
                 <widget class="QCheckBox" name="cumulative_hist_check">
                  <property name="text">
                   <string>Cumulative Histogram</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="19" column="0">
+                <widget class="QCheckBox" name="bins_check">
+                 <property name="text">
+                  <string>Choose manually the bins</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="19" column="1">
+                <widget class="QSpinBox" name="bins_value">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="maximum">
+                  <number>1000</number>
+                 </property>
+                 <property name="value">
+                  <number>10</number>
                  </property>
                 </widget>
                </item>
@@ -820,8 +840,8 @@
      <y>264</y>
     </hint>
     <hint type="destinationlabel">
-     <x>374</x>
-     <y>252</y>
+     <x>490</x>
+     <y>-29</y>
     </hint>
    </hints>
   </connection>
@@ -836,8 +856,8 @@
      <y>224</y>
     </hint>
     <hint type="destinationlabel">
-     <x>374</x>
-     <y>219</y>
+     <x>490</x>
+     <y>-62</y>
     </hint>
    </hints>
   </connection>
@@ -849,11 +869,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>822</x>
-     <y>556</y>
+     <y>634</y>
     </hint>
     <hint type="destinationlabel">
-     <x>598</x>
-     <y>554</y>
+     <x>712</x>
+     <y>632</y>
     </hint>
    </hints>
   </connection>
@@ -864,12 +884,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>598</x>
-     <y>554</y>
+     <x>712</x>
+     <y>632</y>
     </hint>
     <hint type="destinationlabel">
      <x>822</x>
-     <y>556</y>
+     <y>634</y>
     </hint>
    </hints>
   </connection>
@@ -884,8 +904,8 @@
      <y>287</y>
     </hint>
     <hint type="destinationlabel">
-     <x>270</x>
-     <y>272</y>
+     <x>386</x>
+     <y>4</y>
     </hint>
    </hints>
   </connection>
@@ -916,8 +936,8 @@
      <y>140</y>
     </hint>
     <hint type="destinationlabel">
-     <x>374</x>
-     <y>331</y>
+     <x>490</x>
+     <y>83</y>
     </hint>
    </hints>
   </connection>
@@ -950,6 +970,22 @@
     <hint type="destinationlabel">
      <x>365</x>
      <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bins_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bins_value</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>401</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>335</x>
+     <y>411</y>
     </hint>
    </hints>
   </connection>

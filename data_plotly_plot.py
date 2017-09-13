@@ -164,6 +164,8 @@ class Plot(object):
                 y=self.plot_properties['x'],
                 name=self.plot_properties['name'],
                 orientation=self.plot_properties['box_orientation'],
+                nbinsx=self.plot_properties['bins'],
+                nbinsy=self.plot_properties['bins'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
                     line=dict(

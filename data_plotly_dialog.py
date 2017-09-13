@@ -545,7 +545,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.hist_norm_combo: ['histogram'],
             self.additional_info_label: ['scatter', 'ternary'],
             self.additional_info_combo: ['scatter', 'ternary'],
-            self.cumulative_hist_check: ['histogram']
+            self.cumulative_hist_check: ['histogram'],
+            self.bins_check: ['histogram'],
+            self.bins_value: ['histogram'],
         }
 
         # enable the widget according to the plot type
@@ -556,6 +558,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             else:
                 k.setEnabled(False)
                 k.setVisible(False)
+
+        # disable by default the bins value box
+        # if not explicit, the upper loop will enable it
+        self.bins_value.setEnabled(False)
 
     def refreshWidgets2(self):
         '''
@@ -637,6 +643,11 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         if self.invert_y_check.isChecked():
             self.y_invert = "reversed"
 
+        # set the bin value and change if according to the checkbox
+        self.bin_val = None
+        if self.bins_check.isChecked():
+            self.bin_val = self.bins_value.value()
+
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
@@ -675,7 +686,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             'cont_type':self.contour_type[self.contour_type_combo.currentText()],
             'color_scale':self.col_scale[self.color_scale_combo.currentText()],
             'show_lines':self.show_lines_check.isChecked(),
-            'cumulative':self.cumulative_hist_check.isChecked()
+            'cumulative':self.cumulative_hist_check.isChecked(),
+            'bins':self.bin_val
         }
 
 
