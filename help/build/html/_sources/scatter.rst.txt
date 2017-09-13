@@ -26,11 +26,9 @@ Plot Properties
 
 ``Marker Type``: choose between **Points**, **Lines** or **Points and Lines**
 
-``Point Type``: if ``Marker Type`` is **Points** or **Points and Lines**, the marker type
+``Point Type`` or ``Line Type`` depending on the ``Marker Type`` chosen
 
-``Line Type``: if ``Marker Type`` is **Lines** or **Points and Lines**, the line type
-
-``Transparency``: transparecy level of the marker/line
+``Transparency``: transparecy level of the point/line
 
 Plot Customizations
 -------------------
@@ -38,7 +36,7 @@ Plot Customizations
 
 ``Show Range Slider``: add a slider below the plot
 
-.. image:: /img/scatter/scatter.png
+.. image:: /img/scatter/scatterplot2.png
   :scale: 50%
 
 ``Plot Title``: the plot title
@@ -56,7 +54,7 @@ the Plot Canvas
 that will be shown together with the other informations. This field supports
 expressions: e.g. ``'The ID of this point is ' || ID``:
 
-.. image:: /img/scatter/scatter2.png
+.. image:: /img/scatter/scatterplot3.png
   :scale: 50%
 
 ``Invert X Axis``: check if you want to invert the ordering of the x axis

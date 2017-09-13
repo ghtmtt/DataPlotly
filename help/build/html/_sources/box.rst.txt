@@ -51,11 +51,11 @@ Plot Customizations
 ``Show Statistics``: choose to show also additional statistics on each box plot,
 like the mean or the standard deviation (shown in the picture below)
 
-.. image:: /img/box/box.png
+.. image:: /img/box/boxplot2.png
   :scale: 50%
 
 ``Outliers``: show also the outliers (or all the points) next to the box. Some
 example in the following picture:
 
-.. image:: /img/box/box2.png
+.. image:: /img/box/boxplot3.png
   :scale: 50%

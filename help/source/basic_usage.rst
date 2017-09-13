@@ -5,39 +5,36 @@ DataPlotly Basic Usage
 DataPlotly interface has been designed in order to be simple but, at the same time,
 complete and with many options and customizations available.
 
-Once you have defined all the settings, ``x`` and ``y`` column, colors, labels, etc,
-the plot is not directly shown, but it will be put into the so called **Plot Basket**.
+Creating a plot is just easy as it sound: choose all the settings, ``x`` and ``y``
+column, colors, labels, etc and press the ``Create Plot`` button.
+The plot is immediatly shown in the plot canvas.
 
-The **Plot Basket** will store the plot(s) before they will be rendered. The
-**Plot Basket** is very handy when many plots are shown in the plot canvas and
-you want to remove just one of them.
+If you want to change some setting, e.g. the marker color or size, the ``x``
+column, go ahead and the hit the ``Update Plot`` button: the plot is then
+updated in the plot canvas.
 
 .. _add_plot:
 
-Add and remove a Plot
----------------------
-
+Add a Plot
+----------
 DataPlotly workflow is pretty straightforward:
 
 1. choose the plot type (1)
 2. set the layer and the field(s) you want to plot (2)
-3. add the plot(s) to the **Plot Basket** with the ``Add Plot to Basket`` button (3)
-4. display the plot(s) in the **Plot View** with the ``Draw Plot`` button (4)
+3. show the plot with the ``Draw Plot`` button (3)
 
 .. image:: /img/basic_usage/basic1.png
   :scale: 50%
 
-To empty the **Plot Basket** just click on the ``Empty Basket`` button. If you
-want to remove just some plot, click on the ``Plot Basket`` tab, select the plot
-you want to remove by clicking on the row, and finally click on the ``Remove
-Single Plot From List`` button. The plot canvas will be automatically refreshed.
+If you want to start again, just click the ``Clean Plot Canvas`` button and the
+plot canvas will be empty.
 
 
 Multi Plots
 -----------
 DataPlotly allows the creation of many different plots. Plots can be shown on
-the same plot canvas (overlapping) or each plot can be drawn in different rows
-or columns (subplots).
+the same plot canvas (**overlapping**) or each plot can be drawn in different rows
+or columns (**subplots**).
 
 Overlapping Plots
 .................
@@ -89,7 +86,7 @@ The following pictures show plots in rows and in columns:
 
 Save Plot
 ---------
-Saving a plot, actually the plot canvas, is very simple. You can choose to save
+Saving a plot, technically the plot canvas, is very simple. You can choose to save
 the plot as a ``png`` image or as ``html`` file.
 
 .. note:: saving the image as ``html`` file will keep the interactivity of the plot

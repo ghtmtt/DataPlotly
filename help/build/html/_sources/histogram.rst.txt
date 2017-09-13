@@ -41,3 +41,11 @@ Plot Customizations
 ``Bar Mode``: choose if you want to group, stack or overlay the data
 
 ``Normalization``: different type of bins calculations are available
+
+``Cumulative Histogram``: check if you want to create a cumulative historam
+
+``Choose manually the bins``: check if want to choose manually the bins number and
+add a numeric value in the box
+
+.. image:: /img/histogram/histogram2.png
+  :scale: 50%
