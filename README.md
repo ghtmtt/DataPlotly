@@ -24,7 +24,7 @@ libraries are necessary.
 Some examples of single plot type with some options. The list is far away to show all the possibilities.
 
 #### Scatter Plot
-![Plot interactions](./help/source/img/readme/plot_box.png)
+![Plot interactions](./help/source/img/readme/plot_scatter.png)
 
 #### Box Plot with statistics
 ![Plot interactions](./help/source/img/readme/plot_box.png)
