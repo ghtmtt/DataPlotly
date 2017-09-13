@@ -496,7 +496,7 @@
               <property name="geometry">
                <rect>
                 <x>0</x>
-                <y>-225</y>
+                <y>-253</y>
                 <width>819</width>
                 <height>591</height>
                </rect>
@@ -689,7 +689,7 @@
                <item row="18" column="0">
                 <widget class="QCheckBox" name="cumulative_hist_check">
                  <property name="text">
-                  <string>Cumulative HIstogram</string>
+                  <string>Cumulative Histogram</string>
                  </property>
                 </widget>
                </item>
@@ -787,24 +787,24 @@
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis.gui</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsColorButton</class>
    <extends>QPushButton</extends>
-   <header>qgis.gui</header>
+   <header>qgscolorbutton.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
-   <header>qgis.gui</header>
+   <header>qgsfieldexpressionwidget.h</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgis.gui</header>
+   <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
