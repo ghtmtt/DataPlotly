@@ -17,7 +17,7 @@ on the plot and the same object will be selected in the map:
 
   Plot and Map interaction
 
-For each plot, tons of customization are available.
+For each plot, tons of customizations are available.
 
 .. figure:: /img/intro/scatter_example.png
   :scale: 100%
@@ -26,7 +26,7 @@ For each plot, tons of customization are available.
   simple plot example
 
 
-With DataPlotly you can create different plot, even different plot types,
+With DataPlotly you can create different plots, even different plot types,
 overlay them in the same plot canvas or load them in different plot canvas:
 
 .. figure:: /img/intro/example_overlay.png
