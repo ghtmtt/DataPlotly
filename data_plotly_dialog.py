@@ -881,10 +881,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def showPlot(self, plot_input_dic):
         '''
-        creates a simple plot (not all options available) from a dictionary
-        as input
+        Allows to call the plugin from the python console
 
-        plot_input_dic has to be a dictionary with some fixed keys, see below
+        param:
+            plot_input_dic (dictionary): dictionary with specific structure,
+            see below
+
 
         Code usage example:
 
@@ -915,6 +917,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # keys of the nested plot_prop and layout_prop have to be the SAME of
         # those created in buildProperties and buildLayout method
+
         # prepare the default dictionary with None values
         # plot properties
         plot_dic = {}

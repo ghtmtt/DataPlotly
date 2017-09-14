@@ -22,6 +22,7 @@ Contents:
    polar.rst
    ternary.rst
    contour.rst
+   from_console.rst
 
 Indices and tables
 ==================
