@@ -76,3 +76,32 @@ def getIds(layer, checkstate):
     ids.sort()
 
     return ids
+
+def cleanData(x, y, z):
+    '''
+    function to clean the input lists from NULL values (missing values).
+    this function is required because plotly cannot handle NULL values
+
+    it checks if every list exist and creates new lists without NULL values and
+    without the corresponding value at the same index in the other lists
+    '''
+
+    f1 = []
+    f2 = []
+    f3 = []
+
+    for i, j in enumerate(x):
+        if x and y and z:
+            if x[i] and y[i] and z[i] != NULL:
+                f1.append(x[i])
+                f2.append(y[i])
+                f3.append(z[i])
+        elif x and y:
+            if x[i] and y[i] != NULL:
+                f1.append(x[i])
+                f2.append(y[i])
+        elif x:
+            if x and x[i] != NULL:
+                f1.append(x[i])
+
+    return f1, f2, f3
