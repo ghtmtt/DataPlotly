@@ -35,8 +35,8 @@ from qgis.core import QgsNetworkAccessManager
 import plotly
 import plotly.graph_objs as go
 
-from .utils import *
-from .data_plotly_plot import *
+from DataPlotly.utils import *
+from DataPlotly.data_plotly_plot import *
 
 from collections import OrderedDict
 import tempfile

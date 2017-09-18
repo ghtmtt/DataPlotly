@@ -25,9 +25,9 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction
 
 # Initialize Qt resources from file resources.py
-from .resources import *
+from DataPlotly.resources import *
 # Import the code for the dialog
-from .data_plotly_dialog import DataPlotlyDialog
+from DataPlotly.data_plotly_dialog import DataPlotlyDialog
 import os.path
 
 
