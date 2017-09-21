@@ -49,8 +49,13 @@ def getSortedId(layer, field_list):
 
     l = []
 
+    # create an empty variable if field_list is empty
+    # case is when in the Box Plot the optional X group is empty (not chosen) 
+    if not field_list:
+        l = None
+
     # don't sort the list if the item is integer or float (check the first item)
-    if type(field_list[0]) == (int or float):
+    elif type(field_list[0]) == (int or float):
         l = list(set(field_list))
 
     # sort the list if items are strings
@@ -84,24 +89,38 @@ def cleanData(x, y, z):
 
     it checks if every list exist and creates new lists without NULL values and
     without the corresponding value at the same index in the other lists
+
+    additonal check is needed when for Box Plot the optional X group field is
+    empty
     '''
 
     f1 = []
     f2 = []
     f3 = []
 
-    for i, j in enumerate(x):
-        if x and y and z:
+    if x and y and z:
+        for i, j in enumerate(x):
             if x[i] and y[i] and z[i] != NULL:
                 f1.append(x[i])
                 f2.append(y[i])
                 f3.append(z[i])
-        elif x and y:
+    elif x and y:
+        for i, j in enumerate(x):
             if x[i] and y[i] != NULL:
                 f1.append(x[i])
                 f2.append(y[i])
-        elif x:
-            if x and x[i] != NULL:
+                f3 = None
+    elif x:
+        for i, j in enumerate(x):
+            if x[i] != NULL:
                 f1.append(x[i])
+                f2 = None
+                f3 = None
+    elif y:
+        for i, j in enumerate(y):
+            if y[i] != NULL:
+                f1 = None
+                f2.append(y[i])
+                f3 = None
 
     return f1, f2, f3

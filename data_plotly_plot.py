@@ -111,9 +111,6 @@ class Plot(object):
 
         elif self.plot_type == 'box':
 
-            # NULL value in the Field is empty
-            if not self.plot_properties['x']:
-                self.plot_properties['x'] = None
 
             # flip the variables according to the box orientation
             if self.plot_properties['box_orientation'] == 'h':
@@ -389,7 +386,7 @@ class Plot(object):
 
         featureIds = [];
         featureIdsTernary = [];
-        
+
         data.points.forEach(function(pt){
         featureIds.push(parseInt(pt.id))
         featureIdsTernary.push(parseInt(pt.pointNumber))

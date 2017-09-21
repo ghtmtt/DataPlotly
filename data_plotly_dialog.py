@@ -661,7 +661,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         zz = self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
 
         # call the function that will clean the data from NULL values
-        xx,yy, zz, = cleanData(xx, yy, zz)
+        xx, yy, zz, = cleanData(xx, yy, zz)
 
         # dictionary of all the plot properties
         plot_properties = {
