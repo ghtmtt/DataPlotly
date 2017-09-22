@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Box Plot &mdash; DataPlotly 0 documentazione</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Indice"
+              href="genindex.html"/>
+        <link rel="search" title="Cerca" href="search.html"/>
+    <link rel="top" title="DataPlotly 0 documentazione" href="index.html"/>
+        <link rel="next" title="Bar Plot" href="bar.html"/>
+        <link rel="prev" title="Scatter Plot" href="scatter.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DataPlotly
+          
+
+          
+            
+            <img src="_static/icon.png" class="logo" />
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Box Plot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DataPlotly</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Box Plot</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/box.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="box-plot">
+<span id="boxplot"></span><h1>Box Plot<a class="headerlink" href="#box-plot" title="Link a questa intestazione">¶</a></h1>
+<p>Qui trovi la guida di ogni parametro del box plot. Per l&#8217;utilizzo generico di DataPlotly guarda <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
+<a class="reference internal image-reference" href="_images/boxplot.png"><img alt="_images/boxplot.png" src="_images/boxplot.png" style="width: 536.0px; height: 319.0px;" /></a>
+<div class="section" id="plot-properties">
+<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layer loaded in QGIS</p>
+<p><code class="docutils literal"><span class="pre">Grouping</span> <span class="pre">Field</span> <span class="pre">(Optional)</span></code>: the grouping field. If no field are added, a generic
+box plot for the Y value will be displayed</p>
+<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
+<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: color of the box</p>
+<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
+<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
+<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparecy level of the box</p>
+</div>
+<div class="section" id="plot-customizations">
+<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
+<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
+<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
+<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
+<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Label</span></code>: Y Label text</p>
+<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the x axis</p>
+<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: choose between Linear, Logarithmic or Categorized</p>
+<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the y axis</p>
+<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: choose between Linear, Logarithmic or Categorized</p>
+<p><code class="docutils literal"><span class="pre">Box</span> <span class="pre">Orientation</span></code>: the orientation of the box, either <em>Horizontal</em> or <em>Vertical</em></p>
+<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Statistics</span></code>: choose to show also additional statistics on each box plot,
+like the mean or the standard deviation (shown in the picture below)</p>
+<a class="reference internal image-reference" href="_images/boxplot2.png"><img alt="_images/boxplot2.png" src="_images/boxplot2.png" style="width: 536.0px; height: 319.0px;" /></a>
+<p><code class="docutils literal"><span class="pre">Outliers</span></code>: show also the outliers (or all the points) next to the box. Some
+example in the following picture:</p>
+<a class="reference internal image-reference" href="_images/boxplot3.png"><img alt="_images/boxplot3.png" src="_images/boxplot3.png" style="width: 536.0px; height: 319.0px;" /></a>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bar.html" class="btn btn-neutral float-right" title="Bar Plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="scatter.html" class="btn btn-neutral" title="Scatter Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Matteo Ghetta.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
