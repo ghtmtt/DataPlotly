@@ -27,7 +27,7 @@ import json
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QIcon, QImage, QPainter
-from PyQt5.QtCore import QUrl, QFileInfo
+from PyQt5.QtCore import QUrl, QFileInfo, QSettings
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
@@ -153,6 +153,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.help_view = QWebView()
         self.help_view.load(help_url)
         self.layouth.addWidget(self.help_view)
+        self.helpPage()
 
         # load the webview of the plot a the first running of the plugin
         self.layoutw = QVBoxLayout()
@@ -236,15 +237,18 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
     def helpPage(self):
         '''
-        change the page of the manual according to the plot type selected
+        change the page of the manual according to the plot type selected and
+        the language (looks for translations)
         '''
+
+        locale = QSettings().value('locale/userLocale')[0:2]
 
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)
-        help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/{}.html'.format(self.ptype))
+        help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/{}/{}.html'.format(locale, self.ptype))
         # check if the file exists, else open the default home page
         if not os.path.exists(help_link):
-            help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/index.html')
+            help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/{}/index.html'.format(locale))
 
         help_url = QUrl.fromLocalFile(help_link)
         self.help_view.load(help_url)
