@@ -381,12 +381,12 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         ])
 
         self.line_types2 = OrderedDict([
-            ('Solid Line', 'solid'),
-            ('Dot Line', 'dot'),
-            ('Dash Line', 'dash'),
-            ('Long Dash Line', 'longdash'),
-            ('Dot Dash Line', 'dashdot'),
-            ('Long Dash Dot Line', 'longdashdot'),
+            (self.tr('Solid Line'), 'solid'),
+            (self.tr('Dot Line'), 'dot'),
+            (self.tr('Dash Line'), 'dash'),
+            (self.tr('Long Dash Line'), 'longdash'),
+            (self.tr('Dot Dash Line'), 'dashdot'),
+            (self.tr('Long Dash Dot Line'), 'longdashdot'),
         ])
 
         self.line_combo.clear()
@@ -578,7 +578,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         '''
 
         # enable radio buttons for subplots
-        if self.subcombo.currentText() == 'SubPlots':
+        if self.subcombo.currentText() == self.tr('SubPlots'):
             self.radio_rows.setEnabled(True)
             self.radio_rows.setVisible(True)
             self.radio_columns.setEnabled(True)
