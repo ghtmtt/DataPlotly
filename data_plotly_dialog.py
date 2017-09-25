@@ -154,6 +154,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.help_view.load(help_url)
         self.layouth.addWidget(self.help_view)
         self.helpPage()
+        self.tabWidget.currentChanged.connect(self.helpPage)
 
         # load the webview of the plot a the first running of the plugin
         self.layoutw = QVBoxLayout()
