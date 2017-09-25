@@ -1,5 +1,6 @@
 #!/bin/bash
 LOCALES=$*
+PLUGINNAME="DataPlotly_"
 
 # Get newest .py files so we don't update strings unnecessarily
 
@@ -19,7 +20,7 @@ done
 UPDATE=false
 for LOCALE in ${LOCALES}
 do
-  TRANSLATION_FILE="i18n/$LOCALE.ts"
+  TRANSLATION_FILE="i18n/$PLUGINNAME$LOCALE.ts"
   if [ ! -f ${TRANSLATION_FILE} ]
   then
     # Force translation string collection as we have a new language file
@@ -45,10 +46,10 @@ then
   echo "Please provide translations by editing the translation files below:"
   for LOCALE in ${LOCALES}
   do
-    echo "i18n/"${LOCALE}".ts"
+    echo "i18n/"$PLUGINNAME${LOCALE}".ts"
     # Note we don't use pylupdate with qt .pro file approach as it is flakey
     # about what is made available.
-    pylupdate4 -noobsolete ${PYTHON_FILES} -ts i18n/${LOCALE}.ts
+    pylupdate4 -noobsolete ${PYTHON_FILES} -ts i18n/$PLUGINNAME${LOCALE}.ts
   done
 else
   echo "No need to edit any translation files (.ts) because no python files"
