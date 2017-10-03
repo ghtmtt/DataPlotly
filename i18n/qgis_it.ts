@@ -63,6 +63,11 @@
         <translation>Grafico ternario</translation>
     </message>
     <message>
+        <location filename="data_plotly_dialog.py" line="79"/>
+        <source>Contour Plot</source>
+        <translation>Grafico a contorno</translation>
+    </message>
+    <message>
         <location filename="data_plotly_dialog.py" line="97"/>
         <source>SinglePlot</source>
         <translation>Grafico singolo</translation>
@@ -341,11 +346,6 @@
         <location filename="data_plotly_dialog.py" line="872"/>
         <source>Please select a directory to save the plot</source>
         <translation>Scegli una cartella dove salvare il grafico</translation>
-    </message>
-    <message>
-        <location filename="data_plotly_dialog.py" line="79"/>
-        <source>Contour Plot</source>
-        <translation>Grafico a contorno</translation>
     </message>
 </context>
 <context>

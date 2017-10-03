@@ -26,7 +26,7 @@
 #Add iso code for any locales you want to support here (space separated)
 # default is no locales
 # LOCALES = af
-LOCALES = it
+LOCALES = en it
 
 # If locales are enabled, set the name of the lrelease binary on your system. If
 # you have trouble compiling the translations, you may have to specify the full path to
@@ -173,7 +173,7 @@ transup:
 	@chmod +x scripts/update-strings.sh
 	@scripts/update-strings.sh $(LOCALES)
 
-transcompile:
+transcompile: txpull
 	@echo
 	@echo "----------------------------------------"
 	@echo "Compiled translation files to .qm files."
@@ -227,3 +227,19 @@ pep8:
 	@echo "-----------"
 	@echo "Ignored in PEP8 check:"
 	@echo $(PEP8EXCLUDE)
+
+txpush: transup
+	@echo
+	@echo "------------------------------------------------"
+	@echo "Pushing translation files with any new strings. "
+	@echo "------------------------------------------------"
+	tx push -s
+
+txpull:
+	@echo
+	@echo "------------------------------------------------"
+	@echo "Pulling translation files with any new strings. "
+	@echo "------------------------------------------------"
+	tx pull -l $(LANG)
+	@echo
+	@echo "Pull completed"
