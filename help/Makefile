@@ -43,7 +43,7 @@ help:
 clean:
 	-rm -rf $(BUILDDIR)/*
 
-html:
+html: txpull
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
@@ -152,4 +152,20 @@ gettext:
 transupdate: gettext
 	$(SPHINXINTBUILD) update -p $(BUILDDIR)/locale -l $(LANG)
 	@echo
-	@echo "Build finished. po fies have been updated."
+	@echo "Build finished. po files have been updated."
+
+txpush: transupdate
+	@echo
+	@echo "Pushing translations to transifex client"
+	@echo
+	tx push -s
+	@echo
+	@echo "Push completed"
+
+txpull:
+	@echo
+	@echo "Pulling translations from transifex"
+	@echo
+	tx pull -l $(LANG)
+	@echo
+	@echo "Pull completed"
