@@ -240,6 +240,6 @@ txpull:
 	@echo "------------------------------------------------"
 	@echo "Pulling translation files with any new strings. "
 	@echo "------------------------------------------------"
-	tx pull -l $(LANG)
+	tx pull
 	@echo
 	@echo "Pull completed"
