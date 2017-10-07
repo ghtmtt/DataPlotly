@@ -10,7 +10,7 @@ need more generic information please see :ref:`basic_usage`.
 
 Plot Properties
 ---------------
-``Layer``: the combobox will display all the vector layer loaded in QGIS
+``Layer``: the combobox will display all the vector layers loaded in QGIS
 
 ``X``: the X field
 
@@ -40,7 +40,7 @@ Plot Customizations
 
 ``Invert Y Axis``: check if you want to invert the ordering of the y axis
 
-``Box Orientation``: the orientation of the bar, either *Horizontal* or *Vertical*
+``Bar Orientation``: the orientation of the bar, either *Horizontal* or *Vertical*
 
 ``Bar Mode``: this option is handy if you have more data to plot:
 
@@ -54,7 +54,7 @@ Plot Customizations
     .. image:: /img/bar/stacked.png
       :scale: 50%
 
-  3. **Grouped**: bar can be overlayed. Adjust the ``Transparecy`` setting
+  3. **Overlay**: bars can be overlayed. Adjust the ``Transparecy`` setting
 
     .. image:: /img/bar/overlay.png
       :scale: 50%

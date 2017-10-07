@@ -10,7 +10,7 @@ need more generic information please see :ref:`basic_usage`.
 
 Plot Properties
 ---------------
-``Layer``: the combobox will display all the vector layer loaded in QGIS
+``Layer``: the combobox will display all the vector layers loaded in QGIS
 
 ``Grouping``: the grouping field
 

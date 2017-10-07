@@ -21,7 +21,7 @@ DataPlotly workflow is pretty straightforward:
 
 1. choose the plot type (1)
 2. set the layer and the field(s) you want to plot (2)
-3. show the plot with the ``Draw Plot`` button (3)
+3. show the plot with the ``Create Plot`` button (3)
 
 .. image:: /img/basic_usage/basic1.png
   :scale: 50%

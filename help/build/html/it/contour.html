@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Contour Plot &mdash; DataPlotly 0 documentazione</title>
+  <title>Grafico a contorno &mdash; DataPlotly 0 documentazione</title>
   
 
   
@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Cerca" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentazione" href="index.html"/>
-        <link rel="next" title="Call the plugin from the python console (BETA!)" href="from_console.html"/>
-        <link rel="prev" title="Ternary Plot" href="ternary.html"/> 
+        <link rel="next" title="Usare il plugin da console (BETA!)" href="from_console.html"/>
+        <link rel="prev" title="Grafico ternario" href="ternary.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,21 +88,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Contour Plot</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Utilizzo basico di DataPlotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Grafico a dispersione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Grafico a scatola e baffi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Grafico a barre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Istrogramma</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Grafico a torta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">Istogramma 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Grafico a contorno</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Proprietà del grafico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Personalizzazioni grafico</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Usare il plugin da console (BETA!)</a></li>
 </ul>
 
             
@@ -147,7 +147,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Contour Plot</li>
+      <li>Grafico a contorno</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -169,38 +169,40 @@
            <div itemprop="articleBody">
             
   <div class="section" id="contour-plot">
-<span id="contour"></span><h1>Contour Plot<a class="headerlink" href="#contour-plot" title="Link a questa intestazione">¶</a></h1>
-<p>Here you will find the guide to every parameter of the contour plot. If you need
-more generic information please see <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
+<span id="contour"></span><h1>Grafico a contorno<a class="headerlink" href="#contour-plot" title="Link a questa intestazione">¶</a></h1>
+<p>Qui trovi la guida di tutti i parametri del grafico a contorno. Se hai bisogno di informazioni più generali consulta <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">Utilizzo basico di DataPlotly</span></a>.</p>
 <a class="reference internal image-reference" href="_images/contour.png"><img alt="_images/contour.png" src="_images/contour.png" style="width: 536.0px; height: 319.0px;" /></a>
 <div class="section" id="plot-properties">
-<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layer loaded in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Field</span></code>: the X field</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
-<p><code class="docutils literal"><span class="pre">Contour</span> <span class="pre">Type</span></code>: choose the type of countour:</p>
+<h2>Proprietà del grafico<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Layer</span></code>: il menu a tendina mostra tutti i vettori caricati in QGIS</p>
+<p><code class="docutils literal"><span class="pre">Campo</span> <span class="pre">X</span></code>: il campo X</p>
+<p><code class="docutils literal"><span class="pre">Campo</span> <span class="pre">Y</span></code>: il campo Y</p>
+<p><code class="docutils literal"><span class="pre">Tipo</span> <span class="pre">di</span> <span class="pre">contorno</span></code>: scegli il tipo di contorno:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><code class="docutils literal"><span class="pre">Fill</span></code>: the plot is filled everywhere:</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">Riempimento</span></code>: il grafico è riempito ovunque:</p>
+</li>
 </ol>
 <a class="reference internal image-reference" href="_images/fill.png"><img alt="_images/fill.png" src="_images/fill.png" style="width: 536.0px; height: 319.0px;" /></a>
 <ol class="arabic simple" start="2">
-<li><code class="docutils literal"><span class="pre">Heatmap</span></code>: a heatmap like plot will be created:</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">Mappa</span> <span class="pre">di</span> <span class="pre">concentrazione</span></code>: viene creato un grafico stile mappa di concentrazione:</p>
+</li>
 </ol>
 <a class="reference internal image-reference" href="_images/heatmap.png"><img alt="_images/heatmap.png" src="_images/heatmap.png" style="width: 536.0px; height: 319.0px;" /></a>
 <ol class="arabic simple" start="3">
-<li><code class="docutils literal"><span class="pre">Only</span> <span class="pre">Lines</span></code>: only the contour lines will be displayed:</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">Solo</span> <span class="pre">linee</span></code>: vengono mostrate solamente le linee:</p>
+</li>
 </ol>
 <a class="reference internal image-reference" href="_images/onlylines.png"><img alt="_images/onlylines.png" src="_images/onlylines.png" style="width: 536.0px; height: 319.0px;" /></a>
 </div></blockquote>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Lines</span></code>: uncheck if no contour lines should be added to the plot</p>
-<p><code class="docutils literal"><span class="pre">Color</span> <span class="pre">Scale</span></code>: choose between many differnt color scales</p>
+<p><code class="docutils literal"><span class="pre">Mostra</span> <span class="pre">linee</span></code>: togli la spunta se non vuoi che vengano mostrate anche le linee</p>
+<p><code class="docutils literal"><span class="pre">Scala</span> <span class="pre">di</span> <span class="pre">colori</span></code>: scegli fra diverse scale di colori disponibili</p>
 </div>
 <div class="section" id="plot-customizations">
-<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
+<h2>Personalizzazioni grafico<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Mostra</span> <span class="pre">legenda</span></code>: mostra la legenda del grafico</p>
+<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">grafico</span></code>: titolo del grafico</p>
+<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">legenda</span></code>: il titolo della legenda</p>
 </div>
 </div>
 
@@ -214,10 +216,10 @@ more generic information please see <a class="reference internal" href="basic_us
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="from_console.html" class="btn btn-neutral float-right" title="Call the plugin from the python console (BETA!)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="from_console.html" class="btn btn-neutral float-right" title="Usare il plugin da console (BETA!)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ternary.html" class="btn btn-neutral" title="Ternary Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ternary.html" class="btn btn-neutral" title="Grafico ternario" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

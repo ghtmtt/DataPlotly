@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Histogram &mdash; DataPlotly 0 documentazione</title>
+  <title>Istrogramma &mdash; DataPlotly 0 documentazione</title>
   
 
   
@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Cerca" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentazione" href="index.html"/>
-        <link rel="next" title="Pie Plot" href="pie.html"/>
-        <link rel="prev" title="Bar Plot" href="bar.html"/> 
+        <link rel="next" title="Grafico a torta" href="pie.html"/>
+        <link rel="prev" title="Grafico a barre" href="bar.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,21 +88,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Histogram</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Utilizzo basico di DataPlotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Grafico a dispersione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Grafico a scatola e baffi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Grafico a barre</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Istrogramma</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Proprietà del grafico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Personalizzazioni grafico</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Grafico a torta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">Istogramma 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Grafico a contorno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Usare il plugin da console (BETA!)</a></li>
 </ul>
 
             
@@ -147,7 +147,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Histogram</li>
+      <li>Istrogramma</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -169,33 +169,31 @@
            <div itemprop="articleBody">
             
   <div class="section" id="histogram">
-<span id="id1"></span><h1>Histogram<a class="headerlink" href="#histogram" title="Link a questa intestazione">¶</a></h1>
-<p>Here you will find the guide to every parameter of the histogram. If you
-need more generic information please see <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
+<span id="id1"></span><h1>Istrogramma<a class="headerlink" href="#histogram" title="Link a questa intestazione">¶</a></h1>
+<p>Qui trovi la guida di tutti i parametri dell&#8217;istogramma. Se hai bisogno di informazioni più generali consulta <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">Utilizzo basico di DataPlotly</span></a>.</p>
 <a class="reference internal image-reference" href="_images/histogram.png"><img alt="_images/histogram.png" src="_images/histogram.png" style="width: 536.0px; height: 319.0px;" /></a>
 <div class="section" id="plot-properties">
-<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layer loaded in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span></code>: the X field</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: color of the bar</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
-<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparecy level of the bar</p>
+<h2>Proprietà del grafico<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Layer</span></code>: il menu a tendina mostra tutti i vettori caricati in QGIS</p>
+<p><code class="docutils literal"><span class="pre">X</span></code>: il campo X</p>
+<p><code class="docutils literal"><span class="pre">Colore</span> <span class="pre">barre</span></code>: colore delle barre</p>
+<p><code class="docutils literal"><span class="pre">Colore</span> <span class="pre">del</span> <span class="pre">bordo</span></code>: colore del bordo</p>
+<p><code class="docutils literal"><span class="pre">Spessore</span> <span class="pre">bordo</span></code>: spessore del bordo</p>
+<p><code class="docutils literal"><span class="pre">Trasparenza</span></code>: livello di trasparenza delle barre</p>
 </div>
 <div class="section" id="plot-customizations">
-<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the x axis</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the y axis</p>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Orientation</span></code>: the orientation of the bar, either <em>Horizontal</em> or <em>Vertical</em></p>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Mode</span></code>: choose if you want to group, stack or overlay the data</p>
-<p><code class="docutils literal"><span class="pre">Normalization</span></code>: different type of bins calculations are available</p>
-<p><code class="docutils literal"><span class="pre">Cumulative</span> <span class="pre">Histogram</span></code>: check if you want to create a cumulative historam</p>
-<p><code class="docutils literal"><span class="pre">Choose</span> <span class="pre">manually</span> <span class="pre">the</span> <span class="pre">bins</span></code>: check if want to choose manually the bins number and
-add a numeric value in the box</p>
+<h2>Personalizzazioni grafico<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Mostra</span> <span class="pre">legenda</span></code>: mostra la legenda del grafico</p>
+<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">grafico</span></code>: titolo del grafico</p>
+<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">legenda</span></code>: il titolo della legenda</p>
+<p><code class="docutils literal"><span class="pre">Etichetta</span> <span class="pre">X</span></code>: testo dell&#8217;asse X</p>
+<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">X</span></code>: spunta se vuoi invertire l&#8217;ordine dell&#8217;asse X</p>
+<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">Y</span></code>: spunta se vuoi invertire l&#8217;ordine dell&#8217;asse Y</p>
+<p><code class="docutils literal"><span class="pre">Orientamento</span> <span class="pre">barra</span></code>: orientamento delle barre: <em>orizzontale</em> o <em>verticale</em></p>
+<p><code class="docutils literal"><span class="pre">Modalità</span> <span class="pre">barra</span></code>: scegli se vuoi raggruppare, impilare o sovrapporre i dati</p>
+<p><code class="docutils literal"><span class="pre">Normalizzazione</span></code>: sono disponibili diversi tipi di normalizzazione</p>
+<p><code class="docutils literal"><span class="pre">Istogramma</span> <span class="pre">cumulativo</span></code>: spunta se vuoi creare un istogramma unico cumulativo</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>Scegli il numero delle barre <a href="#id3"><span class="problematic" id="id4">``</span></a>: spunta e inserisci un numero appropriato se vuoi scegliere manualmente il numero delle barre</p>
 <a class="reference internal image-reference" href="_images/histogram2.png"><img alt="_images/histogram2.png" src="_images/histogram2.png" style="width: 536.0px; height: 319.0px;" /></a>
 </div>
 </div>
@@ -210,10 +208,10 @@ add a numeric value in the box</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pie.html" class="btn btn-neutral float-right" title="Pie Plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pie.html" class="btn btn-neutral float-right" title="Grafico a torta" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="bar.html" class="btn btn-neutral" title="Bar Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="bar.html" class="btn btn-neutral" title="Grafico a barre" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

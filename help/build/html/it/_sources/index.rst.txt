@@ -6,8 +6,6 @@
 Welcome to DataPlotly's documentation!
 ============================================
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
 

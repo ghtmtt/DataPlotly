@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Cerca" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentazione" href="index.html"/>
-        <link rel="next" title="Polar Plot" href="polar.html"/>
-        <link rel="prev" title="Pie Plot" href="pie.html"/> 
+        <link rel="next" title="Grafico polare" href="polar.html"/>
+        <link rel="prev" title="Grafico a torta" href="pie.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,21 +88,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Utilizzo basico di DataPlotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Grafico a dispersione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Grafico a scatola e baffi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Grafico a barre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Istrogramma</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Grafico a torta</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Istogramma 2D</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Proprietà del grafico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Personalizzazioni grafico</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Grafico a contorno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Usare il plugin da console (BETA!)</a></li>
 </ul>
 
             
@@ -170,25 +170,24 @@
             
   <div class="section" id="d-histogram">
 <span id="dhistogram"></span><h1>Istogramma 2D<a class="headerlink" href="#d-histogram" title="Link a questa intestazione">¶</a></h1>
-<p>Here you will find the guide to every parameter of the 2D Histogram plot. If you
-need more generic information please see <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
+<p>Qui trovi la guida di tutti i parametri dell&#8217;istogramma 2D. Se hai bisogno di informazioni più generali consulta <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">Utilizzo basico di DataPlotly</span></a>.</p>
 <a class="reference internal image-reference" href="_images/2dhistogram.png"><img alt="_images/2dhistogram.png" src="_images/2dhistogram.png" style="width: 536.0px; height: 319.0px;" /></a>
 <div class="section" id="plot-properties">
-<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layer loaded in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Field</span></code>: the X field</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
-<p><code class="docutils literal"><span class="pre">Color</span> <span class="pre">Scale</span></code>: choose between many differnt color scales</p>
+<h2>Proprietà del grafico<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Layer</span></code>: il menu a tendina mostra tutti i vettori caricati in QGIS</p>
+<p><code class="docutils literal"><span class="pre">Campo</span> <span class="pre">X</span></code>: il campo X</p>
+<p><code class="docutils literal"><span class="pre">Campo</span> <span class="pre">Y</span></code>: il campo Y</p>
+<p><code class="docutils literal"><span class="pre">Scala</span> <span class="pre">di</span> <span class="pre">colori</span></code>: scegli fra diverse scale di colori disponibili</p>
 </div>
 <div class="section" id="plot-customizations">
-<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Label</span></code>: Y Label text</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the X axis</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the Y axis</p>
+<h2>Personalizzazioni grafico<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Mostra</span> <span class="pre">legenda</span></code>: mostra la legenda del grafico</p>
+<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">grafico</span></code>: titolo del grafico</p>
+<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">legenda</span></code>: il titolo della legenda</p>
+<p><code class="docutils literal"><span class="pre">Etichetta</span> <span class="pre">X</span></code>: testo dell&#8217;asse X</p>
+<p><code class="docutils literal"><span class="pre">Etichetta</span> <span class="pre">Y</span></code>: testo dell&#8217;asse Y</p>
+<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">X</span></code>: spunta se vuoi invertire l&#8217;ordine dell&#8217;asse X</p>
+<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">Y</span></code>: spunta se vuoi invertire l&#8217;ordine dell&#8217;asse Y</p>
 </div>
 </div>
 
@@ -202,10 +201,10 @@ need more generic information please see <a class="reference internal" href="bas
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="polar.html" class="btn btn-neutral float-right" title="Polar Plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="polar.html" class="btn btn-neutral float-right" title="Grafico polare" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pie.html" class="btn btn-neutral" title="Pie Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pie.html" class="btn btn-neutral" title="Grafico a torta" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

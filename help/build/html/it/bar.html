@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Bar Plot &mdash; DataPlotly 0 documentazione</title>
+  <title>Grafico a barre &mdash; DataPlotly 0 documentazione</title>
   
 
   
@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Cerca" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentazione" href="index.html"/>
-        <link rel="next" title="Histogram" href="histogram.html"/>
-        <link rel="prev" title="Box Plot" href="box.html"/> 
+        <link rel="next" title="Istrogramma" href="histogram.html"/>
+        <link rel="prev" title="Grafico a scatola e baffi" href="box.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,21 +88,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Bar Plot</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Utilizzo basico di DataPlotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Grafico a dispersione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Grafico a scatola e baffi</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Grafico a barre</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Proprietà del grafico</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Personalizzazioni grafico</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Istrogramma</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Grafico a torta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">Istogramma 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Grafico a contorno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Usare il plugin da console (BETA!)</a></li>
 </ul>
 
             
@@ -147,7 +147,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Bar Plot</li>
+      <li>Grafico a barre</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -169,46 +169,48 @@
            <div itemprop="articleBody">
             
   <div class="section" id="bar-plot">
-<span id="id1"></span><h1>Bar Plot<a class="headerlink" href="#bar-plot" title="Link a questa intestazione">¶</a></h1>
-<p>Here you will find the guide to every parameter of the bar plot. If you
-need more generic information please see <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
+<span id="id1"></span><h1>Grafico a barre<a class="headerlink" href="#bar-plot" title="Link a questa intestazione">¶</a></h1>
+<p>Qui trovi la guida di tutti i parametri del grafico a barre. Se hai bisogno di informazioni più generali consulta <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">Utilizzo basico di DataPlotly</span></a>.</p>
 <a class="reference internal image-reference" href="_images/bar.png"><img alt="_images/bar.png" src="_images/bar.png" style="width: 536.0px; height: 319.0px;" /></a>
 <div class="section" id="plot-properties">
-<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layer loaded in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span></code>: the X field</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Color</span></code>: color of the bar</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
-<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparecy level of the bar</p>
+<h2>Proprietà del grafico<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Layer</span></code>: il menu a tendina mostra tutti i vettori caricati in QGIS</p>
+<p><code class="docutils literal"><span class="pre">X</span></code>: il campo X</p>
+<p><code class="docutils literal"><span class="pre">Campo</span> <span class="pre">Y</span></code>: il campo Y</p>
+<p><code class="docutils literal"><span class="pre">Colore</span> <span class="pre">barre</span></code>: colore delle barre</p>
+<p><code class="docutils literal"><span class="pre">Colore</span> <span class="pre">del</span> <span class="pre">bordo</span></code>: colore del bordo</p>
+<p><code class="docutils literal"><span class="pre">Spessore</span> <span class="pre">bordo</span></code>: spessore del bordo</p>
+<p><code class="docutils literal"><span class="pre">Trasparenza</span></code>: livello di trasparenza delle barre</p>
 </div>
 <div class="section" id="plot-customizations">
-<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Label</span></code>: Y label text</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the x axis</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the y axis</p>
-<p><code class="docutils literal"><span class="pre">Box</span> <span class="pre">Orientation</span></code>: the orientation of the bar, either <em>Horizontal</em> or <em>Vertical</em></p>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Mode</span></code>: this option is handy if you have more data to plot:</p>
+<h2>Personalizzazioni grafico<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Mostra</span> <span class="pre">legenda</span></code>: mostra la legenda del grafico</p>
+<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">grafico</span></code>: titolo del grafico</p>
+<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">legenda</span></code>: il titolo della legenda</p>
+<p><code class="docutils literal"><span class="pre">Etichetta</span> <span class="pre">X</span></code>: testo dell&#8217;asse X</p>
+<p><code class="docutils literal"><span class="pre">Etichetta</span> <span class="pre">Y</span></code>: testo dell&#8217;asse Y</p>
+<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">X</span></code>: spunta se vuoi invertire l&#8217;ordine dell&#8217;asse X</p>
+<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">Y</span></code>: spunta se vuoi invertire l&#8217;ordine dell&#8217;asse Y</p>
+<p><code class="docutils literal"><span class="pre">Orientamento</span> <span class="pre">barra</span></code>: orientamento delle barre: <em>orizzontale</em> o <em>verticale</em></p>
+<p><code class="docutils literal"><span class="pre">Modalità</span> <span class="pre">barra</span></code>: questa opzione è molto utile se hai molti dati:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><strong>Grouped</strong>: the bars are placed one next the other</li>
+<li><p class="first"><strong>Raggruppato</strong>: le barre sono raggruppate una vicino all&#8217;altra</p>
+</li>
 </ol>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/grouped.png"><img alt="_images/grouped.png" src="_images/grouped.png" style="width: 536.0px; height: 319.0px;" /></a>
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><strong>Stacked</strong>: bars are stacked one over the other</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">Impilato</span></code>: le barre sono impilate una sull&#8217;altra</p>
+</li>
 </ol>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/stacked.png"><img alt="_images/stacked.png" src="_images/stacked.png" style="width: 536.0px; height: 319.0px;" /></a>
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><strong>Grouped</strong>: bar can be overlayed. Adjust the <code class="docutils literal"><span class="pre">Transparecy</span></code> setting</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">Sovrapposto</span></code>: le barre sono sovrapposte. Imposta il parametro <code class="docutils literal"><span class="pre">Trasparenza</span></code> per un migliore risultato</p>
+</li>
 </ol>
 <blockquote>
 <div><a class="reference internal image-reference" href="_images/overlay.png"><img alt="_images/overlay.png" src="_images/overlay.png" style="width: 536.0px; height: 319.0px;" /></a>
@@ -227,10 +229,10 @@ need more generic information please see <a class="reference internal" href="bas
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="histogram.html" class="btn btn-neutral float-right" title="Histogram" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="histogram.html" class="btn btn-neutral float-right" title="Istrogramma" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="box.html" class="btn btn-neutral" title="Box Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="box.html" class="btn btn-neutral" title="Grafico a scatola e baffi" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

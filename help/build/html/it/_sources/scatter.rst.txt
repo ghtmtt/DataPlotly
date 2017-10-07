@@ -10,7 +10,7 @@ more generic information please see :ref:`basic_usage`.
 
 Plot Properties
 ---------------
-``Layer``: the combobox will display all the vector layer loaded in QGIS
+``Layer``: the combobox will display all the vector layers loaded in QGIS
 
 ``X Field``: the X field
 
@@ -28,7 +28,7 @@ Plot Properties
 
 ``Point Type`` or ``Line Type`` depending on the ``Marker Type`` chosen
 
-``Transparency``: transparecy level of the point/line
+``Transparency``: transparency level of the point/line
 
 Plot Customizations
 -------------------
