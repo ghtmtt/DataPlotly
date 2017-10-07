@@ -450,27 +450,27 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # BoxPlot
         if self.ptype == 'box':
-            self.x_label.setText('Grouping Field\n(Optional)')
+            self.x_label.setText(self.tr('Grouping Field\n(Optional)'))
             # set the horizontal and vertical size of the label and reduce the label font size
             ff = QFont()
             ff.setPointSizeF(8.5)
             self.x_label.setFont(ff)
             self.x_label.setFixedWidth(80)
-            self.orientation_label.setText('Box Orientation')
-            self.in_color_lab.setText('Box Color')
+            self.orientation_label.setText(self.tr('Box Orientation'))
+            self.in_color_lab.setText(self.tr('Box Color'))
 
         # ScatterPlot
         if self.ptype == 'scatter' or 'ternary':
-            self.in_color_lab.setText('Marker Color')
+            self.in_color_lab.setText(self.tr('Marker Color'))
 
         # BarPlot
         if self.ptype == 'bar':
-            self.orientation_label.setText('Bar Orientation')
-            self.in_color_lab.setText('Bar Color')
+            self.orientation_label.setText(self.tr('Bar Orientation'))
+            self.in_color_lab.setText(self.tr('Bar Color'))
 
         # PiePlot
         if self.ptype == 'pie':
-            self.x_label.setText('Grouping Field')
+            self.x_label.setText(self.tr('Grouping Field'))
             ff = QFont()
             ff.setPointSizeF(8.5)
             self.x_label.setFont(ff)
