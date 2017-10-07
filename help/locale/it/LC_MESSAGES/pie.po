@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-03 15:28+0200\n"
+"POT-Creation-Date: 2017-10-07 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
@@ -27,32 +27,34 @@ msgid ""
 "Here you will find the guide to every parameter of the pie plot. If you need"
 " more generic information please see :ref:`basic_usage`."
 msgstr ""
+"Qui trovi la guida di tutti i parametri del grafico a torta. Se hai bisogno "
+"di informazioni più generali consulta :ref:`basic_usage`."
 
 #: ../../source/pie.rst:12
 msgid "Plot Properties"
-msgstr ""
+msgstr "Proprietà del grafico"
 
 #: ../../source/pie.rst:13
 msgid ""
-"``Layer``: the combobox will display all the vector layer loaded in QGIS"
-msgstr ""
+"``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr "``Layer``: il menu a tendina mostra tutti i vettori caricati in QGIS"
 
 #: ../../source/pie.rst:15
 msgid "``Grouping``: the grouping field"
-msgstr ""
+msgstr "``Gruppo``: campo di raggruppamento"
 
 #: ../../source/pie.rst:17
 msgid "``Y Field``: the Y field"
-msgstr ""
+msgstr "``Campo Y``: il campo Y"
 
 #: ../../source/pie.rst:20
 msgid "Plot Customizations"
-msgstr ""
+msgstr "Personalizzazioni grafico"
 
 #: ../../source/pie.rst:21
 msgid "``Show Legend``: show the legend of the current plot"
-msgstr ""
+msgstr "``Mostra legenda``: mostra la legenda del grafico"
 
 #: ../../source/pie.rst:23
 msgid "``Legend Title``: the title of the legend"
-msgstr ""
+msgstr "``Titolo legenda``: il titolo della legenda"

@@ -8,8 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-03 15:28+0200\n"
+"POT-Creation-Date: 2017-10-07 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,86 +20,88 @@ msgstr ""
 
 #: ../../source/ternary.rst:4
 msgid "Ternary Plot"
-msgstr ""
+msgstr "Grafico ternario"
 
 #: ../../source/ternary.rst:5
 msgid ""
 "Here you will find the guide to every parameter of the ternary plot. If you "
 "need more generic information please see :ref:`basic_usage`."
 msgstr ""
+"Qui trovi la guida di tutti i parametri del grafico ternario. Se hai bisogno"
+" di informazioni più generali consulta :ref:`basic_usage`."
 
 #: ../../source/ternary.rst:12
 msgid "Plot Properties"
-msgstr ""
+msgstr "Proprietà del grafico"
 
 #: ../../source/ternary.rst:13
 msgid ""
-"``Layer``: the combobox will display all the vector layer loaded in QGIS"
-msgstr ""
+"``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr "``Layer``: il menu a tendina mostra tutti i vettori caricati in QGIS"
 
 #: ../../source/ternary.rst:15
 msgid "``X Field``: the X field"
-msgstr ""
+msgstr "``Campo X``: il campo X"
 
 #: ../../source/ternary.rst:17
 msgid "``Y Field``: the Y field"
-msgstr ""
+msgstr "``Campo Y``: il campo Y"
 
 #: ../../source/ternary.rst:19
 msgid "``Z Field``: the Z field"
-msgstr ""
+msgstr "``Campo Z``: il campo Z"
 
 #: ../../source/ternary.rst:21
 msgid "``Marker Color``: marker color"
-msgstr ""
+msgstr "``Colore del simbolo``: colore del simbolo"
 
 #: ../../source/ternary.rst:23
 msgid "``Marker Size``: the size of the marker"
-msgstr ""
+msgstr "``Dimensione simbolo``: la dimensione del simbolo"
 
 #: ../../source/ternary.rst:25
 msgid "``Stroke Color``: border color"
-msgstr ""
+msgstr "``Colore del bordo``: colore del bordo"
 
 #: ../../source/ternary.rst:27
 msgid "``Stroke Width``: the width of the border"
-msgstr ""
+msgstr "``Spessore bordo``: spessore del bordo"
 
 #: ../../source/ternary.rst:29
 msgid "``Point Type``: marker type"
-msgstr ""
+msgstr "``Tipo di punto``: tipo di simbolo"
 
 #: ../../source/ternary.rst:31
-msgid "``Transparency``: transparecy level of the marker/line"
-msgstr ""
+msgid "``Transparency``: transparency level of the marker/line"
+msgstr "``Trasparenza``: livello di trasparenza del simbolo/linea"
 
 #: ../../source/ternary.rst:34
 msgid "Plot Customizations"
-msgstr ""
+msgstr "Personalizzazioni grafico"
 
 #: ../../source/ternary.rst:35
 msgid "``Show Legend``: show the legend of the current plot"
-msgstr ""
+msgstr "``Mostra legenda``: mostra la legenda del grafico"
 
 #: ../../source/ternary.rst:37
 msgid "``Plot Title``: the plot title"
-msgstr ""
+msgstr "``Titolo grafico``: titolo del grafico"
 
 #: ../../source/ternary.rst:39
 msgid "``Legend Title``: the title of the legend"
-msgstr ""
+msgstr "``Titolo legenda``: il titolo della legenda"
 
 #: ../../source/ternary.rst:41
 msgid "``X Label``: X label text"
-msgstr ""
+msgstr "``Etichetta X``: testo dell'asse X"
 
 #: ../../source/ternary.rst:43
 msgid "``Y Label``: Y Label text"
-msgstr ""
+msgstr "``Etichetta Y``: testo dell'asse Y"
 
 #: ../../source/ternary.rst:45
 msgid "``Z Label``: Z Label text"
-msgstr ""
+msgstr "``Etichetta Z``: testo dell'asse Z"
 
 #: ../../source/ternary.rst:47
 msgid ""
@@ -106,3 +109,7 @@ msgid ""
 "values) that will be shown together with the other informations. This field "
 "supports expressions: e.g. ``'The ID of this point is ' || ID``:"
 msgstr ""
+"``Etichetta aggiuntiva mouse``: scegli un campo aggiuntivo del layer (oppure"
+" altri valori) che vuoi che vengano mostrati insieme alle altre "
+"informazioni. Questo campo supporta le espressioni: per esempio puoi "
+"scrivere ``'ID di questo punto è ' || ID``:"

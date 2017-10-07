@@ -8,8 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-03 15:28+0200\n"
+"POT-Creation-Date: 2017-10-07 16:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,99 +20,105 @@ msgstr ""
 
 #: ../../source/bar.rst:4
 msgid "Bar Plot"
-msgstr ""
+msgstr "Grafico a barre"
 
 #: ../../source/bar.rst:5
 msgid ""
 "Here you will find the guide to every parameter of the bar plot. If you need"
 " more generic information please see :ref:`basic_usage`."
 msgstr ""
+"Qui trovi la guida di tutti i parametri del grafico a barre. Se hai bisogno "
+"di informazioni più generali consulta :ref:`basic_usage`."
 
 #: ../../source/bar.rst:12
 msgid "Plot Properties"
-msgstr ""
+msgstr "Proprietà del grafico"
 
 #: ../../source/bar.rst:13
 msgid ""
-"``Layer``: the combobox will display all the vector layer loaded in QGIS"
-msgstr ""
+"``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr "``Layer``: il menu a tendina mostra tutti i vettori caricati in QGIS"
 
 #: ../../source/bar.rst:15
 msgid "``X``: the X field"
-msgstr ""
+msgstr "``X``: il campo X"
 
 #: ../../source/bar.rst:17
 msgid "``Y Field``: the Y field"
-msgstr ""
+msgstr "``Campo Y``: il campo Y"
 
 #: ../../source/bar.rst:19
 msgid "``Bar Color``: color of the bar"
-msgstr ""
+msgstr "``Colore barre``: colore delle barre "
 
 #: ../../source/bar.rst:21
 msgid "``Stroke Color``: border color"
-msgstr ""
+msgstr "``Colore del bordo``: colore del bordo"
 
 #: ../../source/bar.rst:23
 msgid "``Stroke Width``: the width of the border"
-msgstr ""
+msgstr "``Spessore bordo``: spessore del bordo"
 
 #: ../../source/bar.rst:25
 msgid "``Transparency``: transparecy level of the bar"
-msgstr ""
+msgstr "``Trasparenza``: livello di trasparenza delle barre"
 
 #: ../../source/bar.rst:28
 msgid "Plot Customizations"
-msgstr ""
+msgstr "Personalizzazioni grafico"
 
 #: ../../source/bar.rst:29
 msgid "``Show Legend``: show the legend of the current plot"
-msgstr ""
+msgstr "``Mostra legenda``: mostra la legenda del grafico"
 
 #: ../../source/bar.rst:31
 msgid "``Plot Title``: the plot title"
-msgstr ""
+msgstr "``Titolo grafico``: titolo del grafico"
 
 #: ../../source/bar.rst:33
 msgid "``Legend Title``: the title of the legend"
-msgstr ""
+msgstr "``Titolo legenda``: il titolo della legenda"
 
 #: ../../source/bar.rst:35
 msgid "``X Label``: X label text"
-msgstr ""
+msgstr "``Etichetta X``: testo dell'asse X"
 
 #: ../../source/bar.rst:37
 msgid "``Y Label``: Y label text"
-msgstr ""
+msgstr "``Etichetta Y``: testo dell'asse Y"
 
 #: ../../source/bar.rst:39
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
-msgstr ""
+msgstr "``Inverti asse X``: spunta se vuoi invertire l'ordine dell'asse X"
 
 #: ../../source/bar.rst:41
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
-msgstr ""
+msgstr "``Inverti asse Y``: spunta se vuoi invertire l'ordine dell'asse Y"
 
 #: ../../source/bar.rst:43
 msgid ""
-"``Box Orientation``: the orientation of the bar, either *Horizontal* or "
+"``Bar Orientation``: the orientation of the bar, either *Horizontal* or "
 "*Vertical*"
 msgstr ""
+"``Orientamento barra``: orientamento delle barre: *orizzontale* o "
+"*verticale*"
 
 #: ../../source/bar.rst:45
 msgid "``Bar Mode``: this option is handy if you have more data to plot:"
-msgstr ""
+msgstr "``Modalità barra``: questa opzione è molto utile se hai molti dati:"
 
 #: ../../source/bar.rst:47
 msgid "**Grouped**: the bars are placed one next the other"
-msgstr ""
+msgstr "**Raggruppato**: le barre sono raggruppate una vicino all'altra"
 
 #: ../../source/bar.rst:52
 msgid "**Stacked**: bars are stacked one over the other"
-msgstr ""
+msgstr "``Impilato``: le barre sono impilate una sull'altra"
 
 #: ../../source/bar.rst:57
-msgid "**Grouped**: bar can be overlayed. Adjust the ``Transparecy`` setting"
+msgid "**Overlay**: bars can be overlayed. Adjust the ``Transparecy`` setting"
 msgstr ""
+"``Sovrapposto``: le barre sono sovrapposte. Imposta il parametro "
+"``Trasparenza`` per un migliore risultato"
