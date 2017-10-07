@@ -11,7 +11,7 @@ need more generic information please the :ref:`basic_usage`.
 
 Plot Properties
 ---------------
-``Layer``: the combobox will display all the vector layer loaded in QGIS
+``Layer``: the combobox will display all the vector layers loaded in QGIS
 
 ``Grouping Field (Optional)``: the grouping field. If no field are added, a generic
 box plot for the Y value will be displayed
@@ -24,7 +24,7 @@ box plot for the Y value will be displayed
 
 ``Stroke Width``: the width of the border
 
-``Transparency``: transparecy level of the box
+``Transparency``: transparency level of the box
 
 Plot Customizations
 -------------------

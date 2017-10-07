@@ -10,7 +10,7 @@ more generic information please see :ref:`basic_usage`.
 
 Plot Properties
 ---------------
-``Layer``: the combobox will display all the vector layer loaded in QGIS
+``Layer``: the combobox will display all the vector layers loaded in QGIS
 
 ``X Field``: the X field
 
@@ -35,7 +35,7 @@ Plot Properties
 
 ``Show Lines``: uncheck if no contour lines should be added to the plot
 
-``Color Scale``: choose between many differnt color scales
+``Color Scale``: choose between many different color scales
 
 Plot Customizations
 -------------------
