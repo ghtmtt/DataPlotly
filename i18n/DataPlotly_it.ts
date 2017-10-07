@@ -347,6 +347,43 @@
         <source>Contour Plot</source>
         <translation>Grafico a contorno</translation>
     </message>
+    <message>
+        <location filename="data_plotly_dialog.py" line="453"/>
+        <source>Grouping Field
+(Optional)</source>
+        <translation>Gruppo
+(opzionale)</translation>
+    </message>
+    <message>
+        <location filename="data_plotly_dialog.py" line="459"/>
+        <source>Box Orientation</source>
+        <translation>Orientamento scatola</translation>
+    </message>
+    <message>
+        <location filename="data_plotly_dialog.py" line="460"/>
+        <source>Box Color</source>
+        <translation>Colore scatola</translation>
+    </message>
+    <message>
+        <location filename="data_plotly_dialog.py" line="464"/>
+        <source>Marker Color</source>
+        <translation>Colore del simbolo</translation>
+    </message>
+    <message>
+        <location filename="data_plotly_dialog.py" line="468"/>
+        <source>Bar Orientation</source>
+        <translation>Orientamento barra</translation>
+    </message>
+    <message>
+        <location filename="data_plotly_dialog.py" line="469"/>
+        <source>Bar Color</source>
+        <translation>Colore barra</translation>
+    </message>
+    <message>
+        <location filename="data_plotly_dialog.py" line="473"/>
+        <source>Grouping Field</source>
+        <translation>Campo del gruppo</translation>
+    </message>
 </context>
 <context>
     <name>DataPlotlyDialogBase</name>
@@ -393,7 +430,7 @@
     <message>
         <location filename="data_plotly_dialog_base.ui" line="125"/>
         <source>Plot Properties</source>
-        <translation>Proprietà del grafico</translation>
+        <translation>Proprietà</translation>
     </message>
     <message>
         <location filename="data_plotly_dialog_base.ui" line="180"/>
@@ -488,7 +525,7 @@
     <message>
         <location filename="data_plotly_dialog_base.ui" line="487"/>
         <source>Plot Customizations</source>
-        <translation>Personalizzazioni del grafico</translation>
+        <translation>Personalizzazioni</translation>
     </message>
     <message>
         <location filename="data_plotly_dialog_base.ui" line="511"/>
