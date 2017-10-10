@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=2.99
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=1.0
+version=1.1
 author=Matteo Ghetta
 email=matteo.ghetta@gmail.com
 
@@ -25,13 +25,11 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
-  Version 1.0
-  * Add many plot/map interactions
-  * No more Plot Basket, but Update button. Easy and clean
-  * API extension to use the plugin from command line
-  * Documentation and Readme updated
-  * Code refactoring and faster code execution
-  * Bins number and cumulative features for Histogram
+  Version 1.1
+  - [feature] plot canvas selection for Scatter Ternay plots
+  - [feature] transifex framework: en and it
+  - [bug fix] don't crash when NULL values
+  - other small bug fixings 
 
 # Tags are comma separated with spaces allowed
 tags=python, d3, plots, vector, graphs
