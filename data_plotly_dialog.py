@@ -732,10 +732,18 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             'bins':self.bin_val
         }
 
+        # define the legend orientation
+        if self.orientation_legend_check.isChecked():
+            legend_or = 'h'
+        else:
+            legend_or = 'v'
+
+        print(legend_or)
 
         # build the layout customizations
         layout_properties = {
             'legend':self.show_legend_check.isChecked(),
+            'legend_orientation':legend_or,
             'title':self.plot_title_line.text(),
             'x_title':self.x_axis_title.text(),
             'y_title':self.y_axis_title.text(),

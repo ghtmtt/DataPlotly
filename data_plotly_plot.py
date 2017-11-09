@@ -282,6 +282,9 @@ class Plot(object):
 
         self.layout = go.Layout(
             showlegend=self.plot_layout['legend'],
+            legend=dict(
+                orientation=self.plot_layout['legend_orientation']
+            ),
             title=self.plot_layout['title'],
             xaxis=dict(
                 title=self.plot_layout['x_title'],
