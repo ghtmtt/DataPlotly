@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,3 +57,7 @@ msgstr "``Show Legend``: show the legend of the current plot"
 #: ../../source/pie.rst:23
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Legend Title``: the title of the legend"
+
+#: ../../source/pie.rst:25
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr "``Horizontal Legend``: check if you want to have an horizontal legend"

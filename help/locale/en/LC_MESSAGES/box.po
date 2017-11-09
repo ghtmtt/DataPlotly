@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,58 +75,62 @@ msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Show Legend``: show the legend of the current plot"
 
 #: ../../source/box.rst:33
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr "``Horizontal Legend``: check if you want to have an horizontal legend"
+
+#: ../../source/box.rst:35
 msgid "``Plot Title``: the plot title"
 msgstr "``Plot Title``: the plot title"
 
-#: ../../source/box.rst:35
+#: ../../source/box.rst:37
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Legend Title``: the title of the legend"
 
-#: ../../source/box.rst:37
+#: ../../source/box.rst:39
 msgid "``X Label``: X label text"
 msgstr "``X Label``: X label text"
 
-#: ../../source/box.rst:39
+#: ../../source/box.rst:41
 msgid "``Y Label``: Y Label text"
 msgstr "``Y Label``: Y Label text"
 
-#: ../../source/box.rst:41
+#: ../../source/box.rst:43
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 
-#: ../../source/box.rst:43
+#: ../../source/box.rst:45
 msgid "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 
-#: ../../source/box.rst:45
+#: ../../source/box.rst:47
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 
-#: ../../source/box.rst:47
+#: ../../source/box.rst:49
 msgid "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"
 
-#: ../../source/box.rst:49
-msgid ""
-"``Box Orientation``: the orientation of the box, either *Horizontal* or "
-"*Vertical*"
-msgstr ""
-"``Box Orientation``: the orientation of the box, either *Horizontal* or "
-"*Vertical*"
-
 #: ../../source/box.rst:51
 msgid ""
+"``Box Orientation``: the orientation of the box, either *Horizontal* or "
+"*Vertical*"
+msgstr ""
+"``Box Orientation``: the orientation of the box, either *Horizontal* or "
+"*Vertical*"
+
+#: ../../source/box.rst:53
+msgid ""
 "``Show Statistics``: choose to show also additional statistics on each box "
 "plot, like the mean or the standard deviation (shown in the picture below)"
 msgstr ""
 "``Show Statistics``: choose to show also additional statistics on each box "
 "plot, like the mean or the standard deviation (shown in the picture below)"
 
-#: ../../source/box.rst:57
+#: ../../source/box.rst:59
 msgid ""
 "``Outliers``: show also the outliers (or all the points) next to the box. "
 "Some example in the following picture:"

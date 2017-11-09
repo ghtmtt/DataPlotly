@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
@@ -76,40 +76,45 @@ msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Mostra legenda``: mostra la legenda del grafico"
 
 #: ../../source/box.rst:33
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+"``Legenda orizzontale``: spunta se vuoi che la legenda sia orizzontale"
+
+#: ../../source/box.rst:35
 msgid "``Plot Title``: the plot title"
 msgstr "``Titolo grafico``: titolo del grafico"
 
-#: ../../source/box.rst:35
+#: ../../source/box.rst:37
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Titolo legenda``: il titolo della legenda"
 
-#: ../../source/box.rst:37
+#: ../../source/box.rst:39
 msgid "``X Label``: X label text"
 msgstr "``Etichetta X``: testo dell'asse X"
 
-#: ../../source/box.rst:39
+#: ../../source/box.rst:41
 msgid "``Y Label``: Y Label text"
 msgstr "``Etichetta Y``: testo dell'asse Y"
 
-#: ../../source/box.rst:41
+#: ../../source/box.rst:43
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr "``Inverti asse X``: spunta se vuoi invertire l'ordine dell'asse X"
 
-#: ../../source/box.rst:43
+#: ../../source/box.rst:45
 msgid "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``Modalità asse X``: scegli fra lineare, logaritmico o categorizzato"
 
-#: ../../source/box.rst:45
+#: ../../source/box.rst:47
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr "``Inverti asse Y``: spunta se vuoi invertire l'ordine dell'asse Y"
 
-#: ../../source/box.rst:47
+#: ../../source/box.rst:49
 msgid "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``Modalità asse Y``: scegli fra lineare, logaritmico o categorizzato"
 
-#: ../../source/box.rst:49
+#: ../../source/box.rst:51
 msgid ""
 "``Box Orientation``: the orientation of the box, either *Horizontal* or "
 "*Vertical*"
@@ -117,7 +122,7 @@ msgstr ""
 "``Orientamento scatola``: orientamento della scatola: *orizzontale* o "
 "*verticale*"
 
-#: ../../source/box.rst:51
+#: ../../source/box.rst:53
 msgid ""
 "``Show Statistics``: choose to show also additional statistics on each box "
 "plot, like the mean or the standard deviation (shown in the picture below)"
@@ -125,7 +130,7 @@ msgstr ""
 "``Mostra statistiche``: scegli se mostrare statistiche aggiuntive, come "
 "media e deviazione standard su ogni scatola (vedi figura sotto)"
 
-#: ../../source/box.rst:57
+#: ../../source/box.rst:59
 msgid ""
 "``Outliers``: show also the outliers (or all the points) next to the box. "
 "Some example in the following picture:"

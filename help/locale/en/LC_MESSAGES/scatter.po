@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,26 +89,30 @@ msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Show Legend``: show the legend of the current plot"
 
 #: ../../source/scatter.rst:37
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr "``Horizontal Legend``: check if you want to have an horizontal legend"
+
+#: ../../source/scatter.rst:39
 msgid "``Show Range Slider``: add a slider below the plot"
 msgstr "``Show Range Slider``: add a slider below the plot"
 
-#: ../../source/scatter.rst:42
+#: ../../source/scatter.rst:44
 msgid "``Plot Title``: the plot title"
 msgstr "``Plot Title``: the plot title"
 
-#: ../../source/scatter.rst:44
+#: ../../source/scatter.rst:46
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Legend Title``: the title of the legend"
 
-#: ../../source/scatter.rst:46
+#: ../../source/scatter.rst:48
 msgid "``X Label``: X label text"
 msgstr "``X Label``: X label text"
 
-#: ../../source/scatter.rst:48
+#: ../../source/scatter.rst:50
 msgid "``Y Label``: Y Label text"
 msgstr "``Y Label``: Y Label text"
 
-#: ../../source/scatter.rst:50
+#: ../../source/scatter.rst:52
 msgid ""
 "``Hover Infos``: choose the information that will be shown when hovering on "
 "the Plot Canvas"
@@ -116,7 +120,7 @@ msgstr ""
 "``Hover Infos``: choose the information that will be shown when hovering on "
 "the Plot Canvas"
 
-#: ../../source/scatter.rst:53
+#: ../../source/scatter.rst:55
 msgid ""
 "``Additional Hover Label``: choose another field of the plot (or other "
 "values) that will be shown together with the other informations. This field "
@@ -125,23 +129,23 @@ msgstr ""
 "``Additional Hover Label``: choose another field of the plot (or other "
 "values) that will be shown together with the other informations. This field "
 "supports expressions: e.g. ``'The ID of this point is ' || ID``:"
-
-#: ../../source/scatter.rst:60
-msgid ""
-"``Invert X Axis``: check if you want to invert the ordering of the x axis"
-msgstr ""
-"``Invert X Axis``: check if you want to invert the ordering of the x axis"
 
 #: ../../source/scatter.rst:62
+msgid ""
+"``Invert X Axis``: check if you want to invert the ordering of the x axis"
+msgstr ""
+"``Invert X Axis``: check if you want to invert the ordering of the x axis"
+
+#: ../../source/scatter.rst:64
 msgid "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 
-#: ../../source/scatter.rst:64
+#: ../../source/scatter.rst:66
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 
-#: ../../source/scatter.rst:66
+#: ../../source/scatter.rst:68
 msgid "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"

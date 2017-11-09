@@ -34,6 +34,8 @@ Plot Customizations
 -------------------
 ``Show Legend``: show the legend of the current plot
 
+``Horizontal Legend``: check if you want to have an horizontal legend
+
 ``Show Range Slider``: add a slider below the plot
 
 .. image:: /img/scatter/scatterplot2.png

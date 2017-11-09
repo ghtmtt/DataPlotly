@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
@@ -72,32 +72,37 @@ msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Mostra legenda``: mostra la legenda del grafico"
 
 #: ../../source/bar.rst:31
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+"``Legenda orizzontale``: spunta se vuoi che la legenda sia orizzontale"
+
+#: ../../source/bar.rst:33
 msgid "``Plot Title``: the plot title"
 msgstr "``Titolo grafico``: titolo del grafico"
 
-#: ../../source/bar.rst:33
+#: ../../source/bar.rst:35
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Titolo legenda``: il titolo della legenda"
 
-#: ../../source/bar.rst:35
+#: ../../source/bar.rst:37
 msgid "``X Label``: X label text"
 msgstr "``Etichetta X``: testo dell'asse X"
 
-#: ../../source/bar.rst:37
+#: ../../source/bar.rst:39
 msgid "``Y Label``: Y label text"
 msgstr "``Etichetta Y``: testo dell'asse Y"
 
-#: ../../source/bar.rst:39
+#: ../../source/bar.rst:41
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr "``Inverti asse X``: spunta se vuoi invertire l'ordine dell'asse X"
 
-#: ../../source/bar.rst:41
+#: ../../source/bar.rst:43
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr "``Inverti asse Y``: spunta se vuoi invertire l'ordine dell'asse Y"
 
-#: ../../source/bar.rst:43
+#: ../../source/bar.rst:45
 msgid ""
 "``Bar Orientation``: the orientation of the bar, either *Horizontal* or "
 "*Vertical*"
@@ -105,19 +110,19 @@ msgstr ""
 "``Orientamento barra``: orientamento delle barre: *orizzontale* o "
 "*verticale*"
 
-#: ../../source/bar.rst:45
+#: ../../source/bar.rst:47
 msgid "``Bar Mode``: this option is handy if you have more data to plot:"
 msgstr "``Modalità barra``: questa opzione è molto utile se hai molti dati:"
 
-#: ../../source/bar.rst:47
+#: ../../source/bar.rst:49
 msgid "**Grouped**: the bars are placed one next the other"
 msgstr "**Raggruppato**: le barre sono raggruppate una vicino all'altra"
 
-#: ../../source/bar.rst:52
+#: ../../source/bar.rst:54
 msgid "**Stacked**: bars are stacked one over the other"
 msgstr "``Impilato``: le barre sono impilate una sull'altra"
 
-#: ../../source/bar.rst:57
+#: ../../source/bar.rst:59
 msgid "**Overlay**: bars can be overlayed. Adjust the ``Transparecy`` setting"
 msgstr ""
 "``Sovrapposto``: le barre sono sovrapposte. Imposta il parametro "

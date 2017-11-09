@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
@@ -58,3 +58,8 @@ msgstr "``Mostra legenda``: mostra la legenda del grafico"
 #: ../../source/pie.rst:23
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Titolo legenda``: il titolo della legenda"
+
+#: ../../source/pie.rst:25
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+"``Legenda orizzontale``: spunta se vuoi che la legenda sia orizzontale"

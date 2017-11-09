@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
@@ -68,28 +68,33 @@ msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Mostra legenda``: mostra la legenda del grafico"
 
 #: ../../source/histogram.rst:29
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+"``Legenda orizzontale``: spunta se vuoi che la legenda sia orizzontale"
+
+#: ../../source/histogram.rst:31
 msgid "``Plot Title``: the plot title"
 msgstr "``Titolo grafico``: titolo del grafico"
 
-#: ../../source/histogram.rst:31
+#: ../../source/histogram.rst:33
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Titolo legenda``: il titolo della legenda"
 
-#: ../../source/histogram.rst:33
+#: ../../source/histogram.rst:35
 msgid "``X Label``: X label text"
 msgstr "``Etichetta X``: testo dell'asse X"
 
-#: ../../source/histogram.rst:35
+#: ../../source/histogram.rst:37
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr "``Inverti asse X``: spunta se vuoi invertire l'ordine dell'asse X"
 
-#: ../../source/histogram.rst:37
+#: ../../source/histogram.rst:39
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr "``Inverti asse Y``: spunta se vuoi invertire l'ordine dell'asse Y"
 
-#: ../../source/histogram.rst:39
+#: ../../source/histogram.rst:41
 msgid ""
 "``Bar Orientation``: the orientation of the bar, either *Horizontal* or "
 "*Vertical*"
@@ -97,24 +102,24 @@ msgstr ""
 "``Orientamento barra``: orientamento delle barre: *orizzontale* o "
 "*verticale*"
 
-#: ../../source/histogram.rst:41
+#: ../../source/histogram.rst:43
 msgid "``Bar Mode``: choose if you want to group, stack or overlay the data"
 msgstr ""
 "``Modalità barra``: scegli se vuoi raggruppare, impilare o sovrapporre i "
 "dati"
 
-#: ../../source/histogram.rst:43
+#: ../../source/histogram.rst:45
 msgid "``Normalization``: different type of bins calculations are available"
 msgstr "``Normalizzazione``: sono disponibili diversi tipi di normalizzazione"
 
-#: ../../source/histogram.rst:45
+#: ../../source/histogram.rst:47
 msgid ""
 "``Cumulative Histogram``: check if you want to create a cumulative historam"
 msgstr ""
 "``Istogramma cumulativo``: spunta se vuoi creare un istogramma unico "
 "cumulativo"
 
-#: ../../source/histogram.rst:47
+#: ../../source/histogram.rst:49
 msgid ""
 "``Choose manually the bins``: check if want to choose manually the bins "
 "number and add a numeric value in the box"

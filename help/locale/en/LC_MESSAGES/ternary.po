@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,26 +83,30 @@ msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Show Legend``: show the legend of the current plot"
 
 #: ../../source/ternary.rst:37
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr "``Horizontal Legend``: check if you want to have an horizontal legend"
+
+#: ../../source/ternary.rst:39
 msgid "``Plot Title``: the plot title"
 msgstr "``Plot Title``: the plot title"
 
-#: ../../source/ternary.rst:39
+#: ../../source/ternary.rst:41
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Legend Title``: the title of the legend"
 
-#: ../../source/ternary.rst:41
+#: ../../source/ternary.rst:43
 msgid "``X Label``: X label text"
 msgstr "``X Label``: X label text"
 
-#: ../../source/ternary.rst:43
+#: ../../source/ternary.rst:45
 msgid "``Y Label``: Y Label text"
 msgstr "``Y Label``: Y Label text"
 
-#: ../../source/ternary.rst:45
+#: ../../source/ternary.rst:47
 msgid "``Z Label``: Z Label text"
 msgstr "``Z Label``: Z Label text"
 
-#: ../../source/ternary.rst:47
+#: ../../source/ternary.rst:49
 msgid ""
 "``Additional Hover Label``: choose another field of the plot (or other "
 "values) that will be shown together with the other informations. This field "

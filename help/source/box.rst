@@ -30,6 +30,8 @@ Plot Customizations
 -------------------
 ``Show Legend``: show the legend of the current plot
 
+``Horizontal Legend``: check if you want to have an horizontal legend
+
 ``Plot Title``: the plot title
 
 ``Legend Title``: the title of the legend

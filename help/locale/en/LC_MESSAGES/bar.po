@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,54 +71,58 @@ msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Show Legend``: show the legend of the current plot"
 
 #: ../../source/bar.rst:31
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr "``Horizontal Legend``: check if you want to have an horizontal legend"
+
+#: ../../source/bar.rst:33
 msgid "``Plot Title``: the plot title"
 msgstr "``Plot Title``: the plot title"
 
-#: ../../source/bar.rst:33
+#: ../../source/bar.rst:35
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Legend Title``: the title of the legend"
 
-#: ../../source/bar.rst:35
+#: ../../source/bar.rst:37
 msgid "``X Label``: X label text"
 msgstr "``X Label``: X label text"
 
-#: ../../source/bar.rst:37
+#: ../../source/bar.rst:39
 msgid "``Y Label``: Y label text"
 msgstr "``Y Label``: Y label text"
 
-#: ../../source/bar.rst:39
-msgid ""
-"``Invert X Axis``: check if you want to invert the ordering of the x axis"
-msgstr ""
-"``Invert X Axis``: check if you want to invert the ordering of the x axis"
-
 #: ../../source/bar.rst:41
 msgid ""
-"``Invert Y Axis``: check if you want to invert the ordering of the y axis"
+"``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr ""
-"``Invert Y Axis``: check if you want to invert the ordering of the y axis"
+"``Invert X Axis``: check if you want to invert the ordering of the x axis"
 
 #: ../../source/bar.rst:43
 msgid ""
+"``Invert Y Axis``: check if you want to invert the ordering of the y axis"
+msgstr ""
+"``Invert Y Axis``: check if you want to invert the ordering of the y axis"
+
+#: ../../source/bar.rst:45
+msgid ""
 "``Bar Orientation``: the orientation of the bar, either *Horizontal* or "
 "*Vertical*"
 msgstr ""
 "``Bar Orientation``: the orientation of the bar, either *Horizontal* or "
 "*Vertical*"
 
-#: ../../source/bar.rst:45
+#: ../../source/bar.rst:47
 msgid "``Bar Mode``: this option is handy if you have more data to plot:"
 msgstr "``Bar Mode``: this option is handy if you have more data to plot:"
 
-#: ../../source/bar.rst:47
+#: ../../source/bar.rst:49
 msgid "**Grouped**: the bars are placed one next the other"
 msgstr "**Grouped**: the bars are placed one next the other"
 
-#: ../../source/bar.rst:52
+#: ../../source/bar.rst:54
 msgid "**Stacked**: bars are stacked one over the other"
 msgstr "**Stacked**: bars are stacked one over the other"
 
-#: ../../source/bar.rst:57
+#: ../../source/bar.rst:59
 msgid "**Overlay**: bars can be overlayed. Adjust the ``Transparecy`` setting"
 msgstr ""
 "**Overlay**: bars can be overlayed. Adjust the ``Transparecy`` setting"

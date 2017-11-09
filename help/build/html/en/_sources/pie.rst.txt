@@ -21,3 +21,5 @@ Plot Customizations
 ``Show Legend``: show the legend of the current plot
 
 ``Legend Title``: the title of the legend
+
+``Horizontal Legend``: check if you want to have an horizontal legend

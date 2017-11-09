@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-07 16:01+0200\n"
+"POT-Creation-Date: 2017-11-09 18:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
@@ -91,26 +91,31 @@ msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Mostra legenda``: mostra la legenda del grafico"
 
 #: ../../source/scatter.rst:37
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+"``Legenda orizzontale``: spunta se vuoi che la legenda sia orizzontale"
+
+#: ../../source/scatter.rst:39
 msgid "``Show Range Slider``: add a slider below the plot"
 msgstr "``Mostra slider``: aggiungi uno slider sotto al grafico"
 
-#: ../../source/scatter.rst:42
+#: ../../source/scatter.rst:44
 msgid "``Plot Title``: the plot title"
 msgstr "``Titolo grafico``: titolo del grafico"
 
-#: ../../source/scatter.rst:44
+#: ../../source/scatter.rst:46
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Titolo legenda``: il titolo della legenda"
 
-#: ../../source/scatter.rst:46
+#: ../../source/scatter.rst:48
 msgid "``X Label``: X label text"
 msgstr "``Etichetta X``: testo dell'asse X"
 
-#: ../../source/scatter.rst:48
+#: ../../source/scatter.rst:50
 msgid "``Y Label``: Y Label text"
 msgstr "``Etichetta Y``: testo dell'asse Y"
 
-#: ../../source/scatter.rst:50
+#: ../../source/scatter.rst:52
 msgid ""
 "``Hover Infos``: choose the information that will be shown when hovering on "
 "the Plot Canvas"
@@ -118,7 +123,7 @@ msgstr ""
 "``Informazioni mouse``: scegli quali informazioni vengono mostrate quando il"
 " mouse passa sopra il grafico"
 
-#: ../../source/scatter.rst:53
+#: ../../source/scatter.rst:55
 msgid ""
 "``Additional Hover Label``: choose another field of the plot (or other "
 "values) that will be shown together with the other informations. This field "
@@ -129,20 +134,20 @@ msgstr ""
 "informazioni. Questo campo supporta le espressioni: per esempio puoi "
 "scrivere ``'ID di questo punto è ' || ID``:"
 
-#: ../../source/scatter.rst:60
+#: ../../source/scatter.rst:62
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr "``Inverti asse X``: spunta se vuoi invertire l'ordine dell'asse X"
 
-#: ../../source/scatter.rst:62
+#: ../../source/scatter.rst:64
 msgid "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``Modalità asse X``: scegli fra lineare, logaritmico o categorizzato"
 
-#: ../../source/scatter.rst:64
+#: ../../source/scatter.rst:66
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr "``Inverti asse Y``: spunta se vuoi invertire l'ordine dell'asse Y"
 
-#: ../../source/scatter.rst:66
+#: ../../source/scatter.rst:68
 msgid "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``Modalità asse Y``: scegli fra lineare, logaritmico o categorizzato"
