@@ -3,3 +3,4 @@
 .backuputils.py
 help/.tx/*
 *.zip
+__pycache__/
