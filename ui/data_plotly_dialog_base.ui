@@ -161,123 +161,19 @@
                </rect>
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
-               <item row="2" column="0">
-                <spacer name="verticalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="0" column="0">
-                <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
-                 <property name="title">
-                  <string>Plot Parameters</string>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_4">
-                  <item row="2" column="1">
-                   <widget class="QgsFieldExpressionWidget" name="x_combo">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QCheckBox" name="selected_feature_check">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="text">
-                     <string>Use only selected features</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="layer_label">
-                    <property name="text">
-                     <string>Layer</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QgsFieldExpressionWidget" name="z_combo"/>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="x_label">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>20</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>70</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>X Field</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="z_label">
-                    <property name="text">
-                     <string>Z field</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="1">
-                   <widget class="QgsFieldExpressionWidget" name="y_combo">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0">
-                   <widget class="QLabel" name="y_label">
-                    <property name="text">
-                     <string>Y Field</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QgsMapLayerComboBox" name="layer_combo">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
                <item row="1" column="0">
                 <widget class="QgsCollapsibleGroupBox" name="mGroupBox_2">
                  <property name="title">
                   <string>Properties</string>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_8">
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="marker_type_lab">
+                    <property name="text">
+                     <string>Marker type</string>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="7" column="0">
                    <widget class="QLabel" name="alpha_lab">
                     <property name="text">
@@ -390,13 +286,6 @@
                   <item row="4" column="1">
                    <widget class="QComboBox" name="line_combo"/>
                   </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="marker_type_lab">
-                    <property name="text">
-                     <string>Marker type</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="5" column="0">
                    <widget class="QLabel" name="contour_type_label">
                     <property name="text">
@@ -448,6 +337,13 @@
                     </property>
                    </widget>
                   </item>
+                  <item row="0" column="4">
+                   <widget class="QgsPropertyOverrideButton" name="size_defined_button">
+                    <property name="text">
+                     <string>...</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                  <zorder>out_color_lab</zorder>
                  <zorder>marker_width</zorder>
@@ -471,6 +367,118 @@
                  <zorder>color_scale_combo</zorder>
                  <zorder>color_scale_label</zorder>
                  <zorder>show_lines_check</zorder>
+                 <zorder>size_defined_button</zorder>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <spacer name="verticalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="0">
+                <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
+                 <property name="title">
+                  <string>Plot Parameters</string>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_4">
+                  <item row="2" column="1">
+                   <widget class="QgsFieldExpressionWidget" name="x_combo">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QCheckBox" name="selected_feature_check">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Use only selected features</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="layer_label">
+                    <property name="text">
+                     <string>Layer</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QgsFieldExpressionWidget" name="z_combo"/>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="x_label">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>20</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>70</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>X Field</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="z_label">
+                    <property name="text">
+                     <string>Z field</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QgsFieldExpressionWidget" name="y_combo">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="y_label">
+                    <property name="text">
+                     <string>Y Field</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QgsMapLayerComboBox" name="layer_combo">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </widget>
                </item>
               </layout>
@@ -496,8 +504,8 @@
               <property name="geometry">
                <rect>
                 <x>0</x>
-                <y>-281</y>
-                <width>819</width>
+                <y>0</y>
+                <width>410</width>
                 <height>624</height>
                </rect>
               </property>
@@ -826,6 +834,14 @@
    <extends>QComboBox</extends>
    <header>qgis.gui</header>
   </customwidget>
+  <customwidget>
+   <class>QgsPropertyOverrideButton</class>
+   <extends>QToolButton</extends>
+   <header>qgis.gui</header>
+   <slots>
+    <slot>setVectorLayer(QgsMapLayer*)</slot>
+   </slots>
+  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
@@ -840,8 +856,8 @@
      <y>264</y>
     </hint>
     <hint type="destinationlabel">
-     <x>490</x>
-     <y>-29</y>
+     <x>588</x>
+     <y>226</y>
     </hint>
    </hints>
   </connection>
@@ -856,8 +872,8 @@
      <y>224</y>
     </hint>
     <hint type="destinationlabel">
-     <x>490</x>
-     <y>-62</y>
+     <x>588</x>
+     <y>193</y>
     </hint>
    </hints>
   </connection>
@@ -868,11 +884,11 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>822</x>
+     <x>793</x>
      <y>634</y>
     </hint>
     <hint type="destinationlabel">
-     <x>712</x>
+     <x>692</x>
      <y>632</y>
     </hint>
    </hints>
@@ -884,11 +900,11 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>712</x>
+     <x>692</x>
      <y>632</y>
     </hint>
     <hint type="destinationlabel">
-     <x>822</x>
+     <x>793</x>
      <y>634</y>
     </hint>
    </hints>
@@ -904,8 +920,8 @@
      <y>287</y>
     </hint>
     <hint type="destinationlabel">
-     <x>386</x>
-     <y>4</y>
+     <x>484</x>
+     <y>259</y>
     </hint>
    </hints>
   </connection>
@@ -936,8 +952,8 @@
      <y>140</y>
     </hint>
     <hint type="destinationlabel">
-     <x>490</x>
-     <y>83</y>
+     <x>588</x>
+     <y>331</y>
     </hint>
    </hints>
   </connection>
@@ -980,12 +996,28 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>401</y>
+     <x>132</x>
+     <y>674</y>
     </hint>
     <hint type="destinationlabel">
-     <x>335</x>
-     <y>411</y>
+     <x>433</x>
+     <y>672</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>layer_combo</sender>
+   <signal>layerChanged(QgsMapLayer*)</signal>
+   <receiver>size_defined_button</receiver>
+   <slot>setVectorLayer(QgsMapLayer*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>498</x>
+     <y>147</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>810</x>
+     <y>362</y>
     </hint>
    </hints>
   </connection>

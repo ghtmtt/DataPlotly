@@ -171,6 +171,32 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         # get the plot type from the combobox
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
+        # load the layer fields in the init function
+        self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
+        # connect the size defined button to the correct functions
+        self.size_defined_button.changed.connect(self.refreshSizeDefined)
+
+    def refreshSizeDefined(self):
+        '''
+        enable/disable the correct buttons depending on the choice
+        '''
+        if self.size_defined_button.isActive():
+            self.marker_size.setEnabled(False)
+        else:
+            self.marker_size.setEnabled(True)
+
+    def getMarkerSize(self):
+        '''
+        get the marker size
+        '''
+
+        if self.size_defined_button.isActive():
+            mark_size = self.size_defined_button.toProperty().expressionString()
+            self.marker_size_value = self.layer_combo.currentLayer().getValues(mark_size, selectedOnly=self.selected_feature_check.isChecked())[0]
+        else:
+            # self.marker_size.setEnabled(True)
+            self.marker_size_value = self.marker_size.value()
+
     def setCheckState(self):
         '''
         change the selected_feature_check checkbox accordingly with the current
@@ -507,6 +533,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
             self.marker_size_lab: ['scatter', 'polar', 'ternary'],
             self.marker_size: ['scatter', 'polar', 'ternary'],
+            self.size_defined_button: ['scatter', 'ternary'],
             self.marker_type_lab: ['scatter'],
             self.marker_type_combo: ['scatter'],
             self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
@@ -644,6 +671,9 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         call the class and make the object to define the generic plot properties
         '''
 
+        # call the method to get the correct marker size
+        self.getMarkerSize()
+
         # set the variable to invert the x and y axis order
         self.x_invert = True
         if self.invert_x_check.isChecked():
@@ -685,7 +715,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
             'in_color':hex_to_rgb(self.in_color_combo),
             'out_color':hex_to_rgb(self.out_color_combo),
             'marker_width':self.marker_width.value(),
-            'marker_size':self.marker_size.value(),
+            'marker_size':self.marker_size_value,
             'marker_symbol':self.point_types2[self.point_combo.currentData()],
             'line_dash':self.line_types2[self.line_combo.currentText()],
             'box_orientation':self.orientation_box[self.orientation_combo.currentText()],
