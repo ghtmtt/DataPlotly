@@ -556,6 +556,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
             # layout customization
             self.show_legend_check: ['all'],
+            self.orientation_legend_check: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'pie'],
             self.plot_title_lab: ['all'],
             self.plot_title_line: ['all'],
             self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary'],
