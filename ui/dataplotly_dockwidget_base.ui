@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>610</width>
-    <height>620</height>
+    <width>628</width>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,35 +35,25 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>120</width>
+         <width>60</width>
          <height>16777215</height>
         </size>
        </property>
-       <item>
-        <property name="text">
-         <string>Properties</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Customization</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Plot</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Help</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Code</string>
-        </property>
-       </item>
+       <property name="styleSheet">
+        <string notr="true">QListWidget{
+	background-color: rgb(69, 69, 69, 220);
+	outline: 0;
+}
+QListWidget::item {
+	color: white;
+	padding: 3px;
+}
+QListWidget::item::selected {
+	color: black;
+	background-color:palette(Window);
+    padding-right: 0px;
+}</string>
+       </property>
       </widget>
       <widget class="QStackedWidget" name="stackedPlotWidget">
        <property name="currentIndex">
@@ -83,9 +73,6 @@
             <string>Plot Type</string>
            </property>
           </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QComboBox" name="plot_combo"/>
          </item>
          <item row="1" column="0" colspan="2">
           <widget class="QScrollArea" name="scrollArea_5">
@@ -118,7 +105,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>432</width>
+              <width>510</width>
               <height>565</height>
              </rect>
             </property>
@@ -418,6 +405,9 @@
            </widget>
           </widget>
          </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="plot_combo"/>
+         </item>
          <item row="2" column="0" colspan="2">
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="0" column="0">
@@ -502,7 +492,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>475</width>
+              <width>510</width>
               <height>624</height>
              </rect>
             </property>
@@ -735,7 +725,7 @@
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="0" column="0">
           <layout class="QGridLayout" name="gridLayout_28">
-           <item row="0" column="0" colspan="4">
+           <item row="0" column="0" colspan="5">
             <widget class="QWidget" name="plot_qview" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -745,7 +735,7 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="2" colspan="2">
+           <item row="2" column="3" colspan="2">
             <widget class="QPushButton" name="save_plot_btn">
              <property name="toolTip">
               <string>Export as image</string>
@@ -764,8 +754,25 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="save_plot_html_btn">
+             <property name="toolTip">
+              <string>Export as html</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="0">
-            <spacer name="horizontalSpacer_2">
+            <widget class="QPushButton" name="reload_btn">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <spacer name="horizontalSpacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -776,16 +783,6 @@
               </size>
              </property>
             </spacer>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="save_plot_html_btn">
-             <property name="toolTip">
-              <string>Export as html</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
            </item>
           </layout>
          </item>
@@ -812,6 +809,7 @@
    <zorder>stackedPlotWidget</zorder>
    <zorder>listWidget</zorder>
    <zorder>mGroupBox_2</zorder>
+   <zorder></zorder>
   </widget>
  </widget>
  <customwidgets>
@@ -846,8 +844,7 @@
    </slots>
   </customwidget>
  </customwidgets>
- <resources>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>layer_combo</sender>
@@ -872,12 +869,12 @@
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>622</x>
-     <y>120</y>
+     <x>520</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
-     <x>622</x>
-     <y>252</y>
+     <x>520</x>
+     <y>249</y>
     </hint>
    </hints>
   </connection>
@@ -888,12 +885,12 @@
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>622</x>
-     <y>120</y>
+     <x>520</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
-     <x>622</x>
-     <y>300</y>
+     <x>520</x>
+     <y>297</y>
     </hint>
    </hints>
   </connection>
@@ -904,12 +901,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>492</x>
-     <y>628</y>
+     <x>390</x>
+     <y>625</y>
     </hint>
     <hint type="destinationlabel">
-     <x>593</x>
-     <y>630</y>
+     <x>547</x>
+     <y>627</y>
     </hint>
    </hints>
   </connection>
@@ -920,12 +917,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>593</x>
-     <y>630</y>
+     <x>547</x>
+     <y>627</y>
     </hint>
     <hint type="destinationlabel">
-     <x>492</x>
-     <y>628</y>
+     <x>390</x>
+     <y>625</y>
     </hint>
    </hints>
   </connection>
@@ -936,12 +933,12 @@
    <slot>setVectorLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>595</x>
-     <y>120</y>
+     <x>493</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
-     <x>622</x>
-     <y>343</y>
+     <x>576</x>
+     <y>340</y>
     </hint>
    </hints>
   </connection>
@@ -952,12 +949,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>595</x>
-     <y>187</y>
+     <x>493</x>
+     <y>184</y>
     </hint>
     <hint type="destinationlabel">
-     <x>558</x>
-     <y>189</y>
+     <x>456</x>
+     <y>147</y>
     </hint>
    </hints>
   </connection>
@@ -968,12 +965,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>595</x>
-     <y>258</y>
+     <x>493</x>
+     <y>255</y>
     </hint>
     <hint type="destinationlabel">
-     <x>558</x>
-     <y>222</y>
+     <x>456</x>
+     <y>180</y>
     </hint>
    </hints>
   </connection>
@@ -984,12 +981,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>595</x>
-     <y>300</y>
+     <x>493</x>
+     <y>297</y>
     </hint>
     <hint type="destinationlabel">
-     <x>558</x>
-     <y>255</y>
+     <x>456</x>
+     <y>213</y>
     </hint>
    </hints>
   </connection>
@@ -1000,12 +997,12 @@
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>595</x>
-     <y>120</y>
+     <x>493</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
-     <x>558</x>
-     <y>327</y>
+     <x>456</x>
+     <y>285</y>
     </hint>
    </hints>
   </connection>
@@ -1016,12 +1013,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>392</x>
-     <y>670</y>
+     <x>250</x>
+     <y>628</y>
     </hint>
     <hint type="destinationlabel">
-     <x>447</x>
-     <y>668</y>
+     <x>345</x>
+     <y>626</y>
     </hint>
    </hints>
   </connection>
@@ -1032,7 +1029,7 @@
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
+     <x>68</x>
      <y>131</y>
     </hint>
     <hint type="destinationlabel">
