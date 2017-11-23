@@ -46,7 +46,7 @@ PY_FILES = \
 	__init__.py \
 	data_plotly.py data_plotly_dialog.py
 
-UI_FILES = data_plotly_dialog_base.ui
+UI_FILES = dataplotly_dockwidget_base.ui
 
 EXTRAS = metadata.txt icon.png
 
@@ -144,7 +144,7 @@ zip: deploy dclean
 	rm -f $(PLUGINNAME).zip
 	cd $(HOME)/$(QGISDIR)/python/plugins; zip -9r $(CURDIR)/$(PLUGINNAME).zip $(PLUGINNAME)
 
-package: 
+package:
 	# Create a zip package of the plugin named $(PLUGINNAME).zip.
 	# This requires use of git (your plugin development directory must be a
 	# git repository).
