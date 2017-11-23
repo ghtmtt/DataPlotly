@@ -32,6 +32,7 @@ from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
 from qgis.core import QgsNetworkAccessManager
+from qgis.utils import iface
 import plotly
 import plotly.graph_objs as go
 
@@ -61,12 +62,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-
-        # add bar to the main (upper part) window
-        self.bar = QgsMessageBar()
-        self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        self.setLayout(QGridLayout())
-        # self.layout().insertWidget(0, self.bar)
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
@@ -842,7 +837,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
                     self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
             except:
-                self.bar.pushMessage(self.tr("Plot types are not comapatible for subplotting"),
+                iface.messageBar().pushMessage(self.tr("Plot types are not comapatible for subplotting"),
                              level=QgsMessageBar.CRITICAL, duration=3)
                 return
 
@@ -916,9 +911,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             painter.end()
             if self.plot_file:
                 image.save(self.plot_file)
-                self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+                iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
         except:
-            self.bar.pushMessage(self.tr("Please select a directory to save the plot"), level=QgsMessageBar.WARNING, duration=4)
+            iface.messageBar().pushMessage(self.tr("Please select a directory to save the plot"), level=QgsMessageBar.WARNING, duration=4)
 
     def savePlotAsHtml(self):
         '''
@@ -934,7 +929,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         if self.plot_file:
             copyfile(self.plot_path, self.plot_file)
-            self.bar.pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+            iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
 
 
     def showPlot(self, plot_input_dic):
