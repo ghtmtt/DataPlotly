@@ -70,8 +70,13 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # create the reload button with text and icon
         self.reload_btn.setText("Reload")
         self.reload_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/reload.svg')))
+        self.clear_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/clean.svg')))
+        self.update_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/refresh.svg')))
+        self.draw_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/create_plot.svg')))
         # connect the button to the reload function
         self.reload_btn.clicked.connect(self.reloadPlotCanvas2)
+
+        # self.listWidget.currentRowChanged.connect(self.refreshNestedList)
 
         # set the icon of QgspropertyOverrideButton not taken automatically
         self.size_defined_button.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/mIconDataDefineExpression.svg')))
@@ -206,6 +211,23 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
+
+    # def refreshNestedList(self):
+    #
+    #     idx = self.listWidget.currentRow()
+    #
+    #     if (idx == 0) or (idx == 1):
+    #
+    #
+    #
+    #         self.stackedPlotWidget.setCurrentIndex(0)
+    #         self.stackedNestedPlotWidget.setCurrentIndex(idx)
+    #
+    #     elif idx > 1:
+    #
+    #         print(self.stackedPlotWidget.currentIndex())
+    #
+    #         self.stackedPlotWidget.setCurrentIndex(0)
 
     def refreshSizeDefined(self):
         '''

@@ -813,10 +813,6 @@ QListWidget::item::selected {
      </widget>
     </item>
    </layout>
-   <zorder>stackedPlotWidget</zorder>
-   <zorder>listWidget</zorder>
-   <zorder>mGroupBox_2</zorder>
-   <zorder></zorder>
   </widget>
  </widget>
  <customwidgets>
