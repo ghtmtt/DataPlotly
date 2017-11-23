@@ -27,7 +27,7 @@ import json
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QIcon, QImage, QPainter
-from PyQt5.QtCore import QUrl, QFileInfo, QSettings
+from PyQt5.QtCore import QUrl, QFileInfo, QSettings, pyqtSignal
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
@@ -42,14 +42,47 @@ from collections import OrderedDict
 import tempfile
 from shutil import copyfile
 
-FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
 
 
-class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
+FORM_CLASS_PLOT, _ = uic.loadUiType(os.path.join(
+    # os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
+    os.path.dirname(__file__), 'ui/dataplotly_dockwidget_plot.ui'))
+
+class DataPlotlyDockWidgetPlot(QtWidgets.QDockWidget, FORM_CLASS_PLOT):
+
+    closingPlugin = pyqtSignal()
+
     def __init__(self, parent=None):
         """Constructor."""
-        super(DataPlotlyDialog, self).__init__(parent)
+        super(DataPlotlyDockWidgetPlot, self).__init__(parent)
+
+        # self.setupUi(self)
+
+        # load the webview of the plot a the first running of the plugin
+        # self.layoutw = QVBoxLayout()
+        # self.plot_qview.setLayout(self.layoutw)
+        # self.plot_view = QWebView()
+        # self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
+        # self.plot_view.statusBarMessage.connect(self.getJSmessage)
+        # plot_view_settings = self.plot_view.settings()
+        # plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
+        # plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
+        # plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
+        # self.layoutw.addWidget(self.plot_view)
+
+
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    # os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
+    os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
+
+
+class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
+
+    closingPlugin = pyqtSignal()
+
+    def __init__(self, parent=None):
+        """Constructor."""
+        super(DataPlotlyDockWidget, self).__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see
@@ -61,7 +94,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.setLayout(QGridLayout())
-        self.layout().insertWidget(0, self.bar)
+        # self.layout().insertWidget(0, self.bar)
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
@@ -154,7 +187,7 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.help_view.load(help_url)
         self.layouth.addWidget(self.help_view)
         self.helpPage()
-        self.tabWidget.currentChanged.connect(self.helpPage)
+        # self.tabWidget.currentChanged.connect(self.helpPage)
 
         # load the webview of the plot a the first running of the plugin
         self.layoutw = QVBoxLayout()
@@ -175,6 +208,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
         self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
+
+        self.dialogPlot = DataPlotlyDockWidgetPlot(self)
 
     def refreshSizeDefined(self):
         '''
@@ -279,6 +314,10 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         help_url = QUrl.fromLocalFile(help_link)
         self.help_view.load(help_url)
+
+    def closeEvent(self, event):
+        self.closingPlugin.emit()
+        event.accept()
 
 
     def refreshWidgets(self):
@@ -790,6 +829,8 @@ class DataPlotlyDialog(QtWidgets.QDialog, FORM_CLASS):
 
         # call the method to build all the Plot plotProperties
         self.plotProperties()
+
+        self.stackedPlotWidget.setCurrentIndex(2)
 
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
