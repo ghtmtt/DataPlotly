@@ -45,13 +45,14 @@ from shutil import copyfile
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    # os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
     os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
 
 
 class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     closingPlugin = pyqtSignal()
+    # mit signal when dialog is resized
+    resizeWindow = pyqtSignal()
 
     def __init__(self, parent=None):
         """Constructor."""
@@ -62,6 +63,34 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+
+        # connect signal to function to reload the plot view
+        self.resizeWindow.connect(self.reloadPlotCanvas)
+
+        # create the reload button with text and icon
+        self.reload_btn.setText("Reload")
+        self.reload_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/reload.png')))
+        # connect the button to the reload function
+        self.reload_btn.clicked.connect(self.reloadPlotCanvas)
+
+        # ListWidget icons and themes
+        self.listWidget_icons = [
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_properties.png')), ""),
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_custom.png')), ""),
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_plot.png')), ""),
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_help.png')), ""),
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_code.png')), "")
+        ]
+
+        # fill the QListWidget with items and icons
+        for i in self.listWidget_icons:
+            self.listWidget.addItem(i)
+
+        # highlight the first row when starting the first time
+        self.listWidget.setCurrentRow(0)
+
+        # connect to function that hightlights items in the list
+        self.stackedPlotWidget.currentChanged.connect(self.refreshListWidget)
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
@@ -185,6 +214,12 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         else:
             self.marker_size.setEnabled(True)
 
+    def reloadPlotCanvas(self):
+        '''
+        just reload the plot view
+        '''
+        self.plot_view.reload()
+
     def getMarkerSize(self):
         '''
         get the marker size
@@ -280,9 +315,24 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         help_url = QUrl.fromLocalFile(help_link)
         self.help_view.load(help_url)
 
+    def resizeEvent(self, event):
+        '''
+        reimplemented event to detect the dialog resizing
+        '''
+        self.resizeWindow.emit()
+        return super(DataPlotlyDockWidget, self).resizeEvent(event)
+
     def closeEvent(self, event):
         self.closingPlugin.emit()
         event.accept()
+
+    def refreshListWidget(self):
+        '''
+        highlight the item in the QListWidget when the QStackWidget changes
+
+        needed to highligh the correct icon when the plot is rendered
+        '''
+        self.listWidget.setCurrentRow(self.stackedPlotWidget.currentIndex())
 
 
     def refreshWidgets(self):
@@ -742,8 +792,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             legend_or = 'h'
         else:
             legend_or = 'v'
-
-        print(legend_or)
 
         # build the layout customizations
         layout_properties = {
