@@ -43,34 +43,6 @@ import tempfile
 from shutil import copyfile
 
 
-
-FORM_CLASS_PLOT, _ = uic.loadUiType(os.path.join(
-    # os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
-    os.path.dirname(__file__), 'ui/dataplotly_dockwidget_plot.ui'))
-
-class DataPlotlyDockWidgetPlot(QtWidgets.QDockWidget, FORM_CLASS_PLOT):
-
-    closingPlugin = pyqtSignal()
-
-    def __init__(self, parent=None):
-        """Constructor."""
-        super(DataPlotlyDockWidgetPlot, self).__init__(parent)
-
-        # self.setupUi(self)
-
-        # load the webview of the plot a the first running of the plugin
-        # self.layoutw = QVBoxLayout()
-        # self.plot_qview.setLayout(self.layoutw)
-        # self.plot_view = QWebView()
-        # self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
-        # self.plot_view.statusBarMessage.connect(self.getJSmessage)
-        # plot_view_settings = self.plot_view.settings()
-        # plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
-        # plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
-        # plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
-        # self.layoutw.addWidget(self.plot_view)
-
-
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     # os.path.dirname(__file__), 'ui/data_plotly_dialog_base.ui'))
     os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
@@ -208,8 +180,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
-
-        self.dialogPlot = DataPlotlyDockWidgetPlot(self)
 
     def refreshSizeDefined(self):
         '''
