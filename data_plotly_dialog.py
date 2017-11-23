@@ -69,17 +69,20 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # create the reload button with text and icon
         self.reload_btn.setText("Reload")
-        self.reload_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/reload.png')))
+        self.reload_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/reload.svg')))
         # connect the button to the reload function
-        self.reload_btn.clicked.connect(self.reloadPlotCanvas)
+        self.reload_btn.clicked.connect(self.reloadPlotCanvas2)
+
+        # set the icon of QgspropertyOverrideButton not taken automatically
+        self.size_defined_button.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/mIconDataDefineExpression.svg')))
 
         # ListWidget icons and themes
         self.listWidget_icons = [
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_properties.png')), ""),
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_custom.png')), ""),
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_plot.png')), ""),
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_help.png')), ""),
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_code.png')), "")
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_properties.svg')), ""),
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_custom.svg')), ""),
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_plot.svg')), ""),
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_help.svg')), ""),
+            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_code.svg')), "")
         ]
 
         # fill the QListWidget with items and icons
@@ -94,15 +97,15 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterplot.png')), self.tr('Scatter Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/boxplot.png')), self.tr('Box Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/barplot.png')), self.tr('Bar Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/histogram.png')), self.tr('Histogram')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.png')), self.tr('Pie Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.png')), self.tr('2D Histogram')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.png')), self.tr('Polar Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterternary.png')), self.tr('Ternary Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/contour.png')), self.tr('Contour Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterplot.svg')), self.tr('Scatter Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/boxplot.svg')), self.tr('Box Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/barplot.svg')), self.tr('Bar Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/histogram.svg')), self.tr('Histogram')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.svg')), self.tr('Pie Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.svg')), self.tr('2D Histogram')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.svg')), self.tr('Polar Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterternary.svg')), self.tr('Ternary Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/contour.svg')), self.tr('Contour Plot')),
         ])
 
         self.plot_types2 = OrderedDict([
@@ -167,23 +170,22 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.clear_btn.clicked.connect(self.clearPlotView)
         self.save_plot_btn.clicked.connect(self.savePlotAsImage)
         self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
-        self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.png')))
-        self.save_plot_html_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_html.png')))
+        self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.svg')))
+        self.save_plot_html_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_html.svg')))
 
+        # inizialize the empty dictionary of plots
         self.plot_traces = {}
-
+        # start the index counter
         self.idx = 1
 
         # load the help hatml page into the help widget
         self.layouth = QVBoxLayout()
         self.help_widget.setLayout(self.layouth)
-        # temporary url to repository
         help_url = QUrl.fromLocalFile(os.path.join(os.path.dirname(__file__), 'help/build/html/index.html'))
         self.help_view = QWebView()
         self.help_view.load(help_url)
         self.layouth.addWidget(self.help_view)
         self.helpPage()
-        # self.tabWidget.currentChanged.connect(self.helpPage)
 
         # load the webview of the plot a the first running of the plugin
         self.layoutw = QVBoxLayout()
@@ -213,12 +215,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.marker_size.setEnabled(False)
         else:
             self.marker_size.setEnabled(True)
-
-    def reloadPlotCanvas(self):
-        '''
-        just reload the plot view
-        '''
-        self.plot_view.reload()
 
     def getMarkerSize(self):
         '''
@@ -321,6 +317,19 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
         self.resizeWindow.emit()
         return super(DataPlotlyDockWidget, self).resizeEvent(event)
+
+    def reloadPlotCanvas(self):
+        '''
+        just reload the plot view controlling the check state
+        '''
+        if self.live_update_check.isChecked():
+            self.plot_view.reload()
+
+    def reloadPlotCanvas2(self):
+        '''
+        just reload the plot view
+        '''
+        self.plot_view.reload()
 
     def closeEvent(self, event):
         self.closingPlugin.emit()
@@ -426,14 +435,14 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # Point types
         self.point_types = OrderedDict([
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/circle.png')), 'circle'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/square.png')), 'square'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/diamond.png')), 'diamond'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/cross.png')), 'cross'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/x.png')), 'x'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/triangle.png')), 'triangle'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/penta.png')), 'penta'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/star.png')), 'star'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/circle.svg')), 'circle'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/square.svg')), 'square'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/diamond.svg')), 'diamond'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/cross.svg')), 'cross'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/x.svg')), 'x'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/triangle.svg')), 'triangle'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/penta.svg')), 'penta'),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/star.svg')), 'star'),
         ])
 
         self.point_types2 = OrderedDict([
