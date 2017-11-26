@@ -44,6 +44,8 @@ import tempfile
 from shutil import copyfile
 
 
+# FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    # os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
 
@@ -75,8 +77,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.draw_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/create_plot.svg')))
         # connect the button to the reload function
         self.reload_btn.clicked.connect(self.reloadPlotCanvas2)
-
-        # self.listWidget.currentRowChanged.connect(self.refreshNestedList)
 
         # set the icon of QgspropertyOverrideButton not taken automatically
         self.size_defined_button.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/mIconDataDefineExpression.svg')))
@@ -212,22 +212,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
 
-    # def refreshNestedList(self):
-    #
-    #     idx = self.listWidget.currentRow()
-    #
-    #     if (idx == 0) or (idx == 1):
-    #
-    #
-    #
-    #         self.stackedPlotWidget.setCurrentIndex(0)
-    #         self.stackedNestedPlotWidget.setCurrentIndex(idx)
-    #
-    #     elif idx > 1:
-    #
-    #         print(self.stackedPlotWidget.currentIndex())
-    #
-    #         self.stackedPlotWidget.setCurrentIndex(0)
 
     def refreshSizeDefined(self):
         '''
