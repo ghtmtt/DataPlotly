@@ -21,7 +21,8 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
 help:
 	@echo "Please use \`make <target>' LANG=xx, where <target> is one of"
-	@echo "  html       to make standalone HTML files"
+	@echo "  html       to make standalone HTML files AFTER pulling from Transifex"
+	@echo "  simplehtml to make standalone HTML files"
 	@echo "  dirhtml    to make HTML files named index.html in directories"
 	@echo "  singlehtml to make a single large HTML file"
 	@echo "  pickle     to make pickle files"
@@ -42,6 +43,18 @@ help:
 
 clean:
 	-rm -rf $(BUILDDIR)/*
+
+simplehtml:
+	@echo
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
+	@if [ $(LANG) != "en" ]; then \
+		$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html/$(LANG); \
+	else \
+		$(SPHINXBUILD) -n -W -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html/$(LANG); \
+	fi
+	@echo
+	@echo "HTML Build finished. The HTML pages for '$(LANG)' are in $(BUILDDIR)."
 
 html: txpull
 	@echo
