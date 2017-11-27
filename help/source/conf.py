@@ -181,6 +181,18 @@ html_logo = '../../icon.png'
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'TemplateClassdoc'
 
+rst_epilog = """
+.. |properties| image:: img/commons/properties.svg
+    :width: 20em
+.. |custom| image:: img/commons/custom.svg
+    :width: 20em
+.. |plot| image:: img/commons/plot.svg
+    :width: 20em
+.. |help| image:: img/commons/help.svg
+    :width: 20em
+.. |code| image:: img/commons/code.svg
+    :width: 20em
+"""
 
 # -- Options for LaTeX output --------------------------------------------------
 
