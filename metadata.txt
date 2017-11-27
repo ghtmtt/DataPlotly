@@ -11,8 +11,8 @@ name=Data Plotly
 qgisMinimumVersion=2.99
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=1.1
-author=Matteo Ghetta
+version=1.2
+author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
 about=Draw D3 plots in QGIS
@@ -29,7 +29,7 @@ changelog=
   - [feature] plot canvas selection for Scatter Ternay plots
   - [feature] transifex framework: en and it
   - [bug fix] don't crash when NULL values
-  - other small bug fixings 
+  - other small bug fixings
 
 # Tags are comma separated with spaces allowed
 tags=python, d3, plots, vector, graphs
