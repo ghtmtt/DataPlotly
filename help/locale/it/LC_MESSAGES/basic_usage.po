@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-09 18:25+0100\n"
+"POT-Creation-Date: 2017-11-27 10:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
@@ -32,9 +32,9 @@ msgstr ""
 
 #: ../../source/basic_usage.rst:8
 msgid ""
-"Creating a plot is just easy as it sound: choose all the settings, ``x`` and"
-" ``y`` column, colors, labels, etc and press the ``Create Plot`` button. The"
-" plot is immediatly shown in the plot canvas."
+"Creating a plot is just easy as it sounds: choose the plot type, ``x`` and "
+"``y`` columns, colors, labels, etc and press the ``Create Plot`` button. The"
+" plot is immediately shown in the plot canvas."
 msgstr ""
 "Creare un grafico è davvero semplicissimo: scegli il tipo di grafico, il "
 "layer, i campi ``x`` e ``y``, colori, etichette, ecc. e premi ``Crea "
@@ -50,27 +50,67 @@ msgstr ""
 " la sua dimensione, il campo ``x``, basta farlo e cliccare sul pulsante "
 "``Aggiorna grafico``: il grafico viene cosi immediatamente aggiornato."
 
+#: ../../source/basic_usage.rst:16
+msgid ""
+"DataPlotly is a docket widget meaning that you can move it in the QGIS "
+"interface. It is made up by 5 different widgets:"
+msgstr ""
+"DataPlotly è un pannello agganciabile ovunque nell'interfaccia di QGIS. È "
+"composto da 5 categorie:"
+
 #: ../../source/basic_usage.rst:19
+msgid "|properties| **fundamental plot settings**"
+msgstr "|properties| **impostazioni fondamentali del grafico**"
+
+#: ../../source/basic_usage.rst:21
+msgid "|custom| **additional plot customizations**"
+msgstr "|custom| **personalizzazioni aggiuntive del grafico**"
+
+#: ../../source/basic_usage.rst:23
+msgid "|plot| **plot canvas**"
+msgstr "|plot| **grafico**"
+
+#: ../../source/basic_usage.rst:25
+msgid "|help| **user guide and help for each plot**"
+msgstr "|help| **guida utente per ogni tipo di grafico*"
+
+#: ../../source/basic_usage.rst:27
+msgid "|code| **raw html code**"
+msgstr "|code| **codice html del grafico*"
+
+#: ../../source/basic_usage.rst:35
 msgid "Add a Plot"
 msgstr "Aggiungi un grafico"
 
-#: ../../source/basic_usage.rst:20
+#: ../../source/basic_usage.rst:36
 msgid "DataPlotly workflow is pretty straightforward:"
 msgstr "Il flusso di lavoro di DataPlotly è molto lineare:"
 
-#: ../../source/basic_usage.rst:22
+#: ../../source/basic_usage.rst:38
 msgid "choose the plot type (1)"
 msgstr "scegli il tipo di grafico (1)"
 
-#: ../../source/basic_usage.rst:23
+#: ../../source/basic_usage.rst:39
 msgid "set the layer and the field(s) you want to plot (2)"
 msgstr "imposta il layer e i campi che vuoi utilizzare (2)"
 
-#: ../../source/basic_usage.rst:24
-msgid "show the plot with the ``Create Plot`` button (3)"
-msgstr "mostra il grafico con il pulsante ``Crea grafico`` (3)"
+#: ../../source/basic_usage.rst:40
+msgid ""
+"show the plot with the ``Create Plot`` button (3). The plot canvas is "
+"automatically visible."
+msgstr ""
+"mostra il grafico con il pulsante ``Crea grafico`` (3). Il grafico verrà "
+"automaticamente mostrato."
 
-#: ../../source/basic_usage.rst:29
+#: ../../source/basic_usage.rst:46
+msgid ""
+"You can change some plot settings and click on the ``Update`` button to "
+"update the plot with the changes."
+msgstr ""
+"Puoi cambiare qualche impostazione del grafico e cliccare sul pulsante "
+"``Aggiorna`` per aggiornare il grafico con i cambiamenti."
+
+#: ../../source/basic_usage.rst:49
 msgid ""
 "If you want to start again, just click the ``Clean Plot Canvas`` button and "
 "the plot canvas will be empty."
@@ -78,11 +118,11 @@ msgstr ""
 "Se vuoi ripartire da zero basta cliccare il pulsante ``Pulisci grafici`` e "
 "tutti i grafici saranno eliminati."
 
-#: ../../source/basic_usage.rst:34
+#: ../../source/basic_usage.rst:54
 msgid "Multi Plots"
 msgstr "Multi grafici"
 
-#: ../../source/basic_usage.rst:35
+#: ../../source/basic_usage.rst:55
 msgid ""
 "DataPlotly allows the creation of many different plots. Plots can be shown "
 "on the same plot canvas (**overlapping**) or each plot can be drawn in "
@@ -92,11 +132,11 @@ msgstr ""
 "essere sovrapposti (**grafico singolo**) oppure ogni grafico può essere "
 "caricato in righe e colonne separate (**multi grafico**)."
 
-#: ../../source/basic_usage.rst:40
+#: ../../source/basic_usage.rst:60
 msgid "Overlapping Plots"
 msgstr "Sovrapposizione grafici"
 
-#: ../../source/basic_usage.rst:41
+#: ../../source/basic_usage.rst:61
 msgid ""
 "You can add as many plots as you want in the same plot view. Plot types can "
 "be different and also the source layer can be different."
@@ -104,7 +144,7 @@ msgstr ""
 "Puoi aggiungere quanti grafici vuoi e caricarli nella stessa vista. Le "
 "tipologie di grafici possono essere diverse cosi come il layer e i campi."
 
-#: ../../source/basic_usage.rst:44
+#: ../../source/basic_usage.rst:64
 msgid ""
 "results can be very strange depending on the plot type and on the fields you"
 " choose. Be careful!"
@@ -112,16 +152,16 @@ msgstr ""
 "il risultato può essere molto strano in funzione del tipo di grafico scelto "
 "e dei campi scelti. "
 
-#: ../../source/basic_usage.rst:46
+#: ../../source/basic_usage.rst:66
 msgid ""
-"To add other plot just repeat the steps of :ref:`add_plot` by chosing "
+"To add other plot just repeat the steps of :ref:`add_plot` by choosing "
 "different plot types and/or just different layer fields, etc.."
 msgstr ""
 "Per aggiungere altri grafici basta che ripeti le operazioni :ref:`add_plot` "
 "scegliendo una tipologia di grafico diversa oppure un layer o dei campi "
 "diversi, ecc.. "
 
-#: ../../source/basic_usage.rst:49
+#: ../../source/basic_usage.rst:69
 msgid ""
 "In the following picture, same plot type (scatterplot) and different fields "
 "of the same layer:"
@@ -129,7 +169,7 @@ msgstr ""
 "Nella seguente figura, stessa tipologia di grafico e differenti campi dello "
 "stesso vettore:"
 
-#: ../../source/basic_usage.rst:55
+#: ../../source/basic_usage.rst:75
 msgid ""
 "The following pictures shows 2 different overlapping plot types (boxplot and"
 " scatterplot):"
@@ -137,11 +177,11 @@ msgstr ""
 "La seguente figura mostra 2 tipologie di grafici diversi sovrapposti nella "
 "stessa vista:"
 
-#: ../../source/basic_usage.rst:63
+#: ../../source/basic_usage.rst:83
 msgid "Subplots"
 msgstr "Multi grafici"
 
-#: ../../source/basic_usage.rst:64
+#: ../../source/basic_usage.rst:84
 msgid ""
 "You can choose to separate the plots in different plot canvas. It is "
 "particulary useful when the scales are very different or when overlapping "
@@ -151,7 +191,7 @@ msgstr ""
 "particolarmente utile quando le scale di valori sono molto diverse o quando "
 "la sovrapposizione di dati o grafici diversi risulta troppo caotica."
 
-#: ../../source/basic_usage.rst:68
+#: ../../source/basic_usage.rst:88
 msgid ""
 "You just have to choose the plots and the fields as described in the section"
 " :ref:`add_plot` but you have to specify the ``SubPlots`` parameter from the"
@@ -163,15 +203,15 @@ msgstr ""
 "grafico`` dal menu a tendina e scegliere se preferisci creare i grafici in "
 "righe (predefinito) o in colonne."
 
-#: ../../source/basic_usage.rst:73
+#: ../../source/basic_usage.rst:93
 msgid "The following pictures show plots in rows and in columns:"
 msgstr "La seguente figura mostra grafici in righe e colonne:"
 
-#: ../../source/basic_usage.rst:88
+#: ../../source/basic_usage.rst:108
 msgid "Save Plot"
 msgstr "Salva grafico"
 
-#: ../../source/basic_usage.rst:89
+#: ../../source/basic_usage.rst:109
 msgid ""
 "Saving a plot, technically the plot canvas, is very simple. You can choose "
 "to save the plot as a ``png`` image or as ``html`` file."
@@ -180,13 +220,13 @@ msgstr ""
 "Puoi scegliere di salvare il grafico come immagine ``png`` oppure come file "
 "``html``."
 
-#: ../../source/basic_usage.rst:92
+#: ../../source/basic_usage.rst:112
 msgid ""
 "saving the image as ``html`` file will keep the interactivity of the plot"
 msgstr ""
 "salvare l'immagine come file ``html`` mantiene l'interattività del grafico"
 
-#: ../../source/basic_usage.rst:94
+#: ../../source/basic_usage.rst:114
 msgid ""
 "You just have to click on the correct button and choose the path where to "
 "save the image, both static or interactive."
@@ -194,11 +234,11 @@ msgstr ""
 "Basta cliccare sul pulsante corretto e scegliere il percorso dove vuoi "
 "salvare l'immagine, sia statica che interattiva."
 
-#: ../../source/basic_usage.rst:102
+#: ../../source/basic_usage.rst:122
 msgid "Raw Plot Code"
 msgstr "Codice del grafico"
 
-#: ../../source/basic_usage.rst:103
+#: ../../source/basic_usage.rst:123
 msgid ""
 "In addition to saving the plot as image or html file (see :ref:`save`) you "
 "can also copy the raw ``html`` code of the plot and embed it somewhere else."
@@ -207,7 +247,7 @@ msgstr ""
 ":ref:`save`)) puoi anche copiare il codice ``html`` del grafico e includerlo"
 " da qualche altra parte."
 
-#: ../../source/basic_usage.rst:106
+#: ../../source/basic_usage.rst:126
 msgid ""
 "A good place where to copy/paste the raw code is the html frame of the print"
 " composer of QGIS."
@@ -215,7 +255,7 @@ msgstr ""
 "Un'ottima scelta è copiare/incollare il codice in una cornice html del "
 "compositore di stampe di QGIS."
 
-#: ../../source/basic_usage.rst:109
+#: ../../source/basic_usage.rst:129
 msgid ""
 "In order to copy the plot code, after the plot creation, just go in the "
 "``Raw Plot`` tab: here you can see a long string. **Right Click** on the tab"
@@ -229,14 +269,14 @@ msgstr ""
 "sempre col tasto destro scegli ``Copia`` (puoi usare anche le scorciatoie da"
 " tastiera ``Ctrl+A`` per selezionare tutto e ``Ctrl+C`` per copiare):"
 
-#: ../../source/basic_usage.rst:118
+#: ../../source/basic_usage.rst:138
 msgid ""
 "Then you have your plot code copied in memory: you just have to choose where"
 " to paste it."
 msgstr ""
 "Ora hai il codice copiato in memoria, devi solo scegliere dove incollarlo."
 
-#: ../../source/basic_usage.rst:121
+#: ../../source/basic_usage.rst:141
 msgid ""
 "In the following example, the ``html code`` is pasted in the **html frame** "
 "of the print composer:"
@@ -244,31 +284,31 @@ msgstr ""
 "Nel seguente esempio, il ``codice html`` è stato copiato nella **cornice "
 "html** del compositore di stampe:"
 
-#: ../../source/basic_usage.rst:124
+#: ../../source/basic_usage.rst:144
 msgid "open the print composer and add an ``html frame`` (1)"
 msgstr "apri il compositore di stampe e aggiungi una ``cornice html`` (1)"
 
-#: ../../source/basic_usage.rst:125
+#: ../../source/basic_usage.rst:145
 msgid "paste the code in the ``Source`` space (2)"
 msgstr "incolla il codice nello spazio ``Sorgente`` (2)"
 
-#: ../../source/basic_usage.rst:126
+#: ../../source/basic_usage.rst:146
 msgid "refresh the ``html`` code (3)"
 msgstr "aggiorna il codice ``html`` (3)"
 
-#: ../../source/basic_usage.rst:127
+#: ../../source/basic_usage.rst:147
 msgid "results will be shown in the frame (4)"
 msgstr "il risultato viene mostrato nella cornice (4)"
 
-#: ../../source/basic_usage.rst:134
+#: ../../source/basic_usage.rst:154
 msgid "Layer fields tips"
 msgstr "Consigli e trucchi"
 
-#: ../../source/basic_usage.rst:136
+#: ../../source/basic_usage.rst:156
 msgid "Using Expressions"
 msgstr "Usare le espressioni"
 
-#: ../../source/basic_usage.rst:137
+#: ../../source/basic_usage.rst:157
 msgid ""
 "DataPlotly supports all the fields type (integers, floats, text, etc..) and "
 "will elaborate the data so that they can be correctly displayed."
@@ -277,7 +317,7 @@ msgstr ""
 "ecc...) ed elabora i dati in modo che possano essere visualizzati "
 "coerentemente."
 
-#: ../../source/basic_usage.rst:140
+#: ../../source/basic_usage.rst:160
 msgid ""
 "Thanks to the QGIS API and custom widget, it is possible to add also "
 "**Expressions** instead of pure layer fields (e.g. ``field + 10``, ``field1 "
@@ -287,7 +327,7 @@ msgstr ""
 "**Espressioni** invece che i singoli campi dei vettori (per esempio ``campo "
 "+ 10``, ``campo1 * campo2``, ecc..)."
 
-#: ../../source/basic_usage.rst:143
+#: ../../source/basic_usage.rst:163
 msgid ""
 "You can use the Expression editor to add complex expressions (e.g. ``(field1"
 " + 10) * (field2 * 10)``) or you can type the expression directly in the "
@@ -299,11 +339,11 @@ msgstr ""
 "direttamente l'espressione nella casella. Le espressioni sono valutate *al "
 "volo*, quindi se la stringa è rossa, l'espressione non è valida. "
 
-#: ../../source/basic_usage.rst:151
+#: ../../source/basic_usage.rst:171
 msgid "Use only selected features"
 msgstr "Usa solo le geometrie selezionate"
 
-#: ../../source/basic_usage.rst:152
+#: ../../source/basic_usage.rst:172
 msgid ""
 "Another very handy options is to work only with the selected features on the"
 " layer."
@@ -311,7 +351,7 @@ msgstr ""
 "Un'altra opzione molto utile è quella di usare solamente le geometrie "
 "selezionate del vettore."
 
-#: ../../source/basic_usage.rst:155
+#: ../../source/basic_usage.rst:175
 msgid ""
 "Just check the ``Use only selected features`` check box and only the "
 "attributes of the selected features will be taken."
