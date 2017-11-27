@@ -25,10 +25,9 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
-  Version 1.1
-  - [feature] plot canvas selection for Scatter Ternay plots
-  - [feature] transifex framework: en and it
-  - [bug fix] don't crash when NULL values
+  Version 1.2
+  - [feature] dock widget instead dialog window
+  - [feature] data defined button for scatter plot size
   - other small bug fixings
 
 # Tags are comma separated with spaces allowed
