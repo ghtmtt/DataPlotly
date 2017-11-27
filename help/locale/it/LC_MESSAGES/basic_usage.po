@@ -72,11 +72,11 @@ msgstr "|plot| **grafico**"
 
 #: ../../source/basic_usage.rst:25
 msgid "|help| **user guide and help for each plot**"
-msgstr "|help| **guida utente per ogni tipo di grafico*"
+msgstr "|help| **guida utente per ogni tipo di grafico**"
 
 #: ../../source/basic_usage.rst:27
 msgid "|code| **raw html code**"
-msgstr "|code| **codice html del grafico*"
+msgstr "|code| **codice html del grafico**"
 
 #: ../../source/basic_usage.rst:35
 msgid "Add a Plot"
