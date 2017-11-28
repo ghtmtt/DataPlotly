@@ -384,7 +384,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # Widget general customizations
 
-        self.x_label.setText('X Field')
+        self.x_label.setText(self.tr('X Field'))
         ff = QFont()
         ff.setPointSizeF(9)
         self.x_label.setFont(ff)
