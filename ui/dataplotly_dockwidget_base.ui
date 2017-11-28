@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>574</width>
-    <height>617</height>
+    <width>593</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>DataPlotly</string>
   </property>
   <widget class="QWidget" name="dockWidgetContents">
-   <layout class="QGridLayout" name="gridLayout_4">
+   <layout class="QGridLayout" name="gridLayout_8">
     <item row="0" column="0">
      <widget class="QListWidget" name="listWidget">
       <property name="sizePolicy">
@@ -57,364 +57,609 @@ QListWidget::item::selected {
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="plot_properties">
+      <widget class="QWidget" name="plot_customization">
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QStackedWidget" name="stackedNestedPlotWidget">
+          <property name="currentIndex">
+           <number>0</number>
           </property>
-          <property name="text">
-           <string>Plot Type</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QScrollArea" name="scrollArea_5">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAsNeeded</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_5">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>471</width>
-             <height>565</height>
-            </rect>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_9">
+          <widget class="QWidget" name="page">
+           <layout class="QGridLayout" name="gridLayout">
             <item row="0" column="0">
-             <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
-              <property name="title">
-               <string>Plot Parameters</string>
+             <widget class="QLabel" name="label">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
-              <layout class="QGridLayout" name="gridLayout_23">
-               <item row="2" column="0">
-                <widget class="QLabel" name="x_label">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>20</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>70</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>X Field</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="z_label">
-                 <property name="text">
-                  <string>Z field</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QCheckBox" name="selected_feature_check">
-                 <property name="enabled">
-                  <bool>true</bool>
-                 </property>
-                 <property name="text">
-                  <string>Use only selected features</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="y_label">
-                 <property name="text">
-                  <string>Y Field</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QgsFieldExpressionWidget" name="y_combo">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="layer_label">
-                 <property name="text">
-                  <string>Layer</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QgsFieldExpressionWidget" name="x_combo">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QgsFieldExpressionWidget" name="z_combo">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QgsMapLayerComboBox" name="layer_combo">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <property name="text">
+               <string>Plot Type</string>
+              </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QgsCollapsibleGroupBox" name="mGroupBox_2">
-              <property name="title">
-               <string>Properties</string>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="plot_combo"/>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QScrollArea" name="scrollArea_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
-              <layout class="QGridLayout" name="gridLayout_22">
-               <item row="2" column="0">
-                <widget class="QLabel" name="marker_type_lab">
-                 <property name="text">
-                  <string>Marker type</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="0">
-                <widget class="QLabel" name="alpha_lab">
-                 <property name="text">
-                  <string>Transparency</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="3">
-                <widget class="QCheckBox" name="show_lines_check">
-                 <property name="text">
-                  <string>Show Lines</string>
-                 </property>
-                 <property name="checked">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QComboBox" name="point_combo"/>
-               </item>
-               <item row="0" column="3">
-                <widget class="QSpinBox" name="marker_size">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>10</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1" colspan="3">
-                <widget class="QComboBox" name="marker_type_combo"/>
-               </item>
-               <item row="0" column="1">
-                <widget class="QgsColorButton" name="in_color_combo">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="1" colspan="2">
-                <widget class="QSlider" name="alpha_slid">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="singleStep">
-                  <number>5</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="tickPosition">
-                  <enum>QSlider::TicksAbove</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="point_lab">
-                 <property name="text">
-                  <string>Point Type</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="3">
-                <widget class="QSpinBox" name="alpha_num">
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1" colspan="3">
-                <widget class="QComboBox" name="color_scale_combo"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="out_color_lab">
-                 <property name="text">
-                  <string>Stroke Color</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="marker_size_lab">
-                 <property name="text">
-                  <string>Marker Size</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1" colspan="2">
-                <widget class="QComboBox" name="contour_type_combo"/>
-               </item>
-               <item row="1" column="1">
-                <widget class="QgsColorButton" name="out_color_combo">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QComboBox" name="line_combo"/>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="contour_type_label">
-                 <property name="text">
-                  <string>Contour Type</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="3">
-                <widget class="QSpinBox" name="marker_width">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="value">
-                  <number>1</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="line_lab">
-                 <property name="text">
-                  <string>Line Type</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="in_color_lab">
-                 <property name="text">
-                  <string>Marker Color</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="marker_width_lab">
-                 <property name="text">
-                  <string>Stroke Width</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="color_scale_label">
-                 <property name="text">
-                  <string>Color Scale</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="4">
-                <widget class="QgsPropertyOverrideButton" name="size_defined_button">
-                 <property name="text">
-                  <string>...</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="horizontalScrollBarPolicy">
+               <enum>Qt::ScrollBarAsNeeded</enum>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_5">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>472</width>
+                 <height>565</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_9">
+                <item row="0" column="0">
+                 <widget class="QgsCollapsibleGroupBox" name="mGroupBox">
+                  <property name="title">
+                   <string>Plot Parameters</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_23">
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="x_label">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>70</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>X Field</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="z_label">
+                     <property name="text">
+                      <string>Z field</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QCheckBox" name="selected_feature_check">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="text">
+                      <string>Use only selected features</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="y_label">
+                     <property name="text">
+                      <string>Y Field</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QgsFieldExpressionWidget" name="y_combo">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="layer_label">
+                     <property name="text">
+                      <string>Layer</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QgsFieldExpressionWidget" name="x_combo">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QgsFieldExpressionWidget" name="z_combo">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QgsMapLayerComboBox" name="layer_combo">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QgsCollapsibleGroupBox" name="mGroupBox_2">
+                  <property name="title">
+                   <string>Properties</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_22">
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="marker_type_lab">
+                     <property name="text">
+                      <string>Marker type</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="0">
+                    <widget class="QLabel" name="alpha_lab">
+                     <property name="text">
+                      <string>Transparency</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="3">
+                    <widget class="QCheckBox" name="show_lines_check">
+                     <property name="text">
+                      <string>Show Lines</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QComboBox" name="point_combo"/>
+                   </item>
+                   <item row="0" column="3">
+                    <widget class="QSpinBox" name="marker_size">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="value">
+                      <number>10</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1" colspan="3">
+                    <widget class="QComboBox" name="marker_type_combo"/>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QgsColorButton" name="in_color_combo">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="1" colspan="2">
+                    <widget class="QSlider" name="alpha_slid">
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>5</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="tickPosition">
+                      <enum>QSlider::TicksAbove</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="point_lab">
+                     <property name="text">
+                      <string>Point Type</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="3">
+                    <widget class="QSpinBox" name="alpha_num">
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="1" colspan="3">
+                    <widget class="QComboBox" name="color_scale_combo"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="out_color_lab">
+                     <property name="text">
+                      <string>Stroke Color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QLabel" name="marker_size_lab">
+                     <property name="text">
+                      <string>Marker Size</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1" colspan="2">
+                    <widget class="QComboBox" name="contour_type_combo"/>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QgsColorButton" name="out_color_combo">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QComboBox" name="line_combo"/>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="contour_type_label">
+                     <property name="text">
+                      <string>Contour Type</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="3">
+                    <widget class="QSpinBox" name="marker_width">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="value">
+                      <number>1</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="line_lab">
+                     <property name="text">
+                      <string>Line Type</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="in_color_lab">
+                     <property name="text">
+                      <string>Marker Color</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="2">
+                    <widget class="QLabel" name="marker_width_lab">
+                     <property name="text">
+                      <string>Stroke Width</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="QLabel" name="color_scale_label">
+                     <property name="text">
+                      <string>Color Scale</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="4">
+                    <widget class="QgsPropertyOverrideButton" name="size_defined_button">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_2">
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="0" column="0">
+             <widget class="QScrollArea" name="scrollArea_6">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_6">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>475</width>
+                 <height>624</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_25">
+                <item row="2" column="1" colspan="2">
+                 <widget class="QLineEdit" name="legend_title"/>
+                </item>
+                <item row="15" column="0">
+                 <widget class="QLabel" name="hist_norm_label">
+                  <property name="text">
+                   <string>Normalization</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="1">
+                 <widget class="QLabel" name="x_axis_mode_label">
+                  <property name="text">
+                   <string>X Axis Mode</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="20" column="0" colspan="3">
+                 <spacer name="verticalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>255</width>
+                    <height>222</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="11" column="2">
+                 <widget class="QComboBox" name="y_axis_mode_combo"/>
+                </item>
+                <item row="17" column="0">
+                 <widget class="QLabel" name="outliers_label">
+                  <property name="text">
+                   <string>Outliers</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1" colspan="2">
+                 <widget class="QLineEdit" name="plot_title_line"/>
+                </item>
+                <item row="3" column="1" colspan="2">
+                 <widget class="QLineEdit" name="x_axis_title"/>
+                </item>
+                <item row="14" column="0">
+                 <widget class="QLabel" name="bar_mode_lab">
+                  <property name="text">
+                   <string>Bar Mode</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="14" column="1" colspan="2">
+                 <widget class="QComboBox" name="bar_mode_combo"/>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QCheckBox" name="show_legend_check">
+                  <property name="text">
+                   <string>Show Legend</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1" rowspan="2" colspan="2">
+                 <widget class="QLineEdit" name="y_axis_title"/>
+                </item>
+                <item row="13" column="0">
+                 <widget class="QLabel" name="orientation_label">
+                  <property name="text">
+                   <string>Bar orientation</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="13" column="1" colspan="2">
+                 <widget class="QComboBox" name="orientation_combo"/>
+                </item>
+                <item row="16" column="0">
+                 <widget class="QLabel" name="box_statistic_label">
+                  <property name="text">
+                   <string>Show Statistics</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="16" column="1" colspan="2">
+                 <widget class="QComboBox" name="box_statistic_combo"/>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="plot_title_lab">
+                  <property name="text">
+                   <string>Plot Title</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="x_axis_label">
+                  <property name="text">
+                   <string>X Label</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0" rowspan="2">
+                 <widget class="QLabel" name="y_axis_label">
+                  <property name="text">
+                   <string>Y Label</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="17" column="1" colspan="2">
+                 <widget class="QComboBox" name="outliers_combo"/>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="legend_label">
+                  <property name="text">
+                   <string>Legend Title</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QCheckBox" name="range_slider_combo">
+                  <property name="text">
+                   <string>Show RangeSlider</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="15" column="1" colspan="2">
+                 <widget class="QComboBox" name="hist_norm_combo"/>
+                </item>
+                <item row="7" column="0">
+                 <widget class="QLabel" name="info_label">
+                  <property name="text">
+                   <string>Hover Infos</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="0">
+                 <widget class="QCheckBox" name="invert_x_check">
+                  <property name="text">
+                   <string>Invert X Axis</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="0">
+                 <widget class="QCheckBox" name="invert_y_check">
+                  <property name="text">
+                   <string>Invert Y Axis</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="2">
+                 <widget class="QComboBox" name="x_axis_mode_combo"/>
+                </item>
+                <item row="11" column="1">
+                 <widget class="QLabel" name="y_axis_mode_label">
+                  <property name="text">
+                   <string>Y Axis Mode</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="1" colspan="2">
+                 <widget class="QComboBox" name="info_combo"/>
+                </item>
+                <item row="8" column="0">
+                 <widget class="QLabel" name="additional_info_label">
+                  <property name="text">
+                   <string>Additional Hover Label</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="z_axis_label">
+                  <property name="text">
+                   <string>Z Label</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="1" colspan="2">
+                 <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
+                </item>
+                <item row="6" column="1" colspan="2">
+                 <widget class="QLineEdit" name="z_axis_title"/>
+                </item>
+                <item row="18" column="0">
+                 <widget class="QCheckBox" name="cumulative_hist_check">
+                  <property name="text">
+                   <string>Cumulative Histogram</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="19" column="0">
+                 <widget class="QCheckBox" name="bins_check">
+                  <property name="text">
+                   <string>Choose manually the bins</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="19" column="1">
+                 <widget class="QSpinBox" name="bins_value">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="maximum">
+                   <number>1000</number>
+                  </property>
+                  <property name="value">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QCheckBox" name="orientation_legend_check">
+                  <property name="text">
+                   <string>Horizontal Legend</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </widget>
             </item>
            </layout>
           </widget>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="plot_combo"/>
-        </item>
-        <item row="2" column="0" colspan="2">
+        <item row="1" column="0">
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Type of Plot</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QRadioButton" name="radio_rows">
             <property name="text">
@@ -474,248 +719,14 @@ QListWidget::item::selected {
           <item row="0" column="1" colspan="3">
            <widget class="QComboBox" name="subcombo"/>
           </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Type of Plot</string>
+            </property>
+           </widget>
+          </item>
          </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="plot_customization">
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QScrollArea" name="scrollArea_6">
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_6">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>475</width>
-             <height>624</height>
-            </rect>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_25">
-            <item row="2" column="1" colspan="2">
-             <widget class="QLineEdit" name="legend_title"/>
-            </item>
-            <item row="15" column="0">
-             <widget class="QLabel" name="hist_norm_label">
-              <property name="text">
-               <string>Normalization</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="1">
-             <widget class="QLabel" name="x_axis_mode_label">
-              <property name="text">
-               <string>X Axis Mode</string>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="0" colspan="3">
-             <spacer name="verticalSpacer_6">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>255</width>
-                <height>222</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="11" column="2">
-             <widget class="QComboBox" name="y_axis_mode_combo"/>
-            </item>
-            <item row="17" column="0">
-             <widget class="QLabel" name="outliers_label">
-              <property name="text">
-               <string>Outliers</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1" colspan="2">
-             <widget class="QLineEdit" name="plot_title_line"/>
-            </item>
-            <item row="3" column="1" colspan="2">
-             <widget class="QLineEdit" name="x_axis_title"/>
-            </item>
-            <item row="14" column="0">
-             <widget class="QLabel" name="bar_mode_lab">
-              <property name="text">
-               <string>Bar Mode</string>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="1" colspan="2">
-             <widget class="QComboBox" name="bar_mode_combo"/>
-            </item>
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="show_legend_check">
-              <property name="text">
-               <string>Show Legend</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1" rowspan="2" colspan="2">
-             <widget class="QLineEdit" name="y_axis_title"/>
-            </item>
-            <item row="13" column="0">
-             <widget class="QLabel" name="orientation_label">
-              <property name="text">
-               <string>Bar orientation</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="1" colspan="2">
-             <widget class="QComboBox" name="orientation_combo"/>
-            </item>
-            <item row="16" column="0">
-             <widget class="QLabel" name="box_statistic_label">
-              <property name="text">
-               <string>Show Statistics</string>
-              </property>
-             </widget>
-            </item>
-            <item row="16" column="1" colspan="2">
-             <widget class="QComboBox" name="box_statistic_combo"/>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="plot_title_lab">
-              <property name="text">
-               <string>Plot Title</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="x_axis_label">
-              <property name="text">
-               <string>X Label</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0" rowspan="2">
-             <widget class="QLabel" name="y_axis_label">
-              <property name="text">
-               <string>Y Label</string>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="1" colspan="2">
-             <widget class="QComboBox" name="outliers_combo"/>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="legend_label">
-              <property name="text">
-               <string>Legend Title</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QCheckBox" name="range_slider_combo">
-              <property name="text">
-               <string>Show RangeSlider</string>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="1" colspan="2">
-             <widget class="QComboBox" name="hist_norm_combo"/>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="info_label">
-              <property name="text">
-               <string>Hover Infos</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QCheckBox" name="invert_x_check">
-              <property name="text">
-               <string>Invert X Axis</string>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="0">
-             <widget class="QCheckBox" name="invert_y_check">
-              <property name="text">
-               <string>Invert Y Axis</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="2">
-             <widget class="QComboBox" name="x_axis_mode_combo"/>
-            </item>
-            <item row="11" column="1">
-             <widget class="QLabel" name="y_axis_mode_label">
-              <property name="text">
-               <string>Y Axis Mode</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="1" colspan="2">
-             <widget class="QComboBox" name="info_combo"/>
-            </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="additional_info_label">
-              <property name="text">
-               <string>Additional Hover Label</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="z_axis_label">
-              <property name="text">
-               <string>Z Label</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1" colspan="2">
-             <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
-            </item>
-            <item row="6" column="1" colspan="2">
-             <widget class="QLineEdit" name="z_axis_title"/>
-            </item>
-            <item row="18" column="0">
-             <widget class="QCheckBox" name="cumulative_hist_check">
-              <property name="text">
-               <string>Cumulative Histogram</string>
-              </property>
-             </widget>
-            </item>
-            <item row="19" column="0">
-             <widget class="QCheckBox" name="bins_check">
-              <property name="text">
-               <string>Choose manually the bins</string>
-              </property>
-             </widget>
-            </item>
-            <item row="19" column="1">
-             <widget class="QSpinBox" name="bins_value">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="maximum">
-               <number>1000</number>
-              </property>
-              <property name="value">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="orientation_legend_check">
-              <property name="text">
-               <string>Horizontal Legend</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
         </item>
        </layout>
       </widget>
@@ -856,12 +867,12 @@ QListWidget::item::selected {
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>559</x>
-     <y>120</y>
+     <x>532</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
-     <x>573</x>
-     <y>187</y>
+     <x>532</x>
+     <y>226</y>
     </hint>
    </hints>
   </connection>
@@ -872,8 +883,8 @@ QListWidget::item::selected {
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>520</x>
-     <y>117</y>
+     <x>532</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
      <x>520</x>
@@ -888,8 +899,8 @@ QListWidget::item::selected {
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>520</x>
-     <y>117</y>
+     <x>532</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
      <x>520</x>
@@ -908,8 +919,8 @@ QListWidget::item::selected {
      <y>625</y>
     </hint>
     <hint type="destinationlabel">
-     <x>547</x>
-     <y>627</y>
+     <x>503</x>
+     <y>636</y>
     </hint>
    </hints>
   </connection>
@@ -920,8 +931,8 @@ QListWidget::item::selected {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>547</x>
-     <y>627</y>
+     <x>503</x>
+     <y>636</y>
     </hint>
     <hint type="destinationlabel">
      <x>390</x>
@@ -936,12 +947,12 @@ QListWidget::item::selected {
    <slot>setVectorLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>117</y>
+     <x>532</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
-     <x>576</x>
-     <y>340</y>
+     <x>532</x>
+     <y>375</y>
     </hint>
    </hints>
   </connection>
@@ -952,12 +963,12 @@ QListWidget::item::selected {
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>184</y>
+     <x>532</x>
+     <y>226</y>
     </hint>
     <hint type="destinationlabel">
-     <x>456</x>
-     <y>147</y>
+     <x>481</x>
+     <y>182</y>
     </hint>
    </hints>
   </connection>
@@ -972,8 +983,8 @@ QListWidget::item::selected {
      <y>255</y>
     </hint>
     <hint type="destinationlabel">
-     <x>456</x>
-     <y>180</y>
+     <x>481</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -988,8 +999,8 @@ QListWidget::item::selected {
      <y>297</y>
     </hint>
     <hint type="destinationlabel">
-     <x>456</x>
-     <y>213</y>
+     <x>481</x>
+     <y>248</y>
     </hint>
    </hints>
   </connection>
@@ -1000,12 +1011,12 @@ QListWidget::item::selected {
    <slot>setLayer(QgsMapLayer*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>117</y>
+     <x>532</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
-     <x>456</x>
-     <y>285</y>
+     <x>481</x>
+     <y>327</y>
     </hint>
    </hints>
   </connection>
@@ -1016,28 +1027,12 @@ QListWidget::item::selected {
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>250</x>
-     <y>628</y>
+     <x>264</x>
+     <y>658</y>
     </hint>
     <hint type="destinationlabel">
-     <x>345</x>
-     <y>626</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>listWidget</sender>
-   <signal>currentRowChanged(int)</signal>
-   <receiver>stackedPlotWidget</receiver>
-   <slot>setCurrentIndex(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>68</x>
-     <y>131</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>288</x>
-     <y>79</y>
+     <x>370</x>
+     <y>661</y>
     </hint>
    </hints>
   </connection>

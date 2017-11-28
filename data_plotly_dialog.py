@@ -44,8 +44,6 @@ import tempfile
 from shutil import copyfile
 
 
-# FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    # os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
 
@@ -96,9 +94,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # highlight the first row when starting the first time
         self.listWidget.setCurrentRow(0)
-
-        # connect to function that hightlights items in the list
-        self.stackedPlotWidget.currentChanged.connect(self.refreshListWidget)
 
         # PlotTypes combobox
         self.plot_types = OrderedDict([
@@ -186,9 +181,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # load the help hatml page into the help widget
         self.layouth = QVBoxLayout()
         self.help_widget.setLayout(self.layouth)
-        help_url = QUrl.fromLocalFile(os.path.join(os.path.dirname(__file__), 'help/build/html/index.html'))
         self.help_view = QWebView()
-        self.help_view.load(help_url)
         self.layouth.addWidget(self.help_view)
         self.helpPage()
 
@@ -211,6 +204,24 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
+
+        # connect to refreshing function of listWidget and stackedWidgets
+        self.listWidget.currentRowChanged.connect(self.updateStacked)
+
+    def updateStacked(self, row):
+        '''
+        according to the listWdiget row change the stackedWidget and
+        nestedStackedWidget
+        '''
+
+        # stackedWidget index = 1 and change just the nestedStackedWidgets
+        if 0 <= row <= 1:
+            self.stackedPlotWidget.setCurrentIndex(0)
+            self.stackedNestedPlotWidget.setCurrentIndex(row)
+
+        # change the stackedWidgets index
+        elif row > 1:
+            self.stackedPlotWidget.setCurrentIndex(row - 1)
 
 
     def refreshSizeDefined(self):
@@ -858,7 +869,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # call the method to build all the Plot plotProperties
         self.plotProperties()
 
-        self.stackedPlotWidget.setCurrentIndex(2)
+        # set the correct index page of the widget
+        self.stackedPlotWidget.setCurrentIndex(1)
+        # highlight the correct plot row in the listwidget
+        self.listWidget.setCurrentRow(2)
 
 
         if self.sub_dict[self.subcombo.currentText()] == 'single':
