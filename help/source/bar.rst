@@ -22,7 +22,7 @@ Plot Properties
 
 ``Stroke Width``: the width of the border
 
-``Transparency``: transparecy level of the bar
+``Transparency``: transparency level of the bar
 
 Plot Customizations
 -------------------

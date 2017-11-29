@@ -13,7 +13,7 @@ Plot Properties
 ---------------
 ``Layer``: the combobox will display all the vector layers loaded in QGIS
 
-``Grouping Field (Optional)``: the grouping field. If no field are added, a generic
+``Grouping Field (Optional)``: the grouping field. If no field is added, a generic
 box plot for the Y value will be displayed
 
 ``Y Field``: the Y field
