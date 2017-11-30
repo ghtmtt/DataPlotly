@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017, Matteo Ghetta
 # This file is distributed under the same license as the DataPlotly package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
-#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 10:18+0100\n"
+"POT-Creation-Date: 2017-11-30 08:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 1.3\n"
 
 #: ../../source/basic_usage.rst:4
 msgid "DataPlotly Basic Usage"
@@ -30,51 +29,52 @@ msgstr ""
 "same time, complete and with many options and customizations available."
 
 #: ../../source/basic_usage.rst:8
-#, fuzzy
 msgid ""
-"Creating a plot is just easy as it sounds: choose the plot type, ``x`` "
-"and ``y`` columns, colors, labels, etc and press the ``Create Plot`` "
-"button. The plot is immediately shown in the plot canvas."
+"Creating a plot is just easy as it sounds: choose the plot type, ``x`` and "
+"``y`` columns, colors, labels, etc and press the ``Create Plot`` button. The"
+" plot is immediately shown in the plot canvas."
 msgstr ""
-"Creating a plot is just easy as it sound: choose all the settings, ``x`` "
-"and ``y`` column, colors, labels, etc and press the ``Create Plot`` "
-"button. The plot is immediatly shown in the plot canvas."
+"Creating a plot is just easy as it sounds: choose the plot type, ``x`` and "
+"``y`` columns, colors, labels, etc and press the ``Create Plot`` button. The"
+" plot is immediately shown in the plot canvas."
 
 #: ../../source/basic_usage.rst:12
 msgid ""
-"If you want to change some setting, e.g. the marker color or size, the "
-"``x`` column, go ahead and the hit the ``Update Plot`` button: the plot "
-"is then updated in the plot canvas."
+"If you want to change some setting, e.g. the marker color or size, the ``x``"
+" column, go ahead and the hit the ``Update Plot`` button: the plot is then "
+"updated in the plot canvas."
 msgstr ""
-"If you want to change some setting, e.g. the marker color or size, the "
-"``x`` column, go ahead and the hit the ``Update Plot`` button: the plot "
-"is then updated in the plot canvas."
+"If you want to change some setting, e.g. the marker color or size, the ``x``"
+" column, go ahead and the hit the ``Update Plot`` button: the plot is then "
+"updated in the plot canvas."
 
 #: ../../source/basic_usage.rst:16
 msgid ""
-"DataPlotly is a docket widget meaning that you can move it in the QGIS "
+"DataPlotly is a docket widget meaning that you can move it within the QGIS "
 "interface. It is made up by 5 different widgets:"
 msgstr ""
+"DataPlotly is a docket widget meaning that you can move it within the QGIS "
+"interface. It is made up by 5 different widgets:"
 
 #: ../../source/basic_usage.rst:19
 msgid "|properties| **fundamental plot settings**"
-msgstr ""
+msgstr "|properties| **fundamental plot settings**"
 
 #: ../../source/basic_usage.rst:21
 msgid "|custom| **additional plot customizations**"
-msgstr ""
+msgstr "|custom| **additional plot customizations**"
 
 #: ../../source/basic_usage.rst:23
 msgid "|plot| **plot canvas**"
-msgstr ""
+msgstr "|plot| **plot canvas**"
 
 #: ../../source/basic_usage.rst:25
 msgid "|help| **user guide and help for each plot**"
-msgstr ""
+msgstr "|help| **user guide and help for each plot**"
 
 #: ../../source/basic_usage.rst:27
 msgid "|code| **raw html code**"
-msgstr ""
+msgstr "|code| **raw html code**"
 
 #: ../../source/basic_usage.rst:35
 msgid "Add a Plot"
@@ -93,25 +93,28 @@ msgid "set the layer and the field(s) you want to plot (2)"
 msgstr "set the layer and the field(s) you want to plot (2)"
 
 #: ../../source/basic_usage.rst:40
-#, fuzzy
 msgid ""
 "show the plot with the ``Create Plot`` button (3). The plot canvas is "
 "automatically visible."
-msgstr "show the plot with the ``Create Plot`` button (3)"
+msgstr ""
+"show the plot with the ``Create Plot`` button (3). The plot canvas is "
+"automatically visible."
 
 #: ../../source/basic_usage.rst:46
 msgid ""
 "You can change some plot settings and click on the ``Update`` button to "
 "update the plot with the changes."
 msgstr ""
+"You can change some plot settings and click on the ``Update`` button to "
+"update the plot with the changes."
 
 #: ../../source/basic_usage.rst:49
 msgid ""
-"If you want to start again, just click the ``Clean Plot Canvas`` button "
-"and the plot canvas will be empty."
+"If you want to start again, just click the ``Clean Plot Canvas`` button and "
+"the plot canvas will be empty."
 msgstr ""
-"If you want to start again, just click the ``Clean Plot Canvas`` button "
-"and the plot canvas will be empty."
+"If you want to start again, just click the ``Clean Plot Canvas`` button and "
+"the plot canvas will be empty."
 
 #: ../../source/basic_usage.rst:54
 msgid "Multi Plots"
@@ -119,13 +122,13 @@ msgstr "Multi Plots"
 
 #: ../../source/basic_usage.rst:55
 msgid ""
-"DataPlotly allows the creation of many different plots. Plots can be "
-"shown on the same plot canvas (**overlapping**) or each plot can be drawn"
-" in different rows or columns (**subplots**)."
+"DataPlotly allows the creation of many different plots. Plots can be shown "
+"on the same plot canvas (**overlapping**) or each plot can be drawn in "
+"different rows or columns (**subplots**)."
 msgstr ""
-"DataPlotly allows the creation of many different plots. Plots can be "
-"shown on the same plot canvas (**overlapping**) or each plot can be drawn"
-" in different rows or columns (**subplots**)."
+"DataPlotly allows the creation of many different plots. Plots can be shown "
+"on the same plot canvas (**overlapping**) or each plot can be drawn in "
+"different rows or columns (**subplots**)."
 
 #: ../../source/basic_usage.rst:60
 msgid "Overlapping Plots"
@@ -133,44 +136,43 @@ msgstr "Overlapping Plots"
 
 #: ../../source/basic_usage.rst:61
 msgid ""
-"You can add as many plots as you want in the same plot view. Plot types "
+"You can add as many plots as you want within the same plot view. Plot types "
 "can be different and also the source layer can be different."
 msgstr ""
-"You can add as many plots as you want in the same plot view. Plot types "
+"You can add as many plots as you want within the same plot view. Plot types "
 "can be different and also the source layer can be different."
 
 #: ../../source/basic_usage.rst:64
 msgid ""
-"results can be very strange depending on the plot type and on the fields "
-"you choose. Be careful!"
+"results can be very strange depending on the plot type and on the fields you"
+" choose. Be careful!"
 msgstr ""
-"results can be very strange depending on the plot type and on the fields "
-"you choose. Be careful!"
+"results can be very strange depending on the plot type and on the fields you"
+" choose. Be careful!"
 
 #: ../../source/basic_usage.rst:66
-#, fuzzy
 msgid ""
 "To add other plot just repeat the steps of :ref:`add_plot` by choosing "
 "different plot types and/or just different layer fields, etc.."
 msgstr ""
-"To add other plot just repeat the steps of :ref:`add_plot` by chosing "
+"To add other plot just repeat the steps of :ref:`add_plot` by choosing "
 "different plot types and/or just different layer fields, etc.."
 
 #: ../../source/basic_usage.rst:69
 msgid ""
-"In the following picture, same plot type (scatterplot) and different "
-"fields of the same layer:"
+"In the following picture, same plot type (scatterplot) and different fields "
+"of the same layer:"
 msgstr ""
-"In the following picture, same plot type (scatterplot) and different "
-"fields of the same layer:"
+"In the following picture, same plot type (scatterplot) and different fields "
+"of the same layer:"
 
 #: ../../source/basic_usage.rst:75
 msgid ""
-"The following pictures shows 2 different overlapping plot types (boxplot "
-"and scatterplot):"
+"The following pictures show 2 different overlapping plot types (boxplot and "
+"scatterplot):"
 msgstr ""
-"The following pictures shows 2 different overlapping plot types (boxplot "
-"and scatterplot):"
+"The following pictures show 2 different overlapping plot types (boxplot and "
+"scatterplot):"
 
 #: ../../source/basic_usage.rst:83
 msgid "Subplots"
@@ -179,24 +181,24 @@ msgstr "Subplots"
 #: ../../source/basic_usage.rst:84
 msgid ""
 "You can choose to separate the plots in different plot canvas. It is "
-"particulary useful when the scales are very different or when overlapping"
-" too many data results in a messy plot canvas."
+"particularly useful when the scales are very different or when overlapping "
+"too many data results in a messy plot canvas."
 msgstr ""
 "You can choose to separate the plots in different plot canvas. It is "
-"particulary useful when the scales are very different or when overlapping"
-" too many data results in a messy plot canvas."
+"particularly useful when the scales are very different or when overlapping "
+"too many data results in a messy plot canvas."
 
 #: ../../source/basic_usage.rst:88
 msgid ""
-"You just have to choose the plots and the fields as described in the "
-"section :ref:`add_plot` but you have to specify the ``SubPlots`` "
-"parameter from the combobox and choose if the plots have to be drawn in "
-"rows (default parameter) or in columns."
+"You just have to choose the plots and the fields as described in the section"
+" :ref:`add_plot` but you have to specify the ``SubPlots`` parameter from the"
+" combobox and choose if the plots have to be drawn in rows (default "
+"parameter) or in columns."
 msgstr ""
-"You just have to choose the plots and the fields as described in the "
-"section :ref:`add_plot` but you have to specify the ``SubPlots`` "
-"parameter from the combobox and choose if the plots have to be drawn in "
-"rows (default parameter) or in columns."
+"You just have to choose the plots and the fields as described in the section"
+" :ref:`add_plot` but you have to specify the ``SubPlots`` parameter from the"
+" combobox and choose if the plots have to be drawn in rows (default "
+"parameter) or in columns."
 
 #: ../../source/basic_usage.rst:93
 msgid "The following pictures show plots in rows and in columns:"
@@ -208,23 +210,25 @@ msgstr "Save Plot"
 
 #: ../../source/basic_usage.rst:109
 msgid ""
-"Saving a plot, technically the plot canvas, is very simple. You can "
-"choose to save the plot as a ``png`` image or as ``html`` file."
+"Saving a plot, technically the plot canvas, is very simple. You can choose "
+"to save the plot as a ``png`` image or as ``html`` file."
 msgstr ""
-"Saving a plot, technically the plot canvas, is very simple. You can "
-"choose to save the plot as a ``png`` image or as ``html`` file."
+"Saving a plot, technically the plot canvas, is very simple. You can choose "
+"to save the plot as a ``png`` image or as ``html`` file."
 
 #: ../../source/basic_usage.rst:112
-msgid "saving the image as ``html`` file will keep the interactivity of the plot"
-msgstr "saving the image as ``html`` file will keep the interactivity of the plot"
+msgid ""
+"saving the image as ``html`` file will keep the interactivity of the plot"
+msgstr ""
+"saving the image as ``html`` file will keep the interactivity of the plot"
 
 #: ../../source/basic_usage.rst:114
 msgid ""
-"You just have to click on the correct button and choose the path where to"
-" save the image, both static or interactive."
+"You just have to click on the correct button and choose the path where to "
+"save the image, both static or interactive."
 msgstr ""
-"You just have to click on the correct button and choose the path where to"
-" save the image, both static or interactive."
+"You just have to click on the correct button and choose the path where to "
+"save the image, both static or interactive."
 
 #: ../../source/basic_usage.rst:122
 msgid "Raw Plot Code"
@@ -232,51 +236,49 @@ msgstr "Raw Plot Code"
 
 #: ../../source/basic_usage.rst:123
 msgid ""
-"In addition to saving the plot as image or html file (see :ref:`save`) "
-"you can also copy the raw ``html`` code of the plot and embed it "
-"somewhere else."
+"In addition to saving the plot as image or html file (see :ref:`save`) you "
+"can also copy the raw ``html`` code of the plot and embed it somewhere else."
 msgstr ""
-"In addition to saving the plot as image or html file (see :ref:`save`) "
-"you can also copy the raw ``html`` code of the plot and embed it "
-"somewhere else."
+"In addition to saving the plot as image or html file (see :ref:`save`) you "
+"can also copy the raw ``html`` code of the plot and embed it somewhere else."
 
 #: ../../source/basic_usage.rst:126
 msgid ""
-"A good place where to copy/paste the raw code is the html frame of the "
-"print composer of QGIS."
+"A good place where to copy/paste the raw code is the html frame of the print"
+" composer of QGIS."
 msgstr ""
-"A good place where to copy/paste the raw code is the html frame of the "
-"print composer of QGIS."
+"A good place where to copy/paste the raw code is the html frame of the print"
+" composer of QGIS."
 
 #: ../../source/basic_usage.rst:129
 msgid ""
 "In order to copy the plot code, after the plot creation, just go in the "
-"``Raw Plot`` tab: here you can see a long string. **Right Click** on the "
-"tab and choose ``Select All``, then **Right Click** again and choose "
-"``Copy`` (of course you can use keyboard shortcuts ``Ctrl + A`` for "
-"select all and ``Ctrl + C`` for copy):"
+"``Raw Plot`` tab: here you can see a long string. **Right Click** on the tab"
+" and choose ``Select All``, then **Right Click** again and choose ``Copy`` "
+"(of course you can use keyboard shortcuts ``Ctrl + A`` for select all and "
+"``Ctrl + C`` for copy):"
 msgstr ""
 "In order to copy the plot code, after the plot creation, just go in the "
-"``Raw Plot`` tab: here you can see a long string. **Right Click** on the "
-"tab and choose ``Select All``, then **Right Click** again and choose "
-"``Copy`` (of course you can use keyboard shortcuts ``Ctrl + A`` for "
-"select all and ``Ctrl + C`` for copy):"
+"``Raw Plot`` tab: here you can see a long string. **Right Click** on the tab"
+" and choose ``Select All``, then **Right Click** again and choose ``Copy`` "
+"(of course you can use keyboard shortcuts ``Ctrl + A`` for select all and "
+"``Ctrl + C`` for copy):"
 
 #: ../../source/basic_usage.rst:138
 msgid ""
-"Then you have your plot code copied in memory: you just have to choose "
-"where to paste it."
+"Then you have your plot code copied in memory: you just have to choose where"
+" to paste it."
 msgstr ""
-"Then you have your plot code copied in memory: you just have to choose "
-"where to paste it."
+"Then you have your plot code copied in memory: you just have to choose where"
+" to paste it."
 
 #: ../../source/basic_usage.rst:141
 msgid ""
-"In the following example, the ``html code`` is pasted in the **html "
-"frame** of the print composer:"
+"In the following example, the ``html code`` is pasted in the **html frame** "
+"of the print composer:"
 msgstr ""
-"In the following example, the ``html code`` is pasted in the **html "
-"frame** of the print composer:"
+"In the following example, the ``html code`` is pasted in the **html frame** "
+"of the print composer:"
 
 #: ../../source/basic_usage.rst:144
 msgid "open the print composer and add an ``html frame`` (1)"
@@ -304,33 +306,33 @@ msgstr "Using Expressions"
 
 #: ../../source/basic_usage.rst:157
 msgid ""
-"DataPlotly supports all the fields type (integers, floats, text, etc..) "
-"and will elaborate the data so that they can be correctly displayed."
+"DataPlotly supports all the fields type (integers, floats, text, etc..) and "
+"will elaborate the data so that they can be correctly displayed."
 msgstr ""
-"DataPlotly supports all the fields type (integers, floats, text, etc..) "
-"and will elaborate the data so that they can be correctly displayed."
+"DataPlotly supports all the fields type (integers, floats, text, etc..) and "
+"will elaborate the data so that they can be correctly displayed."
 
 #: ../../source/basic_usage.rst:160
 msgid ""
 "Thanks to the QGIS API and custom widget, it is possible to add also "
-"**Expressions** instead of pure layer fields (e.g. ``field + 10``, "
-"``field1 * field2``, etc)."
+"**Expressions** instead of pure layer fields (e.g. ``field + 10``, ``field1 "
+"* field2``, etc)."
 msgstr ""
 "Thanks to the QGIS API and custom widget, it is possible to add also "
-"**Expressions** instead of pure layer fields (e.g. ``field + 10``, "
-"``field1 * field2``, etc)."
+"**Expressions** instead of pure layer fields (e.g. ``field + 10``, ``field1 "
+"* field2``, etc)."
 
 #: ../../source/basic_usage.rst:163
 msgid ""
-"You can use the Expression editor to add complex expressions (e.g. "
-"``(field1 + 10) * (field2 * 10)``) or you can type the expression "
-"directly in the combo box. Expressions are evaluated *on the fly*, so if "
-"the string is red, then the expression is not valid."
+"You can use the Expression editor to add complex expressions (e.g. ``(field1"
+" + 10) * (field2 * 10)``) or you can type the expression directly in the "
+"combo box. Expressions are evaluated *on the fly*, so if the string is red, "
+"then the expression is not valid."
 msgstr ""
-"You can use the Expression editor to add complex expressions (e.g. "
-"``(field1 + 10) * (field2 * 10)``) or you can type the expression "
-"directly in the combo box. Expressions are evaluated *on the fly*, so if "
-"the string is red, then the expression is not valid."
+"You can use the Expression editor to add complex expressions (e.g. ``(field1"
+" + 10) * (field2 * 10)``) or you can type the expression directly in the "
+"combo box. Expressions are evaluated *on the fly*, so if the string is red, "
+"then the expression is not valid."
 
 #: ../../source/basic_usage.rst:171
 msgid "Use only selected features"
@@ -338,11 +340,11 @@ msgstr "Use only selected features"
 
 #: ../../source/basic_usage.rst:172
 msgid ""
-"Another very handy options is to work only with the selected features on "
-"the layer."
+"Another very handy options is to work only with the selected features on the"
+" layer."
 msgstr ""
-"Another very handy options is to work only with the selected features on "
-"the layer."
+"Another very handy options is to work only with the selected features on the"
+" layer."
 
 #: ../../source/basic_usage.rst:175
 msgid ""
@@ -351,4 +353,3 @@ msgid ""
 msgstr ""
 "Just check the ``Use only selected features`` check box and only the "
 "attributes of the selected features will be taken."
-

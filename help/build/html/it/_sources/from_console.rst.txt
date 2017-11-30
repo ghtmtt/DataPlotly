@@ -60,8 +60,8 @@ layer):
   my.loadPlot(dq)
 
 
-Using the example doce of above should open the DataPlotly dialog, create the
-plot and also popultate the dialogg fields (comboboxes, checkboxes, etc.) with
+Using the example code shown above should open the DataPlotly dialog, create the
+plot and also popultate the dialog fields (comboboxes, checkboxes, etc.) with
 the values chosen (where possible).
 
 .. warning:: this method is still in **BETA** and there are several known issues.

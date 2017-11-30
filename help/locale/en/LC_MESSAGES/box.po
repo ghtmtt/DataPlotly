@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-26 16:17+0100\n"
+"POT-Creation-Date: 2017-11-30 08:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,10 +40,10 @@ msgstr ""
 
 #: ../../source/box.rst:16
 msgid ""
-"``Grouping Field (Optional)``: the grouping field. If no field are added, a "
+"``Grouping Field (Optional)``: the grouping field. If no field is added, a "
 "generic box plot for the Y value will be displayed"
 msgstr ""
-"``Grouping Field (Optional)``: the grouping field. If no field are added, a "
+"``Grouping Field (Optional)``: the grouping field. If no field is added, a "
 "generic box plot for the Y value will be displayed"
 
 #: ../../source/box.rst:19

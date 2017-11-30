@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-26 16:17+0100\n"
+"POT-Creation-Date: 2017-11-30 08:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,8 +59,8 @@ msgid "``Stroke Width``: the width of the border"
 msgstr "``Stroke Width``: the width of the border"
 
 #: ../../source/bar.rst:25
-msgid "``Transparency``: transparecy level of the bar"
-msgstr "``Transparency``: transparecy level of the bar"
+msgid "``Transparency``: transparency level of the bar"
+msgstr "``Transparency``: transparency level of the bar"
 
 #: ../../source/bar.rst:28
 msgid "Plot Customizations"
