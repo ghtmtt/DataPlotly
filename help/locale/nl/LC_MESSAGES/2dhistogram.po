@@ -8,8 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 10:18+0100\n"
+"POT-Creation-Date: 2017-11-30 08:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Leon van der Meulen <leonvandermeulen@gmail.com>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/dataplotly/teams/79225/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,65 +20,71 @@ msgstr ""
 
 #: ../../source/2dhistogram.rst:4
 msgid "2D Histogram"
-msgstr ""
+msgstr "2D Histogram"
 
 #: ../../source/2dhistogram.rst:5
 msgid ""
 "Here you will find the guide to every parameter of the 2D Histogram plot. If"
 " you need more generic information please see :ref:`basic_usage`."
 msgstr ""
+"Hier kun je de handleiding voor iedere parameter van de 2D Histogram vinden."
+" Indien je meer generieke informatie zoekt, zie :ref:`basic_usage`"
 
 #: ../../source/2dhistogram.rst:12
 msgid "Plot Properties"
-msgstr ""
+msgstr "Diagrameigenschappen"
 
 #: ../../source/2dhistogram.rst:13
 msgid ""
 "``Layer``: the combobox will display all the vector layers loaded in QGIS"
-msgstr ""
+msgstr "``Layer``: de keuzelijst toont alle in QGIS ingeladen vector lagen"
 
 #: ../../source/2dhistogram.rst:15
 msgid "``X Field``: the X field"
-msgstr ""
+msgstr "``X Field``: het X veld"
 
 #: ../../source/2dhistogram.rst:17
 msgid "``Y Field``: the Y field"
-msgstr ""
+msgstr "``Y Field``: het Y veld"
 
 #: ../../source/2dhistogram.rst:19
 msgid "``Color Scale``: choose between many different color scales"
-msgstr ""
+msgstr "``Color Scale``: kies tussen verschillende kleurenschema's"
 
 #: ../../source/2dhistogram.rst:22
 msgid "Plot Customizations"
-msgstr ""
+msgstr "Diagram aanpassingen"
 
 #: ../../source/2dhistogram.rst:23
 msgid "``Show Legend``: show the legend of the current plot"
-msgstr ""
+msgstr "``Show Legend``: toon de legenda van het huidige diagram"
 
 #: ../../source/2dhistogram.rst:25
 msgid "``Plot Title``: the plot title"
-msgstr ""
+msgstr "``Plot Title``: titel van het diagram"
 
 #: ../../source/2dhistogram.rst:27
 msgid "``Legend Title``: the title of the legend"
-msgstr ""
+msgstr "``Legend Title``: de titel van de legenda"
 
 #: ../../source/2dhistogram.rst:29
 msgid "``X Label``: X label text"
-msgstr ""
+msgstr "``X Label``: X label tekst"
 
 #: ../../source/2dhistogram.rst:31
 msgid "``Y Label``: Y Label text"
-msgstr ""
+msgstr "``Y Label``: Y label tekst"
 
 #: ../../source/2dhistogram.rst:33
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the X axis"
 msgstr ""
+"``Invert X Axis``: vink aan wanneer je de sortering van de X-as wilt "
+"omdraaien "
 
 #: ../../source/2dhistogram.rst:35
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the Y axis"
 msgstr ""
+"``Invert Y Axis``: vink aan wanneer je de sortering van de Y-as wilt "
+"omdraaien "

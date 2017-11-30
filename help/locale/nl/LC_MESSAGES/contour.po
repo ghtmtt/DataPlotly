@@ -8,8 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 10:18+0100\n"
+"POT-Creation-Date: 2017-11-30 08:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Leon van der Meulen <leonvandermeulen@gmail.com>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/dataplotly/teams/79225/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,68 +20,72 @@ msgstr ""
 
 #: ../../source/contour.rst:4
 msgid "Contour Plot"
-msgstr ""
+msgstr "Contourdiagram"
 
 #: ../../source/contour.rst:5
 msgid ""
 "Here you will find the guide to every parameter of the contour plot. If you "
 "need more generic information please see :ref:`basic_usage`."
 msgstr ""
+"Hier kun je de handleiding voor iedere parameter van het countourdiagram "
+"vinden. Indien je meer generieke informatie zoekt, zie :ref:`basic_usage`"
 
 #: ../../source/contour.rst:12
 msgid "Plot Properties"
-msgstr ""
+msgstr "Diagram eigenschappen"
 
 #: ../../source/contour.rst:13
 msgid ""
 "``Layer``: the combobox will display all the vector layers loaded in QGIS"
-msgstr ""
+msgstr "``Layer``: de keuzelijst toont alle in QGIS ingeladen vector lagen"
 
 #: ../../source/contour.rst:15
 msgid "``X Field``: the X field"
-msgstr ""
+msgstr "``X Field``: het X veld"
 
 #: ../../source/contour.rst:17
 msgid "``Y Field``: the Y field"
-msgstr ""
+msgstr "``Y Field``: het Y veld"
 
 #: ../../source/contour.rst:19
 msgid "``Contour Type``: choose the type of countour:"
-msgstr ""
+msgstr "``Contour Type``: kies het countourtype:"
 
 #: ../../source/contour.rst:21
 msgid "``Fill``: the plot is filled everywhere:"
-msgstr ""
+msgstr "``Fill``: het diagram wordt overal gevuld:"
 
 #: ../../source/contour.rst:26
 msgid "``Heatmap``: a heatmap like plot will be created:"
-msgstr ""
+msgstr "``Heatmap``: een hittekaart achtige grafiek wordt gemaakt:"
 
 #: ../../source/contour.rst:31
 msgid "``Only Lines``: only the contour lines will be displayed:"
-msgstr ""
+msgstr "``Only Lines``: alleen de contourlijnen zullen worden getoond:"
 
 #: ../../source/contour.rst:36
 msgid ""
 "``Show Lines``: uncheck if no contour lines should be added to the plot"
 msgstr ""
+"``Show Lines``: vink deze optie uit als er geen contourlijnen moeten worden "
+"toegevoegd aan het diagram"
 
 #: ../../source/contour.rst:38
 msgid "``Color Scale``: choose between many different color scales"
-msgstr ""
+msgstr "``Color Scale``: kies tussen verschillende kleurenschema's"
 
 #: ../../source/contour.rst:41
 msgid "Plot Customizations"
-msgstr ""
+msgstr "Diagram aanpassingen"
 
 #: ../../source/contour.rst:42
 msgid "``Show Legend``: show the legend of the current plot"
-msgstr ""
+msgstr "``Show Legend``: toon de legenda van het huidige diagram"
 
 #: ../../source/contour.rst:44
 msgid "``Plot Title``: the plot title"
-msgstr ""
+msgstr "``Plot Title``: titel van het diagram"
 
 #: ../../source/contour.rst:46
 msgid "``Legend Title``: the title of the legend"
-msgstr ""
+msgstr "``Legend Title``: de titel van de legenda"

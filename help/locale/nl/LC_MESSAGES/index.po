@@ -8,8 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 10:18+0100\n"
+"POT-Creation-Date: 2017-11-30 08:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Leon van der Meulen <leonvandermeulen@gmail.com>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/dataplotly/teams/79225/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,20 +20,20 @@ msgstr ""
 
 #: ../../source/index.rst:7
 msgid "Welcome to DataPlotly's documentation!"
-msgstr ""
+msgstr "Welkom bij de DataPlotly documentatie!"
 
 #: ../../source/index.rst:26
 msgid "Indices and tables"
-msgstr ""
+msgstr "Indexen en tabellen"
 
 #: ../../source/index.rst:28
 msgid ":ref:`genindex`"
-msgstr ""
+msgstr ":ref:`genindex`"
 
 #: ../../source/index.rst:29
 msgid ":ref:`modindex`"
-msgstr ""
+msgstr ":ref:`modindex`"
 
 #: ../../source/index.rst:30
 msgid ":ref:`search`"
-msgstr ""
+msgstr ":ref:`search`"

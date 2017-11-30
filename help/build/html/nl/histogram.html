@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Zoeken" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentatie" href="index.html"/>
-        <link rel="next" title="Pie Plot" href="pie.html"/>
-        <link rel="prev" title="Bar Plot" href="bar.html"/> 
+        <link rel="next" title="Taartdiagram" href="pie.html"/>
+        <link rel="prev" title="Staafdiagram" href="bar.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,21 +88,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Standaard gebruik</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Spreidingsdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Boxplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Staafdiagram</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Histogram</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Diagram eigenschappen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Diagram aanpassingen</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Taartdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Polair diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Driehoeksdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contourdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Roep de plugin aan vanaf de python console (BETA!)</a></li>
 </ul>
 
             
@@ -170,33 +170,32 @@
             
   <div class="section" id="histogram">
 <span id="id1"></span><h1>Histogram<a class="headerlink" href="#histogram" title="Permalink naar deze titel">¶</a></h1>
-<p>Here you will find the guide to every parameter of the histogram. If you
-need more generic information please see <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
-<a class="reference internal image-reference" href="../../../_images/histogram.png"><img alt="../../../_images/histogram.png" src="../../../_images/histogram.png" style="width: 383.0px; height: 440.5px;" /></a>
+<p>Hier kun je de handleiding voor iedere parameter van het histogram vinden. Indien je meer generieke informatie zoekt, zie <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Standaard gebruik</span></a></p>
+<a class="reference internal image-reference" href="../_images/histogram.png"><img alt="../_images/histogram.png" src="../_images/histogram.png" style="width: 383.0px; height: 440.5px;" /></a>
 <div class="section" id="plot-properties">
-<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layers loaded in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span></code>: the X field</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: color of the bar</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
-<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparency level of the bar</p>
+<h2>Diagram eigenschappen<a class="headerlink" href="#plot-properties" title="Permalink naar deze titel">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Layer</span></code>: de keuzelijst toont alle in QGIS ingeladen vector lagen</p>
+<p><code class="docutils literal"><span class="pre">X</span></code>: het X veld</p>
+<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: de kleur van het diagram</p>
+<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: kleur van de lijn</p>
+<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: de dikte van de rand</p>
+<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparantieniveau van de staaf</p>
 </div>
 <div class="section" id="plot-customizations">
-<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
-<p><code class="docutils literal"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>: check if you want to have an horizontal legend</p>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the x axis</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the y axis</p>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Orientation</span></code>: the orientation of the bar, either <em>Horizontal</em> or <em>Vertical</em></p>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Mode</span></code>: choose if you want to group, stack or overlay the data</p>
-<p><code class="docutils literal"><span class="pre">Normalization</span></code>: different type of bins calculations are available</p>
-<p><code class="docutils literal"><span class="pre">Cumulative</span> <span class="pre">Histogram</span></code>: check if you want to create a cumulative historam</p>
-<p><code class="docutils literal"><span class="pre">Choose</span> <span class="pre">manually</span> <span class="pre">the</span> <span class="pre">bins</span></code>: check if want to choose manually the bins number and add a numeric value in the box</p>
-<a class="reference internal image-reference" href="../../../_images/histogram2.png"><img alt="../../../_images/histogram2.png" src="../../../_images/histogram2.png" style="width: 383.0px; height: 440.5px;" /></a>
+<h2>Diagram aanpassingen<a class="headerlink" href="#plot-customizations" title="Permalink naar deze titel">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: toon de legenda van het huidige diagram</p>
+<p><code class="docutils literal"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>:  vink aan voor een horizontale legenda</p>
+<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: titel van het diagram</p>
+<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: de titel van de legenda</p>
+<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label tekst</p>
+<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: vink aan wanneer je de sortering van de X-as wilt omdraaien</p>
+<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: vink aan wanneer je de sortering van de Y-as wilt omdraaien</p>
+<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Orientation</span></code>:  de oriëntatie van de staaf, <em>horizontaal</em> of <em>verticaal</em></p>
+<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Mode</span></code>: kies of je wilt groeperen, stapelen of de data over elkaar wilt leggen</p>
+<p><code class="docutils literal"><span class="pre">Normalization</span></code>:  verschillende mogelijkheden voor het berekenen van klassen zijn beschikbaar</p>
+<p><code class="docutils literal"><span class="pre">Cumulative</span> <span class="pre">Histogram</span></code>: vink aan wanneer je een cumulatief histogram wilt maken</p>
+<p><code class="docutils literal"><span class="pre">Choose</span> <span class="pre">manually</span> <span class="pre">the</span> <span class="pre">bins</span></code>: vink aan wanneer je handmatig de klassen wilt kiezen en vul een numerieke waarde in.</p>
+<a class="reference internal image-reference" href="../_images/histogram2.png"><img alt="../_images/histogram2.png" src="../_images/histogram2.png" style="width: 383.0px; height: 440.5px;" /></a>
 </div>
 </div>
 
@@ -210,10 +209,10 @@ need more generic information please see <a class="reference internal" href="bas
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pie.html" class="btn btn-neutral float-right" title="Pie Plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pie.html" class="btn btn-neutral float-right" title="Taartdiagram" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="bar.html" class="btn btn-neutral" title="Bar Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="bar.html" class="btn btn-neutral" title="Staafdiagram" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

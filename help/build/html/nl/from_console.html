@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Call the plugin from the python console (BETA!) &mdash; DataPlotly 0 documentatie</title>
+  <title>Roep de plugin aan vanaf de python console (BETA!) &mdash; DataPlotly 0 documentatie</title>
   
 
   
@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Zoeken" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentatie" href="index.html"/>
-        <link rel="prev" title="Contour Plot" href="contour.html"/> 
+        <link rel="prev" title="Contourdiagram" href="contour.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -87,18 +87,18 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Standaard gebruik</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Spreidingsdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Boxplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Staafdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Taartdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Call the plugin from the python console (BETA!)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#code-example">Code example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Polair diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Driehoeksdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contourdiagram</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Roep de plugin aan vanaf de python console (BETA!)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#code-example">Code voorbeeld</a></li>
 </ul>
 </li>
 </ul>
@@ -145,7 +145,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Call the plugin from the python console (BETA!)</li>
+      <li>Roep de plugin aan vanaf de python console (BETA!)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -167,23 +167,17 @@
            <div itemprop="articleBody">
             
   <div class="section" id="call-the-plugin-from-the-python-console-beta">
-<span id="from-console"></span><h1>Call the plugin from the python console (BETA!)<a class="headerlink" href="#call-the-plugin-from-the-python-console-beta" title="Permalink naar deze titel">¶</a></h1>
-<p>DataPlotly comes with some simple API that can be used from the python console.</p>
-<p>Actually the method accept a structured <cite>dictionary</cite> as input, calls and open the
-dialog of the plugin populating each field with the dictionary values and creating
-the final plot.</p>
+<span id="from-console"></span><h1>Roep de plugin aan vanaf de python console (BETA!)<a class="headerlink" href="#call-the-plugin-from-the-python-console-beta" title="Permalink naar deze titel">¶</a></h1>
+<p>DataPlotly komt met een simeple API die kan worden gebruikt vanaf python console.</p>
+<p>De methode accepteert een gestructureerd <cite>woordenboek</cite> als input, opent het venster van de plugin, vult ieder veld in met de velden uit de bibliotheek en maakt het uiteindelijke diagram.</p>
 <div class="admonition note">
 <p class="first admonition-title">Notitie</p>
-<p class="last">not all the customization are (yet) available in this method, but you can easily update the plot with the <cite>Update Plot</cite> button. See <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a></p>
+<p class="last">niet alle aanpassingen zijn (nog) beschikbaar in deze methode, maar je kunt het diagram gemakkelijk updaten met de <cite>Update Plot</cite> knop. Zie <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Standaard gebruik</span></a></p>
 </div>
 <div class="section" id="code-example">
-<h2>Code example<a class="headerlink" href="#code-example" title="Permalink naar deze titel">¶</a></h2>
-<p>The following example is very simple and straightforward. Supposing you have
-already a layer loaded in the QGIS legend we will access to is, take 2 fields
-and building a simple scatter plot.</p>
-<p>Open QGIS and the python console. The example considers the <cite>PH</cite> and <cite>T</cite> fields
-of the layer (just look at the code and change the fields according to your
-layer):</p>
+<h2>Code voorbeeld<a class="headerlink" href="#code-example" title="Permalink naar deze titel">¶</a></h2>
+<p>Het volgende voorbeeld is erg eenvoudig. Ervan uitgaande dat je al een laag hebt ingeladen in QGIS, zullen we de laag aanroepen, 2 velden selecteren en een simpel spreidingsdiagram maken.</p>
+<p>Open QGIS en de python console. Het voorbeeld gaat uit van de <cite>PH</cite> en <cite>T</cite> velden van de laag (kijk in de code en pas de velden aan op basis van jouw laag):</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># create the VectorLayer object from with iface</span>
 <span class="n">vl</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 
@@ -227,7 +221,7 @@ plot and also popultate the dialog fields (comboboxes, checkboxes, etc.) with
 the values chosen (where possible).</p>
 <div class="admonition warning">
 <p class="first admonition-title">Waarschuwing</p>
-<p class="last">this method is still in <strong>BETA</strong> and there are several known issues.</p>
+<p class="last">deze methode is nog in <strong>BETA</strong> en er zijn meerdere bekende problemen.</p>
 </div>
 </div>
 </div>
@@ -243,7 +237,7 @@ the values chosen (where possible).</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="contour.html" class="btn btn-neutral" title="Contour Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="contour.html" class="btn btn-neutral" title="Contourdiagram" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

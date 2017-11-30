@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Zoeken" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentatie" href="index.html"/>
-        <link rel="next" title="DataPlotly Basic Usage" href="basic_usage.html"/>
-        <link rel="prev" title="Welcome to DataPlotly’s documentation!" href="index.html"/> 
+        <link rel="next" title="DataPlotly Standaard gebruik" href="basic_usage.html"/>
+        <link rel="prev" title="Welkom bij de DataPlotly documentatie!" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,17 +88,17 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Standaard gebruik</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Spreidingsdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Boxplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Staafdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Taartdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Polair diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Driehoeksdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contourdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Roep de plugin aan vanaf de python console (BETA!)</a></li>
 </ul>
 
             
@@ -166,39 +166,31 @@
             
   <div class="section" id="data-plotly">
 <span id="intro"></span><h1>Data Plotly<a class="headerlink" href="#data-plotly" title="Permalink naar deze titel">¶</a></h1>
-<p>Data Plotly is a python plugin for QGIS that allows the creation of <a class="reference external" href="https://d3js.org/">D3</a>
-like plots thanks to the <a class="reference external" href="https://plot.ly/">Plotly library</a> and the python API.</p>
-<p>Plots are totally <strong>dynamic</strong> so you can interact with the plot, e.g. zooming,
-getting some information hovering the mouse and many other useful stuff.</p>
-<p>Moreover, plot and map canvas are <strong>connected</strong>, this mean you can select an object
-on the plot and the same object will be selected in the map:</p>
+<p>DataPlotly is een python plugin voor QGIS dat het maken van <cite>D3 &lt;https://d3js.org/&gt;</cite> achtige diagrammen mogelijk maakt dankzij de  <a class="reference external" href="https://plot.ly/">Plotly library</a> en de python API.</p>
+<p>Diagrammen zijn compleet <strong>dynamisch</strong> zodat je kunt interacteren met het diagram, bijvoorbeeld in/uitzoomen, informatie opvragen door de muis te beweren en vele andere zaken.</p>
+<p>Het diagram en de kaart zijn <strong>verbonden</strong>, dit wil zeggen dan je een object kunt selecteren in het diagram en hetzelfde object zal worden geselecteerd op de kaart:</p>
 <div class="figure align-center" id="id2">
-<a class="reference internal image-reference" href="../../../_images/plot_interaction_scatter_box.gif"><img alt="../../../_images/plot_interaction_scatter_box.gif" src="../../../_images/plot_interaction_scatter_box.gif" style="width: 600.0px; height: 314.0px;" /></a>
-<p class="caption"><span class="caption-text">Plot and Map interaction</span></p>
+<a class="reference internal image-reference" href="../_images/plot_interaction_scatter_box.gif"><img alt="../_images/plot_interaction_scatter_box.gif" src="../_images/plot_interaction_scatter_box.gif" style="width: 600.0px; height: 314.0px;" /></a>
+<p class="caption"><span class="caption-text">Diagram en Kaart interactie</span></p>
 </div>
-<p>For each plot, tons of customizations are available.</p>
+<p>Voor ieder diagram, zijn vele aanpassingen mogelijk.</p>
 <div class="figure align-center" id="id3">
-<a class="reference internal image-reference" href="../../../_images/scatter_example.png"><img alt="../../../_images/scatter_example.png" src="../../../_images/scatter_example.png" style="width: 1651.0px; height: 888.0px;" /></a>
-<p class="caption"><span class="caption-text">simple plot example</span></p>
+<a class="reference internal image-reference" href="../_images/scatter_example.png"><img alt="../_images/scatter_example.png" src="../_images/scatter_example.png" style="width: 1651.0px; height: 888.0px;" /></a>
+<p class="caption"><span class="caption-text">eenvoudig diagram voorbeeld</span></p>
 </div>
-<p>With DataPlotly you can create different plots, even different plot types,
-overlay them in the same plot canvas or load them in different plot canvas:</p>
+<p>Met DataPlotly kun je verschillende diagrammen maken, zelfs verschillende type diagrammen, ze over elkaar heen leggen in hetzelfde diagramvenster of ze in verschillende vensters laden.</p>
 <div class="figure align-center" id="id4">
-<a class="reference internal image-reference" href="../../../_images/example_overlay.png"><img alt="../../../_images/example_overlay.png" src="../../../_images/example_overlay.png" style="width: 1651.0px; height: 888.0px;" /></a>
-<p class="caption"><span class="caption-text">different plot types in the same map canvas</span></p>
+<a class="reference internal image-reference" href="../_images/example_overlay.png"><img alt="../_images/example_overlay.png" src="../_images/example_overlay.png" style="width: 1651.0px; height: 888.0px;" /></a>
+<p class="caption"><span class="caption-text">verschillende type diagrammen in hetzelfde diagramvenster</span></p>
 </div>
 <div class="figure align-center" id="id5">
-<a class="reference internal image-reference" href="../../../_images/example_subplots.png"><img alt="../../../_images/example_subplots.png" src="../../../_images/example_subplots.png" style="width: 1651.0px; height: 888.0px;" /></a>
-<p class="caption"><span class="caption-text">different plot types in separated plot canvas</span></p>
+<a class="reference internal image-reference" href="../_images/example_subplots.png"><img alt="../_images/example_subplots.png" src="../_images/example_subplots.png" style="width: 1651.0px; height: 888.0px;" /></a>
+<p class="caption"><span class="caption-text">verschillende type diagrammen in aparte diagramvensters</span></p>
 </div>
-<p>Each plot type has its own configurations and customizations: it is very easy for
-you to choose the best solution that fits all your needs.</p>
-<p>Besides the interactive plot canvas, plots can be exported as <cite>png</cite> static images
-or as pure <cite>html</cite> files. <cite>Html</cite> file keep the plot <em>interactivity</em>.</p>
-<p>Finally, <strong>plot raw html code</strong> can be copied and pasted somewhere else, for example
-in html frame of the QGIS map composer or in an external website.</p>
-<p><a class="reference external" href="https://plot.ly/">Plotly library</a> javascript code is saved in the local plugin
-folder so the plugin is usable also without any Internet connection.</p>
+<p>Ieder diagram heeft specifieke instellingen en aanpassingen: het is erg simpel om de beste oplossing te kiezen die bij je behoefte past.</p>
+<p>Naast het interactieve diagramvenster, kunnen diagrammen ook worden geëxporteerd als statische <cite>png</cite> afbeeldingen of als pure <cite>html</cite> bestanden. <cite>Html</cite> bestanden behouden de <em>interactieve</em> mogelijkheden van het diagram.</p>
+<p>Als laatste, kan de  <strong>plot raw html code</strong>&nbsp;gekopieerd en ergens anders geplakt worden, bijvoorbeeld in een html frame in de QGIS printvormgeving of in een externe website.</p>
+<p><a class="reference external" href="https://plot.ly/">Plotly library</a> javascript code is opgeslagen in de locale plugin map, zodat de plugin ook zonder internet connectie te gebruiken is.</p>
 </div>
 
 
@@ -211,10 +203,10 @@ folder so the plugin is usable also without any Internet connection.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="basic_usage.html" class="btn btn-neutral float-right" title="DataPlotly Basic Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="basic_usage.html" class="btn btn-neutral float-right" title="DataPlotly Standaard gebruik" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to DataPlotly’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Welkom bij de DataPlotly documentatie!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

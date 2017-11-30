@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Polar Plot &mdash; DataPlotly 0 documentatie</title>
+  <title>Polair diagram &mdash; DataPlotly 0 documentatie</title>
   
 
   
@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Zoeken" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentatie" href="index.html"/>
-        <link rel="next" title="Ternary Plot" href="ternary.html"/>
+        <link rel="next" title="Driehoeksdiagram" href="ternary.html"/>
         <link rel="prev" title="2D Histogram" href="2dhistogram.html"/> 
 
   
@@ -88,21 +88,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Standaard gebruik</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Spreidingsdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Boxplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Staafdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Taartdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Polar Plot</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Polair diagram</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Diagram eigenschappen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Diagram aanpassingen</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Driehoeksdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contourdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Roep de plugin aan vanaf de python console (BETA!)</a></li>
 </ul>
 
             
@@ -147,7 +147,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Polar Plot</li>
+      <li>Polair diagram</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -169,26 +169,25 @@
            <div itemprop="articleBody">
             
   <div class="section" id="polar-plot">
-<span id="polar"></span><h1>Polar Plot<a class="headerlink" href="#polar-plot" title="Permalink naar deze titel">¶</a></h1>
-<p>Here you will find the guide to every parameter of the polar plot. If you
-need more generic information please see <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
-<a class="reference internal image-reference" href="../../../_images/polar.png"><img alt="../../../_images/polar.png" src="../../../_images/polar.png" style="width: 383.0px; height: 440.5px;" /></a>
+<span id="polar"></span><h1>Polair diagram<a class="headerlink" href="#polar-plot" title="Permalink naar deze titel">¶</a></h1>
+<p>Hier kun je de handleiding voor iedere parameter van het polaire diagram vinden. Indien je meer generieke informatie zoekt, zie <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Standaard gebruik</span></a></p>
+<a class="reference internal image-reference" href="../_images/polar.png"><img alt="../_images/polar.png" src="../_images/polar.png" style="width: 383.0px; height: 440.5px;" /></a>
 <div class="section" id="plot-properties">
-<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layers loaded in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Field</span></code>: the X field</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: marker color</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Size</span></code>: the size of the marker</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
-<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparency level of the marker/line</p>
+<h2>Diagram eigenschappen<a class="headerlink" href="#plot-properties" title="Permalink naar deze titel">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Layer</span></code>: de keuzelijst toont alle in QGIS ingeladen vector lagen</p>
+<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Field</span></code>: het X veld</p>
+<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: het Y veld</p>
+<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: de kleur van het diagram</p>
+<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Size</span></code>: de grootte van het symbool</p>
+<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: kleur van de lijn</p>
+<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: de dikte van de rand</p>
+<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparantieniveau van het symbool of de lijn</p>
 </div>
 <div class="section" id="plot-customizations">
-<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
+<h2>Diagram aanpassingen<a class="headerlink" href="#plot-customizations" title="Permalink naar deze titel">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: toon de legenda van het huidige diagram</p>
+<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: titel van het diagram</p>
+<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: de titel van de legenda</p>
 </div>
 </div>
 
@@ -202,7 +201,7 @@ need more generic information please see <a class="reference internal" href="bas
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ternary.html" class="btn btn-neutral float-right" title="Ternary Plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ternary.html" class="btn btn-neutral float-right" title="Driehoeksdiagram" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="2dhistogram.html" class="btn btn-neutral" title="2D Histogram" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

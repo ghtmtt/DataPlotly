@@ -8,8 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 10:18+0100\n"
+"POT-Creation-Date: 2017-11-30 08:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Leon van der Meulen <leonvandermeulen@gmail.com>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/dataplotly/teams/79225/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,90 +20,92 @@ msgstr ""
 
 #: ../../source/ternary.rst:4
 msgid "Ternary Plot"
-msgstr ""
+msgstr "Driehoeksdiagram"
 
 #: ../../source/ternary.rst:5
 msgid ""
 "Here you will find the guide to every parameter of the ternary plot. If you "
 "need more generic information please see :ref:`basic_usage`."
 msgstr ""
+"Hier kun je de handleiding voor iedere parameter van het driehoeksdiagram "
+"vinden. Indien je meer generieke informatie zoekt, zie :ref:`basic_usage`"
 
 #: ../../source/ternary.rst:12
 msgid "Plot Properties"
-msgstr ""
+msgstr "Diagram eigenschappen"
 
 #: ../../source/ternary.rst:13
 msgid ""
 "``Layer``: the combobox will display all the vector layers loaded in QGIS"
-msgstr ""
+msgstr "``Layer``: de keuzelijst toont alle in QGIS ingeladen vector lagen"
 
 #: ../../source/ternary.rst:15
 msgid "``X Field``: the X field"
-msgstr ""
+msgstr "``X Field``: het X veld"
 
 #: ../../source/ternary.rst:17
 msgid "``Y Field``: the Y field"
-msgstr ""
+msgstr "``Y Field``: het Y veld"
 
 #: ../../source/ternary.rst:19
 msgid "``Z Field``: the Z field"
-msgstr ""
+msgstr "``Z Field``: het Z veld"
 
 #: ../../source/ternary.rst:21
 msgid "``Marker Color``: marker color"
-msgstr ""
+msgstr "``Marker Color``: de kleur van het diagram"
 
 #: ../../source/ternary.rst:23
 msgid "``Marker Size``: the size of the marker"
-msgstr ""
+msgstr "``Marker Size``: de grootte van het symbool"
 
 #: ../../source/ternary.rst:25
 msgid "``Stroke Color``: border color"
-msgstr ""
+msgstr "``Stroke Color``: kleur van de lijn"
 
 #: ../../source/ternary.rst:27
 msgid "``Stroke Width``: the width of the border"
-msgstr ""
+msgstr "``Stroke Width``: de dikte van de rand"
 
 #: ../../source/ternary.rst:29
 msgid "``Point Type``: marker type"
-msgstr ""
+msgstr "``Point Type``: type symbool"
 
 #: ../../source/ternary.rst:31
 msgid "``Transparency``: transparency level of the marker/line"
-msgstr ""
+msgstr "``Transparency``: transparantieniveau van het symbool of de lijn"
 
 #: ../../source/ternary.rst:34
 msgid "Plot Customizations"
-msgstr ""
+msgstr "Diagram aanpassingen"
 
 #: ../../source/ternary.rst:35
 msgid "``Show Legend``: show the legend of the current plot"
-msgstr ""
+msgstr "``Show Legend``: toon de legenda van het huidige diagram"
 
 #: ../../source/ternary.rst:37
 msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
-msgstr ""
+msgstr "``Horizontal Legend``:  vink aan voor een horizontale legenda"
 
 #: ../../source/ternary.rst:39
 msgid "``Plot Title``: the plot title"
-msgstr ""
+msgstr "``Plot Title``: titel van het diagram"
 
 #: ../../source/ternary.rst:41
 msgid "``Legend Title``: the title of the legend"
-msgstr ""
+msgstr "``Legend Title``: de titel van de legenda"
 
 #: ../../source/ternary.rst:43
 msgid "``X Label``: X label text"
-msgstr ""
+msgstr "``X Label``: X label tekst"
 
 #: ../../source/ternary.rst:45
 msgid "``Y Label``: Y Label text"
-msgstr ""
+msgstr "``Y Label``: Y label tekst"
 
 #: ../../source/ternary.rst:47
 msgid "``Z Label``: Z Label text"
-msgstr ""
+msgstr "``Z Label``: Z label tekst"
 
 #: ../../source/ternary.rst:49
 msgid ""
@@ -110,3 +113,6 @@ msgid ""
 "values) that will be shown together with the other informations. This field "
 "supports expressions: e.g. ``'The ID of this point is ' || ID``:"
 msgstr ""
+"``Additional Hover Label``: kies een veld uit het diagram (of andere "
+"waardes) die samen met andere informatie getoond wordt. Dit veld ondersteunt"
+" expressies: bijv. ``Het ID van dit punt is '| ID' ``:"

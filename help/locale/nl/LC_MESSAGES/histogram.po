@@ -8,8 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-27 10:18+0100\n"
+"POT-Creation-Date: 2017-11-30 08:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Leon van der Meulen <leonvandermeulen@gmail.com>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/dataplotly/teams/79225/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,98 +20,114 @@ msgstr ""
 
 #: ../../source/histogram.rst:4
 msgid "Histogram"
-msgstr ""
+msgstr "Histogram"
 
 #: ../../source/histogram.rst:5
 msgid ""
 "Here you will find the guide to every parameter of the histogram. If you "
 "need more generic information please see :ref:`basic_usage`."
 msgstr ""
+"Hier kun je de handleiding voor iedere parameter van het histogram vinden. "
+"Indien je meer generieke informatie zoekt, zie :ref:`basic_usage`"
 
 #: ../../source/histogram.rst:12
 msgid "Plot Properties"
-msgstr ""
+msgstr "Diagram eigenschappen"
 
 #: ../../source/histogram.rst:13
 msgid ""
 "``Layer``: the combobox will display all the vector layers loaded in QGIS"
-msgstr ""
+msgstr "``Layer``: de keuzelijst toont alle in QGIS ingeladen vector lagen"
 
 #: ../../source/histogram.rst:15
 msgid "``X``: the X field"
-msgstr ""
+msgstr "``X``: het X veld"
 
 #: ../../source/histogram.rst:17
 msgid "``Marker Color``: color of the bar"
-msgstr ""
+msgstr "``Marker Color``: de kleur van het diagram"
 
 #: ../../source/histogram.rst:19
 msgid "``Stroke Color``: border color"
-msgstr ""
+msgstr "``Stroke Color``: kleur van de lijn"
 
 #: ../../source/histogram.rst:21
 msgid "``Stroke Width``: the width of the border"
-msgstr ""
+msgstr "``Stroke Width``: de dikte van de rand"
 
 #: ../../source/histogram.rst:23
 msgid "``Transparency``: transparency level of the bar"
-msgstr ""
+msgstr "``Transparency``: transparantieniveau van de staaf"
 
 #: ../../source/histogram.rst:26
 msgid "Plot Customizations"
-msgstr ""
+msgstr "Diagram aanpassingen"
 
 #: ../../source/histogram.rst:27
 msgid "``Show Legend``: show the legend of the current plot"
-msgstr ""
+msgstr "``Show Legend``: toon de legenda van het huidige diagram"
 
 #: ../../source/histogram.rst:29
 msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
-msgstr ""
+msgstr "``Horizontal Legend``:  vink aan voor een horizontale legenda"
 
 #: ../../source/histogram.rst:31
 msgid "``Plot Title``: the plot title"
-msgstr ""
+msgstr "``Plot Title``: titel van het diagram"
 
 #: ../../source/histogram.rst:33
 msgid "``Legend Title``: the title of the legend"
-msgstr ""
+msgstr "``Legend Title``: de titel van de legenda"
 
 #: ../../source/histogram.rst:35
 msgid "``X Label``: X label text"
-msgstr ""
+msgstr "``X Label``: X label tekst"
 
 #: ../../source/histogram.rst:37
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr ""
+"``Invert X Axis``: vink aan wanneer je de sortering van de X-as wilt "
+"omdraaien "
 
 #: ../../source/histogram.rst:39
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr ""
+"``Invert Y Axis``: vink aan wanneer je de sortering van de Y-as wilt "
+"omdraaien "
 
 #: ../../source/histogram.rst:41
 msgid ""
 "``Bar Orientation``: the orientation of the bar, either *Horizontal* or "
 "*Vertical*"
 msgstr ""
+"``Bar Orientation``:  de oriëntatie van de staaf, *horizontaal* of "
+"*verticaal*"
 
 #: ../../source/histogram.rst:43
 msgid "``Bar Mode``: choose if you want to group, stack or overlay the data"
 msgstr ""
+"``Bar Mode``: kies of je wilt groeperen, stapelen of de data over elkaar "
+"wilt leggen"
 
 #: ../../source/histogram.rst:45
 msgid "``Normalization``: different type of bins calculations are available"
 msgstr ""
+"``Normalization``:  verschillende mogelijkheden voor het berekenen van "
+"klassen zijn beschikbaar"
 
 #: ../../source/histogram.rst:47
 msgid ""
 "``Cumulative Histogram``: check if you want to create a cumulative historam"
 msgstr ""
+"``Cumulative Histogram``: vink aan wanneer je een cumulatief histogram wilt "
+"maken"
 
 #: ../../source/histogram.rst:49
 msgid ""
 "``Choose manually the bins``: check if want to choose manually the bins "
 "number and add a numeric value in the box"
 msgstr ""
+"``Choose manually the bins``: vink aan wanneer je handmatig de klassen wilt "
+"kiezen en vul een numerieke waarde in."

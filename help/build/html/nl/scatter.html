@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scatter Plot &mdash; DataPlotly 0 documentatie</title>
+  <title>Spreidingsdiagram &mdash; DataPlotly 0 documentatie</title>
   
 
   
@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Zoeken" href="search.html"/>
     <link rel="top" title="DataPlotly 0 documentatie" href="index.html"/>
-        <link rel="next" title="Box Plot" href="box.html"/>
-        <link rel="prev" title="DataPlotly Basic Usage" href="basic_usage.html"/> 
+        <link rel="next" title="Boxplot" href="box.html"/>
+        <link rel="prev" title="DataPlotly Standaard gebruik" href="basic_usage.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,21 +88,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Scatter Plot</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Standaard gebruik</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Spreidingsdiagram</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Diagram eigenschappen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Diagram aanpassingen</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Boxplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Staafdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Taartdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Polair diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Driehoeksdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contourdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Roep de plugin aan vanaf de python console (BETA!)</a></li>
 </ul>
 
             
@@ -147,7 +147,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Scatter Plot</li>
+      <li>Spreidingsdiagram</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -169,44 +169,40 @@
            <div itemprop="articleBody">
             
   <div class="section" id="scatter-plot">
-<span id="scatterplot"></span><h1>Scatter Plot<a class="headerlink" href="#scatter-plot" title="Permalink naar deze titel">¶</a></h1>
-<p>Here you will find the guide to every parameter of the scatter plot. If you need
-more generic information please see <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
-<a class="reference internal image-reference" href="../../../_images/scatterplot.png"><img alt="../../../_images/scatterplot.png" src="../../../_images/scatterplot.png" style="width: 383.0px; height: 440.5px;" /></a>
+<span id="scatterplot"></span><h1>Spreidingsdiagram<a class="headerlink" href="#scatter-plot" title="Permalink naar deze titel">¶</a></h1>
+<p>Hier kun je de handleiding voor iedere parameter van het spreidingsdiagram vinden. Indien je meer generieke informatie zoekt, zie <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Standaard gebruik</span></a></p>
+<a class="reference internal image-reference" href="../_images/scatterplot.png"><img alt="../_images/scatterplot.png" src="../_images/scatterplot.png" style="width: 383.0px; height: 440.5px;" /></a>
 <div class="section" id="plot-properties">
-<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layers loaded in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Field</span></code>: the X field</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: marker color</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Size</span></code>: the size of the marker</p>
-<p><code class="docutils literal"><span class="pre">Data</span> <span class="pre">Defined</span> <span class="pre">Override</span></code>: you can add an Expression to define the size of the marker</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Type</span></code>: choose between <strong>Points</strong>, <strong>Lines</strong> or <strong>Points and Lines</strong></p>
-<p><code class="docutils literal"><span class="pre">Point</span> <span class="pre">Type</span></code> or <code class="docutils literal"><span class="pre">Line</span> <span class="pre">Type</span></code> depending on the <code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Type</span></code> chosen</p>
-<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparency level of the point/line</p>
+<h2>Diagram eigenschappen<a class="headerlink" href="#plot-properties" title="Permalink naar deze titel">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Layer</span></code>: de keuzelijst toont alle in QGIS ingeladen vector lagen</p>
+<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Field</span></code>: het X veld</p>
+<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: het Y veld</p>
+<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: de kleur van het diagram</p>
+<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Size</span></code>: de grootte van het symbool</p>
+<p><code class="docutils literal"><span class="pre">Data</span> <span class="pre">Defined</span> <span class="pre">Override</span></code>: je kunt een expressie toevoegen om de grootte van het symbool in te stellen</p>
+<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: kleur van de lijn</p>
+<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: de dikte van de rand</p>
+<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Type</span></code>: kies tussen <strong>Punten</strong>, <strong>Lijnen</strong> of <a href="#id1"><span class="problematic" id="id2">**</span></a>Punten en lijnen*</p>
+<p><code class="docutils literal"><span class="pre">Point</span> <span class="pre">Type</span></code> of <code class="docutils literal"><span class="pre">Line</span> <span class="pre">Type</span></code> afhankelijk van het gekozen <code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Type</span></code></p>
+<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparantieniveau van het punt of de lijn</p>
 </div>
 <div class="section" id="plot-customizations">
-<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
-<p><code class="docutils literal"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>: check if you want to have an horizontal legend</p>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Range</span> <span class="pre">Slider</span></code>: add a slider below the plot</p>
-<a class="reference internal image-reference" href="../../../_images/scatterplot2.png"><img alt="../../../_images/scatterplot2.png" src="../../../_images/scatterplot2.png" style="width: 383.0px; height: 440.5px;" /></a>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Label</span></code>: Y Label text</p>
-<p><code class="docutils literal"><span class="pre">Hover</span> <span class="pre">Infos</span></code>: choose the information that will be shown when hovering on
-the Plot Canvas</p>
-<p><code class="docutils literal"><span class="pre">Additional</span> <span class="pre">Hover</span> <span class="pre">Label</span></code>: choose another field of the plot (or other values)
-that will be shown together with the other informations. This field supports
-expressions: e.g. <code class="docutils literal"><span class="pre">'The</span> <span class="pre">ID</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">point</span> <span class="pre">is</span> <span class="pre">'</span> <span class="pre">||</span> <span class="pre">ID</span></code>:</p>
-<a class="reference internal image-reference" href="../../../_images/scatterplot3.png"><img alt="../../../_images/scatterplot3.png" src="../../../_images/scatterplot3.png" style="width: 383.0px; height: 440.5px;" /></a>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the x axis</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: choose between Linear, Logarithmic or Categorized</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the y axis</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: choose between Linear, Logarithmic or Categorized</p>
+<h2>Diagram aanpassingen<a class="headerlink" href="#plot-customizations" title="Permalink naar deze titel">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: toon de legenda van het huidige diagram</p>
+<p><code class="docutils literal"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>:  vink aan voor een horizontale legenda</p>
+<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Range</span> <span class="pre">Slider</span></code>: voeg een schuifbalk toe onder het diagram</p>
+<a class="reference internal image-reference" href="../_images/scatterplot2.png"><img alt="../_images/scatterplot2.png" src="../_images/scatterplot2.png" style="width: 383.0px; height: 440.5px;" /></a>
+<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: titel van het diagram</p>
+<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: de titel van de legenda</p>
+<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label tekst</p>
+<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Label</span></code>: Y label tekst</p>
+<p><code class="docutils literal"><span class="pre">Hover</span> <span class="pre">Infos</span></code>: kies de informatie die zal worden getoond wanneer de muis op het diagramvenster wordt geplaatst</p>
+<p><code class="docutils literal"><span class="pre">Additional</span> <span class="pre">Hover</span> <span class="pre">Label</span></code>: kies een veld uit het diagram (of andere waardes) die samen met andere informatie getoond wordt. Dit veld ondersteunt expressies: bijv. <a href="#id1"><span class="problematic" id="id2">``</span></a>Het ID van dit punt is &#8216;| ID&#8217; <a href="#id3"><span class="problematic" id="id4">``</span></a>:</p>
+<a class="reference internal image-reference" href="../_images/scatterplot3.png"><img alt="../_images/scatterplot3.png" src="../_images/scatterplot3.png" style="width: 383.0px; height: 440.5px;" /></a>
+<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: vink aan wanneer je de sortering van de X-as wilt omdraaien</p>
+<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: kies tussen Lineair, Logaritmisch of Gecategoriseerd</p>
+<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: vink aan wanneer je de sortering van de Y-as wilt omdraaien</p>
+<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: kies tussen Lineair, Logaritmisch of Gecategoriseerd</p>
 </div>
 </div>
 
@@ -220,10 +216,10 @@ expressions: e.g. <code class="docutils literal"><span class="pre">'The</span> <
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="box.html" class="btn btn-neutral float-right" title="Box Plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="box.html" class="btn btn-neutral float-right" title="Boxplot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="basic_usage.html" class="btn btn-neutral" title="DataPlotly Basic Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="basic_usage.html" class="btn btn-neutral" title="DataPlotly Standaard gebruik" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
