@@ -3,6 +3,7 @@
 
 # You can set these variables from the command line.
 LANG = en
+LOCALES = en it nl
 SPHINXBUILD   = sphinx-build
 SPHINXINTBUILD = sphinx-intl
 PAPER         =
@@ -67,6 +68,10 @@ html: txpull
 	fi
 	@echo
 	@echo "HTML Build finished. The HTML pages for '$(LANG)' are in $(BUILDDIR)."
+
+replace:
+	chmod +x replace_script.sh
+	./replace_script.sh
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
