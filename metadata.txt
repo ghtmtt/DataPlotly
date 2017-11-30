@@ -25,10 +25,8 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
-  Version 1.2
-  - [feature] dock widget instead dialog window
-  - [feature] data defined button for scatter plot size
-  - other small bug fixings
+  Version 1.2.1
+  - [feature] plugin completely translated in Dutch! Thanks @leonmvd
 
 # Tags are comma separated with spaces allowed
 tags=python, d3, plots, vector, graphs
