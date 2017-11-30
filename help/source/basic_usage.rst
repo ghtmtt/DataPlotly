@@ -13,7 +13,7 @@ If you want to change some setting, e.g. the marker color or size, the ``x``
 column, go ahead and the hit the ``Update Plot`` button: the plot is then
 updated in the plot canvas.
 
-DataPlotly is a docket widget meaning that you can move it in the QGIS interface.
+DataPlotly is a docket widget meaning that you can move it within the QGIS interface.
 It is made up by 5 different widgets:
 
 |properties| **fundamental plot settings**
@@ -58,7 +58,7 @@ or columns (**subplots**).
 
 Overlapping Plots
 .................
-You can add as many plots as you want in the same plot view. Plot types can be
+You can add as many plots as you want within the same plot view. Plot types can be
 different and also the source layer can be different.
 
 .. note:: results can be very strange depending on the plot type and on the fields you choose. Be careful!
@@ -72,7 +72,7 @@ same layer:
 .. image:: /img/basic_usage/basic2.png
   :scale: 50%
 
-The following pictures shows 2 different overlapping plot types (boxplot and
+The following pictures show 2 different overlapping plot types (boxplot and
 scatterplot):
 
 .. image:: /img/basic_usage/basic3.png
@@ -81,7 +81,7 @@ scatterplot):
 
 Subplots
 ........
-You can choose to separate the plots in different plot canvas. It is particulary
+You can choose to separate the plots in different plot canvas. It is particularly
 useful when the scales are very different or when overlapping too many data results
 in a messy plot canvas.
 
