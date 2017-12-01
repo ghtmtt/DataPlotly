@@ -703,7 +703,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         of scatterplot
         '''
 
-        if self.marker_type_combo.currentText() == 'Points':
+        if self.marker_type_combo.currentText() == self.tr('Points'):
             self.point_lab.setEnabled(True)
             self.point_lab.setVisible(True)
             self.point_combo.setEnabled(True)
@@ -712,7 +712,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.line_lab.setVisible(False)
             self.line_combo.setEnabled(False)
             self.line_combo.setVisible(False)
-        elif self.marker_type_combo.currentText() == 'Lines':
+        elif self.marker_type_combo.currentText() == self.tr('Lines'):
             self.point_lab.setEnabled(False)
             self.point_lab.setVisible(False)
             self.point_combo.setEnabled(False)
