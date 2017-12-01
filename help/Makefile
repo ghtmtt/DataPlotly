@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line.
 LANG = en
-LOCALES = en it nl
+LOCALES = en it nl sv
 SPHINXBUILD   = sphinx-build
 SPHINXINTBUILD = sphinx-intl
 PAPER         =
@@ -57,7 +57,7 @@ simplehtml:
 	@echo
 	@echo "HTML Build finished. The HTML pages for '$(LANG)' are in $(BUILDDIR)."
 
-html: txpull
+oldhtml: txpull
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
@@ -172,13 +172,11 @@ transupdate: gettext
 	@echo
 	@echo "Build finished. po files have been updated."
 
-txpush: transupdate
-	@echo
-	@echo "Pushing translations to transifex client"
-	@echo
-	tx push -s
-	@echo
-	@echo "Push completed"
+txpush: gettext
+	for lang in $(LOCALES); do \
+		$(SPHINXINTBUILD) update -p $(BUILDDIR)/locale -l $$lang; \
+		tx push -s; \
+	done
 
 txpull:
 	@echo
@@ -187,3 +185,32 @@ txpull:
 	tx pull -l $(LANG)
 	@echo
 	@echo "Pull completed"
+
+localehtml: clean txpullcomplete
+	for lang in $(LOCALES); do \
+		echo; \
+		echo Building docs for $$lang; \
+		echo; \
+		$(SPHINXBUILD) -b html -d $(BUILDDIR)/doctrees -D language=$$lang -A language=$$lang source $(BUILDDIR)/html/$$lang; \
+		echo; \
+		echo Build finished. The HTML pages are in $(BUILDDIR)/html/$$lang; \
+		echo; \
+	done
+	@echo
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+	@echo
+
+txpullcomplete:
+	for lang in $(LOCALES); do \
+		echo; \
+		echo Pulling translation of $$lang; \
+		echo; \
+		tx pull -l $$lang; \
+		echo; \
+		echo Pulling completed.; \
+		echo; \
+	done
+
+html: localehtml
+	chmod +x replace_script.sh
+	./replace_script.sh
