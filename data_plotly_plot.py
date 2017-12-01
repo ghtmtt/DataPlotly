@@ -94,6 +94,12 @@ class Plot(object):
                 hoverinfo=self.plot_properties['hover_text'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
+                    colorscale=self.plot_properties['colorscale_in'],
+                    showscale=self.plot_properties['show_colorscale_legend'],
+                    reversescale=self.plot_properties['invert_color_scale'],
+                    colorbar=dict(
+                        len=0.8
+                    ),
                     size=self.plot_properties['marker_size'],
                     symbol=self.plot_properties['marker_symbol'],
                     line=dict(

@@ -112,9 +112,9 @@ QListWidget::item::selected {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-144</y>
                  <width>472</width>
-                 <height>565</height>
+                 <height>604</height>
                 </rect>
                </property>
                <layout class="QGridLayout" name="gridLayout_9">
@@ -229,7 +229,14 @@ QListWidget::item::selected {
                    <string>Properties</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_22">
-                   <item row="2" column="0">
+                   <item row="8" column="0">
+                    <widget class="QLabel" name="alpha_lab">
+                     <property name="text">
+                      <string>Transparency</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
                     <widget class="QLabel" name="marker_type_lab">
                      <property name="text">
                       <string>Marker type</string>
@@ -237,13 +244,13 @@ QListWidget::item::selected {
                     </widget>
                    </item>
                    <item row="7" column="0">
-                    <widget class="QLabel" name="alpha_lab">
+                    <widget class="QLabel" name="color_scale_label">
                      <property name="text">
-                      <string>Transparency</string>
+                      <string>Color Scale</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="3">
+                   <item row="6" column="4">
                     <widget class="QCheckBox" name="show_lines_check">
                      <property name="text">
                       <string>Show Lines</string>
@@ -253,10 +260,10 @@ QListWidget::item::selected {
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
+                   <item row="4" column="1">
                     <widget class="QComboBox" name="point_combo"/>
                    </item>
-                   <item row="0" column="3">
+                   <item row="0" column="4">
                     <widget class="QSpinBox" name="marker_size">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -272,7 +279,7 @@ QListWidget::item::selected {
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1" colspan="3">
+                   <item row="3" column="1" colspan="4">
                     <widget class="QComboBox" name="marker_type_combo"/>
                    </item>
                    <item row="0" column="1">
@@ -285,7 +292,7 @@ QListWidget::item::selected {
                      </property>
                     </widget>
                    </item>
-                   <item row="7" column="1" colspan="2">
+                   <item row="8" column="1" colspan="3">
                     <widget class="QSlider" name="alpha_slid">
                      <property name="maximum">
                       <number>100</number>
@@ -301,41 +308,41 @@ QListWidget::item::selected {
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="0">
+                   <item row="4" column="0">
                     <widget class="QLabel" name="point_lab">
                      <property name="text">
                       <string>Point Type</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="7" column="3">
+                   <item row="8" column="4">
                     <widget class="QSpinBox" name="alpha_num">
                      <property name="maximum">
                       <number>100</number>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="1" colspan="3">
+                   <item row="7" column="1" colspan="4">
                     <widget class="QComboBox" name="color_scale_combo"/>
                    </item>
-                   <item row="1" column="0">
+                   <item row="2" column="0">
                     <widget class="QLabel" name="out_color_lab">
                      <property name="text">
                       <string>Stroke Color</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
+                   <item row="0" column="3">
                     <widget class="QLabel" name="marker_size_lab">
                      <property name="text">
                       <string>Marker Size</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1" colspan="2">
+                   <item row="6" column="1" colspan="3">
                     <widget class="QComboBox" name="contour_type_combo"/>
                    </item>
-                   <item row="1" column="1">
+                   <item row="2" column="1">
                     <widget class="QgsColorButton" name="out_color_combo">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -345,17 +352,17 @@ QListWidget::item::selected {
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1">
+                   <item row="5" column="1">
                     <widget class="QComboBox" name="line_combo"/>
                    </item>
-                   <item row="5" column="0">
+                   <item row="6" column="0">
                     <widget class="QLabel" name="contour_type_label">
                      <property name="text">
                       <string>Contour Type</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="3">
+                   <item row="2" column="4">
                     <widget class="QSpinBox" name="marker_width">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -371,7 +378,7 @@ QListWidget::item::selected {
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0">
+                   <item row="5" column="0">
                     <widget class="QLabel" name="line_lab">
                      <property name="text">
                       <string>Line Type</string>
@@ -385,24 +392,51 @@ QListWidget::item::selected {
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="2">
+                   <item row="2" column="3">
                     <widget class="QLabel" name="marker_width_lab">
                      <property name="text">
                       <string>Stroke Width</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="0">
-                    <widget class="QLabel" name="color_scale_label">
+                   <item row="0" column="5">
+                    <widget class="QgsPropertyOverrideButton" name="size_defined_button">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QgsPropertyOverrideButton" name="in_color_defined_button">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QComboBox" name="color_scale_data_defined_in"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="color_scale_data_defined_in_label">
                      <property name="text">
                       <string>Color Scale</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="4">
-                    <widget class="QgsPropertyOverrideButton" name="size_defined_button">
+                   <item row="1" column="2" colspan="2">
+                    <widget class="QCheckBox" name="color_scale_data_defined_in_check">
                      <property name="text">
-                      <string>...</string>
+                      <string>Visible</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="4">
+                    <widget class="QCheckBox" name="color_scale_data_defined_in_invert_check">
+                     <property name="text">
+                      <string>Invert Color</string>
                      </property>
                     </widget>
                    </item>
@@ -673,7 +707,7 @@ QListWidget::item::selected {
           <item row="2" column="0">
            <widget class="QPushButton" name="clear_btn">
             <property name="text">
-             <string>Clean Plot Canvas</string>
+             <string>Clean Plot Cavas</string>
             </property>
            </widget>
           </item>
@@ -868,11 +902,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>158</y>
+     <y>14</y>
     </hint>
     <hint type="destinationlabel">
      <x>532</x>
-     <y>226</y>
+     <y>82</y>
     </hint>
    </hints>
   </connection>
@@ -884,11 +918,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>158</y>
+     <y>14</y>
     </hint>
     <hint type="destinationlabel">
      <x>520</x>
-     <y>249</y>
+     <y>105</y>
     </hint>
    </hints>
   </connection>
@@ -900,11 +934,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>158</y>
+     <y>14</y>
     </hint>
     <hint type="destinationlabel">
      <x>520</x>
-     <y>297</y>
+     <y>153</y>
     </hint>
    </hints>
   </connection>
@@ -916,11 +950,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>390</x>
-     <y>625</y>
+     <y>520</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
-     <y>636</y>
+     <y>531</y>
     </hint>
    </hints>
   </connection>
@@ -932,11 +966,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>503</x>
-     <y>636</y>
+     <y>531</y>
     </hint>
     <hint type="destinationlabel">
      <x>390</x>
-     <y>625</y>
+     <y>520</y>
     </hint>
    </hints>
   </connection>
@@ -948,11 +982,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>158</y>
+     <y>14</y>
     </hint>
     <hint type="destinationlabel">
      <x>532</x>
-     <y>375</y>
+     <y>231</y>
     </hint>
    </hints>
   </connection>
@@ -964,11 +998,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>226</y>
+     <y>82</y>
     </hint>
     <hint type="destinationlabel">
-     <x>481</x>
-     <y>182</y>
+     <x>488</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
@@ -980,11 +1014,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>493</x>
-     <y>255</y>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
-     <x>481</x>
-     <y>215</y>
+     <x>488</x>
+     <y>206</y>
     </hint>
    </hints>
   </connection>
@@ -996,11 +1030,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>493</x>
-     <y>297</y>
+     <y>153</y>
     </hint>
     <hint type="destinationlabel">
-     <x>481</x>
-     <y>248</y>
+     <x>488</x>
+     <y>239</y>
     </hint>
    </hints>
   </connection>
@@ -1012,11 +1046,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>158</y>
+     <y>14</y>
     </hint>
     <hint type="destinationlabel">
-     <x>481</x>
-     <y>327</y>
+     <x>488</x>
+     <y>318</y>
     </hint>
    </hints>
   </connection>
@@ -1027,12 +1061,12 @@ QListWidget::item::selected {
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>658</y>
+     <x>255</x>
+     <y>649</y>
     </hint>
     <hint type="destinationlabel">
-     <x>370</x>
-     <y>661</y>
+     <x>377</x>
+     <y>652</y>
     </hint>
    </hints>
   </connection>
