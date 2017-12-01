@@ -1,42 +1,25 @@
 #!/bin/bash
-OLD="_images\/"
-NEW="..\/_images\/"
-enPATH="build/html/en/*.html"
-itPATH="build/html/it/*.html"
-nlPATH="build/html/nl/*.html"
+OLDimage="_images\/"
+NEWimage="..\/_images\/"
+OLDstatic="_static\/"
+NEWstatic="..\/_static\/"
 
-echo
-echo moving the images directory and removing deprecatd ones ciao
-echo
+LOCALES="en it nl sv"
 
-mv build/html/en/_images/ build/html/
-rm -rf build/html/it/_images
-rm -rf build/html/nl/_images
+# copy the source folders to the language root folder
+cp -r build/html/en/_static build/html/_static
+cp -r build/html/en/_images build/html/_images
 
 
-echo
-echo replacing paths in the en dir
-echo
-
-for f in $enPATH
+# remove the language image and static folder
+# changhe the paths in each html
+for f in $LOCALES
 do
-  sed -i -r "s/$OLD/$NEW/g" "$f"
-done
-
-echo
-echo replacing paths in the it dir
-echo
-
-for f in $itPATH
-do
-  sed -i -r "s/$OLD/$NEW/g" "$f"
-done
-
-echo
-echo replacing paths in the nl dir
-echo
-
-for f in $nlPATH
-do
-  sed -i -r "s/$OLD/$NEW/g" "$f"
+  rm -rf build/html/"$f"/_images
+  rm -rf build/html/"$f"/_static
+  for i in build/html/"$f"/*.html
+    do
+      sed -i -r "s/$OLDimage/$NEWimage/g" "$i"
+      sed -i -r "s/$OLDstatic/$NEWstatic/g" "$i"
+    done
 done
