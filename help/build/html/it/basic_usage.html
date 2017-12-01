@@ -26,7 +26,7 @@
 
   
   
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
   
@@ -40,7 +40,7 @@
         <link rel="prev" title="Data Plotly" href="intro.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -61,7 +61,7 @@
 
           
             
-            <img src="_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" />
           
           </a>
 
@@ -184,8 +184,7 @@
 <p>L&#8217;interfaccia di DataPlotly è stata pensata in modo da essere semplice, ma anche completa con molte opzioni e personalizzazioni disponibili.</p>
 <p>Creare un grafico è davvero semplicissimo: scegli il tipo di grafico, il layer, i campi <code class="docutils literal"><span class="pre">x</span></code> e <code class="docutils literal"><span class="pre">y</span></code>, colori, etichette, ecc. e premi <code class="docutils literal"><span class="pre">Crea</span> <span class="pre">grafico</span></code>. Il grafico viene immediatamente mostrato.</p>
 <p>Se vuoi modificare qualche impostazione, per esempio il colore del simbolo o la sua dimensione, il campo <code class="docutils literal"><span class="pre">x</span></code>, basta farlo e cliccare sul pulsante <code class="docutils literal"><span class="pre">Aggiorna</span> <span class="pre">grafico</span></code>: il grafico viene cosi immediatamente aggiornato.</p>
-<p>DataPlotly is a docket widget meaning that you can move it within the QGIS interface.
-It is made up by 5 different widgets:</p>
+<p>DataPlotly è un pannello agganciabile ovunque nell&#8217;interfaccia di QGIS. È composto da 5 categorie:</p>
 <p><a class="reference internal" href="../_images/properties.svg"><img alt="properties" src="../_images/properties.svg" width="20em" /></a> <strong>impostazioni fondamentali del grafico</strong></p>
 <p><a class="reference internal" href="../_images/custom.svg"><img alt="custom" src="../_images/custom.svg" width="20em" /></a> <strong>personalizzazioni aggiuntive del grafico</strong></p>
 <p><a class="reference internal" href="../_images/plot.svg"><img alt="plot" src="../_images/plot.svg" width="20em" /></a> <strong>grafico</strong></p>
@@ -212,8 +211,7 @@ It is made up by 5 different widgets:</p>
 <p>DataPlotly permette la creazione di molti grafici diversi. Questi possono essere sovrapposti (<strong>grafico singolo</strong>) oppure ogni grafico può essere caricato in righe e colonne separate (<strong>multi grafico</strong>).</p>
 <div class="section" id="overlapping-plots">
 <h3>Sovrapposizione grafici<a class="headerlink" href="#overlapping-plots" title="Link a questa intestazione">¶</a></h3>
-<p>You can add as many plots as you want within the same plot view. Plot types can be
-different and also the source layer can be different.</p>
+<p>Puoi aggiungere quanti grafici vuoi e caricarli nella stessa vista. Le tipologie di grafici possono essere diverse cosi come il layer e i campi.</p>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
 <p class="last">il risultato può essere molto strano in funzione del tipo di grafico scelto e dei campi scelti.</p>
@@ -221,15 +219,12 @@ different and also the source layer can be different.</p>
 <p>Per aggiungere altri grafici basta che ripeti le operazioni <a class="reference internal" href="#add-plot"><span class="std std-ref">Aggiungi un grafico</span></a> scegliendo una tipologia di grafico diversa oppure un layer o dei campi diversi, ecc..</p>
 <p>Nella seguente figura, stessa tipologia di grafico e differenti campi dello stesso vettore:</p>
 <a class="reference internal image-reference" href="../_images/basic2.png"><img alt="../_images/basic2.png" src="../_images/basic2.png" style="width: 381.0px; height: 442.5px;" /></a>
-<p>The following pictures show 2 different overlapping plot types (boxplot and
-scatterplot):</p>
+<p>La seguente figura mostra 2 tipologie di grafici diversi sovrapposti nella stessa vista:</p>
 <a class="reference internal image-reference" href="../_images/basic3.png"><img alt="../_images/basic3.png" src="../_images/basic3.png" style="width: 381.0px; height: 442.5px;" /></a>
 </div>
 <div class="section" id="subplots">
 <h3>Multi grafici<a class="headerlink" href="#subplots" title="Link a questa intestazione">¶</a></h3>
-<p>You can choose to separate the plots in different plot canvas. It is particularly
-useful when the scales are very different or when overlapping too many data results
-in a messy plot canvas.</p>
+<p>Puoi anche scegliere di dividere i grafici in viste separate. Questo è particolarmente utile quando le scale di valori sono molto diverse o quando la sovrapposizione di dati o grafici diversi risulta troppo caotica.</p>
 <p>Basta che scegli la tipologia di grafico e i campi come descritto nella sezione <a class="reference internal" href="#add-plot"><span class="std std-ref">Aggiungi un grafico</span></a> ma devi specificare anche il parametro <code class="docutils literal"><span class="pre">Multi</span> <span class="pre">grafico</span></code> dal menu a tendina e scegliere se preferisci creare i grafici in righe (predefinito) o in colonne.</p>
 <p>La seguente figura mostra grafici in righe e colonne:</p>
 <a class="reference internal image-reference" href="../_images/basic4.png"><img alt="../_images/basic4.png" src="../_images/basic4.png" style="width: 805.0px; height: 442.5px;" /></a>
@@ -338,16 +333,16 @@ in a messy plot canvas.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
 
   
 
   
   
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
   

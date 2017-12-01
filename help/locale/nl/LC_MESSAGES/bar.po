@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 08:54+0100\n"
+"POT-Creation-Date: 2017-12-01 10:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Leon van der Meulen <leonvandermeulen@gmail.com>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/dataplotly/teams/79225/nl/)\n"
@@ -61,7 +61,7 @@ msgstr "``Stroke Width``: de dikte van de rand"
 
 #: ../../source/bar.rst:25
 msgid "``Transparency``: transparency level of the bar"
-msgstr ""
+msgstr "``Transparantie``: transparantieniveau van de staaf"
 
 #: ../../source/bar.rst:28
 msgid "Plot Customizations"

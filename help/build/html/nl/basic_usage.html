@@ -26,7 +26,7 @@
 
   
   
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
   
@@ -40,7 +40,7 @@
         <link rel="prev" title="Data Plotly" href="intro.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -61,7 +61,7 @@
 
           
             
-            <img src="_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" />
           
           </a>
 
@@ -184,8 +184,7 @@
 <p>De DataPlotly interface is ontworpen om simpel te zijn, maar tegelijk compleet met veel beschikbare opties en aanpassingen.</p>
 <p>Het maken van een plot/diagram is zo gemakkelijk als het klinkt: kies het type diagram, <code class="docutils literal"><span class="pre">x</span></code> en <code class="docutils literal"><span class="pre">y</span></code> kolommen, kleuren, labels, etc. en klik op de <code class="docutils literal"><span class="pre">Create</span> <span class="pre">Plot</span></code> knop. Het diagram wordt onmiddellijk getoond in het diagramvenster.</p>
 <p>Wanneer je een van de instellingen wilt veranderen, bijvoorbeeld de kleur of grootte van een marker, klik op de <code class="docutils literal"><span class="pre">Update</span> <span class="pre">Plot</span></code> knop: het diagram wordt dan geüpdate in het diagramvenster.</p>
-<p>DataPlotly is a docket widget meaning that you can move it within the QGIS interface.
-It is made up by 5 different widgets:</p>
+<p>DataPlotly is een docked widget, dit wil zeggen dat je de widget kunt verplaatsen binnen de QGIS interface. Het bestaat uit 5 verschillende widgets:</p>
 <p><a class="reference internal" href="../_images/properties.svg"><img alt="properties" src="../_images/properties.svg" width="20em" /></a> <strong>basis diagraminstellingen</strong></p>
 <p><a class="reference internal" href="../_images/custom.svg"><img alt="custom" src="../_images/custom.svg" width="20em" /></a> <strong>extra diagram aanpassingen</strong></p>
 <p><a class="reference internal" href="../_images/plot.svg"><img alt="plot" src="../_images/plot.svg" width="20em" /></a> <strong>diagramvenster</strong></p>
@@ -212,8 +211,7 @@ It is made up by 5 different widgets:</p>
 <p>DataPlotly maakt het mogelijk vele verschillende diagrammen te maken. Diagrammen kunnen worden getoond op hetzelfde diagramvenster (<strong>overlappend</strong>) of ieder diagram kan in aparte rijen of kolommen worden getoond (<strong>subdiagrammen</strong>).</p>
 <div class="section" id="overlapping-plots">
 <h3>Overlappende diagrammen<a class="headerlink" href="#overlapping-plots" title="Permalink naar deze titel">¶</a></h3>
-<p>You can add as many plots as you want within the same plot view. Plot types can be
-different and also the source layer can be different.</p>
+<p>Je kunt zo veel diagrammen toevoegen aan het diagramvenster als je wilt. Diagramtypes kunnen verschillend zijn en ook de bron laag kan verschillen.</p>
 <div class="admonition note">
 <p class="first admonition-title">Notitie</p>
 <p class="last">resultaten kunnen erg vreemd zijn, afhankelijk van de gekozen velden en het diagramtype. Wees voorzichtig!</p>
@@ -221,15 +219,12 @@ different and also the source layer can be different.</p>
 <p>Om nog een diagram toe te voegen, herhaal de stappen uit <a class="reference internal" href="#add-plot"><span class="std std-ref">Voeg een diagram toe</span></a>&nbsp; door een ander diagramtype te kiezen en/of verschillende velden etc..</p>
 <p>In de volgende afbeelding, hetzelfde diagramtype (spreidingsdiagram) en verschillende velden uit dezelfde laag:</p>
 <a class="reference internal image-reference" href="../_images/basic2.png"><img alt="../_images/basic2.png" src="../_images/basic2.png" style="width: 381.0px; height: 442.5px;" /></a>
-<p>The following pictures show 2 different overlapping plot types (boxplot and
-scatterplot):</p>
+<p>De volgende afbeelding toont 2 verschillende overlappende diagramtypes (boxplot en spreidingsdiagram):</p>
 <a class="reference internal image-reference" href="../_images/basic3.png"><img alt="../_images/basic3.png" src="../_images/basic3.png" style="width: 381.0px; height: 442.5px;" /></a>
 </div>
 <div class="section" id="subplots">
 <h3>Subdiagrammen<a class="headerlink" href="#subplots" title="Permalink naar deze titel">¶</a></h3>
-<p>You can choose to separate the plots in different plot canvas. It is particularly
-useful when the scales are very different or when overlapping too many data results
-in a messy plot canvas.</p>
+<p>Je kunt ervoor kiezen om de diagrammen te scheiden in aparte diagramvensters. Dit kan vooral nuttig zijn wanneer de schalen sterk afwijken of wanneer teveel overlappende data zorgt voor een onoverzichtelijk diagramvenster.</p>
 <p>Je hoeft alleen maar het diagram en de velden te kiezen zoals beschreven in onderdeel  <a class="reference internal" href="#add-plot"><span class="std std-ref">Voeg een diagram toe</span></a>, maar je moet de <code class="docutils literal"><span class="pre">SubPlots</span></code> parameter specificeren uit de keuzelijst én kiezen of de diagrammen in rijen(standaard parameter) of in kolommen worden getekend.</p>
 <p>De volgende afbeeldingen tonen diagrammen in rijen en in kolommen:</p>
 <a class="reference internal image-reference" href="../_images/basic4.png"><img alt="../_images/basic4.png" src="../_images/basic4.png" style="width: 805.0px; height: 442.5px;" /></a>
@@ -338,16 +333,16 @@ in a messy plot canvas.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/translations.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
 
   
 
   
   
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
   
