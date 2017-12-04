@@ -51,7 +51,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     closingPlugin = pyqtSignal()
-    # mit signal when dialog is resized
+    # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
 
     def __init__(self, parent=None):
@@ -78,6 +78,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # set the icon of QgspropertyOverrideButton not taken automatically
         self.size_defined_button.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/mIconDataDefineExpression.svg')))
+        self.in_color_defined_button.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/mIconDataDefineExpression.svg')))
 
         # ListWidget icons and themes
         self.listWidget_icons = [
@@ -200,13 +201,19 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # get the plot type from the combobox
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
-        # load the layer fields in the init function
+        # load the layer fields in the init function for the datadefined buttons
         self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
+        self.in_color_defined_button.setVectorLayer(self.layer_combo.currentLayer())
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
+        # connect the color defined button to the correct function
+        self.in_color_defined_button.changed.connect(self.resfreshColorDefined)
 
         # connect to refreshing function of listWidget and stackedWidgets
         self.listWidget.currentRowChanged.connect(self.updateStacked)
+
+        # connect the plot changing to the color data defined buttons
+        self.plot_combo.currentIndexChanged.connect(self.resfreshColorDefined)
 
     def updateStacked(self, row):
         '''
@@ -233,6 +240,46 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         else:
             self.marker_size.setEnabled(True)
 
+    def resfreshColorDefined(self):
+        '''
+        refreshing function for color data defined button
+
+        checks is the datadefined button is active and check also the plot type
+        in order to deactivate the color when not needed
+        '''
+        # if data defined button is active
+        if self.in_color_defined_button.isActive():
+            # if plot is scatter or bar
+            if self.ptype == 'scatter' or self.ptype == 'bar':
+                self.in_color_combo.setEnabled(False)
+                self.color_scale_data_defined_in.setVisible(True)
+                self.color_scale_data_defined_in.setEnabled(True)
+                self.color_scale_data_defined_in_label.setVisible(True)
+                self.color_scale_data_defined_in_label.setEnabled(True)
+                self.color_scale_data_defined_in_check.setVisible(True)
+                self.color_scale_data_defined_in_check.setEnabled(True)
+                self.color_scale_data_defined_in_invert_check.setVisible(True)
+                self.color_scale_data_defined_in_invert_check.setEnabled(True)
+            # if plot is not scatter or bar
+            else:
+                self.in_color_combo.setEnabled(True)
+                self.color_scale_data_defined_in.setVisible(False)
+                self.color_scale_data_defined_in.setEnabled(False)
+                self.color_scale_data_defined_in_label.setVisible(False)
+                self.color_scale_data_defined_in_label.setEnabled(False)
+                self.color_scale_data_defined_in_check.setVisible(False)
+                self.color_scale_data_defined_in_check.setEnabled(False)
+                self.color_scale_data_defined_in_invert_check.setVisible(False)
+                self.color_scale_data_defined_in_invert_check.setEnabled(False)
+        # if datadefined button is deactivated
+        else:
+                self.in_color_combo.setEnabled(True)
+                self.color_scale_data_defined_in.setVisible(False)
+                self.color_scale_data_defined_in.setEnabled(False)
+                self.color_scale_data_defined_in_label.setVisible(False)
+                self.color_scale_data_defined_in_check.setVisible(False)
+                self.color_scale_data_defined_in_invert_check.setVisible(False)
+
     def getMarkerSize(self):
         '''
         get the marker size
@@ -244,6 +291,20 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         else:
             # self.marker_size.setEnabled(True)
             self.marker_size_value = self.marker_size.value()
+
+    def getColorDefined(self):
+        '''
+        get the color code for plotly from the dataDefined button
+        '''
+
+        if self.in_color_defined_button.isActive():
+            if self.ptype == 'scatter' or self.ptype == 'bar':
+                in_color = self.in_color_defined_button.toProperty().expressionString()
+                self.in_color = self.layer_combo.currentLayer().getValues(in_color, selectedOnly=self.selected_feature_check.isChecked())[0]
+            else:
+                self.in_color = hex_to_rgb(self.in_color_combo)
+        else:
+            self.in_color = hex_to_rgb(self.in_color_combo)
 
     def setCheckState(self):
         '''
@@ -531,7 +592,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         for k, v in self.contour_type.items():
             self.contour_type_combo.addItem(k, v)
 
-        # Contour Plot color scale
+        # Contour Plot color scale and Data Defined Color scale
         self.col_scale = OrderedDict([
             (self.tr('OrangeToRed'), 'pairs'),
             (self.tr('Grey Scale'), 'Greys'),
@@ -549,8 +610,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             (self.tr('BlueWhitePurple'), 'Picnic'),
         ])
         self.color_scale_combo.clear()
+        self.color_scale_data_defined_in.clear()
         for k, v in self.col_scale.items():
             self.color_scale_combo.addItem(k, v)
+            self.color_scale_data_defined_in.addItem(k, v)
 
         # according to the plot type, change the label names
 
@@ -607,6 +670,11 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.info_combo: ['scatter'],
             self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
             self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.in_color_defined_button: ['scatter', 'bar'],
+            self.color_scale_data_defined_in: ['scatter', 'bar'],
+            self.color_scale_data_defined_in_label: ['scatter', 'bar'],
+            self.color_scale_data_defined_in_check: ['scatter', 'bar'],
+            self.color_scale_data_defined_in_invert_check: ['bar'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
             self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
@@ -679,6 +747,12 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # disable by default the bins value box
         # if not explicit, the upper loop will enable it
         self.bins_value.setEnabled(False)
+
+        # disable at firts run the color data defined buttons
+        self.color_scale_data_defined_in.setVisible(False)
+        self.color_scale_data_defined_in_label.setVisible(False)
+        self.color_scale_data_defined_in_check.setVisible(False)
+        self.color_scale_data_defined_in_invert_check.setVisible(False)
 
     def refreshWidgets2(self):
         '''
@@ -754,6 +828,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # call the method to get the correct marker size
         self.getMarkerSize()
+        self.getColorDefined()
 
         # set the variable to invert the x and y axis order
         self.x_invert = True
@@ -779,6 +854,12 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # call the function that will clean the data from NULL values
         xx, yy, zz, = cleanData(xx, yy, zz)
 
+        ## if colorscale should be visible or not
+        if self.color_scale_data_defined_in_check.isVisible() and self.color_scale_data_defined_in_check.isChecked():
+            color_scale_visible = True
+        else:
+            color_scale_visible = False
+
         # dictionary of all the plot properties
         plot_properties = {
             'x':xx,
@@ -793,7 +874,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             'x_name':self.x_combo.currentText(),
             'y_name':self.y_combo.currentText(),
             'z_name':self.z_combo.currentText(),
-            'in_color':hex_to_rgb(self.in_color_combo),
+            'in_color':self.in_color,
+            'colorscale_in':self.col_scale[self.color_scale_data_defined_in.currentText()],
+            'show_colorscale_legend':color_scale_visible,
+            'invert_color_scale':self.color_scale_data_defined_in_invert_check.isChecked(),
             'out_color':hex_to_rgb(self.out_color_combo),
             'marker_width':self.marker_width.value(),
             'marker_size':self.marker_size_value,
