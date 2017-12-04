@@ -4,7 +4,7 @@
     <message>
         <location filename="test_translations.py" line="48"/>
         <source>Good morning</source>
-        <translation type="unfinished"/>
+        <translation>Good morning</translation>
     </message>
 </context>
 <context>
@@ -495,7 +495,7 @@
     <message>
         <location filename="dataplotly_dockwidget_base.ui" line="405"/>
         <source>...</source>
-        <translation type="unfinished"/>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="dataplotly_dockwidget_base.ui" line="725"/>
