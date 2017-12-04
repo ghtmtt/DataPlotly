@@ -233,6 +233,6 @@ txpull:
 	@echo "------------------------------------------------"
 	@echo "Pulling translation files with any new strings. "
 	@echo "------------------------------------------------"
-	tx pull
+	tx pull -a
 	@echo
 	@echo "Pull completed"
