@@ -20,7 +20,12 @@ Plot Properties
 
 ``Marker Color``: marker color
 
+``Data Defined Override``: you can add an Expression to define the size of the marker.
+If activated other options are available: ``Color Scale``, ``Visible`` and ``Invert Color``.
+
 ``Marker Size``: the size of the marker
+
+``Data Defined Override``: you can add an Expression to define the size of the marker
 
 ``Stroke Color``: border color
 

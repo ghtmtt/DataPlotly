@@ -18,6 +18,9 @@ Plot Properties
 
 ``Bar Color``: color of the bar
 
+``Data Defined Override``: you can add an Expression to define the size of the marker.
+If activated other options are available: ``Color Scale``, ``Visible`` and ``Invert Color``. 
+
 ``Stroke Color``: border color
 
 ``Stroke Width``: the width of the border

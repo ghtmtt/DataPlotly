@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 09:42+0100\n"
+"POT-Creation-Date: 2017-12-07 10:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,58 +55,76 @@ msgid "``Marker Color``: marker color"
 msgstr "``Marker Color``: marker color"
 
 #: ../../source/ternary.rst:23
+msgid ""
+"``Data Defined Override``: you can add an Expression to define the size of "
+"the marker. If activated other options are available: ``Color Scale``, "
+"``Visible`` and ``Invert Color``."
+msgstr ""
+"``Data Defined Override``: you can add an Expression to define the size of "
+"the marker. If activated other options are available: ``Color Scale``, "
+"``Visible`` and ``Invert Color``."
+
+#: ../../source/ternary.rst:26
 msgid "``Marker Size``: the size of the marker"
 msgstr "``Marker Size``: the size of the marker"
 
-#: ../../source/ternary.rst:25
+#: ../../source/ternary.rst:28
+msgid ""
+"``Data Defined Override``: you can add an Expression to define the size of "
+"the marker"
+msgstr ""
+"``Data Defined Override``: you can add an Expression to define the size of "
+"the marker"
+
+#: ../../source/ternary.rst:30
 msgid "``Stroke Color``: border color"
 msgstr "``Stroke Color``: border color"
 
-#: ../../source/ternary.rst:27
+#: ../../source/ternary.rst:32
 msgid "``Stroke Width``: the width of the border"
 msgstr "``Stroke Width``: the width of the border"
 
-#: ../../source/ternary.rst:29
+#: ../../source/ternary.rst:34
 msgid "``Point Type``: marker type"
 msgstr "``Point Type``: marker type"
 
-#: ../../source/ternary.rst:31
+#: ../../source/ternary.rst:36
 msgid "``Transparency``: transparency level of the marker/line"
 msgstr "``Transparency``: transparency level of the marker/line"
 
-#: ../../source/ternary.rst:34
+#: ../../source/ternary.rst:39
 msgid "Plot Customizations"
 msgstr "Plot Customizations"
 
-#: ../../source/ternary.rst:35
+#: ../../source/ternary.rst:40
 msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Show Legend``: show the legend of the current plot"
 
-#: ../../source/ternary.rst:37
+#: ../../source/ternary.rst:42
 msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
 msgstr "``Horizontal Legend``: check if you want to have an horizontal legend"
 
-#: ../../source/ternary.rst:39
+#: ../../source/ternary.rst:44
 msgid "``Plot Title``: the plot title"
 msgstr "``Plot Title``: the plot title"
 
-#: ../../source/ternary.rst:41
+#: ../../source/ternary.rst:46
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Legend Title``: the title of the legend"
 
-#: ../../source/ternary.rst:43
+#: ../../source/ternary.rst:48
 msgid "``X Label``: X label text"
 msgstr "``X Label``: X label text"
 
-#: ../../source/ternary.rst:45
+#: ../../source/ternary.rst:50
 msgid "``Y Label``: Y Label text"
 msgstr "``Y Label``: Y Label text"
 
-#: ../../source/ternary.rst:47
+#: ../../source/ternary.rst:52
 msgid "``Z Label``: Z Label text"
 msgstr "``Z Label``: Z Label text"
 
-#: ../../source/ternary.rst:49
+#: ../../source/ternary.rst:54
 msgid ""
 "``Additional Hover Label``: choose another field of the plot (or other "
 "values) that will be shown together with the other informations. This field "
