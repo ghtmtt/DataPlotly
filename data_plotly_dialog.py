@@ -250,7 +250,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # if data defined button is active
         if self.in_color_defined_button.isActive():
             # if plot is scatter or bar
-            if self.ptype == 'scatter' or self.ptype == 'bar':
+            if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
                 self.in_color_combo.setEnabled(False)
                 self.color_scale_data_defined_in.setVisible(True)
                 self.color_scale_data_defined_in.setEnabled(True)
@@ -298,7 +298,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
 
         if self.in_color_defined_button.isActive():
-            if self.ptype == 'scatter' or self.ptype == 'bar':
+            if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
                 in_color = self.in_color_defined_button.toProperty().expressionString()
                 self.in_color = self.layer_combo.currentLayer().getValues(in_color, selectedOnly=self.selected_feature_check.isChecked())[0]
             else:
@@ -670,11 +670,11 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.info_combo: ['scatter'],
             self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
             self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.in_color_defined_button: ['scatter', 'bar'],
-            self.color_scale_data_defined_in: ['scatter', 'bar'],
-            self.color_scale_data_defined_in_label: ['scatter', 'bar'],
-            self.color_scale_data_defined_in_check: ['scatter', 'bar'],
-            self.color_scale_data_defined_in_invert_check: ['bar'],
+            self.in_color_defined_button: ['scatter', 'bar', 'ternary'],
+            self.color_scale_data_defined_in: ['scatter', 'bar', 'ternary'],
+            self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary'],
+            self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary'],
+            self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
             self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
