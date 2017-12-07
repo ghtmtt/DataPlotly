@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 10:54+0100\n"
+"POT-Creation-Date: 2017-12-07 09:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Leon van der Meulen <leonvandermeulen@gmail.com>, 2017\n"
 "Language-Team: Dutch (https://www.transifex.com/dataplotly/teams/79225/nl/)\n"
@@ -52,10 +52,17 @@ msgid "``Marker Color``: marker color"
 msgstr "``Marker Color``: de kleur van het diagram"
 
 #: ../../source/scatter.rst:21
+msgid ""
+"``Data Defined Override``: you can add an Expression to define the size of "
+"the marker. If activated other options are available: ``Color Scale``, "
+"``Visible`` and ``Invert Color``."
+msgstr ""
+
+#: ../../source/scatter.rst:24
 msgid "``Marker Size``: the size of the marker"
 msgstr "``Marker Size``: de grootte van het symbool"
 
-#: ../../source/scatter.rst:23
+#: ../../source/scatter.rst:26
 msgid ""
 "``Data Defined Override``: you can add an Expression to define the size of "
 "the marker"
@@ -63,64 +70,64 @@ msgstr ""
 "``Data Defined Override``: je kunt een expressie toevoegen om de grootte van"
 " het symbool in te stellen"
 
-#: ../../source/scatter.rst:25
+#: ../../source/scatter.rst:28
 msgid "``Stroke Color``: border color"
 msgstr "``Stroke Color``: kleur van de lijn"
 
-#: ../../source/scatter.rst:27
+#: ../../source/scatter.rst:30
 msgid "``Stroke Width``: the width of the border"
 msgstr "``Stroke Width``: de dikte van de rand"
 
-#: ../../source/scatter.rst:29
+#: ../../source/scatter.rst:32
 msgid ""
 "``Marker Type``: choose between **Points**, **Lines** or **Points and "
 "Lines**"
 msgstr ""
 "``Marker Type``: kies tussen **Punten**, **Lijnen** of **Punten en lijnen*"
 
-#: ../../source/scatter.rst:31
+#: ../../source/scatter.rst:34
 msgid ""
 "``Point Type`` or ``Line Type`` depending on the ``Marker Type`` chosen"
 msgstr ""
 "``Point Type`` of ``Line Type`` afhankelijk van het gekozen ``Marker Type``"
 
-#: ../../source/scatter.rst:33
+#: ../../source/scatter.rst:36
 msgid "``Transparency``: transparency level of the point/line"
 msgstr "``Transparency``: transparantieniveau van het punt of de lijn"
 
-#: ../../source/scatter.rst:36
+#: ../../source/scatter.rst:39
 msgid "Plot Customizations"
 msgstr "Diagram aanpassingen"
 
-#: ../../source/scatter.rst:37
+#: ../../source/scatter.rst:40
 msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Show Legend``: toon de legenda van het huidige diagram"
 
-#: ../../source/scatter.rst:39
+#: ../../source/scatter.rst:42
 msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
 msgstr "``Horizontal Legend``:  vink aan voor een horizontale legenda"
 
-#: ../../source/scatter.rst:41
+#: ../../source/scatter.rst:44
 msgid "``Show Range Slider``: add a slider below the plot"
 msgstr "``Show Range Slider``: voeg een schuifbalk toe onder het diagram"
 
-#: ../../source/scatter.rst:46
+#: ../../source/scatter.rst:49
 msgid "``Plot Title``: the plot title"
 msgstr "``Plot Title``: titel van het diagram"
 
-#: ../../source/scatter.rst:48
+#: ../../source/scatter.rst:51
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Legend Title``: de titel van de legenda"
 
-#: ../../source/scatter.rst:50
+#: ../../source/scatter.rst:53
 msgid "``X Label``: X label text"
 msgstr "``X Label``: X label tekst"
 
-#: ../../source/scatter.rst:52
+#: ../../source/scatter.rst:55
 msgid "``Y Label``: Y Label text"
 msgstr "``Y Label``: Y label tekst"
 
-#: ../../source/scatter.rst:54
+#: ../../source/scatter.rst:57
 msgid ""
 "``Hover Infos``: choose the information that will be shown when hovering on "
 "the Plot Canvas"
@@ -128,7 +135,7 @@ msgstr ""
 "``Hover Infos``: kies de informatie die zal worden getoond wanneer de muis "
 "op het diagramvenster wordt geplaatst"
 
-#: ../../source/scatter.rst:57
+#: ../../source/scatter.rst:60
 msgid ""
 "``Additional Hover Label``: choose another field of the plot (or other "
 "values) that will be shown together with the other informations. This field "
@@ -138,24 +145,24 @@ msgstr ""
 "waardes) die samen met andere informatie getoond wordt. Dit veld ondersteunt"
 " expressies: bijv. ``Het ID van dit punt is '| ID' ``:"
 
-#: ../../source/scatter.rst:64
+#: ../../source/scatter.rst:67
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr ""
 "``Invert X Axis``: vink aan wanneer je de sortering van de X-as wilt "
 "omdraaien "
 
-#: ../../source/scatter.rst:66
+#: ../../source/scatter.rst:69
 msgid "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``X Axis Mode``: kies tussen Lineair, Logaritmisch of Gecategoriseerd"
 
-#: ../../source/scatter.rst:68
+#: ../../source/scatter.rst:71
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr ""
 "``Invert Y Axis``: vink aan wanneer je de sortering van de Y-as wilt "
 "omdraaien "
 
-#: ../../source/scatter.rst:70
+#: ../../source/scatter.rst:73
 msgid "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``Y Axis Mode``: kies tussen Lineair, Logaritmisch of Gecategoriseerd"

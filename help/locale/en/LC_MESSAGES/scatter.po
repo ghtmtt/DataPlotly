@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-01 10:54+0100\n"
+"POT-Creation-Date: 2017-12-07 09:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,10 +51,20 @@ msgid "``Marker Color``: marker color"
 msgstr "``Marker Color``: marker color"
 
 #: ../../source/scatter.rst:21
+msgid ""
+"``Data Defined Override``: you can add an Expression to define the size of "
+"the marker. If activated other options are available: ``Color Scale``, "
+"``Visible`` and ``Invert Color``."
+msgstr ""
+"``Data Defined Override``: you can add an Expression to define the size of "
+"the marker. If activated other options are available: ``Color Scale``, "
+"``Visible`` and ``Invert Color``."
+
+#: ../../source/scatter.rst:24
 msgid "``Marker Size``: the size of the marker"
 msgstr "``Marker Size``: the size of the marker"
 
-#: ../../source/scatter.rst:23
+#: ../../source/scatter.rst:26
 msgid ""
 "``Data Defined Override``: you can add an Expression to define the size of "
 "the marker"
@@ -62,15 +72,15 @@ msgstr ""
 "``Data Defined Override``: you can add an Expression to define the size of "
 "the marker"
 
-#: ../../source/scatter.rst:25
+#: ../../source/scatter.rst:28
 msgid "``Stroke Color``: border color"
 msgstr "``Stroke Color``: border color"
 
-#: ../../source/scatter.rst:27
+#: ../../source/scatter.rst:30
 msgid "``Stroke Width``: the width of the border"
 msgstr "``Stroke Width``: the width of the border"
 
-#: ../../source/scatter.rst:29
+#: ../../source/scatter.rst:32
 msgid ""
 "``Marker Type``: choose between **Points**, **Lines** or **Points and "
 "Lines**"
@@ -78,58 +88,58 @@ msgstr ""
 "``Marker Type``: choose between **Points**, **Lines** or **Points and "
 "Lines**"
 
-#: ../../source/scatter.rst:31
+#: ../../source/scatter.rst:34
 msgid ""
 "``Point Type`` or ``Line Type`` depending on the ``Marker Type`` chosen"
 msgstr ""
 "``Point Type`` or ``Line Type`` depending on the ``Marker Type`` chosen"
 
-#: ../../source/scatter.rst:33
+#: ../../source/scatter.rst:36
 msgid "``Transparency``: transparency level of the point/line"
 msgstr "``Transparency``: transparency level of the point/line"
 
-#: ../../source/scatter.rst:36
+#: ../../source/scatter.rst:39
 msgid "Plot Customizations"
 msgstr "Plot Customizations"
 
-#: ../../source/scatter.rst:37
+#: ../../source/scatter.rst:40
 msgid "``Show Legend``: show the legend of the current plot"
 msgstr "``Show Legend``: show the legend of the current plot"
 
-#: ../../source/scatter.rst:39
+#: ../../source/scatter.rst:42
 msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
 msgstr "``Horizontal Legend``: check if you want to have an horizontal legend"
 
-#: ../../source/scatter.rst:41
+#: ../../source/scatter.rst:44
 msgid "``Show Range Slider``: add a slider below the plot"
 msgstr "``Show Range Slider``: add a slider below the plot"
 
-#: ../../source/scatter.rst:46
+#: ../../source/scatter.rst:49
 msgid "``Plot Title``: the plot title"
 msgstr "``Plot Title``: the plot title"
 
-#: ../../source/scatter.rst:48
+#: ../../source/scatter.rst:51
 msgid "``Legend Title``: the title of the legend"
 msgstr "``Legend Title``: the title of the legend"
 
-#: ../../source/scatter.rst:50
+#: ../../source/scatter.rst:53
 msgid "``X Label``: X label text"
 msgstr "``X Label``: X label text"
 
-#: ../../source/scatter.rst:52
+#: ../../source/scatter.rst:55
 msgid "``Y Label``: Y Label text"
 msgstr "``Y Label``: Y Label text"
 
-#: ../../source/scatter.rst:54
-msgid ""
-"``Hover Infos``: choose the information that will be shown when hovering on "
-"the Plot Canvas"
-msgstr ""
-"``Hover Infos``: choose the information that will be shown when hovering on "
-"the Plot Canvas"
-
 #: ../../source/scatter.rst:57
 msgid ""
+"``Hover Infos``: choose the information that will be shown when hovering on "
+"the Plot Canvas"
+msgstr ""
+"``Hover Infos``: choose the information that will be shown when hovering on "
+"the Plot Canvas"
+
+#: ../../source/scatter.rst:60
+msgid ""
 "``Additional Hover Label``: choose another field of the plot (or other "
 "values) that will be shown together with the other informations. This field "
 "supports expressions: e.g. ``'The ID of this point is ' || ID``:"
@@ -138,22 +148,22 @@ msgstr ""
 "values) that will be shown together with the other informations. This field "
 "supports expressions: e.g. ``'The ID of this point is ' || ID``:"
 
-#: ../../source/scatter.rst:64
+#: ../../source/scatter.rst:67
 msgid ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 msgstr ""
 "``Invert X Axis``: check if you want to invert the ordering of the x axis"
 
-#: ../../source/scatter.rst:66
+#: ../../source/scatter.rst:69
 msgid "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``X Axis Mode``: choose between Linear, Logarithmic or Categorized"
 
-#: ../../source/scatter.rst:68
+#: ../../source/scatter.rst:71
 msgid ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 msgstr ""
 "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
 
-#: ../../source/scatter.rst:70
+#: ../../source/scatter.rst:73
 msgid "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"
 msgstr "``Y Axis Mode``: choose between Linear, Logarithmic or Categorized"
