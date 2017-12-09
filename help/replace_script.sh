@@ -4,7 +4,7 @@ NEWimage="..\/_images\/"
 OLDstatic="_static\/"
 NEWstatic="..\/_static\/"
 
-LOCALES="en it nl sv"
+LOCALES="en it nl sv fr"
 
 # copy the source folders to the language root folder
 cp -r build/html/en/_static build/html/_static
