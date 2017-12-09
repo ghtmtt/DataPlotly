@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sv" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="sv" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -395,7 +396,7 @@
     <message>
         <location filename="dataplotly_dockwidget_base.ui" line="14"/>
         <source>DataPlotly</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">DataPlotly</translation>
     </message>
     <message>
         <location filename="dataplotly_dockwidget_base.ui" line="78"/>
