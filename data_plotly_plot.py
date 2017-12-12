@@ -195,6 +195,7 @@ class Plot(object):
             self.trace = [go.Pie(
                 labels=self.plot_properties['x'],
                 values=self.plot_properties['y'],
+                name=self.plot_properties['custom'],
             )]
 
         elif self.plot_type == '2dhistogram':
@@ -424,8 +425,20 @@ class Plot(object):
         var featureIds = [];
         var dd = {};
         dd["fidd"] = data.points[0].id
-
         dd["mode"] = 'clicking'
+
+        // pie plot with different js data structure
+        try {
+
+        if(data.points.trace.type == 'pie'){
+        dd["label"] = data.points[0].label
+        dd["type"] = data.points.trace.type
+        dd["field"] = data.points.trace.name
+            }
+        }
+
+        // all other plots with standard js data structure
+        catch(err){
 
         for(var i=0; i < data.points.length; i++){
 
@@ -436,7 +449,6 @@ class Plot(object):
         data.points.forEach(function(pt){
         dd["fid"] = pt.id
             })
-
         }
 
         else {
@@ -444,9 +456,9 @@ class Plot(object):
         dd["id"] = data.points[i].x
         dd["type"] = data.points[i].data.type
         dd["field"] = data.points[i].data.customdata
-        }
+                }
             }
-
+        }
         window.status = JSON.stringify(dd)
         });
         </script>'''

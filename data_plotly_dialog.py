@@ -354,14 +354,19 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.layer_combo.currentLayer().selectByIds(dic['tid'])
 
 
-            # if a clicking event is performed
+            # if a clicking event is performed depending on the plot type
             elif dic["mode"] == 'clicking':
                 if dic['type'] == 'scatter':
                     self.layer_combo.currentLayer().selectByIds([dic['fidd']])
+                elif dic["type"] == 'pie':
+                    exp = ''' "{}" = '{}' '''.format(dic['field'], dic['label'])
+                    # set the iterator with the expression as filter in feature request
+                    request = QgsFeatureRequest().setFilterExpression(exp)
+                    it = self.layer_combo.currentLayer().getFeatures(request)
+                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
                 else:
                     # build the expression from the js dic (customdata)
                     exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])
-                    # print(exp)
                     # set the iterator with the expression as filter in feature request
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
