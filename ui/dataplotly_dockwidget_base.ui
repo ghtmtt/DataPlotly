@@ -112,7 +112,7 @@ QListWidget::item::selected {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-144</y>
+                 <y>0</y>
                  <width>472</width>
                  <height>604</height>
                 </rect>
@@ -466,6 +466,13 @@ QListWidget::item::selected {
                 </rect>
                </property>
                <layout class="QGridLayout" name="gridLayout_25">
+                <item row="2" column="0">
+                 <widget class="QLabel" name="legend_label">
+                  <property name="text">
+                   <string>Legend Title</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="2" column="1" colspan="2">
                  <widget class="QLineEdit" name="legend_title"/>
                 </item>
@@ -579,13 +586,6 @@ QListWidget::item::selected {
                 <item row="17" column="1" colspan="2">
                  <widget class="QComboBox" name="outliers_combo"/>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="legend_label">
-                  <property name="text">
-                   <string>Legend Title</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="2">
                  <widget class="QCheckBox" name="range_slider_combo">
                   <property name="text">
@@ -650,20 +650,6 @@ QListWidget::item::selected {
                 <item row="6" column="1" colspan="2">
                  <widget class="QLineEdit" name="z_axis_title"/>
                 </item>
-                <item row="18" column="0">
-                 <widget class="QCheckBox" name="cumulative_hist_check">
-                  <property name="text">
-                   <string>Cumulative Histogram</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="19" column="0">
-                 <widget class="QCheckBox" name="bins_check">
-                  <property name="text">
-                   <string>Choose manually the bins</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="19" column="1">
                  <widget class="QSpinBox" name="bins_value">
                   <property name="enabled">
@@ -677,10 +663,37 @@ QListWidget::item::selected {
                   </property>
                  </widget>
                 </item>
+                <item row="18" column="0">
+                 <widget class="QCheckBox" name="cumulative_hist_check">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="text">
+                   <string>Cumulative Histogram</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="19" column="0">
+                 <widget class="QCheckBox" name="bins_check">
+                  <property name="text">
+                   <string>Choose manually the bins</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="1">
                  <widget class="QCheckBox" name="orientation_legend_check">
                   <property name="text">
                    <string>Horizontal Legend</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="18" column="1" colspan="2">
+                 <widget class="QCheckBox" name="invert_hist_check">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="text">
+                   <string>Invert Histogram Direction</string>
                   </property>
                  </widget>
                 </item>
@@ -902,11 +915,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>14</y>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
      <x>532</x>
-     <y>82</y>
+     <y>226</y>
     </hint>
    </hints>
   </connection>
@@ -918,11 +931,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>14</y>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
-     <x>520</x>
-     <y>105</y>
+     <x>532</x>
+     <y>266</y>
     </hint>
    </hints>
   </connection>
@@ -934,11 +947,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>14</y>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
-     <x>520</x>
-     <y>153</y>
+     <x>532</x>
+     <y>306</y>
     </hint>
    </hints>
   </connection>
@@ -949,12 +962,12 @@ QListWidget::item::selected {
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>390</x>
-     <y>520</y>
+     <x>399</x>
+     <y>673</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
-     <y>531</y>
+     <y>675</y>
     </hint>
    </hints>
   </connection>
@@ -966,11 +979,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>503</x>
-     <y>531</y>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
-     <x>390</x>
-     <y>520</y>
+     <x>399</x>
+     <y>673</y>
     </hint>
    </hints>
   </connection>
@@ -982,11 +995,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>14</y>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
      <x>532</x>
-     <y>231</y>
+     <y>349</y>
     </hint>
    </hints>
   </connection>
@@ -998,11 +1011,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>82</y>
+     <y>226</y>
     </hint>
     <hint type="destinationlabel">
-     <x>488</x>
-     <y>173</y>
+     <x>504</x>
+     <y>-15</y>
     </hint>
    </hints>
   </connection>
@@ -1013,12 +1026,12 @@ QListWidget::item::selected {
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>111</y>
+     <x>532</x>
+     <y>266</y>
     </hint>
     <hint type="destinationlabel">
-     <x>488</x>
-     <y>206</y>
+     <x>504</x>
+     <y>18</y>
     </hint>
    </hints>
   </connection>
@@ -1029,12 +1042,12 @@ QListWidget::item::selected {
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>153</y>
+     <x>532</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
-     <x>488</x>
-     <y>239</y>
+     <x>504</x>
+     <y>51</y>
     </hint>
    </hints>
   </connection>
@@ -1046,11 +1059,11 @@ QListWidget::item::selected {
    <hints>
     <hint type="sourcelabel">
      <x>532</x>
-     <y>14</y>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
-     <x>488</x>
-     <y>318</y>
+     <x>504</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -1061,12 +1074,28 @@ QListWidget::item::selected {
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>255</x>
-     <y>649</y>
+     <x>264</x>
+     <y>461</y>
     </hint>
     <hint type="destinationlabel">
-     <x>377</x>
-     <y>652</y>
+     <x>393</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cumulative_hist_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>invert_hist_check</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>427</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>423</y>
     </hint>
    </hints>
   </connection>

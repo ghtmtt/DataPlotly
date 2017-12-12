@@ -731,6 +731,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.additional_info_label: ['scatter', 'ternary'],
             self.additional_info_combo: ['scatter', 'ternary'],
             self.cumulative_hist_check: ['histogram'],
+            self.invert_hist_check: ['histogram'],
             self.bins_check: ['histogram'],
             self.bins_value: ['histogram'],
         }
@@ -843,6 +844,11 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         if self.bins_check.isChecked():
             self.bin_val = self.bins_value.value()
 
+        # set the chance to invert the histogram direction
+        self.invert_hist = 'increasing'
+        if self.invert_hist_check.isChecked():
+            self.invert_hist = 'decreasing'
+
         # get the plot type from the combo box
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
@@ -894,6 +900,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             'color_scale':self.col_scale[self.color_scale_combo.currentText()],
             'show_lines':self.show_lines_check.isChecked(),
             'cumulative':self.cumulative_hist_check.isChecked(),
+            'invert_hist':self.invert_hist,
             'bins':self.bin_val
         }
 

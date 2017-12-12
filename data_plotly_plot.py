@@ -185,7 +185,8 @@ class Plot(object):
                 histnorm=self.plot_properties['normalization'],
                 opacity=self.plot_properties['opacity'],
                 cumulative=dict(
-                    enabled=self.plot_properties['cumulative']
+                    enabled=self.plot_properties['cumulative'],
+                    direction=self.plot_properties['invert_hist']
                     )
             )]
 
