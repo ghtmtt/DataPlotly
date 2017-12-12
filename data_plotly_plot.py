@@ -442,6 +442,7 @@ class Plot(object):
 
         for(var i=0; i < data.points.length; i++){
 
+        // scatter plot
         if(data.points[i].data.type == 'scatter'){
         dd["uid"] = data.points[i].data.uid
         dd["type"] = data.points[i].data.type
@@ -451,6 +452,26 @@ class Plot(object):
             })
         }
 
+        // histogram
+        else if(data.points[i].data.type == 'histogram'){
+            dd["type"] = data.points[i].data.type
+            dd["uid"] = data.points[i].data.uid
+            dd["field"] = data.points[i].data.name
+
+            // correct axis orientation
+            if(data.points[i].data.orientation == 'v'){
+                console.log('verticale')
+                dd["id"] = data.points[i].x
+                dd["bin_step"] = data.points[i].data.xbins.size
+            }
+            else {
+                dd["id"] = data.points[i].y
+                dd["bin_step"] = data.points[i].data.ybins.size
+                console.log('orizzontale')
+            }
+        }
+
+        // other plots
         else {
         dd["uid"] = data.points[i].data.uid
         dd["id"] = data.points[i].x
