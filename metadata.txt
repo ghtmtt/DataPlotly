@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=2.99
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=1.2.2
+version=1.2.3
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,10 +25,9 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
-  Version 1.2.2
-  - [feature] plugin completely translated in Swedish, thanks @klakar
-  - [feature] data defined button for marker color (scatter plot, bar, ternary)
-  - minor bug fixing
+  Version 1.2.3
+  - [feature] plugin completely translated in French, thanks @mdouchin
+  - [feature] Invert histogram direction when cumulative option is chosen
 
 # Tags are comma separated with spaces allowed
 tags=python, d3, plots, vector, graphs
