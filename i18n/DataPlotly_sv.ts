@@ -74,7 +74,7 @@
         <translation>EnkelDiagram</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="763"/>
+        <location filename="data_plotly_dialog.py" line="764"/>
         <source>SubPlots</source>
         <translation>SubDiagram</translation>
     </message>
@@ -144,12 +144,12 @@
         <translation>Kategoriserad</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="780"/>
+        <location filename="data_plotly_dialog.py" line="781"/>
         <source>Points</source>
         <translation>Punkter</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="789"/>
+        <location filename="data_plotly_dialog.py" line="790"/>
         <source>Lines</source>
         <translation>Linjer</translation>
     </message>
@@ -371,22 +371,22 @@
         <translation>Inga Data</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1002"/>
+        <location filename="data_plotly_dialog.py" line="1009"/>
         <source>Plot types are not comapatible for subplotting</source>
         <translation>Diagramtyperna är inte kompatibla som subdiagram</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1086"/>
+        <location filename="data_plotly_dialog.py" line="1093"/>
         <source>Save plot</source>
         <translation>Spara diagram</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1094"/>
+        <location filename="data_plotly_dialog.py" line="1101"/>
         <source>Plot succesfully saved</source>
         <translation>Diagram sparades framgångsrikt</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1078"/>
+        <location filename="data_plotly_dialog.py" line="1085"/>
         <source>Please select a directory to save the plot</source>
         <translation>Vänligen välj en katalog att spara diagrammet till</translation>
     </message>
@@ -509,57 +509,57 @@
         <translation>Invertera Färger</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="475"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="482"/>
         <source>Normalization</source>
         <translation>Normalisering</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="482"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="489"/>
         <source>X Axis Mode</source>
         <translation>Metod för X Axel</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="505"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="512"/>
         <source>Outliers</source>
         <translation>Outliers</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="518"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="525"/>
         <source>Bar Mode</source>
         <translation>Stapelmetod</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="528"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="535"/>
         <source>Show Legend</source>
         <translation>Visa Förklaring</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="541"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="548"/>
         <source>Bar orientation</source>
         <translation>Stapelorientering</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="551"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="558"/>
         <source>Show Statistics</source>
         <translation>Visa Statistik</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="561"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="568"/>
         <source>Plot Title</source>
         <translation>Diagramtitel</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="568"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="575"/>
         <source>X Label</source>
         <translation>X Etikett</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="575"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="582"/>
         <source>Y Label</source>
         <translation>Y Etikett</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="585"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="472"/>
         <source>Legend Title</source>
         <translation>Titel Förklaring</translation>
     </message>
@@ -599,64 +599,69 @@
         <translation>Z Etikett</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="656"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="672"/>
         <source>Cumulative Histogram</source>
         <translation>Kumulativt Histogram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="663"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="679"/>
         <source>Choose manually the bins</source>
         <translation>Välj indelning manuellt</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="683"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="686"/>
         <source>Horizontal Legend</source>
         <translation>Horisontell Teckenförklaring</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="700"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="713"/>
         <source>Plot in Rows</source>
         <translation>Diagram i Rader</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="710"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="723"/>
         <source>Clean Plot Cavas</source>
         <translation>Städa Diagramyta</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="720"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="733"/>
         <source>Update Plot</source>
         <translation>Uppdatera Diagram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="742"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="755"/>
         <source>Create Plot</source>
         <translation>Skapa Diagram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="749"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="762"/>
         <source>Plot in Columns</source>
         <translation>Diagram i Kolumner</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="759"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="772"/>
         <source>Type of Plot</source>
         <translation>Diagramtyp</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="797"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="810"/>
         <source>Export as image</source>
         <translation>Exportera som bild</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="816"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="829"/>
         <source>Export as html</source>
         <translation>Exportera som html</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="833"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="846"/>
         <source>Live Update</source>
         <translation>Liveuppdatera</translation>
+    </message>
+    <message>
+        <location filename="dataplotly_dockwidget_base.ui" line="696"/>
+        <source>Invert Histogram Direction</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

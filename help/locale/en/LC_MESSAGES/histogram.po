@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 15:18+0100\n"
+"POT-Creation-Date: 2017-12-12 10:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,11 +112,19 @@ msgstr "``Normalization``: different type of bins calculations are available"
 
 #: ../../source/histogram.rst:47
 msgid ""
-"``Cumulative Histogram``: check if you want to create a cumulative historam"
+"``Cumulative Histogram``: check if you want to create a cumulative histogram"
 msgstr ""
-"``Cumulative Histogram``: check if you want to create a cumulative historam"
+"``Cumulative Histogram``: check if you want to create a cumulative histogram"
 
 #: ../../source/histogram.rst:49
+msgid ""
+"``Invert Histogram Direction``: check if you want to invert the histogram "
+"direction (only if cumulative option is chosen)"
+msgstr ""
+"``Invert Histogram Direction``: check if you want to invert the histogram "
+"direction (only if cumulative option is chosen)"
+
+#: ../../source/histogram.rst:51
 msgid ""
 "``Choose manually the bins``: check if want to choose manually the bins "
 "number and add a numeric value in the box"

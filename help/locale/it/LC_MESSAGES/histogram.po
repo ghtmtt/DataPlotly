@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 15:18+0100\n"
+"POT-Creation-Date: 2017-12-12 10:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
@@ -114,12 +114,21 @@ msgstr "``Normalizzazione``: sono disponibili diversi tipi di normalizzazione"
 
 #: ../../source/histogram.rst:47
 msgid ""
-"``Cumulative Histogram``: check if you want to create a cumulative historam"
+"``Cumulative Histogram``: check if you want to create a cumulative histogram"
 msgstr ""
 "``Istogramma cumulativo``: spunta se vuoi creare un istogramma unico "
 "cumulativo"
 
 #: ../../source/histogram.rst:49
+msgid ""
+"``Invert Histogram Direction``: check if you want to invert the histogram "
+"direction (only if cumulative option is chosen)"
+msgstr ""
+"``Inverti direzione istogramma``: spunta se vuoi invertire la direzione "
+"dell'istogramma (disponibile solo se è stata scelta l'opzione ``Istogramma "
+"Cumulativo``"
+
+#: ../../source/histogram.rst:51
 msgid ""
 "``Choose manually the bins``: check if want to choose manually the bins "
 "number and add a numeric value in the box"

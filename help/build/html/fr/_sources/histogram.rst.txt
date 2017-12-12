@@ -44,7 +44,9 @@ Plot Customizations
 
 ``Normalization``: different type of bins calculations are available
 
-``Cumulative Histogram``: check if you want to create a cumulative historam
+``Cumulative Histogram``: check if you want to create a cumulative histogram
+
+``Invert Histogram Direction``: check if you want to invert the histogram direction (only if cumulative option is chosen)
 
 ``Choose manually the bins``: check if want to choose manually the bins number and
 add a numeric value in the box

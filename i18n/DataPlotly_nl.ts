@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="nl" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -73,7 +74,7 @@
         <translation>Enkelvoudig Diagram</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="763"/>
+        <location filename="data_plotly_dialog.py" line="764"/>
         <source>SubPlots</source>
         <translation>Subdiagrammen</translation>
     </message>
@@ -143,12 +144,12 @@
         <translation>Gecategoriseerd</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="780"/>
+        <location filename="data_plotly_dialog.py" line="781"/>
         <source>Points</source>
         <translation>Punten</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="789"/>
+        <location filename="data_plotly_dialog.py" line="790"/>
         <source>Lines</source>
         <translation>Lijnen</translation>
     </message>
@@ -370,22 +371,22 @@
         <translation>Geen data</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1002"/>
+        <location filename="data_plotly_dialog.py" line="1009"/>
         <source>Plot types are not comapatible for subplotting</source>
         <translation>Diagramtypes zijn niet geschikt voor subdiagrammen</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1086"/>
+        <location filename="data_plotly_dialog.py" line="1093"/>
         <source>Save plot</source>
         <translation>Diagram opslaan</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1094"/>
+        <location filename="data_plotly_dialog.py" line="1101"/>
         <source>Plot succesfully saved</source>
         <translation>Diagram succesvol opgeslagen</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1078"/>
+        <location filename="data_plotly_dialog.py" line="1085"/>
         <source>Please select a directory to save the plot</source>
         <translation>Selecteer een map om het diagram in op te slaan</translation>
     </message>
@@ -508,57 +509,57 @@
         <translation>Inverteer Kleur</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="475"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="482"/>
         <source>Normalization</source>
         <translation>Normalisatie</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="482"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="489"/>
         <source>X Axis Mode</source>
         <translation>X-as Modus</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="505"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="512"/>
         <source>Outliers</source>
         <translation>Uitschieters</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="518"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="525"/>
         <source>Bar Mode</source>
         <translation>Staafmodus</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="528"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="535"/>
         <source>Show Legend</source>
         <translation>Toon Legenda</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="541"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="548"/>
         <source>Bar orientation</source>
         <translation>Staaf Oriëntatie</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="551"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="558"/>
         <source>Show Statistics</source>
         <translation>Toon Statistieken</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="561"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="568"/>
         <source>Plot Title</source>
         <translation>Titel van het Diagram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="568"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="575"/>
         <source>X Label</source>
         <translation>X Label</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="575"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="582"/>
         <source>Y Label</source>
         <translation>Y Label</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="585"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="472"/>
         <source>Legend Title</source>
         <translation>Legenda Titel</translation>
     </message>
@@ -598,64 +599,69 @@
         <translation>Z Label</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="656"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="672"/>
         <source>Cumulative Histogram</source>
         <translation>Cumulatief Histogram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="663"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="679"/>
         <source>Choose manually the bins</source>
         <translation>Kies klasses handmatig</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="683"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="686"/>
         <source>Horizontal Legend</source>
         <translation>Horizontale Legenda</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="700"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="713"/>
         <source>Plot in Rows</source>
         <translation>Diagram in Rijen</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="710"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="723"/>
         <source>Clean Plot Cavas</source>
         <translation>Leeg Diagramvenster</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="720"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="733"/>
         <source>Update Plot</source>
         <translation>Update Diagram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="742"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="755"/>
         <source>Create Plot</source>
         <translation>Maak Diagram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="749"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="762"/>
         <source>Plot in Columns</source>
         <translation>Diagram in Kolommen</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="759"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="772"/>
         <source>Type of Plot</source>
         <translation>Diagramtype</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="797"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="810"/>
         <source>Export as image</source>
         <translation>Exporteer als afbeelding</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="816"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="829"/>
         <source>Export as html</source>
         <translation>Exporteer als html</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="833"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="846"/>
         <source>Live Update</source>
         <translation>Live Update</translation>
+    </message>
+    <message>
+        <location filename="dataplotly_dockwidget_base.ui" line="696"/>
+        <source>Invert Histogram Direction</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
