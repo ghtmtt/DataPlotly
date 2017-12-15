@@ -365,15 +365,14 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
                 elif dic["type"] == 'histogram':
-                    print('istogramma')
-                    print(dic['id'])
                     vmin = dic['id'] - dic['bin_step'] / 2
                     vmax = dic['id'] + dic['bin_step'] / 2
                     exp = ''' "{}" <= {} AND "{}" > {} '''.format(dic['field'], vmax ,dic['field'], vmin)
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
-                    print(exp)
+                elif dic["type"] == 'scatterternary':
+                    self.layer_combo.currentLayer().selectByIds([dic['fid']])
                 else:
                     # build the expression from the js dic (customdata)
                     exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])
@@ -381,7 +380,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
-
         except:
             pass
 

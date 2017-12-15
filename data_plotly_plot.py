@@ -444,11 +444,11 @@ class Plot(object):
 
         // scatter plot
         if(data.points[i].data.type == 'scatter'){
-        dd["uid"] = data.points[i].data.uid
-        dd["type"] = data.points[i].data.type
+            dd["uid"] = data.points[i].data.uid
+            dd["type"] = data.points[i].data.type
 
-        data.points.forEach(function(pt){
-        dd["fid"] = pt.id
+            data.points.forEach(function(pt){
+            dd["fid"] = pt.id
             })
         }
 
@@ -460,27 +460,56 @@ class Plot(object):
 
             // correct axis orientation
             if(data.points[i].data.orientation == 'v'){
-                console.log('verticale')
                 dd["id"] = data.points[i].x
                 dd["bin_step"] = data.points[i].data.xbins.size
             }
             else {
                 dd["id"] = data.points[i].y
                 dd["bin_step"] = data.points[i].data.ybins.size
-                console.log('orizzontale')
             }
         }
 
-        // other plots
-        else {
-        dd["uid"] = data.points[i].data.uid
-        dd["id"] = data.points[i].x
-        dd["type"] = data.points[i].data.type
-        dd["field"] = data.points[i].data.customdata
+        // box plot
+        else if(data.points[i].data.type == 'box'){
+            dd["uid"] = data.points[i].data.uid
+            dd["type"] = data.points[i].data.type
+            dd["field"] = data.points[i].data.customdata
+
+                // correct axis orientation
+                if(data.points[i].data.orientation == 'v'){
+                    dd["id"] = data.points[i].x
+                }
+                else {
+                    dd["id"] = data.points[i].y
                 }
             }
+
+        // bar plot
+        else if(data.points[i].data.type == 'bar'){
+            dd["uid"] = data.points[i].data.uid
+            dd["type"] = data.points[i].data.type
+            dd["field"] = data.points[i].data.customdata
+
+                // correct axis orientation
+                if(data.points[i].data.orientation == 'v'){
+                    dd["id"] = data.points[i].x
+                }
+                else {
+                    dd["id"] = data.points[i].y
+                }
+            }
+
+        // ternary
+        else if(data.points[i].data.type == 'scatterternary'){
+            dd["uid"] = data.points[i].data.uid
+            dd["type"] = data.points[i].data.type
+            dd["field"] = data.points[i].data.customdata
+            dd["fid"] = data.points[i].pointNumber
+            }
+
+            }
         }
-        window.status = JSON.stringify(dd)
+        //window.status = JSON.stringify(dd)
         });
         </script>'''
 
