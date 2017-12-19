@@ -509,7 +509,7 @@ class Plot(object):
 
             }
         }
-        //window.status = JSON.stringify(dd)
+        window.status = JSON.stringify(dd)
         });
         </script>'''
 
