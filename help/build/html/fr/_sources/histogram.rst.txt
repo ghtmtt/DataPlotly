@@ -53,3 +53,5 @@ add a numeric value in the box
 
 .. image:: /img/histogram/histogram2.png
   :scale: 50%
+
+``Bar gap``: choose the space between the gaps, from 0 (no space) to 1 (maximum space)
