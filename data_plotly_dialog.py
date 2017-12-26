@@ -747,6 +747,8 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.invert_hist_check: ['histogram'],
             self.bins_check: ['histogram'],
             self.bins_value: ['histogram'],
+            self.bar_gap_label: ['histogram'],
+            self.bar_gap: ['histogram']
         }
 
         # enable the widget according to the plot type
@@ -937,6 +939,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             'y_type':self.y_axis_type[self.y_axis_mode_combo.currentText()],
             'x_inv':self.x_invert,
             'y_inv':self.y_invert,
+            'bargaps':self.bar_gap.value()
         }
 
 

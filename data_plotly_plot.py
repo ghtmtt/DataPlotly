@@ -338,6 +338,7 @@ class Plot(object):
 
         elif self.plot_type == 'histogram':
             self.layout['barmode'] = self.plot_layout['bar_mode']
+            self.layout['bargroupgap'] = self.plot_layout['bargaps']
 
         elif self.plot_type == 'pie':
             self.layout['xaxis'].update(title=''),

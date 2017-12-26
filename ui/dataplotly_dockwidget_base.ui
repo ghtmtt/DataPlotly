@@ -462,10 +462,13 @@ QListWidget::item::selected {
                  <x>0</x>
                  <y>0</y>
                  <width>475</width>
-                 <height>624</height>
+                 <height>657</height>
                 </rect>
                </property>
                <layout class="QGridLayout" name="gridLayout_25">
+                <item row="17" column="1" colspan="2">
+                 <widget class="QComboBox" name="outliers_combo"/>
+                </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="legend_label">
                   <property name="text">
@@ -490,7 +493,7 @@ QListWidget::item::selected {
                   </property>
                  </widget>
                 </item>
-                <item row="20" column="0" colspan="3">
+                <item row="21" column="0" colspan="3">
                  <spacer name="verticalSpacer_6">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
@@ -583,9 +586,6 @@ QListWidget::item::selected {
                   </property>
                  </widget>
                 </item>
-                <item row="17" column="1" colspan="2">
-                 <widget class="QComboBox" name="outliers_combo"/>
-                </item>
                 <item row="0" column="2">
                  <widget class="QCheckBox" name="range_slider_combo">
                   <property name="text">
@@ -637,18 +637,15 @@ QListWidget::item::selected {
                   </property>
                  </widget>
                 </item>
+                <item row="8" column="1" colspan="2">
+                 <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
+                </item>
                 <item row="6" column="0">
                  <widget class="QLabel" name="z_axis_label">
                   <property name="text">
                    <string>Z Label</string>
                   </property>
                  </widget>
-                </item>
-                <item row="8" column="1" colspan="2">
-                 <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
-                </item>
-                <item row="6" column="1" colspan="2">
-                 <widget class="QLineEdit" name="z_axis_title"/>
                 </item>
                 <item row="19" column="1">
                  <widget class="QSpinBox" name="bins_value">
@@ -662,6 +659,9 @@ QListWidget::item::selected {
                    <number>10</number>
                   </property>
                  </widget>
+                </item>
+                <item row="6" column="1" colspan="2">
+                 <widget class="QLineEdit" name="z_axis_title"/>
                 </item>
                 <item row="18" column="0">
                  <widget class="QCheckBox" name="cumulative_hist_check">
@@ -694,6 +694,23 @@ QListWidget::item::selected {
                   </property>
                   <property name="text">
                    <string>Invert Histogram Direction</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="20" column="0">
+                 <widget class="QLabel" name="bar_gap_label">
+                  <property name="text">
+                   <string>Bar gap</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="20" column="1">
+                 <widget class="QDoubleSpinBox" name="bar_gap">
+                  <property name="maximum">
+                   <double>1.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.100000000000000</double>
                   </property>
                  </widget>
                 </item>
