@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="sv" sourcelanguage="">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="sv" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -74,319 +73,319 @@
         <translation>EnkelDiagram</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="764"/>
+        <location filename="data_plotly_dialog.py" line="779"/>
         <source>SubPlots</source>
         <translation>SubDiagram</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="448"/>
+        <location filename="data_plotly_dialog.py" line="461"/>
         <source>X Field</source>
         <translation>X Fält</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="456"/>
+        <location filename="data_plotly_dialog.py" line="469"/>
         <source>Vertical</source>
         <translation>Vertikal</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="456"/>
+        <location filename="data_plotly_dialog.py" line="469"/>
         <source>Horizontal</source>
         <translation>Horisontell</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="465"/>
+        <location filename="data_plotly_dialog.py" line="478"/>
         <source>No Outliers</source>
         <translation>Inga Outliers</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="465"/>
+        <location filename="data_plotly_dialog.py" line="478"/>
         <source>Standard Outliers</source>
         <translation>Standard Outliers</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="465"/>
+        <location filename="data_plotly_dialog.py" line="478"/>
         <source>Suspected Outliers</source>
         <translation>Misstänkta Outliers</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="465"/>
+        <location filename="data_plotly_dialog.py" line="478"/>
         <source>All Points</source>
         <translation>Alla punkter</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="475"/>
+        <location filename="data_plotly_dialog.py" line="488"/>
         <source>None</source>
         <translation>Inga</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="475"/>
+        <location filename="data_plotly_dialog.py" line="488"/>
         <source>Mean</source>
         <translation>Medel</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="475"/>
+        <location filename="data_plotly_dialog.py" line="488"/>
         <source>Standard Deviation</source>
         <translation>Standardavvikelse</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="495"/>
+        <location filename="data_plotly_dialog.py" line="508"/>
         <source>Linear</source>
         <translation>Linjär</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="495"/>
+        <location filename="data_plotly_dialog.py" line="508"/>
         <source>Logarithmic</source>
         <translation>Logaritmisk</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="495"/>
+        <location filename="data_plotly_dialog.py" line="508"/>
         <source>Categorized</source>
         <translation>Kategoriserad</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="781"/>
+        <location filename="data_plotly_dialog.py" line="796"/>
         <source>Points</source>
         <translation>Punkter</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="790"/>
+        <location filename="data_plotly_dialog.py" line="805"/>
         <source>Lines</source>
         <translation>Linjer</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="505"/>
+        <location filename="data_plotly_dialog.py" line="518"/>
         <source>Points and Lines</source>
         <translation>Punkter och Linjer</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="550"/>
+        <location filename="data_plotly_dialog.py" line="563"/>
         <source>Solid Line</source>
         <translation>Heldragen Linje</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="550"/>
+        <location filename="data_plotly_dialog.py" line="563"/>
         <source>Dot Line</source>
         <translation>Punktlinje</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="550"/>
+        <location filename="data_plotly_dialog.py" line="563"/>
         <source>Dash Line</source>
         <translation>Streckad Linje</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="550"/>
+        <location filename="data_plotly_dialog.py" line="563"/>
         <source>Long Dash Line</source>
         <translation>Lång Streckad Linje</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="550"/>
+        <location filename="data_plotly_dialog.py" line="563"/>
         <source>Dot Dash Line</source>
         <translation>Punktstreckad Linje</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="550"/>
+        <location filename="data_plotly_dialog.py" line="563"/>
         <source>Long Dash Dot Line</source>
         <translation>Lång Punktstreckad Linje</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="564"/>
+        <location filename="data_plotly_dialog.py" line="577"/>
         <source>Grouped</source>
         <translation>Grupperad</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="564"/>
+        <location filename="data_plotly_dialog.py" line="577"/>
         <source>Stacked</source>
         <translation>Staplade</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="564"/>
+        <location filename="data_plotly_dialog.py" line="577"/>
         <source>Overlay</source>
         <translation>Överlagrad</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="574"/>
+        <location filename="data_plotly_dialog.py" line="587"/>
         <source>Enumerated</source>
         <translation>Sammanräknad</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="574"/>
+        <location filename="data_plotly_dialog.py" line="587"/>
         <source>Percents</source>
         <translation>Procent</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="574"/>
+        <location filename="data_plotly_dialog.py" line="587"/>
         <source>Probability</source>
         <translation>Sannolikhet</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="574"/>
+        <location filename="data_plotly_dialog.py" line="587"/>
         <source>Density</source>
         <translation>Densitet</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="574"/>
+        <location filename="data_plotly_dialog.py" line="587"/>
         <source>Prob Density</source>
         <translation>Sannolik Densitet</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="586"/>
+        <location filename="data_plotly_dialog.py" line="599"/>
         <source>Fill</source>
         <translation>Fyllning</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="586"/>
+        <location filename="data_plotly_dialog.py" line="599"/>
         <source>Heatmap</source>
         <translation>Intensitet</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="586"/>
+        <location filename="data_plotly_dialog.py" line="599"/>
         <source>Only Lines</source>
         <translation>Enbart Linjer</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>OrangeToRed</source>
         <translation>OrangeTillRöd</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>Grey Scale</source>
         <translation>Gråskala</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>Green Scale</source>
         <translation>Grönskala</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>Fire Scale</source>
         <translation>Eldskala</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>BlueYellowRed</source>
         <translation>BlåGulRöd</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>BlueGreenRed</source>
         <translation>BlåGrönRöd</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>BlueToRed</source>
         <translation>BlåTillRöd</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>BlueToRed Soft</source>
         <translation>BlåTillRöd Mjuk</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>BlackRedYellowBlue</source>
         <translation>SvartRödGulBlå</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>Terrain</source>
         <translation>Terräng</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>Electric Scale</source>
         <translation>Elektrisk Skala</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>RedOrangeYellow</source>
         <translation>RödOrangeGul</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>DeepblueBlueWhite</source>
         <translation>DjupblåBlåVit</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="596"/>
+        <location filename="data_plotly_dialog.py" line="609"/>
         <source>BlueWhitePurple</source>
         <translation>BlåVitPurpur</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="622"/>
+        <location filename="data_plotly_dialog.py" line="635"/>
         <source>Grouping Field
 (Optional)</source>
         <translation>Grupperingsfält
 (Valfri)</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="628"/>
+        <location filename="data_plotly_dialog.py" line="641"/>
         <source>Box Orientation</source>
         <translation>Lådorientering</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="629"/>
+        <location filename="data_plotly_dialog.py" line="642"/>
         <source>Box Color</source>
         <translation>Lådfärg</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="633"/>
+        <location filename="data_plotly_dialog.py" line="646"/>
         <source>Marker Color</source>
         <translation>Markörfärg</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="637"/>
+        <location filename="data_plotly_dialog.py" line="650"/>
         <source>Bar Orientation</source>
         <translation>Stapelorientering</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="638"/>
+        <location filename="data_plotly_dialog.py" line="651"/>
         <source>Bar Color</source>
         <translation>Stapelfärg</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="642"/>
+        <location filename="data_plotly_dialog.py" line="655"/>
         <source>Grouping Field</source>
         <translation>Grupperingsfält</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="649"/>
+        <location filename="data_plotly_dialog.py" line="662"/>
         <source>All Values</source>
         <translation>Alla värden</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="649"/>
+        <location filename="data_plotly_dialog.py" line="662"/>
         <source>X Values</source>
         <translation>X Värden</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="649"/>
+        <location filename="data_plotly_dialog.py" line="662"/>
         <source>Y Values</source>
         <translation>Y Värden</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="649"/>
+        <location filename="data_plotly_dialog.py" line="662"/>
         <source>No Data</source>
         <translation>Inga Data</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1009"/>
+        <location filename="data_plotly_dialog.py" line="1025"/>
         <source>Plot types are not comapatible for subplotting</source>
         <translation>Diagramtyperna är inte kompatibla som subdiagram</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1093"/>
+        <location filename="data_plotly_dialog.py" line="1109"/>
         <source>Save plot</source>
         <translation>Spara diagram</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1101"/>
+        <location filename="data_plotly_dialog.py" line="1117"/>
         <source>Plot succesfully saved</source>
         <translation>Diagram sparades framgångsrikt</translation>
     </message>
     <message>
-        <location filename="data_plotly_dialog.py" line="1085"/>
+        <location filename="data_plotly_dialog.py" line="1101"/>
         <source>Please select a directory to save the plot</source>
         <translation>Vänligen välj en katalog att spara diagrammet till</translation>
     </message>
@@ -396,7 +395,7 @@
     <message>
         <location filename="dataplotly_dockwidget_base.ui" line="14"/>
         <source>DataPlotly</source>
-        <translation type="unfinished">DataPlotly</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="dataplotly_dockwidget_base.ui" line="78"/>
@@ -509,59 +508,59 @@
         <translation>Invertera Färger</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="482"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="475"/>
+        <source>Legend Title</source>
+        <translation>Titel Förklaring</translation>
+    </message>
+    <message>
+        <location filename="dataplotly_dockwidget_base.ui" line="485"/>
         <source>Normalization</source>
         <translation>Normalisering</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="489"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="492"/>
         <source>X Axis Mode</source>
         <translation>Metod för X Axel</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="512"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="515"/>
         <source>Outliers</source>
         <translation>Outliers</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="525"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="528"/>
         <source>Bar Mode</source>
         <translation>Stapelmetod</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="535"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="538"/>
         <source>Show Legend</source>
         <translation>Visa Förklaring</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="548"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="551"/>
         <source>Bar orientation</source>
         <translation>Stapelorientering</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="558"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="561"/>
         <source>Show Statistics</source>
         <translation>Visa Statistik</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="568"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="571"/>
         <source>Plot Title</source>
         <translation>Diagramtitel</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="575"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="578"/>
         <source>X Label</source>
         <translation>X Etikett</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="582"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="585"/>
         <source>Y Label</source>
         <translation>Y Etikett</translation>
-    </message>
-    <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="472"/>
-        <source>Legend Title</source>
-        <translation>Titel Förklaring</translation>
     </message>
     <message>
         <location filename="dataplotly_dockwidget_base.ui" line="592"/>
@@ -594,7 +593,7 @@
         <translation>Extra Hovra Etikett</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="643"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="646"/>
         <source>Z Label</source>
         <translation>Z Etikett</translation>
     </message>
@@ -614,54 +613,59 @@
         <translation>Horisontell Teckenförklaring</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="713"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="730"/>
         <source>Plot in Rows</source>
         <translation>Diagram i Rader</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="723"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="740"/>
         <source>Clean Plot Cavas</source>
         <translation>Städa Diagramyta</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="733"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="750"/>
         <source>Update Plot</source>
         <translation>Uppdatera Diagram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="755"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="772"/>
         <source>Create Plot</source>
         <translation>Skapa Diagram</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="762"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="779"/>
         <source>Plot in Columns</source>
         <translation>Diagram i Kolumner</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="772"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="789"/>
         <source>Type of Plot</source>
         <translation>Diagramtyp</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="810"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="827"/>
         <source>Export as image</source>
         <translation>Exportera som bild</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="829"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="846"/>
         <source>Export as html</source>
         <translation>Exportera som html</translation>
     </message>
     <message>
-        <location filename="dataplotly_dockwidget_base.ui" line="846"/>
+        <location filename="dataplotly_dockwidget_base.ui" line="863"/>
         <source>Live Update</source>
         <translation>Liveuppdatera</translation>
     </message>
     <message>
         <location filename="dataplotly_dockwidget_base.ui" line="696"/>
         <source>Invert Histogram Direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Invertera Histogramriktning</translation>
+    </message>
+    <message>
+        <location filename="dataplotly_dockwidget_base.ui" line="703"/>
+        <source>Bar gap</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
