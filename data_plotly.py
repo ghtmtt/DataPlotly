@@ -26,10 +26,14 @@ from PyQt5.QtWidgets import QAction
 
 # Initialize Qt resources from file resources.py
 from DataPlotly.resources import *
+
 # Import the code for the dialog
 from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
 import os.path
 
+# import processing provider
+from qgis.core import QgsApplication
+from .processing.dataplotly_provider import DataPlotlyProvider
 
 class DataPlotly:
     """QGIS Plugin Implementation."""
@@ -223,10 +227,9 @@ class DataPlotly:
             self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dockwidget)
             self.dockwidget.show()
 
-    def loadPlot(self, plot_dic):
+    def loadPlotFromDic(self, plot_dic):
         '''
         call the method to load the DataPlotly dialog with a given dictionary
         '''
-
-        self.dlg.showPlot(plot_dic)
+        self.dockwidget.showPlotFromDic(plot_dic)
         self.run()

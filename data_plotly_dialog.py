@@ -1099,16 +1099,19 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         except:
             iface.messageBar().pushMessage(self.tr("Please select a directory to save the plot"), level=QgsMessageBar.WARNING, duration=4)
 
-    def savePlotAsHtml(self):
+    def savePlotAsHtml(self, plot_file=None):
         '''
         save the plot as html local file. Basically just let the user choose
         where to save the already existing html file created by plotly
         '''
 
-        self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
+        if not output:
+            self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
+            self.plot_file = self.plot_file[0]
+        else:
+            self.plot_file = plot_file
 
-        self.plot_file = self.plot_file[0]
-        if self.plot_file:
+        if self.plot_file and not self.plot_file.endswith('.html'):
             self.plot_file += '.html'
 
         if self.plot_file:
@@ -1116,7 +1119,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
 
 
-    def showPlot(self, plot_input_dic):
+    def showPlotFromDic(self, plot_input_dic):
         '''
         Allows to call the plugin from the python console
 
@@ -1148,63 +1151,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         dq['plot_prop']['y'] = [i["some_field"] for i in vl.getFeatures()]
 
         # call the final method
-        myplugin.loadPlot(dq)
+        myplugin.loadPlotFromDic(dq)
         '''
-
-
         # keys of the nested plot_prop and layout_prop have to be the SAME of
         # those created in buildProperties and buildLayout method
-
-        # prepare the default dictionary with None values
-        # plot properties
-        plot_dic = {}
-        plot_dic["plot_type"]=None
-        plot_dic["layer"]=None
-        plot_dic["plot_prop"] = {}
-        plot_dic["plot_prop"]["x"]=None
-        plot_dic["plot_prop"]["y"]=None
-        plot_dic["plot_prop"]["z"]=None,
-        plot_dic["plot_prop"]["marker"]=None
-        plot_dic["plot_prop"]["featureIds"]=None
-        plot_dic["plot_prop"]["featureBox"]=None
-        plot_dic["plot_prop"]["custom"]=None
-        plot_dic["plot_prop"]["hover_text"]=None
-        plot_dic["plot_prop"]["additional_hover_text"]=None
-        plot_dic["plot_prop"]["x_name"]=None
-        plot_dic["plot_prop"]["y_name"]=None
-        plot_dic["plot_prop"]["z_name"]=None
-        plot_dic["plot_prop"]["in_color"]=None
-        plot_dic["plot_prop"]["out_color"]=None
-        plot_dic["plot_prop"]["marker_width"]=None
-        plot_dic["plot_prop"]["marker_size"]=None
-        plot_dic["plot_prop"]["marker_symbol"]=None
-        plot_dic["plot_prop"]["line_dash"]=None
-        plot_dic["plot_prop"]["box_orientation"]=None
-        plot_dic["plot_prop"]["opacity"]=None
-        plot_dic["plot_prop"]["box_stat"]=None
-        plot_dic["plot_prop"]["box_outliers"]=None
-        plot_dic["plot_prop"]["name"]=None
-        plot_dic["plot_prop"]["normalization"]=None
-        plot_dic["plot_prop"]["cont_type"]=None
-        plot_dic["plot_prop"]["color_scale"]=None
-        plot_dic["plot_prop"]["show_lines"]=None
-
-        # layout nested dictionary
-        plot_dic["layout_prop"] = {}
-        plot_dic["layout_prop"]['title']='Plot Title'
-        plot_dic["layout_prop"]['legend']=True
-        plot_dic["layout_prop"]["x_title"]=None
-        plot_dic["layout_prop"]["y_title"]=None
-        plot_dic["layout_prop"]["z_title"]=None
-        plot_dic["layout_prop"]["xaxis"] = None
-        plot_dic["layout_prop"]["bar_mode"]=None
-        plot_dic["layout_prop"]["x_type"]=None
-        plot_dic["layout_prop"]["y_type"]=None
-        plot_dic["layout_prop"]["x_inv"]=None
-        plot_dic["layout_prop"]["y_inv"]=None
-        plot_dic['layout_prop']["range_slider"] = {}
-        plot_dic['layout_prop']["range_slider"]["visible"] = False
-
 
         # set some dialog widget from the input dictionary
         # plot type in the plot_combo combobox
@@ -1218,29 +1168,24 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         try:
             self.layer_combo.setLayer(plot_input_dic["layer"])
-            self.x_combo.setField(plot_input_dic["plot_prop"]["x_name"])
-            self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
+            if 'x_name' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["x_name"]:
+                self.x_combo.setField(plot_input_dic["plot_prop"]["x_name"])
+            if 'y_name' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["y_name"]:
+                self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
+            if 'z_name' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["z_name"]:
+                self.z_combo.setField(plot_input_dic["plot_prop"]["z_name"])
         except:
             pass
 
-        # update the plot_prop
-        for k in plot_dic["plot_prop"]:
-            if k not in plot_input_dic["plot_prop"]:
-                plot_input_dic["plot_prop"][k] = plot_dic["plot_prop"][k]
-
-        # update the layout_prop
-        for k in plot_dic["layout_prop"]:
-            if k not in plot_input_dic["layout_prop"]:
-                plot_input_dic["layout_prop"][k] = plot_dic["layout_prop"][k]
-
-
-        # get the plot type from the input dictionary
-        plot_type=plot_input_dic['plot_type']
-
         # create Plot instance
-        plot_standalone = Plot(plot_type, plot_input_dic["plot_prop"], plot_input_dic["layout_prop"])
+        plot_standalone = Plot(
+            plot_input_dic['plot_type'],
+            plot_input_dic["plot_prop"],
+            plot_input_dic["layout_prop"]
+        )
 
         # initialize plot properties and build them
+        plot_standalone.buildTrace()
         plot_standalone.buildTrace()
 
         # initialize layout properties and build them
