@@ -49,6 +49,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
 
     INPUT = 'INPUT'
     PLOT_TYPE = 'PLOT_TYPE'
+    PLOT_TITLE = 'PLOT_TITLE'
     PLOT_TYPE_OPTIONS = ['bar', 'pie', 'scatter', 'histogram']
     XFIELD = 'XFIELD'
     YFIELD = 'YFIELD'
@@ -75,6 +76,13 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 self.PLOT_TYPE,
                 self.tr('Plot type'),
                 options=self.PLOT_TYPE_OPTIONS
+            )
+        )
+
+        self.addParameter(
+            QgsProcessingParameterString(
+                self.PLOT_TITLE,
+                self.tr('Plot title')
             )
         )
 
@@ -138,8 +146,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         plot_type = 'bar'
         plot_type_input = self.parameterAsInt(parameters, self.PLOT_TYPE, context)
         plot_type = self.PLOT_TYPE_OPTIONS[plot_type_input]
-        print(plot_type_input)
-        print(plot_type)
+        plot_title = self.parameterAsString(parameters, self.PLOT_TITLE, context)
         fields = layer.fields()
 
         # get field index for x
@@ -156,11 +163,15 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         # Build needed dictionary
         pdic = {}
         pdic['plot_type'] = plot_type
-        pdic['plot_prop'] = {}
-        pdic['layout_prop'] = {}
+        pdic['plot_prop'] = {
+            'x': x_var,
+            'y': y_var
+        }
+
+        pdic['layout_prop'] = {
+            'title': plot_title
+        }
         pdic['layer'] = layer
-        pdic['plot_prop']['x'] = x_var
-        pdic['plot_prop']['y'] = y_var
 
         # create Plot instance
         plot_instance = Plot(
