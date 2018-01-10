@@ -24,14 +24,16 @@ from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from DataPlotly.data_plotly_plot import *
 
 from qgis.utils import plugins
-from qgis.core import (QgsProcessingParameterFeatureSource,
-                       QgsProcessingParameterField,
-                       QgsProcessingParameterString,
-                       QgsProcessingParameterEnum,
-                       QgsProcessingUtils,
-                       QgsProcessingParameterFileDestination,
-                       QgsSettings,
-                       QgsFeatureRequest)
+from qgis.core import (
+    QgsProcessingParameterFeatureSource,
+    QgsProcessingParameterField,
+    QgsProcessingParameterString,
+    QgsProcessingParameterEnum,
+    QgsProcessingUtils,
+    QgsProcessingParameterFileDestination,
+    QgsSettings,
+    QgsFeatureRequest
+)
 
 from processing.tools import vector
 
@@ -82,7 +84,8 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         self.addParameter(
             QgsProcessingParameterString(
                 self.PLOT_TITLE,
-                self.tr('Plot title')
+                self.tr('Plot title'),
+                optional=True
             )
         )
 
@@ -154,11 +157,13 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         # get list of values for x
         x_var = [i[xfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxX]))]
         fieldTypeX = fields[idxX].type()
+        x_title = fields[idxX].alias() or xfieldname
 
         # get field index for y
         idxY = layer.fields().lookupField(yfieldname)
         # get list of values for y
         y_var = [i[yfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxY]))]
+        y_title = fields[idxY].alias() or yfieldname
 
         # Build needed dictionary
         pdic = {}
@@ -169,8 +174,11 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         }
 
         pdic['layout_prop'] = {
-            'title': plot_title
+            'title': plot_title or layer.sourceName(),
+            'x_title': x_title,
+            'y_title': y_title
         }
+
         pdic['layer'] = layer
 
         # create Plot instance
