@@ -25,15 +25,20 @@ from DataPlotly.data_plotly_plot import *
 
 from qgis.utils import plugins
 from qgis.core import (
+    QgsProcessingUtils,
+    QgsProcessingException,
+    QgsProcessingAlgorithm,
     QgsProcessingParameterFeatureSource,
     QgsProcessingParameterField,
     QgsProcessingParameterString,
     QgsProcessingParameterEnum,
-    QgsProcessingUtils,
     QgsProcessingParameterFileDestination,
+    QgsProcessingOutputHtml,
     QgsSettings,
     QgsFeatureRequest
+
 )
+from qgis.PyQt.QtCore import Qt, QCoreApplication
 
 from processing.tools import vector
 
@@ -52,9 +57,10 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
     INPUT = 'INPUT'
     PLOT_TYPE = 'PLOT_TYPE'
     PLOT_TITLE = 'PLOT_TITLE'
-    PLOT_TYPE_OPTIONS = ['bar', 'pie', 'scatter', 'histogram']
+    PLOT_TYPE_OPTIONS = ['scatter', 'box', 'bar', 'histogram', 'pie', '2dhistogram', 'polar', 'contour']
     XFIELD = 'XFIELD'
     YFIELD = 'YFIELD'
+    IN_COLOR = 'IN_COLOR'
     OUTPUT_HTML_FILE = 'OUTPUT_HTML_FILE'
     OUTPUT_JSON_FILE = 'OUTPUT_JSON_FILE'
 
@@ -63,6 +69,12 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         """Here we define the inputs and output of the algorithm, along
         with some other properties.
         """
+
+    @staticmethod
+    def tr(string, context=''):
+        if context == '':
+            context = 'Processing'
+        return QCoreApplication.translate(context, string)
 
     def initAlgorithm(self, config=None):
 
@@ -92,7 +104,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         self.addParameter(
             QgsProcessingParameterField(
                 self.XFIELD,
-                self.tr('X attribute'),
+                self.tr('X Field'),
                 parentLayerParameterName=self.INPUT,
                 type=QgsProcessingParameterField.Any
             )
@@ -101,9 +113,19 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         self.addParameter(
             QgsProcessingParameterField(
                 self.YFIELD,
-                self.tr('Y attribute'),
+                self.tr('Y Field'),
                 parentLayerParameterName=self.INPUT,
-                type=QgsProcessingParameterField.Any
+                type=QgsProcessingParameterField.Any,
+                optional=True
+            )
+        )
+
+        self.addParameter(
+            QgsProcessingParameterString(
+                self.IN_COLOR,
+                self.tr('Color'),
+                optional=True,
+                defaultValue='DodgerBlue'
             )
         )
 
@@ -113,7 +135,8 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 self.tr('HTML files (*.html)')
             )
         )
-        # no need to add an output for it, it is made automatically
+        # need to add an output for it to allow to see it in Processus results viewer
+        self.addOutput(QgsProcessingOutputHtml(self.OUTPUT_HTML_FILE, self.tr('Generic plot')))
 
         # Add an file to return a response in JSON format
         self.addParameter(
@@ -126,11 +149,11 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
 
     def name(self):
         # Unique (non-user visible) name of algorithm
-        return 'build_simple_plot'
+        return 'build_generic_plot'
 
     def displayName(self):
         # The name that the user will see in the toolbox
-        return self.tr('Build simple plot')
+        return self.tr('Build a generic plot')
 
     def group(self):
         return self.tr('Plots')
@@ -151,47 +174,66 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         plot_type = self.PLOT_TYPE_OPTIONS[plot_type_input]
         plot_title = self.parameterAsString(parameters, self.PLOT_TITLE, context)
         fields = layer.fields()
+        in_color = self.parameterAsString(parameters, self.IN_COLOR, context)
 
+        # Some controls
+        y_plot_types = ['scatter', 'box', 'bar', 'pie', '2dhistogram', 'polar', 'contour']
+        if plot_type in y_plot_types and not yfieldname:
+            msg = self.tr("The chosen plot type needs a Y field !")
+            raise QgsProcessingException(msg)
+
+        # Build needed dictionary
+        pdic = {}
+        pdic['plot_type'] = plot_type
+        pdic['plot_prop'] = {}
+
+        # Add X dimension
         # get field index for x
         idxX = layer.fields().lookupField(xfieldname)
         # get list of values for x
         x_var = [i[xfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxX]))]
         fieldTypeX = fields[idxX].type()
         x_title = fields[idxX].alias() or xfieldname
+        pdic['plot_prop']['x'] = x_var
 
-        # get field index for y
-        idxY = layer.fields().lookupField(yfieldname)
-        # get list of values for y
-        y_var = [i[yfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxY]))]
-        y_title = fields[idxY].alias() or yfieldname
+        # Add Y dimension
+        if plot_type in ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'contour']:
+            # get field index for y
+            idxY = layer.fields().lookupField(yfieldname)
+            # get list of values for y
+            y_var = [i[yfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxY]))]
+            y_title = fields[idxY].alias() or yfieldname
+            pdic['plot_prop']['y'] = y_var
 
-        # Build needed dictionary
-        pdic = {}
-        pdic['plot_type'] = plot_type
-        pdic['plot_prop'] = {
-            'x': x_var,
-            'y': y_var
-        }
 
+        # Draw only markers for scatter plot
+        if plot_type in ['scatter', 'polar']:
+            pdic['plot_prop']['marker'] = 'markers'
+
+        # Colours
+        pdic['plot_prop']['in_color'] = in_color or 'DodgerBlue'
+
+        # Add layout
         pdic['layout_prop'] = {
             'title': plot_title or layer.sourceName(),
             'x_title': x_title,
             'y_title': y_title
         }
 
+        # Add layer
         pdic['layer'] = layer
 
-        # create Plot instance
+        # Create plot instance
         plot_instance = Plot(
             pdic['plot_type'],
             pdic["plot_prop"],
             pdic["layout_prop"]
         )
 
-        # initialize plot properties and build them
+        # Initialize plot properties and build them
         trace = plot_instance.buildTrace()
 
-        # initialize layout properties and build them
+        # Initialize layout properties and build them
         layout = plot_instance.buildLayout()
 
         # Prepare results
