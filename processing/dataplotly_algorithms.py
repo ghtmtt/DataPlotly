@@ -66,6 +66,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
     YFIELD = 'YFIELD'
     IN_COLOR = 'IN_COLOR'
     IN_COLOR_OPTIONS = ['Black', 'Blue', 'Brown', 'Cyan', 'DarkBlue', 'Grey', 'Green', 'LightBlue', 'Lime', 'Magenta', 'Maroon', 'Olive', 'Orange', 'Purple', 'Red', 'Silver', 'White', 'Yellow']
+    IN_COLOR_HTML = 'IN_COLOR_HTML'
     OUTPUT_HTML_FILE = 'OUTPUT_HTML_FILE'
     OUTPUT_JSON_FILE = 'OUTPUT_JSON_FILE'
 
@@ -137,6 +138,14 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         )
 
         self.addParameter(
+            QgsProcessingParameterString(
+                self.IN_COLOR_HTML,
+                self.tr('Color (any valid HTML color) If set, this is used instead of the color set in the previous input.'),
+                optional=True
+            )
+        )
+
+        self.addParameter(
             QgsProcessingParameterFileDestination(self.OUTPUT_HTML_FILE,
                 self.tr('HTML File'),
                 self.tr('HTML files (*.html)')
@@ -190,6 +199,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
 
         in_color_input = self.parameterAsInt(parameters, self.IN_COLOR, context)
         in_color_hex = self.IN_COLOR_OPTIONS[in_color_input]
+        in_color_html = self.parameterAsString(parameters, self.IN_COLOR_HTML, context)
 
         # Some controls
         msg = []
@@ -231,7 +241,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
             pdic['plot_prop']['marker'] = 'markers'
 
         # Colours
-        pdic['plot_prop']['in_color'] = in_color_hex or 'Blue'
+        pdic['plot_prop']['in_color'] = in_color_html or in_color_hex or 'DodgerBlue'
 
         # Add layout
         pdic['layout_prop'] = {
