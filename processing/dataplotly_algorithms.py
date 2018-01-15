@@ -61,6 +61,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
     XFIELD = 'XFIELD'
     YFIELD = 'YFIELD'
     IN_COLOR = 'IN_COLOR'
+    IN_COLOR_OPTIONS = ['Black', 'Blue', 'Brown', 'Cyan', 'DarkBlue', 'Grey', 'Green', 'LightBlue', 'Lime', 'Magenta', 'Maroon', 'Olive', 'Orange', 'Purple', 'Red', 'Silver', 'White', 'Yellow']
     OUTPUT_HTML_FILE = 'OUTPUT_HTML_FILE'
     OUTPUT_JSON_FILE = 'OUTPUT_JSON_FILE'
 
@@ -121,11 +122,12 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         )
 
         self.addParameter(
-            QgsProcessingParameterString(
+            QgsProcessingParameterEnum(
                 self.IN_COLOR,
                 self.tr('Color'),
                 optional=True,
-                defaultValue='DodgerBlue'
+                defaultValue='Orange',
+                options=self.IN_COLOR_OPTIONS
             )
         )
 
@@ -165,16 +167,22 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         """
 
         layer = self.parameterAsSource(parameters, self.INPUT, context)
+        fields = layer.fields()
+
         xfieldname = self.parameterAsString(parameters, self.XFIELD, context)
         yfieldname = self.parameterAsString(parameters, self.YFIELD, context)
+
         outputHtmlFile = self.parameterAsFileOutput(parameters, self.OUTPUT_HTML_FILE, context)
         outputJsonFile = self.parameterAsFileOutput(parameters, self.OUTPUT_JSON_FILE, context)
+
         plot_type = 'bar'
         plot_type_input = self.parameterAsInt(parameters, self.PLOT_TYPE, context)
         plot_type = self.PLOT_TYPE_OPTIONS[plot_type_input]
+
         plot_title = self.parameterAsString(parameters, self.PLOT_TITLE, context)
-        fields = layer.fields()
-        in_color = self.parameterAsString(parameters, self.IN_COLOR, context)
+
+        in_color_input = self.parameterAsInt(parameters, self.IN_COLOR, context)
+        in_color_hex = self.IN_COLOR_OPTIONS[in_color_input]
 
         # Some controls
         y_plot_types = ['scatter', 'box', 'bar', 'pie', '2dhistogram', 'polar', 'contour']
@@ -211,7 +219,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
             pdic['plot_prop']['marker'] = 'markers'
 
         # Colours
-        pdic['plot_prop']['in_color'] = in_color or 'DodgerBlue'
+        pdic['plot_prop']['in_color'] = in_color_hex or 'Blue'
 
         # Add layout
         pdic['layout_prop'] = {

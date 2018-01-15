@@ -81,7 +81,7 @@ class Plot(object):
             'marker_symbol': None,
             'line_dash': None,
             'box_orientation': None,
-            'opacity': None,
+            'opacity': '0.8',
             'box_stat': None,
             'box_outliers': None,
             'name': None,
