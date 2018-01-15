@@ -38,6 +38,7 @@ from qgis.core import (
     QgsFeatureRequest
 
 )
+
 from qgis.PyQt.QtCore import Qt, QCoreApplication
 
 from processing.tools import vector
@@ -58,6 +59,8 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
     PLOT_TYPE = 'PLOT_TYPE'
     PLOT_TITLE = 'PLOT_TITLE'
     PLOT_TYPE_OPTIONS = ['scatter', 'box', 'bar', 'histogram', 'pie', '2dhistogram', 'polar', 'contour']
+    X_MANDATORY = ['scatter', 'bar', 'histogram', '2dhistogram', 'polar', 'contour']
+    Y_MANDATORY = ['scatter', 'box', 'bar', 'pie', '2dhistogram', 'polar', 'contour']
     XFIELD = 'XFIELD'
     YFIELD = 'YFIELD'
     IN_COLOR = 'IN_COLOR'
@@ -107,7 +110,8 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 self.XFIELD,
                 self.tr('X Field'),
                 parentLayerParameterName=self.INPUT,
-                type=QgsProcessingParameterField.Any
+                type=QgsProcessingParameterField.Any,
+                optional=True
             )
         )
 
@@ -185,9 +189,13 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         in_color_hex = self.IN_COLOR_OPTIONS[in_color_input]
 
         # Some controls
-        y_plot_types = ['scatter', 'box', 'bar', 'pie', '2dhistogram', 'polar', 'contour']
-        if plot_type in y_plot_types and not yfieldname:
-            msg = self.tr("The chosen plot type needs a Y field !")
+        msg = []
+        if plot_type in self.X_MANDATORY and not xfieldname:
+            msg.append(self.tr("The chosen plot type needs a X field !"))
+        if plot_type in self.Y_MANDATORY and not yfieldname:
+            msg.append(self.tr("The chosen plot type needs a Y field !"))
+        if msg:
+            feedback.reportError(' '.join(msg))
             raise QgsProcessingException(msg)
 
         # Build needed dictionary
@@ -196,16 +204,17 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         pdic['plot_prop'] = {}
 
         # Add X dimension
-        # get field index for x
-        idxX = layer.fields().lookupField(xfieldname)
-        # get list of values for x
-        x_var = [i[xfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxX]))]
-        fieldTypeX = fields[idxX].type()
-        x_title = fields[idxX].alias() or xfieldname
-        pdic['plot_prop']['x'] = x_var
+        if xfieldname:
+            # get field index for x
+            idxX = layer.fields().lookupField(xfieldname)
+            # get list of values for x
+            x_var = [i[xfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxX]))]
+            fieldTypeX = fields[idxX].type()
+            x_title = fields[idxX].alias() or xfieldname
+            pdic['plot_prop']['x'] = x_var
 
         # Add Y dimension
-        if plot_type in ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'contour']:
+        if yfieldname:
             # get field index for y
             idxY = layer.fields().lookupField(yfieldname)
             # get list of values for y
@@ -223,10 +232,12 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
 
         # Add layout
         pdic['layout_prop'] = {
-            'title': plot_title or layer.sourceName(),
-            'x_title': x_title,
-            'y_title': y_title
+            'title': plot_title or layer.sourceName()
         }
+        if plot_type in self.X_MANDATORY:
+            pdic['layout_prop']['x_title'] = x_title
+        if plot_type in self.Y_MANDATORY:
+            pdic['layout_prop']['y_title'] = y_title
 
         # Add layer
         pdic['layer'] = layer
