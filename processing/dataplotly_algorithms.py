@@ -34,6 +34,7 @@ from qgis.core import (
     QgsProcessingParameterEnum,
     QgsProcessingParameterFileDestination,
     QgsProcessingOutputHtml,
+    QgsProcessingOutputFile,
     QgsSettings,
     QgsFeatureRequest
 
@@ -151,6 +152,8 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 self.tr('JSON Files (*.json)')
             )
         )
+        # need to add an output for it to allow to see it in Processus results viewer
+        self.addOutput(QgsProcessingOutputFile(self.OUTPUT_JSON_FILE, self.tr('Dataplotly - Generic plot JSON output')))
 
 
     def name(self):
