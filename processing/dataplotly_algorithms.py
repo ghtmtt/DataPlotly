@@ -132,7 +132,6 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 self.IN_COLOR,
                 self.tr('Color'),
                 optional=True,
-                defaultValue='Orange',
                 options=self.IN_COLOR_OPTIONS
             )
         )
