@@ -58,6 +58,80 @@ class Plot(object):
 
     def __init__(self, plot_type, plot_properties, plot_layout):
 
+        # Define default plot dictionnary used as a basis for plot initilization
+        # prepare the default dictionary with None values
+        # plot properties
+        plotBaseProperties = {
+            'x': None,
+            'y': None,
+            'z': None,
+            'marker': None,
+            'featureIds': None,
+            'featureBox': None,
+            'custom': None,
+            'hover_text': None,
+            'additional_hover_text': None,
+            'x_name': None,
+            'y_name': None,
+            'z_name': None,
+            'in_color': None,
+            'out_color': None,
+            'marker_width': 1,
+            'marker_size': 10,
+            'marker_symbol': None,
+            'line_dash': None,
+            'box_orientation': 'v',
+            'opacity': None,
+            'box_stat': None,
+            'box_outliers': False,
+            'name': None,
+            'normalization': None,
+            'cont_type': None,
+            'color_scale': None,
+            'colorscale_in': None,
+            'show_lines': False,
+            'cumulative': False,
+            'show_colorscale_legend': False,
+            'invert_color_scale': False,
+            'invert_hist': False,
+            'bins': None
+        }
+
+        # layout nested dictionary
+        plotBaseLayout = {
+            'title': 'Plot Title',
+            'legend': True,
+            'legend_orientation': 'h',
+            'x_title': None,
+            'y_title': None,
+            'z_title': None,
+            'xaxis': None,
+            'bar_mode': None,
+            'x_type': None,
+            'y_type': None,
+            'x_inv': None,
+            'y_inv': None,
+            'range_slider': {'visible': False},
+            'bargaps': None
+        }
+        self.plotBaseDic = {
+            'plot_type': None,
+            'layer': None,
+            'plot_prop': plotBaseProperties,
+            'layout_prop': plotBaseLayout
+        }
+
+        # Set needed properties which are not yet set
+        # update the plot_prop
+        for k in self.plotBaseDic["plot_prop"]:
+            if k not in plot_properties:
+                plot_properties[k] = self.plotBaseDic["plot_prop"][k]
+        # update the layout_prop
+        for k in self.plotBaseDic["layout_prop"]:
+            if k not in plot_layout:
+                plot_layout[k] = self.plotBaseDic["layout_prop"][k]
+
+        # Set class properties
         self.plot_type = plot_type
         self.plot_properties = plot_properties
         self.plot_layout = plot_layout
