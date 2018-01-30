@@ -50,10 +50,10 @@ class Plot(object):
         polyfillpath = 'file:///'
         plotlypath = 'file:///'
         polyfillpath += os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
-        plotlypath += os.path.join(os.path.dirname(__file__), 'jsscripts/plotly-1.32.0.min.js')
+        plotlypath += os.path.join(os.path.dirname(__file__), 'jsscripts/plotly-1.33.1.min.js')
     else:
         polyfillpath = os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
-        plotlypath = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly-1.32.0.min.js')
+        plotlypath = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly-1.33.1.min.js')
 
 
     def __init__(self, plot_type, plot_properties, plot_layout):
