@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DataPlotly as Processing provider &mdash; DataPlotly 0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="DataPlotly 0 documentation" href="index.html"/>
+        <link rel="next" title="Call the plugin from the python console (BETA!)" href="from_console.html"/>
+        <link rel="prev" title="Contour Plot" href="contour.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DataPlotly
+          
+
+          
+            
+            <img src="../_static/icon.png" class="logo" />
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DataPlotly as Processing provider</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#activating-dataplotly-for-processing">Activating DataPlotly for Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simple-dataplotly-usage">Simple DataPlotly usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DataPlotly</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>DataPlotly as Processing provider</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/processing_provider.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dataplotly-as-processing-provider">
+<span id="processing"></span><h1>DataPlotly as Processing provider<a class="headerlink" href="#dataplotly-as-processing-provider" title="Permalink to this headline">¶</a></h1>
+<p>From version 1.4 DataPlotly has been added as Processing provider thank to the
+work of <a class="reference external" href="https://www.3liz.com/">Michaël Douchin of 3Liz</a>.</p>
+<p>This opens the doors to infinite possibilities:</p>
+<ul class="simple">
+<li>using all the Processing methods with DataPlotly</li>
+<li>creating batch plots with one click</li>
+<li>adding DataPlotly in the Processing Graphical Modeler</li>
+</ul>
+<div class="section" id="activating-dataplotly-for-processing">
+<h2>Activating DataPlotly for Processing<a class="headerlink" href="#activating-dataplotly-for-processing" title="Permalink to this headline">¶</a></h2>
+<p>First thing to do is activating Processing and add DataPlotly as provider.
+If not added by default you can go in <code class="docutils literal"><span class="pre">Settings</span> <span class="pre">-&gt;</span> <span class="pre">Options</span></code> and
+click on the last tab named Processing.</p>
+<p>Expand the Provider menu and activate the DataPlotly provider:</p>
+<a class="reference internal image-reference" href="../_images/processing_provider.png"><img alt="../_images/processing_provider.png" src="../_images/processing_provider.png" style="width: 960.0px; height: 540.0px;" /></a>
+<p>And then you will see the DataPltoly provider in the Processing Toolbox:</p>
+<a class="reference internal image-reference" href="../_images/processing_provider_active.png"><img alt="../_images/processing_provider_active.png" src="../_images/processing_provider_active.png" style="width: 960.0px; height: 540.0px;" /></a>
+</div>
+<div class="section" id="simple-dataplotly-usage">
+<h2>Simple DataPlotly usage<a class="headerlink" href="#simple-dataplotly-usage" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">Build</span> <span class="pre">a</span> <span class="pre">generic</span> <span class="pre">plot</span></code> algorithm is a simplified version of DataPlotly plugin:
+this means you don&#8217;t have all the customizations available, but still you can
+create awesome plots.</p>
+<p>The interface is very simple and the plot creation process is very straightforward:</p>
+<ul class="simple">
+<li>choose the layer</li>
+<li>choose the plot type</li>
+<li>adjust the additional options (plot title, X axis, Y axis and color)</li>
+</ul>
+<a class="reference internal image-reference" href="../_images/plot_configuration.png"><img alt="../_images/plot_configuration.png" src="../_images/plot_configuration.png" style="width: 521.5px; height: 392.0px;" /></a>
+<p>DataPlotly will create 2 results:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">html</span></code> file with the final plot</li>
+<li><code class="docutils literal"><span class="pre">json</span></code> file with all the plot specifications</li>
+</ul>
+<p>The plot can be opened in the <code class="docutils literal"><span class="pre">Processing</span> <span class="pre">-&gt;</span> <span class="pre">Result</span> <span class="pre">Viewer</span></code>:</p>
+<a class="reference internal image-reference" href="../_images/processing_result_viewer.png"><img alt="../_images/processing_result_viewer.png" src="../_images/processing_result_viewer.png" style="width: 960.0px; height: 540.0px;" /></a>
+<p>And by simple double clicking on the menu entry, the plot will be opened in your
+default browser:</p>
+<a class="reference internal image-reference" href="../_images/dataplotly_result.png"><img alt="../_images/dataplotly_result.png" src="../_images/dataplotly_result.png" style="width: 955.0px; height: 463.0px;" /></a>
+<p>If you want to save also the <code class="docutils literal"><span class="pre">json</span></code> file, you have to specify the path in the
+DataPlotly Processing Window.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="from_console.html" class="btn btn-neutral float-right" title="Call the plugin from the python console (BETA!)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="contour.html" class="btn btn-neutral" title="Contour Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Matteo Ghetta.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

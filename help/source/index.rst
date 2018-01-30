@@ -20,6 +20,7 @@ Welcome to DataPlotly's documentation!
    polar.rst
    ternary.rst
    contour.rst
+   processing_provider.rst
    from_console.rst
 
 Indices and tables
