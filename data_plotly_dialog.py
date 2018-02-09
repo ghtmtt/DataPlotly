@@ -31,7 +31,7 @@ from PyQt5.QtCore import QUrl, QFileInfo, QSettings, pyqtSignal
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
-from qgis.core import QgsNetworkAccessManager
+from qgis.core import QgsNetworkAccessManager, QgsVectorLayerUtils
 from qgis.utils import iface
 import plotly
 import plotly.graph_objs as go
@@ -287,7 +287,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         if self.size_defined_button.isActive():
             mark_size = self.size_defined_button.toProperty().expressionString()
-            self.marker_size_value = self.layer_combo.currentLayer().getValues(mark_size, selectedOnly=self.selected_feature_check.isChecked())[0]
+            self.marker_size_value = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), mark_size, selectedOnly=self.selected_feature_check.isChecked())[0]
         else:
             # self.marker_size.setEnabled(True)
             self.marker_size_value = self.marker_size.value()
@@ -300,7 +300,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         if self.in_color_defined_button.isActive():
             if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
                 in_color = self.in_color_defined_button.toProperty().expressionString()
-                self.in_color = self.layer_combo.currentLayer().getValues(in_color, selectedOnly=self.selected_feature_check.isChecked())[0]
+                self.in_color = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), in_color, selectedOnly=self.selected_feature_check.isChecked())[0]
             else:
                 self.in_color = hex_to_rgb(self.in_color_combo)
         else:
@@ -868,9 +868,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.ptype = self.plot_types2[self.plot_combo.currentText()]
 
         # shortcut to shorten the code in the following dictionary
-        xx = self.layer_combo.currentLayer().getValues(self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
-        yy = self.layer_combo.currentLayer().getValues(self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
-        zz = self.layer_combo.currentLayer().getValues(self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
+        xx = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.x_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
+        yy = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.y_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
+        zz = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.z_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0]
 
         # call the function that will clean the data from NULL values
         xx, yy, zz, = cleanData(xx, yy, zz)
@@ -891,7 +891,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             'featureBox':getSortedId(self.layer_combo.currentLayer(), xx),
             'custom':self.x_combo.currentText(),
             'hover_text':self.info_hover[self.info_combo.currentText()],
-            'additional_hover_text':self.layer_combo.currentLayer().getValues(self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
+            'additional_hover_text':QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             'x_name':self.x_combo.currentText(),
             'y_name':self.y_combo.currentText(),
             'z_name':self.z_combo.currentText(),
@@ -1022,7 +1022,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
             except:
                 iface.messageBar().pushMessage(self.tr("Plot types are not comapatible for subplotting"),
-                             level=QgsMessageBar.CRITICAL, duration=3)
+                             Qgis.MessageLevel(2), duration=3)
                 return
 
         # connect to simple function that reloads the view
@@ -1095,9 +1095,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             painter.end()
             if self.plot_file:
                 image.save(self.plot_file)
-                iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+                iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
         except:
-            iface.messageBar().pushMessage(self.tr("Please select a directory to save the plot"), level=QgsMessageBar.WARNING, duration=4)
+            iface.messageBar().pushMessage(self.tr("Please select a directory to save the plot"), Qgis.MessageLevel(1), duration=4)
 
     def savePlotAsHtml(self, plot_file=None):
         '''
@@ -1116,7 +1116,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         if self.plot_file:
             copyfile(self.plot_path, self.plot_file)
-            iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), level=QgsMessageBar.INFO, duration=2)
+            iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
 
 
     def showPlotFromDic(self, plot_input_dic):
