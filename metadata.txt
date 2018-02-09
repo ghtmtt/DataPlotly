@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=2.99
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=1.4
+version=1.4.1
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,8 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 1.4.1
+  - [bugfixing] adaptation for new API
   Version 1.4
   - [feature] update plotly.js to v 1.33.1
   - [feature] multiple selection with Shift + selection tool
