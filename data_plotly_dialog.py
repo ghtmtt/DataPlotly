@@ -1105,10 +1105,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         where to save the already existing html file created by plotly
         '''
 
-        if not output:
+        try:
             self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
             self.plot_file = self.plot_file[0]
-        else:
+        except:
             self.plot_file = plot_file
 
         if self.plot_file and not self.plot_file.endswith('.html'):
