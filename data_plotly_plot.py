@@ -572,7 +572,7 @@ class Plot(object):
             dd["type"] = data.points[i].data.type
             dd["field"] = data.points[i].data.customdata
 
-                // correct axis orientation
+                // correct axis orientation (for violin is viceversa)
                 if(data.points[i].data.orientation == 'v'){
                     dd["id"] = data.points[i].y
                 }
