@@ -351,6 +351,15 @@ class Plot(object):
                 opacity=self.plot_properties['opacity']
             )]
 
+        elif self.plot_type == 'violin':
+
+            self.trace = [go.Violin(
+                x=self.plot_properties['x'],
+                y=self.plot_properties['y'],
+                name=self.plot_properties['name'],
+                customdata=self.plot_properties['custom'],
+                )]
+
         return self.trace
 
     def buildLayout(self):
@@ -554,6 +563,21 @@ class Plot(object):
                 }
                 else {
                     dd["id"] = data.points[i].y
+                }
+            }
+
+        // violin plot
+        else if(data.points[i].data.type == 'violin'){
+            dd["uid"] = data.points[i].data.uid
+            dd["type"] = data.points[i].data.type
+            dd["field"] = data.points[i].data.customdata
+
+                // correct axis orientation
+                if(data.points[i].data.orientation == 'v'){
+                    dd["id"] = data.points[i].y
+                }
+                else {
+                    dd["id"] = data.points[i].x
                 }
             }
 
