@@ -175,6 +175,9 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
     def group(self):
         return self.tr('Plots')
 
+    def groupId(self):
+        return self.tr('plots')
+
     def processAlgorithm(self, parameters, context, feedback):
         """
         :param parameters:
