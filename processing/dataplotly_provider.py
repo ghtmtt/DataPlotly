@@ -83,6 +83,9 @@ class DataPlotlyProvider(QgsProcessingProvider):
         """
         return 'DataPlotly'
 
+    def longName(self):
+        return 'DataPlotly'
+
     def icon(self):
         """We return the default icon.
         """

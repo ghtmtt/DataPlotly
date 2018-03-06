@@ -48,8 +48,13 @@ class DataPlotly:
         """
         # Save reference to the QGIS interface
         self.iface = iface
+
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
+
+        # initialize processing provider
+        self.provider = DataPlotlyProvider()
+
         # initialize locale
         locale = QSettings().value('locale/userLocale')[0:2]
         locale_path = os.path.join(
@@ -177,6 +182,9 @@ class DataPlotly:
             callback=self.run,
             parent=self.iface.mainWindow())
 
+        # Add processing provider
+        QgsApplication.processingRegistry().addProvider(self.provider)
+
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
 
@@ -202,6 +210,9 @@ class DataPlotly:
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
         del self.toolbar
+
+        # Remove processing provider
+        QgsApplication.processingRegistry().removeProvider(self.provider)
 
 
     def run(self):
