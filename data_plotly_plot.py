@@ -353,11 +353,25 @@ class Plot(object):
 
         elif self.plot_type == 'violin':
 
+            # flip the variables according to the box orientation
+            if self.plot_properties['box_orientation'] == 'h':
+                self.plot_properties['x'], self.plot_properties['y'] = self.plot_properties['y'], self.plot_properties['x']
+
             self.trace = [go.Violin(
                 x=self.plot_properties['x'],
                 y=self.plot_properties['y'],
                 name=self.plot_properties['name'],
                 customdata=self.plot_properties['custom'],
+                orientation=self.plot_properties['box_orientation'],
+                fillcolor=self.plot_properties['in_color'],
+                line=dict(
+                    color=self.plot_properties['out_color'],
+                    width=self.plot_properties['marker_width']
+                ),
+                opacity=self.plot_properties['opacity'],
+                meanline=dict(
+                    visible=True
+                ),
                 )]
 
         return self.trace

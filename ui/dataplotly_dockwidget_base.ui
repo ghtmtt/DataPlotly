@@ -460,12 +460,19 @@ QListWidget::item::selected {
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-194</y>
                  <width>475</width>
                  <height>657</height>
                 </rect>
                </property>
                <layout class="QGridLayout" name="gridLayout_25">
+                <item row="4" column="0" rowspan="2">
+                 <widget class="QLabel" name="y_axis_label">
+                  <property name="text">
+                   <string>Y Label</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="17" column="1" colspan="2">
                  <widget class="QComboBox" name="outliers_combo"/>
                 </item>
@@ -486,13 +493,6 @@ QListWidget::item::selected {
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="1">
-                 <widget class="QLabel" name="x_axis_mode_label">
-                  <property name="text">
-                   <string>X Axis Mode</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="21" column="0" colspan="3">
                  <spacer name="verticalSpacer_6">
                   <property name="orientation">
@@ -505,6 +505,13 @@ QListWidget::item::selected {
                    </size>
                   </property>
                  </spacer>
+                </item>
+                <item row="10" column="1">
+                 <widget class="QLabel" name="x_axis_mode_label">
+                  <property name="text">
+                   <string>X Axis Mode</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="11" column="2">
                  <widget class="QComboBox" name="y_axis_mode_combo"/>
@@ -579,13 +586,6 @@ QListWidget::item::selected {
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0" rowspan="2">
-                 <widget class="QLabel" name="y_axis_label">
-                  <property name="text">
-                   <string>Y Label</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="2">
                  <widget class="QCheckBox" name="range_slider_combo">
                   <property name="text">
@@ -637,15 +637,15 @@ QListWidget::item::selected {
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="1" colspan="2">
-                 <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
-                </item>
                 <item row="6" column="0">
                  <widget class="QLabel" name="z_axis_label">
                   <property name="text">
                    <string>Z Label</string>
                   </property>
                  </widget>
+                </item>
+                <item row="8" column="1" colspan="2">
+                 <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
                 </item>
                 <item row="19" column="1">
                  <widget class="QSpinBox" name="bins_value">
