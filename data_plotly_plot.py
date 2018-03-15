@@ -502,19 +502,7 @@ class Plot(object):
         dd["fidd"] = data.points[0].id
         dd["mode"] = 'clicking'
 
-        // pie plot with different js data structure
-        try {
-
-        if(data.points.trace.type == 'pie'){
-        dd["label"] = data.points[0].label
-        dd["type"] = data.points.trace.type
-        dd["field"] = data.points.trace.name
-            }
-        }
-
-        // all other plots with standard js data structure
-        catch(err){
-
+        // loop and create dictionary depending on plot type
         for(var i=0; i < data.points.length; i++){
 
         // scatter plot
@@ -525,6 +513,16 @@ class Plot(object):
             data.points.forEach(function(pt){
             dd["fid"] = pt.id
             })
+        }
+
+        // pie
+
+        else if(data.points[i].data.type == 'pie'){
+          dd["type"] = data.points[i].data.type
+          dd["label"] = data.points[i].label
+          dd["field"] = data.points[i].data.name
+          console.log(data.points[i].label)
+          console.log(data.points[i])
         }
 
         // histogram
@@ -583,7 +581,6 @@ class Plot(object):
             }
 
             }
-        }
         window.status = JSON.stringify(dd)
         });
         </script>'''
