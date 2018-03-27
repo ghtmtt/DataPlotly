@@ -107,7 +107,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.svg')), self.tr('Polar Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterternary.svg')), self.tr('Ternary Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/contour.svg')), self.tr('Contour Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/contour.svg')), self.tr('Violin Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/violin.svg')), self.tr('Violin Plot')),
         ])
 
         self.plot_types2 = OrderedDict([
