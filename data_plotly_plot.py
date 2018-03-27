@@ -351,6 +351,31 @@ class Plot(object):
                 opacity=self.plot_properties['opacity']
             )]
 
+        elif self.plot_type == 'violin':
+
+            # flip the variables according to the box orientation
+            if self.plot_properties['box_orientation'] == 'h':
+                self.plot_properties['x'], self.plot_properties['y'] = self.plot_properties['y'], self.plot_properties['x']
+
+            self.trace = [go.Violin(
+                x=self.plot_properties['x'],
+                y=self.plot_properties['y'],
+                name=self.plot_properties['name'],
+                customdata=self.plot_properties['custom'],
+                orientation=self.plot_properties['box_orientation'],
+                points=self.plot_properties['box_outliers'],
+                fillcolor=self.plot_properties['in_color'],
+                line=dict(
+                    color=self.plot_properties['out_color'],
+                    width=self.plot_properties['marker_width']
+                ),
+                opacity=self.plot_properties['opacity'],
+                meanline=dict(
+                    visible=self.plot_properties['show_mean_line']
+                ),
+                side=self.plot_properties['violin_side']
+                )]
+
         return self.trace
 
     def buildLayout(self):
@@ -549,6 +574,21 @@ class Plot(object):
             dd["field"] = data.points[i].data.customdata
 
                 // correct axis orientation
+                if(data.points[i].data.orientation == 'v'){
+                    dd["id"] = data.points[i].x
+                }
+                else {
+                    dd["id"] = data.points[i].y
+                }
+            }
+
+        // violin plot
+        else if(data.points[i].data.type == 'violin'){
+            dd["uid"] = data.points[i].data.uid
+            dd["type"] = data.points[i].data.type
+            dd["field"] = data.points[i].data.customdata
+
+                // correct axis orientation (for violin is viceversa)
                 if(data.points[i].data.orientation == 'v'){
                     dd["id"] = data.points[i].x
                 }

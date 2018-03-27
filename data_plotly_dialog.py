@@ -107,6 +107,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.svg')), self.tr('Polar Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterternary.svg')), self.tr('Ternary Plot')),
             (QIcon(os.path.join(os.path.dirname(__file__), 'icons/contour.svg')), self.tr('Contour Plot')),
+            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/contour.svg')), self.tr('Violin Plot')),
         ])
 
         self.plot_types2 = OrderedDict([
@@ -119,6 +120,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             (self.tr('Polar Plot'), 'polar'),
             (self.tr('Ternary Plot'), 'ternary'),
             (self.tr('Contour Plot'), 'contour'),
+            (self.tr('Violin Plot'), 'violin'),
         ])
 
         self.plot_combo.clear()
@@ -380,6 +382,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                    # print(exp)
         except:
             pass
 
@@ -473,7 +476,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         for k, v in self.orientation_box.items():
             self.orientation_combo.addItem(k, v)
 
-        # BoxPlot outliers
+        # BoxPlot and Violin outliers
         self.outliers_combo.clear()
         self.outliers_dict = OrderedDict([
             (self.tr('No Outliers'), False),
@@ -669,38 +672,49 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         for k, v in self.info_hover.items():
             self.info_combo.addItem(k, v)
 
+        # Violin side
+        self.violin_side = OrderedDict([
+            (self.tr('Both Sides'), 'both'),
+            (self.tr('Only Left'), 'negative'),
+            (self.tr('Only right'), 'positive')
+        ])
+        self.violinSideCombo.clear()
+        for k, v in self.violin_side.items():
+            self.violinSideCombo.addItem(k, v)
+
+
         # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
             # plot properties
             self.layer_combo: ['all'],
             self.x_label: ['all'],
             self.x_combo: ['all'],
-            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour'],
-            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour'],
+            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin'],
+            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin'],
             self.z_label: ['ternary'],
             self.z_combo: ['ternary'],
             self.info_label: ['scatter'],
             self.info_combo: ['scatter'],
-            self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.in_color_defined_button: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
-            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_size_lab: ['scatter', 'polar', 'ternary'],
             self.marker_size: ['scatter', 'polar', 'ternary'],
             self.size_defined_button: ['scatter', 'ternary'],
             self.marker_type_lab: ['scatter'],
             self.marker_type_combo: ['scatter'],
-            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.alpha_slid: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.alpha_num: ['scatter', 'bar', 'box', 'histogram', 'ternary'],
-            self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram'],
+            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.alpha_slid: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.alpha_num: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'violin'],
+            self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram', 'violin'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
             self.legend_label: ['all'],
@@ -732,12 +746,13 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.y_axis_mode_combo: ['scatter', 'box'],
             self.invert_x_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
             self.invert_y_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
-            self.orientation_label: ['bar', 'box', 'histogram'],
-            self.orientation_combo: ['bar', 'box', 'histogram'],
+            self.orientation_label: ['bar', 'box', 'histogram', 'violin'],
+            self.orientation_combo: ['bar', 'box', 'histogram', 'violin'],
             self.box_statistic_label: ['box'],
             self.box_statistic_combo: ['box'],
-            self.outliers_label: ['box'],
-            self.outliers_combo: ['box'],
+            self.outliers_label: ['box', 'violin'],
+            self.outliers_combo: ['box', 'violin'],
+            self.showMeanCheck: ['violin'],
             self.range_slider_combo: ['scatter'],
             self.hist_norm_label: ['histogram'],
             self.hist_norm_combo: ['histogram'],
@@ -748,7 +763,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.bins_check: ['histogram'],
             self.bins_value: ['histogram'],
             self.bar_gap_label: ['histogram'],
-            self.bar_gap: ['histogram']
+            self.bar_gap: ['histogram'],
+            self.violinSideLabel: ['violin'],
+            self.violinSideCombo: ['violin'],
         }
 
         # enable the widget according to the plot type
@@ -916,7 +933,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             'show_lines':self.show_lines_check.isChecked(),
             'cumulative':self.cumulative_hist_check.isChecked(),
             'invert_hist':self.invert_hist,
-            'bins':self.bin_val
+            'bins':self.bin_val,
+            'show_mean_line':self.showMeanCheck.isChecked(),
+            'violin_side':self.violin_side[self.violinSideCombo.currentText()]
         }
 
         # define the legend orientation
