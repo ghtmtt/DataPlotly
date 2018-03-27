@@ -363,6 +363,7 @@ class Plot(object):
                 name=self.plot_properties['name'],
                 customdata=self.plot_properties['custom'],
                 orientation=self.plot_properties['box_orientation'],
+                points=self.plot_properties['box_outliers'],
                 fillcolor=self.plot_properties['in_color'],
                 line=dict(
                     color=self.plot_properties['out_color'],
@@ -370,8 +371,9 @@ class Plot(object):
                 ),
                 opacity=self.plot_properties['opacity'],
                 meanline=dict(
-                    visible=True
+                    visible=self.plot_properties['show_mean_line']
                 ),
+                side=self.plot_properties['violin_side']
                 )]
 
         return self.trace

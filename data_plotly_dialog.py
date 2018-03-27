@@ -476,7 +476,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         for k, v in self.orientation_box.items():
             self.orientation_combo.addItem(k, v)
 
-        # BoxPlot outliers
+        # BoxPlot and Violin outliers
         self.outliers_combo.clear()
         self.outliers_dict = OrderedDict([
             (self.tr('No Outliers'), False),
@@ -672,6 +672,17 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         for k, v in self.info_hover.items():
             self.info_combo.addItem(k, v)
 
+        # Violin side
+        self.violin_side = OrderedDict([
+            (self.tr('Both Sides'), 'both'),
+            (self.tr('Only Left'), 'negative'),
+            (self.tr('Only right'), 'positive')
+        ])
+        self.violinSideCombo.clear()
+        for k, v in self.violin_side.items():
+            self.violinSideCombo.addItem(k, v)
+
+
         # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
             # plot properties
@@ -691,10 +702,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
-            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
-            self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary'],
+            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_size_lab: ['scatter', 'polar', 'ternary'],
             self.marker_size: ['scatter', 'polar', 'ternary'],
             self.size_defined_button: ['scatter', 'ternary'],
@@ -739,8 +750,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.orientation_combo: ['bar', 'box', 'histogram', 'violin'],
             self.box_statistic_label: ['box'],
             self.box_statistic_combo: ['box'],
-            self.outliers_label: ['box'],
-            self.outliers_combo: ['box'],
+            self.outliers_label: ['box', 'violin'],
+            self.outliers_combo: ['box', 'violin'],
+            self.showMeanCheck: ['violin'],
             self.range_slider_combo: ['scatter'],
             self.hist_norm_label: ['histogram'],
             self.hist_norm_combo: ['histogram'],
@@ -751,7 +763,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.bins_check: ['histogram'],
             self.bins_value: ['histogram'],
             self.bar_gap_label: ['histogram'],
-            self.bar_gap: ['histogram']
+            self.bar_gap: ['histogram'],
+            self.violinSideLabel: ['violin'],
+            self.violinSideCombo: ['violin'],
         }
 
         # enable the widget according to the plot type
@@ -919,7 +933,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             'show_lines':self.show_lines_check.isChecked(),
             'cumulative':self.cumulative_hist_check.isChecked(),
             'invert_hist':self.invert_hist,
-            'bins':self.bin_val
+            'bins':self.bin_val,
+            'show_mean_line':self.showMeanCheck.isChecked(),
+            'violin_side':self.violin_side[self.violinSideCombo.currentText()]
         }
 
         # define the legend orientation
