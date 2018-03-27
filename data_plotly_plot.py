@@ -588,10 +588,10 @@ class Plot(object):
 
                 // correct axis orientation (for violin is viceversa)
                 if(data.points[i].data.orientation == 'v'){
-                    dd["id"] = data.points[i].y
+                    dd["id"] = data.points[i].x
                 }
                 else {
-                    dd["id"] = data.points[i].x
+                    dd["id"] = data.points[i].y
                 }
             }
 
