@@ -382,7 +382,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
-                    print(exp)
+                    # print(exp)
         except:
             pass
 
