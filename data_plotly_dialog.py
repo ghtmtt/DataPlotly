@@ -26,7 +26,7 @@ import json
 
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QFont, QIcon, QImage, QPainter
+from PyQt5.QtGui import QFont, QIcon, QImage, QPainter, QColor
 from PyQt5.QtCore import QUrl, QFileInfo, QSettings, pyqtSignal
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
@@ -216,6 +216,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # connect the plot changing to the color data defined buttons
         self.plot_combo.currentIndexChanged.connect(self.resfreshColorDefined)
+
+        # better default colors
+        self.in_color_combo.setColor(QColor('#8EBAD9'))
+        self.out_color_combo.setColor(QColor('#1F77B4'))
 
     def updateStacked(self, row):
         '''
