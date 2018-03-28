@@ -713,8 +713,8 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.marker_size_lab: ['scatter', 'polar', 'ternary'],
             self.marker_size: ['scatter', 'polar', 'ternary'],
             self.size_defined_button: ['scatter', 'ternary'],
-            self.marker_type_lab: ['scatter'],
-            self.marker_type_combo: ['scatter'],
+            self.marker_type_lab: ['scatter', 'polar'],
+            self.marker_type_combo: ['scatter', 'polar'],
             self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.alpha_slid: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.alpha_num: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'violin'],
@@ -723,10 +723,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.bar_mode_combo: ['bar', 'histogram'],
             self.legend_label: ['all'],
             self.legend_title: ['all'],
-            self.point_lab: ['scatter', 'ternary'],
-            self.point_combo: ['scatter', 'ternary'],
-            self.line_lab: ['scatter'],
-            self.line_combo: ['scatter'],
+            self.point_lab: ['scatter', 'ternary', 'polar'],
+            self.point_combo: ['scatter', 'ternary', 'polar'],
+            self.line_lab: ['scatter', 'polar'],
+            self.line_combo: ['scatter', 'polar'],
             self.color_scale_label: ['contour', '2dhistogram'],
             self.color_scale_combo: ['contour', '2dhistogram'],
             self.contour_type_label: ['contour'],
@@ -1044,8 +1044,8 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
                     self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
             except:
-                iface.messageBar().pushMessage(self.tr("Plot types are not comapatible for subplotting"),
-                             Qgis.MessageLevel(2), duration=3)
+                iface.messageBar().pushMessage(self.tr("{} plot is not comapatible for subplotting".format(self.ptype)),
+                             Qgis.MessageLevel(2), duration=5)
                 return
 
         # connect to simple function that reloads the view

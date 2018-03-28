@@ -282,14 +282,14 @@ class Plot(object):
 
         elif self.plot_type == 'polar':
 
-            self.trace = [go.Scatter(
+            self.trace = [go.Scatterpolar(
                 r=self.plot_properties['x'],
-                t=self.plot_properties['y'],
+                theta=self.plot_properties['y'],
                 mode=self.plot_properties['marker'],
                 name=self.plot_properties['y_name'],
                 marker=dict(
                     color=self.plot_properties['in_color'],
-                    size=self.plot_properties['marker_size'] + 100,
+                    size=self.plot_properties['marker_size'],
                     symbol=self.plot_properties['marker_symbol'],
                     line=dict(
                         color=self.plot_properties['out_color'],
