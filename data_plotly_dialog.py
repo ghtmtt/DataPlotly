@@ -638,7 +638,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # according to the plot type, change the label names
 
         # BoxPlot
-        if self.ptype == 'box':
+        if self.ptype == 'box' or self.ptype == 'violin':
             self.x_label.setText(self.tr('Grouping Field\n(Optional)'))
             # set the horizontal and vertical size of the label and reduce the label font size
             ff = QFont()
