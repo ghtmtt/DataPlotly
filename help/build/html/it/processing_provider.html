@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="it" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="it" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Indice"
-              href="genindex.html"/>
-        <link rel="search" title="Cerca" href="search.html"/>
-    <link rel="top" title="DataPlotly 0 documentazione" href="index.html"/>
-        <link rel="next" title="Usare il plugin da console (BETA!)" href="from_console.html"/>
-        <link rel="prev" title="Grafico a contorno" href="contour.html"/> 
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Usare il plugin da console (BETA!)" href="from_console.html" />
+    <link rel="prev" title="Grafico a violino" href="violin.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -61,7 +54,7 @@
 
           
             
-            <img src="../_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -98,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour.html">Grafico a contorno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Grafico a violino</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">DataPlotly come provider di Processing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#activating-dataplotly-for-processing">Attivare DataPlotly per Processing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#simple-dataplotly-usage">uso semplice di DataPlotly</a></li>
@@ -115,7 +109,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">DataPlotly</a>
@@ -123,9 +117,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -155,7 +150,7 @@
         
             
             
-              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/processing_provider.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ghtmtt/DataPlotly//master/help/source/processing_provider.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -174,12 +169,9 @@
 <p>Dalla versione 1.4, DataPlotly può essere usato come provider di Processing grazie al lavoro di <a class="reference external" href="https://www.3liz.com/">Michaël Douchin of 3Liz</a>.</p>
 <p>Questa funzione apre le porte ad infinite possibilità:</p>
 <ul class="simple">
-<li><p class="first">usare tutte le funzioni di Processing con DataPlotly</p>
-</li>
-<li><p class="first">creare grafici in serie con un semplice click</p>
-</li>
-<li><p class="first">aggiungere DataPlotly al modellatore grafico di Processing</p>
-</li>
+<li>usare tutte le funzioni di Processing con DataPlotly</li>
+<li>creare grafici in serie con un semplice click</li>
+<li>aggiungere DataPlotly al modellatore grafico di Processing</li>
 </ul>
 <div class="section" id="activating-dataplotly-for-processing">
 <h2>Attivare DataPlotly per Processing<a class="headerlink" href="#activating-dataplotly-for-processing" title="Link a questa intestazione">¶</a></h2>
@@ -191,37 +183,30 @@
 </div>
 <div class="section" id="simple-dataplotly-usage">
 <h2>uso semplice di DataPlotly<a class="headerlink" href="#simple-dataplotly-usage" title="Link a questa intestazione">¶</a></h2>
-<p>L&#8217;algoritmo <code class="docutils literal"><span class="pre">Crea</span> <span class="pre">un</span> <span class="pre">grafico</span> <span class="pre">generico</span></code> è una versione semplificata di DataPlotly: questo significa che non saranno disponibili tutte le personalizzazioni, ma si possono comunque creare grafici fantastici.</p>
-<p>L&#8217;interfaccia è molto semplice e la creazione di un grafico è altrettanto facile:</p>
+<p>L’algoritmo <code class="docutils literal notranslate"><span class="pre">Crea</span> <span class="pre">un</span> <span class="pre">grafico</span> <span class="pre">generico</span></code> è una versione semplificata di DataPlotly: questo significa che non saranno disponibili tutte le personalizzazioni, ma si possono comunque creare grafici fantastici.</p>
+<p>L’interfaccia è molto semplice e la creazione di un grafico è altrettanto facile:</p>
 <ul class="simple">
-<li><p class="first">scegli il vettore</p>
-</li>
-<li><p class="first">scegli il tipo di grafico</p>
-</li>
-<li><p class="first">scegli le opzioni aggiuntive (titolo, asse X, asse Y e colore)</p>
-</li>
+<li>scegli il vettore</li>
+<li>scegli il tipo di grafico</li>
+<li>scegli le opzioni aggiuntive (titolo, asse X, asse Y e colore)</li>
 </ul>
 <a class="reference internal image-reference" href="../_images/plot_configuration.png"><img alt="../_images/plot_configuration.png" src="../_images/plot_configuration.png" style="width: 521.5px; height: 392.0px;" /></a>
 <p>Si ottengono 2 risultati:</p>
 <ul class="simple">
-<li><p class="first">file <code class="docutils literal"><span class="pre">html</span></code> del grafico</p>
-</li>
-<li><p class="first">file <code class="docutils literal"><span class="pre">json</span></code> con tutte le specifiche del grafico</p>
-</li>
+<li>file <code class="docutils literal notranslate"><span class="pre">html</span></code> del grafico</li>
+<li>file <code class="docutils literal notranslate"><span class="pre">json</span></code> con tutte le specifiche del grafico</li>
 </ul>
-<p>Il grafico è caricato in <code class="docutils literal"><span class="pre">Processing</span> <span class="pre">-&gt;</span> <span class="pre">Visualizzatore</span> <span class="pre">risultati</span></code>:</p>
+<p>Il grafico è caricato in <code class="docutils literal notranslate"><span class="pre">Processing</span> <span class="pre">-&gt;</span> <span class="pre">Visualizzatore</span> <span class="pre">risultati</span></code>:</p>
 <a class="reference internal image-reference" href="../_images/processing_result_viewer.png"><img alt="../_images/processing_result_viewer.png" src="../_images/processing_result_viewer.png" style="width: 960.0px; height: 540.0px;" /></a>
 <p>Con un semplice doppio click sulla voce del menu il grafico si aprirà nel browser predefinito:</p>
 <a class="reference internal image-reference" href="../_images/dataplotly_result.png"><img alt="../_images/dataplotly_result.png" src="../_images/dataplotly_result.png" style="width: 955.0px; height: 463.0px;" /></a>
-<p>Se vuoi salvare anche il file <code class="docutils literal"><span class="pre">json</span></code> devi specificare un percorso preciso nella finestra dell&#8217;algoritmo.</p>
+<p>Se vuoi salvare anche il file <code class="docutils literal notranslate"><span class="pre">json</span></code> devi specificare un percorso preciso nella finestra dell’algoritmo.</p>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -230,7 +215,7 @@
         <a href="from_console.html" class="btn btn-neutral float-right" title="Usare il plugin da console (BETA!)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="contour.html" class="btn btn-neutral" title="Grafico a contorno" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="violin.html" class="btn btn-neutral" title="Grafico a violino" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -243,7 +228,7 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -262,6 +247,7 @@
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0',
+            LANGUAGE:'it',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -280,14 +266,13 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

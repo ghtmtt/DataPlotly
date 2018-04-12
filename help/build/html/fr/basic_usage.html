@@ -1,14 +1,14 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DataPlotly Basic Usage &mdash; documentation DataPlotly 0</title>
+  <title>DataPlotly Basic Usage &mdash; Documentation DataPlotly 0</title>
   
 
   
@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Recherche" href="search.html"/>
-    <link rel="top" title="documentation DataPlotly 0" href="index.html"/>
-        <link rel="next" title="Scatter Plot" href="scatter.html"/>
-        <link rel="prev" title="Data Plotly" href="intro.html"/> 
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Scatter Plot" href="scatter.html" />
+    <link rel="prev" title="Data Plotly" href="intro.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -61,7 +54,7 @@
 
           
             
-            <img src="../_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -113,6 +106,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Violin Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_provider.html">DataPlotly as Processing provider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
 </ul>
@@ -126,7 +120,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">DataPlotly</a>
@@ -134,9 +128,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -166,7 +161,7 @@
         
             
             
-              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/basic_usage.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ghtmtt/DataPlotly//master/help/source/basic_usage.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -184,11 +179,11 @@
 <span id="basic-usage"></span><h1>DataPlotly Basic Usage<a class="headerlink" href="#dataplotly-basic-usage" title="Lien permanent vers ce titre">¶</a></h1>
 <p>DataPlotly interface has been designed in order to be simple but, at the same time,
 complete and with many options and customizations available.</p>
-<p>Creating a plot is just easy as it sounds: choose the plot type, <code class="docutils literal"><span class="pre">x</span></code> and <code class="docutils literal"><span class="pre">y</span></code>
-columns, colors, labels, etc and press the <code class="docutils literal"><span class="pre">Create</span> <span class="pre">Plot</span></code> button.
+<p>Creating a plot is just easy as it sounds: choose the plot type, <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>
+columns, colors, labels, etc and press the <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Plot</span></code> button.
 The plot is immediately shown in the plot canvas.</p>
-<p>If you want to change some setting, e.g. the marker color or size, the <code class="docutils literal"><span class="pre">x</span></code>
-column, go ahead and the hit the <code class="docutils literal"><span class="pre">Update</span> <span class="pre">Plot</span></code> button: the plot is then
+<p>If you want to change some setting, e.g. the marker color or size, the <code class="docutils literal notranslate"><span class="pre">x</span></code>
+column, go ahead and the hit the <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">Plot</span></code> button: the plot is then
 updated in the plot canvas.</p>
 <p>DataPlotly is a docket widget meaning that you can move it within the QGIS interface.
 It is made up by 5 different widgets:</p>
@@ -204,12 +199,12 @@ It is made up by 5 different widgets:</p>
 <ol class="arabic simple">
 <li>choose the plot type (1)</li>
 <li>set the layer and the field(s) you want to plot (2)</li>
-<li>show the plot with the <code class="docutils literal"><span class="pre">Create</span> <span class="pre">Plot</span></code> button (3). The plot canvas is automatically visible.</li>
+<li>show the plot with the <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Plot</span></code> button (3). The plot canvas is automatically visible.</li>
 </ol>
 <a class="reference internal image-reference" href="../_images/basic1.png"><img alt="../_images/basic1.png" src="../_images/basic1.png" style="width: 840.0px; height: 442.5px;" /></a>
-<p>You can change some plot settings and click on the <code class="docutils literal"><span class="pre">Update</span></code> button to update
+<p>You can change some plot settings and click on the <code class="docutils literal notranslate"><span class="pre">Update</span></code> button to update
 the plot with the changes.</p>
-<p>If you want to start again, just click the <code class="docutils literal"><span class="pre">Clean</span> <span class="pre">Plot</span> <span class="pre">Canvas</span></code> button and the
+<p>If you want to start again, just click the <code class="docutils literal notranslate"><span class="pre">Clean</span> <span class="pre">Plot</span> <span class="pre">Canvas</span></code> button and the
 plot canvas will be empty.</p>
 </div>
 <div class="section" id="multi-plots">
@@ -240,7 +235,7 @@ scatterplot):</p>
 useful when the scales are very different or when overlapping too many data results
 in a messy plot canvas.</p>
 <p>You just have to choose the plots and the fields as described in the section
-<a class="reference internal" href="#add-plot"><span class="std std-ref">Add a Plot</span></a> but you have to specify the <code class="docutils literal"><span class="pre">SubPlots</span></code> parameter from the
+<a class="reference internal" href="#add-plot"><span class="std std-ref">Add a Plot</span></a> but you have to specify the <code class="docutils literal notranslate"><span class="pre">SubPlots</span></code> parameter from the
 combobox and choose if the plots have to be drawn in rows (default parameter)
 or in columns.</p>
 <p>The following pictures show plots in rows and in columns:</p>
@@ -255,10 +250,10 @@ or in columns.</p>
 <div class="section" id="save-plot">
 <span id="save"></span><h2>Save Plot<a class="headerlink" href="#save-plot" title="Lien permanent vers ce titre">¶</a></h2>
 <p>Saving a plot, technically the plot canvas, is very simple. You can choose to save
-the plot as a <code class="docutils literal"><span class="pre">png</span></code> image or as <code class="docutils literal"><span class="pre">html</span></code> file.</p>
+the plot as a <code class="docutils literal notranslate"><span class="pre">png</span></code> image or as <code class="docutils literal notranslate"><span class="pre">html</span></code> file.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">saving the image as <code class="docutils literal"><span class="pre">html</span></code> file will keep the interactivity of the plot</p>
+<p class="last">saving the image as <code class="docutils literal notranslate"><span class="pre">html</span></code> file will keep the interactivity of the plot</p>
 </div>
 <p>You just have to click on the correct button and choose the path where to save
 the image, both static or interactive.</p>
@@ -267,22 +262,22 @@ the image, both static or interactive.</p>
 <div class="section" id="raw-plot-code">
 <h2>Raw Plot Code<a class="headerlink" href="#raw-plot-code" title="Lien permanent vers ce titre">¶</a></h2>
 <p>In addition to saving the plot as image or html file (see <a class="reference internal" href="#save"><span class="std std-ref">Save Plot</span></a>) you can
-also copy the raw <code class="docutils literal"><span class="pre">html</span></code> code of the plot and embed it somewhere else.</p>
+also copy the raw <code class="docutils literal notranslate"><span class="pre">html</span></code> code of the plot and embed it somewhere else.</p>
 <p>A good place where to copy/paste the raw code is the html frame of the print
 composer of QGIS.</p>
-<p>In order to copy the plot code, after the plot creation, just go in the <code class="docutils literal"><span class="pre">Raw</span> <span class="pre">Plot</span></code>
+<p>In order to copy the plot code, after the plot creation, just go in the <code class="docutils literal notranslate"><span class="pre">Raw</span> <span class="pre">Plot</span></code>
 tab: here you can see a long string. <strong>Right Click</strong> on the tab and
-choose <code class="docutils literal"><span class="pre">Select</span> <span class="pre">All</span></code>, then <strong>Right Click</strong> again and choose <code class="docutils literal"><span class="pre">Copy</span></code> (of course
-you can use keyboard shortcuts <code class="docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">A</span></code> for select all and <code class="docutils literal"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">C</span></code> for copy):</p>
+choose <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">All</span></code>, then <strong>Right Click</strong> again and choose <code class="docutils literal notranslate"><span class="pre">Copy</span></code> (of course
+you can use keyboard shortcuts <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">A</span></code> for select all and <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">C</span></code> for copy):</p>
 <a class="reference internal image-reference" href="../_images/basic7.png"><img alt="../_images/basic7.png" src="../_images/basic7.png" style="width: 383.0px; height: 442.5px;" /></a>
 <p>Then you have your plot code copied in memory: you just have to choose where to
 paste it.</p>
-<p>In the following example, the <code class="docutils literal"><span class="pre">html</span> <span class="pre">code</span></code> is pasted in the <strong>html frame</strong> of
+<p>In the following example, the <code class="docutils literal notranslate"><span class="pre">html</span> <span class="pre">code</span></code> is pasted in the <strong>html frame</strong> of
 the print composer:</p>
 <ol class="arabic simple">
-<li>open the print composer and add an <code class="docutils literal"><span class="pre">html</span> <span class="pre">frame</span></code> (1)</li>
-<li>paste the code in the <code class="docutils literal"><span class="pre">Source</span></code> space (2)</li>
-<li>refresh the <code class="docutils literal"><span class="pre">html</span></code> code (3)</li>
+<li>open the print composer and add an <code class="docutils literal notranslate"><span class="pre">html</span> <span class="pre">frame</span></code> (1)</li>
+<li>paste the code in the <code class="docutils literal notranslate"><span class="pre">Source</span></code> space (2)</li>
+<li>refresh the <code class="docutils literal notranslate"><span class="pre">html</span></code> code (3)</li>
 <li>results will be shown in the frame (4)</li>
 </ol>
 <a class="reference internal image-reference" href="../_images/basic8.png"><img alt="../_images/basic8.png" src="../_images/basic8.png" style="width: 960.0px; height: 540.0px;" /></a>
@@ -294,8 +289,8 @@ the print composer:</p>
 <p>DataPlotly supports all the fields type (integers, floats, text, etc..) and
 will elaborate the data so that they can be correctly displayed.</p>
 <p>Thanks to the QGIS API and custom widget, it is possible to add also <strong>Expressions</strong>
-instead of pure layer fields (e.g. <code class="docutils literal"><span class="pre">field</span> <span class="pre">+</span> <span class="pre">10</span></code>, <code class="docutils literal"><span class="pre">field1</span> <span class="pre">*</span> <span class="pre">field2</span></code>, etc).</p>
-<p>You can use the Expression editor to add complex expressions (e.g. <code class="docutils literal"><span class="pre">(field1</span> <span class="pre">+</span> <span class="pre">10)</span> <span class="pre">*</span> <span class="pre">(field2</span> <span class="pre">*</span> <span class="pre">10)</span></code>)
+instead of pure layer fields (e.g. <code class="docutils literal notranslate"><span class="pre">field</span> <span class="pre">+</span> <span class="pre">10</span></code>, <code class="docutils literal notranslate"><span class="pre">field1</span> <span class="pre">*</span> <span class="pre">field2</span></code>, etc).</p>
+<p>You can use the Expression editor to add complex expressions (e.g. <code class="docutils literal notranslate"><span class="pre">(field1</span> <span class="pre">+</span> <span class="pre">10)</span> <span class="pre">*</span> <span class="pre">(field2</span> <span class="pre">*</span> <span class="pre">10)</span></code>)
 or you can type the expression directly in the combo box. Expressions are evaluated
 <em>on the fly</em>, so if the string is red, then the expression is not valid.</p>
 <a class="reference internal image-reference" href="../_images/basic9.png"><img alt="../_images/basic9.png" src="../_images/basic9.png" style="width: 736.5px; height: 442.5px;" /></a>
@@ -304,7 +299,7 @@ or you can type the expression directly in the combo box. Expressions are evalua
 <h3>Use only selected features<a class="headerlink" href="#use-only-selected-features" title="Lien permanent vers ce titre">¶</a></h3>
 <p>Another very handy options is to work only with the selected features on the
 layer.</p>
-<p>Just check the <code class="docutils literal"><span class="pre">Use</span> <span class="pre">only</span> <span class="pre">selected</span> <span class="pre">features</span></code> check box and only the attributes
+<p>Just check the <code class="docutils literal notranslate"><span class="pre">Use</span> <span class="pre">only</span> <span class="pre">selected</span> <span class="pre">features</span></code> check box and only the attributes
 of the selected features will be taken.</p>
 </div>
 </div>
@@ -312,9 +307,7 @@ of the selected features will be taken.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -336,7 +329,7 @@ of the selected features will be taken.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -355,6 +348,7 @@ of the selected features will be taken.</p>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0',
+            LANGUAGE:'fr',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -373,14 +367,13 @@ of the selected features will be taken.</p>
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

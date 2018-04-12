@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="it" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="it" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Indice"
-              href="genindex.html"/>
-        <link rel="search" title="Cerca" href="search.html"/>
-    <link rel="top" title="DataPlotly 0 documentazione" href="index.html"/>
-        <link rel="next" title="Grafico a torta" href="pie.html"/>
-        <link rel="prev" title="Grafico a barre" href="bar.html"/> 
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Grafico a torta" href="pie.html" />
+    <link rel="prev" title="Grafico a barre" href="bar.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -61,7 +54,7 @@
 
           
             
-            <img src="../_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -102,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour.html">Grafico a contorno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Grafico a violino</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_provider.html">DataPlotly come provider di Processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="from_console.html">Usare il plugin da console (BETA!)</a></li>
 </ul>
@@ -115,7 +109,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">DataPlotly</a>
@@ -123,9 +117,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -155,7 +150,7 @@
         
             
             
-              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/histogram.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ghtmtt/DataPlotly//master/help/source/histogram.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -171,42 +166,40 @@
             
   <div class="section" id="histogram">
 <span id="id1"></span><h1>Istrogramma<a class="headerlink" href="#histogram" title="Link a questa intestazione">¶</a></h1>
-<p>Qui trovi la guida di tutti i parametri dell&#8217;istogramma. Se hai bisogno di informazioni più generali consulta <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">Utilizzo basico di DataPlotly</span></a>.</p>
+<p>Qui trovi la guida di tutti i parametri dell’istogramma. Se hai bisogno di informazioni più generali consulta <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">Utilizzo basico di DataPlotly</span></a>.</p>
 <a class="reference internal image-reference" href="../_images/histogram.png"><img alt="../_images/histogram.png" src="../_images/histogram.png" style="width: 383.0px; height: 440.5px;" /></a>
 <div class="section" id="plot-properties">
 <h2>Proprietà del grafico<a class="headerlink" href="#plot-properties" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: il menu a tendina mostra tutti i vettori caricati in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span></code>: il campo X</p>
-<p><code class="docutils literal"><span class="pre">Colore</span> <span class="pre">barre</span></code>: colore delle barre</p>
-<p><code class="docutils literal"><span class="pre">Colore</span> <span class="pre">del</span> <span class="pre">bordo</span></code>: colore del bordo</p>
-<p><code class="docutils literal"><span class="pre">Spessore</span> <span class="pre">bordo</span></code>: spessore del bordo</p>
-<p><code class="docutils literal"><span class="pre">Trasparenza</span></code>: livello di trasparenza delle barre</p>
+<p><code class="docutils literal notranslate"><span class="pre">Layer</span></code>: il menu a tendina mostra tutti i vettori caricati in QGIS</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span></code>: il campo X</p>
+<p><code class="docutils literal notranslate"><span class="pre">Colore</span> <span class="pre">barre</span></code>: colore delle barre</p>
+<p><code class="docutils literal notranslate"><span class="pre">Colore</span> <span class="pre">del</span> <span class="pre">bordo</span></code>: colore del bordo</p>
+<p><code class="docutils literal notranslate"><span class="pre">Spessore</span> <span class="pre">bordo</span></code>: spessore del bordo</p>
+<p><code class="docutils literal notranslate"><span class="pre">Trasparenza</span></code>: livello di trasparenza delle barre</p>
 </div>
 <div class="section" id="plot-customizations">
 <h2>Personalizzazioni grafico<a class="headerlink" href="#plot-customizations" title="Link a questa intestazione">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Mostra</span> <span class="pre">legenda</span></code>: mostra la legenda del grafico</p>
-<p><code class="docutils literal"><span class="pre">Legenda</span> <span class="pre">orizzontale</span></code>: spunta se vuoi che la legenda sia orizzontale</p>
-<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">grafico</span></code>: titolo del grafico</p>
-<p><code class="docutils literal"><span class="pre">Titolo</span> <span class="pre">legenda</span></code>: il titolo della legenda</p>
-<p><code class="docutils literal"><span class="pre">Etichetta</span> <span class="pre">X</span></code>: testo dell&#8217;asse X</p>
-<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">X</span></code>: spunta se vuoi invertire l&#8217;ordine dell&#8217;asse X</p>
-<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">Y</span></code>: spunta se vuoi invertire l&#8217;ordine dell&#8217;asse Y</p>
-<p><code class="docutils literal"><span class="pre">Orientamento</span> <span class="pre">barra</span></code>: orientamento delle barre: <em>orizzontale</em> o <em>verticale</em></p>
-<p><code class="docutils literal"><span class="pre">Modalità</span> <span class="pre">barra</span></code>: scegli se vuoi raggruppare, impilare o sovrapporre i dati</p>
-<p><code class="docutils literal"><span class="pre">Normalizzazione</span></code>: sono disponibili diversi tipi di normalizzazione</p>
-<p><code class="docutils literal"><span class="pre">Istogramma</span> <span class="pre">cumulativo</span></code>: spunta se vuoi creare un istogramma unico cumulativo</p>
-<p><code class="docutils literal"><span class="pre">Inverti</span> <span class="pre">direzione</span> <span class="pre">istogramma</span></code>: spunta se vuoi invertire la direzione dell&#8217;istogramma (disponibile solo se è stata scelta l&#8217;opzione <code class="docutils literal"><span class="pre">Istogramma</span> <span class="pre">Cumulativo</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Mostra</span> <span class="pre">legenda</span></code>: mostra la legenda del grafico</p>
+<p><code class="docutils literal notranslate"><span class="pre">Legenda</span> <span class="pre">orizzontale</span></code>: spunta se vuoi che la legenda sia orizzontale</p>
+<p><code class="docutils literal notranslate"><span class="pre">Titolo</span> <span class="pre">grafico</span></code>: titolo del grafico</p>
+<p><code class="docutils literal notranslate"><span class="pre">Titolo</span> <span class="pre">legenda</span></code>: il titolo della legenda</p>
+<p><code class="docutils literal notranslate"><span class="pre">Etichetta</span> <span class="pre">X</span></code>: testo dell’asse X</p>
+<p><code class="docutils literal notranslate"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">X</span></code>: spunta se vuoi invertire l’ordine dell’asse X</p>
+<p><code class="docutils literal notranslate"><span class="pre">Inverti</span> <span class="pre">asse</span> <span class="pre">Y</span></code>: spunta se vuoi invertire l’ordine dell’asse Y</p>
+<p><code class="docutils literal notranslate"><span class="pre">Orientamento</span> <span class="pre">barra</span></code>: orientamento delle barre: <em>orizzontale</em> o <em>verticale</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">Modalità</span> <span class="pre">barra</span></code>: scegli se vuoi raggruppare, impilare o sovrapporre i dati</p>
+<p><code class="docutils literal notranslate"><span class="pre">Normalizzazione</span></code>: sono disponibili diversi tipi di normalizzazione</p>
+<p><code class="docutils literal notranslate"><span class="pre">Istogramma</span> <span class="pre">cumulativo</span></code>: spunta se vuoi creare un istogramma unico cumulativo</p>
+<p><code class="docutils literal notranslate"><span class="pre">Inverti</span> <span class="pre">direzione</span> <span class="pre">istogramma</span></code>: spunta se vuoi invertire la direzione dell’istogramma (disponibile solo se è stata scelta l’opzione <code class="docutils literal notranslate"><span class="pre">Istogramma</span> <span class="pre">Cumulativo</span></code></p>
 <p><a href="#id1"><span class="problematic" id="id2">``</span></a>Scegli il numero delle barre <a href="#id3"><span class="problematic" id="id4">``</span></a>: spunta e inserisci un numero appropriato se vuoi scegliere manualmente il numero delle barre</p>
 <a class="reference internal image-reference" href="../_images/histogram2.png"><img alt="../_images/histogram2.png" src="../_images/histogram2.png" style="width: 383.0px; height: 440.5px;" /></a>
-<p><code class="docutils literal"><span class="pre">Spazio</span> <span class="pre">fra</span> <span class="pre">le</span> <span class="pre">barre</span></code>: scegli lo spazio fra le singole barre da 0 (nessuno spazio) a 1 (spazio massimo)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Spazio</span> <span class="pre">fra</span> <span class="pre">le</span> <span class="pre">barre</span></code>: scegli lo spazio fra le singole barre da 0 (nessuno spazio) a 1 (spazio massimo)</p>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -228,7 +221,7 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -247,6 +240,7 @@
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0',
+            LANGUAGE:'it',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -265,14 +259,13 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

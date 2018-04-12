@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-12 15:09+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/violin.rst:4
+msgid "Violin Plot"
+msgstr "Violin Plot"
+
+#: ../../source/violin.rst:5
+msgid ""
+"Here you will find the guide to every parameter of the violin plot. If you "
+"need more generic information please the :ref:`basic_usage`."
+msgstr ""
+"Here you will find the guide to every parameter of the violin plot. If you "
+"need more generic information please the :ref:`basic_usage`."
+
+#: ../../source/violin.rst:13
+msgid "Plot Properties"
+msgstr "Plot Properties"
+
+#: ../../source/violin.rst:14
+msgid ""
+"``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr ""
+"``Layer``: the combobox will display all the vector layers loaded in QGIS"
+
+#: ../../source/violin.rst:16
+msgid ""
+"``Grouping Field (Optional)``: the grouping field. If no field is added, a "
+"generic violin plot for the Y value will be displayed"
+msgstr ""
+"``Grouping Field (Optional)``: the grouping field. If no field is added, a "
+"generic violin plot for the Y value will be displayed"
+
+#: ../../source/violin.rst:19
+msgid "``Y Field``: the Y field"
+msgstr "``Y Field``: the Y field"
+
+#: ../../source/violin.rst:21
+msgid "``Marker Color``: color of the violin"
+msgstr "``Marker Color``: color of the violin"
+
+#: ../../source/violin.rst:23
+msgid "``Stroke Color``: border color"
+msgstr "``Stroke Color``: border color"
+
+#: ../../source/violin.rst:25
+msgid "``Stroke Width``: the width of the border"
+msgstr "``Stroke Width``: the width of the border"
+
+#: ../../source/violin.rst:27
+msgid "``Transparency``: transparency level of the violin"
+msgstr "``Transparency``: transparency level of the violin"
+
+#: ../../source/violin.rst:30
+msgid "Plot Customizations"
+msgstr "Plot Customizations"
+
+#: ../../source/violin.rst:31
+msgid "``Show Legend``: show the legend of the current plot"
+msgstr "``Show Legend``: show the legend of the current plot"
+
+#: ../../source/violin.rst:33
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr "``Horizontal Legend``: check if you want to have an horizontal legend"
+
+#: ../../source/violin.rst:35
+msgid "``Plot Title``: the plot title"
+msgstr "``Plot Title``: the plot title"
+
+#: ../../source/violin.rst:37
+msgid "``Legend Title``: the title of the legend"
+msgstr "``Legend Title``: the title of the legend"
+
+#: ../../source/violin.rst:39
+msgid "``X Label``: X label text"
+msgstr "``X Label``: X label text"
+
+#: ../../source/violin.rst:41
+msgid "``Y Label``: Y Label text"
+msgstr "``Y Label``: Y Label text"
+
+#: ../../source/violin.rst:43
+msgid ""
+"``Box Orientation``: the orientation of the violin, either *Horizontal* or "
+"*Vertical*"
+msgstr ""
+"``Box Orientation``: the orientation of the violin, either *Horizontal* or "
+"*Vertical*"
+
+#: ../../source/violin.rst:45
+msgid ""
+"``Outliers``: show also the outliers (or all the points) next to the box. "
+"Some example in the following picture:"
+msgstr ""
+"``Outliers``: show also the outliers (or all the points) next to the box. "
+"Some example in the following picture:"
+
+#: ../../source/violin.rst:51
+msgid ""
+"``Violin side``: if the violin plot should be both sides, only right or only"
+" left"
+msgstr ""
+"``Violin side``: if the violin plot should be both sides, only right or only"
+" left"
+
+#: ../../source/violin.rst:53
+msgid ""
+"``Show Mean Line``: uncheck to not show a line corresponding to the mean"
+msgstr ""
+"``Show Mean Line``: uncheck to not show a line corresponding to the mean"

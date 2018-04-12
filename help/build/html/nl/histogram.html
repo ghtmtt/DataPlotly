@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="nl" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="nl" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Zoeken" href="search.html"/>
-    <link rel="top" title="DataPlotly 0 documentatie" href="index.html"/>
-        <link rel="next" title="Taartdiagram" href="pie.html"/>
-        <link rel="prev" title="Staafdiagram" href="bar.html"/> 
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Zoeken" href="search.html" />
+    <link rel="next" title="Taartdiagram" href="pie.html" />
+    <link rel="prev" title="Staafdiagram" href="bar.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -61,7 +54,7 @@
 
           
             
-            <img src="../_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -102,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polar.html">Polair diagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ternary.html">Driehoeksdiagram</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour.html">Contourdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Violin Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_provider.html">DataPlotly as Processing provider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="from_console.html">Roep de plugin aan vanaf de python console (BETA!)</a></li>
 </ul>
@@ -115,7 +109,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">DataPlotly</a>
@@ -123,9 +117,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -155,7 +150,7 @@
         
             
             
-              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/histogram.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ghtmtt/DataPlotly//master/help/source/histogram.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -175,38 +170,36 @@
 <a class="reference internal image-reference" href="../_images/histogram.png"><img alt="../_images/histogram.png" src="../_images/histogram.png" style="width: 383.0px; height: 440.5px;" /></a>
 <div class="section" id="plot-properties">
 <h2>Diagram eigenschappen<a class="headerlink" href="#plot-properties" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: de keuzelijst toont alle in QGIS ingeladen vector lagen</p>
-<p><code class="docutils literal"><span class="pre">X</span></code>: het X veld</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: de kleur van het diagram</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: kleur van de lijn</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: de dikte van de rand</p>
-<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparantieniveau van de staaf</p>
+<p><code class="docutils literal notranslate"><span class="pre">Layer</span></code>: de keuzelijst toont alle in QGIS ingeladen vector lagen</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span></code>: het X veld</p>
+<p><code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Color</span></code>: de kleur van het diagram</p>
+<p><code class="docutils literal notranslate"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: kleur van de lijn</p>
+<p><code class="docutils literal notranslate"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: de dikte van de rand</p>
+<p><code class="docutils literal notranslate"><span class="pre">Transparency</span></code>: transparantieniveau van de staaf</p>
 </div>
 <div class="section" id="plot-customizations">
 <h2>Diagram aanpassingen<a class="headerlink" href="#plot-customizations" title="Permalink naar deze titel">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: toon de legenda van het huidige diagram</p>
-<p><code class="docutils literal"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>:  vink aan voor een horizontale legenda</p>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: titel van het diagram</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: de titel van de legenda</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label tekst</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: vink aan wanneer je de sortering van de X-as wilt omdraaien</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: vink aan wanneer je de sortering van de Y-as wilt omdraaien</p>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Orientation</span></code>:  de oriëntatie van de staaf, <em>horizontaal</em> of <em>verticaal</em></p>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">Mode</span></code>: kies of je wilt groeperen, stapelen of de data over elkaar wilt leggen</p>
-<p><code class="docutils literal"><span class="pre">Normalization</span></code>:  verschillende mogelijkheden voor het berekenen van klassen zijn beschikbaar</p>
-<p><code class="docutils literal"><span class="pre">Cumulative</span> <span class="pre">Histogram</span></code>: check if you want to create a cumulative histogram</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Histogram</span> <span class="pre">Direction</span></code>: check if you want to invert the histogram direction (only if cumulative option is chosen)</p>
-<p><code class="docutils literal"><span class="pre">Choose</span> <span class="pre">manually</span> <span class="pre">the</span> <span class="pre">bins</span></code>: vink aan wanneer je handmatig de klassen wilt kiezen en vul een numerieke waarde in.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Legend</span></code>: toon de legenda van het huidige diagram</p>
+<p><code class="docutils literal notranslate"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>:  vink aan voor een horizontale legenda</p>
+<p><code class="docutils literal notranslate"><span class="pre">Plot</span> <span class="pre">Title</span></code>: titel van het diagram</p>
+<p><code class="docutils literal notranslate"><span class="pre">Legend</span> <span class="pre">Title</span></code>: de titel van de legenda</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">Label</span></code>: X label tekst</p>
+<p><code class="docutils literal notranslate"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: vink aan wanneer je de sortering van de X-as wilt omdraaien</p>
+<p><code class="docutils literal notranslate"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: vink aan wanneer je de sortering van de Y-as wilt omdraaien</p>
+<p><code class="docutils literal notranslate"><span class="pre">Bar</span> <span class="pre">Orientation</span></code>:  de oriëntatie van de staaf, <em>horizontaal</em> of <em>verticaal</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">Bar</span> <span class="pre">Mode</span></code>: kies of je wilt groeperen, stapelen of de data over elkaar wilt leggen</p>
+<p><code class="docutils literal notranslate"><span class="pre">Normalization</span></code>:  verschillende mogelijkheden voor het berekenen van klassen zijn beschikbaar</p>
+<p><code class="docutils literal notranslate"><span class="pre">Cumulative</span> <span class="pre">Histogram</span></code>: check if you want to create a cumulative histogram</p>
+<p><code class="docutils literal notranslate"><span class="pre">Invert</span> <span class="pre">Histogram</span> <span class="pre">Direction</span></code>: check if you want to invert the histogram direction (only if cumulative option is chosen)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Choose</span> <span class="pre">manually</span> <span class="pre">the</span> <span class="pre">bins</span></code>: vink aan wanneer je handmatig de klassen wilt kiezen en vul een numerieke waarde in.</p>
 <a class="reference internal image-reference" href="../_images/histogram2.png"><img alt="../_images/histogram2.png" src="../_images/histogram2.png" style="width: 383.0px; height: 440.5px;" /></a>
-<p><code class="docutils literal"><span class="pre">Bar</span> <span class="pre">gap</span></code>: choose the space between the gaps, from 0 (no space) to 1 (maximum space)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Bar</span> <span class="pre">gap</span></code>: choose the space between the gaps, from 0 (no space) to 1 (maximum space)</p>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -228,7 +221,7 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -247,6 +240,7 @@
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0',
+            LANGUAGE:'nl',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -265,14 +259,13 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-12 15:09+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: matteo ghetta <matteo.ghetta@gmail.com>, 2018\n"
+"Language-Team: Italian (https://www.transifex.com/dataplotly/teams/79225/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/violin.rst:4
+msgid "Violin Plot"
+msgstr "Grafico a violino"
+
+#: ../../source/violin.rst:5
+msgid ""
+"Here you will find the guide to every parameter of the violin plot. If you "
+"need more generic information please the :ref:`basic_usage`."
+msgstr ""
+"Qui trovi la guida di tutti i parametri del grafico a violino. Se hai "
+"bisogno di informazioni più generali consulta :ref:`basic_usage`."
+
+#: ../../source/violin.rst:13
+msgid "Plot Properties"
+msgstr "Proprietà del grafico"
+
+#: ../../source/violin.rst:14
+msgid ""
+"``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr "``Layer``: il menu a tendina mostra tutti i vettori caricati in QGIS"
+
+#: ../../source/violin.rst:16
+msgid ""
+"``Grouping Field (Optional)``: the grouping field. If no field is added, a "
+"generic violin plot for the Y value will be displayed"
+msgstr ""
+"``Gruppo (opzionale``: campo di raggruppamento. Se non hai scelto nessun "
+"campo, viene mostrata un unico violino che aggrega i valori del campo Y "
+
+#: ../../source/violin.rst:19
+msgid "``Y Field``: the Y field"
+msgstr "``Campo Y``: il campo Y"
+
+#: ../../source/violin.rst:21
+msgid "``Marker Color``: color of the violin"
+msgstr "``Colore scatola``: colore del violino"
+
+#: ../../source/violin.rst:23
+msgid "``Stroke Color``: border color"
+msgstr "``Colore del bordo``: colore del bordo"
+
+#: ../../source/violin.rst:25
+msgid "``Stroke Width``: the width of the border"
+msgstr "``Spessore bordo``: spessore del bordo"
+
+#: ../../source/violin.rst:27
+msgid "``Transparency``: transparency level of the violin"
+msgstr "``Trasparenza``: livello di trasparenza del violino"
+
+#: ../../source/violin.rst:30
+msgid "Plot Customizations"
+msgstr "Personalizzazioni grafico"
+
+#: ../../source/violin.rst:31
+msgid "``Show Legend``: show the legend of the current plot"
+msgstr "``Mostra legenda``: mostra la legenda del grafico"
+
+#: ../../source/violin.rst:33
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+"``Legenda orizzontale``: spunta se vuoi che la legenda sia orizzontale"
+
+#: ../../source/violin.rst:35
+msgid "``Plot Title``: the plot title"
+msgstr "``Titolo grafico``: titolo del grafico"
+
+#: ../../source/violin.rst:37
+msgid "``Legend Title``: the title of the legend"
+msgstr "``Titolo legenda``: il titolo della legenda"
+
+#: ../../source/violin.rst:39
+msgid "``X Label``: X label text"
+msgstr "``Etichetta X``: testo dell'asse X"
+
+#: ../../source/violin.rst:41
+msgid "``Y Label``: Y Label text"
+msgstr "``Etichetta Y``: testo dell'asse Y"
+
+#: ../../source/violin.rst:43
+msgid ""
+"``Box Orientation``: the orientation of the violin, either *Horizontal* or "
+"*Vertical*"
+msgstr ""
+"``Orientamento scatola``: orientamento del violino: *orizzontale* o "
+"*verticale*"
+
+#: ../../source/violin.rst:45
+msgid ""
+"``Outliers``: show also the outliers (or all the points) next to the box. "
+"Some example in the following picture:"
+msgstr ""
+"``Outlier``: mostra anche gli outlier (o tutti i punti) vicino alla scatola."
+" Vedi qualche esempio nelle seguenti figure:"
+
+#: ../../source/violin.rst:51
+msgid ""
+"``Violin side``: if the violin plot should be both sides, only right or only"
+" left"
+msgstr ""
+"``Lato del violino``: quali lati del violino vengono mostrati: tutti, solo "
+"destro, solo sinistro"
+
+#: ../../source/violin.rst:53
+msgid ""
+"``Show Mean Line``: uncheck to not show a line corresponding to the mean"
+msgstr ""
+"``Mostra linea della media``: togli la spunta se non vuoi mostrare la linea "
+"della media"

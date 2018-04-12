@@ -25,25 +25,18 @@
   
 
   
-  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="DataPlotly 0 documentation" href="index.html"/>
-        <link rel="prev" title="DataPlotly as Processing provider" href="processing_provider.html"/> 
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="DataPlotly as Processing provider" href="processing_provider.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -60,7 +53,7 @@
 
           
             
-            <img src="../_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -97,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Violin Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_provider.html">DataPlotly as Processing provider</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Call the plugin from the python console (BETA!)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#code-example">Code example</a></li>
@@ -113,7 +107,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">DataPlotly</a>
@@ -121,9 +115,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -153,7 +148,7 @@
         
             
             
-              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/from_console.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ghtmtt/DataPlotly//master/help/source/from_console.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -185,7 +180,7 @@ and building a simple scatter plot.</p>
 <p>Open QGIS and the python console. The example considers the <cite>PH</cite> and <cite>T</cite> fields
 of the layer (just look at the code and change the fields according to your
 layer):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># create the VectorLayer object from with iface</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the VectorLayer object from with iface</span>
 <span class="n">vl</span> <span class="o">=</span> <span class="n">iface</span><span class="o">.</span><span class="n">activeLayer</span><span class="p">()</span>
 
 <span class="c1"># import the plugins</span>
@@ -235,9 +230,7 @@ the values chosen (where possible).</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -257,7 +250,7 @@ the values chosen (where possible).</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -276,6 +269,7 @@ the values chosen (where possible).</p>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0',
+            LANGUAGE:'en',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -293,14 +287,13 @@ the values chosen (where possible).</p>
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

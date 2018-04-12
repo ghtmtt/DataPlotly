@@ -1,8 +1,8 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="it" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="it" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Indice"
-              href="genindex.html"/>
-        <link rel="search" title="Cerca" href="search.html"/>
-    <link rel="top" title="DataPlotly 0 documentazione" href="index.html"/>
-        <link rel="next" title="Utilizzo basico di DataPlotly" href="basic_usage.html"/>
-        <link rel="prev" title="Benvenuto nella documentazione di DataPlotly!" href="index.html"/> 
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Utilizzo basico di DataPlotly" href="basic_usage.html" />
+    <link rel="prev" title="Benvenuto nella documentazione di DataPlotly!" href="index.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -61,7 +54,7 @@
 
           
             
-            <img src="../_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -98,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour.html">Grafico a contorno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Grafico a violino</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_provider.html">DataPlotly come provider di Processing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="from_console.html">Usare il plugin da console (BETA!)</a></li>
 </ul>
@@ -111,7 +105,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">DataPlotly</a>
@@ -119,9 +113,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -151,7 +146,7 @@
         
             
             
-              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/intro.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ghtmtt/DataPlotly//master/help/source/intro.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -189,16 +184,14 @@
 <p class="caption"><span class="caption-text">tipologie di grafici diversi separati</span></p>
 </div>
 <p>Ogni grafico ha la sua configurazione e personalizzazione che ti permetteranno di scegliere la migliore soluzione per le tue necessità.</p>
-<p>Oltre all&#8217;interattività del grafico, i grafici possono essere esportati come immagini <cite>png</cite> statiche oppure come file <cite>html</cite>. I file <cite>html</cite> mantengono l&#8217;<em>interattività</em> del grafico.</p>
+<p>Oltre all’interattività del grafico, i grafici possono essere esportati come immagini <cite>png</cite> statiche oppure come file <cite>html</cite>. I file <cite>html</cite> mantengono l”<em>interattività</em> del grafico.</p>
 <p>Infine, il <strong>codice del grafico</strong> può essere copiato e incollato dovunque tu voglia, per esempio in una cornice html del compositore di stampe di QGIS o in un sito web.</p>
 <p>Il codice javascript della <a class="reference external" href="https://plot.ly/">libreria Plotly</a> viene salvato nella tua cartella locale del plugin. In questo modo il plugin è utilizzabile anche senza una connessione internet.</p>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -220,7 +213,7 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -239,6 +232,7 @@
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0',
+            LANGUAGE:'it',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -257,14 +251,13 @@
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

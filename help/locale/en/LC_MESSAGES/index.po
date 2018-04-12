@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DataPlotly 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-01 11:11+0100\n"
+"POT-Creation-Date: 2018-04-12 15:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,18 +20,18 @@ msgstr ""
 msgid "Welcome to DataPlotly's documentation!"
 msgstr "Welcome to DataPlotly's documentation!"
 
-#: ../../source/index.rst:27
+#: ../../source/index.rst:28
 msgid "Indices and tables"
 msgstr "Indices and tables"
 
-#: ../../source/index.rst:29
+#: ../../source/index.rst:30
 msgid ":ref:`genindex`"
 msgstr ":ref:`genindex`"
 
-#: ../../source/index.rst:30
+#: ../../source/index.rst:31
 msgid ":ref:`modindex`"
 msgstr ":ref:`modindex`"
 
-#: ../../source/index.rst:31
+#: ../../source/index.rst:32
 msgid ":ref:`search`"
 msgstr ":ref:`search`"

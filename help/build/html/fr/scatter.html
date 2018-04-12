@@ -1,14 +1,14 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scatter Plot &mdash; documentation DataPlotly 0</title>
+  <title>Scatter Plot &mdash; Documentation DataPlotly 0</title>
   
 
   
@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Recherche" href="search.html"/>
-    <link rel="top" title="documentation DataPlotly 0" href="index.html"/>
-        <link rel="next" title="Box Plot" href="box.html"/>
-        <link rel="prev" title="DataPlotly Basic Usage" href="basic_usage.html"/> 
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Box Plot" href="box.html" />
+    <link rel="prev" title="DataPlotly Basic Usage" href="basic_usage.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -61,7 +54,7 @@
 
           
             
-            <img src="../_static/icon.png" class="logo" />
+            <img src="../_static/icon.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -102,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Violin Plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_provider.html">DataPlotly as Processing provider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
 </ul>
@@ -115,7 +109,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">DataPlotly</a>
@@ -123,9 +117,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -155,7 +150,7 @@
         
             
             
-              <a href="https://github.com/ghtmtt/DataPlotly/blob/master/help/source/scatter.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ghtmtt/DataPlotly//master/help/source/scatter.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -176,48 +171,46 @@ more generic information please see <a class="reference internal" href="basic_us
 <a class="reference internal image-reference" href="../_images/scatterplot.png"><img alt="../_images/scatterplot.png" src="../_images/scatterplot.png" style="width: 383.0px; height: 440.5px;" /></a>
 <div class="section" id="plot-properties">
 <h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Lien permanent vers ce titre">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Layer</span></code>: the combobox will display all the vector layers loaded in QGIS</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Field</span></code>: the X field</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Color</span></code>: marker color</p>
-<p><code class="docutils literal"><span class="pre">Data</span> <span class="pre">Defined</span> <span class="pre">Override</span></code>: you can add an Expression to define the size of the marker.
-If activated other options are available: <code class="docutils literal"><span class="pre">Color</span> <span class="pre">Scale</span></code>, <code class="docutils literal"><span class="pre">Visible</span></code> and <code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Color</span></code>.</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Size</span></code>: the size of the marker</p>
-<p><code class="docutils literal"><span class="pre">Data</span> <span class="pre">Defined</span> <span class="pre">Override</span></code>: you can add an Expression to define the size of the marker</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
-<p><code class="docutils literal"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
-<p><code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Type</span></code>: choose between <strong>Points</strong>, <strong>Lines</strong> or <strong>Points and Lines</strong></p>
-<p><code class="docutils literal"><span class="pre">Point</span> <span class="pre">Type</span></code> or <code class="docutils literal"><span class="pre">Line</span> <span class="pre">Type</span></code> depending on the <code class="docutils literal"><span class="pre">Marker</span> <span class="pre">Type</span></code> chosen</p>
-<p><code class="docutils literal"><span class="pre">Transparency</span></code>: transparency level of the point/line</p>
+<p><code class="docutils literal notranslate"><span class="pre">Layer</span></code>: the combobox will display all the vector layers loaded in QGIS</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">Field</span></code>: the X field</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
+<p><code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Color</span></code>: marker color</p>
+<p><code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Defined</span> <span class="pre">Override</span></code>: you can add an Expression to define the size of the marker.
+If activated other options are available: <code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">Scale</span></code>, <code class="docutils literal notranslate"><span class="pre">Visible</span></code> and <code class="docutils literal notranslate"><span class="pre">Invert</span> <span class="pre">Color</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Size</span></code>: the size of the marker</p>
+<p><code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Defined</span> <span class="pre">Override</span></code>: you can add an Expression to define the size of the marker</p>
+<p><code class="docutils literal notranslate"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
+<p><code class="docutils literal notranslate"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
+<p><code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Type</span></code>: choose between <strong>Points</strong>, <strong>Lines</strong> or <strong>Points and Lines</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Type</span></code> or <code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">Type</span></code> depending on the <code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Type</span></code> chosen</p>
+<p><code class="docutils literal notranslate"><span class="pre">Transparency</span></code>: transparency level of the point/line</p>
 </div>
 <div class="section" id="plot-customizations">
 <h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Lien permanent vers ce titre">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
-<p><code class="docutils literal"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>: check if you want to have an horizontal legend</p>
-<p><code class="docutils literal"><span class="pre">Show</span> <span class="pre">Range</span> <span class="pre">Slider</span></code>: add a slider below the plot</p>
+<p><code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
+<p><code class="docutils literal notranslate"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>: check if you want to have an horizontal legend</p>
+<p><code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Range</span> <span class="pre">Slider</span></code>: add a slider below the plot</p>
 <a class="reference internal image-reference" href="../_images/scatterplot2.png"><img alt="../_images/scatterplot2.png" src="../_images/scatterplot2.png" style="width: 383.0px; height: 440.5px;" /></a>
-<p><code class="docutils literal"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
-<p><code class="docutils literal"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Label</span></code>: Y Label text</p>
-<p><code class="docutils literal"><span class="pre">Hover</span> <span class="pre">Infos</span></code>: choose the information that will be shown when hovering on
+<p><code class="docutils literal notranslate"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
+<p><code class="docutils literal notranslate"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">Label</span></code>: Y Label text</p>
+<p><code class="docutils literal notranslate"><span class="pre">Hover</span> <span class="pre">Infos</span></code>: choose the information that will be shown when hovering on
 the Plot Canvas</p>
-<p><code class="docutils literal"><span class="pre">Additional</span> <span class="pre">Hover</span> <span class="pre">Label</span></code>: choose another field of the plot (or other values)
+<p><code class="docutils literal notranslate"><span class="pre">Additional</span> <span class="pre">Hover</span> <span class="pre">Label</span></code>: choose another field of the plot (or other values)
 that will be shown together with the other informations. This field supports
-expressions: e.g. <code class="docutils literal"><span class="pre">'The</span> <span class="pre">ID</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">point</span> <span class="pre">is</span> <span class="pre">'</span> <span class="pre">||</span> <span class="pre">ID</span></code>:</p>
+expressions: e.g. <code class="docutils literal notranslate"><span class="pre">'The</span> <span class="pre">ID</span> <span class="pre">of</span> <span class="pre">this</span> <span class="pre">point</span> <span class="pre">is</span> <span class="pre">'</span> <span class="pre">||</span> <span class="pre">ID</span></code>:</p>
 <a class="reference internal image-reference" href="../_images/scatterplot3.png"><img alt="../_images/scatterplot3.png" src="../_images/scatterplot3.png" style="width: 383.0px; height: 440.5px;" /></a>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the x axis</p>
-<p><code class="docutils literal"><span class="pre">X</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: choose between Linear, Logarithmic or Categorized</p>
-<p><code class="docutils literal"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the y axis</p>
-<p><code class="docutils literal"><span class="pre">Y</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: choose between Linear, Logarithmic or Categorized</p>
+<p><code class="docutils literal notranslate"><span class="pre">Invert</span> <span class="pre">X</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the x axis</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: choose between Linear, Logarithmic or Categorized</p>
+<p><code class="docutils literal notranslate"><span class="pre">Invert</span> <span class="pre">Y</span> <span class="pre">Axis</span></code>: check if you want to invert the ordering of the y axis</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">Axis</span> <span class="pre">Mode</span></code>: choose between Linear, Logarithmic or Categorized</p>
 </div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -239,7 +232,7 @@ expressions: e.g. <code class="docutils literal"><span class="pre">'The</span> <
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -258,6 +251,7 @@ expressions: e.g. <code class="docutils literal"><span class="pre">'The</span> <
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'0',
+            LANGUAGE:'fr',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -276,14 +270,13 @@ expressions: e.g. <code class="docutils literal"><span class="pre">'The</span> <
     <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
