@@ -45,7 +45,7 @@ Plot Customizations
 ``Outliers``: show also the outliers (or all the points) next to the box. Some
 example in the following picture:
 
-.. image:: /img/box/boxplot3.png
+.. image:: /img/violin/violin-outlier.png
   :scale: 50%
 
 ``Violin side``: if the violin plot should be both sides, only right or only left
