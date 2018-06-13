@@ -256,7 +256,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # if data defined button is active
         if self.in_color_defined_button.isActive():
             # if plot is scatter or bar
-            if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
+            if 'scatter' or 'bar' or 'ternary' in self.ptype:
                 self.in_color_combo.setEnabled(False)
                 self.color_scale_data_defined_in.setVisible(True)
                 self.color_scale_data_defined_in.setEnabled(True)
@@ -304,7 +304,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
 
         if self.in_color_defined_button.isActive():
-            if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
+            if 'scatter' or 'bar' or 'ternary' in self.ptype:
                 in_color = self.in_color_defined_button.toProperty().expressionString()
                 self.in_color = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), in_color, selectedOnly=self.selected_feature_check.isChecked())[0]
             else:
@@ -639,26 +639,26 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # BoxPlot
         if self.ptype == 'box' or self.ptype == 'violin':
-            self.x_label.setText(self.tr('Grouping Field\n(Optional)'))
+            self.x_label.setText(self.tr('Grouping Field \n(Optional)'))
             # set the horizontal and vertical size of the label and reduce the label font size
             ff = QFont()
-            ff.setPointSizeF(8.5)
+            ff.setPointSizeF(8)
             self.x_label.setFont(ff)
-            self.x_label.setFixedWidth(80)
+            self.x_label.setFixedWidth(100)
             self.orientation_label.setText(self.tr('Box Orientation'))
             self.in_color_lab.setText(self.tr('Box Color'))
 
         # ScatterPlot
-        if self.ptype == 'scatter' or 'ternary':
+        if 'scatter' or 'ternary' in self.ptype:
             self.in_color_lab.setText(self.tr('Marker Color'))
 
         # BarPlot
-        if self.ptype == 'bar':
+        if 'bar' in self.ptype:
             self.orientation_label.setText(self.tr('Bar Orientation'))
             self.in_color_lab.setText(self.tr('Bar Color'))
 
         # PiePlot
-        if self.ptype == 'pie':
+        if 'pie' in self.ptype:
             self.x_label.setText(self.tr('Grouping Field'))
             ff = QFont()
             ff.setPointSizeF(8.5)
@@ -848,10 +848,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
         self.legend_title_string = ''
 
-        if self.ptype == 'box' or self.ptype == 'bar':
+        if 'box' or 'bar' in self.ptype:
             self.legend_title.setText(self.y_combo.currentText())
 
-        elif self.ptype == 'histogram':
+        elif 'histogram' in self.ptype:
             self.legend_title.setText(self.x_combo.currentText())
 
         else:
@@ -1044,7 +1044,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
                     self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
             except:
-                iface.messageBar().pushMessage(self.tr("{} plot is not comapatible for subplotting".format(self.ptype)),
+                iface.messageBar().pushMessage(self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
                              Qgis.MessageLevel(2), duration=5)
                 return
 
