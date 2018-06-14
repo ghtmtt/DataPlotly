@@ -256,7 +256,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # if data defined button is active
         if self.in_color_defined_button.isActive():
             # if plot is scatter or bar
-            if 'scatter' or 'bar' or 'ternary' in self.ptype:
+            if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
                 self.in_color_combo.setEnabled(False)
                 self.color_scale_data_defined_in.setVisible(True)
                 self.color_scale_data_defined_in.setEnabled(True)
@@ -304,7 +304,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
 
         if self.in_color_defined_button.isActive():
-            if 'scatter' or 'bar' or 'ternary' in self.ptype:
+            if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
                 in_color = self.in_color_defined_button.toProperty().expressionString()
                 self.in_color = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), in_color, selectedOnly=self.selected_feature_check.isChecked())[0]
             else:
@@ -649,16 +649,16 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.in_color_lab.setText(self.tr('Box Color'))
 
         # ScatterPlot
-        if 'scatter' or 'ternary' in self.ptype:
+        if self.ptype == 'scatter' or 'ternary':
             self.in_color_lab.setText(self.tr('Marker Color'))
 
         # BarPlot
-        if 'bar' in self.ptype:
+        if self.ptype == 'bar':
             self.orientation_label.setText(self.tr('Bar Orientation'))
             self.in_color_lab.setText(self.tr('Bar Color'))
 
         # PiePlot
-        if 'pie' in self.ptype:
+        if self.ptype == 'pie':
             self.x_label.setText(self.tr('Grouping Field'))
             ff = QFont()
             ff.setPointSizeF(8.5)
@@ -848,10 +848,10 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
         self.legend_title_string = ''
 
-        if 'box' or 'bar' in self.ptype:
+        if self.ptype == 'box' or self.ptype == 'bar':
             self.legend_title.setText(self.y_combo.currentText())
 
-        elif 'histogram' in self.ptype:
+        elif self.ptype == 'histogram':
             self.legend_title.setText(self.x_combo.currentText())
 
         else:
