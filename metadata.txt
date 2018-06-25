@@ -8,10 +8,10 @@
 
 [general]
 name=Data Plotly
-qgisMinimumVersion=2.99
+qgisMinimumVersion=3.2
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=1.4.3
+version=1.5
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,10 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 1.5
+  - [feature] **new** Violin plots!
+  - [feature] **new** Polar plot layout!
+  - [feature] better default color choice
   Version 1.4.3
   - [bugfix] correct interaction with pie plot
   - update plotly.js to v 1.34.0
