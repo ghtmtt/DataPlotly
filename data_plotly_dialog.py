@@ -404,7 +404,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/{}/{}.html'.format(locale, self.ptype))
         # check if the file exists, else open the default home page
         if not os.path.exists(help_link):
-            help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/{}/index.html'.format(locale))
+            help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/en/{}.html'.format(self.ptype))
 
         help_url = QUrl.fromLocalFile(help_link)
         self.help_view.load(help_url)
