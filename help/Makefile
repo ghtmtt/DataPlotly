@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line.
 LANG = en
-LOCALES = en it nl sv fr
+LOCALES = en it nl sv fr es
 SPHINXBUILD   = sphinx-build
 SPHINXINTBUILD = sphinx-intl
 PAPER         =
