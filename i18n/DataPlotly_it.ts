@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="it" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="it" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -313,13 +314,6 @@
         <translation>BluBiancoViola</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="642"/>
-        <source>Grouping Field
-(Optional)</source>
-        <translation>Gruppo
-(opzionale)</translation>
-    </message>
-    <message>
         <location filename="../data_plotly_dialog.py" line="648"/>
         <source>Box Orientation</source>
         <translation>Orientamento scatola</translation>
@@ -405,9 +399,16 @@
         <translation>Solo destro</translation>
     </message>
     <message>
+        <location filename="../data_plotly_dialog.py" line="642"/>
+        <source>Grouping Field 
+(Optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../data_plotly_dialog.py" line="1048"/>
-        <source>{} plot is not comapatible for subplotting</source>
-        <translation>{} grafico non è compatibile con la modalità multigrafico</translation>
+        <source>{} plot is not compatible for subplotting
+ see </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

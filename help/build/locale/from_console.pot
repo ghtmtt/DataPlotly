@@ -1,0 +1,54 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/from_console.rst:4
+msgid "Call the plugin from the python console (BETA!)"
+msgstr ""
+
+#: ../../source/from_console.rst:5
+msgid "DataPlotly comes with some simple API that can be used from the python console."
+msgstr ""
+
+#: ../../source/from_console.rst:7
+msgid "Actually the method accept a structured `dictionary` as input, calls and open the dialog of the plugin populating each field with the dictionary values and creating the final plot."
+msgstr ""
+
+#: ../../source/from_console.rst:11
+msgid "not all the customization are (yet) available in this method, but you can easily update the plot with the `Update Plot` button. See :ref:`basic_usage`"
+msgstr ""
+
+#: ../../source/from_console.rst:14
+msgid "Code example"
+msgstr ""
+
+#: ../../source/from_console.rst:15
+msgid "The following example is very simple and straightforward. Supposing you have already a layer loaded in the QGIS legend we will access to is, take 2 fields and building a simple scatter plot."
+msgstr ""
+
+#: ../../source/from_console.rst:19
+msgid "Open QGIS and the python console. The example considers the `PH` and `T` fields of the layer (just look at the code and change the fields according to your layer):"
+msgstr ""
+
+#: ../../source/from_console.rst:63
+msgid "Using the example code shown above should open the DataPlotly dialog, create the plot and also popultate the dialog fields (comboboxes, checkboxes, etc.) with the values chosen (where possible)."
+msgstr ""
+
+#: ../../source/from_console.rst:67
+msgid "this method is still in **BETA** and there are several known issues."
+msgstr ""
+

@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/2dhistogram.rst:4
+msgid "2D Histogram"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:5
+msgid "Here you will find the guide to every parameter of the 2D Histogram plot. If you need more generic information please see :ref:`basic_usage`."
+msgstr ""
+
+#: ../../source/2dhistogram.rst:12
+msgid "Plot Properties"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:13
+msgid "``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:15
+msgid "``X Field``: the X field"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:17
+msgid "``Y Field``: the Y field"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:19
+msgid "``Color Scale``: choose between many different color scales"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:22
+msgid "Plot Customizations"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:23
+msgid "``Show Legend``: show the legend of the current plot"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:25
+msgid "``Plot Title``: the plot title"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:27
+msgid "``Legend Title``: the title of the legend"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:29
+msgid "``X Label``: X label text"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:31
+msgid "``Y Label``: Y Label text"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:33
+msgid "``Invert X Axis``: check if you want to invert the ordering of the X axis"
+msgstr ""
+
+#: ../../source/2dhistogram.rst:35
+msgid "``Invert Y Axis``: check if you want to invert the ordering of the Y axis"
+msgstr ""
+

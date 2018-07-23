@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/pie.rst:4
+msgid "Pie Plot"
+msgstr ""
+
+#: ../../source/pie.rst:5
+msgid "Here you will find the guide to every parameter of the pie plot. If you need more generic information please see :ref:`basic_usage`."
+msgstr ""
+
+#: ../../source/pie.rst:12
+msgid "Plot Properties"
+msgstr ""
+
+#: ../../source/pie.rst:13
+msgid "``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr ""
+
+#: ../../source/pie.rst:15
+msgid "``Grouping``: the grouping field"
+msgstr ""
+
+#: ../../source/pie.rst:17
+msgid "``Y Field``: the Y field"
+msgstr ""
+
+#: ../../source/pie.rst:20
+msgid "Plot Customizations"
+msgstr ""
+
+#: ../../source/pie.rst:21
+msgid "``Show Legend``: show the legend of the current plot"
+msgstr ""
+
+#: ../../source/pie.rst:23
+msgid "``Legend Title``: the title of the legend"
+msgstr ""
+
+#: ../../source/pie.rst:25
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+

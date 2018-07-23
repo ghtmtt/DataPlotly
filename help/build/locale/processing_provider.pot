@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/processing_provider.rst:4
+msgid "DataPlotly as Processing provider"
+msgstr ""
+
+#: ../../source/processing_provider.rst:5
+msgid "From version 1.4 DataPlotly has been added as Processing provider thank to the work of `Michaël Douchin of 3Liz <https://www.3liz.com/>`_."
+msgstr ""
+
+#: ../../source/processing_provider.rst:8
+msgid "This opens the doors to infinite possibilities:"
+msgstr ""
+
+#: ../../source/processing_provider.rst:10
+msgid "using all the Processing methods with DataPlotly"
+msgstr ""
+
+#: ../../source/processing_provider.rst:11
+msgid "creating batch plots with one click"
+msgstr ""
+
+#: ../../source/processing_provider.rst:12
+msgid "adding DataPlotly in the Processing Graphical Modeler"
+msgstr ""
+
+#: ../../source/processing_provider.rst:15
+msgid "Activating DataPlotly for Processing"
+msgstr ""
+
+#: ../../source/processing_provider.rst:16
+msgid "First thing to do is activating Processing and add DataPlotly as provider. If not added by default you can go in ``Settings -> Options`` and click on the last tab named Processing."
+msgstr ""
+
+#: ../../source/processing_provider.rst:20
+msgid "Expand the Provider menu and activate the DataPlotly provider:"
+msgstr ""
+
+#: ../../source/processing_provider.rst:26
+msgid "And then you will see the DataPltoly provider in the Processing Toolbox:"
+msgstr ""
+
+#: ../../source/processing_provider.rst:33
+msgid "Simple DataPlotly usage"
+msgstr ""
+
+#: ../../source/processing_provider.rst:34
+msgid "The ``Build a generic plot`` algorithm is a simplified version of DataPlotly plugin: this means you don't have all the customizations available, but still you can create awesome plots."
+msgstr ""
+
+#: ../../source/processing_provider.rst:38
+msgid "The interface is very simple and the plot creation process is very straightforward:"
+msgstr ""
+
+#: ../../source/processing_provider.rst:40
+msgid "choose the layer"
+msgstr ""
+
+#: ../../source/processing_provider.rst:41
+msgid "choose the plot type"
+msgstr ""
+
+#: ../../source/processing_provider.rst:42
+msgid "adjust the additional options (plot title, X axis, Y axis and color)"
+msgstr ""
+
+#: ../../source/processing_provider.rst:48
+msgid "DataPlotly will create 2 results:"
+msgstr ""
+
+#: ../../source/processing_provider.rst:50
+msgid "``html`` file with the final plot"
+msgstr ""
+
+#: ../../source/processing_provider.rst:51
+msgid "``json`` file with all the plot specifications"
+msgstr ""
+
+#: ../../source/processing_provider.rst:54
+msgid "The plot can be opened in the ``Processing -> Result Viewer``:"
+msgstr ""
+
+#: ../../source/processing_provider.rst:59
+msgid "And by simple double clicking on the menu entry, the plot will be opened in your default browser:"
+msgstr ""
+
+#: ../../source/processing_provider.rst:65
+msgid "If you want to save also the ``json`` file, you have to specify the path in the DataPlotly Processing Window."
+msgstr ""
+

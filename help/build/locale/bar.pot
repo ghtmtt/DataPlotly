@@ -1,0 +1,118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/bar.rst:4
+msgid "Bar Plot"
+msgstr ""
+
+#: ../../source/bar.rst:5
+msgid "Here you will find the guide to every parameter of the bar plot. If you need more generic information please see :ref:`basic_usage`."
+msgstr ""
+
+#: ../../source/bar.rst:12
+msgid "Plot Properties"
+msgstr ""
+
+#: ../../source/bar.rst:13
+msgid "``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr ""
+
+#: ../../source/bar.rst:15
+msgid "``X``: the X field"
+msgstr ""
+
+#: ../../source/bar.rst:17
+msgid "``Y Field``: the Y field"
+msgstr ""
+
+#: ../../source/bar.rst:19
+msgid "``Bar Color``: color of the bar"
+msgstr ""
+
+#: ../../source/bar.rst:21
+msgid "``Data Defined Override``: you can add an Expression to define the size of the marker. If activated other options are available: ``Color Scale``, ``Visible`` and ``Invert Color``."
+msgstr ""
+
+#: ../../source/bar.rst:24
+msgid "``Stroke Color``: border color"
+msgstr ""
+
+#: ../../source/bar.rst:26
+msgid "``Stroke Width``: the width of the border"
+msgstr ""
+
+#: ../../source/bar.rst:28
+msgid "``Transparency``: transparency level of the bar"
+msgstr ""
+
+#: ../../source/bar.rst:31
+msgid "Plot Customizations"
+msgstr ""
+
+#: ../../source/bar.rst:32
+msgid "``Show Legend``: show the legend of the current plot"
+msgstr ""
+
+#: ../../source/bar.rst:34
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+
+#: ../../source/bar.rst:36
+msgid "``Plot Title``: the plot title"
+msgstr ""
+
+#: ../../source/bar.rst:38
+msgid "``Legend Title``: the title of the legend"
+msgstr ""
+
+#: ../../source/bar.rst:40
+msgid "``X Label``: X label text"
+msgstr ""
+
+#: ../../source/bar.rst:42
+msgid "``Y Label``: Y label text"
+msgstr ""
+
+#: ../../source/bar.rst:44
+msgid "``Invert X Axis``: check if you want to invert the ordering of the x axis"
+msgstr ""
+
+#: ../../source/bar.rst:46
+msgid "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
+msgstr ""
+
+#: ../../source/bar.rst:48
+msgid "``Bar Orientation``: the orientation of the bar, either *Horizontal* or *Vertical*"
+msgstr ""
+
+#: ../../source/bar.rst:50
+msgid "``Bar Mode``: this option is handy if you have more data to plot:"
+msgstr ""
+
+#: ../../source/bar.rst:52
+msgid "**Grouped**: the bars are placed one next the other"
+msgstr ""
+
+#: ../../source/bar.rst:57
+msgid "**Stacked**: bars are stacked one over the other"
+msgstr ""
+
+#: ../../source/bar.rst:62
+msgid "**Overlay**: bars can be overlayed. Adjust the ``Transparecy`` setting"
+msgstr ""
+

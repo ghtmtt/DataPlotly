@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/contour.rst:4
+msgid "Contour Plot"
+msgstr ""
+
+#: ../../source/contour.rst:5
+msgid "Here you will find the guide to every parameter of the contour plot. If you need more generic information please see :ref:`basic_usage`."
+msgstr ""
+
+#: ../../source/contour.rst:12
+msgid "Plot Properties"
+msgstr ""
+
+#: ../../source/contour.rst:13
+msgid "``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr ""
+
+#: ../../source/contour.rst:15
+msgid "``X Field``: the X field"
+msgstr ""
+
+#: ../../source/contour.rst:17
+msgid "``Y Field``: the Y field"
+msgstr ""
+
+#: ../../source/contour.rst:19
+msgid "``Contour Type``: choose the type of countour:"
+msgstr ""
+
+#: ../../source/contour.rst:21
+msgid "``Fill``: the plot is filled everywhere:"
+msgstr ""
+
+#: ../../source/contour.rst:26
+msgid "``Heatmap``: a heatmap like plot will be created:"
+msgstr ""
+
+#: ../../source/contour.rst:31
+msgid "``Only Lines``: only the contour lines will be displayed:"
+msgstr ""
+
+#: ../../source/contour.rst:36
+msgid "``Show Lines``: uncheck if no contour lines should be added to the plot"
+msgstr ""
+
+#: ../../source/contour.rst:38
+msgid "``Color Scale``: choose between many different color scales"
+msgstr ""
+
+#: ../../source/contour.rst:41
+msgid "Plot Customizations"
+msgstr ""
+
+#: ../../source/contour.rst:42
+msgid "``Show Legend``: show the legend of the current plot"
+msgstr ""
+
+#: ../../source/contour.rst:44
+msgid "``Plot Title``: the plot title"
+msgstr ""
+
+#: ../../source/contour.rst:46
+msgid "``Legend Title``: the title of the legend"
+msgstr ""
+

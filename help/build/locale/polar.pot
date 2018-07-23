@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/polar.rst:4
+msgid "Polar Plot"
+msgstr ""
+
+#: ../../source/polar.rst:5
+msgid "Here you will find the guide to every parameter of the polar plot. If you need more generic information please see :ref:`basic_usage`."
+msgstr ""
+
+#: ../../source/polar.rst:12
+msgid "Plot Properties"
+msgstr ""
+
+#: ../../source/polar.rst:13
+msgid "``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr ""
+
+#: ../../source/polar.rst:15
+msgid "``X Field``: the X field"
+msgstr ""
+
+#: ../../source/polar.rst:17
+msgid "``Y Field``: the Y field"
+msgstr ""
+
+#: ../../source/polar.rst:19
+msgid "``Marker Color``: marker color"
+msgstr ""
+
+#: ../../source/polar.rst:21
+msgid "``Marker Size``: the size of the marker"
+msgstr ""
+
+#: ../../source/polar.rst:23
+msgid "``Stroke Color``: border color"
+msgstr ""
+
+#: ../../source/polar.rst:25
+msgid "``Stroke Width``: the width of the border"
+msgstr ""
+
+#: ../../source/polar.rst:27
+msgid "``Transparency``: transparency level of the marker/line"
+msgstr ""
+
+#: ../../source/polar.rst:30
+msgid "Plot Customizations"
+msgstr ""
+
+#: ../../source/polar.rst:31
+msgid "``Show Legend``: show the legend of the current plot"
+msgstr ""
+
+#: ../../source/polar.rst:33
+msgid "``Plot Title``: the plot title"
+msgstr ""
+
+#: ../../source/polar.rst:35
+msgid "``Legend Title``: the title of the legend"
+msgstr ""
+

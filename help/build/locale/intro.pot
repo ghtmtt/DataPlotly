@@ -1,0 +1,74 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/intro.rst:4
+msgid "Data Plotly"
+msgstr ""
+
+#: ../../source/intro.rst:5
+msgid "Data Plotly is a python plugin for QGIS that allows the creation of `D3 <https://d3js.org/>`_ like plots thanks to the `Plotly library <https://plot.ly/>`_ and the python API."
+msgstr ""
+
+#: ../../source/intro.rst:8
+msgid "Plots are totally **dynamic** so you can interact with the plot, e.g. zooming, getting some information hovering the mouse and many other useful stuff."
+msgstr ""
+
+#: ../../source/intro.rst:11
+msgid "Moreover, plot and map canvas are **connected**, this mean you can select an object on the plot and the same object will be selected in the map:"
+msgstr ""
+
+#: ../../source/intro.rst:18
+msgid "Plot and Map interaction"
+msgstr ""
+
+#: ../../source/intro.rst:20
+msgid "For each plot, tons of customizations are available."
+msgstr ""
+
+#: ../../source/intro.rst:26
+msgid "simple plot example"
+msgstr ""
+
+#: ../../source/intro.rst:29
+msgid "With DataPlotly you can create different plots, even different plot types, overlay them in the same plot canvas or load them in different plot canvas:"
+msgstr ""
+
+#: ../../source/intro.rst:36
+msgid "different plot types in the same map canvas"
+msgstr ""
+
+#: ../../source/intro.rst:42
+msgid "different plot types in separated plot canvas"
+msgstr ""
+
+#: ../../source/intro.rst:45
+msgid "Each plot type has its own configurations and customizations: it is very easy for you to choose the best solution that fits all your needs."
+msgstr ""
+
+#: ../../source/intro.rst:48
+msgid "Besides the interactive plot canvas, plots can be exported as `png` static images or as pure `html` files. `Html` file keep the plot *interactivity*."
+msgstr ""
+
+#: ../../source/intro.rst:51
+msgid "Finally, **plot raw html code** can be copied and pasted somewhere else, for example in html frame of the QGIS map composer or in an external website."
+msgstr ""
+
+#: ../../source/intro.rst:54
+msgid "`Plotly library <https://plot.ly/>`_ javascript code is saved in the local plugin folder so the plugin is usable also without any Internet connection."
+msgstr ""
+

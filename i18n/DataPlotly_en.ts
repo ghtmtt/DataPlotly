@@ -314,12 +314,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="642"/>
-        <source>Grouping Field
-(Optional)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../data_plotly_dialog.py" line="648"/>
         <source>Box Orientation</source>
         <translation type="unfinished"></translation>
@@ -405,8 +399,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../data_plotly_dialog.py" line="642"/>
+        <source>Grouping Field 
+(Optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../data_plotly_dialog.py" line="1048"/>
-        <source>{} plot is not comapatible for subplotting</source>
+        <source>{} plot is not compatible for subplotting
+ see </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

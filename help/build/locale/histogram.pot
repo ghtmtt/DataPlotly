@@ -1,0 +1,114 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017, Matteo Ghetta
+# This file is distributed under the same license as the DataPlotly package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DataPlotly 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-28 12:20+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../source/histogram.rst:4
+msgid "Histogram"
+msgstr ""
+
+#: ../../source/histogram.rst:5
+msgid "Here you will find the guide to every parameter of the histogram. If you need more generic information please see :ref:`basic_usage`."
+msgstr ""
+
+#: ../../source/histogram.rst:12
+msgid "Plot Properties"
+msgstr ""
+
+#: ../../source/histogram.rst:13
+msgid "``Layer``: the combobox will display all the vector layers loaded in QGIS"
+msgstr ""
+
+#: ../../source/histogram.rst:15
+msgid "``X``: the X field"
+msgstr ""
+
+#: ../../source/histogram.rst:17
+msgid "``Marker Color``: color of the bar"
+msgstr ""
+
+#: ../../source/histogram.rst:19
+msgid "``Stroke Color``: border color"
+msgstr ""
+
+#: ../../source/histogram.rst:21
+msgid "``Stroke Width``: the width of the border"
+msgstr ""
+
+#: ../../source/histogram.rst:23
+msgid "``Transparency``: transparency level of the bar"
+msgstr ""
+
+#: ../../source/histogram.rst:26
+msgid "Plot Customizations"
+msgstr ""
+
+#: ../../source/histogram.rst:27
+msgid "``Show Legend``: show the legend of the current plot"
+msgstr ""
+
+#: ../../source/histogram.rst:29
+msgid "``Horizontal Legend``: check if you want to have an horizontal legend"
+msgstr ""
+
+#: ../../source/histogram.rst:31
+msgid "``Plot Title``: the plot title"
+msgstr ""
+
+#: ../../source/histogram.rst:33
+msgid "``Legend Title``: the title of the legend"
+msgstr ""
+
+#: ../../source/histogram.rst:35
+msgid "``X Label``: X label text"
+msgstr ""
+
+#: ../../source/histogram.rst:37
+msgid "``Invert X Axis``: check if you want to invert the ordering of the x axis"
+msgstr ""
+
+#: ../../source/histogram.rst:39
+msgid "``Invert Y Axis``: check if you want to invert the ordering of the y axis"
+msgstr ""
+
+#: ../../source/histogram.rst:41
+msgid "``Bar Orientation``: the orientation of the bar, either *Horizontal* or *Vertical*"
+msgstr ""
+
+#: ../../source/histogram.rst:43
+msgid "``Bar Mode``: choose if you want to group, stack or overlay the data"
+msgstr ""
+
+#: ../../source/histogram.rst:45
+msgid "``Normalization``: different type of bins calculations are available"
+msgstr ""
+
+#: ../../source/histogram.rst:47
+msgid "``Cumulative Histogram``: check if you want to create a cumulative histogram"
+msgstr ""
+
+#: ../../source/histogram.rst:49
+msgid "``Invert Histogram Direction``: check if you want to invert the histogram direction (only if cumulative option is chosen)"
+msgstr ""
+
+#: ../../source/histogram.rst:51
+msgid "``Choose manually the bins``: check if want to choose manually the bins number and add a numeric value in the box"
+msgstr ""
+
+#: ../../source/histogram.rst:57
+msgid "``Bar gap``: choose the space between the gaps, from 0 (no space) to 1 (maximum space)"
+msgstr ""
+
