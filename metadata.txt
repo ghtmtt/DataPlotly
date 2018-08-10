@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.2
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=1.5
+version=1.5.1
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,9 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 1.5.1
+  - [feature] Spanish translation. Special thanks to Luca Bellani
+  - [bugfix] always open English manual if locale not translated
   Version 1.5
   - [feature] **new** Violin plots!
   - [feature] **new** Polar plot layout!
