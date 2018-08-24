@@ -657,8 +657,10 @@ class Plot(object):
 
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
+        # set some configurations
+        config = {'scrollZoom': True, 'editable': True}
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False)
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False, config=config)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
 
@@ -719,10 +721,12 @@ class Plot(object):
         else:
             figures = go.Figure(data=ptrace, layout=self.layout)
 
+        # set some configurations
+        config = {'scrollZoom': True, 'editable': True}
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False, show_link=False)
+        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False, show_link=False, config=config)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
 
@@ -776,10 +780,12 @@ class Plot(object):
             for i, itm in enumerate(ptrace):
                 fig.append_trace(itm, i + 1, column)
 
+        # set some configurations
+        config = {'scrollZoom': True, 'editable': True}
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(self.polyfillpath, self.plotlypath)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False)
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False, config=config)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
 
