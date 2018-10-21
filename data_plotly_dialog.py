@@ -614,7 +614,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # Contour Plot color scale and Data Defined Color scale
         self.col_scale = OrderedDict([
-            (self.tr('OrangeToRed'), 'pairs'),
             (self.tr('Grey Scale'), 'Greys'),
             (self.tr('Green Scale'), 'Greens'),
             (self.tr('Fire Scale'), 'Hot'),
@@ -910,7 +909,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             # featureIds are the ID of each feature needed for the selection and zooming method
             'featureIds':getIds(self.layer_combo.currentLayer(), self.selected_feature_check.isChecked()),
             'featureBox':getSortedId(self.layer_combo.currentLayer(), xx),
-            'custom':self.x_combo.currentText(),
+            'custom':[self.x_combo.currentText()],
             'hover_text':self.info_hover[self.info_combo.currentText()],
             'additional_hover_text':QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.additional_info_combo.currentText(), selectedOnly=self.selected_feature_check.isChecked())[0],
             'x_name':self.x_combo.currentText(),
