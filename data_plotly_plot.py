@@ -268,7 +268,7 @@ class Plot(object):
             self.trace = [go.Pie(
                 labels=self.plot_properties['x'],
                 values=self.plot_properties['y'],
-                name=self.plot_properties['custom'],
+                name=self.plot_properties['custom'][0],
             )]
 
         elif self.plot_type == '2dhistogram':
@@ -443,13 +443,11 @@ class Plot(object):
             self.layout['xaxis'].update(showgrid=False),
             self.layout['xaxis'].update(zeroline=False),
             self.layout['xaxis'].update(showline=False),
-            self.layout['xaxis'].update(autotick=False),
             self.layout['xaxis'].update(showticklabels=False),
             self.layout['yaxis'].update(title=''),
             self.layout['yaxis'].update(showgrid=False),
             self.layout['yaxis'].update(zeroline=False),
             self.layout['yaxis'].update(showline=False),
-            self.layout['yaxis'].update(autotick=False),
             self.layout['yaxis'].update(showticklabels=False)
 
         elif self.plot_type == 'ternary':
