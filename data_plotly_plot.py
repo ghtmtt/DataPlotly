@@ -581,7 +581,7 @@ class Plot(object):
         else if(data.points[i].data.type == 'violin'){
             dd["uid"] = data.points[i].data.uid
             dd["type"] = data.points[i].data.type
-            dd["field"] = data.points[i].data.customdata
+            dd["field"] = data.points[i].data.customdata[0]
 
                 // correct axis orientation (for violin is viceversa)
                 if(data.points[i].data.orientation == 'v'){
