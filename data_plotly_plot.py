@@ -182,7 +182,6 @@ class Plot(object):
                     )
                 ),
                 line=dict(
-                    color=self.plot_properties['in_color'],
                     width=self.plot_properties['marker_width'],
                     dash=self.plot_properties['line_dash']
                 ),
