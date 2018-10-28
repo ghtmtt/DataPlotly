@@ -455,13 +455,11 @@ class Plot(object):
             self.layout['xaxis'].update(showgrid=False),
             self.layout['xaxis'].update(zeroline=False),
             self.layout['xaxis'].update(showline=False),
-            self.layout['xaxis'].update(autotick=False),
             self.layout['xaxis'].update(showticklabels=False),
             self.layout['yaxis'].update(title=''),
             self.layout['yaxis'].update(showgrid=False),
             self.layout['yaxis'].update(zeroline=False),
             self.layout['yaxis'].update(showline=False),
-            self.layout['yaxis'].update(autotick=False),
             self.layout['yaxis'].update(showticklabels=False)
             self.layout['ternary'] = dict(
                 sum=100,
