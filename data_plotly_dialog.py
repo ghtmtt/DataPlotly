@@ -31,7 +31,12 @@ from PyQt5.QtCore import QUrl, QFileInfo, QSettings, pyqtSignal
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import *
 from qgis.gui import *
-from qgis.core import QgsNetworkAccessManager, QgsVectorLayerUtils
+from qgis.core import (
+    Qgis,
+    QgsNetworkAccessManager,
+    QgsVectorLayerUtils,
+    QgsFeatureRequest,
+    QgsMapLayerProxyModel)
 from qgis.utils import iface
 import plotly
 import plotly.graph_objs as go
