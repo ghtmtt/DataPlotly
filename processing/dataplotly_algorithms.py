@@ -20,6 +20,7 @@
  ***************************************************************************/
 """
 
+import os
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from DataPlotly.data_plotly_plot import *
 
