@@ -757,7 +757,7 @@ QListWidget::item::selected {
           <item row="2" column="0">
            <widget class="QPushButton" name="clear_btn">
             <property name="text">
-             <string>Clean Plot Cavas</string>
+             <string>Clean Plot Canvas</string>
             </property>
            </widget>
           </item>
