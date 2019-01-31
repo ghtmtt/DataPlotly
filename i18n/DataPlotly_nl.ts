@@ -640,7 +640,7 @@
     </message>
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="760"/>
-        <source>Clean Plot Cavas</source>
+        <source>Clean Plot Canvas</source>
         <translation>Leeg Diagramvenster</translation>
     </message>
     <message>
