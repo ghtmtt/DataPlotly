@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=2.0
+version=2.1
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,9 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 2.1
+  - [fix] typos in UI (thanks @leonmvd and @nyalldawson)
+  - [fix] better python packages imports (thanks @nyalldawson)
   Version 2.0
   - [feature] DataPlotly is updated with plotly 3.3 version
   Version 1.6
