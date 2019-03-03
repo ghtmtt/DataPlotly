@@ -1,11 +1,12 @@
 # DataPlotly
-DataPlotly plugins allows to create ![D3](https://d3js.org/) interactive like
-plots thanks to the ![Plotly](https://plot.ly/python/) library and the python API.
+The DataPlotly plugin allows creation of ![D3](https://d3js.org/)-like
+interactive plots directly within QGIS, thanks to the ![Plotly](https://plot.ly/python/)
+library and its Python API.
 
 DataPlotly makes plot creation and customization easy for every needs.
 
 Besides all the plot and customizations available, the plot is **linked** with
-the map canvas:
+the QGIS map canvas:
 
 ![Plot interactions](./help/source/img/readme/plot_interaction_scatter.gif)
 
@@ -51,10 +52,10 @@ Some examples of single plot type with some options. The list is far away to sho
 ![Plot interactions](./help/source/img/readme/plot_contour.png)
 
 ### Multi Plots
-DataPloty allows to create different plot type in the same *plot canvas* but allow also the chance to separate each plot in a different canvas.
+DataPloty allows creation of different plot type in the same *plot canvas* but also allows the chance to separate each plot in a different canvas.
 
 <aside class="warning">
-Some plot are not compatibles with overlapping or subplotting. A message will warn you when this happens.
+Some plot are not compatible with overlapping or subplotting. A message will warn you when this happens.
 </aside>
 
 
