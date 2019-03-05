@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="es" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="es" sourcelanguage="">
 <context>
     <name>@default</name>
     <message>
@@ -23,388 +24,383 @@
 <context>
     <name>DataPlotlyDockWidget</name>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Scatter Plot</source>
         <translation>Gráfico de dispersión</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Box Plot</source>
         <translation>Diagrama de caja y bigotes</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Bar Plot</source>
         <translation>Diagrama de barras</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Histogram</source>
         <translation>Histograma</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Pie Plot</source>
         <translation>Diagrama de pastel</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>2D Histogram</source>
         <translation>Histograma 2D</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Polar Plot</source>
         <translation>Diagrama Polar</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Ternary Plot</source>
         <translation>Diagrama Ternario</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Contour Plot</source>
         <translation>Diagrama de contornos</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="132"/>
+        <location filename="../data_plotly_dialog.py" line="137"/>
         <source>SinglePlot</source>
         <translation>Diagrama individual</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="800"/>
+        <location filename="../data_plotly_dialog.py" line="804"/>
         <source>SubPlots</source>
         <translation>Diagrama múltiple</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="468"/>
+        <location filename="../data_plotly_dialog.py" line="473"/>
         <source>X Field</source>
         <translation>Campo X</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="476"/>
+        <location filename="../data_plotly_dialog.py" line="481"/>
         <source>Vertical</source>
         <translation>Vertical</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="476"/>
+        <location filename="../data_plotly_dialog.py" line="481"/>
         <source>Horizontal</source>
         <translation>Horizontal</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="485"/>
+        <location filename="../data_plotly_dialog.py" line="490"/>
         <source>No Outliers</source>
         <translation>Sin Valor Extremo</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="485"/>
+        <location filename="../data_plotly_dialog.py" line="490"/>
         <source>Standard Outliers</source>
         <translation>Valor Extremo Estárdar</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="485"/>
+        <location filename="../data_plotly_dialog.py" line="490"/>
         <source>Suspected Outliers</source>
         <translation>Valor Extremo sospechoso</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="485"/>
+        <location filename="../data_plotly_dialog.py" line="490"/>
         <source>All Points</source>
         <translation>Todos los puntos</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="495"/>
+        <location filename="../data_plotly_dialog.py" line="500"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="495"/>
+        <location filename="../data_plotly_dialog.py" line="500"/>
         <source>Mean</source>
         <translation>Promedio</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="495"/>
+        <location filename="../data_plotly_dialog.py" line="500"/>
         <source>Standard Deviation</source>
         <translation>Desviación estárdar</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="515"/>
+        <location filename="../data_plotly_dialog.py" line="520"/>
         <source>Linear</source>
         <translation>Lineal</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="515"/>
+        <location filename="../data_plotly_dialog.py" line="520"/>
         <source>Logarithmic</source>
         <translation>Logarítmico</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="515"/>
+        <location filename="../data_plotly_dialog.py" line="520"/>
         <source>Categorized</source>
         <translation>Categorizado</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="817"/>
+        <location filename="../data_plotly_dialog.py" line="821"/>
         <source>Points</source>
         <translation>Puntos</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="826"/>
+        <location filename="../data_plotly_dialog.py" line="830"/>
         <source>Lines</source>
         <translation>Líneas</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="525"/>
+        <location filename="../data_plotly_dialog.py" line="530"/>
         <source>Points and Lines</source>
         <translation>Puntos y Líneas</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="570"/>
+        <location filename="../data_plotly_dialog.py" line="575"/>
         <source>Solid Line</source>
         <translation>Línea Sólida</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="570"/>
+        <location filename="../data_plotly_dialog.py" line="575"/>
         <source>Dot Line</source>
         <translation>Línea de Puntos</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="570"/>
+        <location filename="../data_plotly_dialog.py" line="575"/>
         <source>Dash Line</source>
         <translation>Línea de Guiones</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="570"/>
+        <location filename="../data_plotly_dialog.py" line="575"/>
         <source>Long Dash Line</source>
         <translation>Línea de Guiones Largos</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="570"/>
+        <location filename="../data_plotly_dialog.py" line="575"/>
         <source>Dot Dash Line</source>
         <translation>Línea de Guiones y Puntos</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="570"/>
+        <location filename="../data_plotly_dialog.py" line="575"/>
         <source>Long Dash Dot Line</source>
         <translation>Línea de Puntos y Guiones Largos</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="584"/>
+        <location filename="../data_plotly_dialog.py" line="589"/>
         <source>Grouped</source>
         <translation>Agrupado</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="584"/>
+        <location filename="../data_plotly_dialog.py" line="589"/>
         <source>Stacked</source>
         <translation>Apilado</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="584"/>
+        <location filename="../data_plotly_dialog.py" line="589"/>
         <source>Overlay</source>
         <translation>Superponer</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="594"/>
+        <location filename="../data_plotly_dialog.py" line="599"/>
         <source>Enumerated</source>
         <translation>Enumerado</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="594"/>
+        <location filename="../data_plotly_dialog.py" line="599"/>
         <source>Percents</source>
         <translation>Porcentajes</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="594"/>
+        <location filename="../data_plotly_dialog.py" line="599"/>
         <source>Probability</source>
         <translation>Probabilidad</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="594"/>
+        <location filename="../data_plotly_dialog.py" line="599"/>
         <source>Density</source>
         <translation>Densidad</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="594"/>
+        <location filename="../data_plotly_dialog.py" line="599"/>
         <source>Prob Density</source>
         <translation>Densidad Probable</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="606"/>
+        <location filename="../data_plotly_dialog.py" line="611"/>
         <source>Fill</source>
         <translation>Relleno</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="606"/>
+        <location filename="../data_plotly_dialog.py" line="611"/>
         <source>Heatmap</source>
         <translation>Mapa de Calor</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="606"/>
+        <location filename="../data_plotly_dialog.py" line="611"/>
         <source>Only Lines</source>
         <translation>Solo Líneas</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
-        <source>OrangeToRed</source>
-        <translation>De naranja a rojo</translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>Grey Scale</source>
         <translation>Escala de grises</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>Green Scale</source>
         <translation>Escala de verdes</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>Fire Scale</source>
         <translation>Escala de Fuego</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>BlueYellowRed</source>
         <translation>AzulAmarilloRojo</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>BlueGreenRed</source>
         <translation>AzulRojoVerde</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>BlueToRed</source>
         <translation>AzulARojo</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>BlueToRed Soft</source>
         <translation>AzulARojo Suave</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>BlackRedYellowBlue</source>
         <translation>NegroRojoAmarilloAzul</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>Terrain</source>
         <translation>Terreno</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>Electric Scale</source>
         <translation>Escala Eléctrica</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>RedOrangeYellow</source>
         <translation>RojoAnaranjadoAmarillo</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>DeepblueBlueWhite</source>
         <translation>AzulprofundoBlancoPurpura</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="616"/>
+        <location filename="../data_plotly_dialog.py" line="621"/>
         <source>BlueWhitePurple</source>
         <translation>AzulBlancoPurpura</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="648"/>
+        <location filename="../data_plotly_dialog.py" line="652"/>
         <source>Box Orientation</source>
         <translation>Orientación de Caja</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="649"/>
+        <location filename="../data_plotly_dialog.py" line="653"/>
         <source>Box Color</source>
         <translation>Color de Caja</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="653"/>
+        <location filename="../data_plotly_dialog.py" line="657"/>
         <source>Marker Color</source>
         <translation>Color de Marcador</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="657"/>
+        <location filename="../data_plotly_dialog.py" line="661"/>
         <source>Bar Orientation</source>
         <translation>Orientación de Barra</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="658"/>
+        <location filename="../data_plotly_dialog.py" line="662"/>
         <source>Bar Color</source>
         <translation>Color de Barra</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="662"/>
+        <location filename="../data_plotly_dialog.py" line="666"/>
         <source>Grouping Field</source>
         <translation>Campo de Agrupamiento</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="669"/>
+        <location filename="../data_plotly_dialog.py" line="673"/>
         <source>All Values</source>
         <translation>Todos los Valores</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="669"/>
+        <location filename="../data_plotly_dialog.py" line="673"/>
         <source>X Values</source>
         <translation>X Valores</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="669"/>
+        <location filename="../data_plotly_dialog.py" line="673"/>
         <source>Y Values</source>
         <translation>Y Valores</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="669"/>
+        <location filename="../data_plotly_dialog.py" line="673"/>
         <source>No Data</source>
         <translation>Sin Datos</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="1133"/>
+        <location filename="../data_plotly_dialog.py" line="1137"/>
         <source>Save plot</source>
         <translation>Guardar Diagrama</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="1143"/>
+        <location filename="../data_plotly_dialog.py" line="1147"/>
         <source>Plot succesfully saved</source>
         <translation>Diagrama Guardado con Exito</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="1124"/>
+        <location filename="../data_plotly_dialog.py" line="1128"/>
         <source>Please select a directory to save the plot</source>
         <translation>Favor seleccione un directorio para guardar el diagrama.</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="113"/>
+        <location filename="../data_plotly_dialog.py" line="118"/>
         <source>Violin Plot</source>
         <translation>Diagrama de Violin</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="680"/>
+        <location filename="../data_plotly_dialog.py" line="684"/>
         <source>Both Sides</source>
         <translation>Ambos Lados</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="680"/>
+        <location filename="../data_plotly_dialog.py" line="684"/>
         <source>Only Left</source>
         <translation>Solo Izquierda</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="680"/>
+        <location filename="../data_plotly_dialog.py" line="684"/>
         <source>Only right</source>
         <translation>Solo Derecha</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="642"/>
+        <location filename="../data_plotly_dialog.py" line="646"/>
         <source>Grouping Field 
 (Optional)</source>
         <translation>Campo de Agrupamiento (Opcional)</translation>
     </message>
     <message>
-        <location filename="../data_plotly_dialog.py" line="1048"/>
+        <location filename="../data_plotly_dialog.py" line="1052"/>
         <source>{} plot is not compatible for subplotting
  see </source>
         <translation>{} El Diagrama no es compatible con la vista de SubDiagrama.</translation>
@@ -701,92 +697,92 @@
 <context>
     <name>DataPlotlyProcessingPlot</name>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="87"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="88"/>
         <source>Input layer</source>
         <translation>Capa de Entrada</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="94"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="95"/>
         <source>Plot type</source>
         <translation>Tipo de Diagrama</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="102"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="103"/>
         <source>Plot title</source>
         <translation>Titulo de Diagrama</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="110"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="111"/>
         <source>X Field</source>
         <translation>Campo X</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="120"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="121"/>
         <source>Y Field</source>
         <translation>Campo Y</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="130"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="131"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="139"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="140"/>
         <source>Color (any valid HTML color) If set, this is used instead of the color set in the previous input.</source>
         <translation>Color (Cualquier Color HTML válido) si aplica, es usado en lugar del color ingresado anteriormente.</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="147"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="148"/>
         <source>HTML File</source>
         <translation>Archivo HTML</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="147"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="148"/>
         <source>HTML files (*.html)</source>
         <translation>Archivos HTML (*.html)</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="154"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="155"/>
         <source>Dataplotly - Generic plot HTML output</source>
         <translation>Dataplotly - Salida de Diagrama HTML Genérico</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="157"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="158"/>
         <source>JSON file</source>
         <translation>Archivo JSON</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="157"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="158"/>
         <source>JSON Files (*.json)</source>
         <translation>Archivos JSON (*.json)</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="164"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="165"/>
         <source>Dataplotly - Generic plot JSON output</source>
         <translation>Dataplotly - Salida de Diagrama JSON Genérico</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="173"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="174"/>
         <source>Build a generic plot</source>
         <translation>Construir un Diagrama Genérico</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="176"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="177"/>
         <source>Plots</source>
         <translation>Diagramas</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="179"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="180"/>
         <source>plots</source>
         <translation>diagramas</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="209"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="210"/>
         <source>The chosen plot type needs a X field !</source>
         <translation>¡El tipo de Diagrama elegido necesita un campo X!</translation>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="211"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="212"/>
         <source>The chosen plot type needs a Y field !</source>
         <translation>¡El tipo de Diagrama elegido necesita un campo Y!</translation>
     </message>
