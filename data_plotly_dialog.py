@@ -24,7 +24,7 @@
 import os
 import json
 
-from PyQt5 import uic, QtWidgets
+from qgis.PyQt import uic, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QFont, QIcon, QImage, QPainter, QColor
 from PyQt5.QtCore import QUrl, QFileInfo, QSettings, pyqtSignal
