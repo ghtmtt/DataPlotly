@@ -25,11 +25,22 @@ import os
 import json
 
 from qgis.PyQt import uic, QtWidgets
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QFont, QIcon, QImage, QPainter, QColor
-from PyQt5.QtCore import QUrl, QFileInfo, QSettings, pyqtSignal
-from PyQt5.QtWebKit import QWebSettings
-from PyQt5.QtWebKitWidgets import *
+from qgis.PyQt.QtWidgets import *
+from qgis.PyQt.QtGui import (
+    QFont,
+    QIcon,
+    QImage,
+    QPainter,
+    QColor
+)
+from qgis.PyQt.QtCore import (
+    QUrl,
+    QFileInfo,
+    QSettings,
+    pyqtSignal
+)
+from qgis.PyQt.QtWebKit import QWebSettings
+from qgis.PyQt.QtWebKitWidgets import *
 from qgis.gui import *
 from qgis.core import (
     Qgis,
