@@ -44,31 +44,8 @@ class DataPlotlyProvider(QgsProcessingProvider):
         """In this method we add settings needed to configure our
         provider.
         """
-        ProcessingConfig.settingIcons[self.name()] = self.icon()
-        # Deactivate provider by default
-        ProcessingConfig.addSetting(Setting(self.name(), 'ACTIVATE_EXAMPLE',
-                                            'Activate', False))
-        ProcessingConfig.addSetting(Setting('Example algorithms',
-                                            DataPlotlyProvider.MY_DUMMY_SETTING,
-                                            'Example setting', 'Default value'))
-        ProcessingConfig.readSettings()
         self.refreshAlgorithms()
         return True
-
-    def unload(self):
-        """Setting should be removed here, so they do not appear anymore
-        when the plugin is unloaded.
-        """
-        ProcessingConfig.removeSetting('ACTIVATE_EXAMPLE')
-        ProcessingConfig.removeSetting(
-            DataPlotlyProvider.MY_DUMMY_SETTING)
-
-    def isActive(self):
-        """Return True if the provider is activated and ready to run algorithms"""
-        return ProcessingConfig.getSetting('ACTIVATE_EXAMPLE')
-
-    def setActive(self, active):
-        ProcessingConfig.setSettingValue('ACTIVATE_EXAMPLE', active)
 
     def id(self):
         """This is the name that will appear on the toolbox group.
