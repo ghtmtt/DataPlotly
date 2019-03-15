@@ -58,6 +58,7 @@ from DataPlotly.data_plotly_plot import *
 from collections import OrderedDict
 import tempfile
 from shutil import copyfile
+from functools import partial
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -996,6 +997,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # create default dictionary that contains all the plot and properties
         self.plot_traces[self.pid] = self.plotobject
 
+        # bind layer dataChanged signal to update
+        self.layer_combo.currentLayer().dataChanged.connect(partial(self.__update_plot_on_refresh, self.plotobject))
+
         # just add 1 to the index
         self.idx += 1
 
@@ -1003,7 +1007,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.update_btn.setEnabled(True)
 
 
-    def createPlot(self):
+    def createPlot(self, plotobject=None):
         '''
         call the method to effectively draw the final plot
 
@@ -1012,7 +1016,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
 
         # call the method to build all the Plot plotProperties
-        self.plotProperties()
+        if not plotobject:
+            self.plotProperties()
+            plotobject = self.plotobject
 
         # set the correct index page of the widget
         self.stackedPlotWidget.setCurrentIndex(1)
@@ -1024,7 +1030,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
             # plot single plot, check the object dictionary lenght
             if len(self.plot_traces) <= 1:
-                self.plot_path = self.plotobject.buildFigure()
+                self.plot_path = plotobject.buildFigure()
 
             # to plot many plots in the same figure
             else:
@@ -1037,7 +1043,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     pl.append(v.trace[0])
                     ll = v.layout
 
-                self.plot_path = self.plotobject.buildFigures(self.ptype, pl)
+                self.plot_path = plotobject.buildFigures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
@@ -1052,12 +1058,12 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 # plot in single row and many columns
                 if self.radio_rows.isChecked():
 
-                    self.plot_path = self.plotobject.buildSubPlots('row', 1, gr, pl, tt)
+                    self.plot_path = plotobject.buildSubPlots('row', 1, gr, pl, tt)
 
                 # plot in single column and many rows
                 elif self.radio_columns.isChecked():
 
-                    self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
+                    self.plot_path = plotobject.buildSubPlots('col', gr, 1, pl, tt)
             except:
                 iface.messageBar().pushMessage(self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
                              Qgis.MessageLevel(2), duration=5)
@@ -1077,6 +1083,19 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         del self.plot_traces[plot_to_update]
 
         self.createPlot()
+
+    def __update_plot_on_refresh(self, plot_to_update):
+        layer = self.sender()
+        xx = QgsVectorLayerUtils.getValues(layer, plot_to_update.plot_properties['x_name'])[0]
+        yy = QgsVectorLayerUtils.getValues(layer, plot_to_update.plot_properties['y_name'])[0]
+        zz = QgsVectorLayerUtils.getValues(layer, plot_to_update.plot_properties['z_name'])[0]
+        xx, yy, zz = cleanData(xx, yy, zz)
+        plot_to_update.plot_properties['x'] = xx
+        plot_to_update.plot_properties['y'] = yy
+        plot_to_update.plot_properties['z'] = zz
+        plot_to_update.buildTrace()
+        self.plotobject.buildLayout()
+        self. createPlot(plot_to_update)
 
 
     def refreshPlotView(self):
