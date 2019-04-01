@@ -80,6 +80,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
 
+        self.listWidget.setIconSize(iface.iconSize(False))
+        self.listWidget.setMaximumWidth(int(self.listWidget.iconSize().width() * 1.18))
+
         # connect signal to function to reload the plot view
         self.resizeWindow.connect(self.reloadPlotCanvas)
 
