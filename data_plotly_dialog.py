@@ -199,6 +199,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # load the help hatml page into the help widget
         self.layouth = QVBoxLayout()
+        self.layouth.setContentsMargins(0,0,0,0)
         self.help_widget.setLayout(self.layouth)
         self.help_view = QWebView()
         self.layouth.addWidget(self.help_view)
@@ -206,6 +207,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # load the webview of the plot a the first running of the plugin
         self.layoutw = QVBoxLayout()
+        self.layoutw.setContentsMargins(0,0,0,0)
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
         self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
