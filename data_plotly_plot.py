@@ -112,7 +112,8 @@ class Plot(object):
             'x_inv': None,
             'y_inv': None,
             'range_slider': {'visible': False},
-            'bargaps': None
+            'bargaps': None,
+            'polar': {'angularaxis': {'direction': 'clockwise'}}
         }
         self.plotBaseDic = {
             'plot_type': None,
@@ -282,8 +283,8 @@ class Plot(object):
         elif self.plot_type == 'polar':
 
             self.trace = [go.Scatterpolar(
-                r=self.plot_properties['x'],
-                theta=self.plot_properties['y'],
+                r=self.plot_properties['y'],
+                theta=self.plot_properties['x'],
                 mode=self.plot_properties['marker'],
                 name=self.plot_properties['y_name'],
                 marker=dict(
@@ -433,6 +434,9 @@ class Plot(object):
 
         elif self.plot_type == 'bar':
             self.layout['barmode'] = self.plot_layout['bar_mode']
+
+        elif self.plot_type == 'polar':
+            self.layout['polar'] = self.plot_layout['polar']
 
         elif self.plot_type == 'histogram':
             self.layout['barmode'] = self.plot_layout['bar_mode']

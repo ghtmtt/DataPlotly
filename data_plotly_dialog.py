@@ -200,7 +200,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # start the index counter
         self.idx = 1
 
-        # load the help hatml page into the help widget
+        # load the help html page into the help widget
         self.layouth = QVBoxLayout()
         self.layouth.setContentsMargins(0,0,0,0)
         self.help_widget.setLayout(self.layouth)
