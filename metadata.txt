@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=2.2
+version=2.3
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,8 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 2.3
+  - [feature] tweaks polar plots, thanks @josephholler
   Version 2.2
   - [feature] UI tweaks, thanks @nyalldawson
   Version 2.1
