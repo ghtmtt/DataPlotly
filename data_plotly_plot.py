@@ -600,7 +600,7 @@ class Plot(object):
         else if(data.points[i].data.type == 'bar'){
             dd["uid"] = data.points[i].data.uid
             dd["type"] = data.points[i].data.type
-            dd["field"] = data.points[i].data.customdata
+            dd["field"] = data.points[i].data.customdata[0]
 
                 // correct axis orientation
                 if(data.points[i].data.orientation == 'v'){
