@@ -20,21 +20,21 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction
+import os.path
 
+from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
+from qgis.core import QgsApplication
 
 # Import the code for the dialog
 from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
-import os.path
 
 # import processing provider
-from qgis.core import QgsApplication
 from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
 
 
-class DataPlotly:
+class DataPlotly:  # pylint: disable=too-many-instance-attributes
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
@@ -83,7 +83,7 @@ class DataPlotly:
         self.dockwidget = None
 
     # noinspection PyMethodMayBeStatic
-    def tr(self, message):
+    def tr(self, message):  # pylint: disable=no-self-use
         """Get the translation for a string using Qt translation API.
 
         We implement this ourselves since we do not inherit QObject.
@@ -97,7 +97,7 @@ class DataPlotly:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('DataPlotly', message)
 
-    def add_action(
+    def add_action(  # pylint: disable=too-many-arguments
             self,
             icon_path,
             text,

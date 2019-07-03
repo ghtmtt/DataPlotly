@@ -17,7 +17,7 @@ import unittest
 from PyQt5.QtGui import QIcon
 
 
-class DataPlotlyDialogTest(unittest.TestCase):
+class DataPlotlyResourcesTest(unittest.TestCase):
     """Test rerources work."""
 
     def setUp(self):

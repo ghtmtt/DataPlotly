@@ -208,7 +208,7 @@ class QgisInterface(QObject):
         """Get the legend."""
         return self.canvas
 
-    def iconSize(self, dockedToolbar) -> int:
+    def iconSize(self, dockedToolbar) -> int:  # pylint: disable=no-self-use
         """
         Returns the toolbar icon size.
         :param dockedToolbar: If True, the icon size

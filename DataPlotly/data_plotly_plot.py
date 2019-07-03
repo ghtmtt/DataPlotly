@@ -21,16 +21,16 @@
  ***************************************************************************/
 """
 
-import plotly
-import plotly.graph_objs as go
-from plotly import tools
 import tempfile
 import os
 import platform
 import re
+import plotly
+import plotly.graph_objs as go
+from plotly import tools
 
 
-class Plot(object):
+class Plot:  # pylint:disable=too-many-instance-attributes
     '''
     Plot Class that creates the initial Plot object
 
@@ -135,8 +135,12 @@ class Plot(object):
         self.plot_type = plot_type
         self.plot_properties = plot_properties
         self.plot_layout = plot_layout
+        self.trace = None
+        self.layout = None
+        self.raw_plot = None
+        self.plot_path = None
 
-    def buildTrace(self):
+    def buildTrace(self):  # pylint:disable=too-many-branches
         '''
         build the final trace calling the go.xxx plotly method
         this method here is the one performing the real job
@@ -326,8 +330,8 @@ class Plot(object):
                 b=self.plot_properties['y'],
                 c=self.plot_properties['z'],
                 name=self.plot_properties['x_name'] +
-                ' + ' + self.plot_properties['y_name'] +
-                ' + ' + self.plot_properties['z_name'],
+                     ' + ' + self.plot_properties['y_name'] +
+                     ' + ' + self.plot_properties['z_name'],
                 hoverinfo='text',
                 text=text,
                 mode='markers',
@@ -432,12 +436,12 @@ class Plot(object):
         try:
             if isinstance(self.plot_properties['x'][0], (int, float)):
                 self.layout['xaxis'].update(type=self.plot_layout['x_type'])
-        except:
+        except:  # pylint:disable=bare-except
             pass
         try:
             if isinstance(self.plot_properties['y'][0], (int, float)):
                 self.layout['yaxis'].update(type=self.plot_layout['y_type'])
-        except:
+        except:  # pylint:disable=bare-except
             pass
 
         # update layout properties depending on the plot type
@@ -455,27 +459,27 @@ class Plot(object):
             self.layout['bargroupgap'] = self.plot_layout['bargaps']
 
         elif self.plot_type == 'pie':
-            self.layout['xaxis'].update(title=''),
-            self.layout['xaxis'].update(showgrid=False),
-            self.layout['xaxis'].update(zeroline=False),
-            self.layout['xaxis'].update(showline=False),
-            self.layout['xaxis'].update(showticklabels=False),
-            self.layout['yaxis'].update(title=''),
-            self.layout['yaxis'].update(showgrid=False),
-            self.layout['yaxis'].update(zeroline=False),
-            self.layout['yaxis'].update(showline=False),
+            self.layout['xaxis'].update(title='')
+            self.layout['xaxis'].update(showgrid=False)
+            self.layout['xaxis'].update(zeroline=False)
+            self.layout['xaxis'].update(showline=False)
+            self.layout['xaxis'].update(showticklabels=False)
+            self.layout['yaxis'].update(title='')
+            self.layout['yaxis'].update(showgrid=False)
+            self.layout['yaxis'].update(zeroline=False)
+            self.layout['yaxis'].update(showline=False)
             self.layout['yaxis'].update(showticklabels=False)
 
         elif self.plot_type == 'ternary':
-            self.layout['xaxis'].update(title=''),
-            self.layout['xaxis'].update(showgrid=False),
-            self.layout['xaxis'].update(zeroline=False),
-            self.layout['xaxis'].update(showline=False),
-            self.layout['xaxis'].update(showticklabels=False),
-            self.layout['yaxis'].update(title=''),
-            self.layout['yaxis'].update(showgrid=False),
-            self.layout['yaxis'].update(zeroline=False),
-            self.layout['yaxis'].update(showline=False),
+            self.layout['xaxis'].update(title='')
+            self.layout['xaxis'].update(showgrid=False)
+            self.layout['xaxis'].update(zeroline=False)
+            self.layout['xaxis'].update(showline=False)
+            self.layout['xaxis'].update(showticklabels=False)
+            self.layout['yaxis'].update(title='')
+            self.layout['yaxis'].update(showgrid=False)
+            self.layout['yaxis'].update(zeroline=False)
+            self.layout['yaxis'].update(showline=False)
             self.layout['yaxis'].update(showticklabels=False)
             self.layout['ternary'] = dict(
                 sum=100,
@@ -495,7 +499,8 @@ class Plot(object):
 
         return self.layout
 
-    def js_callback(self, code_string):
+    @staticmethod
+    def js_callback(_):
         '''
         returns a string that is added to the end of the plot. This string is
         necessary for the interaction between plot and map objects
@@ -639,7 +644,7 @@ class Plot(object):
         return js_str
 
     def buildFigure(self):
-        '''
+        """
         draw the final plot (single plot)
 
         call the go.Figure plotly method and build the figure object adjust the
@@ -661,7 +666,7 @@ class Plot(object):
 
         # finally create the Figure
         fig = p.buildFigure()
-        '''
+        """
 
         fig = go.Figure(data=self.trace, layout=self.layout)
 
@@ -755,7 +760,7 @@ class Plot(object):
 
         return self.plot_path
 
-    def buildSubPlots(self, grid, row, column, ptrace, tit_lst):
+    def buildSubPlots(self, grid, row, column, ptrace, tit_lst):  # pylint:disable=too-many-arguments
         '''
         Draws plot in different plot canvases (not overlapping)
 

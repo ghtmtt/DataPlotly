@@ -23,9 +23,17 @@
 
 import os
 import json
+from collections import OrderedDict
+from shutil import copyfile
 
-from qgis.PyQt import uic, QtWidgets
-from qgis.PyQt.QtWidgets import *
+from qgis.PyQt import uic
+from qgis.PyQt.QtWidgets import (
+    QListWidgetItem,
+    QVBoxLayout,
+    QFileDialog,
+    QDockWidget
+)
+
 from qgis.PyQt.QtGui import (
     QFont,
     QIcon,
@@ -35,39 +43,40 @@ from qgis.PyQt.QtGui import (
 )
 from qgis.PyQt.QtCore import (
     QUrl,
-    QFileInfo,
     QSettings,
     pyqtSignal
 )
 from qgis.PyQt.QtWebKit import QWebSettings
-from qgis.PyQt.QtWebKitWidgets import *
-from qgis.gui import *
+from qgis.PyQt.QtWebKitWidgets import (
+    QWebView
+)
+
 from qgis.core import (
     Qgis,
     QgsNetworkAccessManager,
     QgsVectorLayerUtils,
     QgsFeatureRequest,
     QgsMapLayerProxyModel)
-import plotly
-import plotly.graph_objs as go
 
-from DataPlotly.utils import *
-from DataPlotly.data_plotly_plot import *
+from DataPlotly.utils import (
+    hex_to_rgb,
+    cleanData,
+    getIds,
+    getSortedId
+)
+from DataPlotly.data_plotly_plot import Plot
 
-from collections import OrderedDict
-import tempfile
-from shutil import copyfile
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
 
 
-class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
+class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many-lines,missing-docstring,too-many-instance-attributes,too-many-public-methods
     closingPlugin = pyqtSignal()
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
 
-    def __init__(self, parent=None, iface=None):
+    def __init__(self, parent=None, iface=None):  # pylint: disable=too-many-statements
         """Constructor."""
         super(DataPlotlyDockWidget, self).__init__(parent)
         # Set up the user interface from Designer.
@@ -176,7 +185,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.setCheckState()
         try:
             self.layer_combo.currentIndexChanged.connect(self.setCheckState)
-        except:  # pep8
+        except:  # pylint: disable=bare-except
             pass
 
         # fill combo boxes when launching the UI
@@ -244,6 +253,19 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # better default colors
         self.in_color_combo.setColor(QColor('#8EBAD9'))
         self.out_color_combo.setColor(QColor('#1F77B4'))
+
+        self.marker_size_value = None
+        self.in_color = None
+        self.legend_title_string = None
+        self.x_invert = None
+        self.y_invert = None
+        self.bin_val = None
+        self.invert_hist = None
+        self.plotobject = None
+        self.pid = None
+        self.plot_path = None
+        self.plot_url = None
+        self.plot_file = None
 
     def updateStacked(self, row):
         '''
@@ -349,7 +371,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             else:
                 self.selected_feature_check.setEnabled(False)
                 self.selected_feature_check.setChecked(False)
-        except:
+        except:  # pylint: disable=bare-except
             pass
 
     def getJSmessage(self, status):
@@ -370,7 +392,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         try:
             dic = json.JSONDecoder().decode(status)
-        except:
+        except:  # pylint: disable=bare-except
             dic = None
 
         # print('STATUS', status, dic)
@@ -412,7 +434,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
                     # print(exp)
-        except:
+        except:  # pylint: disable=bare-except
             pass
 
     def helpPage(self):
@@ -453,7 +475,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
         self.plot_view.reload()
 
-    def closeEvent(self, event):
+    def closeEvent(self, event):  # pylint: disable=missing-docstring
         self.closingPlugin.emit()
         event.accept()
 
@@ -465,7 +487,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         '''
         self.listWidget.setCurrentRow(self.stackedPlotWidget.currentIndex())
 
-    def refreshWidgets(self):
+    def refreshWidgets(self):  # pylint: disable=too-many-statements,too-many-branches
         '''
         just for refreshing the UI
 
@@ -922,10 +944,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         xx, yy, zz, = cleanData(xx, yy, zz)
 
         # if colorscale should be visible or not
-        if self.color_scale_data_defined_in_check.isVisible() and self.color_scale_data_defined_in_check.isChecked():
-            color_scale_visible = True
-        else:
-            color_scale_visible = False
+        color_scale_visible = self.color_scale_data_defined_in_check.isVisible() and self.color_scale_data_defined_in_check.isChecked()
 
         # dictionary of all the plot properties
         plot_properties = {
@@ -1039,12 +1058,9 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             else:
                 # plot list ready to be called within go.Figure
                 pl = []
-                # layout list
-                ll = None
 
-                for k, v in self.plot_traces.items():
+                for _, v in self.plot_traces.items():
                     pl.append(v.trace[0])
-                    ll = v.layout
 
                 self.plot_path = self.plotobject.buildFigures(self.ptype, pl)
 
@@ -1055,7 +1071,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 pl = []
                 tt = tuple([v.layout['title'] for v in self.plot_traces.values()])
 
-                for k, v in self.plot_traces.items():
+                for _, v in self.plot_traces.items():
                     pl.append(v.trace[0])
 
                 # plot in single row and many columns
@@ -1067,8 +1083,8 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 elif self.radio_columns.isChecked():
 
                     self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
-            except:
-                iface.messageBar().pushMessage(
+            except:  # pylint: disable=bare-except
+                self.iface.messageBar().pushMessage(
                     self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
                     Qgis.MessageLevel(2), duration=5)
                 return
@@ -1118,7 +1134,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.raw_plot_text.clear()
             # disable the Update Plot Button
             self.update_btn.setEnabled(False)
-        except:
+        except:  # pylint: disable=bare-except
             pass
 
     def savePlotAsImage(self):
@@ -1142,10 +1158,11 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             painter.end()
             if self.plot_file:
                 image.save(self.plot_file)
-                iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
-        except:
-            iface.messageBar().pushMessage(self.tr("Please select a directory to save the plot"), Qgis.MessageLevel(1),
-                                           duration=4)
+                self.iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
+        except:  # pylint: disable=bare-except
+            self.iface.messageBar().pushMessage(self.tr("Please select a directory to save the plot"),
+                                                Qgis.MessageLevel(1),
+                                                duration=4)
 
     def savePlotAsHtml(self, plot_file=None):
         '''
@@ -1156,7 +1173,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         try:
             self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
             self.plot_file = self.plot_file[0]
-        except:
+        except:  # pylint: disable=bare-except
             self.plot_file = plot_file
 
         if self.plot_file and not self.plot_file.endswith('.html'):
@@ -1164,7 +1181,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         if self.plot_file:
             copyfile(self.plot_path, self.plot_file)
-            iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
+            self.iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
 
     def showPlotFromDic(self, plot_input_dic):
         '''
@@ -1205,7 +1222,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # set some dialog widget from the input dictionary
         # plot type in the plot_combo combobox
-        for k, v in self.plot_types2.items():
+        for k, _ in self.plot_types2.items():
             if self.plot_types2[k] == plot_input_dic["plot_type"]:
                 for ii, kk in enumerate(self.plot_types.keys()):
                     if self.plot_types[kk] == k:
@@ -1221,7 +1238,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
             if 'z_name' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["z_name"]:
                 self.z_combo.setField(plot_input_dic["plot_prop"]["z_name"])
-        except:
+        except:  # pylint: disable=bare-except
             pass
 
         # create Plot instance

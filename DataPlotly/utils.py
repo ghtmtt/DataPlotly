@@ -21,7 +21,7 @@
  ***************************************************************************/
 """
 
-from qgis.core import *
+from qgis.core import NULL
 
 
 def hex_to_rgb(value):
@@ -36,7 +36,7 @@ def hex_to_rgb(value):
     return final
 
 
-def getSortedId(layer, field_list):
+def getSortedId(_, field_list):
     '''
     return a list with values needed for js interaction
 
@@ -56,7 +56,7 @@ def getSortedId(layer, field_list):
         res = None
 
     # don't sort the list if the item is integer or float (check the first item)
-    elif type(field_list[0]) == (int or float):
+    elif isinstance(field_list[0], (int, float)):
         res = list(set(field_list))
 
     # sort the list if items are strings
@@ -102,25 +102,25 @@ def cleanData(x, y, z):
     f3 = []
 
     if x and y and z:
-        for i, j in enumerate(x):
+        for i, _ in enumerate(x):
             if x[i] and y[i] and z[i] != NULL:
                 f1.append(x[i])
                 f2.append(y[i])
                 f3.append(z[i])
     elif x and y:
-        for i, j in enumerate(x):
+        for i, _ in enumerate(x):
             if x[i] and y[i] != NULL:
                 f1.append(x[i])
                 f2.append(y[i])
                 f3 = None
     elif x:
-        for i, j in enumerate(x):
+        for i, _ in enumerate(x):
             if x[i] != NULL:
                 f1.append(x[i])
                 f2 = None
                 f3 = None
     elif y:
-        for i, j in enumerate(y):
+        for i, _ in enumerate(y):
             if y[i] != NULL:
                 f1 = None
                 f2.append(y[i])

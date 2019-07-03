@@ -7,7 +7,6 @@
      (at your option) any later version.
 
 """
-from .utilities import get_qgis_app
 
 __author__ = 'ismailsunni@yahoo.co.id'
 __date__ = '12/10/2011'
@@ -15,8 +14,8 @@ __copyright__ = ('Copyright 2012, Australia Indonesia Facility for '
                  'Disaster Reduction')
 import unittest
 import os
-
-from PyQt5.QtCore import QCoreApplication, QTranslator
+from qgis.PyQt.QtCore import QCoreApplication, QTranslator
+from DataPlotly.test.utilities import get_qgis_app
 
 QGIS_APP = get_qgis_app()
 
