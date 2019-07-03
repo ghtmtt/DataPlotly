@@ -21,10 +21,10 @@
 """
 
 import os
-from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
-from DataPlotly.data_plotly_plot import *
+from shutil import copyfile
+import json
+import codecs
 
-from qgis.utils import plugins
 from qgis.core import (
     QgsProcessingUtils,
     QgsProcessingException,
@@ -40,13 +40,10 @@ from qgis.core import (
     QgsFeatureRequest
 )
 
-from qgis.PyQt.QtCore import Qt, QCoreApplication
+from qgis.PyQt.QtCore import QCoreApplication
 
-from processing.tools import vector
-
-from shutil import copyfile
-import json
-import codecs
+from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
+from DataPlotly.data_plotly_plot import *
 
 
 class DataPlotlyProcessingPlot(QgisAlgorithm):

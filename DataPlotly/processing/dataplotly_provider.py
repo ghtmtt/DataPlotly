@@ -21,10 +21,9 @@
  ***************************************************************************/
 """
 from qgis.PyQt.QtGui import QIcon
-from qgis.core import QgsProcessingProvider, QgsApplication
-from processing.core.ProcessingConfig import Setting, ProcessingConfig
+from qgis.core import QgsProcessingProvider
 
-from .dataplotly_algorithms import DataPlotlyProcessingPlot
+from DataPlotly.processing.dataplotly_algorithms import DataPlotlyProcessingPlot
 
 
 class DataPlotlyProvider(QgsProcessingProvider):
@@ -32,13 +31,6 @@ class DataPlotlyProvider(QgsProcessingProvider):
 
     def __init__(self):
         super().__init__()
-
-        self.algs = []
-
-    def getAlgs(self):
-        algs = [DataPlotlyProcessingPlot()]
-
-        return algs
 
     def load(self):
         """In this method we add settings needed to configure our
@@ -82,6 +74,4 @@ class DataPlotlyProvider(QgsProcessingProvider):
         even if the list does not change, since the self.algs list is
         cleared before calling this method.
         """
-        self.algs = self.getAlgs()
-        for a in self.algs:
-            self.addAlgorithm(a)
+        self.addAlgorithm(DataPlotlyProcessingPlot())
