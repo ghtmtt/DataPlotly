@@ -70,7 +70,7 @@ default: compile
 %.qm : %.ts
 	$(LRELEASE) $<
 
-test: compile transcompile
+test: transcompile
 	@echo
 	@echo "----------------------"
 	@echo "Regression Test Suite"
