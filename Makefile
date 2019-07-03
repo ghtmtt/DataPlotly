@@ -52,9 +52,7 @@ EXTRAS = metadata.txt icon.png
 
 EXTRA_DIRS =
 
-COMPILED_RESOURCE_FILES = resources.py
-
-PEP8EXCLUDE=pydev,resources.py,conf.py,third_party,ui
+PEP8EXCLUDE=pydev,conf.py,third_party,ui
 
 
 #################################################
@@ -65,16 +63,9 @@ HELP = help/build/html
 
 PLUGIN_UPLOAD = $(c)/plugin_upload.py
 
-RESOURCE_SRC=$(shell grep '^ *<file' resources.qrc | sed 's@</file>@@g;s/.*>//g' | tr '\n' ' ')
-
 QGISDIR=.qgis2
 
 default: compile
-
-compile: $(COMPILED_RESOURCE_FILES)
-
-%.py : %.qrc $(RESOURCES_SRC)
-	pyrcc5 -o $*.py  $<
 
 %.qm : %.ts
 	$(LRELEASE) $<
@@ -89,7 +80,7 @@ test: compile transcompile
 	@-export PYTHONPATH=`pwd`:$(PYTHONPATH); \
 		export QGIS_DEBUG=0; \
 		export QGIS_LOG_FILE=/dev/null; \
-		nosetests3 -v -s --with-id --with-coverage --cover-package=. \
+		nosetests3 -v -s --with-id --with-coverage --cover-package=. DataPlotly.test \
 		3>&1 1>&2 2>&3 3>&- || true
 	@echo "----------------------"
 	@echo "If you get a 'no module named qgis.core error, try sourcing"

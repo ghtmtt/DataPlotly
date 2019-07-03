@@ -19,11 +19,11 @@ from qgis.PyQt.QtWidgets import (
     QDialog
 )
 
-from data_plotly_dialog import DataPlotlyDialog
+from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
 
-from utilities import get_qgis_app
+from DataPlotly.test.utilities import get_qgis_app
 
-QGIS_APP = get_qgis_app()
+QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 
 
 class DataPlotlyDialogTest(unittest.TestCase):
@@ -31,7 +31,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
     def setUp(self):
         """Runs before each test."""
-        self.dialog = DataPlotlyDialog(None)
+        self.dialog = DataPlotlyDockWidget(None, iface=IFACE)
 
     def tearDown(self):
         """Runs after each test."""

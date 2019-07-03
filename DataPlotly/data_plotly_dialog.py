@@ -48,7 +48,6 @@ from qgis.core import (
     QgsVectorLayerUtils,
     QgsFeatureRequest,
     QgsMapLayerProxyModel)
-from qgis.utils import iface
 import plotly
 import plotly.graph_objs as go
 
@@ -68,7 +67,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, iface=None):
         """Constructor."""
         super(DataPlotlyDockWidget, self).__init__(parent)
         # Set up the user interface from Designer.
@@ -77,8 +76,13 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+        if iface is None:
+            from qgis.utils import iface
+            self.iface = iface
+        else:
+            self.iface = iface
 
-        self.listWidget.setIconSize(iface.iconSize(False))
+        self.listWidget.setIconSize(self.iface.iconSize(False))
         self.listWidget.setMaximumWidth(int(self.listWidget.iconSize().width() * 1.18))
 
         # connect signal to function to reload the plot view
@@ -172,7 +176,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.setCheckState()
         try:
             self.layer_combo.currentIndexChanged.connect(self.setCheckState)
-        except:
+        except:  # pep8
             pass
 
         # fill combo boxes when launching the UI
@@ -417,7 +421,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         the language (looks for translations)
         '''
 
-        locale = QSettings().value('locale/userLocale')[0:2]
+        locale = QSettings().value('locale/userLocale', 'en_US')[0:2]
 
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)

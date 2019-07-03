@@ -24,8 +24,6 @@ from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction
 
-# Initialize Qt resources from file resources.py
-from DataPlotly.resources import *
 
 # Import the code for the dialog
 from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
@@ -33,7 +31,7 @@ import os.path
 
 # import processing provider
 from qgis.core import QgsApplication
-from .processing.dataplotly_provider import DataPlotlyProvider
+from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
 
 
 class DataPlotly:
