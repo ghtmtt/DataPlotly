@@ -44,7 +44,7 @@ script:
 
   - docker exec -it qgis-testing-environment sh -c "qgis_testrunner.sh DataPlotly.test_suite.test_package"
 
-  - docker exec -it qgis-testing-environment sh -c "cd /tests_directory/ && make pylint"
+  - docker exec -it qgis-testing-environment sh -c "cd /tests_directory/ && ls"
   - make pycodestyle
 
 sudo: false
