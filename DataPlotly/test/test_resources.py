@@ -14,7 +14,7 @@ __copyright__ = 'Copyright 2017, matteo ghetta'
 
 import unittest
 
-from PyQt5.QtGui import QIcon
+from qgis.PyQt.QtGui import QIcon
 
 
 class DataPlotlyResourcesTest(unittest.TestCase):

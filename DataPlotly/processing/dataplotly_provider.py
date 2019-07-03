@@ -20,7 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt5.QtGui import QIcon
+from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsProcessingProvider, QgsApplication
 from processing.core.ProcessingConfig import Setting, ProcessingConfig
 
