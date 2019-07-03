@@ -14,7 +14,10 @@ __copyright__ = 'Copyright 2017, matteo ghetta'
 
 import unittest
 
-from PyQt5.QtGui import QDialogButtonBox, QDialog
+from qgis.PyQt.QtWidgets import (
+    QDialogButtonBox,
+    QDialog
+)
 
 from data_plotly_dialog import DataPlotlyDialog
 
