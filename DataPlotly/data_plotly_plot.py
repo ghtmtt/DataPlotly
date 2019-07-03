@@ -329,9 +329,9 @@ class Plot:  # pylint:disable=too-many-instance-attributes
                 a=self.plot_properties['x'],
                 b=self.plot_properties['y'],
                 c=self.plot_properties['z'],
-                name=self.plot_properties['x_name'] +
-                     ' + ' + self.plot_properties['y_name'] +
-                     ' + ' + self.plot_properties['z_name'],
+                name='{} + {} + {}'.format(self.plot_properties['x_name'],
+                                           self.plot_properties['y_name'],
+                                           self.plot_properties['z_name']),
                 hoverinfo='text',
                 text=text,
                 mode='markers',
@@ -436,12 +436,12 @@ class Plot:  # pylint:disable=too-many-instance-attributes
         try:
             if isinstance(self.plot_properties['x'][0], (int, float)):
                 self.layout['xaxis'].update(type=self.plot_layout['x_type'])
-        except:  # pylint:disable=bare-except
+        except:  # pylint:disable=bare-except  # noqa: F401
             pass
         try:
             if isinstance(self.plot_properties['y'][0], (int, float)):
                 self.layout['yaxis'].update(type=self.plot_layout['y_type'])
-        except:  # pylint:disable=bare-except
+        except:  # pylint:disable=bare-except  # noqa: F401
             pass
 
         # update layout properties depending on the plot type

@@ -185,7 +185,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.setCheckState()
         try:
             self.layer_combo.currentIndexChanged.connect(self.setCheckState)
-        except:  # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except  # noqa: F401
             pass
 
         # fill combo boxes when launching the UI
@@ -371,7 +371,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             else:
                 self.selected_feature_check.setEnabled(False)
                 self.selected_feature_check.setChecked(False)
-        except:  # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except  # noqa: F401
             pass
 
     def getJSmessage(self, status):
@@ -392,7 +392,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
 
         try:
             dic = json.JSONDecoder().decode(status)
-        except:  # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except  # noqa: F401
             dic = None
 
         # print('STATUS', status, dic)
@@ -434,7 +434,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
                     # print(exp)
-        except:  # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except # noqa: F401
             pass
 
     def helpPage(self):
@@ -1083,7 +1083,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 elif self.radio_columns.isChecked():
 
                     self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
-            except:  # pylint: disable=bare-except
+            except:  # pylint: disable=bare-except  # noqa: F401
                 self.iface.messageBar().pushMessage(
                     self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
                     Qgis.MessageLevel(2), duration=5)
@@ -1134,7 +1134,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             self.raw_plot_text.clear()
             # disable the Update Plot Button
             self.update_btn.setEnabled(False)
-        except:  # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except  # noqa: F401
             pass
 
     def savePlotAsImage(self):
@@ -1159,7 +1159,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             if self.plot_file:
                 image.save(self.plot_file)
                 self.iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
-        except:  # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except  # noqa: F401
             self.iface.messageBar().pushMessage(self.tr("Please select a directory to save the plot"),
                                                 Qgis.MessageLevel(1),
                                                 duration=4)
@@ -1173,7 +1173,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         try:
             self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
             self.plot_file = self.plot_file[0]
-        except:  # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except  # noqa: F401
             self.plot_file = plot_file
 
         if self.plot_file and not self.plot_file.endswith('.html'):
@@ -1238,7 +1238,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
             if 'z_name' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["z_name"]:
                 self.z_combo.setField(plot_input_dic["plot_prop"]["z_name"])
-        except:  # pylint: disable=bare-except
+        except:  # pylint: disable=bare-except  # noqa: F401
             pass
 
         # create Plot instance
