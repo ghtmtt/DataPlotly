@@ -26,8 +26,8 @@ from processing.core.ProcessingConfig import Setting, ProcessingConfig
 
 from .dataplotly_algorithms import DataPlotlyProcessingPlot
 
-class DataPlotlyProvider(QgsProcessingProvider):
 
+class DataPlotlyProvider(QgsProcessingProvider):
     MY_DUMMY_SETTING = 'MY_DUMMY_SETTING'
 
     def __init__(self):
@@ -85,4 +85,3 @@ class DataPlotlyProvider(QgsProcessingProvider):
         self.algs = self.getAlgs()
         for a in self.algs:
             self.addAlgorithm(a)
-

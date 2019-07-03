@@ -325,8 +325,9 @@ class Plot(object):
                 a=self.plot_properties['x'],
                 b=self.plot_properties['y'],
                 c=self.plot_properties['z'],
-                name=self.plot_properties['x_name'] + ' + ' + self.plot_properties['y_name'] + ' + ' +
-                     self.plot_properties['z_name'],
+                name=self.plot_properties['x_name'] +
+                ' + ' + self.plot_properties['y_name'] +
+                ' + ' + self.plot_properties['z_name'],
                 hoverinfo='text',
                 text=text,
                 mode='markers',

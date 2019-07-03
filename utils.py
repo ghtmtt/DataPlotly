@@ -35,6 +35,7 @@ def hex_to_rgb(value):
     final = 'rgb' + str(col)
     return final
 
+
 def getSortedId(layer, field_list):
     '''
     return a list with values needed for js interaction
@@ -47,22 +48,23 @@ def getSortedId(layer, field_list):
     field_list: a list of values (e.g. taken from the attribute table)
     '''
 
-    l = []
+    res = []
 
     # create an empty variable if field_list is empty
-    # case is when in the Box Plot the optional X group is empty (not chosen) 
+    # case is when in the Box Plot the optional X group is empty (not chosen)
     if not field_list:
-        l = None
+        res = None
 
     # don't sort the list if the item is integer or float (check the first item)
     elif type(field_list[0]) == (int or float):
-        l = list(set(field_list))
+        res = list(set(field_list))
 
     # sort the list if items are strings
     else:
-        l = sorted(set(field_list), key=field_list.index)
+        res = sorted(set(field_list), key=field_list.index)
 
-    return l
+    return res
+
 
 def getIds(layer, checkstate):
     '''
@@ -81,6 +83,7 @@ def getIds(layer, checkstate):
     ids.sort()
 
     return ids
+
 
 def cleanData(x, y, z):
     '''

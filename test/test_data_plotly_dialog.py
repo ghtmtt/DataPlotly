@@ -22,6 +22,7 @@ from qgis.PyQt.QtWidgets import (
 from data_plotly_dialog import DataPlotlyDialog
 
 from utilities import get_qgis_app
+
 QGIS_APP = get_qgis_app()
 
 
@@ -51,8 +52,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         result = self.dialog.result()
         self.assertEqual(result, QDialog.Rejected)
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
-

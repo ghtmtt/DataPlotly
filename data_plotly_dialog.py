@@ -381,7 +381,6 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 else:
                     self.layer_combo.currentLayer().selectByIds(dic['tid'])
 
-
             # if a clicking event is performed depending on the plot type
             elif dic["mode"] == 'clicking':
                 if dic['type'] == 'scatter':
@@ -918,7 +917,7 @@ class DataPlotlyDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # call the function that will clean the data from NULL values
         xx, yy, zz, = cleanData(xx, yy, zz)
 
-        ## if colorscale should be visible or not
+        # if colorscale should be visible or not
         if self.color_scale_data_defined_in_check.isVisible() and self.color_scale_data_defined_in_check.isChecked():
             color_scale_visible = True
         else:
