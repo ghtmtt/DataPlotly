@@ -200,7 +200,7 @@ pylint:
 	@echo "-----------------"
 	@echo "Pylint violations"
 	@echo "-----------------"
-	@pylint --reports=n --rcfile=pylintrc . || true
+	@pylint --reports=n --rcfile=pylintrc .
 	@echo
 	@echo "----------------------"
 	@echo "If you get a 'no module named qgis.core' error, try sourcing"
@@ -209,14 +209,14 @@ pylint:
 	@echo "----------------------"
 
 
-# Run pep8 style checking
+# Run pep8/pycodestyle style checking
 #http://pypi.python.org/pypi/pep8
-pep8:
+pycodestyle:
 	@echo
 	@echo "-----------"
-	@echo "PEP8 issues"
+	@echo "pycodestyle PEP8 issues"
 	@echo "-----------"
-	@pep8 --repeat --ignore=E203,E121,E122,E123,E124,E125,E126,E127,E128 --exclude $(PEP8EXCLUDE) . || true
+	@pycodestyle --repeat --ignore=E203,E121,E122,E123,E124,E125,E126,E127,E128,E402,E501,W504 --exclude $(PEP8EXCLUDE) .
 	@echo "-----------"
 	@echo "Ignored in PEP8 check:"
 	@echo $(PEP8EXCLUDE)
