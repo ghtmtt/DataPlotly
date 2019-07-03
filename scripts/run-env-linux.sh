@@ -15,7 +15,7 @@ export PYTHONPATH=${QGIS_PREFIX_PATH}/share/qgis/python:${QGIS_PREFIX_PATH}/pyth
 
 echo "QGIS PATH: $QGIS_PREFIX_PATH"
 export QGIS_DEBUG=0
-export QGIS_LOG_FILE=/tmp/inasafe/realtime/logs/qgis.log
+export QGIS_LOG_FILE=/tmp/dataplotly/realtime/logs/qgis.log
 
 export PATH=${QGIS_PREFIX_PATH}/bin:$PATH
 
