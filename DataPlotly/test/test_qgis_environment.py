@@ -1,7 +1,6 @@
 # coding=utf-8
 """Tests for QGIS functionality.
 
-
 .. note:: This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation; either version 2 of the License, or
@@ -15,12 +14,12 @@ __copyright__ = ('Copyright 2012, Australia Indonesia Facility for '
 
 import os
 import unittest
-from qgis.core import (
-    QgsProviderRegistry,
-    QgsCoordinateReferenceSystem,
-    QgsRasterLayer)
-
+from qgis.core import (QgsProviderRegistry,
+                       QgsCoordinateReferenceSystem,
+                       QgsRasterLayer)
 from .utilities import get_qgis_app
+
+
 QGIS_APP = get_qgis_app()
 
 
@@ -55,6 +54,7 @@ class QGISTest(unittest.TestCase):
         layer = QgsRasterLayer(path, title)
         auth_id = layer.crs().authid()
         self.assertEqual(auth_id, expected_auth_id)
+
 
 if __name__ == '__main__':
     unittest.main()

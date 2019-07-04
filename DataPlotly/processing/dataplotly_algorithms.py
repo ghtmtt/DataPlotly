@@ -21,10 +21,10 @@
 """
 
 import os
-from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
-from DataPlotly.data_plotly_plot import *
+from shutil import copyfile
+import json
+import codecs
 
-from qgis.utils import plugins
 from qgis.core import (
     QgsProcessingUtils,
     QgsProcessingException,
@@ -38,17 +38,15 @@ from qgis.core import (
     QgsProcessingOutputFile,
     QgsSettings,
     QgsFeatureRequest
-
 )
 
-from qgis.PyQt.QtCore import Qt, QCoreApplication
+from qgis.PyQt.QtCore import QCoreApplication
 
-from processing.tools import vector
+from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
+from DataPlotly.data_plotly_plot import *
 
-from shutil import copyfile
-import json, codecs
+
 class DataPlotlyProcessingPlot(QgisAlgorithm):
-
     """
     Create a simple plot with DataPlotly plugin
     """
@@ -66,7 +64,8 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
     XFIELD = 'XFIELD'
     YFIELD = 'YFIELD'
     IN_COLOR = 'IN_COLOR'
-    IN_COLOR_OPTIONS = ['Black', 'Blue', 'Brown', 'Cyan', 'DarkBlue', 'Grey', 'Green', 'LightBlue', 'Lime', 'Magenta', 'Maroon', 'Olive', 'Orange', 'Purple', 'Red', 'Silver', 'White', 'Yellow']
+    IN_COLOR_OPTIONS = ['Black', 'Blue', 'Brown', 'Cyan', 'DarkBlue', 'Grey', 'Green', 'LightBlue', 'Lime', 'Magenta',
+                        'Maroon', 'Olive', 'Orange', 'Purple', 'Red', 'Silver', 'White', 'Yellow']
     IN_COLOR_HTML = 'IN_COLOR_HTML'
     OUTPUT_HTML_FILE = 'OUTPUT_HTML_FILE'
     OUTPUT_JSON_FILE = 'OUTPUT_JSON_FILE'
@@ -140,16 +139,17 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         self.addParameter(
             QgsProcessingParameterString(
                 self.IN_COLOR_HTML,
-                self.tr('Color (any valid HTML color) If set, this is used instead of the color set in the previous input.'),
+                self.tr(
+                    'Color (any valid HTML color) If set, this is used instead of the color set in the previous input.'),
                 optional=True
             )
         )
 
         self.addParameter(
             QgsProcessingParameterFileDestination(self.OUTPUT_HTML_FILE,
-                self.tr('HTML File'),
-                self.tr('HTML files (*.html)')
-            )
+                                                  self.tr('HTML File'),
+                                                  self.tr('HTML files (*.html)')
+                                                  )
         )
         # need to add an output for it to allow to see it in Processus results viewer
         self.addOutput(QgsProcessingOutputHtml(self.OUTPUT_HTML_FILE, self.tr('Dataplotly - Generic plot HTML output')))
@@ -157,13 +157,12 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         # Add an file to return a response in JSON format
         self.addParameter(
             QgsProcessingParameterFileDestination(self.OUTPUT_JSON_FILE,
-                self.tr('JSON file'),
-                self.tr('JSON Files (*.json)')
-            )
+                                                  self.tr('JSON file'),
+                                                  self.tr('JSON Files (*.json)')
+                                                  )
         )
         # need to add an output for it to allow to see it in Processus results viewer
         self.addOutput(QgsProcessingOutputFile(self.OUTPUT_JSON_FILE, self.tr('Dataplotly - Generic plot JSON output')))
-
 
     def name(self):
         # Unique (non-user visible) name of algorithm
@@ -224,7 +223,8 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
             # get field index for x
             idxX = layer.fields().lookupField(xfieldname)
             # get list of values for x
-            x_var = [i[xfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxX]))]
+            x_var = [i[xfieldname] for i in layer.getFeatures(
+                QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxX]))]
             fieldTypeX = fields[idxX].type()
             x_title = fields[idxX].alias() or xfieldname
             pdic['plot_prop']['x'] = x_var
@@ -234,10 +234,10 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
             # get field index for y
             idxY = layer.fields().lookupField(yfieldname)
             # get list of values for y
-            y_var = [i[yfieldname] for i in layer.getFeatures(QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxY]))]
+            y_var = [i[yfieldname] for i in layer.getFeatures(
+                QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxY]))]
             y_title = fields[idxY].alias() or yfieldname
             pdic['plot_prop']['y'] = y_var
-
 
         # Draw only markers for scatter plot
         if plot_type in ['scatter', 'polar']:
@@ -285,7 +285,6 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 copyfile(standalone_plot_path, outputHtmlFile)
                 results[self.OUTPUT_HTML_FILE] = outputHtmlFile
 
-
         # Save plot as JSON
         if outputJsonFile:
             ojson = {
@@ -297,4 +296,3 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 results[self.OUTPUT_JSON_FILE] = outputJsonFile
 
         return results
-

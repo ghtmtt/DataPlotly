@@ -4,3 +4,5 @@
 help/.tx/*
 *.zip
 __pycache__/
+.coverage
+.noseids

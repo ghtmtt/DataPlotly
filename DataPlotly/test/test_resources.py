@@ -14,11 +14,10 @@ __copyright__ = 'Copyright 2017, matteo ghetta'
 
 import unittest
 
-from PyQt5.QtGui import QIcon
+from qgis.PyQt.QtGui import QIcon
 
 
-
-class DataPlotlyDialogTest(unittest.TestCase):
+class DataPlotlyResourcesTest(unittest.TestCase):
     """Test rerources work."""
 
     def setUp(self):
@@ -35,10 +34,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         icon = QIcon(path)
         self.assertFalse(icon.isNull())
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyResourcesTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
-
-
-

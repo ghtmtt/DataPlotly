@@ -20,22 +20,21 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction
+import os.path
 
-# Initialize Qt resources from file resources.py
-from DataPlotly.resources import *
+from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
+from qgis.core import QgsApplication
 
 # Import the code for the dialog
 from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
-import os.path
 
 # import processing provider
-from qgis.core import QgsApplication
-from .processing.dataplotly_provider import DataPlotlyProvider
+from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
 
-class DataPlotly:
+
+class DataPlotly:  # pylint: disable=too-many-instance-attributes
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
@@ -84,7 +83,7 @@ class DataPlotly:
         self.dockwidget = None
 
     # noinspection PyMethodMayBeStatic
-    def tr(self, message):
+    def tr(self, message):  # pylint: disable=no-self-use
         """Get the translation for a string using Qt translation API.
 
         We implement this ourselves since we do not inherit QObject.
@@ -98,18 +97,17 @@ class DataPlotly:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('DataPlotly', message)
 
-
-    def add_action(
-        self,
-        icon_path,
-        text,
-        callback,
-        enabled_flag=True,
-        add_to_menu=True,
-        add_to_toolbar=True,
-        status_tip=None,
-        whats_this=None,
-        parent=None):
+    def add_action(  # pylint: disable=too-many-arguments
+            self,
+            icon_path,
+            text,
+            callback,
+            enabled_flag=True,
+            add_to_menu=True,
+            add_to_toolbar=True,
+            status_tip=None,
+            whats_this=None,
+            parent=None):
         """Add a toolbar icon to the toolbar.
 
         :param icon_path: Path to the icon for this action. Can be a resource
@@ -188,7 +186,7 @@ class DataPlotly:
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
 
-        #print "** CLOSING DataPlotly"
+        # print "** CLOSING DataPlotly"
 
         # disconnects
         self.dockwidget.closingPlugin.disconnect(self.onClosePlugin)
@@ -214,19 +212,18 @@ class DataPlotly:
         # Remove processing provider
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
-
     def run(self):
         """Run method that loads and starts the plugin"""
 
         if not self.pluginIsActive:
             self.pluginIsActive = True
 
-            #print "** STARTING DataPlotly"
+            # print "** STARTING DataPlotly"
 
             # dockwidget may not exist if:
             #    first run of plugin
             #    removed on close (see self.onClosePlugin method)
-            if self.dockwidget == None:
+            if self.dockwidget is None:
                 # Create the dockwidget (after translation) and keep reference
                 self.dockwidget = DataPlotlyDockWidget()
 

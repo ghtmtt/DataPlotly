@@ -14,12 +14,16 @@ __copyright__ = 'Copyright 2017, matteo ghetta'
 
 import unittest
 
-from PyQt5.QtGui import QDialogButtonBox, QDialog
+from qgis.PyQt.QtWidgets import (
+    QDialogButtonBox,
+    QDialog
+)
 
-from data_plotly_dialog import DataPlotlyDialog
+from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
 
-from utilities import get_qgis_app
-QGIS_APP = get_qgis_app()
+from DataPlotly.test.utilities import get_qgis_app
+
+QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 
 
 class DataPlotlyDialogTest(unittest.TestCase):
@@ -27,12 +31,13 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
     def setUp(self):
         """Runs before each test."""
-        self.dialog = DataPlotlyDialog(None)
+        self.dialog = DataPlotlyDockWidget(None, iface=IFACE)
 
     def tearDown(self):
         """Runs after each test."""
         self.dialog = None
 
+    @unittest.skip('Outdated')
     def test_dialog_ok(self):
         """Test we can click OK."""
 
@@ -41,6 +46,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         result = self.dialog.result()
         self.assertEqual(result, QDialog.Accepted)
 
+    @unittest.skip('Outdated')
     def test_dialog_cancel(self):
         """Test we can click cancel."""
         button = self.dialog.button_box.button(QDialogButtonBox.Cancel)
@@ -48,8 +54,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         result = self.dialog.result()
         self.assertEqual(result, QDialog.Rejected)
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
-
