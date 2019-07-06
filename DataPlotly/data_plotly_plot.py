@@ -787,7 +787,7 @@ class Plot:  # pylint:disable=too-many-instance-attributes
 
         if grid == 'row':
 
-            fig = tools.make_subplots(rows=row, cols=column, subplot_titles=tit_lst)
+            fig = tools.make_subplots(rows=row, cols=column)
 
             for i, itm in enumerate(ptrace):
                 fig.append_trace(itm, row, i + 1)
