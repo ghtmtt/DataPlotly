@@ -1069,7 +1069,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             try:
                 gr = len(self.plot_traces)
                 pl = []
-                tt = tuple([v.layout['title'] for v in self.plot_traces.values()])
 
                 for _, v in self.plot_traces.items():
                     pl.append(v.trace[0])
@@ -1077,12 +1076,12 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 # plot in single row and many columns
                 if self.radio_rows.isChecked():
 
-                    self.plot_path = self.plotobject.buildSubPlots('row', 1, gr, pl, tt)
+                    self.plot_path = self.plotobject.buildSubPlots('row', 1, gr, pl)
 
                 # plot in single column and many rows
                 elif self.radio_columns.isChecked():
 
-                    self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl, tt)
+                    self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl)
             except:  # pylint: disable=bare-except  # noqa: F401
                 self.iface.messageBar().pushMessage(
                     self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),

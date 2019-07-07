@@ -760,7 +760,7 @@ class Plot:  # pylint:disable=too-many-instance-attributes
 
         return self.plot_path
 
-    def buildSubPlots(self, grid, row, column, ptrace, tit_lst):  # pylint:disable=too-many-arguments
+    def buildSubPlots(self, grid, row, column, ptrace):  # pylint:disable=too-many-arguments
         '''
         Draws plot in different plot canvases (not overlapping)
 
@@ -769,7 +769,6 @@ class Plot:  # pylint:disable=too-many-instance-attributes
             row (int): number of rows (if row is selected)
             column (int): number of columns (if column is selected)
             ptrace (list of Plot Traces): list of all the different Plot Traces
-            tit_lst (tuple): tuple containing the plot titles
 
         Returns the final html path containing the plot with the js_string for
         the interaction
@@ -787,7 +786,7 @@ class Plot:  # pylint:disable=too-many-instance-attributes
 
         if grid == 'row':
 
-            fig = tools.make_subplots(rows=row, cols=column, subplot_titles=tit_lst)
+            fig = tools.make_subplots(rows=row, cols=column)
 
             for i, itm in enumerate(ptrace):
                 fig.append_trace(itm, row, i + 1)
