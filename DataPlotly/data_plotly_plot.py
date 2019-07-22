@@ -46,14 +46,12 @@ class Plot:  # pylint:disable=too-many-instance-attributes
     '''
 
     # create fixed class variables as paths for local javascript files
+    POLY_FILL_PATH = os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
+    PLOTLY_PATH = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly-1.34.0.min.js')
+
     if platform.system() == 'Windows':
-        polyfillpath = 'file:///'
-        plotlypath = 'file:///'
-        polyfillpath += os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
-        plotlypath += os.path.join(os.path.dirname(__file__), 'jsscripts/plotly-1.34.0.min.js')
-    else:
-        polyfillpath = os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
-        plotlypath = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly-1.34.0.min.js')
+        POLY_FILL_PATH = 'file:///{}'.format(POLY_FILL_PATH)
+        PLOTLY_PATH = 'file:///{}'.format(PLOTLY_PATH)
 
     def __init__(self, plot_type, plot_properties, plot_layout):
 
@@ -672,7 +670,7 @@ class Plot:  # pylint:disable=too-many-instance-attributes
 
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(
-            self.polyfillpath, self.plotlypath)
+            self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # set some configurations
         config = {'scrollZoom': True, 'editable': True}
         # call the plot method without all the javascript code
@@ -742,7 +740,7 @@ class Plot:  # pylint:disable=too-many-instance-attributes
         config = {'scrollZoom': True, 'editable': True}
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(
-            self.polyfillpath, self.plotlypath)
+            self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False, show_link=False,
                                              config=config)
@@ -802,7 +800,7 @@ class Plot:  # pylint:disable=too-many-instance-attributes
         config = {'scrollZoom': True, 'editable': True}
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script><script src="{}"></script></head>'.format(
-            self.polyfillpath, self.plotlypath)
+            self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False,
                                              config=config)
