@@ -45,8 +45,8 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
     """
 
     # create fixed class variables as paths for local javascript files
-    POLY_FILL_PATH = os.path.join(os.path.dirname(__file__), 'jsscripts/polyfill.min.js')
-    PLOTLY_PATH = os.path.join(os.path.dirname(__file__), 'jsscripts/plotly-1.34.0.min.js')
+    POLY_FILL_PATH = os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js')
+    PLOTLY_PATH = os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js')
 
     if platform.system() == 'Windows':
         POLY_FILL_PATH = 'file:///{}'.format(POLY_FILL_PATH)
