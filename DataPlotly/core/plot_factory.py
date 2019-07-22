@@ -18,9 +18,9 @@ from plotly import tools
 from DataPlotly.core.plot_settings import PlotSettings
 
 
-class Plot:  # pylint:disable=too-many-instance-attributes
+class PlotFactory:  # pylint:disable=too-many-instance-attributes
     """
-    Plot Class that creates the initial Plot object
+    Plot factory which creates Plotly Plot objects
 
     Console usage:
     # create the object

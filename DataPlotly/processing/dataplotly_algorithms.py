@@ -43,7 +43,7 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QCoreApplication
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
-from DataPlotly.data_plotly_plot import *
+from DataPlotly.core.plot_factory import *
 
 
 class DataPlotlyProcessingPlot(QgisAlgorithm):
@@ -259,7 +259,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         pdic['layer'] = layer
 
         # Create plot instance
-        plot_instance = Plot(
+        plot_instance = PlotFactory(
             pdic['plot_type'],
             pdic["plot_prop"],
             pdic["layout_prop"]
