@@ -161,13 +161,8 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             self.plot_combo.addItem(k, v)
 
         # SubPlots combobox
-        self.subcombo.clear()
-        self.sub_dict = OrderedDict([
-            (self.tr('SinglePlot'), 'single'),
-            (self.tr('SubPlots'), 'subplots')
-        ])
-        for k, v in self.sub_dict.items():
-            self.subcombo.addItem(k, v)
+        self.subcombo.addItem(self.tr('Single Plot'), 'single')
+        self.subcombo.addItem(self.tr('Subplots'), 'subplots')
 
         # connect to the functions to clean the UI and fill with the correct
         # widgets
@@ -841,7 +836,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         '''
 
         # enable radio buttons for subplots
-        if self.subcombo.currentText() == self.tr('SubPlots'):
+        if self.subcombo.currentData() == 'subplots':
             self.radio_rows.setEnabled(True)
             self.radio_rows.setVisible(True)
             self.radio_columns.setEnabled(True)
@@ -1051,9 +1046,9 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         # highlight the correct plot row in the listwidget
         self.listWidget.setCurrentRow(2)
 
-        if self.sub_dict[self.subcombo.currentText()] == 'single':
+        if self.subcombo.currentData() == 'single':
 
-            # plot single plot, check the object dictionary lenght
+            # plot single plot, check the object dictionary length
             if len(self.plot_factories) <= 1:
                 self.plot_path = plot_factory.build_figure()
 
@@ -1068,7 +1063,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 self.plot_path = plot_factory.build_figures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox
-        elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
+        elif self.subcombo.currentData() == 'subplots':
             try:
                 gr = len(self.plot_factories)
                 pl = []
