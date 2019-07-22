@@ -9,12 +9,6 @@
 """
 
 import unittest
-
-from qgis.PyQt.QtWidgets import (
-    QDialogButtonBox,
-    QDialog
-)
-
 from DataPlotly.core.plot_settings import PlotSettings
 
 
