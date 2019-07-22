@@ -26,14 +26,17 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
     Plot factory which creates Plotly Plot objects
 
     Console usage:
-    # create the object
-    p = Plot(plot_type, plot_properties, layout_properties)
-    # where:
+
+    .. code-block:: python
+        # create (and customize) plot settings, where
         # plot_type (string): 'scatter'
         # plot_properties (dictionary): {'x':[1,2,3], 'marker_width': 10}
         # layout_properties (dictionary): {'legend'; True, 'title': 'Plot Title'}
-
-    The object created is ready to be elaborated by the other methods
+        settings = PlotSettings(plot_type, plot_properties, layout_properties)
+        # create the factory, which will create plots using the specified settings
+        factory = PlotFactory(settings)
+        # Use the factory to build a plot
+        output_file_path = factory.build_figure()
     """
 
     # create fixed class variables as paths for local javascript files
@@ -68,13 +71,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         layout_properties)) this methods checks the plot_type and elaborates the
         plot_properties dictionary passed
 
-        Console usage:
-        # create the initial object
-        p = Plot(plot_type, plot_properties, layout_properties)
-        # call the method
-        p.buildTrace()
-
-        Returns the final Plot Trace (final Plot object, AKA go.xxx plot type)
+        :return: the final Plot Trace (final Plot object, AKA go.xxx plot type)
         """
         assert self.settings.plot_type in PlotFactory.PLOT_TYPES
 
@@ -88,13 +85,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         layout_properties)) this methods checks the plot_type and elaborates the
         layout_properties dictionary passed
 
-        Console usage:
-        # create the initial object
-        p = Plot(plot_type, plot_properties, layout_properties)
-        # call the method
-        p.buildLayout()
-
-        Returns the final Plot Layout (final Layout object, AKA go.Layout)
+        :return: the final Plot Layout (final Layout object, AKA go.Layout)
         """
         assert self.settings.plot_type in PlotFactory.PLOT_TYPES
 
@@ -244,11 +235,11 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         return js_str
 
-    def build_figure(self):
+    def build_figure(self) -> str:
         """
-        draw the final plot (single plot)
+        Creates the final plot (single plot)
 
-        call the go.Figure plotly method and build the figure object adjust the
+        Calls the go.Figure plotly method and builds the figure object adjust the
         html file and add some line (including the js_string for the interaction)
         save the html plot file in a temporary directory and return the path
         that can be loaded in the QWebView
@@ -256,17 +247,15 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         This method is directly usable after the plot object has been created and
         the 2 methods (buildTrace and buildLayout) have been called
 
-        Returns the final html path containing the plot
+        :return: the final html path containing the plot
 
         Console usage:
-        # create the initial object
-        p = Plot(plot_type, plot_properties, layout_properties)
-        # call the methods to create the Trace and the Layout
-        p.buildTrace()
-        p.buildLayout()
-
-        # finally create the Figure
-        fig = p.buildFigure()
+        .. code-block:: python
+            # create the initial object
+            settings = PlotSettings(plot_type, plot_properties, layout_properties)
+            factory = PlotFactory(settings)
+            # finally create the Figure
+            path_to_output = factory.build_figure()
         """
 
         fig = go.Figure(data=self.trace, layout=self.layout)
@@ -295,7 +284,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         return self.plot_path
 
-    def build_figures(self, plot_type, ptrace):
+    def build_figures(self, plot_type, ptrace) -> str:
         """
         Overlaps plots on the same map canvas
 
@@ -311,18 +300,16 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         self.layout is DELETED, so the final layout is taken from the LAST plot
         configuration added
 
-        Returns the final html path containing the plot with the js_string for
+        :return: the final html path containing the plot with the js_string for
         the interaction
 
         Console usage:
-        # create the initial object
-        p = Plot(plot_type, plot_properties, layout_properties)
-        # call the methods to create the Trace and the Layout
-        p.buildTrace()
-        p.buildLayout()
-
-        # finally create the Figure
-        fig = p.buildFigures(plot_type, ptrace)
+        .. code-block:: python
+            # create the initial object
+            settings = PlotSettings(plot_type, plot_properties, layout_properties)
+            factory = PlotFactory(settings)
+            # finally create the Figures
+            path_to_output = factory.build_figures(plot_type, ptrace)
         """
 
         # assign the variables from the kwargs arguments
@@ -373,18 +360,16 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
             column (int): number of columns (if column is selected)
             ptrace (list of Plot Traces): list of all the different Plot Traces
 
-        Returns the final html path containing the plot with the js_string for
+        :return: the final html path containing the plot with the js_string for
         the interaction
 
         Console usage:
-        # create the initial object
-        p = Plot(plot_type, plot_properties, layout_properties)
-        # call the methods to create the Trace and the Layout
-        p.buildTrace()
-        p.buildLayout()
-
-        # finally create the Figure
-        fig = p.buildSubPlots('row', 1, gr, pl, tt)
+        .. code-block:: python
+            # create the initial object
+            settings = PlotSettings(plot_type, plot_properties, layout_properties)
+            factory = PlotFactory(settings)
+            # finally create the Figures
+            path_to_output = factory.build_sub_plots('row', 1, gr, pl, tt)
         """
 
         if grid == 'row':
