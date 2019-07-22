@@ -262,7 +262,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.y_invert = None
         self.bin_val = None
         self.invert_hist = None
-        self.plotobject = None
         self.pid = None
         self.plot_path = None
         self.plot_url = None
@@ -1013,32 +1012,34 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
 
         return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties)
 
-    def build_plot(self):
+    def create_plot_factory(self) -> PlotFactory:
         """
-        call the class and make the object to define the generic plot properties
+        Creates a PlotFactory based on the settings defined in the dialog
         """
         settings = self.get_settings()
 
         # plot instance
-        self.plotobject = PlotFactory(settings)
+        plot_factory = PlotFactory(settings)
 
         # build the final trace that will be used
-        self.plotobject.build_trace()
+        plot_factory.build_trace()
 
         # call the method and build the final layout
-        self.plotobject.build_layout()
+        plot_factory.build_layout()
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = ('{}_{}'.format(str(self.idx), settings.plot_type))
 
         # create default dictionary that contains all the plot and properties
-        self.plot_traces[self.pid] = self.plotobject
+        self.plot_traces[self.pid] = plot_factory
 
         # just add 1 to the index
         self.idx += 1
 
         # enable the Update Plot button
         self.update_btn.setEnabled(True)
+
+        return plot_factory
 
     def createPlot(self):
         '''
@@ -1049,7 +1050,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         '''
 
         # call the method to build all the Plot plotProperties
-        self.build_plot()
+        plot_factory = self.create_plot_factory()
 
         # set the correct index page of the widget
         self.stackedPlotWidget.setCurrentIndex(1)
@@ -1060,7 +1061,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
 
             # plot single plot, check the object dictionary lenght
             if len(self.plot_traces) <= 1:
-                self.plot_path = self.plotobject.build_figure()
+                self.plot_path = plot_factory.build_figure()
 
             # to plot many plots in the same figure
             else:
@@ -1070,7 +1071,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 for _, v in self.plot_traces.items():
                     pl.append(v.trace[0])
 
-                self.plot_path = self.plotobject.build_figures(self.ptype, pl)
+                self.plot_path = plot_factory.build_figures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
@@ -1084,12 +1085,12 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 # plot in single row and many columns
                 if self.radio_rows.isChecked():
 
-                    self.plot_path = self.plotobject.build_sub_plots('row', 1, gr, pl)
+                    self.plot_path = plot_factory.build_sub_plots('row', 1, gr, pl)
 
                 # plot in single column and many rows
                 elif self.radio_columns.isChecked():
 
-                    self.plot_path = self.plotobject.build_sub_plots('col', gr, 1, pl)
+                    self.plot_path = plot_factory.build_sub_plots('col', gr, 1, pl)
             except:  # pylint: disable=bare-except  # noqa: F401
                 self.iface.messageBar().pushMessage(
                     self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
