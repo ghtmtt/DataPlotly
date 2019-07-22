@@ -46,7 +46,7 @@ class ScatterPlotFactory(PlotType):
 
     @staticmethod
     def create_layout(settings):
-        layout = super().create_layout(settings)
+        layout = super(ScatterPlotFactory, ScatterPlotFactory).create_layout(settings)
 
         layout['xaxis'].update(rangeslider=settings.layout['range_slider'])
 

@@ -71,7 +71,7 @@ class TernaryFactory(PlotType):
 
     @staticmethod
     def create_layout(settings):
-        layout = super().create_layout(settings)
+        layout = super(TernaryFactory, TernaryFactory).create_layout(settings)
 
         # flip the variables according to the box orientation
         if settings.properties['box_orientation'] == 'h':

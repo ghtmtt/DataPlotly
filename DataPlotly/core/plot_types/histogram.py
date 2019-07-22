@@ -43,7 +43,7 @@ class HistogramFactory(PlotType):
 
     @staticmethod
     def create_layout(settings):
-        layout = super().create_layout(settings)
+        layout = super(HistogramFactory, HistogramFactory).create_layout(settings)
 
         layout['barmode'] = settings.layout['bar_mode']
         layout['bargroupgap'] = settings.layout['bargaps']

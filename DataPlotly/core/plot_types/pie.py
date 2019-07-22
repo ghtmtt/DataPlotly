@@ -27,7 +27,7 @@ class PieChartFactory(PlotType):
 
     @staticmethod
     def create_layout(settings):
-        layout = super().create_layout(settings)
+        layout = super(PieChartFactory, PieChartFactory).create_layout(settings)
 
         layout['xaxis'].update(title='')
         layout['xaxis'].update(showgrid=False)

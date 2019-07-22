@@ -43,7 +43,7 @@ class PolarChartFactory(PlotType):
 
     @staticmethod
     def create_layout(settings):
-        layout = super().create_layout(settings)
+        layout = super(PolarChartFactory, PolarChartFactory).create_layout(settings)
 
         layout['polar'] = settings.layout['polar']
 
