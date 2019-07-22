@@ -18,6 +18,10 @@ class ScatterPlotFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return 'scatter'
+
+    @staticmethod
     def create_trace(settings):
         return [graph_objs.Scatter(
             x=settings.properties['x'],

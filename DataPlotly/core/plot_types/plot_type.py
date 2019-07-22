@@ -17,6 +17,13 @@ class PlotType:
     """
 
     @staticmethod
+    def type_name():
+        """
+        Returns the unique type name for this plot type
+        """
+        return ''
+
+    @staticmethod
     def create_trace(settings):
         """
         Returns a new trace using the specified plot settings

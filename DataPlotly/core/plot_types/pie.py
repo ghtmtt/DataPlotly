@@ -18,6 +18,10 @@ class PieChartFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return 'pie'
+
+    @staticmethod
     def create_trace(settings):
         return [graph_objs.Pie(
                 labels=settings.properties['x'],

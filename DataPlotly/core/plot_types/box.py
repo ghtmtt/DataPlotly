@@ -18,6 +18,10 @@ class BoxPlotFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return 'box'
+
+    @staticmethod
     def create_trace(settings):
         # flip the variables according to the box orientation
 

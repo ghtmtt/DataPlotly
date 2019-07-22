@@ -17,16 +17,8 @@ import plotly.graph_objs as go
 from plotly import tools
 
 from DataPlotly.core.plot_settings import PlotSettings
-from DataPlotly.core.plot_types.bar import BarPlotFactory
-from DataPlotly.core.plot_types.box import BoxPlotFactory
-from DataPlotly.core.plot_types.contour import ContourFactory
-from DataPlotly.core.plot_types.histogram import HistogramFactory
-from DataPlotly.core.plot_types.histogram2d import Histogram2dFactory
-from DataPlotly.core.plot_types.pie import PieChartFactory
-from DataPlotly.core.plot_types.polar import PolarChartFactory
-from DataPlotly.core.plot_types.scatter import ScatterPlotFactory
-from DataPlotly.core.plot_types.ternary import TernaryFactory
-from DataPlotly.core.plot_types.violin import ViolinFactory
+from DataPlotly.core.plot_types.plot_type import PlotType
+from DataPlotly.core.plot_types import *
 
 
 class PlotFactory:  # pylint:disable=too-many-instance-attributes
@@ -52,17 +44,8 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         POLY_FILL_PATH = 'file:///{}'.format(POLY_FILL_PATH)
         PLOTLY_PATH = 'file:///{}'.format(PLOTLY_PATH)
 
-    TRACE_FACTORIES = {
-        '2dhistogram': Histogram2dFactory,
-        'bar': BarPlotFactory,
-        'box': BoxPlotFactory,
-        'contour': ContourFactory,
-        'histogram': HistogramFactory,
-        'pie': PieChartFactory,
-        'polar': PolarChartFactory,
-        'scatter': ScatterPlotFactory,
-        'ternary': TernaryFactory,
-        'violin': ViolinFactory
+    PLOT_TYPES = {
+       t.type_name(): t for t in PlotType.__subclasses__()
     }
 
     def __init__(self, settings: PlotSettings = None):
@@ -93,9 +76,9 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         Returns the final Plot Trace (final Plot object, AKA go.xxx plot type)
         """
-        assert self.settings.plot_type in PlotFactory.TRACE_FACTORIES
+        assert self.settings.plot_type in PlotFactory.PLOT_TYPES
 
-        return PlotFactory.TRACE_FACTORIES[self.settings.plot_type].create_trace(self.settings)
+        return PlotFactory.PLOT_TYPES[self.settings.plot_type].create_trace(self.settings)
 
     def _build_layout(self):
         """
@@ -113,9 +96,9 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         Returns the final Plot Layout (final Layout object, AKA go.Layout)
         """
-        assert self.settings.plot_type in PlotFactory.TRACE_FACTORIES
+        assert self.settings.plot_type in PlotFactory.PLOT_TYPES
 
-        return PlotFactory.TRACE_FACTORIES[self.settings.plot_type].create_layout(self.settings)
+        return PlotFactory.PLOT_TYPES[self.settings.plot_type].create_layout(self.settings)
 
     @staticmethod
     def js_callback(_):
