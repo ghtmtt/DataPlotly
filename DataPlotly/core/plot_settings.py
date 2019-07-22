@@ -14,7 +14,7 @@ class PlotSettings:
     methods for serializing and deserializing these settings.
     """
 
-    def __init__(self, plot_type: str, plot_properties: dict = None, plot_layout: dict = None):
+    def __init__(self, plot_type: str, properties: dict = None, layout: dict = None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
         # plot properties
@@ -82,13 +82,13 @@ class PlotSettings:
 
         # Set class properties - we use the base dictionaries, replacing base values with
         # those from the passed properties dicts
-        if plot_properties is None:
-            self.plot_properties = plot_base_properties
+        if properties is None:
+            self.properties = plot_base_properties
         else:
-            self.plot_properties = {**plot_base_properties, **plot_properties}
-        if plot_layout is None:
-            self.plot_layout = plot_base_layout
+            self.properties = {**plot_base_properties, **properties}
+        if layout is None:
+            self.layout = plot_base_layout
         else:
-            self.plot_layout = {**plot_base_layout, **plot_layout}
+            self.layout = {**plot_base_layout, **layout}
 
         self.plot_type = plot_type
