@@ -1,13 +1,12 @@
 #!/bin/bash
-LRELEASE=$1
+PLUGINNAME="DataPlotly"
 LOCALES=$*
-PLUGINNAME="DataPlotly_"
-
+LRELEASE=lrelease-qt5
 
 for LOCALE in ${LOCALES}
 do
-    echo "Processing: $PLUGINNAME${LOCALE}.ts"
+    echo "Processing: ${PLUGINNAME}/i18n/${PLUGINNAME}_${LOCALE}.ts"
     # Note we don't use pylupdate with qt .pro file approach as it is flakey
     # about what is made available.
-    $LRELEASE i18n/$PLUGINNAME${LOCALE}.ts
+    ${LRELEASE} ${PLUGINNAME}/i18n/${PLUGINNAME}_${LOCALE}.ts
 done
