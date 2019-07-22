@@ -266,10 +266,10 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         )
 
         # Initialize plot properties and build them
-        trace = plot_instance.buildTrace()
+        trace = plot_instance.build_trace()
 
         # Initialize layout properties and build them
-        layout = plot_instance.buildLayout()
+        layout = plot_instance.build_layout()
 
         # Prepare results
         results = {
@@ -279,7 +279,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
 
         # Save plot as HTML
         if outputHtmlFile:
-            standalone_plot_path = plot_instance.buildFigure()
+            standalone_plot_path = plot_instance.build_figure()
             if os.path.isfile(standalone_plot_path):
                 # html file output
                 copyfile(standalone_plot_path, outputHtmlFile)

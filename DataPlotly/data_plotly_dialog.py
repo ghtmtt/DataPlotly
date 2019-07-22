@@ -1015,10 +1015,10 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.plotobject = Plot(self.ptype, plot_properties, layout_properties)
 
         # build the final trace that will be used
-        self.plotobject.buildTrace()
+        self.plotobject.build_trace()
 
         # call the method and build the final layout
-        self.plotobject.buildLayout()
+        self.plotobject.build_layout()
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = ('{}_{}'.format(str(self.idx), self.ptype))
@@ -1052,7 +1052,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
 
             # plot single plot, check the object dictionary lenght
             if len(self.plot_traces) <= 1:
-                self.plot_path = self.plotobject.buildFigure()
+                self.plot_path = self.plotobject.build_figure()
 
             # to plot many plots in the same figure
             else:
@@ -1062,7 +1062,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 for _, v in self.plot_traces.items():
                     pl.append(v.trace[0])
 
-                self.plot_path = self.plotobject.buildFigures(self.ptype, pl)
+                self.plot_path = self.plotobject.build_figures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
@@ -1076,12 +1076,12 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 # plot in single row and many columns
                 if self.radio_rows.isChecked():
 
-                    self.plot_path = self.plotobject.buildSubPlots('row', 1, gr, pl)
+                    self.plot_path = self.plotobject.build_sub_plots('row', 1, gr, pl)
 
                 # plot in single column and many rows
                 elif self.radio_columns.isChecked():
 
-                    self.plot_path = self.plotobject.buildSubPlots('col', gr, 1, pl)
+                    self.plot_path = self.plotobject.build_sub_plots('col', gr, 1, pl)
             except:  # pylint: disable=bare-except  # noqa: F401
                 self.iface.messageBar().pushMessage(
                     self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
@@ -1248,13 +1248,13 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         )
 
         # initialize plot properties and build them
-        plot_standalone.buildTrace()
-        plot_standalone.buildTrace()
+        plot_standalone.build_trace()
+        plot_standalone.build_trace()
 
         # initialize layout properties and build them
-        plot_standalone.buildLayout()
+        plot_standalone.build_layout()
 
-        standalone_plot_path = plot_standalone.buildFigure()
+        standalone_plot_path = plot_standalone.build_figure()
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
 
         self.plot_view.load(standalone_plot_url)
