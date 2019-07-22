@@ -65,6 +65,7 @@ from DataPlotly.utils import (
     getSortedId
 )
 from DataPlotly.core.plot_factory import PlotFactory
+from DataPlotly.core.plot_settings import PlotSettings
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -902,11 +903,10 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             self.legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
             self.legend_title.setText(self.legend_title_string)
 
-    def plotProperties(self):
-        '''
-        call the class and make the object to define the generic plot properties
-        '''
-
+    def get_settings(self) -> PlotSettings:
+        """
+        Returns the plot settings as currently defined in the dialog
+        """
         # call the method to get the correct marker size
         self.getMarkerSize()
         self.getColorDefined()
@@ -1011,8 +1011,16 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             'bargaps': self.bar_gap.value()
         }
 
+        return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties)
+
+    def build_plot(self):
+        """
+        call the class and make the object to define the generic plot properties
+        """
+        settings = self.get_settings()
+
         # plot instance
-        self.plotobject = PlotFactory(self.ptype, plot_properties, layout_properties)
+        self.plotobject = PlotFactory(settings)
 
         # build the final trace that will be used
         self.plotobject.build_trace()
@@ -1021,7 +1029,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.plotobject.build_layout()
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
-        self.pid = ('{}_{}'.format(str(self.idx), self.ptype))
+        self.pid = ('{}_{}'.format(str(self.idx), settings.plot_type))
 
         # create default dictionary that contains all the plot and properties
         self.plot_traces[self.pid] = self.plotobject
@@ -1041,7 +1049,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         '''
 
         # call the method to build all the Plot plotProperties
-        self.plotProperties()
+        self.build_plot()
 
         # set the correct index page of the widget
         self.stackedPlotWidget.setCurrentIndex(1)

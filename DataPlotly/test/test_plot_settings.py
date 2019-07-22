@@ -22,25 +22,25 @@ class DataPlotlySettings(unittest.TestCase):
 
         # default plot settings
         settings = PlotSettings('test')
-        self.assertEqual(settings.plot_properties['marker_size'], 10)
-        self.assertEqual(settings.plot_layout['legend_orientation'], 'h')
+        self.assertEqual(settings.properties['marker_size'], 10)
+        self.assertEqual(settings.layout['legend_orientation'], 'h')
 
         # inherit base settings
-        settings = PlotSettings('test', plot_properties={'marker_width': 2}, plot_layout={'title': 'my plot'})
+        settings = PlotSettings('test', properties={'marker_width': 2}, layout={'title': 'my plot'})
         # base settings should be inherited
-        self.assertEqual(settings.plot_properties['marker_size'], 10)
-        self.assertEqual(settings.plot_properties['marker_width'], 2)
-        self.assertEqual(settings.plot_layout['legend_orientation'], 'h')
-        self.assertEqual(settings.plot_layout['title'], 'my plot')
+        self.assertEqual(settings.properties['marker_size'], 10)
+        self.assertEqual(settings.properties['marker_width'], 2)
+        self.assertEqual(settings.layout['legend_orientation'], 'h')
+        self.assertEqual(settings.layout['title'], 'my plot')
 
         # override base settings
-        settings = PlotSettings('test', plot_properties={'marker_width': 2, 'marker_size': 5},
-                                plot_layout={'title': 'my plot', 'legend_orientation': 'v'})
+        settings = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
+                                layout={'title': 'my plot', 'legend_orientation': 'v'})
         # base settings should be inherited
-        self.assertEqual(settings.plot_properties['marker_size'], 5)
-        self.assertEqual(settings.plot_properties['marker_width'], 2)
-        self.assertEqual(settings.plot_layout['legend_orientation'], 'v')
-        self.assertEqual(settings.plot_layout['title'], 'my plot')
+        self.assertEqual(settings.properties['marker_size'], 5)
+        self.assertEqual(settings.properties['marker_width'], 2)
+        self.assertEqual(settings.layout['legend_orientation'], 'v')
+        self.assertEqual(settings.layout['title'], 'my plot')
 
 
 if __name__ == "__main__":
