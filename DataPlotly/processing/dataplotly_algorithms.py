@@ -262,9 +262,6 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         # Create plot instance
         factory = PlotFactory(settings)
 
-        # Initialize plot properties and build them
-        trace = factory.build_trace()
-
         # Initialize layout properties and build them
         plot_layout = factory.build_layout()
 

@@ -1021,9 +1021,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         # plot instance
         plot_factory = PlotFactory(settings)
 
-        # build the final trace that will be used
-        plot_factory.build_trace()
-
         # call the method and build the final layout
         plot_factory.build_layout()
 
@@ -1255,10 +1252,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
 
         # create Plot instance
         factory = PlotFactory(settings)
-
-        # initialize plot properties and build them
-        factory.build_trace()
-        factory.build_trace()
 
         # initialize layout properties and build them
         factory.build_layout()
