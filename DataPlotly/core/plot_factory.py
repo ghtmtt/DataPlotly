@@ -15,17 +15,18 @@ import re
 import plotly
 import plotly.graph_objs as go
 from plotly import tools
+
 from DataPlotly.core.plot_settings import PlotSettings
-from DataPlotly.core.plot_trace_factories.bar import BarPlotFactory
-from DataPlotly.core.plot_trace_factories.box import BoxPlotFactory
-from DataPlotly.core.plot_trace_factories.contour import ContourFactory
-from DataPlotly.core.plot_trace_factories.histogram import HistogramFactory
-from DataPlotly.core.plot_trace_factories.histogram2d import Histogram2dFactory
-from DataPlotly.core.plot_trace_factories.pie import PieChartFactory
-from DataPlotly.core.plot_trace_factories.polar import PolarChartFactory
-from DataPlotly.core.plot_trace_factories.scatter import ScatterPlotFactory
-from DataPlotly.core.plot_trace_factories.ternary import TernaryFactory
-from DataPlotly.core.plot_trace_factories.violin import ViolinFactory
+from DataPlotly.core.plot_types.bar import BarPlotFactory
+from DataPlotly.core.plot_types.box import BoxPlotFactory
+from DataPlotly.core.plot_types.contour import ContourFactory
+from DataPlotly.core.plot_types.histogram import HistogramFactory
+from DataPlotly.core.plot_types.histogram2d import Histogram2dFactory
+from DataPlotly.core.plot_types.pie import PieChartFactory
+from DataPlotly.core.plot_types.polar import PolarChartFactory
+from DataPlotly.core.plot_types.scatter import ScatterPlotFactory
+from DataPlotly.core.plot_types.ternary import TernaryFactory
+from DataPlotly.core.plot_types.violin import ViolinFactory
 
 
 class PlotFactory:  # pylint:disable=too-many-instance-attributes
@@ -69,12 +70,11 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
             settings = PlotSettings('scatter')
 
         self.settings = settings
-        self.trace = None
-        self.layout = None
         self.raw_plot = None
         self.plot_path = None
 
-        self._build_trace()
+        self.trace = self._build_trace()
+        self.layout = self._build_layout()
 
     def _build_trace(self):
         """
@@ -95,11 +95,10 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         """
         assert self.settings.plot_type in PlotFactory.TRACE_FACTORIES
 
-        self.trace = PlotFactory.TRACE_FACTORIES[self.settings.plot_type].create_trace(self.settings)
+        return PlotFactory.TRACE_FACTORIES[self.settings.plot_type].create_trace(self.settings)
 
-    def build_layout(self):
+    def _build_layout(self):
         """
-        Builds the final layout calling the go.Layout plotly method
         Builds the final layout calling the go.Layout plotly method
 
         From the initial object created (e.g. p = Plot(plot_type, plot_properties,
@@ -114,96 +113,9 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         Returns the final Plot Layout (final Layout object, AKA go.Layout)
         """
+        assert self.settings.plot_type in PlotFactory.TRACE_FACTORIES
 
-        # flip the variables according to the box orientation
-        if self.settings.properties['box_orientation'] == 'h':
-            self.settings.layout['x_title'], self.settings.layout['y_title'] = \
-                self.settings.layout['y_title'], self.settings.layout[
-                    'x_title']
-
-        self.layout = go.Layout(
-            showlegend=self.settings.layout['legend'],
-            legend=dict(
-                orientation=self.settings.layout['legend_orientation']
-            ),
-            title=self.settings.layout['title'],
-            xaxis=dict(
-                title=self.settings.layout['x_title'],
-                autorange=self.settings.layout['x_inv']
-            ),
-            yaxis=dict(
-                title=self.settings.layout['y_title'],
-                autorange=self.settings.layout['y_inv']
-            )
-        )
-
-        # update the x and y axis and add the linear and log only if the data are numeric
-        # pass if field is empty
-        try:
-            if isinstance(self.settings.properties['x'][0], (int, float)):
-                self.layout['xaxis'].update(type=self.settings.layout['x_type'])
-        except:  # pylint:disable=bare-except  # noqa: F401
-            pass
-        try:
-            if isinstance(self.settings.properties['y'][0], (int, float)):
-                self.layout['yaxis'].update(type=self.settings.layout['y_type'])
-        except:  # pylint:disable=bare-except  # noqa: F401
-            pass
-
-        # update layout properties depending on the plot type
-        if self.settings.plot_type == 'scatter':
-            self.layout['xaxis'].update(rangeslider=self.settings.layout['range_slider'])
-
-        elif self.settings.plot_type == 'bar':
-            self.layout['barmode'] = self.settings.layout['bar_mode']
-
-        elif self.settings.plot_type == 'polar':
-            self.layout['polar'] = self.settings.layout['polar']
-
-        elif self.settings.plot_type == 'histogram':
-            self.layout['barmode'] = self.settings.layout['bar_mode']
-            self.layout['bargroupgap'] = self.settings.layout['bargaps']
-
-        elif self.settings.plot_type == 'pie':
-            self.layout['xaxis'].update(title='')
-            self.layout['xaxis'].update(showgrid=False)
-            self.layout['xaxis'].update(zeroline=False)
-            self.layout['xaxis'].update(showline=False)
-            self.layout['xaxis'].update(showticklabels=False)
-            self.layout['yaxis'].update(title='')
-            self.layout['yaxis'].update(showgrid=False)
-            self.layout['yaxis'].update(zeroline=False)
-            self.layout['yaxis'].update(showline=False)
-            self.layout['yaxis'].update(showticklabels=False)
-
-        elif self.settings.plot_type == 'ternary':
-            self.layout['xaxis'].update(title='')
-            self.layout['xaxis'].update(showgrid=False)
-            self.layout['xaxis'].update(zeroline=False)
-            self.layout['xaxis'].update(showline=False)
-            self.layout['xaxis'].update(showticklabels=False)
-            self.layout['yaxis'].update(title='')
-            self.layout['yaxis'].update(showgrid=False)
-            self.layout['yaxis'].update(zeroline=False)
-            self.layout['yaxis'].update(showline=False)
-            self.layout['yaxis'].update(showticklabels=False)
-            self.layout['ternary'] = dict(
-                sum=100,
-                aaxis=dict(
-                    title=self.settings.layout['x_title'],
-                    ticksuffix='%',
-                ),
-                baxis=dict(
-                    title=self.settings.layout['y_title'],
-                    ticksuffix='%'
-                ),
-                caxis=dict(
-                    title=self.settings.layout['z_title'],
-                    ticksuffix='%'
-                ),
-            )
-
-        return self.layout
+        return PlotFactory.TRACE_FACTORIES[self.settings.plot_type].create_layout(self.settings)
 
     @staticmethod
     def js_callback(_):
@@ -379,7 +291,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}">' \
                         '</script><script src="{}"></script></head>'.format(
-                            self.POLY_FILL_PATH, self.PLOTLY_PATH)
+            self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # set some configurations
         config = {'scrollZoom': True, 'editable': True}
         # call the plot method without all the javascript code
@@ -450,7 +362,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}">' \
                         '</script><script src="{}"></script></head>'.format(
-                            self.POLY_FILL_PATH, self.PLOTLY_PATH)
+            self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False, show_link=False,
                                              config=config)
@@ -511,7 +423,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}"></script>' \
                         '<script src="{}"></script></head>'.format(
-                            self.POLY_FILL_PATH, self.PLOTLY_PATH)
+            self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # call the plot method without all the javascript code
         self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False,
                                              config=config)

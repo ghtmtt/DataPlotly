@@ -1021,9 +1021,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         # plot instance
         plot_factory = PlotFactory(settings)
 
-        # call the method and build the final layout
-        plot_factory.build_layout()
-
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = ('{}_{}'.format(str(self.idx), settings.plot_type))
 
@@ -1252,9 +1249,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
 
         # create Plot instance
         factory = PlotFactory(settings)
-
-        # initialize layout properties and build them
-        factory.build_layout()
 
         standalone_plot_path = factory.build_figure()
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)

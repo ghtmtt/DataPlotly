@@ -9,10 +9,10 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from plotly import graph_objs
-from DataPlotly.core.plot_trace_factories.trace_factory import TraceFactory
+from DataPlotly.core.plot_types.plot_type import PlotType
 
 
-class Histogram2dFactory(TraceFactory):
+class Histogram2dFactory(PlotType):
     """
     Factory for 2D histograms
     """

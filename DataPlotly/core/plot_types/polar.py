@@ -9,10 +9,10 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from plotly import graph_objs
-from DataPlotly.core.plot_trace_factories.trace_factory import TraceFactory
+from DataPlotly.core.plot_types.plot_type import PlotType
 
 
-class PolarChartFactory(TraceFactory):
+class PolarChartFactory(PlotType):
     """
     Factory for polar charts
     """
@@ -40,3 +40,11 @@ class PolarChartFactory(TraceFactory):
                 ),
                 opacity=settings.properties['opacity'],
             )]
+
+    @staticmethod
+    def create_layout(settings):
+        layout = super().create_layout(settings)
+
+        layout['polar'] = settings.layout['polar']
+
+        return layout
