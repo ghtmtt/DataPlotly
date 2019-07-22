@@ -51,7 +51,7 @@ class BarPlotFactory(PlotType):
 
     @staticmethod
     def create_layout(settings):
-        layout = super().create_layout(settings)
+        layout = super(BarPlotFactory, BarPlotFactory).create_layout(settings)
 
         layout['barmode'] = settings.layout['bar_mode']
 
