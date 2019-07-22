@@ -18,6 +18,10 @@ class HistogramFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return 'histogram'
+
+    @staticmethod
     def create_trace(settings):
         return [graph_objs.Histogram(
                 x=settings.properties['x'],

@@ -18,6 +18,10 @@ class Histogram2dFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return '2dhistogram'
+
+    @staticmethod
     def create_trace(settings):
         return [graph_objs.Histogram2d(
                 x=settings.properties['x'],

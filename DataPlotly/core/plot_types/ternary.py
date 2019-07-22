@@ -18,6 +18,10 @@ class TernaryFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return 'ternary'
+
+    @staticmethod
     def create_trace(settings):
         # prepare the hover text to display if the additional combobox is empty or not
         # this setting is necessary to overwrite the standard hovering labels

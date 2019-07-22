@@ -18,6 +18,10 @@ class PolarChartFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return 'polar'
+
+    @staticmethod
     def create_trace(settings):
         return [graph_objs.Scatterpolar(
                 r=settings.properties['y'],

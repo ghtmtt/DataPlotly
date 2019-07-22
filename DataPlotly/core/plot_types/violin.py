@@ -18,6 +18,10 @@ class ViolinFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return 'violin'
+
+    @staticmethod
     def create_trace(settings):
         # flip the variables according to the box orientation
         if settings.properties['box_orientation'] == 'h':

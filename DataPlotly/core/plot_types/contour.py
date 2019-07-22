@@ -18,6 +18,10 @@ class ContourFactory(PlotType):
     """
 
     @staticmethod
+    def type_name():
+        return 'contour'
+
+    @staticmethod
     def create_trace(settings):
         return [graph_objs.Contour(
                 z=[settings.properties['x'], settings.properties['y']],
