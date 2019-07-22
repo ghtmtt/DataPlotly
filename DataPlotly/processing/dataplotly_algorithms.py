@@ -43,7 +43,8 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QCoreApplication
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
-from DataPlotly.core.plot_factory import *
+from DataPlotly.core.plot_factory import PlotFactory
+from DataPlotly.core.plot_settings import PlotSettings
 
 
 class DataPlotlyProcessingPlot(QgisAlgorithm):
@@ -214,11 +215,11 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
             raise QgsProcessingException(msg)
 
         # Build needed dictionary
-        pdic = {}
-        pdic['plot_type'] = plot_type
-        pdic['plot_prop'] = {}
+        settings = PlotSettings(plot_type)
+        properties = {}
 
         # Add X dimension
+        x_title = ''
         if xfieldname:
             # get field index for x
             idxX = layer.fields().lookupField(xfieldname)
@@ -227,9 +228,10 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxX]))]
             fieldTypeX = fields[idxX].type()
             x_title = fields[idxX].alias() or xfieldname
-            pdic['plot_prop']['x'] = x_var
+            properties['x'] = x_var
 
         # Add Y dimension
+        y_title = ''
         if yfieldname:
             # get field index for y
             idxY = layer.fields().lookupField(yfieldname)
@@ -237,39 +239,34 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
             y_var = [i[yfieldname] for i in layer.getFeatures(
                 QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxY]))]
             y_title = fields[idxY].alias() or yfieldname
-            pdic['plot_prop']['y'] = y_var
+            properties['y'] = y_var
 
         # Draw only markers for scatter plot
         if plot_type in ['scatter', 'polar']:
-            pdic['plot_prop']['marker'] = 'markers'
+            properties['marker'] = 'markers'
 
         # Colours
-        pdic['plot_prop']['in_color'] = in_color_html or in_color_hex or 'DodgerBlue'
+        properties['in_color'] = in_color_html or in_color_hex or 'DodgerBlue'
 
         # Add layout
-        pdic['layout_prop'] = {
+        layout = {
             'title': plot_title or layer.sourceName()
         }
         if plot_type in self.X_MANDATORY:
-            pdic['layout_prop']['x_title'] = x_title
+            layout['x_title'] = x_title
         if plot_type in self.Y_MANDATORY:
-            pdic['layout_prop']['y_title'] = y_title
+            layout['y_title'] = y_title
 
-        # Add layer
-        pdic['layer'] = layer
+        settings = PlotSettings(plot_type, properties=properties, layout=layout)
 
         # Create plot instance
-        plot_instance = PlotFactory(
-            pdic['plot_type'],
-            pdic["plot_prop"],
-            pdic["layout_prop"]
-        )
+        factory = PlotFactory(settings)
 
         # Initialize plot properties and build them
-        trace = plot_instance.build_trace()
+        trace = factory.build_trace()
 
         # Initialize layout properties and build them
-        layout = plot_instance.build_layout()
+        plot_layout = factory.build_layout()
 
         # Prepare results
         results = {
@@ -279,7 +276,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
 
         # Save plot as HTML
         if outputHtmlFile:
-            standalone_plot_path = plot_instance.build_figure()
+            standalone_plot_path = factory.build_figure()
             if os.path.isfile(standalone_plot_path):
                 # html file output
                 copyfile(standalone_plot_path, outputHtmlFile)
@@ -289,7 +286,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         if outputJsonFile:
             ojson = {
                 'data': trace,
-                'layout': layout
+                'layout': plot_layout
             }
             with codecs.open(outputJsonFile, 'w', encoding='utf-8') as f:
                 f.write(json.dumps(ojson))
