@@ -16,6 +16,16 @@ import plotly
 import plotly.graph_objs as go
 from plotly import tools
 from DataPlotly.core.plot_settings import PlotSettings
+from DataPlotly.core.plot_trace_factories.bar import BarPlotFactory
+from DataPlotly.core.plot_trace_factories.box import BoxPlotFactory
+from DataPlotly.core.plot_trace_factories.contour import ContourFactory
+from DataPlotly.core.plot_trace_factories.histogram import HistogramFactory
+from DataPlotly.core.plot_trace_factories.histogram2d import Histogram2dFactory
+from DataPlotly.core.plot_trace_factories.pie import PieChartFactory
+from DataPlotly.core.plot_trace_factories.polar import PolarChartFactory
+from DataPlotly.core.plot_trace_factories.scatter import ScatterPlotFactory
+from DataPlotly.core.plot_trace_factories.ternary import TernaryFactory
+from DataPlotly.core.plot_trace_factories.violin import ViolinFactory
 
 
 class PlotFactory:  # pylint:disable=too-many-instance-attributes
@@ -41,6 +51,19 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         POLY_FILL_PATH = 'file:///{}'.format(POLY_FILL_PATH)
         PLOTLY_PATH = 'file:///{}'.format(PLOTLY_PATH)
 
+    TRACE_FACTORIES = {
+        '2dhistogram': Histogram2dFactory,
+        'bar': BarPlotFactory,
+        'box': BoxPlotFactory,
+        'contour': ContourFactory,
+        'histogram': HistogramFactory,
+        'pie': PieChartFactory,
+        'polar': PolarChartFactory,
+        'scatter': ScatterPlotFactory,
+        'ternary': TernaryFactory,
+        'violin': ViolinFactory
+    }
+
     def __init__(self, settings: PlotSettings = None):
         if settings is None:
             settings = PlotSettings('scatter')
@@ -51,7 +74,9 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         self.raw_plot = None
         self.plot_path = None
 
-    def build_trace(self):  # pylint:disable=too-many-branches
+        self._build_trace()
+
+    def _build_trace(self):
         """
         Builds the final trace calling the go.xxx plotly method
         this method here is the one performing the real job
@@ -68,243 +93,13 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         Returns the final Plot Trace (final Plot object, AKA go.xxx plot type)
         """
+        assert self.settings.plot_type in PlotFactory.TRACE_FACTORIES
 
-        if self.settings.plot_type == 'scatter':
-
-            self.trace = [go.Scatter(
-                x=self.settings.properties['x'],
-                y=self.settings.properties['y'],
-                mode=self.settings.properties['marker'],
-                name=self.settings.properties['name'],
-                ids=self.settings.properties['featureIds'],
-                customdata=self.settings.properties['custom'],
-                text=self.settings.properties['additional_hover_text'],
-                hoverinfo=self.settings.properties['hover_text'],
-                marker={'color': self.settings.properties['in_color'],
-                        'colorscale': self.settings.properties['colorscale_in'],
-                        'showscale': self.settings.properties['show_colorscale_legend'],
-                        'reversescale': self.settings.properties['invert_color_scale'],
-                        'colorbar': {
-                            'len': 0.8},
-                        'size': self.settings.properties['marker_size'],
-                        'symbol': self.settings.properties['marker_symbol'],
-                        'line': {'color': self.settings.properties['out_color'],
-                                 'width': self.settings.properties['marker_width']}
-                        },
-                line={'width': self.settings.properties['marker_width'],
-                      'dash': self.settings.properties['line_dash']},
-                opacity=self.settings.properties['opacity']
-            )]
-
-        elif self.settings.plot_type == 'box':
-
-            # flip the variables according to the box orientation
-            if self.settings.properties['box_orientation'] == 'h':
-                self.settings.properties['x'], self.settings.properties['y'] = \
-                    self.settings.properties['y'], self.settings.properties[
-                        'x']
-
-            self.trace = [go.Box(
-                x=self.settings.properties['x'],
-                y=self.settings.properties['y'],
-                name=self.settings.properties['name'],
-                customdata=self.settings.properties['custom'],
-                boxmean=self.settings.properties['box_stat'],
-                orientation=self.settings.properties['box_orientation'],
-                boxpoints=self.settings.properties['box_outliers'],
-                fillcolor=self.settings.properties['in_color'],
-                line={'color': self.settings.properties['out_color'],
-                      'width': self.settings.properties['marker_width']},
-                opacity=self.settings.properties['opacity']
-            )]
-
-        elif self.settings.plot_type == 'bar':
-
-            if self.settings.properties['box_orientation'] == 'h':
-                self.settings.properties['x'], self.settings.properties['y'] = \
-                    self.settings.properties['y'], self.settings.properties[
-                        'x']
-
-            self.trace = [go.Bar(
-                x=self.settings.properties['x'],
-                y=self.settings.properties['y'],
-                name=self.settings.properties['name'],
-                ids=self.settings.properties['featureBox'],
-                customdata=self.settings.properties['custom'],
-                orientation=self.settings.properties['box_orientation'],
-                marker={'color': self.settings.properties['in_color'],
-                        'colorscale': self.settings.properties['colorscale_in'],
-                        'showscale': self.settings.properties['show_colorscale_legend'],
-                        'reversescale': self.settings.properties['invert_color_scale'],
-                        'colorbar': {
-                            'len': 0.8
-                        },
-                        'line': {
-                            'color': self.settings.properties['out_color'],
-                            'width': self.settings.properties['marker_width']}
-                        },
-                opacity=self.settings.properties['opacity']
-            )]
-
-        elif self.settings.plot_type == 'histogram':
-
-            self.trace = [go.Histogram(
-                x=self.settings.properties['x'],
-                y=self.settings.properties['x'],
-                name=self.settings.properties['name'],
-                orientation=self.settings.properties['box_orientation'],
-                nbinsx=self.settings.properties['bins'],
-                nbinsy=self.settings.properties['bins'],
-                marker=dict(
-                    color=self.settings.properties['in_color'],
-                    line=dict(
-                        color=self.settings.properties['out_color'],
-                        width=self.settings.properties['marker_width']
-                    )
-                ),
-                histnorm=self.settings.properties['normalization'],
-                opacity=self.settings.properties['opacity'],
-                cumulative=dict(
-                    enabled=self.settings.properties['cumulative'],
-                    direction=self.settings.properties['invert_hist']
-                )
-            )]
-
-        elif self.settings.plot_type == 'pie':
-
-            self.trace = [go.Pie(
-                labels=self.settings.properties['x'],
-                values=self.settings.properties['y'],
-                name=self.settings.properties['custom'][0],
-            )]
-
-        elif self.settings.plot_type == '2dhistogram':
-
-            self.trace = [go.Histogram2d(
-                x=self.settings.properties['x'],
-                y=self.settings.properties['y'],
-                colorscale=self.settings.properties['color_scale']
-            )]
-
-        elif self.settings.plot_type == 'polar':
-
-            self.trace = [go.Scatterpolar(
-                r=self.settings.properties['y'],
-                theta=self.settings.properties['x'],
-                mode=self.settings.properties['marker'],
-                name=self.settings.properties['y_name'],
-                marker=dict(
-                    color=self.settings.properties['in_color'],
-                    size=self.settings.properties['marker_size'],
-                    symbol=self.settings.properties['marker_symbol'],
-                    line=dict(
-                        color=self.settings.properties['out_color'],
-                        width=self.settings.properties['marker_width']
-                    )
-                ),
-                line=dict(
-                    color=self.settings.properties['in_color'],
-                    width=self.settings.properties['marker_width'],
-                    dash=self.settings.properties['line_dash']
-                ),
-                opacity=self.settings.properties['opacity'],
-            )]
-
-        elif self.settings.plot_type == 'ternary':
-
-            # prepare the hover text to display if the additional combobox is empty or not
-            # this setting is necessary to overwrite the standard hovering labels
-            if not self.settings.properties['additional_hover_text']:
-                text = [
-                    self.settings.properties['x_name'] + ': {}'.format(
-                        self.settings.properties['x'][k]) + '<br>{}: {}'.format(
-                        self.settings.properties['y_name'],
-                        self.settings.properties['y'][k]) + '<br>{}: {}'.format(
-                        self.settings.properties['z_name'], self.settings.properties['z'][k]) for k
-                    in
-                    range(len(self.settings.properties['x']))]
-            else:
-                text = [
-                    self.settings.properties['x_name'] + ': {}'.format(
-                        self.settings.properties['x'][k]) + '<br>{}: {}'.format(
-                        self.settings.properties['y_name'],
-                        self.settings.properties['y'][k]) + '<br>{}: {}'.format(
-                        self.settings.properties['z_name'],
-                        self.settings.properties['z'][k]) + '<br>{}'.format(
-                        self.settings.properties['additional_hover_text'][k]) for k in
-                    range(len(self.settings.properties['x']))]
-
-            self.trace = [go.Scatterternary(
-                a=self.settings.properties['x'],
-                b=self.settings.properties['y'],
-                c=self.settings.properties['z'],
-                name='{} + {} + {}'.format(self.settings.properties['x_name'],
-                                           self.settings.properties['y_name'],
-                                           self.settings.properties['z_name']),
-                hoverinfo='text',
-                text=text,
-                mode='markers',
-                marker=dict(
-                    color=self.settings.properties['in_color'],
-                    colorscale=self.settings.properties['colorscale_in'],
-                    showscale=self.settings.properties['show_colorscale_legend'],
-                    reversescale=self.settings.properties['invert_color_scale'],
-                    colorbar=dict(
-                        len=0.8
-                    ),
-                    size=self.settings.properties['marker_size'],
-                    symbol=self.settings.properties['marker_symbol'],
-                    line=dict(
-                        color=self.settings.properties['out_color'],
-                        width=self.settings.properties['marker_width']
-                    )
-                ),
-                opacity=self.settings.properties['opacity']
-            )]
-
-        elif self.settings.plot_type == 'contour':
-
-            self.trace = [go.Contour(
-                z=[self.settings.properties['x'], self.settings.properties['y']],
-                contours=dict(
-                    coloring=self.settings.properties['cont_type'],
-                    showlines=self.settings.properties['show_lines']
-                ),
-                colorscale=self.settings.properties['color_scale'],
-                opacity=self.settings.properties['opacity']
-            )]
-
-        elif self.settings.plot_type == 'violin':
-
-            # flip the variables according to the box orientation
-            if self.settings.properties['box_orientation'] == 'h':
-                self.settings.properties['x'], self.settings.properties['y'] = \
-                    self.settings.properties['y'], self.settings.properties[
-                        'x']
-
-            self.trace = [go.Violin(
-                x=self.settings.properties['x'],
-                y=self.settings.properties['y'],
-                name=self.settings.properties['name'],
-                customdata=self.settings.properties['custom'],
-                orientation=self.settings.properties['box_orientation'],
-                points=self.settings.properties['box_outliers'],
-                fillcolor=self.settings.properties['in_color'],
-                line=dict(
-                    color=self.settings.properties['out_color'],
-                    width=self.settings.properties['marker_width']
-                ),
-                opacity=self.settings.properties['opacity'],
-                meanline=dict(
-                    visible=self.settings.properties['show_mean_line']
-                ),
-                side=self.settings.properties['violin_side']
-            )]
-
-        return self.trace
+        self.trace = PlotFactory.TRACE_FACTORIES[self.settings.plot_type].create_trace(self.settings)
 
     def build_layout(self):
         """
+        Builds the final layout calling the go.Layout plotly method
         Builds the final layout calling the go.Layout plotly method
 
         From the initial object created (e.g. p = Plot(plot_type, plot_properties,

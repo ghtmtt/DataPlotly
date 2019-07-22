@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+"""
+2D histogram factory
+
+.. note:: This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+"""
+
+from plotly import graph_objs
+from DataPlotly.core.plot_trace_factories.trace_factory import TraceFactory
+
+
+class Histogram2dFactory(TraceFactory):
+    """
+    Factory for 2D histograms
+    """
+
+    @staticmethod
+    def create_trace(settings):
+        return [graph_objs.Histogram2d(
+                x=settings.properties['x'],
+                y=settings.properties['y'],
+                colorscale=settings.properties['color_scale']
+            )]
