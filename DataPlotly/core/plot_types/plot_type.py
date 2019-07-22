@@ -24,7 +24,7 @@ class PlotType:
         return ''
 
     @staticmethod
-    def create_trace(settings):
+    def create_trace(settings):  # pylint: disable=W0613
         """
         Returns a new trace using the specified plot settings
         """

@@ -18,7 +18,7 @@ from plotly import tools
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
-from DataPlotly.core.plot_types import *
+from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
 
 
 class PlotFactory:  # pylint:disable=too-many-instance-attributes
@@ -45,7 +45,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         PLOTLY_PATH = 'file:///{}'.format(PLOTLY_PATH)
 
     PLOT_TYPES = {
-       t.type_name(): t for t in PlotType.__subclasses__()
+        t.type_name(): t for t in PlotType.__subclasses__()
     }
 
     def __init__(self, settings: PlotSettings = None):
