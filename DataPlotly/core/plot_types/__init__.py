@@ -1,4 +1,14 @@
-from .bar import BarPlotFactory
+# -*- coding: utf-8 -*-
+"""
+Available plot types
+
+.. note:: This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+"""
+
+from .bar_plot import BarPlotFactory
 from .box import BoxPlotFactory
 from .contour import ContourFactory
 from .histogram2d import Histogram2dFactory
