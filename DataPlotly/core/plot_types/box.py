@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Bar plot
+Box plot
 
 .. note:: This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -9,12 +9,12 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from plotly import graph_objs
-from DataPlotly.core.plot_trace_factories.trace_factory import TraceFactory
+from DataPlotly.core.plot_types.plot_type import PlotType
 
 
-class BarPlotFactory(TraceFactory):
+class BoxPlotFactory(PlotType):
     """
-    Factory for bar plots
+    Factory for box plots
     """
 
     @staticmethod
@@ -28,23 +28,16 @@ class BarPlotFactory(TraceFactory):
             x = settings.properties['x']
             y = settings.properties['y']
 
-        return [graph_objs.Bar(
+        return [graph_objs.Box(
             x=x,
             y=y,
             name=settings.properties['name'],
-            ids=settings.properties['featureBox'],
             customdata=settings.properties['custom'],
+            boxmean=settings.properties['box_stat'],
             orientation=settings.properties['box_orientation'],
-            marker={'color': settings.properties['in_color'],
-                    'colorscale': settings.properties['colorscale_in'],
-                    'showscale': settings.properties['show_colorscale_legend'],
-                    'reversescale': settings.properties['invert_color_scale'],
-                    'colorbar': {
-                        'len': 0.8
-                    },
-                    'line': {
-                        'color': settings.properties['out_color'],
-                        'width': settings.properties['marker_width']}
-                    },
+            boxpoints=settings.properties['box_outliers'],
+            fillcolor=settings.properties['in_color'],
+            line={'color': settings.properties['out_color'],
+                  'width': settings.properties['marker_width']},
             opacity=settings.properties['opacity']
         )]

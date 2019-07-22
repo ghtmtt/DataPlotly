@@ -9,10 +9,10 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from plotly import graph_objs
-from DataPlotly.core.plot_trace_factories.trace_factory import TraceFactory
+from DataPlotly.core.plot_types.plot_type import PlotType
 
 
-class TernaryFactory(TraceFactory):
+class TernaryFactory(PlotType):
     """
     Factory for ternary plots
     """
@@ -68,3 +68,43 @@ class TernaryFactory(TraceFactory):
             ),
             opacity=settings.properties['opacity']
         )]
+
+    @staticmethod
+    def create_layout(settings):
+        layout = super().create_layout(settings)
+
+        # flip the variables according to the box orientation
+        if settings.properties['box_orientation'] == 'h':
+            x_title = settings.layout['y_title']
+            y_title = settings.layout['x_title']
+        else:
+            x_title = settings.layout['x_title']
+            y_title = settings.layout['y_title']
+
+        layout['xaxis'].update(title='')
+        layout['xaxis'].update(showgrid=False)
+        layout['xaxis'].update(zeroline=False)
+        layout['xaxis'].update(showline=False)
+        layout['xaxis'].update(showticklabels=False)
+        layout['yaxis'].update(title='')
+        layout['yaxis'].update(showgrid=False)
+        layout['yaxis'].update(zeroline=False)
+        layout['yaxis'].update(showline=False)
+        layout['yaxis'].update(showticklabels=False)
+        layout['ternary'] = dict(
+            sum=100,
+            aaxis=dict(
+                title=x_title,
+                ticksuffix='%',
+            ),
+            baxis=dict(
+                title=y_title,
+                ticksuffix='%'
+            ),
+            caxis=dict(
+                title=settings.layout['z_title'],
+                ticksuffix='%'
+            ),
+        )
+
+        return layout

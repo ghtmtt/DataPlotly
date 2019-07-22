@@ -9,10 +9,10 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from plotly import graph_objs
-from DataPlotly.core.plot_trace_factories.trace_factory import TraceFactory
+from DataPlotly.core.plot_types.plot_type import PlotType
 
 
-class ScatterPlotFactory(TraceFactory):
+class ScatterPlotFactory(PlotType):
     """
     Factory for scatter plots
     """
@@ -43,3 +43,11 @@ class ScatterPlotFactory(TraceFactory):
                   'dash': settings.properties['line_dash']},
             opacity=settings.properties['opacity']
         )]
+
+    @staticmethod
+    def create_layout(settings):
+        layout = super().create_layout(settings)
+
+        layout['xaxis'].update(rangeslider=settings.layout['range_slider'])
+
+        return layout
