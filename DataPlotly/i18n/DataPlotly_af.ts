@@ -5,7 +5,7 @@
     <message>
         <location filename="../test/test_translations.py" line="47"/>
         <source>Good morning</source>
-        <translation type="unfinished"></translation>
+        <translation>Goeie more</translation>
     </message>
 </context>
 <context>
@@ -315,7 +315,7 @@
     </message>
     <message>
         <location filename="../data_plotly_dialog.py" line="686"/>
-        <source>Grouping Field 
+        <source>Grouping Field
 (Optional)</source>
         <translation type="unfinished"></translation>
     </message>

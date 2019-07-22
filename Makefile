@@ -25,14 +25,12 @@
 
 #Add iso code for any locales you want to support here (space separated)
 # default is no locales
-# LOCALES = af
-LOCALES = en it nl sv fr es
+LOCALES = en it nl sv fr es af
 
 # If locales are enabled, set the name of the lrelease binary on your system. If
 # you have trouble compiling the translations, you may have to specify the full path to
 # lrelease
-LRELEASE = lrelease
-#LRELEASE = lrelease-qt4
+LRELEASE ?= lrelease-qt5
 
 
 # translation
@@ -88,7 +86,7 @@ test: transcompile
 	@echo "e.g. source run-env-linux.sh <path to qgis install>; make test"
 	@echo "----------------------"
 
-deploy: compile doc transcompile
+deploy: compile doc txpull transcompile
 	@echo
 	@echo "------------------------------------------"
 	@echo "Deploying plugin to your .qgis2 directory."
@@ -164,20 +162,20 @@ transup:
 	@chmod +x scripts/update-strings.sh
 	@scripts/update-strings.sh $(LOCALES)
 
-transcompile: txpull
+transcompile:
 	@echo
 	@echo "----------------------------------------"
 	@echo "Compiled translation files to .qm files."
 	@echo "----------------------------------------"
 	@chmod +x scripts/compile-strings.sh
-	@scripts/compile-strings.sh $(LRELEASE) $(LOCALES)
+	@scripts/compile-strings.sh $(LOCALES)
 
 transclean:
 	@echo
 	@echo "------------------------------------"
 	@echo "Removing compiled translation files."
 	@echo "------------------------------------"
-	rm -f i18n/*.qm
+	rm -f $(PLUGINNAME)/i18n/*.qm
 
 doc:
 	@echo
