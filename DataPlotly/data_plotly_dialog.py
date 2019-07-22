@@ -208,8 +208,8 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.svg')))
         self.save_plot_html_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_html.svg')))
 
-        # inizialize the empty dictionary of plots
-        self.plot_traces = {}
+        # initialize the empty dictionary of plots
+        self.plot_factories = {}
         # start the index counter
         self.idx = 1
 
@@ -1031,7 +1031,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.pid = ('{}_{}'.format(str(self.idx), settings.plot_type))
 
         # create default dictionary that contains all the plot and properties
-        self.plot_traces[self.pid] = plot_factory
+        self.plot_factories[self.pid] = plot_factory
 
         # just add 1 to the index
         self.idx += 1
@@ -1060,7 +1060,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         if self.sub_dict[self.subcombo.currentText()] == 'single':
 
             # plot single plot, check the object dictionary lenght
-            if len(self.plot_traces) <= 1:
+            if len(self.plot_factories) <= 1:
                 self.plot_path = plot_factory.build_figure()
 
             # to plot many plots in the same figure
@@ -1068,7 +1068,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
                 # plot list ready to be called within go.Figure
                 pl = []
 
-                for _, v in self.plot_traces.items():
+                for _, v in self.plot_factories.items():
                     pl.append(v.trace[0])
 
                 self.plot_path = plot_factory.build_figures(self.ptype, pl)
@@ -1076,10 +1076,10 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         # choice to draw subplots instead depending on the combobox
         elif self.sub_dict[self.subcombo.currentText()] == 'subplots':
             try:
-                gr = len(self.plot_traces)
+                gr = len(self.plot_factories)
                 pl = []
 
-                for _, v in self.plot_traces.items():
+                for _, v in self.plot_factories.items():
                     pl.append(v.trace[0])
 
                 # plot in single row and many columns
@@ -1107,8 +1107,8 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         and call the method to create the plot with the updated settings
         '''
 
-        plot_to_update = (sorted(self.plot_traces.keys())[-1])
-        del self.plot_traces[plot_to_update]
+        plot_to_update = (sorted(self.plot_factories.keys())[-1])
+        del self.plot_factories[plot_to_update]
 
         self.createPlot()
 
@@ -1134,7 +1134,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         raw text of the QPlainTextEdit
         '''
 
-        self.plot_traces = {}
+        self.plot_factories = {}
 
         try:
             self.plot_view.load(QUrl(''))
@@ -1249,21 +1249,21 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         except:  # pylint: disable=bare-except  # noqa: F401
             pass
 
+        settings = PlotSettings(plot_input_dic['plot_type'],
+                                properties=plot_input_dic["plot_prop"],
+                                layout=plot_input_dic["layout_prop"])
+
         # create Plot instance
-        plot_standalone = PlotFactory(
-            plot_input_dic['plot_type'],
-            plot_input_dic["plot_prop"],
-            plot_input_dic["layout_prop"]
-        )
+        factory = PlotFactory(settings)
 
         # initialize plot properties and build them
-        plot_standalone.build_trace()
-        plot_standalone.build_trace()
+        factory.build_trace()
+        factory.build_trace()
 
         # initialize layout properties and build them
-        plot_standalone.build_layout()
+        factory.build_layout()
 
-        standalone_plot_path = plot_standalone.build_figure()
+        standalone_plot_path = factory.build_figure()
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
 
         self.plot_view.load(standalone_plot_url)
@@ -1279,7 +1279,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.pid = ('{}_{}'.format(str(self.idx), plot_input_dic["plot_type"]))
 
         # create default dictionary that contains all the plot and properties
-        self.plot_traces[self.pid] = plot_standalone
+        self.plot_factories[self.pid] = factory
 
         # just add 1 to the index
         self.idx += 1
