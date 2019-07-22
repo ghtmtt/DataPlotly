@@ -64,7 +64,7 @@ from DataPlotly.utils import (
     getIds,
     getSortedId
 )
-from DataPlotly.data_plotly_plot import Plot
+from DataPlotly.core.plot_factory import PlotFactory
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -1012,7 +1012,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         }
 
         # plot instance
-        self.plotobject = Plot(self.ptype, plot_properties, layout_properties)
+        self.plotobject = PlotFactory(self.ptype, plot_properties, layout_properties)
 
         # build the final trace that will be used
         self.plotobject.build_trace()
@@ -1241,7 +1241,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             pass
 
         # create Plot instance
-        plot_standalone = Plot(
+        plot_standalone = PlotFactory(
             plot_input_dic['plot_type'],
             plot_input_dic["plot_prop"],
             plot_input_dic["layout_prop"]
