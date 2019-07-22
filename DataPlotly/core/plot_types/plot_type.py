@@ -9,6 +9,7 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from plotly import graph_objs
+from qgis.PyQt.QtCore import QCoreApplication
 
 
 class PlotType:
@@ -20,6 +21,20 @@ class PlotType:
     def type_name():
         """
         Returns the unique type name for this plot type
+        """
+        return ''
+
+    @staticmethod
+    def name():
+        """
+        Returns the friendly translated name for the plot type
+        """
+        return ''
+
+    @staticmethod
+    def icon():
+        """
+        Returns a path to an icon for this chart type
         """
         return ''
 
@@ -66,3 +81,12 @@ class PlotType:
             pass
 
         return layout
+
+    @staticmethod
+    def tr(string, context=''):
+        """
+        Translates a string
+        """
+        if context == '':
+            context = 'Types'
+        return QCoreApplication.translate(context, string)

@@ -129,36 +129,15 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         # highlight the first row when starting the first time
         self.listWidget.setCurrentRow(0)
 
-        # PlotTypes combobox
-        self.plot_types = OrderedDict([
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterplot.svg')), self.tr('Scatter Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/boxplot.svg')), self.tr('Box Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/barplot.svg')), self.tr('Bar Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/histogram.svg')), self.tr('Histogram')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/pie.svg')), self.tr('Pie Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/2dhistogram.svg')), self.tr('2D Histogram')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.svg')), self.tr('Polar Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/scatterternary.svg')), self.tr('Ternary Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/contour.svg')), self.tr('Contour Plot')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/violin.svg')), self.tr('Violin Plot')),
-        ])
+        # Populate PlotTypes combobox
+        # we sort available types by translated name
+        type_classes = [clazz for _, clazz in PlotFactory.PLOT_TYPES.items()]
+        type_classes.sort(key=lambda x: x.name().lower())
+        for clazz in type_classes:
+            self.plot_combo.addItem(clazz.icon(), clazz.name(), clazz.type_name())
 
-        self.plot_types2 = OrderedDict([
-            (self.tr('Scatter Plot'), 'scatter'),
-            (self.tr('Box Plot'), 'box'),
-            (self.tr('Bar Plot'), 'bar'),
-            (self.tr('Histogram'), 'histogram'),
-            (self.tr('Pie Plot'), 'pie'),
-            (self.tr('2D Histogram'), '2dhistogram'),
-            (self.tr('Polar Plot'), 'polar'),
-            (self.tr('Ternary Plot'), 'ternary'),
-            (self.tr('Contour Plot'), 'contour'),
-            (self.tr('Violin Plot'), 'violin'),
-        ])
-
-        self.plot_combo.clear()
-        for k, v in self.plot_types.items():
-            self.plot_combo.addItem(k, v)
+        # default to scatter plots
+        self.plot_combo.setCurrentIndex(self.plot_combo.findData('scatter'))
 
         # SubPlots combobox
         self.subcombo.addItem(self.tr('Single Plot'), 'single')
@@ -230,7 +209,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.layoutw.addWidget(self.plot_view)
 
         # get the plot type from the combobox
-        self.ptype = self.plot_types2[self.plot_combo.currentText()]
+        self.ptype = self.plot_combo.currentData()
 
         # load the layer fields in the init function for the datadefined buttons
         self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
@@ -501,7 +480,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         '''
 
         # get the plot type from the combobox
-        self.ptype = self.plot_types2[self.plot_combo.currentText()]
+        self.ptype = self.plot_combo.currentData()
 
         # Widget general customizations
 
@@ -924,7 +903,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             self.invert_hist = 'decreasing'
 
         # get the plot type from the combo box
-        self.ptype = self.plot_types2[self.plot_combo.currentText()]
+        self.ptype = self.plot_combo.currentData()
 
         # shortcut to shorten the code in the following dictionary
         xx = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.x_combo.currentText(),
@@ -1219,13 +1198,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
 
         # set some dialog widget from the input dictionary
         # plot type in the plot_combo combobox
-        for k, _ in self.plot_types2.items():
-            if self.plot_types2[k] == plot_input_dic["plot_type"]:
-                for ii, kk in enumerate(self.plot_types.keys()):
-                    if self.plot_types[kk] == k:
-                        self.plot_combo.setItemIcon(ii, kk)
-                        self.plot_combo.setItemText(ii, k)
-                        self.plot_combo.setCurrentIndex(ii)
+        self.plot_combo.setCurrentIndex(self.plot_combo.findData(plot_input_dic["plot_type"]))
 
         try:
             self.layer_combo.setLayer(plot_input_dic["layer"])

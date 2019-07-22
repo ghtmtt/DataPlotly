@@ -8,7 +8,9 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 
+import os
 from plotly import graph_objs
+from qgis.PyQt.QtGui import QIcon
 from DataPlotly.core.plot_types.plot_type import PlotType
 
 
@@ -20,6 +22,14 @@ class PolarChartFactory(PlotType):
     @staticmethod
     def type_name():
         return 'polar'
+
+    @staticmethod
+    def name():
+        return PlotType.tr('Polar Plot')
+
+    @staticmethod
+    def icon():
+        return QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.svg'))
 
     @staticmethod
     def create_trace(settings):
