@@ -92,3 +92,17 @@ class PlotSettings:
             self.layout = {**plot_base_layout, **layout}
 
         self.plot_type = plot_type
+
+    def write_xml(self):
+        """
+        Writes the plot settings to an XML element
+        """
+        # TODO
+        pass
+
+    def read_xml(self):
+        """
+        Reads the plot settings from an XML element
+        """
+        # TODO
+        pass
