@@ -11,9 +11,9 @@
 import unittest
 import os
 import tempfile
-from DataPlotly.core.plot_settings import PlotSettings
-from qgis.PyQt.QtXml import QDomDocument, QDomElement
 from qgis.core import QgsProject
+from qgis.PyQt.QtXml import QDomDocument, QDomElement
+from DataPlotly.core.plot_settings import PlotSettings
 
 
 class DataPlotlySettings(unittest.TestCase):
