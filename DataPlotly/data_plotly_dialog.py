@@ -137,7 +137,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             self.plot_combo.addItem(clazz.icon(), clazz.name(), clazz.type_name())
 
         # default to scatter plots
-        self.plot_combo.setCurrentIndex(self.plot_combo.findData('scatter'))
+        self.set_plot_type('scatter')
 
         # SubPlots combobox
         self.subcombo.addItem(self.tr('Single Plot'), 'single')
@@ -255,6 +255,12 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         # change the stackedWidgets index
         elif row > 1:
             self.stackedPlotWidget.setCurrentIndex(row - 1)
+
+    def set_plot_type(self, plot_type: str):
+        """
+        Sets the current plot type shown in the dialog
+        """
+        self.plot_combo.setCurrentIndex(self.plot_combo.findData(plot_type))
 
     def refreshSizeDefined(self):
         '''

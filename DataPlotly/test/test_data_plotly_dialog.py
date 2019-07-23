@@ -63,6 +63,11 @@ class DataPlotlyDialogTest(unittest.TestCase):
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'scatter')
 
+        dialog.set_plot_type('violin')
+        settings = dialog.get_settings()
+        # default should be scatter plot
+        self.assertEqual(settings.plot_type, 'violin')
+
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDialogTest)
