@@ -29,6 +29,7 @@ from qgis.core import QgsApplication
 
 # Import the code for the dialog
 from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
+from DataPlotly.gui.gui_utils import GuiUtils
 
 # import processing provider
 from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
@@ -36,6 +37,8 @@ from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
 
 class DataPlotly:  # pylint: disable=too-many-instance-attributes
     """QGIS Plugin Implementation."""
+
+    VERSION = '2.3'
 
     def __init__(self, iface):
         """Constructor.
@@ -52,7 +55,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.plugin_dir = os.path.dirname(__file__)
 
         # initialize processing provider
-        self.provider = DataPlotlyProvider()
+        self.provider = DataPlotlyProvider(plugin_version=DataPlotly.VERSION)
 
         # initialize locale
         locale = QSettings().value('locale/userLocale', 'en_US')[0:2]
@@ -99,7 +102,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
     def add_action(  # pylint: disable=too-many-arguments
             self,
-            icon_path,
+            icon,
             text,
             callback,
             enabled_flag=True,
@@ -110,9 +113,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
             parent=None):
         """Add a toolbar icon to the toolbar.
 
-        :param icon_path: Path to the icon for this action. Can be a resource
-            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
-        :type icon_path: str
+        :param icon: icon for action
+        :type icon_path: QIcon
 
         :param text: Text that should be shown in menu items for this action.
         :type text: str
@@ -147,7 +149,6 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         :rtype: QAction
         """
 
-        icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
         action.triggered.connect(callback)
         action.setEnabled(enabled_flag)
@@ -175,7 +176,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         icon_path = ':/plugins/DataPlotly/icon.png'
         self.add_action(
-            icon_path,
+            GuiUtils.get_icon('dataplotly.svg'),
             text=self.tr(u'DataPlotly'),
             callback=self.run,
             parent=self.iface.mainWindow())

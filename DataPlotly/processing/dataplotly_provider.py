@@ -20,17 +20,17 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsProcessingProvider
-
 from DataPlotly.processing.dataplotly_algorithms import DataPlotlyProcessingPlot
+from DataPlotly.gui.gui_utils import GuiUtils
 
 
 class DataPlotlyProvider(QgsProcessingProvider):
     MY_DUMMY_SETTING = 'MY_DUMMY_SETTING'
 
-    def __init__(self):
+    def __init__(self, plugin_version):
         super().__init__()
+        self.plugin_version = plugin_version
 
     def load(self):
         """In this method we add settings needed to configure our
@@ -56,9 +56,13 @@ class DataPlotlyProvider(QgsProcessingProvider):
         return 'DataPlotly'
 
     def icon(self):
-        """We return the default icon.
-        """
-        return QIcon(":/plugins/DataPlotly/icon.png")
+        return GuiUtils.get_icon('dataplotly.svg')
+
+    def svgIconPath(self) -> str:
+        return GuiUtils.get_icon_svg('dataplotly.svg')
+
+    def versionInfo(self) -> str:
+        return self.plugin_version
 
     def loadAlgorithms(self):
         """Here we fill the list of algorithms in self.algs.
