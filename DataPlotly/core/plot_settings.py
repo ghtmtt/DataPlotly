@@ -123,3 +123,25 @@ class PlotSettings:
         self.layout = res['plot_layout']
 
         return True
+
+    def write_to_project(self, document: QDomDocument):
+        """
+        Writes the settings to a project (represented by the given DOM document)
+        """
+        elem = self.write_xml(document)
+        parent_elem = document.createElement('DataPlotly')
+        parent_elem.appendChild(elem)
+
+        root_node = document.elementsByTagName("qgis").item(0)
+        root_node.appendChild(parent_elem)
+
+    def read_from_project(self, document: QDomDocument):
+        """
+        Reads the settings from a project (represented by the given DOM document)
+        """
+        nodes = document.elementsByTagName('DataPlotly')
+        if not nodes.count():
+            return
+
+        elem = nodes.item(0).toElement()
+        self.read_xml(elem.firstChildElement())
