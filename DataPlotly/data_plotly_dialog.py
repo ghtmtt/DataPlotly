@@ -33,6 +33,7 @@ from qgis.PyQt.QtWidgets import (
     QFileDialog,
     QDockWidget
 )
+from qgis.PyQt.QtXml import QDomDocument
 
 from qgis.PyQt.QtGui import (
     QFont,
@@ -56,7 +57,9 @@ from qgis.core import (
     QgsNetworkAccessManager,
     QgsVectorLayerUtils,
     QgsFeatureRequest,
-    QgsMapLayerProxyModel)
+    QgsMapLayerProxyModel,
+    QgsProject
+)
 
 from DataPlotly.utils import (
     hex_to_rgb,
@@ -66,7 +69,6 @@ from DataPlotly.utils import (
 )
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
-
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
@@ -91,6 +93,13 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             self.iface = iface
         else:
             self.iface = iface
+
+        self.save_to_project = True
+        self.read_from_project = True
+
+        # listen out for project save/restore, and update our state accordingly
+        QgsProject.instance().writeProject.connect(self.write_project)
+        QgsProject.instance().readProject.connect(self.read_project)
 
         self.listWidget.setIconSize(self.iface.iconSize(False))
         self.listWidget.setMaximumWidth(int(self.listWidget.iconSize().width() * 1.18))
@@ -1254,3 +1263,32 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
 
         # just add 1 to the index
         self.idx += 1
+
+    def write_project(self, document: QDomDocument):
+        """
+        Called when the current project is being saved.
+
+        If the dialog opts to store its current settings in the project, it will
+        use this hook to store them in the project XML
+        """
+        if not self.save_to_project:
+            return
+
+        settings = self.get_settings()
+        settings.write_to_project(document)
+
+    def read_project(self, document: QDomDocument):
+        """
+        Called when the current project is being read.
+
+        If the dialog opts to read its current settings from a project, it will
+        use this hook to read them from the project XML
+        """
+        if not self.read_from_project:
+            return
+
+        settings = PlotSettings()
+        if settings.read_from_project(document):
+            # TODO here we would call a method like self.set_settings, and update the dock
+            # state to match the read settings
+            pass
