@@ -182,6 +182,10 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
             parent=self.iface.mainWindow())
 
         # Add processing provider
+        self.initProcessing()
+
+    def initProcessing(self):
+        """Create the Processing provider"""
         QgsApplication.processingRegistry().addProvider(self.provider)
 
     def onClosePlugin(self):
