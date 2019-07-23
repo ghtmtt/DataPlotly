@@ -13,12 +13,12 @@ __date__ = '2017-03-05'
 __copyright__ = 'Copyright 2017, matteo ghetta'
 
 import unittest
+import tempfile
+import os
 
-from qgis.PyQt.QtWidgets import (
-    QDialogButtonBox,
-    QDialog
-)
+from qgis.core import QgsProject
 
+from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
 
 from DataPlotly.test.utilities import get_qgis_app
@@ -28,31 +28,6 @@ QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 
 class DataPlotlyDialogTest(unittest.TestCase):
     """Test dialog works."""
-
-    def setUp(self):
-        """Runs before each test."""
-        self.dialog = DataPlotlyDockWidget(None, iface=IFACE)
-
-    def tearDown(self):
-        """Runs after each test."""
-        self.dialog = None
-
-    @unittest.skip('Outdated')
-    def test_dialog_ok(self):
-        """Test we can click OK."""
-
-        button = self.dialog.button_box.button(QDialogButtonBox.Ok)
-        button.click()
-        result = self.dialog.result()
-        self.assertEqual(result, QDialog.Accepted)
-
-    @unittest.skip('Outdated')
-    def test_dialog_cancel(self):
-        """Test we can click cancel."""
-        button = self.dialog.button_box.button(QDialogButtonBox.Cancel)
-        button.click()
-        result = self.dialog.result()
-        self.assertEqual(result, QDialog.Rejected)
 
     def test_get_settings(self):
         """
@@ -67,6 +42,43 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings = dialog.get_settings()
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'violin')
+
+    def test_read_write_project(self):
+        """
+        Test saving/restoring dialog state in project
+        """
+        p = QgsProject.instance()
+        dialog = DataPlotlyDockWidget(None, iface=IFACE)
+        dialog.set_plot_type('violin')
+
+        # first, disable saving to project
+        dialog.read_from_project = False
+        dialog.save_to_project = False
+
+        path = os.path.join(tempfile.gettempdir(), 'test_dataplotly_project.qgs')
+        self.assertTrue(p.write(path))
+
+        res = PlotSettings()
+
+        def read(doc):
+            res.read_from_project(doc)
+            print(res.plot_type)
+
+        p.readProject.connect(read)
+        p.clear()
+
+        self.assertTrue(p.read(path))
+        self.assertEqual(res.plot_type, 'scatter')
+
+        # enable saving to project
+        dialog.save_to_project = True
+        self.assertTrue(p.write(path))
+
+        p.clear()
+        self.assertTrue(p.read(path))
+        self.assertEqual(res.plot_type, 'violin')
+
+        # todo - test that dialog can restore properties, but requires the missing set_settings method
 
 
 if __name__ == "__main__":
