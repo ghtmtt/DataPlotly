@@ -7,6 +7,9 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 
+from qgis.PyQt.QtXml import QDomDocument, QDomElement
+from qgis.core import QgsXmlUtils
+
 
 class PlotSettings:
     """
@@ -93,16 +96,30 @@ class PlotSettings:
 
         self.plot_type = plot_type
 
-    def write_xml(self):
+    def write_xml(self, document: QDomDocument):
         """
         Writes the plot settings to an XML element
         """
-        # TODO
-        pass
+        element = QgsXmlUtils.writeVariant({
+            'plot_type': self.plot_type,
+            'plot_properties': self.properties,
+            'plot_layout': self.layout
+        }, document)
+        return element
 
-    def read_xml(self):
+    def read_xml(self, element: QDomElement) -> bool:
         """
         Reads the plot settings from an XML element
         """
-        # TODO
-        pass
+        res = QgsXmlUtils.readVariant(element)
+        if not isinstance(res, dict) or \
+                'plot_type' not in res or \
+                'plot_properties' not in res or \
+                'plot_layout' not in res:
+            return False
+
+        self.plot_type = res['plot_type']
+        self.properties = res['plot_properties']
+        self.layout = res['plot_layout']
+
+        return True

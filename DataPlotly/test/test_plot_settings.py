@@ -10,6 +10,7 @@
 
 import unittest
 from DataPlotly.core.plot_settings import PlotSettings
+from qgis.PyQt.QtXml import QDomDocument, QDomElement
 
 
 class DataPlotlySettings(unittest.TestCase):
@@ -41,6 +42,26 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(settings.properties['marker_width'], 2)
         self.assertEqual(settings.layout['legend_orientation'], 'v')
         self.assertEqual(settings.layout['title'], 'my plot')
+
+    def test_readwrite(self):
+        """
+        Test reading and writing plot settings from XML
+        """
+        doc = QDomDocument("properties")
+        original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
+                                layout={'title': 'my plot', 'legend_orientation': 'v'})
+        elem = original.write_xml(doc)
+        self.assertFalse(elem.isNull())
+
+        res = PlotSettings('gg')
+        # test reading a bad element
+        bad_elem = QDomElement()
+        self.assertFalse(res.read_xml(bad_elem))
+
+        self.assertTrue(res.read_xml(elem))
+        self.assertEqual(res.plot_type, original.plot_type)
+        self.assertEqual(res.properties, original.properties)
+        self.assertEqual(res.layout, original.layout)
 
 
 if __name__ == "__main__":
