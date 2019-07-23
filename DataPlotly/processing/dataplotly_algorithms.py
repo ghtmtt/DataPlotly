@@ -173,11 +173,14 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
         # The name that the user will see in the toolbox
         return self.tr('Build a generic plot')
 
+    def shortDescription(self):
+        return self.tr('Creates a generic Plotly plot')
+
     def group(self):
         return self.tr('Plots')
 
     def groupId(self):
-        return self.tr('plots')
+        return 'plots'
 
     def processAlgorithm(self, parameters, context, feedback):
         """
