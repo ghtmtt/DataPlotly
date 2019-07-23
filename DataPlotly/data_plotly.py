@@ -23,7 +23,6 @@
 import os.path
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.core import QgsApplication
 
@@ -114,7 +113,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         """Add a toolbar icon to the toolbar.
 
         :param icon: icon for action
-        :type icon_path: QIcon
+        :type icon: QIcon
 
         :param text: Text that should be shown in menu items for this action.
         :type text: str
@@ -174,7 +173,6 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/DataPlotly/icon.png'
         self.add_action(
             GuiUtils.get_icon('dataplotly.svg'),
             text=self.tr(u'DataPlotly'),
@@ -241,8 +239,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
             self.dockwidget.show()
 
     def loadPlotFromDic(self, plot_dic):
-        '''
-        call the method to load the DataPlotly dialog with a given dictionary
-        '''
+        """
+        Calls the method to load the DataPlotly dialog with a given dictionary
+        """
         self.dockwidget.showPlotFromDic(plot_dic)
         self.run()
