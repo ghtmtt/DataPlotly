@@ -54,6 +54,15 @@ class DataPlotlyDialogTest(unittest.TestCase):
         result = self.dialog.result()
         self.assertEqual(result, QDialog.Rejected)
 
+    def test_get_settings(self):
+        """
+        Test retrieving settings from the dialog
+        """
+        dialog = DataPlotlyDockWidget(None, iface=IFACE)
+        settings = dialog.get_settings()
+        # default should be scatter plot
+        self.assertEqual(settings.plot_type, 'scatter')
+
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDialogTest)
