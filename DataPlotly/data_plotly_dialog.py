@@ -310,7 +310,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         get the marker size
         '''
 
-        if self.size_defined_button.isActive():
+        if self.size_defined_button.isActive() and self.layer_combo.currentLayer():
             mark_size = self.size_defined_button.toProperty().expressionString()
             self.marker_size_value = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), mark_size,
                                                                    selectedOnly=self.selected_feature_check.isChecked())[
@@ -324,7 +324,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         get the color code for plotly from the dataDefined button
         '''
 
-        if self.in_color_defined_button.isActive():
+        if self.in_color_defined_button.isActive() and self.layer_combo.currentLayer():
             if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
                 in_color = self.in_color_defined_button.toProperty().expressionString()
                 self.in_color = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), in_color,
@@ -906,12 +906,24 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.ptype = self.plot_combo.currentData()
 
         # shortcut to shorten the code in the following dictionary
-        xx = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.x_combo.currentText(),
-                                           selectedOnly=self.selected_feature_check.isChecked())[0]
-        yy = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.y_combo.currentText(),
-                                           selectedOnly=self.selected_feature_check.isChecked())[0]
-        zz = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.z_combo.currentText(),
-                                           selectedOnly=self.selected_feature_check.isChecked())[0]
+        if self.layer_combo.currentLayer():
+            xx = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.x_combo.currentText(),
+                                               selectedOnly=self.selected_feature_check.isChecked())[0]
+            yy = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.y_combo.currentText(),
+                                               selectedOnly=self.selected_feature_check.isChecked())[0]
+            zz = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.z_combo.currentText(),
+                                               selectedOnly=self.selected_feature_check.isChecked())[0]
+            feature_ids = getIds(self.layer_combo.currentLayer(), self.selected_feature_check.isChecked())
+            additional_hover_text = QgsVectorLayerUtils.getValues(
+                self.layer_combo.currentLayer(),
+                self.additional_info_combo.currentText(),
+                selectedOnly=self.selected_feature_check.isChecked())[0]
+        else:
+            xx = []
+            yy = []
+            zz = []
+            feature_ids = []
+            additional_hover_text = []
 
         # call the function that will clean the data from NULL values
         xx, yy, zz, = cleanData(xx, yy, zz)
@@ -925,13 +937,11 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             'y': yy,
             'z': zz,
             # featureIds are the ID of each feature needed for the selection and zooming method
-            'featureIds': getIds(self.layer_combo.currentLayer(), self.selected_feature_check.isChecked()),
+            'featureIds': feature_ids,
             'featureBox': getSortedId(self.layer_combo.currentLayer(), xx),
             'custom': [self.x_combo.currentText()],
             'hover_text': self.info_hover[self.info_combo.currentText()],
-            'additional_hover_text':
-                QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.additional_info_combo.currentText(),
-                                              selectedOnly=self.selected_feature_check.isChecked())[0],
+            'additional_hover_text': additional_hover_text,
             'x_name': self.x_combo.currentText(),
             'y_name': self.y_combo.currentText(),
             'z_name': self.z_combo.currentText(),
