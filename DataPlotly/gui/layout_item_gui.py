@@ -8,12 +8,30 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtWidgets import (
+    QWidget,
+    QVBoxLayout
+)
 from qgis.gui import (
-    QgsLayoutItemAbstractGuiMetadata
+    QgsLayoutItemAbstractGuiMetadata,
+    QgsLayoutItemBaseWidget
 )
 
 from DataPlotly.layouts.plot_layout_item import ITEM_TYPE
 from DataPlotly.gui.gui_utils import GuiUtils
+from DataPlotly.data_plotly_dialog import DataPlotlyPanelWidget
+
+class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
+
+    def __init__(self, parent, layout_object):
+        super().__init__(parent, layout_object)
+
+        vl = QVBoxLayout()
+        vl.setContentsMargins(0,0,0,0)
+
+        self.widget = DataPlotlyPanelWidget()
+        vl.addWidget(self.widget)
+        self.setLayout(vl)
 
 
 class PlotLayoutItemGuiMetadata(QgsLayoutItemAbstractGuiMetadata):
@@ -25,5 +43,4 @@ class PlotLayoutItemGuiMetadata(QgsLayoutItemAbstractGuiMetadata):
         return GuiUtils.get_icon('dataplotly.svg')
 
     def createItemWidget(self, item):
-        # todo
-        return None
+        return PlotLayoutItemWidget(None, item)
