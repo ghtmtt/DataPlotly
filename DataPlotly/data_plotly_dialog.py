@@ -71,10 +71,10 @@ from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.gui_utils import GuiUtils
 
-WIDGET, BASE = uic.loadUiType(GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
+WIDGET, _ = uic.loadUiType(GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
 
 
-class DataPlotlyPanelWidget(BASE, WIDGET):  # pylint: disable=too-many-lines,missing-docstring,too-many-instance-attributes,too-many-public-methods
+class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,missing-docstring,too-many-instance-attributes,too-many-public-methods
 
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
@@ -88,6 +88,8 @@ class DataPlotlyPanelWidget(BASE, WIDGET):  # pylint: disable=too-many-lines,mis
             self.iface = iface
         else:
             self.iface = iface
+
+        self.setPanelTitle(self.tr('Plot Properties'))
 
         self.save_to_project = True
         self.read_from_project = True

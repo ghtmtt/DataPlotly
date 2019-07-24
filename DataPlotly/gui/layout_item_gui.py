@@ -9,17 +9,19 @@ the Free Software Foundation; either version 2 of the License, or
 
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtWidgets import (
-    QWidget,
+    QPushButton,
     QVBoxLayout
 )
 from qgis.gui import (
     QgsLayoutItemAbstractGuiMetadata,
-    QgsLayoutItemBaseWidget
+    QgsLayoutItemBaseWidget,
+    QgsLayoutItemPropertiesWidget
 )
 
 from DataPlotly.layouts.plot_layout_item import ITEM_TYPE
 from DataPlotly.gui.gui_utils import GuiUtils
 from DataPlotly.data_plotly_dialog import DataPlotlyPanelWidget
+
 
 class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
@@ -27,11 +29,29 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         super().__init__(parent, layout_object)
 
         vl = QVBoxLayout()
-        vl.setContentsMargins(0,0,0,0)
+        vl.setContentsMargins(0, 0, 0, 0)
 
-        self.widget = DataPlotlyPanelWidget()
-        vl.addWidget(self.widget)
+        self.plot_properties_button = QPushButton(self.tr('Plot Properties'))
+        vl.addWidget(self.plot_properties_button)
+        self.plot_properties_button.clicked.connect(self.show_properties)
+
+        self.panel = None
+        self.setPanelTitle(self.tr('Plot Properties'))
+        self.item_properties_widget = QgsLayoutItemPropertiesWidget(self, layout_object)
+        vl.addWidget(self.item_properties_widget)
         self.setLayout(vl)
+
+    def show_properties(self):
+        self.panel = DataPlotlyPanelWidget()
+        self.openPanel(self.panel)
+
+    def setNewItem(self, item):
+        if item.type() != ITEM_TYPE:
+            return False
+
+        self.item_properties_widget.setItem(item)
+
+        return True
 
 
 class PlotLayoutItemGuiMetadata(QgsLayoutItemAbstractGuiMetadata):
