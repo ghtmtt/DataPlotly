@@ -25,6 +25,7 @@ import os.path
 from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
 from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.core import QgsApplication
+from qgis.gui import QgsGui
 
 # Import the code for the dialog
 from DataPlotly.gui.dock import DataPlotlyDock
@@ -32,6 +33,10 @@ from DataPlotly.gui.gui_utils import GuiUtils
 
 # import processing provider
 from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
+
+# import layout classes
+from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
+from DataPlotly.gui.layout_item_gui import PlotLayoutItemGuiMetadata
 
 
 class DataPlotly:  # pylint: disable=too-many-instance-attributes
@@ -75,6 +80,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.menu = None
         self.toolbar = None
 
+        QgsApplication.layoutItemRegistry().addLayoutItemType(PlotLayoutItemMetadata())
+
     # noinspection PyMethodMayBeStatic
     def tr(self, message):  # pylint: disable=no-self-use
         """Get the translation for a string using Qt translation API.
@@ -117,6 +124,9 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         # Add processing provider
         self.initProcessing()
+
+        # Add layout gui utils
+        QgsGui.layoutItemGuiRegistry().addLayoutItemGuiMetadata(PlotLayoutItemGuiMetadata())
 
     def initProcessing(self):
         """Create the Processing provider"""
