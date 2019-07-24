@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>DataPlotlyDockWidgetBase</class>
- <widget class="QDockWidget" name="DataPlotlyDockWidgetBase">
+ <widget class="QWidget" name="DataPlotlyDockWidgetBase">
   <property name="geometry">
    <rect>
     <x>0</x>
