@@ -10,6 +10,7 @@ the Free Software Foundation; either version 2 of the License, or
 from qgis.gui import QgsDockWidget, QgsPanelWidgetStack
 from DataPlotly.data_plotly_dialog import DataPlotlyPanelWidget
 
+
 class DataPlotlyDock(QgsDockWidget):
 
     def __init__(self, parent=None):
