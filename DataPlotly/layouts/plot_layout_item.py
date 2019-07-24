@@ -13,8 +13,8 @@ from qgis.core import (
     QgsLayoutItemRegistry,
     QgsLayoutItemAbstractMetadata
 )
+from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.gui_utils import GuiUtils
-
 ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
 
 
@@ -22,6 +22,7 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def __init__(self, layout):
         super().__init__(layout)
+        self.plot_settings = PlotSettings()
 
     def type(self):
         return ITEM_TYPE
@@ -31,6 +32,13 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def draw(self, context):
         pass
+
+    def writePropertiesToElement(self, element, document, _):
+        element.appendChild(self.plot_settings.write_xml(document))
+        return True
+
+    def readPropertiesFromElement(self, element, document, context):
+        return self.plot_settings.read_xml(element.firstChildElement('Option'))
 
 
 class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):
