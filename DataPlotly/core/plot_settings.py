@@ -14,7 +14,7 @@ class PlotSettings:
     methods for serializing and deserializing these settings.
     """
 
-    def __init__(self, plot_type: str, properties: dict = None, layout: dict = None, widgets: dict = None):
+    def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
         # plot properties
