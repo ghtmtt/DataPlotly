@@ -30,8 +30,7 @@ from qgis.PyQt import uic
 from qgis.PyQt.QtWidgets import (
     QListWidgetItem,
     QVBoxLayout,
-    QFileDialog,
-    QDockWidget
+    QFileDialog
 )
 from qgis.PyQt.QtXml import QDomDocument
 
@@ -76,18 +75,13 @@ WIDGET, _ = uic.loadUiType(GuiUtils.get_ui_file_path('dataplotly_dockwidget_base
 
 
 class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,missing-docstring,too-many-instance-attributes,too-many-public-methods
-    closingPlugin = pyqtSignal()
+
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
 
     def __init__(self, parent=None, iface=None):  # pylint: disable=too-many-statements
         """Constructor."""
         super().__init__(parent)
-        # Set up the user interface from Designer.
-        # After setupUI you can access any designer object by doing
-        # self.<objectname>, and you can use autoconnect slots - see
-        # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
-        # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         if iface is None:
             from qgis.utils import iface
@@ -464,10 +458,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         just reload the plot view
         '''
         self.plot_view.reload()
-
-    def closeEvent(self, event):  # pylint: disable=missing-docstring
-        self.closingPlugin.emit()
-        event.accept()
 
     def refreshListWidget(self):
         '''

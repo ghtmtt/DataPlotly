@@ -23,7 +23,7 @@
 import os.path
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from qgis.PyQt.QtWidgets import QAction, QMenu, QToolBar
+from qgis.PyQt.QtWidgets import QAction, QMenu
 from qgis.core import QgsApplication
 
 # Import the code for the dialog
@@ -138,5 +138,5 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         """
         Calls the method to load the DataPlotly dialog with a given dictionary
         """
-        self.dockwidget.showPlotFromDic(plot_dic)
-        self.run()
+        self.dock_widget.main_panel.showPlotFromDic(plot_dic)
+        self.dock_widget.setUserVisible(True)
