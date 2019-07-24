@@ -20,7 +20,7 @@ from qgis.core import QgsProject
 from qgis.PyQt.QtCore import QCoreApplication
 
 from DataPlotly.core.plot_settings import PlotSettings
-from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
+from DataPlotly.data_plotly_dialog import DataPlotlyPanelWidget
 
 from DataPlotly.test.utilities import get_qgis_app
 
@@ -34,7 +34,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         """
         Test retrieving settings from the dialog
         """
-        dialog = DataPlotlyDockWidget(None, iface=IFACE)
+        dialog = DataPlotlyPanelWidget(None, iface=IFACE)
         settings = dialog.get_settings()
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'scatter')
@@ -49,7 +49,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         Test saving/restoring dialog state in project
         """
         p = QgsProject.instance()
-        dialog = DataPlotlyDockWidget(None, iface=IFACE)
+        dialog = DataPlotlyPanelWidget(None, iface=IFACE)
         dialog.set_plot_type('violin')
 
         # first, disable saving to project

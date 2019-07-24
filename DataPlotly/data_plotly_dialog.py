@@ -60,6 +60,7 @@ from qgis.core import (
     QgsMapLayerProxyModel,
     QgsProject
 )
+from qgis.gui import QgsPanelWidget
 
 from DataPlotly.utils import (
     hex_to_rgb,
@@ -69,19 +70,19 @@ from DataPlotly.utils import (
 )
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
+from DataPlotly.gui.gui_utils import GuiUtils
 
-FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'ui/dataplotly_dockwidget_base.ui'))
+WIDGET, _ = uic.loadUiType(GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
 
 
-class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many-lines,missing-docstring,too-many-instance-attributes,too-many-public-methods
+class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,missing-docstring,too-many-instance-attributes,too-many-public-methods
     closingPlugin = pyqtSignal()
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
 
     def __init__(self, parent=None, iface=None):  # pylint: disable=too-many-statements
         """Constructor."""
-        super(DataPlotlyDockWidget, self).__init__(parent)
+        super().__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see
@@ -449,7 +450,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         reimplemented event to detect the dialog resizing
         '''
         self.resizeWindow.emit()
-        return super(DataPlotlyDockWidget, self).resizeEvent(event)
+        return super(DataPlotlyPanelWidget, self).resizeEvent(event)
 
     def reloadPlotCanvas(self):
         '''
