@@ -982,7 +982,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         plot_properties['color_scale_combo'] = self.color_scale_combo.currentText()
         plot_properties['alpha'] = self.alpha_slid.value()
 
-
         # define the legend orientation
         if self.orientation_legend_check.isChecked():
             legend_or = 'h'
@@ -1026,7 +1025,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         layout_properties['cumulative_hist_check '] = self.cumulative_hist_check.isChecked()
         layout_properties['invert_hist_check'] = self.invert_hist_check.isChecked()
         layout_properties['bins_check'] = self.bins_check.isChecked()
-
 
         return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties)
 
@@ -1086,7 +1084,6 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.bins_check.setChecked(settings.layout['bins_check'])
         self.bins_value.setValue(settings.properties['bins'])
         self.bar_gap.setValue(settings.properties['bargaps'])
-
 
     def create_plot_factory(self) -> PlotFactory:
         """

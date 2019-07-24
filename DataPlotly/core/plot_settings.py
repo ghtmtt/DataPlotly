@@ -93,7 +93,6 @@ class PlotSettings:
             self.layout = {**plot_base_layout, **layout}
 
         self.plot_type = plot_type
-        self.widgets = widgets
 
     def write_xml(self):
         """
