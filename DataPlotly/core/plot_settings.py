@@ -61,6 +61,7 @@ class PlotSettings:
         plot_base_layout = {
             'title': 'Plot Title',
             'legend': True,
+            'legend_title': None,
             'legend_orientation': 'h',
             'x_title': None,
             'y_title': None,
