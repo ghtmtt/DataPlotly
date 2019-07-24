@@ -79,6 +79,10 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(res.plot_type, 'violin')
 
         # todo - test that dialog can restore properties, but requires the missing set_settings method
+        dialog.x_combo.setExpression('"Ca"')
+        self.assertTrue(dialog.x_combo.expression(), '"Ca"')
+
+
 
 
 if __name__ == "__main__":

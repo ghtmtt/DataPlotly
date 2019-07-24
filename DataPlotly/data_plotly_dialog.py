@@ -908,7 +908,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             self.y_invert = "reversed"
 
         # set the bin value and change if according to the checkbox
-        self.bin_val = None
+        self.bin_val = self.bins_value.value()
         if self.bins_check.isChecked():
             self.bin_val = self.bins_value.value()
 
@@ -981,13 +981,13 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             'show_lines': self.show_lines_check.isChecked(),
             'cumulative': self.cumulative_hist_check.isChecked(),
             'invert_hist': self.invert_hist,
-            'bins': self.bin_val,
+            'bins': self.bins_value.value(),
             'show_mean_line': self.showMeanCheck.isChecked(),
             'violin_side': self.violin_side[self.violinSideCombo.currentText()]
         }
 
         # add widgets properties to the dictionary
-        plot_properties['layer_id'] = self.layer_combo.currentLayer().id()
+        plot_properties['layer_id'] = self.layer_combo.currentLayer()
         plot_properties['features_selected'] = self.selected_feature_check.isChecked()
         plot_properties['x_combo'] = self.x_combo.expression()
         plot_properties['y_combo'] = self.y_combo.expression()
@@ -1047,7 +1047,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         layout_properties['outliers_combo'] = self.outliers_combo.currentText()
         layout_properties['violinSideCombo'] = self.violinSideCombo.currentText()
         layout_properties['showMeanCheck'] = self.showMeanCheck.isChecked()
-        layout_properties['cumulative_hist_check '] = self.cumulative_hist_check.isChecked()
+        layout_properties['cumulative_hist_check'] = self.cumulative_hist_check.isChecked()
         layout_properties['invert_hist_check'] = self.invert_hist_check.isChecked()
         layout_properties['bins_check'] = self.bins_check.isChecked()
 
@@ -1067,9 +1067,9 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.y_combo.setExpression(settings.properties['y_combo'])
         self.z_combo.setExpression(settings.properties['z_combo'])
         self.in_color_combo.setColor(settings.properties['in_color_combo'])
-        self.in_color_defined_button.setProperty(settings.properties['in_color_defined_button'])
+        # self.in_color_defined_button.setProperty(settings.properties['in_color_defined_button'])
         self.marker_size.setValue(settings.properties['marker_size'])
-        self.size_defined_button.setProperty(settings.properties['size_defined_button'])
+        # self.size_defined_button.setProperty(settings.properties['size_defined_button'])
         self.color_scale_data_defined_in.setCurrentText(settings.properties['color_scale_data_defined_in'])
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
         self.color_scale_data_defined_in_invert_check.setChecked(settings.properties['color_scale_data_defined_in_invert_check'])
@@ -1085,7 +1085,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.alpha_num.setValue(settings.properties['alpha'])
         self.show_legend_check.setChecked(settings.layout['show_legend_check'])
         self.orientation_legend_check.setChecked(settings.layout['orientation_legend_check'])
-        self.range_slider_combo.setCurrentText(settings.layout['range_slider_combo'])
+        self.range_slider_combo.setChecked(settings.layout['range_slider_combo'])
         self.plot_title_line.setText(settings.layout['title'])
         self.legend_title.setText(settings.layout['legend_title'])
         self.x_axis_title.setText(settings.layout['x_title'])
@@ -1108,7 +1108,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         self.invert_hist_check.setChecked(settings.layout['invert_hist_check'])
         self.bins_check.setChecked(settings.layout['bins_check'])
         self.bins_value.setValue(settings.properties['bins'])
-        self.bar_gap.setValue(settings.properties['bargaps'])
+        self.bar_gap.setValue(settings.layout['bargaps'])
 
     def create_plot_factory(self) -> PlotFactory:
         """
