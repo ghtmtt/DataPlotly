@@ -152,8 +152,6 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                                                   self.tr('HTML files (*.html)')
                                                   )
         )
-        # need to add an output for it to allow to see it in Processus results viewer
-        self.addOutput(QgsProcessingOutputHtml(self.OUTPUT_HTML_FILE, self.tr('Dataplotly - Generic plot HTML output')))
 
         # Add an file to return a response in JSON format
         self.addParameter(
@@ -162,8 +160,6 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                                                   self.tr('JSON Files (*.json)')
                                                   )
         )
-        # need to add an output for it to allow to see it in Processus results viewer
-        self.addOutput(QgsProcessingOutputFile(self.OUTPUT_JSON_FILE, self.tr('Dataplotly - Generic plot JSON output')))
 
     def name(self):
         # Unique (non-user visible) name of algorithm
