@@ -7,7 +7,11 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 
-from qgis.gui import QgsDockWidget, QgsPanelWidgetStack
+from qgis.gui import (
+    QgsDockWidget,
+    QgsPanelWidgetStack,
+    QgsPanelWidgetWrapper
+)
 from DataPlotly.data_plotly_dialog import DataPlotlyPanelWidget
 
 
@@ -22,5 +26,6 @@ class DataPlotlyDock(QgsDockWidget):
         self.setWidget(self.panel_stack)
 
         self.main_panel = DataPlotlyPanelWidget()
-        self.panel_stack.setMainPanel(self.main_panel)
-        self.main_panel.setDockMode(True)
+        self.main_panel_wrapper = QgsPanelWidgetWrapper(self.main_panel)
+        self.panel_stack.setMainPanel(self.main_panel_wrapper)
+        self.main_panel_wrapper.setDockMode(True)
