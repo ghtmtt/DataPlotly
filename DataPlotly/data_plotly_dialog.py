@@ -961,6 +961,28 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             'violin_side': self.violin_side[self.violinSideCombo.currentText()]
         }
 
+        # add widgets properties to the dictionary
+        plot_properties['layer_id'] = self.layer_combo.currentLayer().id()
+        plot_properties['features_selected'] = self.selected_feature_check.isChecked()
+        plot_properties['x_combo'] = self.x_combo.expression()
+        plot_properties['y_combo'] = self.y_combo.expression()
+        plot_properties['z_combo'] = self.z_combo.expression()
+        plot_properties['in_color_combo'] = self.in_color_combo.color()
+        plot_properties['in_color_defined_button'] = self.in_color_defined_button.toProperty()
+        plot_properties['size_defined_button'] = self.size_defined_button.toProperty()
+        plot_properties['color_scale_data_defined_in'] = self.color_scale_data_defined_in.currentText()
+        plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
+        plot_properties['color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
+        plot_properties['out_color_combo'] = self.out_color_combo.color()
+        plot_properties['marker_type_combo'] = self.marker_type_combo.currentText()
+        plot_properties['point_combo'] = self.point_combo.currentText()
+        plot_properties['line_combo'] = self.line_combo.currentText()
+        plot_properties['contour_type_combo'] = self.contour_type_combo.currentText()
+        plot_properties['show_lines_check'] = self.show_lines_check.isChecked()
+        plot_properties['color_scale_combo'] = self.color_scale_combo.currentText()
+        plot_properties['alpha'] = self.alpha_slid.value()
+
+
         # define the legend orientation
         if self.orientation_legend_check.isChecked():
             legend_or = 'h'
@@ -970,6 +992,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         # build the layout customizations
         layout_properties = {
             'legend': self.show_legend_check.isChecked(),
+            'legend_title': self.legend_title_string,
             'legend_orientation': legend_or,
             'title': self.plot_title_line.text(),
             'x_title': self.x_axis_title.text(),
@@ -984,116 +1007,85 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
             'bargaps': self.bar_gap.value()
         }
 
-        # build the widgets dict with keys=widgets and values=object
-        ui_widgets = {
-            'layer_combo' : self.layer_combo.currentLayer(),
-            'selected_feature_check' : self.selected_feature_check.isChecked(),
-            'x_combo' : self.x_combo.expression(),
-            'y_combo' : self.y_combo.expression(),
-            'z_combo' : self.z_combo.expression(),
-            'in_color_combo' : self.in_color_combo.color(),
-            'in_color_defined_button' : self.in_color_defined_button.toProperty(),
-            'marker_size' : self.marker_size.value(),
-            'size_defined_button' : self.size_defined_button.toProperty(),
-            'color_scale_data_defined_in' : self.color_scale_data_defined_in.currentText(),
-            'color_scale_data_defined_in_check' : self.color_scale_data_defined_in_check.isChecked(),
-            'color_scale_data_defined_in_invert_check' : self.color_scale_data_defined_in_invert_check.isChecked(),
-            'out_color_combo' : self.out_color_combo.color(),
-            'marker_width' : self.marker_width.value(),
-            'marker_type_combo' : self.marker_type_combo.currentText(),
-            'point_combo' : self.point_combo.currentText(),
-            'line_combo' : self.line_combo.currentText(),
-            'contour_type_combo' : self.contour_type_combo.currentText(),
-            'show_lines_check' : self.show_lines_check.isChecked(),
-            'color_scale_combo' : self.color_scale_combo.currentText(),
-            'alpha_slid' : self.alpha_slid.value(),
-            'alpha_num' : self.alpha_num.value(),
-            'show_legend_check' : self.show_legend_check.isChecked(),
-            'orientation_legend_check' : self.orientation_legend_check.isChecked(),
-            'range_slider_combo' : self.range_slider_combo.isChecked(),
-            'plot_title_line' : self.plot_title_line.text(),
-            'legend_title' : self.legend_title.text(),
-            'x_axis_title' : self.x_axis_title.text(),
-            'y_axis_title' : self.y_axis_title.text(),
-            'z_axis_title' : self.z_axis_title.text(),
-            'info_combo' : self.info_combo.currentText(),
-            'additional_info_combo' : self.additional_info_combo.expression(),
-            'invert_x_check' : self.invert_x_check.isChecked(),
-            'x_axis_mode_combo' : self.x_axis_mode_combo.currentText(),
-            'invert_y_check' : self.invert_y_check.isChecked(),
-            'y_axis_mode_combo' : self.y_axis_mode_combo.currentText(),
-            'orientation_combo' : self.orientation_combo.currentText(),
-            'bar_mode_combo' : self.bar_mode_combo.currentText(),
-            'hist_norm_combo' : self.hist_norm_combo.currentText(),
-            'box_statistic_combo' : self.box_statistic_combo.currentText(),
-            'outliers_combo' : self.outliers_combo.currentText(),
-            'violinSideCombo' : self.violinSideCombo.currentText(),
-            'showMeanCheck' : self.showMeanCheck.isChecked(),
-            'cumulative_hist_check ' : self.cumulative_hist_check.isChecked(),
-            'invert_hist_check' : self.invert_hist_check.isChecked(),
-            'bins_check' : self.bins_check.isChecked(),
-            'bins_value' : self.bins_value.value(),
-            'bar_gap' : self.bar_gap.value()
+        layout_properties['show_legend_check'] = self.show_legend_check.isChecked()
+        layout_properties['orientation_legend_check'] = self.orientation_legend_check.isChecked()
+        layout_properties['range_slider_combo'] = self.range_slider_combo.isChecked()
+        layout_properties['info_combo'] = self.info_combo.currentText()
+        layout_properties['additional_info_combo'] = self.additional_info_combo.expression()
+        layout_properties['invert_x_check'] = self.invert_x_check.isChecked()
+        layout_properties['x_axis_mode_combo'] = self.x_axis_mode_combo.currentText()
+        layout_properties['invert_y_check'] = self.invert_y_check.isChecked()
+        layout_properties['y_axis_mode_combo'] = self.y_axis_mode_combo.currentText()
+        layout_properties['orientation_combo'] = self.orientation_combo.currentText()
+        layout_properties['bar_mode_combo'] = self.bar_mode_combo.currentText()
+        layout_properties['hist_norm_combo'] = self.hist_norm_combo.currentText()
+        layout_properties['box_statistic_combo'] = self.box_statistic_combo.currentText()
+        layout_properties['outliers_combo'] = self.outliers_combo.currentText()
+        layout_properties['violinSideCombo'] = self.violinSideCombo.currentText()
+        layout_properties['showMeanCheck'] = self.showMeanCheck.isChecked()
+        layout_properties['cumulative_hist_check '] = self.cumulative_hist_check.isChecked()
+        layout_properties['invert_hist_check'] = self.invert_hist_check.isChecked()
+        layout_properties['bins_check'] = self.bins_check.isChecked()
 
-        }
 
-        return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties, widgets=ui_widgets)
+        return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties)
 
-    def set_settings(self, obj=PlotSettings):
+    def set_settings(self):
         """
         Takes a PlotSettings object and fill the widgets with the settings
         """
 
-        # Set the plot properties
-        self.layer_combo.setLayer(obj.widgets['layer_combo'])
-        self.selected_feature_check.setChecked(obj.widgets['selected_feature_check'])
-        self.x_comboobj.widgets['x_combo']
-        self.y_comboobj.widgets['y_combo']
-        self.z_combo.setExpression(obj.widgets['z_combo'])
-        self.in_color_combo.setColor(obj.widgets['in_color_combo'])
-        self.in_color_defined_button.setProperty(obj.widgets['in_color_defined_button'])
-        self.marker_size.setValue(obj.widgets['marker_size'])
-        self.size_defined_button.setProperty(obj.widgets['size_defined_button'])
-        self.color_scale_data_defined_in.setCurrentText(obj.widgets['color_scale_data_defined_in'])
-        self.color_scale_data_defined_in_check.setChecked(obj.widgets['color_scale_data_defined_in_check'])
-        self.color_scale_data_defined_in_invert_check.setChecked(obj.widgets['color_scale_data_defined_in_invert_check'])
-        self.out_color_combo.setColor(obj.widgets['out_color_combo'])
-        self.marker_width.setValue(obj.widgets['marker_width'])
-        self.marker_type_combo.setCurrentText(obj.widgets['marker_type_combo'])
-        self.point_combo.setCurrentText(obj.widgets['point_combo'])
-        self.line_combo.setCurrentText(obj.widgets['line_combo'])
-        self.contour_type_combo.setCurrentText(obj.widgets['contour_type_combo'])
-        self.show_lines_check.setChecked(obj.widgets['show_lines_check'])
-        self.color_scale_combo.setCurrentText(obj.widgets['color_scale_combo'])
-        self.alpha_slid.setValue(obj.widgets['alpha_slid'])
-        oself.alpha_num.setValue(bj.widgets['alpha_num'])
-        self.show_legend_check.setChecked(obj.widgets['show_legend_check'])
-        self.orientation_legend_check.setChecked(obj.widgets['orientation_legend_check'])
-        self.range_slider_combo.setCurrentText(obj.widgets['range_slider_combo'])
-        self.plot_title_line.setText(obj.widgets['plot_title_line'])
-        self.legend_title.setText(obj.widgets['legend_title'])
-        self.x_axis_title.setText(obj.widgets['x_axis_title'])
-        self.y_axis_title.setText(obj.widgets['y_axis_title'])
-        self.z_axis_title.setText(obj.widgets['z_axis_title'])
-        self.info_combo.setCurrentText(obj.widgets['info_combo'])
-        self.additional_info_combo.setExpression(obj.widgets['additional_info_combo'])
-        self.invert_x_check.setChecked(obj.widgets['invert_x_check'])
-        self.x_axis_mode_combo.setCurrentText(obj.widgets['x_axis_mode_combo'])
-        self.invert_y_check.setChecked(obj.widgets['invert_y_check'])
-        self.y_axis_mode_combo.setCurrentText(obj.widgets['y_axis_mode_combo'])
-        self.orientation_combo.setCurrentText(obj.widgets['orientation_combo'])
-        self.bar_mode_combo.setCurrentText(obj.widgets['bar_mode_combo'])
-        self.hist_norm_combo.setCurrentText(obj.widgets['hist_norm_combo'])
-        self.box_statistic_combo.setCurrentText(obj.widgets['box_statistic_combo'])
-        self.outliers_combo.setCurrentText(obj.widgets['outliers_combo'])
-        self.violinSideCombo.setCurrentText(obj.widgets['violinSideCombo'])
-        self.showMeanCheck.setChecked(obj.widgets['showMeanCheck'])
-        self.cumulative_hist_check.setChecked(obj.widgets['cumulative_hist_check'])
-        self.invert_hist_check.setChecked(obj.widgets['invert_hist_check'])
-        self.bins_check.setChecked(obj.widgets['bins_check'])
-        self.bins_value.setValue(obj.widgets['bins_value'])
-        self.bar_gap.setValue(obj.widgets['bar_gap'])
+        settings = self.get_settings()
 
+        # Set the plot properties
+        self.layer_combo.setLayer(settings.properties['layer_id'])
+        self.selected_feature_check.setChecked(settings.properties['features_selected'])
+        self.x_combo.setExpression(settings.properties['x_combo'])
+        self.y_combo.setExpression(settings.properties['y_combo'])
+        self.z_combo.setExpression(settings.properties['z_combo'])
+        self.in_color_combo.setColor(settings.properties['in_color_combo'])
+        self.in_color_defined_button.setProperty(settings.properties['in_color_defined_button'])
+        self.marker_size.setValue(settings.properties['marker_size'])
+        self.size_defined_button.setProperty(settings.properties['size_defined_button'])
+        self.color_scale_data_defined_in.setCurrentText(settings.properties['color_scale_data_defined_in'])
+        self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
+        self.color_scale_data_defined_in_invert_check.setChecked(settings.properties['color_scale_data_defined_in_invert_check'])
+        self.out_color_combo.setColor(settings.properties['out_color_combo'])
+        self.marker_width.setValue(settings.properties['marker_width'])
+        self.marker_type_combo.setCurrentText(settings.properties['marker_type_combo'])
+        self.point_combo.setCurrentText(settings.properties['point_combo'])
+        self.line_combo.setCurrentText(settings.properties['line_combo'])
+        self.contour_type_combo.setCurrentText(settings.properties['contour_type_combo'])
+        self.show_lines_check.setChecked(settings.properties['show_lines_check'])
+        self.color_scale_combo.setCurrentText(settings.properties['color_scale_combo'])
+        self.alpha_slid.setValue(settings.properties['alpha'])
+        self.alpha_num.setValue(settings.properties['alpha'])
+        self.show_legend_check.setChecked(settings.layout['show_legend_check'])
+        self.orientation_legend_check.setChecked(settings.layout['orientation_legend_check'])
+        self.range_slider_combo.setCurrentText(settings.layout['range_slider_combo'])
+        self.plot_title_line.setText(settings.layout['title'])
+        self.legend_title.setText(settings.layout['legend_title'])
+        self.x_axis_title.setText(settings.layout['x_title'])
+        self.y_axis_title.setText(settings.layout['y_title'])
+        self.z_axis_title.setText(settings.layout['z_title'])
+        self.info_combo.setCurrentText(settings.layout['info_combo'])
+        self.additional_info_combo.setExpression(settings.layout['additional_info_combo'])
+        self.invert_x_check.setChecked(settings.layout['invert_x_check'])
+        self.x_axis_mode_combo.setCurrentText(settings.layout['x_axis_mode_combo'])
+        self.invert_y_check.setChecked(settings.layout['invert_y_check'])
+        self.y_axis_mode_combo.setCurrentText(settings.layout['y_axis_mode_combo'])
+        self.orientation_combo.setCurrentText(settings.layout['orientation_combo'])
+        self.bar_mode_combo.setCurrentText(settings.layout['bar_mode_combo'])
+        self.hist_norm_combo.setCurrentText(settings.layout['hist_norm_combo'])
+        self.box_statistic_combo.setCurrentText(settings.layout['box_statistic_combo'])
+        self.outliers_combo.setCurrentText(settings.layout['outliers_combo'])
+        self.violinSideCombo.setCurrentText(settings.layout['violinSideCombo'])
+        self.showMeanCheck.setChecked(settings.layout['showMeanCheck'])
+        self.cumulative_hist_check.setChecked(settings.layout['cumulative_hist_check'])
+        self.invert_hist_check.setChecked(settings.layout['invert_hist_check'])
+        self.bins_check.setChecked(settings.layout['bins_check'])
+        self.bins_value.setValue(settings.properties['bins'])
+        self.bar_gap.setValue(settings.properties['bargaps'])
 
 
     def create_plot_factory(self) -> PlotFactory:
