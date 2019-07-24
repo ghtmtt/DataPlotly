@@ -17,6 +17,7 @@ from DataPlotly.gui.gui_utils import GuiUtils
 
 ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
 
+
 class PlotLayoutItem(QgsLayoutItem):
 
     def __init__(self, layout):
@@ -39,4 +40,3 @@ class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):
 
     def createItem(self, layout):
         return PlotLayoutItem(layout)
-

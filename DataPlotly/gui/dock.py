@@ -26,6 +26,5 @@ class DataPlotlyDock(QgsDockWidget):
         self.setWidget(self.panel_stack)
 
         self.main_panel = DataPlotlyPanelWidget()
-        self.main_panel_wrapper = QgsPanelWidgetWrapper(self.main_panel)
-        self.panel_stack.setMainPanel(self.main_panel_wrapper)
-        self.main_panel_wrapper.setDockMode(True)
+        self.panel_stack.setMainPanel(self.main_panel)
+        self.main_panel.setDockMode(True)
