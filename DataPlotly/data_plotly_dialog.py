@@ -987,7 +987,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         }
 
         # add widgets properties to the dictionary
-        plot_properties['layer'] = self.layer_combo.currentLayer()
+        plot_properties['layer_id'] = self.layer_combo.currentLayer().id()
         plot_properties['features_selected'] = self.selected_feature_check.isChecked()
         plot_properties['x_combo'] = self.x_combo.expression()
         plot_properties['y_combo'] = self.y_combo.expression()
@@ -1061,7 +1061,7 @@ class DataPlotlyDockWidget(QDockWidget, FORM_CLASS):  # pylint: disable=too-many
         settings = self.get_settings()
 
         # Set the plot properties
-        self.layer_combo.setLayer(settings.properties['layer'])
+        self.layer_combo.setLayer(settings.properties['layer_id'])
         self.selected_feature_check.setChecked(settings.properties['features_selected'])
         self.x_combo.setExpression(settings.properties['x_combo'])
         self.y_combo.setExpression(settings.properties['y_combo'])
