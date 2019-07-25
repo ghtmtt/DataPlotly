@@ -139,9 +139,13 @@ class PlotSettings:
         """
         Reads the settings from a project (represented by the given DOM document)
         """
-        nodes = document.elementsByTagName('DataPlotly')
-        if not nodes.count():
-            return
+        root_node = document.elementsByTagName("qgis").item(0)
+        if root_node.isNull():
+            return False
 
-        elem = nodes.item(0).toElement()
-        self.read_xml(elem.firstChildElement())
+        node = root_node.toElement().firstChildElement('DataPlotly')
+        if node.isNull():
+            return False
+
+        elem = node.toElement()
+        return self.read_xml(elem.firstChildElement())

@@ -62,10 +62,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         res = PlotSettings()
 
         def read(doc):
-            res.read_from_project(doc)
-            print(res.plot_type)
+            self.assertTrue(res.read_from_project(doc))
 
-        p.readProject.connect(read)
         p.clear()
         for _ in range(100):
             QCoreApplication.processEvents()
@@ -75,11 +73,14 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         # enable saving to project
         dialog.save_to_project = True
+        dialog.read_from_project = True
         self.assertTrue(p.write(path))
         for _ in range(100):
             QCoreApplication.processEvents()
 
         p.clear()
+
+        p.readProject.connect(read)
         self.assertTrue(p.read(path))
         for _ in range(100):
             QCoreApplication.processEvents()
