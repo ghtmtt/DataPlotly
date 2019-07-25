@@ -12,6 +12,7 @@ import unittest
 import os
 import tempfile
 from qgis.core import QgsProject
+from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
 from DataPlotly.core.plot_settings import PlotSettings
 
@@ -106,6 +107,8 @@ class DataPlotlySettings(unittest.TestCase):
 
         path = os.path.join(tempfile.gettempdir(), 'test_dataplotly_project.qgs')
         self.assertTrue(p.write(path))
+        for i in range(100):
+            QCoreApplication.processEvents()
         self.assertTrue(self.test_read_write_project2_written)
 
         p2 = QgsProject()
@@ -118,6 +121,8 @@ class DataPlotlySettings(unittest.TestCase):
 
         p2.readProject.connect(read)
         self.assertTrue(p2.read(path))
+        for i in range(100):
+            QCoreApplication.processEvents()
         self.assertTrue(self.test_read_write_project2_read)
 
         self.assertEqual(res.plot_type, original.plot_type)

@@ -17,6 +17,7 @@ import tempfile
 import os
 
 from qgis.core import QgsProject
+from qgis.PyQt.QtCore import QCoreApplication
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.data_plotly_dialog import DataPlotlyDockWidget
@@ -66,6 +67,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         p.readProject.connect(read)
         p.clear()
+        for i in range(100):
+            QCoreApplication.processEvents()
 
         self.assertTrue(p.read(path))
         self.assertEqual(res.plot_type, 'scatter')
@@ -73,9 +76,14 @@ class DataPlotlyDialogTest(unittest.TestCase):
         # enable saving to project
         dialog.save_to_project = True
         self.assertTrue(p.write(path))
+        for i in range(100):
+            QCoreApplication.processEvents()
 
         p.clear()
         self.assertTrue(p.read(path))
+        for i in range(100):
+            QCoreApplication.processEvents()
+
         self.assertEqual(res.plot_type, 'violin')
 
         # todo - test that dialog can restore properties, but requires the missing set_settings method
