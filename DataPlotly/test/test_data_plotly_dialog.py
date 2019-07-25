@@ -30,6 +30,10 @@ QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 class DataPlotlyDialogTest(unittest.TestCase):
     """Test dialog works."""
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.read_triggered = False
+
     def test_get_settings(self):
         """
         Test retrieving settings from the dialog
@@ -63,6 +67,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         def read(doc):
             self.assertTrue(res.read_from_project(doc))
+            self.assertEqual(res.plot_type, 'violin')
+            self.read_triggered = True
 
         p.clear()
         for _ in range(100):
@@ -85,7 +91,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for _ in range(100):
             QCoreApplication.processEvents()
 
-        self.assertEqual(res.plot_type, 'violin')
+        self.assertTrue(self.read_triggered)
 
         # todo - test that dialog can restore properties, but requires the missing set_settings method
 
