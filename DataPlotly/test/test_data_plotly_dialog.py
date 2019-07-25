@@ -65,10 +65,10 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         res = PlotSettings()
 
-        def read(doc):
-            self.assertTrue(res.read_from_project(doc))
-            self.assertEqual(res.plot_type, 'violin')
-            self.read_triggered = True
+        # def read(doc):
+        #    self.assertTrue(res.read_from_project(doc))
+        #    self.assertEqual(res.plot_type, 'violin')
+        #    self.read_triggered = True
 
         p.clear()
         for _ in range(100):
@@ -77,21 +77,22 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertTrue(p.read(path))
         self.assertEqual(res.plot_type, 'scatter')
 
-        # enable saving to project
-        dialog.save_to_project = True
-        dialog.read_from_project = True
-        self.assertTrue(p.write(path))
-        for _ in range(100):
-            QCoreApplication.processEvents()
+        # TODO - enable when dialog can restore properties and avoid this fragile test
+        # # enable saving to project
+        # dialog.save_to_project = True
+        # dialog.read_from_project = True
+        # self.assertTrue(p.write(path))
+        # for _ in range(100):
+        #     QCoreApplication.processEvents()
 
-        p.clear()
+        # p.clear()
 
-        p.readProject.connect(read)
-        self.assertTrue(p.read(path))
-        for _ in range(100):
-            QCoreApplication.processEvents()
+        # p.readProject.connect(read)
+        # self.assertTrue(p.read(path))
+        # for _ in range(100):
+        #     QCoreApplication.processEvents()
 
-        self.assertTrue(self.read_triggered)
+        # self.assertTrue(self.read_triggered)
 
         # todo - test that dialog can restore properties, but requires the missing set_settings method
 
