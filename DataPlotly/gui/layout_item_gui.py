@@ -43,6 +43,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
     def show_properties(self):
         self.panel = DataPlotlyPanelWidget()
+        # self.panel.set_settings(self.layoutItem().plot_settings)
         self.openPanel(self.panel)
 
     def setNewItem(self, item):
