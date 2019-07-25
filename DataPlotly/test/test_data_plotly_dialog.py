@@ -67,7 +67,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         p.readProject.connect(read)
         p.clear()
-        for i in range(100):
+        for _ in range(100):
             QCoreApplication.processEvents()
 
         self.assertTrue(p.read(path))
@@ -76,12 +76,12 @@ class DataPlotlyDialogTest(unittest.TestCase):
         # enable saving to project
         dialog.save_to_project = True
         self.assertTrue(p.write(path))
-        for i in range(100):
+        for _ in range(100):
             QCoreApplication.processEvents()
 
         p.clear()
         self.assertTrue(p.read(path))
-        for i in range(100):
+        for _ in range(100):
             QCoreApplication.processEvents()
 
         self.assertEqual(res.plot_type, 'violin')
