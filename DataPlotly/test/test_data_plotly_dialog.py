@@ -94,6 +94,9 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog.x_combo.setExpression('"Ca"')
         dialog.layer_combo.setLayer(vl)
 
+        print('--------')
+        dialog.x_combo.currentText()
+
         self.assertTrue(dialog.x_combo.expression(), '"Ca"')
 
 
