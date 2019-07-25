@@ -107,7 +107,7 @@ class DataPlotlySettings(unittest.TestCase):
 
         path = os.path.join(tempfile.gettempdir(), 'test_dataplotly_project.qgs')
         self.assertTrue(p.write(path))
-        for i in range(100):
+        for _ in range(100):
             QCoreApplication.processEvents()
         self.assertTrue(self.test_read_write_project2_written)
 
@@ -121,7 +121,7 @@ class DataPlotlySettings(unittest.TestCase):
 
         p2.readProject.connect(read)
         self.assertTrue(p2.read(path))
-        for i in range(100):
+        for _ in range(100):
             QCoreApplication.processEvents()
         self.assertTrue(self.test_read_write_project2_read)
 
