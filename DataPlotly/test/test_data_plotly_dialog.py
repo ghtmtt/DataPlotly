@@ -110,12 +110,9 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog.x_combo.setExpression('"Ca"')
         dialog.layer_combo.setLayer(vl)
 
-        print('--------')
         dialog.x_combo.currentText()
 
         self.assertTrue(dialog.x_combo.expression(), '"Ca"')
-
-
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDialogTest)
