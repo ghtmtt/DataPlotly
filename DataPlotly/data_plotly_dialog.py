@@ -882,7 +882,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
             self.legend_title.setText(self.legend_title_string)
 
-    def get_settings(self) -> PlotSettings:
+    def get_settings(self) -> PlotSettings:  # pylint: disable=R0915
         """
         Returns the plot settings as currently defined in the dialog
         """
@@ -899,7 +899,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.y_invert = "reversed"
 
         # set the bin value and change if according to the checkbox
-        self.bin_val = None
+        self.bin_val = self.bins_value.value()
         if self.bins_check.isChecked():
             self.bin_val = self.bins_value.value()
 
@@ -972,10 +972,31 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             'show_lines': self.show_lines_check.isChecked(),
             'cumulative': self.cumulative_hist_check.isChecked(),
             'invert_hist': self.invert_hist,
-            'bins': self.bin_val,
+            'bins': self.bins_value.value(),
             'show_mean_line': self.showMeanCheck.isChecked(),
             'violin_side': self.violin_side[self.violinSideCombo.currentText()]
         }
+
+        # add widgets properties to the dictionary
+        plot_properties['layer_id'] = self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None
+        plot_properties['features_selected'] = self.selected_feature_check.isChecked()
+        plot_properties['x_combo'] = self.x_combo.expression()
+        plot_properties['y_combo'] = self.y_combo.expression()
+        plot_properties['z_combo'] = self.z_combo.expression()
+        plot_properties['in_color_combo'] = self.in_color_combo.color()
+        plot_properties['in_color_defined_button'] = self.in_color_defined_button.toProperty()
+        plot_properties['size_defined_button'] = self.size_defined_button.toProperty()
+        plot_properties['color_scale_data_defined_in'] = self.color_scale_data_defined_in.currentText()
+        plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
+        plot_properties['color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
+        plot_properties['out_color_combo'] = self.out_color_combo.color()
+        plot_properties['marker_type_combo'] = self.marker_type_combo.currentText()
+        plot_properties['point_combo'] = self.point_combo.currentText()
+        plot_properties['line_combo'] = self.line_combo.currentText()
+        plot_properties['contour_type_combo'] = self.contour_type_combo.currentText()
+        plot_properties['show_lines_check'] = self.show_lines_check.isChecked()
+        plot_properties['color_scale_combo'] = self.color_scale_combo.currentText()
+        plot_properties['alpha'] = self.alpha_slid.value()
 
         # define the legend orientation
         if self.orientation_legend_check.isChecked():
@@ -986,6 +1007,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # build the layout customizations
         layout_properties = {
             'legend': self.show_legend_check.isChecked(),
+            'legend_title': self.legend_title_string,
             'legend_orientation': legend_or,
             'title': self.plot_title_line.text(),
             'x_title': self.x_axis_title.text(),
@@ -1000,7 +1022,84 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             'bargaps': self.bar_gap.value()
         }
 
+        layout_properties['show_legend_check'] = self.show_legend_check.isChecked()
+        layout_properties['orientation_legend_check'] = self.orientation_legend_check.isChecked()
+        layout_properties['range_slider_combo'] = self.range_slider_combo.isChecked()
+        layout_properties['info_combo'] = self.info_combo.currentText()
+        layout_properties['additional_info_combo'] = self.additional_info_combo.expression()
+        layout_properties['invert_x_check'] = self.invert_x_check.isChecked()
+        layout_properties['x_axis_mode_combo'] = self.x_axis_mode_combo.currentText()
+        layout_properties['invert_y_check'] = self.invert_y_check.isChecked()
+        layout_properties['y_axis_mode_combo'] = self.y_axis_mode_combo.currentText()
+        layout_properties['orientation_combo'] = self.orientation_combo.currentText()
+        layout_properties['bar_mode_combo'] = self.bar_mode_combo.currentText()
+        layout_properties['hist_norm_combo'] = self.hist_norm_combo.currentText()
+        layout_properties['box_statistic_combo'] = self.box_statistic_combo.currentText()
+        layout_properties['outliers_combo'] = self.outliers_combo.currentText()
+        layout_properties['violinSideCombo'] = self.violinSideCombo.currentText()
+        layout_properties['showMeanCheck'] = self.showMeanCheck.isChecked()
+        layout_properties['cumulative_hist_check'] = self.cumulative_hist_check.isChecked()
+        layout_properties['invert_hist_check'] = self.invert_hist_check.isChecked()
+        layout_properties['bins_check'] = self.bins_check.isChecked()
+
         return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties)
+
+    def set_settings(self):
+        """
+        Takes a PlotSettings object and fill the widgets with the settings
+        """
+
+        settings = self.get_settings()
+
+        # Set the plot properties
+        self.layer_combo.setLayer(settings.properties['layer_id'])
+        self.selected_feature_check.setChecked(settings.properties['features_selected'])
+        self.x_combo.setExpression(settings.properties['x_combo'])
+        self.y_combo.setExpression(settings.properties['y_combo'])
+        self.z_combo.setExpression(settings.properties['z_combo'])
+        self.in_color_combo.setColor(settings.properties['in_color_combo'])
+        # self.in_color_defined_button.setProperty(settings.properties['in_color_defined_button'])
+        self.marker_size.setValue(settings.properties['marker_size'])
+        # self.size_defined_button.setProperty(settings.properties['size_defined_button'])
+        self.color_scale_data_defined_in.setCurrentText(settings.properties['color_scale_data_defined_in'])
+        self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
+        self.color_scale_data_defined_in_invert_check.setChecked(settings.properties['color_scale_data_defined_in_invert_check'])
+        self.out_color_combo.setColor(settings.properties['out_color_combo'])
+        self.marker_width.setValue(settings.properties['marker_width'])
+        self.marker_type_combo.setCurrentText(settings.properties['marker_type_combo'])
+        self.point_combo.setCurrentText(settings.properties['point_combo'])
+        self.line_combo.setCurrentText(settings.properties['line_combo'])
+        self.contour_type_combo.setCurrentText(settings.properties['contour_type_combo'])
+        self.show_lines_check.setChecked(settings.properties['show_lines_check'])
+        self.color_scale_combo.setCurrentText(settings.properties['color_scale_combo'])
+        self.alpha_slid.setValue(settings.properties['alpha'])
+        self.alpha_num.setValue(settings.properties['alpha'])
+        self.show_legend_check.setChecked(settings.layout['show_legend_check'])
+        self.orientation_legend_check.setChecked(settings.layout['orientation_legend_check'])
+        self.range_slider_combo.setChecked(settings.layout['range_slider_combo'])
+        self.plot_title_line.setText(settings.layout['title'])
+        self.legend_title.setText(settings.layout['legend_title'])
+        self.x_axis_title.setText(settings.layout['x_title'])
+        self.y_axis_title.setText(settings.layout['y_title'])
+        self.z_axis_title.setText(settings.layout['z_title'])
+        self.info_combo.setCurrentText(settings.layout['info_combo'])
+        self.additional_info_combo.setExpression(settings.layout['additional_info_combo'])
+        self.invert_x_check.setChecked(settings.layout['invert_x_check'])
+        self.x_axis_mode_combo.setCurrentText(settings.layout['x_axis_mode_combo'])
+        self.invert_y_check.setChecked(settings.layout['invert_y_check'])
+        self.y_axis_mode_combo.setCurrentText(settings.layout['y_axis_mode_combo'])
+        self.orientation_combo.setCurrentText(settings.layout['orientation_combo'])
+        self.bar_mode_combo.setCurrentText(settings.layout['bar_mode_combo'])
+        self.hist_norm_combo.setCurrentText(settings.layout['hist_norm_combo'])
+        self.box_statistic_combo.setCurrentText(settings.layout['box_statistic_combo'])
+        self.outliers_combo.setCurrentText(settings.layout['outliers_combo'])
+        self.violinSideCombo.setCurrentText(settings.layout['violinSideCombo'])
+        self.showMeanCheck.setChecked(settings.layout['showMeanCheck'])
+        self.cumulative_hist_check.setChecked(settings.layout['cumulative_hist_check'])
+        self.invert_hist_check.setChecked(settings.layout['invert_hist_check'])
+        self.bins_check.setChecked(settings.layout['bins_check'])
+        self.bins_value.setValue(settings.properties['bins'])
+        self.bar_gap.setValue(settings.layout['bargaps'])
 
     def create_plot_factory(self) -> PlotFactory:
         """

@@ -16,7 +16,10 @@ import unittest
 import tempfile
 import os
 
-from qgis.core import QgsProject
+from qgis.core import (
+    QgsProject,
+    QgsVectorLayer
+)
 from qgis.PyQt.QtCore import QCoreApplication
 
 from DataPlotly.core.plot_settings import PlotSettings
@@ -61,6 +64,15 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog.save_to_project = False
 
         path = os.path.join(tempfile.gettempdir(), 'test_dataplotly_project.qgs')
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.geojson')
+
+        # create QgsVectorLayer from path and test validity
+        vl = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        self.assertTrue(vl.isValid())
+
+        # print(dialog.layer_combo.currentLayer())
+
         self.assertTrue(p.write(path))
 
         res = PlotSettings()
@@ -95,6 +107,12 @@ class DataPlotlyDialogTest(unittest.TestCase):
         # self.assertTrue(self.read_triggered)
 
         # todo - test that dialog can restore properties, but requires the missing set_settings method
+        dialog.x_combo.setExpression('"Ca"')
+        dialog.layer_combo.setLayer(vl)
+
+        dialog.x_combo.currentText()
+
+        self.assertTrue(dialog.x_combo.expression(), '"Ca"')
 
 
 if __name__ == "__main__":
