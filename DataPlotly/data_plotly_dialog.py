@@ -882,7 +882,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
             self.legend_title.setText(self.legend_title_string)
 
-    def get_settings(self) -> PlotSettings: # pylint: disable=R0915
+    def get_settings(self) -> PlotSettings:  # pylint: disable=R0915
         """
         Returns the plot settings as currently defined in the dialog
         """

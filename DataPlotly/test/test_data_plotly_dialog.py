@@ -114,6 +114,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         self.assertTrue(dialog.x_combo.expression(), '"Ca"')
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
