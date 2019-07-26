@@ -18,7 +18,7 @@ from qgis.PyQt.QtGui import QIcon
 
 
 class DataPlotlyResourcesTest(unittest.TestCase):
-    """Test rerources work."""
+    """Test resources work."""
 
     def setUp(self):
         """Runs before each test."""
@@ -29,7 +29,7 @@ class DataPlotlyResourcesTest(unittest.TestCase):
         pass
 
     def test_icon_png(self):
-        """Test we can click OK."""
+        """Test we can load resources."""
         path = ':/plugins/DataPlotly/icon.png'
         icon = QIcon(path)
         self.assertFalse(icon.isNull())
