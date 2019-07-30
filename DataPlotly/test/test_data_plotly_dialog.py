@@ -88,6 +88,10 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['in_color_value'] = '100,150,180,50'
         settings.properties['in_color_property'] = QgsProperty.fromExpression('5+6').toVariant()
         settings.properties['size_property'] = QgsProperty.fromExpression('5+64').toVariant()
+        settings.properties['color_scale']='Earth'
+        settings.properties['colorscale_in']='Earth'
+
+        # TODO: likely need to test other settings.properties values here!
 
         settings.layout['legend'] = False
         settings.layout['legend_orientation'] = 'h'

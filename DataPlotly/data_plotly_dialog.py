@@ -610,26 +610,20 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.contour_type_combo.addItem(k, v)
 
         # Contour Plot color scale and Data Defined Color scale
-        self.col_scale = OrderedDict([
-            (self.tr('Grey Scale'), 'Greys'),
-            (self.tr('Green Scale'), 'Greens'),
-            (self.tr('Fire Scale'), 'Hot'),
-            (self.tr('BlueYellowRed'), 'Portland'),
-            (self.tr('BlueGreenRed'), 'Jet'),
-            (self.tr('BlueToRed'), 'RdBu'),
-            (self.tr('BlueToRed Soft'), 'Bluered'),
-            (self.tr('BlackRedYellowBlue'), 'Blackbody'),
-            (self.tr('Terrain'), 'Earth'),
-            (self.tr('Electric Scale'), 'Electric'),
-            (self.tr('RedOrangeYellow'), 'YIOrRd'),
-            (self.tr('DeepblueBlueWhite'), 'YIGnBu'),
-            (self.tr('BlueWhitePurple'), 'Picnic'),
-        ])
         self.color_scale_combo.clear()
-        self.color_scale_data_defined_in.clear()
-        for k, v in self.col_scale.items():
-            self.color_scale_combo.addItem(k, v)
-            self.color_scale_data_defined_in.addItem(k, v)
+        self.color_scale_combo.addItem(self.tr('Grey Scale'), 'Greys')
+        self.color_scale_combo.addItem(self.tr('Green Scale'), 'Greens')
+        self.color_scale_combo.addItem(self.tr('Fire Scale'), 'Hot')
+        self.color_scale_combo.addItem(self.tr('BlueYellowRed'), 'Portland')
+        self.color_scale_combo.addItem(self.tr('BlueGreenRed'), 'Jet')
+        self.color_scale_combo.addItem(self.tr('BlueToRed'), 'RdBu')
+        self.color_scale_combo.addItem(self.tr('BlueToRed Soft'), 'Bluered')
+        self.color_scale_combo.addItem(self.tr('BlackRedYellowBlue'), 'Blackbody')
+        self.color_scale_combo.addItem(self.tr('Terrain'), 'Earth')
+        self.color_scale_combo.addItem(self.tr('Electric Scale'), 'Electric')
+        self.color_scale_combo.addItem(self.tr('RedOrangeYellow'), 'YIOrRd')
+        self.color_scale_combo.addItem(self.tr('DeepblueBlueWhite'), 'YIGnBu')
+        self.color_scale_combo.addItem(self.tr('BlueWhitePurple'), 'Picnic')
 
         # according to the plot type, change the label names
 
@@ -892,7 +886,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
                            'in_color': self.in_color,
-                           'colorscale_in': self.col_scale[self.color_scale_data_defined_in.currentText()],
+                           'colorscale_in': self.color_scale_combo.currentData(),
                            'show_colorscale_legend': color_scale_visible,
                            'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
                            'out_color': hex_to_rgb(self.out_color_combo),
@@ -908,7 +902,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'name': self.legend_title.text(),
                            'normalization': self.hist_norm_combo.currentData(),
                            'cont_type': self.contour_type[self.contour_type_combo.currentText()],
-                           'color_scale': self.col_scale[self.color_scale_combo.currentText()],
+                           'color_scale': self.color_scale_combo.currentData(),
                            'show_lines': self.show_lines_check.isChecked(),
                            'cumulative': self.cumulative_hist_check.isChecked(),
                            'invert_hist': 'decreasing' if self.invert_hist_check.isChecked() else 'increasing',
@@ -929,7 +923,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'line_combo': self.line_combo.currentText(),
                            'contour_type_combo': self.contour_type_combo.currentText(),
                            'show_lines_check': self.show_lines_check.isChecked(),
-                           'color_scale_combo': self.color_scale_combo.currentText(),
                            'alpha': self.alpha_slid.value()}
 
         # add widgets properties to the dictionary
@@ -998,7 +991,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.line_combo.setCurrentText(settings.properties['line_combo'])
         self.contour_type_combo.setCurrentText(settings.properties['contour_type_combo'])
         self.show_lines_check.setChecked(settings.properties['show_lines_check'])
-        self.color_scale_combo.setCurrentText(settings.properties['color_scale_combo'])
+        self.color_scale_combo.setCurrentIndex(self.color_scale_combo.findData(settings.properties['color_scale']))
         self.alpha_slid.setValue(settings.properties['alpha'])
         self.alpha_num.setValue(settings.properties['alpha'])
         self.orientation_legend_check.setChecked(settings.layout['legend_orientation'] == 'h')
