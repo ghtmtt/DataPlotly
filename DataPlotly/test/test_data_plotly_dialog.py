@@ -60,7 +60,19 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog = DataPlotlyPanelWidget(None, iface=IFACE)
         dialog.set_settings(settings)
 
-    def test_settings_round_trip(self):
+        self.assertEqual(dialog.get_settings().plot_type, settings.plot_type)
+        for k in settings.properties.keys():
+            if k in ['x', 'y', 'z', 'additional_hover_text', 'featureIds', 'featureBox', 'custom', 'in_color',
+                     'marker_size']:
+                continue
+
+            print(k)
+            self.assertEqual(dialog.get_settings().properties[k], settings.properties[k])
+        for k in settings.layout.keys():
+            print(k)
+            self.assertEqual(dialog.get_settings().layout[k], settings.layout[k])
+
+    def test_settings_round_trip(self):  # pylint: disable=too-many-statements
         """
         Test setting and retrieving settings results in identical results
         """
@@ -96,8 +108,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['in_color_value'] = '100,150,180,50'
         settings.properties['in_color_property'] = QgsProperty.fromExpression('5+6').toVariant()
         settings.properties['size_property'] = QgsProperty.fromExpression('5+64').toVariant()
-        settings.properties['color_scale']='Earth'
-        settings.properties['colorscale_in']='Earth'
+        settings.properties['color_scale'] = 'Earth'
+        settings.properties['colorscale_in'] = 'Earth'
 
         # TODO: likely need to test other settings.properties values here!
 
@@ -122,7 +134,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
-            if k in ['x','y','z', 'additional_hover_text','featureIds', 'featureBox', 'custom', 'in_color', 'marker_size']:
+            if k in ['x', 'y', 'z', 'additional_hover_text', 'featureIds', 'featureBox', 'custom', 'in_color',
+                     'marker_size']:
                 continue
 
             print(k)
