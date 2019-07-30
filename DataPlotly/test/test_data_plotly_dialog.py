@@ -81,6 +81,9 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['cumulative'] = True
         settings.properties['invert_hist'] = 'decreasing'
         settings.properties['layer_id'] = vl3.id()
+        settings.properties['x_name'] = 'so4'
+        settings.properties['y_name'] = 'ca'
+        settings.properties['z_name'] = 'mg'
 
         settings.layout['legend'] = False
         settings.layout['legend_orientation'] = 'h'
@@ -103,7 +106,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
-            if k in ['x','y','z', 'additional_hover_text','featureIds']:
+            if k in ['x','y','z', 'additional_hover_text','featureIds', 'featureBox', 'custom']:
                 continue
 
             print(k)

@@ -915,9 +915,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'violin_side': self.violinSideCombo.currentData(),
                            'layer_id': self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None,
                            'features_selected': self.selected_feature_check.isChecked(),
-                           'x_combo': self.x_combo.expression(),
-                           'y_combo': self.y_combo.expression(),
-                           'z_combo': self.z_combo.expression(),
                            'in_color_combo': self.in_color_combo.color(),
                            'in_color_defined_button': self.in_color_defined_button.toProperty(),
                            'size_defined_button': self.size_defined_button.toProperty(),
@@ -975,9 +972,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # Set the plot properties
         self.set_layer_id(settings.properties['layer_id'])
         self.selected_feature_check.setChecked(settings.properties['features_selected'])
-        self.x_combo.setExpression(settings.properties['x_combo'])
-        self.y_combo.setExpression(settings.properties['y_combo'])
-        self.z_combo.setExpression(settings.properties['z_combo'])
+        self.x_combo.setExpression(settings.properties['x_name'])
+        self.y_combo.setExpression(settings.properties['y_name'])
+        self.z_combo.setExpression(settings.properties['z_name'])
         self.in_color_combo.setColor(settings.properties['in_color_combo'])
         # self.in_color_defined_button.setProperty(settings.properties['in_color_defined_button'])
         self.marker_size.setValue(settings.properties['marker_size'])
