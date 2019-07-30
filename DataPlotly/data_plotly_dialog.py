@@ -957,7 +957,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.layer_combo.setLayer(layer)
 
-    def set_settings(self, settings: PlotSettings):
+    def set_settings(self, settings: PlotSettings):  # pylint: disable=too-many-statements
         """
         Takes a PlotSettings object and fill the widgets with the settings
         """
