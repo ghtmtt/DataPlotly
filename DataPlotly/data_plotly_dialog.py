@@ -919,7 +919,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'features_selected': self.selected_feature_check.isChecked(),
                            'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
                            'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
-                           'size_defined_button': self.size_defined_button.toProperty(),
+                           'size_property': self.size_defined_button.toProperty().toVariant(),
                            'color_scale_data_defined_in': self.color_scale_data_defined_in.currentText(),
                            'color_scale_data_defined_in_check': self.color_scale_data_defined_in_check.isChecked(),
                            'color_scale_data_defined_in_invert_check': self.color_scale_data_defined_in_invert_check.isChecked(),
@@ -982,7 +982,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         color_prop.loadVariant(settings.properties['in_color_property'])
         self.in_color_defined_button.setToProperty(color_prop)
         self.marker_size.setValue(settings.properties['marker_size'])
-        # self.size_defined_button.setProperty(settings.properties['size_defined_button'])
+
+        size_prop = QgsProperty()
+        size_prop.loadVariant(settings.properties['size_property'])
+        self.size_defined_button.setToProperty(size_prop)
+
         self.color_scale_data_defined_in.setCurrentText(settings.properties['color_scale_data_defined_in'])
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
         self.color_scale_data_defined_in_invert_check.setChecked(
