@@ -52,6 +52,14 @@ class DataPlotlyDialogTest(unittest.TestCase):
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'violin')
 
+    def test_set_default_settings(self):
+        """
+        Test setting dialog to a newly constructed settings object
+        """
+        settings = PlotSettings()
+        dialog = DataPlotlyPanelWidget(None, iface=IFACE)
+        dialog.set_settings(settings)
+
     def test_settings_round_trip(self):
         """
         Test setting and retrieving settings results in identical results

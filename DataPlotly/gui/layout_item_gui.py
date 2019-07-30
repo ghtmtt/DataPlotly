@@ -27,6 +27,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
     def __init__(self, parent, layout_object):
         super().__init__(parent, layout_object)
+        self.plot_item = layout_object
 
         vl = QVBoxLayout()
         vl.setContentsMargins(0, 0, 0, 0)
@@ -43,14 +44,28 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
     def show_properties(self):
         self.panel = DataPlotlyPanelWidget()
+        self.panel.set_settings(self.plot_item.plot_settings)
         # self.panel.set_settings(self.layoutItem().plot_settings)
         self.openPanel(self.panel)
+        self.panel.panelAccepted.connect(self.set_item_settings)
+
+    def set_item_settings(self):
+        if not self.panel:
+            return
+
+        self.plot_item.plot_settings = self.panel.get_settings()
+        self.panel = None
+        self.plot_item.update()
 
     def setNewItem(self, item):
         if item.type() != ITEM_TYPE:
             return False
 
+        self.plot_item = item
         self.item_properties_widget.setItem(item)
+
+        if self.panel is not None:
+            self.panel.set_settings(self.plot_item.plot_settings)
 
         return True
 
