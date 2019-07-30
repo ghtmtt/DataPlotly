@@ -74,7 +74,10 @@ from DataPlotly.gui.gui_utils import GuiUtils
 WIDGET, _ = uic.loadUiType(GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
 
 
-class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,missing-docstring,too-many-instance-attributes,too-many-public-methods
+class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,too-many-instance-attributes,too-many-public-methods
+    """
+    Main configuration panel widget for plot settings
+    """
 
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
@@ -237,21 +240,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.marker_size_value = None
         self.in_color = None
-        self.legend_title_string = None
-        self.x_invert = None
-        self.y_invert = None
-        self.bin_val = None
-        self.invert_hist = None
         self.pid = None
         self.plot_path = None
         self.plot_url = None
         self.plot_file = None
 
     def updateStacked(self, row):
-        '''
+        """
         according to the listWdiget row change the stackedWidget and
         nestedStackedWidget
-        '''
+        """
 
         # stackedWidget index = 1 and change just the nestedStackedWidgets
         if 0 <= row <= 1:
@@ -269,21 +267,21 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.plot_combo.setCurrentIndex(self.plot_combo.findData(plot_type))
 
     def refreshSizeDefined(self):
-        '''
+        """
         enable/disable the correct buttons depending on the choice
-        '''
+        """
         if self.size_defined_button.isActive():
             self.marker_size.setEnabled(False)
         else:
             self.marker_size.setEnabled(True)
 
     def resfreshColorDefined(self):
-        '''
+        """
         refreshing function for color data defined button
 
         checks is the datadefined button is active and check also the plot type
         in order to deactivate the color when not needed
-        '''
+        """
         # if data defined button is active
         if self.in_color_defined_button.isActive():
             # if plot is scatter or bar
@@ -318,9 +316,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.color_scale_data_defined_in_invert_check.setVisible(False)
 
     def getMarkerSize(self):
-        '''
+        """
         get the marker size
-        '''
+        """
 
         if self.size_defined_button.isActive() and self.layer_combo.currentLayer():
             mark_size = self.size_defined_button.toProperty().expressionString()
@@ -332,9 +330,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.marker_size_value = self.marker_size.value()
 
     def getColorDefined(self):
-        '''
+        """
         get the color code for plotly from the dataDefined button
-        '''
+        """
 
         if self.in_color_defined_button.isActive() and self.layer_combo.currentLayer():
             if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
@@ -347,10 +345,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.in_color = hex_to_rgb(self.in_color_combo)
 
     def setCheckState(self):
-        '''
+        """
         change the selected_feature_check checkbox accordingly with the current
         layer selection state
-        '''
+        """
         try:
             if self.layer_combo.currentLayer().selectedFeatures():
                 self.selected_feature_check.setEnabled(True)
@@ -361,7 +359,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             pass
 
     def getJSmessage(self, status):
-        '''
+        """
         landing method for statusBarMessage signal coming from PLOT.js_callback
         it decodes feature ids of clicked or selected plot elements,
         selects on map canvas and triggers a pan/zoom to them
@@ -374,7 +372,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
             the dic js dictionary contains several information useful to handle
             correctly every operation
-        '''
+        """
 
         try:
             dic = json.JSONDecoder().decode(status)
@@ -398,7 +396,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 if dic['type'] == 'scatter':
                     self.layer_combo.currentLayer().selectByIds([dic['fidd']])
                 elif dic["type"] == 'pie':
-                    exp = ''' "{}" = '{}' '''.format(dic['field'], dic['label'])
+                    exp = """ "{}" = '{}' """.format(dic['field'], dic['label'])
                     # set the iterator with the expression as filter in feature request
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
@@ -406,7 +404,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 elif dic["type"] == 'histogram':
                     vmin = dic['id'] - dic['bin_step'] / 2
                     vmax = dic['id'] + dic['bin_step'] / 2
-                    exp = ''' "{}" <= {} AND "{}" > {} '''.format(dic['field'], vmax, dic['field'], vmin)
+                    exp = """ "{}" <= {} AND "{}" > {} """.format(dic['field'], vmax, dic['field'], vmin)
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
                     self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
@@ -414,7 +412,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                     self.layer_combo.currentLayer().selectByIds([dic['fid']])
                 else:
                     # build the expression from the js dic (customdata)
-                    exp = ''' "{}" = '{}' '''.format(dic['field'], dic['id'])
+                    exp = """ "{}" = '{}' """.format(dic['field'], dic['id'])
                     # set the iterator with the expression as filter in feature request
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
@@ -424,10 +422,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             pass
 
     def helpPage(self):
-        '''
+        """
         change the page of the manual according to the plot type selected and
         the language (looks for translations)
-        '''
+        """
 
         locale = QSettings().value('locale/userLocale', 'en_US')[0:2]
 
@@ -442,35 +440,35 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.help_view.load(help_url)
 
     def resizeEvent(self, event):
-        '''
+        """
         reimplemented event to detect the dialog resizing
-        '''
+        """
         self.resizeWindow.emit()
         return super(DataPlotlyPanelWidget, self).resizeEvent(event)
 
     def reloadPlotCanvas(self):
-        '''
+        """
         just reload the plot view controlling the check state
-        '''
+        """
         if self.live_update_check.isChecked():
             self.plot_view.reload()
 
     def reloadPlotCanvas2(self):
-        '''
+        """
         just reload the plot view
-        '''
+        """
         self.plot_view.reload()
 
     def refreshListWidget(self):
-        '''
+        """
         highlight the item in the QListWidget when the QStackWidget changes
 
         needed to highligh the correct icon when the plot is rendered
-        '''
+        """
         self.listWidget.setCurrentRow(self.stackedPlotWidget.currentIndex())
 
     def refreshWidgets(self):  # pylint: disable=too-many-statements,too-many-branches
-        '''
+        """
         just for refreshing the UI
 
         widgets depending on the plot type in the combobox to have a cleaner
@@ -485,7 +483,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         method p.buildProperties will fail!
         In the statement there have to be only widgets that, for example, need
         to be re-rendered (label name...)
-        '''
+        """
 
         # get the plot type from the combobox
         self.ptype = self.plot_combo.currentData()
@@ -500,53 +498,31 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # BoxPlot BarPlot and Histogram orientation (same values)
         self.orientation_combo.clear()
-        self.orientation_box = OrderedDict([
-            (self.tr('Vertical'), 'v'),
-            (self.tr('Horizontal'), 'h')
-        ])
-        for k, v in self.orientation_box.items():
-            self.orientation_combo.addItem(k, v)
+        self.orientation_combo.addItem(self.tr('Vertical'), 'v')
+        self.orientation_combo.addItem(self.tr('Horizontal'), 'h')
 
         # BoxPlot and Violin outliers
         self.outliers_combo.clear()
-        self.outliers_dict = OrderedDict([
-            (self.tr('No Outliers'), False),
-            (self.tr('Standard Outliers'), 'outliers'),
-            (self.tr('Suspected Outliers'), 'suspectedoutliers'),
-            (self.tr('All Points'), 'all')
-        ])
-        for k, v in self.outliers_dict.items():
-            self.outliers_combo.addItem(k, v)
+        self.outliers_combo.addItem(self.tr('No Outliers'), False)
+        self.outliers_combo.addItem(self.tr('Standard Outliers'), 'outliers')
+        self.outliers_combo.addItem(self.tr('Suspected Outliers'), 'suspectedoutliers')
+        self.outliers_combo.addItem(self.tr('All Points'), 'all')
 
         # BoxPlot statistic types
-        self.statistic_type = OrderedDict([
-            (self.tr('None'), False),
-            (self.tr('Mean'), True),
-            (self.tr('Standard Deviation'), 'sd'),
-        ])
         self.box_statistic_combo.clear()
-        for k, v in self.statistic_type.items():
-            self.box_statistic_combo.addItem(k, v)
+        self.box_statistic_combo.addItem(self.tr('None'), False)
+        self.box_statistic_combo.addItem(self.tr('Mean'), True)
+        self.box_statistic_combo.addItem(self.tr('Standard Deviation'), 'sd')
 
         # BoxPlot and ScatterPlot X axis type
-        self.x_axis_type = OrderedDict([
-            (self.tr('Linear'), 'linear'),
-            (self.tr('Logarithmic'), 'log'),
-            (self.tr('Categorized'), 'category'),
-        ])
         self.x_axis_mode_combo.clear()
-        for k, v in self.x_axis_type.items():
-            self.x_axis_mode_combo.addItem(k, v)
-
-        # BoxPlot and ScatterPlot Y axis type
-        self.y_axis_type = OrderedDict([
-            (self.tr('Linear'), 'linear'),
-            (self.tr('Logarithmic'), 'log'),
-            (self.tr('Categorized'), 'category'),
-        ])
+        self.x_axis_mode_combo.addItem(self.tr('Linear'), 'linear')
+        self.x_axis_mode_combo.addItem(self.tr('Logarithmic'), 'log')
+        self.x_axis_mode_combo.addItem(self.tr('Categorized'), 'category')
         self.y_axis_mode_combo.clear()
-        for k, v in self.y_axis_type.items():
-            self.y_axis_mode_combo.addItem(k, v)
+        self.y_axis_mode_combo.addItem(self.tr('Linear'), 'linear')
+        self.y_axis_mode_combo.addItem(self.tr('Logarithmic'), 'log')
+        self.y_axis_mode_combo.addItem(self.tr('Categorized'), 'category')
 
         # ScatterPlot marker types
         self.marker_types = OrderedDict([
@@ -608,26 +584,18 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_combo.addItem(k, v)
 
         # BarPlot bar mode
-        self.bar_modes = OrderedDict([
-            (self.tr('Grouped'), 'group'),
-            (self.tr('Stacked'), 'stack'),
-            (self.tr('Overlay'), 'overlay')
-        ])
         self.bar_mode_combo.clear()
-        for k, v in self.bar_modes.items():
-            self.bar_mode_combo.addItem(k, v)
+        self.bar_mode_combo.addItem(self.tr('Grouped'), 'group')
+        self.bar_mode_combo.addItem(self.tr('Stacked'), 'stack')
+        self.bar_mode_combo.addItem(self.tr('Overlay'), 'overlay')
 
         # Histogram normalization mode
-        self.normalization = OrderedDict([
-            (self.tr('Enumerated'), ''),
-            (self.tr('Percents'), 'percent'),
-            (self.tr('Probability'), 'probability'),
-            (self.tr('Density'), 'density'),
-            (self.tr('Prob Density'), 'probability density'),
-        ])
         self.hist_norm_combo.clear()
-        for k, v in self.normalization.items():
-            self.hist_norm_combo.addItem(k, v)
+        self.hist_norm_combo.addItem(self.tr('Enumerated'), '')
+        self.hist_norm_combo.addItem(self.tr('Percents'), 'percent')
+        self.hist_norm_combo.addItem(self.tr('Probability'), 'probability')
+        self.hist_norm_combo.addItem(self.tr('Density'), 'density')
+        self.hist_norm_combo.addItem(self.tr('Prob Density'), 'probability density')
 
         # Contour Plot rendering type
         self.contour_type = OrderedDict([
@@ -692,25 +660,17 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.x_label.setFixedWidth(80)
 
         # info combo for data hovering
-        self.info_hover = OrderedDict([
-            (self.tr('All Values'), 'all'),
-            (self.tr('X Values'), 'x'),
-            (self.tr('Y Values'), 'y'),
-            (self.tr('No Data'), 'none')
-        ])
         self.info_combo.clear()
-        for k, v in self.info_hover.items():
-            self.info_combo.addItem(k, v)
+        self.info_combo.addItem(self.tr('All Values'), 'all')
+        self.info_combo.addItem(self.tr('X Values'), 'x')
+        self.info_combo.addItem(self.tr('Y Values'), 'y')
+        self.info_combo.addItem(self.tr('No Data'), 'none')
 
         # Violin side
-        self.violin_side = OrderedDict([
-            (self.tr('Both Sides'), 'both'),
-            (self.tr('Only Left'), 'negative'),
-            (self.tr('Only right'), 'positive')
-        ])
         self.violinSideCombo.clear()
-        for k, v in self.violin_side.items():
-            self.violinSideCombo.addItem(k, v)
+        self.violinSideCombo.addItem(self.tr('Both Sides'), 'both')
+        self.violinSideCombo.addItem(self.tr('Only Left'), 'negative')
+        self.violinSideCombo.addItem(self.tr('Only right'), 'positive')
 
         # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
@@ -818,9 +778,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.color_scale_data_defined_in_invert_check.setVisible(False)
 
     def refreshWidgets2(self):
-        '''
+        """
         just refresh the UI to make the radiobuttons visible when SubPlots
-        '''
+        """
 
         # enable radio buttons for subplots
         if self.subcombo.currentData() == 'subplots':
@@ -835,10 +795,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.radio_columns.setVisible(False)
 
     def refreshWidgets3(self):
-        '''
+        """
         refresh the UI according to Point, Lines or both choosen for the symbols
         of scatterplot
-        '''
+        """
 
         if self.marker_type_combo.currentText() == self.tr('Points'):
             self.point_lab.setEnabled(True)
@@ -869,20 +829,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_combo.setVisible(True)
 
     def setLegend(self):
-        '''
+        """
         set the legend from the fields combo boxes
-        '''
-        self.legend_title_string = ''
-
-        if self.ptype == 'box' or self.ptype == 'bar':
+        """
+        if self.ptype in ('box', 'bar'):
             self.legend_title.setText(self.y_combo.currentText())
-
         elif self.ptype == 'histogram':
             self.legend_title.setText(self.x_combo.currentText())
-
         else:
-            self.legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
-            self.legend_title.setText(self.legend_title_string)
+            legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
+            self.legend_title.setText(legend_title_string)
 
     def get_settings(self) -> PlotSettings:  # pylint: disable=R0915
         """
@@ -891,24 +847,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # call the method to get the correct marker size
         self.getMarkerSize()
         self.getColorDefined()
-
-        # set the variable to invert the x and y axis order
-        self.x_invert = True
-        if self.invert_x_check.isChecked():
-            self.x_invert = "reversed"
-        self.y_invert = True
-        if self.invert_y_check.isChecked():
-            self.y_invert = "reversed"
-
-        # set the bin value and change if according to the checkbox
-        self.bin_val = self.bins_value.value()
-        if self.bins_check.isChecked():
-            self.bin_val = self.bins_value.value()
-
-        # set the chance to invert the histogram direction
-        self.invert_hist = 'increasing'
-        if self.invert_hist_check.isChecked():
-            self.invert_hist = 'decreasing'
 
         # get the plot type from the combo box
         self.ptype = self.plot_combo.currentData()
@@ -940,118 +878,89 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         color_scale_visible = self.color_scale_data_defined_in_check.isVisible() and self.color_scale_data_defined_in_check.isChecked()
 
         # dictionary of all the plot properties
-        plot_properties = {
-            'x': xx,
-            'y': yy,
-            'z': zz,
-            # featureIds are the ID of each feature needed for the selection and zooming method
-            'featureIds': feature_ids,
-            'featureBox': getSortedId(self.layer_combo.currentLayer(), xx),
-            'custom': [self.x_combo.currentText()],
-            'hover_text': self.info_hover[self.info_combo.currentText()],
-            'additional_hover_text': additional_hover_text,
-            'x_name': self.x_combo.currentText(),
-            'y_name': self.y_combo.currentText(),
-            'z_name': self.z_combo.currentText(),
-            'in_color': self.in_color,
-            'colorscale_in': self.col_scale[self.color_scale_data_defined_in.currentText()],
-            'show_colorscale_legend': color_scale_visible,
-            'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
-            'out_color': hex_to_rgb(self.out_color_combo),
-            'marker_width': self.marker_width.value(),
-            'marker_size': self.marker_size_value,
-            'marker_symbol': self.point_types2[self.point_combo.currentData()],
-            'line_dash': self.line_types2[self.line_combo.currentText()],
-            'box_orientation': self.orientation_box[self.orientation_combo.currentText()],
-            'marker': self.marker_types[self.marker_type_combo.currentText()],
-            'opacity': (100 - self.alpha_slid.value()) / 100.0,
-            'box_stat': self.statistic_type[self.box_statistic_combo.currentText()],
-            'box_outliers': self.outliers_dict[self.outliers_combo.currentText()],
-            'name': self.legend_title.text(),
-            'normalization': self.normalization[self.hist_norm_combo.currentText()],
-            'cont_type': self.contour_type[self.contour_type_combo.currentText()],
-            'color_scale': self.col_scale[self.color_scale_combo.currentText()],
-            'show_lines': self.show_lines_check.isChecked(),
-            'cumulative': self.cumulative_hist_check.isChecked(),
-            'invert_hist': self.invert_hist,
-            'bins': self.bins_value.value(),
-            'show_mean_line': self.showMeanCheck.isChecked(),
-            'violin_side': self.violin_side[self.violinSideCombo.currentText()]
-        }
+        plot_properties = {'x': xx,
+                           'y': yy,
+                           'z': zz,
+                           'featureIds': feature_ids,
+                           'featureBox': getSortedId(self.layer_combo.currentLayer(), xx),
+                           'custom': [self.x_combo.currentText()],
+                           'hover_text': self.info_combo.currentData(),
+                           'additional_hover_text': additional_hover_text,
+                           'x_name': self.x_combo.currentText(),
+                           'y_name': self.y_combo.currentText(),
+                           'z_name': self.z_combo.currentText(),
+                           'in_color': self.in_color,
+                           'colorscale_in': self.col_scale[self.color_scale_data_defined_in.currentText()],
+                           'show_colorscale_legend': color_scale_visible,
+                           'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
+                           'out_color': hex_to_rgb(self.out_color_combo),
+                           'marker_width': self.marker_width.value(),
+                           'marker_size': self.marker_size_value,
+                           'marker_symbol': self.point_types2[self.point_combo.currentData()],
+                           'line_dash': self.line_types2[self.line_combo.currentText()],
+                           'box_orientation': self.orientation_combo.currentData(),
+                           'marker': self.marker_types[self.marker_type_combo.currentText()],
+                           'opacity': (100 - self.alpha_slid.value()) / 100.0,
+                           'box_stat': self.box_statistic_combo.currentData(),
+                           'box_outliers': self.outliers_combo.currentData(),
+                           'name': self.legend_title.text(),
+                           'normalization': self.hist_norm_combo.currentData(),
+                           'cont_type': self.contour_type[self.contour_type_combo.currentText()],
+                           'color_scale': self.col_scale[self.color_scale_combo.currentText()],
+                           'show_lines': self.show_lines_check.isChecked(),
+                           'cumulative': self.cumulative_hist_check.isChecked(),
+                           'invert_hist': 'decreasing' if self.invert_hist_check.isChecked() else 'increasing',
+                           'bins': self.bins_value.value(),
+                           'show_mean_line': self.showMeanCheck.isChecked(),
+                           'violin_side': self.violinSideCombo.currentData(),
+                           'layer_id': self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None,
+                           'features_selected': self.selected_feature_check.isChecked(),
+                           'x_combo': self.x_combo.expression(),
+                           'y_combo': self.y_combo.expression(),
+                           'z_combo': self.z_combo.expression(),
+                           'in_color_combo': self.in_color_combo.color(),
+                           'in_color_defined_button': self.in_color_defined_button.toProperty(),
+                           'size_defined_button': self.size_defined_button.toProperty(),
+                           'color_scale_data_defined_in': self.color_scale_data_defined_in.currentText(),
+                           'color_scale_data_defined_in_check': self.color_scale_data_defined_in_check.isChecked(),
+                           'color_scale_data_defined_in_invert_check': self.color_scale_data_defined_in_invert_check.isChecked(),
+                           'out_color_combo': self.out_color_combo.color(),
+                           'marker_type_combo': self.marker_type_combo.currentText(),
+                           'point_combo': self.point_combo.currentText(),
+                           'line_combo': self.line_combo.currentText(),
+                           'contour_type_combo': self.contour_type_combo.currentText(),
+                           'show_lines_check': self.show_lines_check.isChecked(),
+                           'color_scale_combo': self.color_scale_combo.currentText(),
+                           'alpha': self.alpha_slid.value()}
 
         # add widgets properties to the dictionary
-        plot_properties['layer_id'] = self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None
-        plot_properties['features_selected'] = self.selected_feature_check.isChecked()
-        plot_properties['x_combo'] = self.x_combo.expression()
-        plot_properties['y_combo'] = self.y_combo.expression()
-        plot_properties['z_combo'] = self.z_combo.expression()
-        plot_properties['in_color_combo'] = self.in_color_combo.color()
-        plot_properties['in_color_defined_button'] = self.in_color_defined_button.toProperty()
-        plot_properties['size_defined_button'] = self.size_defined_button.toProperty()
-        plot_properties['color_scale_data_defined_in'] = self.color_scale_data_defined_in.currentText()
-        plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
-        plot_properties['color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
-        plot_properties['out_color_combo'] = self.out_color_combo.color()
-        plot_properties['marker_type_combo'] = self.marker_type_combo.currentText()
-        plot_properties['point_combo'] = self.point_combo.currentText()
-        plot_properties['line_combo'] = self.line_combo.currentText()
-        plot_properties['contour_type_combo'] = self.contour_type_combo.currentText()
-        plot_properties['show_lines_check'] = self.show_lines_check.isChecked()
-        plot_properties['color_scale_combo'] = self.color_scale_combo.currentText()
-        plot_properties['alpha'] = self.alpha_slid.value()
-
-        # define the legend orientation
-        if self.orientation_legend_check.isChecked():
-            legend_or = 'h'
-        else:
-            legend_or = 'v'
 
         # build the layout customizations
-        layout_properties = {
-            'legend': self.show_legend_check.isChecked(),
-            'legend_title': self.legend_title_string,
-            'legend_orientation': legend_or,
-            'title': self.plot_title_line.text(),
-            'x_title': self.x_axis_title.text(),
-            'y_title': self.y_axis_title.text(),
-            'z_title': self.z_axis_title.text(),
-            'range_slider': dict(visible=self.range_slider_combo.isChecked(), borderwidth=1),
-            'bar_mode': self.bar_modes[self.bar_mode_combo.currentText()],
-            'x_type': self.x_axis_type[self.x_axis_mode_combo.currentText()],
-            'y_type': self.y_axis_type[self.y_axis_mode_combo.currentText()],
-            'x_inv': self.x_invert,
-            'y_inv': self.y_invert,
-            'bargaps': self.bar_gap.value()
-        }
-
-        layout_properties['show_legend_check'] = self.show_legend_check.isChecked()
-        layout_properties['orientation_legend_check'] = self.orientation_legend_check.isChecked()
-        layout_properties['range_slider_combo'] = self.range_slider_combo.isChecked()
-        layout_properties['info_combo'] = self.info_combo.currentText()
-        layout_properties['additional_info_combo'] = self.additional_info_combo.expression()
-        layout_properties['invert_x_check'] = self.invert_x_check.isChecked()
-        layout_properties['x_axis_mode_combo'] = self.x_axis_mode_combo.currentText()
-        layout_properties['invert_y_check'] = self.invert_y_check.isChecked()
-        layout_properties['y_axis_mode_combo'] = self.y_axis_mode_combo.currentText()
-        layout_properties['orientation_combo'] = self.orientation_combo.currentText()
-        layout_properties['bar_mode_combo'] = self.bar_mode_combo.currentText()
-        layout_properties['hist_norm_combo'] = self.hist_norm_combo.currentText()
-        layout_properties['box_statistic_combo'] = self.box_statistic_combo.currentText()
-        layout_properties['outliers_combo'] = self.outliers_combo.currentText()
-        layout_properties['violinSideCombo'] = self.violinSideCombo.currentText()
-        layout_properties['showMeanCheck'] = self.showMeanCheck.isChecked()
-        layout_properties['cumulative_hist_check'] = self.cumulative_hist_check.isChecked()
-        layout_properties['invert_hist_check'] = self.invert_hist_check.isChecked()
-        layout_properties['bins_check'] = self.bins_check.isChecked()
+        layout_properties = {'legend': self.show_legend_check.isChecked(),
+                             'legend_orientation': 'h' if self.orientation_legend_check.isChecked() else 'v',
+                             'title': self.plot_title_line.text(),
+                             'x_title': self.x_axis_title.text(),
+                             'y_title': self.y_axis_title.text(),
+                             'z_title': self.z_axis_title.text(),
+                             'range_slider': {'visible': self.range_slider_combo.isChecked(),
+                                              'borderwidth': 1},
+                             'bar_mode': self.bar_mode_combo.currentData(),
+                             'x_type': self.x_axis_mode_combo.currentData(),
+                             'y_type': self.y_axis_mode_combo.currentData(),
+                             'x_inv': None if not self.invert_x_check.isChecked() else 'reversed',
+                             'y_inv': None if not self.invert_y_check.isChecked() else 'reversed',
+                             'bargaps': self.bar_gap.value(),
+                             'additional_info_expression': self.additional_info_combo.expression(),
+                             'bins_check': self.bins_check.isChecked()}
 
         return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties)
 
-    def set_settings(self):
+    def set_settings(self, settings: PlotSettings):
         """
         Takes a PlotSettings object and fill the widgets with the settings
         """
 
-        settings = self.get_settings()
+        self.set_plot_type(settings.plot_type)
 
         # Set the plot properties
         self.layer_combo.setLayer(settings.properties['layer_id'])
@@ -1065,7 +974,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # self.size_defined_button.setProperty(settings.properties['size_defined_button'])
         self.color_scale_data_defined_in.setCurrentText(settings.properties['color_scale_data_defined_in'])
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
-        self.color_scale_data_defined_in_invert_check.setChecked(settings.properties['color_scale_data_defined_in_invert_check'])
+        self.color_scale_data_defined_in_invert_check.setChecked(
+            settings.properties['color_scale_data_defined_in_invert_check'])
         self.out_color_combo.setColor(settings.properties['out_color_combo'])
         self.marker_width.setValue(settings.properties['marker_width'])
         self.marker_type_combo.setCurrentText(settings.properties['marker_type_combo'])
@@ -1076,32 +986,32 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.color_scale_combo.setCurrentText(settings.properties['color_scale_combo'])
         self.alpha_slid.setValue(settings.properties['alpha'])
         self.alpha_num.setValue(settings.properties['alpha'])
-        self.show_legend_check.setChecked(settings.layout['show_legend_check'])
-        self.orientation_legend_check.setChecked(settings.layout['orientation_legend_check'])
-        self.range_slider_combo.setChecked(settings.layout['range_slider_combo'])
+        self.orientation_legend_check.setChecked(settings.layout['legend_orientation'] == 'h')
+        self.range_slider_combo.setChecked(settings.layout['range_slider']['visible'])
         self.plot_title_line.setText(settings.layout['title'])
-        self.legend_title.setText(settings.layout['legend_title'])
+        self.legend_title.setText(settings.properties['name'])
         self.x_axis_title.setText(settings.layout['x_title'])
         self.y_axis_title.setText(settings.layout['y_title'])
         self.z_axis_title.setText(settings.layout['z_title'])
-        self.info_combo.setCurrentText(settings.layout['info_combo'])
-        self.additional_info_combo.setExpression(settings.layout['additional_info_combo'])
-        self.invert_x_check.setChecked(settings.layout['invert_x_check'])
-        self.x_axis_mode_combo.setCurrentText(settings.layout['x_axis_mode_combo'])
-        self.invert_y_check.setChecked(settings.layout['invert_y_check'])
-        self.y_axis_mode_combo.setCurrentText(settings.layout['y_axis_mode_combo'])
-        self.orientation_combo.setCurrentText(settings.layout['orientation_combo'])
-        self.bar_mode_combo.setCurrentText(settings.layout['bar_mode_combo'])
-        self.hist_norm_combo.setCurrentText(settings.layout['hist_norm_combo'])
-        self.box_statistic_combo.setCurrentText(settings.layout['box_statistic_combo'])
-        self.outliers_combo.setCurrentText(settings.layout['outliers_combo'])
-        self.violinSideCombo.setCurrentText(settings.layout['violinSideCombo'])
-        self.showMeanCheck.setChecked(settings.layout['showMeanCheck'])
-        self.cumulative_hist_check.setChecked(settings.layout['cumulative_hist_check'])
-        self.invert_hist_check.setChecked(settings.layout['invert_hist_check'])
+        self.info_combo.setCurrentIndex(self.info_combo.findData(settings.properties['hover_text']))
+        self.additional_info_combo.setExpression(settings.layout['additional_info_expression'])
+        self.invert_x_check.setChecked(settings.layout['x_inv'] == 'reversed')
+        self.x_axis_mode_combo.setCurrentIndex(self.x_axis_mode_combo.findData(settings.layout['x_type']))
+        self.invert_y_check.setChecked(settings.layout['y_inv'] == 'reversed')
+        self.y_axis_mode_combo.setCurrentIndex(self.y_axis_mode_combo.findData(settings.layout['y_type']))
+        self.orientation_combo.setCurrentIndex(self.orientation_combo.findData(settings.properties['box_orientation']))
+        self.bar_mode_combo.setCurrentIndex(self.bar_mode_combo.findData(settings.layout['bar_mode']))
+        self.hist_norm_combo.setCurrentIndex(self.hist_norm_combo.findData(settings.properties['normalization']))
+        self.box_statistic_combo.setCurrentIndex(self.box_statistic_combo.findData(settings.properties['box_stat']))
+        self.outliers_combo.setCurrentIndex(self.outliers_combo.findData(settings.properties['box_outliers']))
+        self.violinSideCombo.setCurrentIndex(self.violinSideCombo.findData(settings.properties['violin_side']))
+        self.showMeanCheck.setChecked(settings.properties['show_mean_line'])
+        self.cumulative_hist_check.setChecked(settings.properties['cumulative'])
+        self.invert_hist_check.setChecked(settings.properties['invert_hist'] == 'decreasing')
         self.bins_check.setChecked(settings.layout['bins_check'])
         self.bins_value.setValue(settings.properties['bins'])
         self.bar_gap.setValue(settings.layout['bargaps'])
+        self.show_legend_check.setChecked(settings.layout['legend'])
 
     def create_plot_factory(self) -> PlotFactory:
         """
@@ -1127,12 +1037,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         return plot_factory
 
     def createPlot(self):
-        '''
+        """
         call the method to effectively draw the final plot
 
         before creating the plot, it calls the method plotProperties in order
         to create the plot instance with all the properties taken from the UI
-        '''
+        """
 
         # call the method to build all the Plot plotProperties
         plot_factory = self.create_plot_factory()
@@ -1186,11 +1096,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.refreshPlotView()
 
     def UpdatePlot(self):
-        '''
+        """
         updates only the LAST plot created
         get the key of the last plot created and delete it from the plot container
         and call the method to create the plot with the updated settings
-        '''
+        """
 
         plot_to_update = (sorted(self.plot_factories.keys())[-1])
         del self.plot_factories[plot_to_update]
@@ -1198,10 +1108,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.createPlot()
 
     def refreshPlotView(self):
-        '''
+        """
         just resfresh the view, if the reload method is called immediatly after
         the view creation it won't reload the page
-        '''
+        """
 
         self.plot_url = QUrl.fromLocalFile(self.plot_path)
         self.plot_view.load(self.plot_url)
@@ -1214,10 +1124,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.raw_plot_text.setPlainText(plot_text)
 
     def clearPlotView(self):
-        '''
+        """
         clear the content of the QWebView by loading an empty url and clear the
         raw text of the QPlainTextEdit
-        '''
+        """
 
         self.plot_factories = {}
 
@@ -1231,10 +1141,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             pass
 
     def savePlotAsImage(self):
-        '''
+        """
         save the current plot view as png image.
         The user can choose the path and the file name
-        '''
+        """
         self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.png")
 
         self.plot_file = self.plot_file[0]
@@ -1258,10 +1168,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                                                 duration=4)
 
     def savePlotAsHtml(self, plot_file=None):
-        '''
+        """
         save the plot as html local file. Basically just let the user choose
         where to save the already existing html file created by plotly
-        '''
+        """
 
         try:
             self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
@@ -1277,7 +1187,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
 
     def showPlotFromDic(self, plot_input_dic):
-        '''
+        """
         Allows to call the plugin from the python console
 
         param:
@@ -1309,7 +1219,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # call the final method
         myplugin.loadPlotFromDic(dq)
-        '''
+        """
         # keys of the nested plot_prop and layout_prop have to be the SAME of
         # those created in buildProperties and buildLayout method
 
