@@ -55,6 +55,14 @@ class DataPlotlyDialogTest(unittest.TestCase):
         """
         Test setting and retrieving settings results in identical results
         """
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.geojson')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl2 = QgsVectorLayer(layer_path, 'test_layer1', 'ogr')
+        vl3 = QgsVectorLayer(layer_path, 'test_layer2', 'ogr')
+        QgsProject.instance().addMapLayers([vl1, vl2, vl3])
+
         dialog = DataPlotlyPanelWidget(None, iface=IFACE)
         settings = dialog.get_settings()
         # default should be scatter plot
@@ -72,6 +80,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['show_mean_line'] = True
         settings.properties['cumulative'] = True
         settings.properties['invert_hist'] = 'decreasing'
+        settings.properties['layer_id'] = vl3.id()
 
         settings.layout['legend'] = False
         settings.layout['legend_orientation'] = 'h'
@@ -94,9 +103,11 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
+            if k in ['x','y','z', 'additional_hover_text','featureIds']:
+                continue
+
             print(k)
             self.assertEqual(dialog2.get_settings().properties[k], settings.properties[k])
-        self.assertEqual(dialog2.get_settings().properties, settings.properties)
         for k in settings.layout.keys():
             print(k)
             self.assertEqual(dialog2.get_settings().layout[k], settings.layout[k])
@@ -113,6 +124,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for k in settings.layout.keys():
             print(k)
             self.assertEqual(dialog3.get_settings().layout[k], settings.layout[k])
+
+        QgsProject.instance().clear()
 
     def test_read_write_project(self):
         """
