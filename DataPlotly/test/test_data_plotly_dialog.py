@@ -18,7 +18,8 @@ import os
 
 from qgis.core import (
     QgsProject,
-    QgsVectorLayer
+    QgsVectorLayer,
+    QgsProperty
 )
 from qgis.PyQt.QtCore import QCoreApplication
 
@@ -84,6 +85,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['x_name'] = 'so4'
         settings.properties['y_name'] = 'ca'
         settings.properties['z_name'] = 'mg'
+        settings.properties['in_color_value'] = '100,150,180,50'
+        settings.properties['in_color_property'] = QgsProperty.fromExpression('5+6').toVariant()
 
         settings.layout['legend'] = False
         settings.layout['legend_orientation'] = 'h'
@@ -106,7 +109,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
-            if k in ['x','y','z', 'additional_hover_text','featureIds', 'featureBox', 'custom']:
+            if k in ['x','y','z', 'additional_hover_text','featureIds', 'featureBox', 'custom', 'in_color']:
                 continue
 
             print(k)
