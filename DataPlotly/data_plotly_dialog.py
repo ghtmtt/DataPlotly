@@ -917,7 +917,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'color_scale_data_defined_in': self.color_scale_data_defined_in.currentText(),
                            'color_scale_data_defined_in_check': self.color_scale_data_defined_in_check.isChecked(),
                            'color_scale_data_defined_in_invert_check': self.color_scale_data_defined_in_invert_check.isChecked(),
-                           'out_color_combo': self.out_color_combo.color(),
+                           'out_color_combo': QgsSymbolLayerUtils.encodeColor(self.out_color_combo.color()),
                            'marker_type_combo': self.marker_type_combo.currentText(),
                            'point_combo': self.point_combo.currentText(),
                            'line_combo': self.line_combo.currentText(),
@@ -984,7 +984,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
         self.color_scale_data_defined_in_invert_check.setChecked(
             settings.properties['color_scale_data_defined_in_invert_check'])
-        self.out_color_combo.setColor(settings.properties['out_color_combo'])
+        self.out_color_combo.setColor(QgsSymbolLayerUtils.decodeColor(settings.properties['out_color_combo']))
         self.marker_width.setValue(settings.properties['marker_width'])
         self.marker_type_combo.setCurrentText(settings.properties['marker_type_combo'])
         self.point_combo.setCurrentText(settings.properties['point_combo'])

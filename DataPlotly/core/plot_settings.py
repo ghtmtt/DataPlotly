@@ -22,6 +22,7 @@ class PlotSettings:
         # prepare the default dictionary with None values
         # plot properties
         plot_base_properties = {
+            'layer_id': '',
             'x': None,
             'y': None,
             'z': None,
@@ -54,7 +55,23 @@ class PlotSettings:
             'show_colorscale_legend': False,
             'invert_color_scale': False,
             'invert_hist': False,
-            'bins': None
+            'bins': 0,
+            'features_selected': False,
+            'in_color_value': '',
+            'in_color_property': None,
+            'size_property': None,
+            'color_scale_data_defined_in': 'YIOrRd',
+            'color_scale_data_defined_in_check': False,
+            'color_scale_data_defined_in_invert_check': False,
+            'out_color_combo': '',
+            'marker_type_combo': '',
+            'point_combo': '',
+            'line_combo': '',
+            'contour_type_combo': '',
+            'show_lines_check': False,
+            'alpha':1,
+            'violin_side': '',
+            'show_mean_line': False
         }
 
         # layout nested dictionary
@@ -73,8 +90,10 @@ class PlotSettings:
             'x_inv': None,
             'y_inv': None,
             'range_slider': {'visible': False},
-            'bargaps': None,
-            'polar': {'angularaxis': {'direction': 'clockwise'}}
+            'bargaps': 0,
+            'polar': {'angularaxis': {'direction': 'clockwise'}},
+            'additional_info_expression': '',
+            'bins_check': False
         }
 
         self.plot_base_dic = {
