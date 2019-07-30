@@ -955,6 +955,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties)
 
+    def set_layer_id(self, layer_id: str):
+        """
+        Sets the layer to use for plotting, by layer ID
+        """
+        layer = QgsProject.instance().mapLayer(layer_id)
+        if not layer:
+            return
+
+        self.layer_combo.setLayer(layer)
+
     def set_settings(self, settings: PlotSettings):
         """
         Takes a PlotSettings object and fill the widgets with the settings
@@ -963,7 +973,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.set_plot_type(settings.plot_type)
 
         # Set the plot properties
-        self.layer_combo.setLayer(settings.properties['layer_id'])
+        self.set_layer_id(settings.properties['layer_id'])
         self.selected_feature_check.setChecked(settings.properties['features_selected'])
         self.x_combo.setExpression(settings.properties['x_combo'])
         self.y_combo.setExpression(settings.properties['y_combo'])
