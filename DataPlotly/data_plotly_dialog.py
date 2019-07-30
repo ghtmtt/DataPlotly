@@ -57,7 +57,9 @@ from qgis.core import (
     QgsVectorLayerUtils,
     QgsFeatureRequest,
     QgsMapLayerProxyModel,
-    QgsProject
+    QgsProject,
+    QgsSymbolLayerUtils,
+    QgsProperty
 )
 from qgis.gui import QgsPanelWidget
 
@@ -915,8 +917,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'violin_side': self.violinSideCombo.currentData(),
                            'layer_id': self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None,
                            'features_selected': self.selected_feature_check.isChecked(),
-                           'in_color_combo': self.in_color_combo.color(),
-                           'in_color_defined_button': self.in_color_defined_button.toProperty(),
+                           'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
+                           'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
                            'size_defined_button': self.size_defined_button.toProperty(),
                            'color_scale_data_defined_in': self.color_scale_data_defined_in.currentText(),
                            'color_scale_data_defined_in_check': self.color_scale_data_defined_in_check.isChecked(),
@@ -975,8 +977,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])
         self.z_combo.setExpression(settings.properties['z_name'])
-        self.in_color_combo.setColor(settings.properties['in_color_combo'])
-        # self.in_color_defined_button.setProperty(settings.properties['in_color_defined_button'])
+        self.in_color_combo.setColor(QgsSymbolLayerUtils.decodeColor(settings.properties['in_color_value']))
+        color_prop = QgsProperty()
+        color_prop.loadVariant(settings.properties['in_color_property'])
+        self.in_color_defined_button.setToProperty(color_prop)
         self.marker_size.setValue(settings.properties['marker_size'])
         # self.size_defined_button.setProperty(settings.properties['size_defined_button'])
         self.color_scale_data_defined_in.setCurrentText(settings.properties['color_scale_data_defined_in'])
