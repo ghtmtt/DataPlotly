@@ -20,7 +20,7 @@ from qgis.gui import (
 
 from DataPlotly.layouts.plot_layout_item import ITEM_TYPE
 from DataPlotly.gui.gui_utils import GuiUtils
-from DataPlotly.data_plotly_dialog import DataPlotlyPanelWidget
+from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
 
 class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):

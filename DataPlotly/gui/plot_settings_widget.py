@@ -36,7 +36,6 @@ from qgis.PyQt.QtXml import QDomDocument
 
 from qgis.PyQt.QtGui import (
     QFont,
-    QIcon,
     QImage,
     QPainter,
     QColor
@@ -111,26 +110,24 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # create the reload button with text and icon
         self.reload_btn.setText("Reload")
-        self.reload_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/reload.svg')))
-        self.clear_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/clean.svg')))
-        self.update_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/refresh.svg')))
-        self.draw_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/create_plot.svg')))
+        self.reload_btn.setIcon(GuiUtils.get_icon('reload.svg'))
+        self.clear_btn.setIcon(GuiUtils.get_icon('clean.svg'))
+        self.update_btn.setIcon(GuiUtils.get_icon('refresh.svg'))
+        self.draw_btn.setIcon(GuiUtils.get_icon('create_plot.svg'))
         # connect the button to the reload function
         self.reload_btn.clicked.connect(self.reloadPlotCanvas2)
 
         # set the icon of QgspropertyOverrideButton not taken automatically
-        self.size_defined_button.setIcon(
-            QIcon(os.path.join(os.path.dirname(__file__), 'icons/mIconDataDefineExpression.svg')))
-        self.in_color_defined_button.setIcon(
-            QIcon(os.path.join(os.path.dirname(__file__), 'icons/mIconDataDefineExpression.svg')))
+        self.size_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
+        self.in_color_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
 
         # ListWidget icons and themes
         self.listWidget_icons = [
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_properties.svg')), ""),
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_custom.svg')), ""),
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_plot.svg')), ""),
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_help.svg')), ""),
-            QListWidgetItem(QIcon(os.path.join(os.path.dirname(__file__), 'icons/list_code.svg')), "")
+            QListWidgetItem(GuiUtils.get_icon('list_properties.svg'), ""),
+            QListWidgetItem(GuiUtils.get_icon('list_custom.svg'), ""),
+            QListWidgetItem(GuiUtils.get_icon('list_plot.svg'), ""),
+            QListWidgetItem(GuiUtils.get_icon('list_help.svg'), ""),
+            QListWidgetItem(GuiUtils.get_icon('list_code.svg'), "")
         ]
 
         # fill the QListWidget with items and icons
@@ -190,8 +187,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.clear_btn.clicked.connect(self.clearPlotView)
         self.save_plot_btn.clicked.connect(self.savePlotAsImage)
         self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
-        self.save_plot_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_image.svg')))
-        self.save_plot_html_btn.setIcon(QIcon(os.path.join(os.path.dirname(__file__), 'icons/save_as_html.svg')))
+        self.save_plot_btn.setIcon(GuiUtils.get_icon('save_as_image.svg'))
+        self.save_plot_html_btn.setIcon(GuiUtils.get_icon('save_as_html.svg'))
 
         # initialize the empty dictionary of plots
         self.plot_factories = {}
@@ -538,14 +535,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # Point types
         self.point_types = OrderedDict([
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/circle.svg')), 'circle'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/square.svg')), 'square'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/diamond.svg')), 'diamond'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/cross.svg')), 'cross'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/x.svg')), 'x'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/triangle.svg')), 'triangle'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/penta.svg')), 'penta'),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/star.svg')), 'star'),
+            (GuiUtils.get_icon('circle.svg'), 'circle'),
+            (GuiUtils.get_icon('square.svg'), 'square'),
+            (GuiUtils.get_icon('diamond.svg'), 'diamond'),
+            (GuiUtils.get_icon('cross.svg'), 'cross'),
+            (GuiUtils.get_icon('x.svg'), 'x'),
+            (GuiUtils.get_icon('triangle.svg'), 'triangle'),
+            (GuiUtils.get_icon('penta.svg'), 'penta'),
+            (GuiUtils.get_icon('star.svg'), 'star'),
         ])
 
         self.point_types2 = OrderedDict([
@@ -564,12 +561,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.point_combo.addItem(k, '', v)
 
         self.line_types = OrderedDict([
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/solid.png')), self.tr('Solid Line')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/dot.png')), self.tr('Dot Line')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/dash.png')), self.tr('Dash Line')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/longdash.png')), self.tr('Long Dash Line')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/dotdash.png')), self.tr('Dot Dash Line')),
-            (QIcon(os.path.join(os.path.dirname(__file__), 'icons/longdashdot.png', )), self.tr('Long Dash Dot Line')),
+            (GuiUtils.get_icon('solid.png'), self.tr('Solid Line')),
+            (GuiUtils.get_icon('dot.png'), self.tr('Dot Line')),
+            (GuiUtils.get_icon('dash.png'), self.tr('Dash Line')),
+            (GuiUtils.get_icon('longdash.png'), self.tr('Long Dash Line')),
+            (GuiUtils.get_icon('dotdash.png'), self.tr('Dot Dash Line')),
+            (GuiUtils.get_icon('longdashdot.png'), self.tr('Long Dash Dot Line')),
         ])
 
         self.line_types2 = OrderedDict([
