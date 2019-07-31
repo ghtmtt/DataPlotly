@@ -62,7 +62,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         if not self.panel:
             return
 
-        self.plot_item.plot_settings = self.panel.get_settings()
+        self.plot_item.set_plot_settings(self.panel.get_settings())
         self.panel = None
         self.plot_item.update()
 

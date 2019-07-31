@@ -29,6 +29,7 @@ from qgis.core import (
 from qgis.PyQt.QtWebKitWidgets import QWebPage
 
 from DataPlotly.core.plot_settings import PlotSettings
+from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.gui.gui_utils import GuiUtils
 
 ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
@@ -52,7 +53,6 @@ class PlotLayoutItem(QgsLayoutItem):
 
         self.web_page.loadFinished.connect(self.loading_html_finished)
         self.html_loaded = False
-        self.first_render = True
         self.html_units_to_layout_units = self.calculate_html_units_to_layout_units()
 
     def type(self):
@@ -78,6 +78,10 @@ class PlotLayoutItem(QgsLayoutItem):
         self.update()
 
     def draw(self, context):
+        if not self.html_loaded:
+            self.load_content()
+            return
+
         # almost a direct copy from QgsLayoutItemLabel!
         painter = context.renderContext().painter()
         painter.save()
@@ -87,9 +91,6 @@ class PlotLayoutItem(QgsLayoutItem):
         pen_width = self.pen().widthF() / 2.0 if self.frameEnabled() else 0
         painter_rect = QRectF(pen_width, pen_width, self.rect().width() - 2 * pen_width,
                               self.rect().height() - 2 * pen_width)
-        if self.first_render:
-            self.load_content()
-            self.first_render = False
 
         painter.scale(1.0 / self.html_units_to_layout_units / 10.0, 1.0 / self.html_units_to_layout_units / 10.0)
         self.web_page.setViewportSize(QSize(painter_rect.width() * self.html_units_to_layout_units * 10.0,
@@ -97,12 +98,17 @@ class PlotLayoutItem(QgsLayoutItem):
         self.web_page.mainFrame().render(painter)
         painter.restore()
 
+    def create_plot(self):
+        factory = PlotFactory(self.plot_settings)
+        return factory.build_html()
+
     def load_content(self):
-        test = '<p>aaaa<b>AAAA</b>aaaaaaa</p>'
         self.html_loaded = False
 
         base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
-        self.web_page.mainFrame().setHtml(test, base_url)
+        self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
+
+        return
 
         # For very basic html labels with no external assets, the html load will already be
         # complete before we even get a chance to start the QEventLoop. Make sure we check
@@ -132,6 +138,8 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def loading_html_finished(self):
         self.html_loaded = True
+        self.invalidateCache()
+        self.update()
 
 
 class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):
