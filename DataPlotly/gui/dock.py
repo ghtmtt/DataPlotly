@@ -14,7 +14,10 @@ from qgis.gui import (
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
 
-class DataPlotlyDock(QgsDockWidget):
+class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
+    """
+    Plot settings dock widget
+    """
 
     def __init__(self, parent=None):
         super().__init__(parent)

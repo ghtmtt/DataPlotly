@@ -24,6 +24,9 @@ from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
 
 class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
+    """
+    Configuration widget for layout plot items
+    """
 
     def __init__(self, parent, layout_object):
         super().__init__(parent, layout_object)
@@ -43,6 +46,9 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.setLayout(vl)
 
     def show_properties(self):
+        """
+        Shows the plot properties panel
+        """
         self.panel = DataPlotlyPanelWidget()
         self.panel.set_settings(self.plot_item.plot_settings)
         # self.panel.set_settings(self.layoutItem().plot_settings)
@@ -50,6 +56,9 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.panel.panelAccepted.connect(self.set_item_settings)
 
     def set_item_settings(self):
+        """
+        Updates the plot item based on the settings from the properties panel
+        """
         if not self.panel:
             return
 
@@ -57,7 +66,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.panel = None
         self.plot_item.update()
 
-    def setNewItem(self, item):
+    def setNewItem(self, item):  # pylint: disable=missing-docstring
         if item.type() != ITEM_TYPE:
             return False
 
@@ -71,12 +80,15 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
 
 class PlotLayoutItemGuiMetadata(QgsLayoutItemAbstractGuiMetadata):
+    """
+    Metadata for plot item GUI classes
+    """
 
     def __init__(self):
         super().__init__(ITEM_TYPE, QCoreApplication.translate('DataPlotly', 'Plot Item'))
 
-    def creationIcon(self):
+    def creationIcon(self):  # pylint: disable=missing-docstring, no-self-use
         return GuiUtils.get_icon('dataplotly.svg')
 
-    def createItemWidget(self, item):
+    def createItemWidget(self, item):  # pylint: disable=missing-docstring, no-self-use
         return PlotLayoutItemWidget(None, item)
