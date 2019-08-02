@@ -55,6 +55,8 @@ class PlotLayoutItem(QgsLayoutItem):
         self.html_loaded = False
         self.html_units_to_layout_units = self.calculate_html_units_to_layout_units()
 
+        self.sizePositionChanged.connect(self.load_content)
+
     def type(self):
         return ITEM_TYPE
 
@@ -65,9 +67,10 @@ class PlotLayoutItem(QgsLayoutItem):
         if not self.layout():
             return 1
 
-        # webkit seems to assume a standard dpi of 72
-        return self.layout().convertToLayoutUnits(
-            QgsLayoutMeasurement(self.layout().renderContext().dpi() / 72.0, QgsUnitTypes.LayoutMillimeters))
+        # Hm - why is this? Something internal in Plotly which is auto-scaling the html content?
+        # we may need to expose this as a "scaling" setting
+        
+        return 72
 
     def set_plot_settings(self, settings):
         """
@@ -75,26 +78,19 @@ class PlotLayoutItem(QgsLayoutItem):
         """
         self.plot_settings = settings
         self.html_loaded = False
-        self.update()
+        self.invalidateCache()
 
     def draw(self, context):
         if not self.html_loaded:
             self.load_content()
-            return
 
         # almost a direct copy from QgsLayoutItemLabel!
         painter = context.renderContext().painter()
         painter.save()
 
         # painter is scaled to dots, so scale back to layout units
-        painter.scale(context.renderContext().scaleFactor(), context.renderContext().scaleFactor())
-        pen_width = self.pen().widthF() / 2.0 if self.frameEnabled() else 0
-        painter_rect = QRectF(pen_width, pen_width, self.rect().width() - 2 * pen_width,
-                              self.rect().height() - 2 * pen_width)
-
-        painter.scale(1.0 / self.html_units_to_layout_units / 10.0, 1.0 / self.html_units_to_layout_units / 10.0)
-        self.web_page.setViewportSize(QSize(painter_rect.width() * self.html_units_to_layout_units * 10.0,
-                                            painter_rect.height() * self.html_units_to_layout_units * 10.0))
+        painter.scale(context.renderContext().scaleFactor() / self.html_units_to_layout_units,
+                      context.renderContext().scaleFactor() / self.html_units_to_layout_units)
         self.web_page.mainFrame().render(painter)
         painter.restore()
 
@@ -104,42 +100,25 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def load_content(self):
         self.html_loaded = False
-
         base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
+        print(self.rect().width() * self.html_units_to_layout_units)
+        self.web_page.setViewportSize(QSize(self.rect().width() * self.html_units_to_layout_units,
+                                            self.rect().height() * self.html_units_to_layout_units))
         self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
-
-        return
-
-        # For very basic html labels with no external assets, the html load will already be
-        # complete before we even get a chance to start the QEventLoop. Make sure we check
-        # this before starting the loop
-        if not self.html_loaded:
-            # Setup event loop and timeout for rendering html
-            loop = QEventLoop()
-
-            # Connect timeout and webpage loadFinished signals to loop
-            self.web_page.loadFinished.connect(loop.quit)
-
-            # Start a 20 second timeout in case html loading will never complete
-            timeout_timer = QTimer()
-            timeout_timer.setSingleShot(True)
-            timeout_timer.timeout.connect(loop.quit)
-            timeout_timer.start(20000)
-
-            # Pause until html is loaded
-            loop.exec(QEventLoop.ExcludeUserInputEvents)
 
     def writePropertiesToElement(self, element, document, _):
         element.appendChild(self.plot_settings.write_xml(document))
         return True
 
     def readPropertiesFromElement(self, element, document, context):
-        return self.plot_settings.read_xml(element.firstChildElement('Option'))
+        res = self.plot_settings.read_xml(element.firstChildElement('Option'))
+        self.html_loaded = False
+        self.invalidateCache()
+        return res
 
     def loading_html_finished(self):
         self.html_loaded = True
         self.invalidateCache()
-        self.update()
 
 
 class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):
