@@ -80,7 +80,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.menu = None
         self.toolbar = None
 
-        QgsApplication.layoutItemRegistry().addLayoutItemType(PlotLayoutItemMetadata())
+        self.plot_item_metadata = PlotLayoutItemMetadata()
+        QgsApplication.layoutItemRegistry().addLayoutItemType(self.plot_item_metadata)
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):  # pylint: disable=no-self-use

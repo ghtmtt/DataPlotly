@@ -101,7 +101,6 @@ class PlotLayoutItem(QgsLayoutItem):
     def load_content(self):
         self.html_loaded = False
         base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
-        print(self.rect().width() * self.html_units_to_layout_units)
         self.web_page.setViewportSize(QSize(self.rect().width() * self.html_units_to_layout_units,
                                             self.rect().height() * self.html_units_to_layout_units))
         self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
