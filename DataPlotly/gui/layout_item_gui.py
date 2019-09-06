@@ -35,7 +35,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         vl = QVBoxLayout()
         vl.setContentsMargins(0, 0, 0, 0)
 
-        self.plot_properties_button = QPushButton(self.tr('Plot Properties'))
+        self.plot_properties_button = QPushButton(self.tr('Setup Plot'))
         vl.addWidget(self.plot_properties_button)
         self.plot_properties_button.clicked.connect(self.show_properties)
 
@@ -49,11 +49,22 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         """
         Shows the plot properties panel
         """
-        self.panel = DataPlotlyPanelWidget()
+        self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT)
         self.panel.set_settings(self.plot_item.plot_settings)
         # self.panel.set_settings(self.layoutItem().plot_settings)
         self.openPanel(self.panel)
+        self.panel.widgetChanged.connect(self.update_item_settings)
         self.panel.panelAccepted.connect(self.set_item_settings)
+
+    def update_item_settings(self):
+        """
+        Updates the plot item without dismissing the properties panel
+        """
+        if not self.panel:
+            return
+
+        self.plot_item.set_plot_settings(self.panel.get_settings())
+        self.plot_item.update()
 
     def set_item_settings(self):
         """

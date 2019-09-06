@@ -80,10 +80,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
     Main configuration panel widget for plot settings
     """
 
+    MODE_CANVAS = 'CANVAS'
+    MODE_LAYOUT = 'LAYOUT'
+
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
 
-    def __init__(self, parent=None, iface=None):  # pylint: disable=too-many-statements
+    def __init__(self, mode=MODE_CANVAS, parent=None, iface=None):  # pylint: disable=too-many-statements
         """Constructor."""
         super().__init__(parent)
         self.setupUi(self)
@@ -92,6 +95,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.iface = iface
         else:
             self.iface = iface
+
+        self.mode = mode
 
         self.setPanelTitle(self.tr('Plot Properties'))
 
@@ -125,10 +130,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.listWidget_icons = [
             QListWidgetItem(GuiUtils.get_icon('list_properties.svg'), ""),
             QListWidgetItem(GuiUtils.get_icon('list_custom.svg'), ""),
-            QListWidgetItem(GuiUtils.get_icon('list_plot.svg'), ""),
-            QListWidgetItem(GuiUtils.get_icon('list_help.svg'), ""),
-            QListWidgetItem(GuiUtils.get_icon('list_code.svg'), "")
         ]
+
+        if self.mode == DataPlotlyPanelWidget.MODE_CANVAS:
+            self.listWidget_icons.extend([
+                QListWidgetItem(GuiUtils.get_icon('list_plot.svg'), ""),
+                QListWidgetItem(GuiUtils.get_icon('list_help.svg'), ""),
+                QListWidgetItem(GuiUtils.get_icon('list_code.svg'), "")
+            ])
 
         # fill the QListWidget with items and icons
         for i in self.listWidget_icons:
@@ -243,6 +252,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.plot_path = None
         self.plot_url = None
         self.plot_file = None
+
+        if self.mode == DataPlotlyPanelWidget.MODE_LAYOUT:
+            self.update_btn.setEnabled(True)
+            # hide for now
+            self.draw_btn.setVisible(False)
+            self.clear_btn.setVisible(False)
+            self.subcombo.setVisible(False)
 
     def updateStacked(self, row):
         """
@@ -1106,11 +1122,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         get the key of the last plot created and delete it from the plot container
         and call the method to create the plot with the updated settings
         """
+        if self.mode == DataPlotlyPanelWidget.MODE_CANVAS:
+            plot_to_update = (sorted(self.plot_factories.keys())[-1])
+            del self.plot_factories[plot_to_update]
 
-        plot_to_update = (sorted(self.plot_factories.keys())[-1])
-        del self.plot_factories[plot_to_update]
-
-        self.createPlot()
+            self.createPlot()
+        else:
+            self.widgetChanged.emit()
 
     def refreshPlotView(self):
         """
@@ -1140,8 +1158,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.plot_view.load(QUrl(''))
             self.layoutw.addWidget(self.plot_view)
             self.raw_plot_text.clear()
-            # disable the Update Plot Button
-            self.update_btn.setEnabled(False)
+            if self.mode == DataPlotlyPanelWidget.MODE_CANVAS:
+                # disable the Update Plot Button
+                self.update_btn.setEnabled(False)
         except:  # pylint: disable=bare-except  # noqa: F401
             pass
 
