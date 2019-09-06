@@ -259,6 +259,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.draw_btn.setVisible(False)
             self.clear_btn.setVisible(False)
             self.subcombo.setVisible(False)
+            self.subcombo_label.setVisible(False)
 
     def updateStacked(self, row):
         """
