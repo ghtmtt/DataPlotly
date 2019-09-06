@@ -119,6 +119,13 @@ class PlotLayoutItem(QgsLayoutItem):
         self.html_loaded = True
         self.invalidateCache()
 
+    def refresh(self):
+        super().refresh()
+        self.html_loaded = False
+        self.invalidateCache()
+
+
+
 
 class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):
 
