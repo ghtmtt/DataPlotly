@@ -42,9 +42,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
     # create fixed class variables as paths for local javascript files
     POLY_FILL_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
-    print(POLY_FILL_PATH)
     PLOTLY_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js'))).toString()
-    print(PLOTLY_PATH)
 
     PLOT_TYPES = {
         t.type_name(): t for t in PlotType.__subclasses__()
