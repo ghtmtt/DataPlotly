@@ -16,6 +16,7 @@ import plotly
 import plotly.graph_objs as go
 from plotly import tools
 
+from qgis.PyQt.QtCore import QUrl
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
@@ -40,12 +41,8 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
     """
 
     # create fixed class variables as paths for local javascript files
-    POLY_FILL_PATH = os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js')
-    PLOTLY_PATH = os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js')
-
-    if platform.system() == 'Windows':
-        POLY_FILL_PATH = 'file:///{}'.format(POLY_FILL_PATH)
-        PLOTLY_PATH = 'file:///{}'.format(PLOTLY_PATH)
+    POLY_FILL_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js')))
+    PLOTLY_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js')))
 
     PLOT_TYPES = {
         t.type_name(): t for t in PlotType.__subclasses__()
