@@ -24,7 +24,7 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QCoreApplication
 
 from DataPlotly.core.plot_settings import PlotSettings
-from DataPlotly.data_plotly_dialog import DataPlotlyPanelWidget
+from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
 from DataPlotly.test.utilities import get_qgis_app
 

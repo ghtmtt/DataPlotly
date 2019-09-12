@@ -7,15 +7,42 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import (
+    Qt,
+    QCoreApplication,
+    QRectF,
+    QSize,
+    QUrl,
+    QEventLoop,
+    QTimer
+)
+from qgis.PyQt.QtGui import QPalette
+
 from qgis.core import (
     QgsLayoutItem,
     QgsLayoutItemRegistry,
-    QgsLayoutItemAbstractMetadata
+    QgsLayoutItemAbstractMetadata,
+    QgsNetworkAccessManager,
+    QgsLayoutMeasurement,
+    QgsUnitTypes,
+    QgsMessageLog
 )
+from qgis.PyQt.QtWebKitWidgets import QWebPage
+
 from DataPlotly.core.plot_settings import PlotSettings
+from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.gui.gui_utils import GuiUtils
+
 ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
+
+
+class LoggingWebPage(QWebPage):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def javaScriptConsoleMessage(self, message, lineNumber, source):
+        QgsMessageLog.logMessage('{}:{} {}'.format(source, lineNumber, message), 'DataPlotly')
 
 
 class PlotLayoutItem(QgsLayoutItem):
@@ -23,6 +50,22 @@ class PlotLayoutItem(QgsLayoutItem):
     def __init__(self, layout):
         super().__init__(layout)
         self.plot_settings = PlotSettings()
+        self.web_page = LoggingWebPage(self)
+        self.web_page.setNetworkAccessManager(QgsNetworkAccessManager.instance())
+
+        # This makes the background transparent. (copied from QgsLayoutItemLabel)
+        palette = self.web_page.palette()
+        palette.setBrush(QPalette.Base, Qt.transparent)
+        self.web_page.setPalette(palette)
+        self.web_page.mainFrame().setZoomFactor(10.0)
+        self.web_page.mainFrame().setScrollBarPolicy(Qt.Horizontal, Qt.ScrollBarAlwaysOff)
+        self.web_page.mainFrame().setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff)
+
+        self.web_page.loadFinished.connect(self.loading_html_finished)
+        self.html_loaded = False
+        self.html_units_to_layout_units = self.calculate_html_units_to_layout_units()
+
+        self.sizePositionChanged.connect(self.load_content)
 
     def type(self):
         return ITEM_TYPE
@@ -30,15 +73,68 @@ class PlotLayoutItem(QgsLayoutItem):
     def icon(self):
         return GuiUtils.get_icon('dataplotly.svg')
 
+    def calculate_html_units_to_layout_units(self):
+        if not self.layout():
+            return 1
+
+        # Hm - why is this? Something internal in Plotly which is auto-scaling the html content?
+        # we may need to expose this as a "scaling" setting
+
+        return 72
+
+    def set_plot_settings(self, settings):
+        """
+        Sets the plot settings to show in the item
+        """
+        self.plot_settings = settings
+        self.html_loaded = False
+        self.invalidateCache()
+
     def draw(self, context):
-        pass
+        if not self.html_loaded:
+            self.load_content()
+
+        # almost a direct copy from QgsLayoutItemLabel!
+        painter = context.renderContext().painter()
+        painter.save()
+
+        # painter is scaled to dots, so scale back to layout units
+        painter.scale(context.renderContext().scaleFactor() / self.html_units_to_layout_units,
+                      context.renderContext().scaleFactor() / self.html_units_to_layout_units)
+        self.web_page.mainFrame().render(painter)
+        painter.restore()
+
+    def create_plot(self):
+        factory = PlotFactory(self.plot_settings)
+        return factory.build_html()
+
+    def load_content(self):
+        self.html_loaded = False
+        base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
+        self.web_page.setViewportSize(QSize(self.rect().width() * self.html_units_to_layout_units,
+                                            self.rect().height() * self.html_units_to_layout_units))
+        self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
 
     def writePropertiesToElement(self, element, document, _):
         element.appendChild(self.plot_settings.write_xml(document))
         return True
 
     def readPropertiesFromElement(self, element, document, context):
-        return self.plot_settings.read_xml(element.firstChildElement('Option'))
+        res = self.plot_settings.read_xml(element.firstChildElement('Option'))
+        self.html_loaded = False
+        self.invalidateCache()
+        return res
+
+    def loading_html_finished(self):
+        self.html_loaded = True
+        self.invalidateCache()
+
+    def refresh(self):
+        super().refresh()
+        self.html_loaded = False
+        self.invalidateCache()
+
+
 
 
 class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):
