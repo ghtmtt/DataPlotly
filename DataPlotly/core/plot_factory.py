@@ -10,7 +10,6 @@ the Free Software Foundation; either version 2 of the License, or
 
 import tempfile
 import os
-import platform
 import re
 import plotly
 import plotly.graph_objs as go
