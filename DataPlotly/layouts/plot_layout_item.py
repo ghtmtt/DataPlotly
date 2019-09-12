@@ -106,7 +106,8 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def create_plot(self):
         factory = PlotFactory(self.plot_settings)
-        return factory.build_html()
+        config = { 'displayModeBar': False, 'staticPlot': True }
+        return factory.build_html(config)
 
     def load_content(self):
         self.html_loaded = False
