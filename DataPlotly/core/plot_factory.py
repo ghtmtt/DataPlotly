@@ -232,7 +232,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         return js_str
 
-    def build_html(self) -> str:
+    def build_html(self, config) -> str:
         """
         Creates the HTML for the plot
 
@@ -243,6 +243,14 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         This method is directly usable after the plot object has been created and
         the 2 methods (buildTrace and buildLayout) have been called
+
+        params:
+            config (dict): config = {'scrollZoom': True, 'editable': False}
+
+        config argument is necessary to specify which buttons should appear in
+        the plotly toolbar, if the user can edit the plot inline, etc.
+        With this parameter is possible to hide the toolbar only in print layouts
+        and not in the normal plot canvas.
 
         :return: the final html content representing the plot
 
@@ -261,7 +269,6 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
                         '</script><script src="{}"></script></head>'.format(
             self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # set some configurations
-        config = {'scrollZoom': True, 'editable': True}
         # call the plot method without all the javascript code
         raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False,
                                              config=config)
@@ -298,9 +305,14 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         """
 
         self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
+        config = {
+            'scrollZoom': True,
+            'editable': True,
+            'modeBarButtonsToRemove': ['toImage', 'sendDataToCloud', 'editInChartStudio']
+        }
 
         with open(self.plot_path, "w") as f:
-            f.write(self.build_html())
+            f.write(self.build_html(config))
 
         return self.plot_path
 
