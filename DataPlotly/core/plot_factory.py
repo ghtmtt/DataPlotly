@@ -41,8 +41,10 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
     """
 
     # create fixed class variables as paths for local javascript files
-    POLY_FILL_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js')))
-    PLOTLY_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js')))
+    POLY_FILL_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
+    print(POLY_FILL_PATH)
+    PLOTLY_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js'))).toString()
+    print(PLOTLY_PATH)
 
     PLOT_TYPES = {
         t.type_name(): t for t in PlotType.__subclasses__()
@@ -258,7 +260,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         # first lines of additional html with the link to the local javascript
         raw_plot = '<head><meta charset="utf-8" /><script src="{}">' \
-                        '</script><script src="{}"></script><script> console.log(\'test\');</script></head>'.format(
+                        '</script><script src="{}"></script></head>'.format(
             self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # set some configurations
         config = {'scrollZoom': True, 'editable': True}
