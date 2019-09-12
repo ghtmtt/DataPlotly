@@ -261,7 +261,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         # first lines of additional html with the link to the local javascript
         raw_plot = '<head><meta charset="utf-8" /><script src="{}">' \
-                        '</script><script src="{}"></script></head>'.format(
+                        '</script><script src="{}"></script><script> console.log(\'test\');</script></head>'.format(
             self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # set some configurations
         config = {'scrollZoom': True, 'editable': True}

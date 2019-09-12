@@ -24,7 +24,8 @@ from qgis.core import (
     QgsLayoutItemAbstractMetadata,
     QgsNetworkAccessManager,
     QgsLayoutMeasurement,
-    QgsUnitTypes
+    QgsUnitTypes,
+    QgsMessageLog
 )
 from qgis.PyQt.QtWebKitWidgets import QWebPage
 
@@ -35,12 +36,21 @@ from DataPlotly.gui.gui_utils import GuiUtils
 ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
 
 
+class LoggingWebPage(QWebPage):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def javaScriptConsoleMessage(self, message, lineNumber, source):
+        QgsMessageLog.logMessage('{}:{} {}'.format(source, lineNumber, message), 'DataPlotly')
+
+
 class PlotLayoutItem(QgsLayoutItem):
 
     def __init__(self, layout):
         super().__init__(layout)
         self.plot_settings = PlotSettings()
-        self.web_page = QWebPage(self)
+        self.web_page = LoggingWebPage(self)
         self.web_page.setNetworkAccessManager(QgsNetworkAccessManager.instance())
 
         # This makes the background transparent. (copied from QgsLayoutItemLabel)
@@ -69,7 +79,7 @@ class PlotLayoutItem(QgsLayoutItem):
 
         # Hm - why is this? Something internal in Plotly which is auto-scaling the html content?
         # we may need to expose this as a "scaling" setting
-        
+
         return 72
 
     def set_plot_settings(self, settings):
