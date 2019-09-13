@@ -948,7 +948,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.set_plot_type(settings.plot_type)
 
         # Set the plot properties
-        self.set_layer_id(settings.properties['layer_id'])
+        self.set_layer_id(settings.source_layer_id)
         self.selected_feature_check.setChecked(settings.properties.get('selected_features_only', False))
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])
