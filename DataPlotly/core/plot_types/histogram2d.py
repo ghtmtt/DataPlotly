@@ -34,7 +34,7 @@ class Histogram2dFactory(PlotType):
     @staticmethod
     def create_trace(settings):
         return [graph_objs.Histogram2d(
-                x=settings.properties['x'],
-                y=settings.properties['y'],
+                x=settings.x,
+                y=settings.y,
                 colorscale=settings.properties['color_scale']
             )]

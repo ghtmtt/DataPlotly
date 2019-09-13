@@ -15,11 +15,15 @@ import plotly
 import plotly.graph_objs as go
 from plotly import tools
 
+from qgis.core import QgsProject, QgsVectorLayerUtils
 from qgis.PyQt.QtCore import QUrl
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
-
+from DataPlotly.utils import (
+    cleanData,
+    getIds
+)
 
 class PlotFactory:  # pylint:disable=too-many-instance-attributes
     """
@@ -54,6 +58,27 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         self.settings = settings
         self.raw_plot = None
         self.plot_path = None
+
+        if len(settings.x) == 0 and settings.source_layer_id:
+            # not using hardcoded values, collect values now
+            source_layer = QgsProject.instance().mapLayer(settings.source_layer_id)
+            if source_layer:
+                # todo - fix for single layer iteration instead
+                selected_features_only = settings.properties['selected_features_only']
+                xx = QgsVectorLayerUtils.getValues(source_layer, settings.properties['x_name'],
+                                                   selectedOnly=settings.properties['selected_features_only'])[0]
+                yy = QgsVectorLayerUtils.getValues(source_layer, settings.properties['y_name'],
+                                                   selectedOnly=selected_features_only)[0]
+                zz = QgsVectorLayerUtils.getValues(source_layer, settings.properties['z_name'],
+                                                   selectedOnly=selected_features_only)[0]
+                settings.feature_ids = getIds(source_layer, selected_features_only)
+                settings.additional_hover_text = QgsVectorLayerUtils.getValues(
+                    source_layer,
+                    settings.layout['additional_info_expression'],
+                    selectedOnly=selected_features_only)[0]
+
+                # call the function that will clean the data from NULL values
+                settings.x, settings.y, settings.z, = cleanData(xx, yy, zz)
 
         self.trace = self._build_trace()
         self.layout = self._build_layout()

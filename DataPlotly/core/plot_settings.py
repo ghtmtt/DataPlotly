@@ -20,18 +20,13 @@ class PlotSettings:
     methods for serializing and deserializing these settings.
     """
 
-    def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None):
+    def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
+                 source_layer_id = None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
         # plot properties
         plot_base_properties = {
-            'layer_id': None,
-            'x': None,
-            'y': None,
-            'z': None,
             'marker': 'markers',
-            'featureIds': None,
-            'featureBox': None,
             'custom': None,
             'hover_text': None,
             'additional_hover_text': None,
@@ -59,7 +54,7 @@ class PlotSettings:
             'invert_color_scale': False,
             'invert_hist': 'increasing',
             'bins': 0,
-            'features_selected': False,
+            'selected_features_only': False,
             'in_color_value': '0,0,0,255',
             'in_color_property': QgsProperty().toVariant(),
             'size_property': QgsProperty().toVariant(),
@@ -119,6 +114,13 @@ class PlotSettings:
 
         self.plot_type = plot_type
 
+        self.x = []
+        self.y = []
+        self.z = []
+        self.feature_ids = []
+        self.additional_hover_text = []
+        self.source_layer_id = source_layer_id
+
     def write_xml(self, document: QDomDocument):
         """
         Writes the plot settings to an XML element
@@ -126,7 +128,8 @@ class PlotSettings:
         element = QgsXmlUtils.writeVariant({
             'plot_type': self.plot_type,
             'plot_properties': self.properties,
-            'plot_layout': self.layout
+            'plot_layout': self.layout,
+            'source_layer_id': self.source_layer_id
         }, document)
         return element
 
@@ -144,6 +147,7 @@ class PlotSettings:
         self.plot_type = res['plot_type']
         self.properties = res['plot_properties']
         self.layout = res['plot_layout']
+        self.source_layer_id = res.get('source_layer_id', None)
 
         return True
 

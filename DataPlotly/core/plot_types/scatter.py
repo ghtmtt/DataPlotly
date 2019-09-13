@@ -34,13 +34,13 @@ class ScatterPlotFactory(PlotType):
     @staticmethod
     def create_trace(settings):
         return [graph_objs.Scatter(
-            x=settings.properties['x'],
-            y=settings.properties['y'],
+            x=settings.x,
+            y=settings.y,
             mode=settings.properties['marker'],
             name=settings.properties['name'],
-            ids=settings.properties['featureIds'],
+            ids=settings.feature_ids,
             customdata=settings.properties['custom'],
-            text=settings.properties['additional_hover_text'],
+            text=settings.additional_hover_text,
             hoverinfo=settings.properties['hover_text'],
             marker={'color': settings.properties['in_color'],
                     'colorscale': settings.properties['colorscale_in'],

@@ -227,7 +227,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
                 QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxX]))]
             fieldTypeX = fields[idxX].type()
             x_title = fields[idxX].alias() or xfieldname
-            properties['x'] = x_var
+            properties.x = x_var
 
         # Add Y dimension
         y_title = ''
@@ -238,7 +238,7 @@ class DataPlotlyProcessingPlot(QgisAlgorithm):
             y_var = [i[yfieldname] for i in layer.getFeatures(
                 QgsFeatureRequest().setFlags(QgsFeatureRequest.NoGeometry).setSubsetOfAttributes([idxY]))]
             y_title = fields[idxY].alias() or yfieldname
-            properties['y'] = y_var
+            properties.y = y_var
 
         # Draw only markers for scatter plot
         if plot_type in ['scatter', 'polar']:

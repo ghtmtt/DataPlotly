@@ -34,8 +34,8 @@ class HistogramFactory(PlotType):
     @staticmethod
     def create_trace(settings):
         return [graph_objs.Histogram(
-                x=settings.properties['x'],
-                y=settings.properties['x'],
+                x=settings.x,
+                y=settings.x,
                 name=settings.properties['name'],
                 orientation=settings.properties['box_orientation'],
                 nbinsx=settings.properties['bins'],
