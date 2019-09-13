@@ -101,7 +101,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['show_mean_line'] = True
         settings.properties['cumulative'] = True
         settings.properties['invert_hist'] = 'decreasing'
-        settings.properties['layer_id'] = vl3.id()
+        settings.source_layer_id = vl3.id()
         settings.properties['x_name'] = 'so4'
         settings.properties['y_name'] = 'ca'
         settings.properties['z_name'] = 'mg'
@@ -143,6 +143,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for k in settings.layout.keys():
             print(k)
             self.assertEqual(dialog2.get_settings().layout[k], settings.layout[k])
+        self.assertEqual(dialog2.get_settings().source_layer_id, vl3.id())
 
         settings = dialog.get_settings()
         dialog3 = DataPlotlyPanelWidget(None, iface=IFACE)
