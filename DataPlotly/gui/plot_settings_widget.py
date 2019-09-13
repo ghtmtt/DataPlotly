@@ -63,8 +63,7 @@ from qgis.core import (
 from qgis.gui import QgsPanelWidget
 
 from DataPlotly.utils import (
-    hex_to_rgb,
-    getSortedId
+    hex_to_rgb
 )
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
@@ -928,7 +927,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'bins_check': self.bins_check.isChecked()}
 
         return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
-                           source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None)
+                            source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None)
 
     def set_layer_id(self, layer_id: str):
         """

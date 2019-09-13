@@ -14,6 +14,7 @@ from qgis.PyQt.QtGui import QIcon
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.utils import getSortedId
 
+
 class BarPlotFactory(PlotType):
     """
     Factory for bar plots

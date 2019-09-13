@@ -14,14 +14,14 @@ from qgis.core import (
 )
 
 
-class PlotSettings:
+class PlotSettings:  # pylint: disable=too-many-instance-attributes
     """
     The PlotSettings class encapsulates all settings relating to a plot, and contains
     methods for serializing and deserializing these settings.
     """
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
-                 source_layer_id = None):
+                 source_layer_id=None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
         # plot properties

@@ -25,6 +25,7 @@ from DataPlotly.utils import (
     getIds
 )
 
+
 class PlotFactory:  # pylint:disable=too-many-instance-attributes
     """
     Plot factory which creates Plotly Plot objects
@@ -44,8 +45,10 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
     """
 
     # create fixed class variables as paths for local javascript files
-    POLY_FILL_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
-    PLOTLY_PATH = QUrl.fromLocalFile(os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js'))).toString()
+    POLY_FILL_PATH = QUrl.fromLocalFile(
+        os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
+    PLOTLY_PATH = QUrl.fromLocalFile(
+        os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js'))).toString()
 
     PLOT_TYPES = {
         t.type_name(): t for t in PlotType.__subclasses__()
@@ -59,7 +62,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         self.raw_plot = None
         self.plot_path = None
 
-        if len(settings.x) == 0 and settings.source_layer_id:
+        if not settings.x and settings.source_layer_id:
             # not using hardcoded values, collect values now
             source_layer = QgsProject.instance().mapLayer(settings.source_layer_id)
             if source_layer:
@@ -290,12 +293,12 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         # first lines of additional html with the link to the local javascript
         raw_plot = '<head><meta charset="utf-8" /><script src="{}">' \
-                        '</script><script src="{}"></script></head>'.format(
+                   '</script><script src="{}"></script></head>'.format(
             self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # set some configurations
         # call the plot method without all the javascript code
         raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False,
-                                             config=config)
+                                        config=config)
         # insert callback for javascript events
         raw_plot += self.js_callback(raw_plot)
 
