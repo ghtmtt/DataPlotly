@@ -17,6 +17,7 @@ from qgis.PyQt.QtCore import (
     QTimer
 )
 from qgis.PyQt.QtGui import QPalette
+from qgis.PyQt.QtWidgets import QGraphicsItem
 
 from qgis.core import (
     QgsLayoutItem,
@@ -49,6 +50,7 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def __init__(self, layout):
         super().__init__(layout)
+        self.setCacheMode(QGraphicsItem.NoCache)
         self.plot_settings = PlotSettings()
         self.web_page = LoggingWebPage(self)
         self.web_page.setNetworkAccessManager(QgsNetworkAccessManager.instance())
@@ -65,7 +67,7 @@ class PlotLayoutItem(QgsLayoutItem):
         self.html_loaded = False
         self.html_units_to_layout_units = self.calculate_html_units_to_layout_units()
 
-        self.sizePositionChanged.connect(self.load_content)
+        self.sizePositionChanged.connect(self.refresh)
 
     def type(self):
         return ITEM_TYPE
@@ -129,6 +131,7 @@ class PlotLayoutItem(QgsLayoutItem):
     def loading_html_finished(self):
         self.html_loaded = True
         self.invalidateCache()
+        self.update()
 
     def refresh(self):
         super().refresh()
