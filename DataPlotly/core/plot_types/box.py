@@ -36,11 +36,11 @@ class BoxPlotFactory(PlotType):
         # flip the variables according to the box orientation
 
         if settings.properties['box_orientation'] == 'h':
-            y = settings.properties['x']
-            x = settings.properties['y']
+            y = settings.x
+            x = settings.y
         else:
-            x = settings.properties['x']
-            y = settings.properties['y']
+            x = settings.x
+            y = settings.y
 
         return [graph_objs.Box(
             x=x,

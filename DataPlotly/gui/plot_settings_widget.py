@@ -64,8 +64,6 @@ from qgis.gui import QgsPanelWidget
 
 from DataPlotly.utils import (
     hex_to_rgb,
-    cleanData,
-    getIds,
     getSortedId
 )
 from DataPlotly.core.plot_factory import PlotFactory
@@ -861,41 +859,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # get the plot type from the combo box
         self.ptype = self.plot_combo.currentData()
 
-        # shortcut to shorten the code in the following dictionary
-        if self.layer_combo.currentLayer():
-            xx = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.x_combo.currentText(),
-                                               selectedOnly=self.selected_feature_check.isChecked())[0]
-            yy = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.y_combo.currentText(),
-                                               selectedOnly=self.selected_feature_check.isChecked())[0]
-            zz = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), self.z_combo.currentText(),
-                                               selectedOnly=self.selected_feature_check.isChecked())[0]
-            feature_ids = getIds(self.layer_combo.currentLayer(), self.selected_feature_check.isChecked())
-            additional_hover_text = QgsVectorLayerUtils.getValues(
-                self.layer_combo.currentLayer(),
-                self.additional_info_combo.currentText(),
-                selectedOnly=self.selected_feature_check.isChecked())[0]
-        else:
-            xx = []
-            yy = []
-            zz = []
-            feature_ids = []
-            additional_hover_text = []
-
-        # call the function that will clean the data from NULL values
-        xx, yy, zz, = cleanData(xx, yy, zz)
-
         # if colorscale should be visible or not
         color_scale_visible = self.color_scale_data_defined_in_check.isVisible() and self.color_scale_data_defined_in_check.isChecked()
 
         # dictionary of all the plot properties
-        plot_properties = {'x': xx,
-                           'y': yy,
-                           'z': zz,
-                           'featureIds': feature_ids,
-                           'featureBox': getSortedId(self.layer_combo.currentLayer(), xx),
-                           'custom': [self.x_combo.currentText()],
+        plot_properties = {'custom': [self.x_combo.currentText()],
                            'hover_text': self.info_combo.currentData(),
-                           'additional_hover_text': additional_hover_text,
                            'x_name': self.x_combo.currentText(),
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
@@ -923,8 +892,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'bins': self.bins_value.value(),
                            'show_mean_line': self.showMeanCheck.isChecked(),
                            'violin_side': self.violinSideCombo.currentData(),
-                           'layer_id': self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None,
-                           'features_selected': self.selected_feature_check.isChecked(),
+                           'selected_features_only': self.selected_feature_check.isChecked(),
                            'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
                            'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
                            'size_property': self.size_defined_button.toProperty().toVariant(),
@@ -959,7 +927,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'additional_info_expression': self.additional_info_combo.expression(),
                              'bins_check': self.bins_check.isChecked()}
 
-        return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties)
+        return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
+                           source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None)
 
     def set_layer_id(self, layer_id: str):
         """
@@ -980,7 +949,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # Set the plot properties
         self.set_layer_id(settings.properties['layer_id'])
-        self.selected_feature_check.setChecked(settings.properties['features_selected'])
+        self.selected_feature_check.setChecked(settings.properties.get('selected_features_only', False))
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])
         self.z_combo.setExpression(settings.properties['z_name'])

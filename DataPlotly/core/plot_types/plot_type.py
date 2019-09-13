@@ -70,12 +70,12 @@ class PlotType:
         # update the x and y axis and add the linear and log only if the data are numeric
         # pass if field is empty
         try:
-            if isinstance(settings.properties['x'][0], (int, float)):
+            if isinstance(settings.x[0], (int, float)):
                 layout['xaxis'].update(type=settings.layout['x_type'])
         except:  # pylint:disable=bare-except  # noqa: F401
             pass
         try:
-            if isinstance(settings.properties['y'][0], (int, float)):
+            if isinstance(settings.y[0], (int, float)):
                 layout['yaxis'].update(type=settings.layout['y_type'])
         except:  # pylint:disable=bare-except  # noqa: F401
             pass

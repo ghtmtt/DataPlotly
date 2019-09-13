@@ -34,8 +34,8 @@ class PieChartFactory(PlotType):
     @staticmethod
     def create_trace(settings):
         return [graph_objs.Pie(
-                labels=settings.properties['x'],
-                values=settings.properties['y'],
+                labels=settings.x,
+                values=settings.y,
                 name=settings.properties['custom'][0],
             )]
 

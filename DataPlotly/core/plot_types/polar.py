@@ -34,8 +34,8 @@ class PolarChartFactory(PlotType):
     @staticmethod
     def create_trace(settings):
         return [graph_objs.Scatterpolar(
-                r=settings.properties['y'],
-                theta=settings.properties['x'],
+                r=settings.y,
+                theta=settings.x,
                 mode=settings.properties['marker'],
                 name=settings.properties['y_name'],
                 marker=dict(

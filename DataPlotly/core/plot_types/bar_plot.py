@@ -12,7 +12,7 @@ import os
 from plotly import graph_objs
 from qgis.PyQt.QtGui import QIcon
 from DataPlotly.core.plot_types.plot_type import PlotType
-
+from DataPlotly.utils import getSortedId
 
 class BarPlotFactory(PlotType):
     """
@@ -36,17 +36,19 @@ class BarPlotFactory(PlotType):
         # flip the variables according to the box orientation
 
         if settings.properties['box_orientation'] == 'h':
-            y = settings.properties['x']
-            x = settings.properties['y']
+            y = settings.x
+            x = settings.y
         else:
-            x = settings.properties['x']
-            y = settings.properties['y']
+            x = settings.x
+            y = settings.y
+
+        featureBox = getSortedId(None, settings.x)
 
         return [graph_objs.Bar(
             x=x,
             y=y,
             name=settings.properties['name'],
-            ids=settings.properties['featureBox'],
+            ids=featureBox,
             customdata=settings.properties['custom'],
             orientation=settings.properties['box_orientation'],
             marker={'color': settings.properties['in_color'],

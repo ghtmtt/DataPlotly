@@ -35,30 +35,30 @@ class TernaryFactory(PlotType):
     def create_trace(settings):
         # prepare the hover text to display if the additional combobox is empty or not
         # this setting is necessary to overwrite the standard hovering labels
-        if not settings.properties['additional_hover_text']:
+        if not settings.additional_hover_text:
             text = [
                 settings.properties['x_name'] + ': {}'.format(
-                    settings.properties['x'][k]) + '<br>{}: {}'.format(
+                    settings.x[k]) + '<br>{}: {}'.format(
                     settings.properties['y_name'],
-                    settings.properties['y'][k]) + '<br>{}: {}'.format(
-                    settings.properties['z_name'], settings.properties['z'][k]) for k
+                    settings.y[k]) + '<br>{}: {}'.format(
+                    settings.properties['z_name'], settings.z[k]) for k
                 in
-                range(len(settings.properties['x']))]
+                range(len(settings.x))]
         else:
             text = [
                 settings.properties['x_name'] + ': {}'.format(
-                    settings.properties['x'][k]) + '<br>{}: {}'.format(
+                    settings.x[k]) + '<br>{}: {}'.format(
                     settings.properties['y_name'],
-                    settings.properties['y'][k]) + '<br>{}: {}'.format(
+                    settings.u[k]) + '<br>{}: {}'.format(
                     settings.properties['z_name'],
-                    settings.properties['z'][k]) + '<br>{}'.format(
-                    settings.properties['additional_hover_text'][k]) for k in
-                range(len(settings.properties['x']))]
+                    settings.z[k]) + '<br>{}'.format(
+                    settings.additional_hover_text[k]) for k in
+                range(len(settings.x))]
 
         return [graph_objs.Scatterternary(
-            a=settings.properties['x'],
-            b=settings.properties['y'],
-            c=settings.properties['z'],
+            a=settings.x,
+            b=settings.y,
+            c=settings.z,
             name='{} + {} + {}'.format(settings.properties['x_name'],
                                        settings.properties['y_name'],
                                        settings.properties['z_name']),
