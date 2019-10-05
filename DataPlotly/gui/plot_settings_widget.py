@@ -636,6 +636,21 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.color_scale_combo.addItem(self.tr('DeepblueBlueWhite'), 'YIGnBu')
         self.color_scale_combo.addItem(self.tr('BlueWhitePurple'), 'Picnic')
 
+        self.color_scale_data_defined_in.clear()
+        self.color_scale_data_defined_in.addItem(self.tr('Grey Scale'), 'Greys')
+        self.color_scale_data_defined_in.addItem(self.tr('Green Scale'), 'Greens')
+        self.color_scale_data_defined_in.addItem(self.tr('Fire Scale'), 'Hot')
+        self.color_scale_data_defined_in.addItem(self.tr('BlueYellowRed'), 'Portland')
+        self.color_scale_data_defined_in.addItem(self.tr('BlueGreenRed'), 'Jet')
+        self.color_scale_data_defined_in.addItem(self.tr('BlueToRed'), 'RdBu')
+        self.color_scale_data_defined_in.addItem(self.tr('BlueToRed Soft'), 'Bluered')
+        self.color_scale_data_defined_in.addItem(self.tr('BlackRedYellowBlue'), 'Blackbody')
+        self.color_scale_data_defined_in.addItem(self.tr('Terrain'), 'Earth')
+        self.color_scale_data_defined_in.addItem(self.tr('Electric Scale'), 'Electric')
+        self.color_scale_data_defined_in.addItem(self.tr('RedOrangeYellow'), 'YIOrRd')
+        self.color_scale_data_defined_in.addItem(self.tr('DeepblueBlueWhite'), 'YIGnBu')
+        self.color_scale_data_defined_in.addItem(self.tr('BlueWhitePurple'), 'Picnic')
+
         # according to the plot type, change the label names
 
         # BoxPlot
