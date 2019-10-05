@@ -200,6 +200,14 @@ QListWidget::item::selected {
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
                <widget class="QWidget" name="scrollAreaWidgetContents_5">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>487</width>
+                  <height>552</height>
+                 </rect>
+                </property>
                 <layout class="QGridLayout" name="gridLayout_9">
                  <property name="leftMargin">
                   <number>0</number>
@@ -269,7 +277,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="3" column="1">
-                     <widget class="QgsFieldExpressionWidget" name="y_combo" native="true">
+                     <widget class="QgsFieldExpressionWidget" name="y_combo">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                         <horstretch>0</horstretch>
@@ -286,7 +294,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="2" column="1">
-                     <widget class="QgsFieldExpressionWidget" name="x_combo" native="true">
+                     <widget class="QgsFieldExpressionWidget" name="x_combo">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                         <horstretch>0</horstretch>
@@ -296,7 +304,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="4" column="1">
-                     <widget class="QgsFieldExpressionWidget" name="z_combo" native="true">
+                     <widget class="QgsFieldExpressionWidget" name="z_combo">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                         <horstretch>0</horstretch>
@@ -584,8 +592,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>349</width>
-                  <height>500</height>
+                  <width>512</width>
+                  <height>656</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25">
@@ -790,7 +798,7 @@ QListWidget::item::selected {
                   </widget>
                  </item>
                  <item row="8" column="1" colspan="2">
-                  <widget class="QgsFieldExpressionWidget" name="additional_info_combo" native="true"/>
+                  <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
                  </item>
                  <item row="21" column="1">
                   <widget class="QSpinBox" name="bins_value">
@@ -1126,29 +1134,29 @@ QListWidget::item::selected {
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis.gui</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsColorButton</class>
    <extends>QToolButton</extends>
-   <header>qgis.gui</header>
+   <header>qgscolorbutton.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
-   <header>qgis.gui</header>
+   <header>qgsfieldexpressionwidget.h</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgis.gui</header>
+   <header>qgsmaplayercombobox.h</header>
   </customwidget>
   <customwidget>
    <class>QgsPropertyOverrideButton</class>
    <extends>QToolButton</extends>
-   <header>qgis.gui</header>
+   <header>qgspropertyoverridebutton.h</header>
    <slots>
     <slot>setVectorLayer(QgsMapLayer*)</slot>
    </slots>
@@ -1345,6 +1353,22 @@ QListWidget::item::selected {
     <hint type="destinationlabel">
      <x>302</x>
      <y>423</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>layer_combo</sender>
+   <signal>layerChanged(QgsMapLayer*)</signal>
+   <receiver>in_color_defined_button</receiver>
+   <slot>setVectorLayer(QgsMapLayer*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>541</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>474</x>
+     <y>291</y>
     </hint>
    </hints>
   </connection>
