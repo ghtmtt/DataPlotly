@@ -634,20 +634,28 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.contour_type_combo.addItem(k, v)
 
         # Contour Plot color scale and Data Defined Color scale
+
+        scale_color_dict = {}
+        scale_color_dict['Grey Scale'] = 'Greys'
+        scale_color_dict['Green Scale'] = 'Greens'
+        scale_color_dict['Fire Scale'] = 'Hot'
+        scale_color_dict['BlueYellowRed'] = 'Portland'
+        scale_color_dict['BlueGreenRed'] = 'Jet'
+        scale_color_dict['BlueToRed'] = 'RdBu'
+        scale_color_dict['BlueToRed Soft'] = 'Bluered'
+        scale_color_dict['BlackRedYellowBlue'] = 'Blackbody'
+        scale_color_dict['Terrain'] = 'Earth'
+        scale_color_dict['Electric Scale'] = 'Electric'
+        scale_color_dict['RedOrangeYellow'] = 'YIOrRd'
+        scale_color_dict['DeepblueBlueWhite'] = 'YIGnBu'
+        scale_color_dict['BlueWhitePurple'] = 'Picnic'
+
         self.color_scale_combo.clear()
-        self.color_scale_combo.addItem(self.tr('Grey Scale'), 'Greys')
-        self.color_scale_combo.addItem(self.tr('Green Scale'), 'Greens')
-        self.color_scale_combo.addItem(self.tr('Fire Scale'), 'Hot')
-        self.color_scale_combo.addItem(self.tr('BlueYellowRed'), 'Portland')
-        self.color_scale_combo.addItem(self.tr('BlueGreenRed'), 'Jet')
-        self.color_scale_combo.addItem(self.tr('BlueToRed'), 'RdBu')
-        self.color_scale_combo.addItem(self.tr('BlueToRed Soft'), 'Bluered')
-        self.color_scale_combo.addItem(self.tr('BlackRedYellowBlue'), 'Blackbody')
-        self.color_scale_combo.addItem(self.tr('Terrain'), 'Earth')
-        self.color_scale_combo.addItem(self.tr('Electric Scale'), 'Electric')
-        self.color_scale_combo.addItem(self.tr('RedOrangeYellow'), 'YIOrRd')
-        self.color_scale_combo.addItem(self.tr('DeepblueBlueWhite'), 'YIGnBu')
-        self.color_scale_combo.addItem(self.tr('BlueWhitePurple'), 'Picnic')
+        self.color_scale_data_defined_in.clear()
+
+        for k , v in scale_color_dict.items():
+            self.color_scale_combo.addItem(k, v)
+            self.color_scale_data_defined_in.addItem(k, v)
 
         # according to the plot type, change the label names
 
