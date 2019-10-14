@@ -111,7 +111,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.resizeWindow.connect(self.reloadPlotCanvas)
 
         # create the reload button with text and icon
-        self.reload_btn.setText("Reload")
+        self.reload_btn.setText(self.tr("Reload"))
         self.reload_btn.setIcon(GuiUtils.get_icon('reload.svg'))
         self.clear_btn.setIcon(GuiUtils.get_icon('clean.svg'))
         self.update_btn.setIcon(GuiUtils.get_icon('refresh.svg'))

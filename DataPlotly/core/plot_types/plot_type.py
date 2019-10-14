@@ -89,4 +89,4 @@ class PlotType:
         """
         if context == '':
             context = 'Types'
-        return QCoreApplication.translate(context, string)
+        return QCoreApplication.translate('PlotType', string)
