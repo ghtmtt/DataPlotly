@@ -357,6 +357,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.in_color = hex_to_rgb(self.in_color_combo)
 
     def refreshLayerSelected(self):
+        """
+        Trigger actions after selected layer changes
+        """
         self.refreshDataDefinedButtonLayer()
         self.setCheckState()
 
