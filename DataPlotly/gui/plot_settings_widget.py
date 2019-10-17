@@ -635,25 +635,24 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # Contour Plot color scale and Data Defined Color scale
 
-        scale_color_dict = {}
-        scale_color_dict['Grey Scale'] = 'Greys'
-        scale_color_dict['Green Scale'] = 'Greens'
-        scale_color_dict['Fire Scale'] = 'Hot'
-        scale_color_dict['BlueYellowRed'] = 'Portland'
-        scale_color_dict['BlueGreenRed'] = 'Jet'
-        scale_color_dict['BlueToRed'] = 'RdBu'
-        scale_color_dict['BlueToRed Soft'] = 'Bluered'
-        scale_color_dict['BlackRedYellowBlue'] = 'Blackbody'
-        scale_color_dict['Terrain'] = 'Earth'
-        scale_color_dict['Electric Scale'] = 'Electric'
-        scale_color_dict['RedOrangeYellow'] = 'YIOrRd'
-        scale_color_dict['DeepblueBlueWhite'] = 'YIGnBu'
-        scale_color_dict['BlueWhitePurple'] = 'Picnic'
+        scale_color_dict = {'Grey Scale': 'Greys',
+                            'Green Scale': 'Greens',
+                            'Fire Scale': 'Hot',
+                            'BlueYellowRed': 'Portland',
+                            'BlueGreenRed': 'Jet',
+                            'BlueToRed': 'RdBu',
+                            'BlueToRed Soft': 'Bluered',
+                            'BlackRedYellowBlue': 'Blackbody',
+                            'Terrain': 'Earth',
+                            'Electric Scale': 'Electric',
+                            'RedOrangeYellow': 'YIOrRd',
+                            'DeepblueBlueWhite': 'YIGnBu',
+                            'BlueWhitePurple': 'Picnic'}
 
         self.color_scale_combo.clear()
         self.color_scale_data_defined_in.clear()
 
-        for k , v in scale_color_dict.items():
+        for k, v in scale_color_dict.items():
             self.color_scale_combo.addItem(k, v)
             self.color_scale_data_defined_in.addItem(k, v)
 
@@ -889,7 +888,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
                            'in_color': self.in_color,
-                           'colorscale_in': self.color_scale_data_defined_in.currentData() if self.ptype in self.widgetType[self.color_scale_data_defined_in] else self.color_scale_combo.currentData(),
+                           'colorscale_in': self.color_scale_data_defined_in.currentData() if self.ptype in
+                                                                                              self.widgetType[
+                                                                                                  self.color_scale_data_defined_in] else self.color_scale_combo.currentData(),
                            'show_colorscale_legend': color_scale_visible,
                            'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
                            'out_color': hex_to_rgb(self.out_color_combo),
@@ -905,7 +906,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'name': self.legend_title.text(),
                            'normalization': self.hist_norm_combo.currentData(),
                            'cont_type': self.contour_type[self.contour_type_combo.currentText()],
-                           'color_scale': self.color_scale_data_defined_in.currentData() if self.ptype in self.widgetType[self.color_scale_data_defined_in] else self.color_scale_combo.currentData(),
+                           'color_scale': self.color_scale_data_defined_in.currentData() if self.ptype in
+                                                                                            self.widgetType[
+                                                                                                self.color_scale_data_defined_in] else self.color_scale_combo.currentData(),
                            'show_lines': self.show_lines_check.isChecked(),
                            'cumulative': self.cumulative_hist_check.isChecked(),
                            'invert_hist': 'decreasing' if self.invert_hist_check.isChecked() else 'increasing',
