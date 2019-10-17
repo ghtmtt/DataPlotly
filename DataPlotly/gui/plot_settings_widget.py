@@ -798,7 +798,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # if not explicit, the upper loop will enable it
         self.bins_value.setEnabled(False)
 
-        # disable at firts run the color data defined buttons
+        # disable at first run the color data defined buttons
         self.color_scale_data_defined_in.setVisible(False)
         self.color_scale_data_defined_in_label.setVisible(False)
         self.color_scale_data_defined_in_check.setVisible(False)
@@ -888,9 +888,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
                            'in_color': self.in_color,
-                           'colorscale_in': self.color_scale_data_defined_in.currentData() if self.ptype in
-                                                                                              self.widgetType[
-                                                                                                  self.color_scale_data_defined_in] else self.color_scale_combo.currentData(),
+                           'colorscale_in': None,
                            'show_colorscale_legend': color_scale_visible,
                            'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
                            'out_color': hex_to_rgb(self.out_color_combo),
@@ -906,9 +904,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'name': self.legend_title.text(),
                            'normalization': self.hist_norm_combo.currentData(),
                            'cont_type': self.contour_type[self.contour_type_combo.currentText()],
-                           'color_scale': self.color_scale_data_defined_in.currentData() if self.ptype in
-                                                                                            self.widgetType[
-                                                                                                self.color_scale_data_defined_in] else self.color_scale_combo.currentData(),
+                           'color_scale': None,
                            'show_lines': self.show_lines_check.isChecked(),
                            'cumulative': self.cumulative_hist_check.isChecked(),
                            'invert_hist': 'decreasing' if self.invert_hist_check.isChecked() else 'increasing',
@@ -919,9 +915,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
                            'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
                            'size_property': self.size_defined_button.toProperty().toVariant(),
-                           'color_scale_data_defined_in': self.color_scale_data_defined_in.currentText(),
-                           'color_scale_data_defined_in_check': self.color_scale_data_defined_in_check.isChecked(),
-                           'color_scale_data_defined_in_invert_check': self.color_scale_data_defined_in_invert_check.isChecked(),
+                           'color_scale_data_defined_in_check': False,
+                           'color_scale_data_defined_in_invert_check': False,
                            'out_color_combo': QgsSymbolLayerUtils.encodeColor(self.out_color_combo.color()),
                            'marker_type_combo': self.marker_type_combo.currentText(),
                            'point_combo': self.point_combo.currentText(),
@@ -929,6 +924,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'contour_type_combo': self.contour_type_combo.currentText(),
                            'show_lines_check': self.show_lines_check.isChecked(),
                            'alpha': self.alpha_slid.value()}
+
+        if self.in_color_defined_button.isActive():
+            plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
+            plot_properties['color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
+            if self.ptype in self.widgetType[self.color_scale_data_defined_in]:
+                plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData()
+                plot_properties['colorscale_in'] = self.color_scale_data_defined_in.currentData()
+            else:
+                plot_properties['color_scale'] = self.color_scale_combo.currentData()
+                plot_properties['colorscale_in'] = self.color_scale_combo.currentData()
 
         # add widgets properties to the dictionary
 
@@ -986,7 +991,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         size_prop.loadVariant(settings.properties['size_property'])
         self.size_defined_button.setToProperty(size_prop)
 
-        self.color_scale_data_defined_in.setCurrentText(settings.properties['color_scale_data_defined_in'])
+        self.color_scale_data_defined_in.setCurrentIndex(self.color_scale_data_defined_in.findData(settings.properties['colorscale_in']))
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
         self.color_scale_data_defined_in_invert_check.setChecked(
             settings.properties['color_scale_data_defined_in_invert_check'])
