@@ -58,7 +58,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'in_color_value': '0,0,0,255',
             'in_color_property': QgsProperty().toVariant(),
             'size_property': QgsProperty().toVariant(),
-            'color_scale_data_defined_in': '',
             'color_scale_data_defined_in_check': False,
             'color_scale_data_defined_in_invert_check': False,
             'out_color_combo': '0,0,0,255',

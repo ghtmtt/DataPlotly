@@ -66,10 +66,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
                      'marker_size']:
                 continue
 
-            print(k)
             self.assertEqual(dialog.get_settings().properties[k], settings.properties[k])
         for k in settings.layout.keys():
-            print(k)
             self.assertEqual(dialog.get_settings().layout[k], settings.layout[k])
 
     def test_settings_round_trip(self):  # pylint: disable=too-many-statements
@@ -90,7 +88,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(settings.plot_type, 'scatter')
 
         # customise settings
-        settings.plot_type = 'violin'
+        settings.plot_type = 'bar'
         settings.properties['name'] = 'my legend title'
         settings.properties['hover_text'] = 'y'
         settings.properties['box_orientation'] = 'h'
@@ -138,10 +136,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
                      'marker_size']:
                 continue
 
-            print(k)
             self.assertEqual(dialog2.get_settings().properties[k], settings.properties[k])
         for k in settings.layout.keys():
-            print(k)
             self.assertEqual(dialog2.get_settings().layout[k], settings.layout[k])
         self.assertEqual(dialog2.get_settings().source_layer_id, vl3.id())
 
@@ -151,11 +147,9 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         self.assertEqual(dialog3.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
-            print(k)
             self.assertEqual(dialog3.get_settings().properties[k], settings.properties[k])
         self.assertEqual(dialog3.get_settings().properties, settings.properties)
         for k in settings.layout.keys():
-            print(k)
             self.assertEqual(dialog3.get_settings().layout[k], settings.layout[k])
 
         QgsProject.instance().clear()
