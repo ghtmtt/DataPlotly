@@ -76,7 +76,7 @@ def get_qgis_app(cleanup=True):
             debug_log_message)
 
         if cleanup:
-            import atexit
+            import atexit  # pylint: disable=import-outside-toplevel
 
             @atexit.register
             def exitQgis():  # pylint: disable=unused-variable
