@@ -173,7 +173,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.setCheckState()
         try:
-            self.layer_combo.currentIndexChanged.connect(self.setCheckState)
+            self.layer_combo.currentIndexChanged.connect(self.refreshLayerSelected)
         except:  # pylint: disable=bare-except  # noqa: F401
             pass
 
@@ -226,8 +226,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.ptype = self.plot_combo.currentData()
 
         # load the layer fields in the init function for the datadefined buttons
-        self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
-        self.in_color_defined_button.setVectorLayer(self.layer_combo.currentLayer())
+        self.refreshDataDefinedButtonLayer()
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
         # connect the color defined button to the correct function
@@ -356,6 +355,20 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 self.in_color = hex_to_rgb(self.in_color_combo)
         else:
             self.in_color = hex_to_rgb(self.in_color_combo)
+
+    def refreshLayerSelected(self):
+        """
+        Trigger actions after selected layer changes
+        """
+        self.refreshDataDefinedButtonLayer()
+        self.setCheckState()
+
+    def refreshDataDefinedButtonLayer(self):
+        """
+        load the layer fields for the data-defined buttons
+        """
+        self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
+        self.in_color_defined_button.setVectorLayer(self.layer_combo.currentLayer())
 
     def setCheckState(self):
         """
