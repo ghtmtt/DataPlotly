@@ -53,7 +53,7 @@ class BarPlotFactory(PlotType):
             customdata=settings.properties['custom'],
             orientation=settings.properties['box_orientation'],
             marker={'color': settings.properties['in_color'],
-                    'colorscale': settings.properties['colorscale_in'],
+                    'colorscale': settings.properties['color_scale'],
                     'showscale': settings.properties['show_colorscale_legend'],
                     'reversescale': settings.properties['invert_color_scale'],
                     'colorbar': {
