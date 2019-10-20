@@ -42,7 +42,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         """
         Test retrieving settings from the dialog
         """
-        dialog = DataPlotlyPanelWidget(None, iface=IFACE)
+        dialog = DataPlotlyPanelWidget(None, override_iface=IFACE)
         settings = dialog.get_settings()
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'scatter')
@@ -57,7 +57,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         Test setting dialog to a newly constructed settings object
         """
         settings = PlotSettings()
-        dialog = DataPlotlyPanelWidget(None, iface=IFACE)
+        dialog = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog.set_settings(settings)
 
         self.assertEqual(dialog.get_settings().plot_type, settings.plot_type)
@@ -82,7 +82,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         vl3 = QgsVectorLayer(layer_path, 'test_layer2', 'ogr')
         QgsProject.instance().addMapLayers([vl1, vl2, vl3])
 
-        dialog = DataPlotlyPanelWidget(None, iface=IFACE)
+        dialog = DataPlotlyPanelWidget(None, override_iface=IFACE)
         settings = dialog.get_settings()
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'scatter')
@@ -126,7 +126,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.layout['additional_info_expression'] = '1+2'
         settings.layout['bins_check'] = True
 
-        dialog2 = DataPlotlyPanelWidget(None, iface=IFACE)
+        dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog2.set_settings(settings)
 
         self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
@@ -141,7 +141,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(dialog2.get_settings().source_layer_id, vl3.id())
 
         settings = dialog.get_settings()
-        dialog3 = DataPlotlyPanelWidget(None, iface=IFACE)
+        dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog3.set_settings(settings)
 
         self.assertEqual(dialog3.get_settings().plot_type, settings.plot_type)
@@ -158,7 +158,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         Test saving/restoring dialog state in project
         """
         p = QgsProject.instance()
-        dialog = DataPlotlyPanelWidget(None, iface=IFACE)
+        dialog = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog.set_plot_type('violin')
 
         # first, disable saving to project
