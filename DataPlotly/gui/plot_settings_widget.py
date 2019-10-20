@@ -888,7 +888,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
                            'in_color': self.in_color,
-                           'colorscale_in': None,
                            'show_colorscale_legend': color_scale_visible,
                            'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
                            'out_color': hex_to_rgb(self.out_color_combo),
@@ -930,10 +929,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             plot_properties['color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
             if self.ptype in self.widgetType[self.color_scale_data_defined_in]:
                 plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData()
-                plot_properties['colorscale_in'] = self.color_scale_data_defined_in.currentData()
             else:
                 plot_properties['color_scale'] = self.color_scale_combo.currentData()
-                plot_properties['colorscale_in'] = self.color_scale_combo.currentData()
 
         # add widgets properties to the dictionary
 
@@ -991,7 +988,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         size_prop.loadVariant(settings.properties['size_property'])
         self.size_defined_button.setToProperty(size_prop)
 
-        self.color_scale_data_defined_in.setCurrentIndex(self.color_scale_data_defined_in.findData(settings.properties['colorscale_in']))
+        self.color_scale_data_defined_in.setCurrentIndex(self.color_scale_data_defined_in.findData(settings.properties['color_scale']))
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
         self.color_scale_data_defined_in_invert_check.setChecked(
             settings.properties['color_scale_data_defined_in_invert_check'])

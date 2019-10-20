@@ -47,7 +47,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'normalization': None,
             'cont_type': 'fill',
             'color_scale': None,
-            'colorscale_in': None,
             'show_lines': False,
             'cumulative': False,
             'show_colorscale_legend': False,

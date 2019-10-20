@@ -67,7 +67,7 @@ class TernaryFactory(PlotType):
             mode='markers',
             marker=dict(
                 color=settings.properties['in_color'],
-                colorscale=settings.properties['colorscale_in'],
+                colorscale=settings.properties['color_scale'],
                 showscale=settings.properties['show_colorscale_legend'],
                 reversescale=settings.properties['invert_color_scale'],
                 colorbar=dict(
