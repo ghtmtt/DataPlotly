@@ -991,6 +991,13 @@ QListWidget::item::selected {
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QPushButton" name="configuration_btn">
+               <property name="text">
+                <string>Configuration</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
           </layout>

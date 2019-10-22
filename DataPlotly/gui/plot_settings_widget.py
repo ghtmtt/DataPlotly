@@ -30,7 +30,8 @@ from qgis.PyQt import uic
 from qgis.PyQt.QtWidgets import (
     QListWidgetItem,
     QVBoxLayout,
-    QFileDialog
+    QFileDialog,
+    QMenu
 )
 from qgis.PyQt.QtXml import QDomDocument
 
@@ -43,7 +44,8 @@ from qgis.PyQt.QtGui import (
 from qgis.PyQt.QtCore import (
     QUrl,
     QSettings,
-    pyqtSignal
+    pyqtSignal,
+    QDir
 )
 from qgis.PyQt.QtWebKit import QWebSettings
 from qgis.PyQt.QtWebKitWidgets import (
@@ -58,7 +60,8 @@ from qgis.core import (
     QgsMapLayerProxyModel,
     QgsProject,
     QgsSymbolLayerUtils,
-    QgsProperty
+    QgsProperty,
+    QgsFileUtils
 )
 from qgis.gui import QgsPanelWidget, QgsMessageBar
 from qgis.utils import iface
@@ -119,6 +122,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.draw_btn.setIcon(GuiUtils.get_icon('create_plot.svg'))
         # connect the button to the reload function
         self.reload_btn.clicked.connect(self.reloadPlotCanvas2)
+
+        self.configuration_menu = QMenu(self)
+        action_load_configuration = self.configuration_menu.addAction(self.tr("Load Configuration…"))
+        action_load_configuration.triggered.connect(self.load_configuration)
+        action_save_configuration = self.configuration_menu.addAction(self.tr("Save Configuration…"))
+        action_save_configuration.triggered.connect(self.save_configuration)
+        self.configuration_btn.setMenu(self.configuration_menu)
 
         # set the icon of QgspropertyOverrideButton not taken automatically
         self.size_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
@@ -1313,3 +1323,28 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if settings.read_from_project(document):
             # update the dock state to match the read settings
             self.set_settings(settings)
+
+    def load_configuration(self):
+        """
+        Loads configuration settings from a file
+        """
+        file, _ = QFileDialog.getOpenFileName(self, self.tr("Load Configuration"), "", "XML files (*.xml)")
+        if file:
+            settings = PlotSettings()
+            if settings.read_from_file(file):
+                self.set_settings(settings)
+            else:
+                if self.message_bar:
+                    self.message_bar.pushWarning(self.tr('DataPlotly'), self.tr('Could not read settings from file'))
+
+    def save_configuration(self):
+        """
+        Saves configuration settings to a file
+        """
+        file, _ = QFileDialog.getSaveFileName(self, self.tr("Save Configuration"), "", "XML files (*.xml)")
+        if file:
+            file = QgsFileUtils.ensureFileNameHasExtension(file, ['xml'])
+            self.get_settings().write_to_file(file)
+            if self.message_bar:
+                self.message_bar.pushSuccess(self.tr('DataPlotly'), self.tr('Saved configuration to <a href="{}">{}</a>').format(QUrl.fromLocalFile(file).toString(), QDir.toNativeSeparators(file)))
+
