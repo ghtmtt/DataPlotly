@@ -230,6 +230,9 @@ class DataPlotlyFactory(unittest.TestCase):
         vl1.rollBack()
 
     def test_visible_features(self):
+        """
+        Test filtering to visible features only
+        """
         layer_path = os.path.join(
             os.path.dirname(__file__), 'test_layer.shp')
 
