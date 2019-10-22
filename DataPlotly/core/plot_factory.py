@@ -67,6 +67,8 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         self.selected_features_only = False
         self.trace = None
         self.layout = None
+        self.source_layer = QgsProject.instance().mapLayer(
+            self.settings.source_layer_id) if self.settings.source_layer_id else None
 
         self.rebuild()
 
@@ -77,47 +79,43 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         # Note: we keep things nice and efficient and only iterate a single time over the layer!
 
-        source_layer = QgsProject.instance().mapLayer(self.settings.source_layer_id)
-        if not source_layer:
-            return
-
-        self.selected_features_only = self.settings.properties['selected_features_only']
-
         # TODO - allow this to be specified
         context = QgsExpressionContext()
-        context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(source_layer))
-
-        attrs = set()
+        context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(self.source_layer))
 
         def add_source_field_or_expression(field_or_expression):
-            field_index = source_layer.fields().lookupField(field_or_expression)
+            field_index = self.source_layer.fields().lookupField(field_or_expression)
             if field_index == -1:
                 expression = QgsExpression(field_or_expression)
-                if not expression.hasParserError() and expression.prepare(context):
-                    attrs.union(expression.referencedColumns())
-                return expression, expression.needsGeometry()
+                if not expression.hasParserError():
+                    expression.prepare(context)
+                return expression, expression.needsGeometry(), expression.referencedColumns()
             else:
-                attrs.add(field_or_expression)
-                return None, False
+                return None, False, {field_or_expression}
 
-        x_expression, x_needs_geom = add_source_field_or_expression(self.settings.properties['x_name']) if self.settings.properties[
-            'x_name'] else (None, False)
-        y_expression, y_needs_geom = add_source_field_or_expression(self.settings.properties['y_name']) if self.settings.properties[
-            'y_name'] else (None, False)
-        z_expression, z_needs_geom = add_source_field_or_expression(self.settings.properties['z_name']) if self.settings.properties[
-            'z_name'] else (None, False)
-        additional_info_expression, additional_needs_geom = add_source_field_or_expression(
+        x_expression, x_needs_geom, x_attrs = add_source_field_or_expression(self.settings.properties['x_name']) if \
+        self.settings.properties[
+            'x_name'] else (None, False, set())
+        y_expression, y_needs_geom, y_attrs = add_source_field_or_expression(self.settings.properties['y_name']) if \
+        self.settings.properties[
+            'y_name'] else (None, False, set())
+        z_expression, z_needs_geom, z_attrs = add_source_field_or_expression(self.settings.properties['z_name']) if \
+        self.settings.properties[
+            'z_name'] else (None, False, set())
+        additional_info_expression, additional_needs_geom, additional_attrs = add_source_field_or_expression(
             self.settings.layout['additional_info_expression']) if self.settings.layout[
-            'additional_info_expression'] else (None, False)
+            'additional_info_expression'] else (None, False, set())
 
-        request = QgsFeatureRequest().setSubsetOfAttributes(attrs, source_layer.fields())
+        attrs = set().union(x_attrs, y_attrs, z_attrs, additional_attrs)
+
+        request = QgsFeatureRequest().setSubsetOfAttributes(attrs, self.source_layer.fields())
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom:
             request.setFlags(QgsFeatureRequest.NoGeometry)
 
         if self.selected_features_only:
-            it = source_layer.getSelectedFeatures(request)
+            it = self.source_layer.getSelectedFeatures(request)
         else:
-            it = source_layer.getFeatures(request)
+            it = self.source_layer.getFeatures(request)
 
         xx = []
         yy = []
@@ -127,43 +125,47 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
             self.settings.feature_ids.append(f.id())
             context.setFeature(f)
 
+            x = None
             if x_expression:
-                res = x_expression.evaluate(context)
-                if res == NULL or res is None:
+                x = x_expression.evaluate(context)
+                if x == NULL or x is None:
                     continue
-                xx.append(res)
             elif self.settings.properties['x_name']:
-                res = f[self.settings.properties['x_name']]
-                if res == NULL or res is None:
+                x = f[self.settings.properties['x_name']]
+                if x == NULL or x is None:
                     continue
-                xx.append(res)
 
+            y = None
             if y_expression:
-                res = y_expression.evaluate(context)
-                if res == NULL or res is None:
+                y = y_expression.evaluate(context)
+                if y == NULL or y is None:
                     continue
-                yy.append(res)
             elif self.settings.properties['y_name']:
-                res = f[self.settings.properties['y_name']]
-                if res == NULL or res is None:
+                y = f[self.settings.properties['y_name']]
+                if y == NULL or y is None:
                     continue
-                yy.append(res)
 
+            z = None
             if z_expression:
-                res = z_expression.evaluate(context)
-                if res == NULL or res is None:
+                z = z_expression.evaluate(context)
+                if z == NULL or z is None:
                     continue
-                zz.append(res)
             elif self.settings.properties['z_name']:
-                res = f[self.settings.properties['z_name']]
-                if res == NULL or res is None:
+                z = f[self.settings.properties['z_name']]
+                if z == NULL or z is None:
                     continue
-                zz.append(res)
 
             if additional_info_expression:
                 additional_hover_text.append(additional_info_expression.evaluate(context))
             elif self.settings.layout['additional_info_expression']:
                 additional_hover_text.append(f[self.settings.layout['additional_info_expression']])
+
+            if x is not None:
+                xx.append(x)
+            if y is not None:
+                yy.append(y)
+            if z is not None:
+                zz.append(z)
 
         self.settings.additional_hover_text = additional_hover_text
         self.settings.x = xx
@@ -174,7 +176,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         """
         Rebuilds the plot, re-fetching current values from the layer
         """
-        if self.settings.source_layer_id:
+        if self.source_layer:
             self.fetch_values_from_layer()
 
         self.trace = self._build_trace()
