@@ -129,6 +129,26 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
 
+    def test_read_write_file(self):
+        """
+        Test reading and writing configuration to files
+        """
+        original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
+                                layout={'title': 'my plot', 'legend_orientation': 'v'})
+
+        path = os.path.join(tempfile.gettempdir(), 'plot_config.xml')
+
+        self.assertFalse(original.write_to_file('/nooooooooo/nooooooooooo.xml'))
+        self.assertTrue(original.write_to_file(path))
+
+        res = PlotSettings()
+        self.assertFalse(res.read_from_file('/nooooooooo/nooooooooooo.xml'))
+        self.assertTrue(res.read_from_file(path))
+
+        self.assertEqual(res.plot_type, original.plot_type)
+        self.assertEqual(res.properties, original.properties)
+        self.assertEqual(res.layout, original.layout)
+
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlySettings)
