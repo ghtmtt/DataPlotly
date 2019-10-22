@@ -661,14 +661,15 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.orientation_label.setText(self.tr('Box Orientation'))
             self.in_color_lab.setText(self.tr('Box Color'))
 
-        # ScatterPlot
-        if self.ptype == 'scatter' or self.ptype == 'ternary':
-            self.in_color_lab.setText(self.tr('Marker Color'))
+        elif self.ptype in ('scatter', 'ternary', 'bar', '2dhistogram', 'contour', 'polar'):
+            self.x_label.setText(self.tr('X field'))
+            self.x_label.setFont(self.font())
 
-        # BarPlot
-        if self.ptype == 'bar':
-            self.orientation_label.setText(self.tr('Bar Orientation'))
-            self.in_color_lab.setText(self.tr('Bar Color'))
+            if self.ptype in ('scatter', 'ternary'):
+                self.in_color_lab.setText(self.tr('Marker color'))
+            elif self.ptype == 'bar':
+                self.orientation_label.setText(self.tr('Bar orientation'))
+                self.in_color_lab.setText(self.tr('Bar color'))
 
         # PiePlot
         if self.ptype == 'pie':
