@@ -10,13 +10,11 @@
 
 import unittest
 import os
-import tempfile
 from qgis.core import (
     QgsProject,
     QgsVectorLayer
 )
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtXml import QDomDocument, QDomElement
+from qgis.PyQt.QtTest import QSignalSpy
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_factory import PlotFactory
 
@@ -124,9 +122,6 @@ class DataPlotlyFactory(unittest.TestCase):
 
         # default plot settings
         settings = PlotSettings('scatter')
-
-        # no source layer, fixed values must be used
-        settings.source_layer_id = ''
         settings.properties['selected_features_only'] = True
         settings.source_layer_id = vl1.id()
 
@@ -146,6 +141,55 @@ class DataPlotlyFactory(unittest.TestCase):
 
         vl1.selectByIds([])
         factory = PlotFactory(settings)
+        self.assertEqual(factory.settings.x, [])
+        self.assertEqual(factory.settings.y, [])
+
+    def test_selected_feature_values_dynamic(self):
+        """
+        Test that factory proactively updates when a selection changes, when desired
+        """
+
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.geojson')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl1.setSubsetString('id < 10')
+        self.assertTrue(vl1.isValid())
+        QgsProject.instance().addMapLayer(vl1)
+
+        # not using selected features
+        settings = PlotSettings('scatter')
+        settings.properties['selected_features_only'] = False
+        settings.source_layer_id = vl1.id()
+
+        settings.properties['x_name'] = 'so4'
+        settings.properties['y_name'] = 'ca'
+        factory = PlotFactory(settings)
+        spy = QSignalSpy(factory.plot_built)
+        vl1.selectByIds([1, 3, 4])
+        self.assertEqual(len(spy), 0)
+
+        # using selected features
+        settings = PlotSettings('scatter')
+        settings.properties['selected_features_only'] = True
+        settings.source_layer_id = vl1.id()
+        settings.properties['x_name'] = 'so4'
+        settings.properties['y_name'] = 'ca'
+        factory = PlotFactory(settings)
+        spy = QSignalSpy(factory.plot_built)
+
+        vl1.selectByIds([1])
+        self.assertEqual(len(spy), 1)
+        self.assertEqual(factory.settings.x, [203])
+        self.assertEqual(factory.settings.y, [110.45])
+
+        vl1.selectByIds([1, 3, 4])
+        self.assertEqual(len(spy), 2)
+        self.assertEqual(factory.settings.x, [203, 350, 137])
+        self.assertEqual(factory.settings.y, [110.45, 116.44, 126.73])
+
+        vl1.selectByIds([])
+        self.assertEqual(len(spy), 3)
         self.assertEqual(factory.settings.x, [])
         self.assertEqual(factory.settings.y, [])
 

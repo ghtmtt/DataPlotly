@@ -23,13 +23,17 @@ from qgis.core import (
     QgsFeatureRequest,
     NULL
 )
-from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtCore import (
+    QUrl,
+    QObject,
+    pyqtSignal
+)
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
 
 
-class PlotFactory:  # pylint:disable=too-many-instance-attributes
+class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     """
     Plot factory which creates Plotly Plot objects
 
@@ -57,7 +61,10 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         t.type_name(): t for t in PlotType.__subclasses__()
     }
 
+    plot_built = pyqtSignal()
+
     def __init__(self, settings: PlotSettings = None):
+        super().__init__()
         if settings is None:
             settings = PlotSettings('scatter')
 
@@ -71,6 +78,9 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
             self.settings.source_layer_id) if self.settings.source_layer_id else None
 
         self.rebuild()
+
+        if self.source_layer and self.selected_features_only:
+            self.source_layer.selectionChanged.connect(self.rebuild)
 
     def fetch_values_from_layer(self):
         """
@@ -181,6 +191,7 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
 
         self.trace = self._build_trace()
         self.layout = self._build_layout()
+        self.plot_built.emit()
 
     def _build_trace(self):
         """
