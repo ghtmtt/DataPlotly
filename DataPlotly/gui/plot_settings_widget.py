@@ -60,7 +60,7 @@ from qgis.core import (
     QgsSymbolLayerUtils,
     QgsProperty
 )
-from qgis.gui import QgsPanelWidget
+from qgis.gui import QgsPanelWidget, QgsMessageBar
 from qgis.utils import iface
 
 from DataPlotly.utils import (
@@ -84,7 +84,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
 
-    def __init__(self, mode=MODE_CANVAS, parent=None, override_iface=None):  # pylint: disable=too-many-statements
+    def __init__(self, mode=MODE_CANVAS, parent=None, override_iface=None, message_bar: QgsMessageBar = None):  # pylint: disable=too-many-statements
         """Constructor."""
         super().__init__(parent)
         self.setupUi(self)
@@ -94,6 +94,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.iface = override_iface
 
         self.mode = mode
+        self.message_bar = message_bar
 
         self.setPanelTitle(self.tr('Plot Properties'))
 
