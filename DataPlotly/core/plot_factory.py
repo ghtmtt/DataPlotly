@@ -133,6 +133,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             rect = ct.transformBoundingBox(self.visible_region)
             request.setFilterRect(rect)
 
+        if self.settings.properties['feature_subset_query']['active']:
+            if self.settings.properties['feature_subset_query']['expression']:
+                exp = self.settings.properties['feature_subset_query']['expression']
+                request.setFilterExpression(exp)
+
         if self.selected_features_only:
             it = self.source_layer.getSelectedFeatures(request)
         else:

@@ -227,7 +227,7 @@ QListWidget::item::selected {
                     <string>Plot Parameters</string>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_23">
-                    <item row="6" column="0">
+                    <item row="7" column="0">
                      <widget class="QLabel" name="y_label">
                       <property name="text">
                        <string>Y field</string>
@@ -251,14 +251,28 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="7" column="0">
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="y_label">
+                      <property name="text">
+                       <string>Feature subset</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+					 <widget class="QgsPropertyOverrideButton" name="feature_subset_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="8" column="0">
                      <widget class="QLabel" name="z_label">
                       <property name="text">
                        <string>Z field</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="5" column="0">
+                    <item row="6" column="0">
                      <widget class="QLabel" name="x_label">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -303,13 +317,13 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="5" column="1" colspan="2">
+                    <item row="6" column="1" colspan="2">
                      <widget class="QgsFieldExpressionWidget" name="x_combo" native="true"/>
                     </item>
-                    <item row="6" column="1" colspan="2">
+                    <item row="7" column="1" colspan="2">
                      <widget class="QgsFieldExpressionWidget" name="y_combo" native="true"/>
                     </item>
-                    <item row="7" column="1" colspan="2">
+                    <item row="8" column="1" colspan="2">
                      <widget class="QgsFieldExpressionWidget" name="z_combo" native="true"/>
                     </item>
                    </layout>

@@ -26,7 +26,11 @@ from qgis.core import (
     QgsNetworkAccessManager,
     QgsLayoutMeasurement,
     QgsUnitTypes,
-    QgsMessageLog
+    QgsMessageLog,
+    QgsProject,
+    QgsExpressionContext,
+    QgsExpressionContextUtils,
+    QgsExpressionContextGenerator
 )
 from qgis.PyQt.QtWebKitWidgets import QWebPage
 
@@ -46,7 +50,7 @@ class LoggingWebPage(QWebPage):
         QgsMessageLog.logMessage('{}:{} {}'.format(source, lineNumber, message), 'DataPlotly')
 
 
-class PlotLayoutItem(QgsLayoutItem):
+class PlotLayoutItem(QgsLayoutItem, QgsExpressionContextGenerator):
 
     def __init__(self, layout):
         super().__init__(layout)
@@ -137,6 +141,13 @@ class PlotLayoutItem(QgsLayoutItem):
         super().refresh()
         self.html_loaded = False
         self.invalidateCache()
+
+    def createExpressionContext(self):
+        context = QgsExpressionContext()
+        context.appendScope(QgsExpressionContextUtils.globalScope())
+        context.appendScope(QgsExpressionContextUtils.projectScope(QgsProject.instance()))
+        context.appendScope(QgsExpressionContextUtils.atlasScope(None))
+        return context
 
 
 class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):

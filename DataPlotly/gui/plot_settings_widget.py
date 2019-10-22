@@ -133,6 +133,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.configuration_btn.setMenu(self.configuration_menu)
 
         # set the icon of QgspropertyOverrideButton not taken automatically
+        self.feature_subset_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
         self.size_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
         self.in_color_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
 
@@ -372,6 +373,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.x_combo.setLayer(layer)
         self.y_combo.setLayer(layer)
         self.z_combo.setLayer(layer)
+        self.feature_subset_defined_button.setVectorLayer(self.layer_combo.currentLayer())
         self.size_defined_button.setVectorLayer(layer)
         self.additional_info_combo.setLayer(layer)
         self.in_color_defined_button.setVectorLayer(layer)
@@ -694,6 +696,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.widgetType = {
             # plot properties
             self.layer_combo: ['all'],
+            self.feature_subset_defined_button: ['all'],
             self.x_label: ['all'],
             self.x_combo: ['all'],
             self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin'],
@@ -903,6 +906,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'violin_side': self.violinSideCombo.currentData(),
                            'selected_features_only': self.selected_feature_check.isChecked(),
                            'visible_features_only': self.visible_feature_check.isChecked(),
+                           'feature_subset_query': self.feature_subset_defined_button.toProperty().toVariant(),
                            'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
                            'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
                            'size_property': self.size_defined_button.toProperty().toVariant(),
@@ -969,6 +973,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.set_layer_id(settings.source_layer_id)
         self.selected_feature_check.setChecked(settings.properties.get('selected_features_only', False))
         self.visible_feature_check.setChecked(settings.properties.get('visible_features_only', False))
+
+        feature_subset_query_property = QgsProperty()
+        feature_subset_query_property.loadVariant(settings.properties.get('feature_subset_query', None))
+        self.feature_subset_defined_button.setToProperty(feature_subset_query_property)
+
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])
         self.z_combo.setExpression(settings.properties['z_name'])
