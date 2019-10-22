@@ -111,7 +111,7 @@ class PlotLayoutItem(QgsLayoutItem, QgsExpressionContextGenerator):
         painter.restore()
 
     def create_plot(self):
-        factory = PlotFactory(self.plot_settings)
+        factory = PlotFactory(self.plot_settings, self)
         config = {'displayModeBar': False, 'staticPlot': True}
         return factory.build_html(config)
 
@@ -146,7 +146,7 @@ class PlotLayoutItem(QgsLayoutItem, QgsExpressionContextGenerator):
         context = QgsExpressionContext()
         context.appendScope(QgsExpressionContextUtils.globalScope())
         context.appendScope(QgsExpressionContextUtils.projectScope(QgsProject.instance()))
-        context.appendScope(QgsExpressionContextUtils.atlasScope(None))
+        context.appendScope(QgsExpressionContextUtils.layoutScope(self.layout()))
         return context
 
 

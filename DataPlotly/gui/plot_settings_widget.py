@@ -975,7 +975,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.visible_feature_check.setChecked(settings.properties.get('visible_features_only', False))
 
         feature_subset_query_property = QgsProperty()
-        feature_subset_query_property.loadVariant(settings.properties.get('feature_subset_query', None))
+        feature_subset_query_property.loadVariant(settings.properties['feature_subset_query'])
         self.feature_subset_defined_button.setToProperty(feature_subset_query_property)
 
         self.x_combo.setExpression(settings.properties['x_name'])
