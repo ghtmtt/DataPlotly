@@ -23,7 +23,8 @@ from qgis.core import (
     QgsFeatureRequest,
     NULL,
     QgsReferencedRectangle,
-    QgsCoordinateTransform
+    QgsCoordinateTransform,
+    QgsExpressionContextGenerator
 )
 from qgis.PyQt.QtCore import (
     QUrl,
@@ -65,12 +66,14 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
     plot_built = pyqtSignal()
 
-    def __init__(self, settings: PlotSettings = None, visible_region: QgsReferencedRectangle = None):
+    def __init__(self, settings: PlotSettings = None, layout_item: QgsExpressionContextGenerator = None,
+                 visible_region: QgsReferencedRectangle = None):
         super().__init__()
         if settings is None:
             settings = PlotSettings('scatter')
 
         self.settings = settings
+        self.layout_item = layout_item
         self.raw_plot = None
         self.plot_path = None
         self.selected_features_only = self.settings.properties['selected_features_only']
@@ -95,9 +98,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         # Note: we keep things nice and efficient and only iterate a single time over the layer!
 
-        # TODO - allow this to be specified
-        context = QgsExpressionContext()
-        context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(self.source_layer))
+        context = self.layout_item.createExpressionContext()
 
         def add_source_field_or_expression(field_or_expression):
             field_index = self.source_layer.fields().lookupField(field_or_expression)
@@ -110,13 +111,13 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             return None, False, {field_or_expression}
 
         x_expression, x_needs_geom, x_attrs = add_source_field_or_expression(self.settings.properties['x_name']) if \
-        self.settings.properties[
+            self.settings.properties[
             'x_name'] else (None, False, set())
         y_expression, y_needs_geom, y_attrs = add_source_field_or_expression(self.settings.properties['y_name']) if \
-        self.settings.properties[
+            self.settings.properties[
             'y_name'] else (None, False, set())
         z_expression, z_needs_geom, z_attrs = add_source_field_or_expression(self.settings.properties['z_name']) if \
-        self.settings.properties[
+            self.settings.properties[
             'z_name'] else (None, False, set())
         additional_info_expression, additional_needs_geom, additional_attrs = add_source_field_or_expression(
             self.settings.layout['additional_info_expression']) if self.settings.layout[
@@ -124,12 +125,25 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         attrs = set().union(x_attrs, y_attrs, z_attrs, additional_attrs)
 
-        request = QgsFeatureRequest().setSubsetOfAttributes(attrs, self.source_layer.fields())
+        request = QgsFeatureRequest()
+
+        if self.settings.properties['feature_subset_query']['active']:
+            if 'expression' in self.settings.properties['feature_subset_query']:
+                expr = QgsExpression(self.settings.properties['feature_subset_query']['expression'])
+                if not expr.hasParserError():
+                    expr.prepare(context)
+                    request = QgsFeatureRequest(expr, context)
+                else:
+                    print("expr.hasParserError()")
+
+        request.setSubsetOfAttributes(attrs, self.source_layer.fields())
+
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom:
             request.setFlags(QgsFeatureRequest.NoGeometry)
 
         if self.visible_features_only and self.visible_region is not None:
-            ct = QgsCoordinateTransform(self.visible_region.crs(), self.source_layer.crs(), QgsProject.instance().transformContext())
+            ct = QgsCoordinateTransform(self.visible_region.crs(), self.source_layer.crs(),
+                                        QgsProject.instance().transformContext())
             rect = ct.transformBoundingBox(self.visible_region)
             request.setFilterRect(rect)
 
