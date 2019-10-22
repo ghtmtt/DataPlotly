@@ -514,14 +514,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # get the plot type from the combobox
         self.ptype = self.plot_combo.currentData()
 
-        # Widget general customizations
-
-        self.x_label.setText(self.tr('X Field'))
-        ff = QFont()
-        ff.setPointSizeF(9)
-        self.x_label.setFont(ff)
-        self.x_label.setFixedWidth(70)
-
         # BoxPlot BarPlot and Histogram orientation (same values)
         self.orientation_combo.clear()
         self.orientation_combo.addItem(self.tr('Vertical'), 'v')
