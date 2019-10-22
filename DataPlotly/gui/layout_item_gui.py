@@ -31,6 +31,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
     def __init__(self, parent, layout_object):
         super().__init__(parent, layout_object)
         self.plot_item = layout_object
+        self.message_bar = None
 
         vl = QVBoxLayout()
         vl.setContentsMargins(0, 0, 0, 0)
@@ -49,7 +50,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         """
         Shows the plot properties panel
         """
-        self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT)
+        self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT, message_bar=self.message_bar)
         self.panel.set_settings(self.plot_item.plot_settings)
         # self.panel.set_settings(self.layoutItem().plot_settings)
         self.openPanel(self.panel)
@@ -88,6 +89,12 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
             self.panel.set_settings(self.plot_item.plot_settings)
 
         return True
+
+    def setDesignerInterface(self, iface):  # pylint: disable=missing-docstring
+        super().setDesignerInterface(iface)
+        self.message_bar = iface.messageBar()
+        if self.panel:
+            self.panel.message_bar = self.message_bar
 
 
 class PlotLayoutItemGuiMetadata(QgsLayoutItemAbstractGuiMetadata):

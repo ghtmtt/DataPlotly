@@ -109,7 +109,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.toolbar = self.iface.addToolBar('DataPlotly')
         self.toolbar.setObjectName('DataPlotly')
 
-        self.dock_widget = DataPlotlyDock()
+        self.dock_widget = DataPlotlyDock(message_bar=self.iface.messageBar())
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
         self.dock_widget.hide()
 
