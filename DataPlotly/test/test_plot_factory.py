@@ -109,6 +109,46 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(factory.settings.z, [1, 1, 1, 1, 1, 1])
         self.assertEqual(factory.settings.additional_hover_text, [9, 7, 6, 5, 4, 3])
 
+    def test_selected_feature_values(self):
+        """
+        Test value collection for selected features
+        """
+
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.geojson')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl1.setSubsetString('id < 10')
+        self.assertTrue(vl1.isValid())
+        QgsProject.instance().addMapLayer(vl1)
+
+        # default plot settings
+        settings = PlotSettings('scatter')
+
+        # no source layer, fixed values must be used
+        settings.source_layer_id = ''
+        settings.properties['selected_features_only'] = True
+        settings.source_layer_id = vl1.id()
+
+        settings.properties['x_name'] = 'so4'
+        settings.properties['y_name'] = 'ca'
+        factory = PlotFactory(settings)
+        # no selection, no values
+        self.assertEqual(factory.settings.x, [])
+        self.assertEqual(factory.settings.y, [])
+        self.assertEqual(factory.settings.z, [])
+        self.assertEqual(factory.settings.additional_hover_text, [])
+
+        vl1.selectByIds([1, 3, 4])
+        factory = PlotFactory(settings)
+        self.assertEqual(factory.settings.x, [203, 350, 137])
+        self.assertEqual(factory.settings.y, [110.45, 116.44, 126.73])
+
+        vl1.selectByIds([])
+        factory = PlotFactory(settings)
+        self.assertEqual(factory.settings.x, [])
+        self.assertEqual(factory.settings.y, [])
+
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyFactory)
