@@ -25,6 +25,7 @@ import os
 import json
 from collections import OrderedDict
 from shutil import copyfile
+from functools import partial
 
 from qgis.PyQt import uic
 from qgis.PyQt.QtWidgets import (
@@ -187,7 +188,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.y_combo.fieldChanged.connect(self.setLegend)
         self.z_combo.fieldChanged.connect(self.setLegend)
 
-        self.draw_btn.clicked.connect(self.createPlot)
+        self.draw_btn.clicked.connect(self.create_plot)
         self.update_btn.clicked.connect(self.UpdatePlot)
         self.clear_btn.clicked.connect(self.clearPlotView)
         self.save_plot_btn.clicked.connect(self.save_plot_as_image)
@@ -1022,6 +1023,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # create default dictionary that contains all the plot and properties
         self.plot_factories[self.pid] = plot_factory
 
+        plot_factory.plot_built.connect(partial(self.refresh_plot, plot_factory))
+
         # just add 1 to the index
         self.idx += 1
 
@@ -1030,7 +1033,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         return plot_factory
 
-    def createPlot(self):
+    def refresh_plot(self, factory):
+        self.plot_path = factory.build_figure()
+        self.refreshPlotView()
+
+    def create_plot(self):
         """
         call the method to effectively draw the final plot
 
@@ -1100,7 +1107,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             plot_to_update = (sorted(self.plot_factories.keys())[-1])
             del self.plot_factories[plot_to_update]
 
-            self.createPlot()
+            self.create_plot()
         else:
             self.widgetChanged.emit()
 
