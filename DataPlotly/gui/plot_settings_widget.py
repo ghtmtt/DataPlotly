@@ -652,14 +652,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # BoxPlot
         if self.ptype == 'box' or self.ptype == 'violin':
-            self.x_label.setText(self.tr('Grouping Field \n(Optional)'))
+            self.x_label.setText(self.tr('Grouping field \n(optional)'))
             # set the horizontal and vertical size of the label and reduce the label font size
             ff = QFont()
             ff.setPointSizeF(8)
             self.x_label.setFont(ff)
             self.x_label.setFixedWidth(100)
-            self.orientation_label.setText(self.tr('Box Orientation'))
-            self.in_color_lab.setText(self.tr('Box Color'))
+            self.orientation_label.setText(self.tr('Box orientation'))
+            self.in_color_lab.setText(self.tr('Box color'))
 
         elif self.ptype in ('scatter', 'ternary', 'bar', '2dhistogram', 'contour', 'polar'):
             self.x_label.setText(self.tr('X field'))
@@ -671,9 +671,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 self.orientation_label.setText(self.tr('Bar orientation'))
                 self.in_color_lab.setText(self.tr('Bar color'))
 
-        # PiePlot
-        if self.ptype == 'pie':
-            self.x_label.setText(self.tr('Grouping Field'))
+        elif self.ptype == 'pie':
+            self.x_label.setText(self.tr('Grouping field'))
             ff = QFont()
             ff.setPointSizeF(8.5)
             self.x_label.setFont(ff)
@@ -1157,7 +1156,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         save the current plot view as png image.
         The user can choose the path and the file name
         """
-        self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.png")
+        self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save Plot"), "", "PNG Files (*.png)")
 
         self.plot_file = self.plot_file[0]
         if self.plot_file:
@@ -1186,7 +1185,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
 
         try:
-            self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save plot"), "", "*.html")
+            self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save Plot"), "", "HTML Files (*.html)")
             self.plot_file = self.plot_file[0]
         except:  # pylint: disable=bare-except  # noqa: F401
             self.plot_file = plot_file
