@@ -25,7 +25,7 @@ class DataPlotlyFactory(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def test_values(self):
+    def test_values(self):  # pylint: disable=too-many-statements
         """
         Test value collection
         """
