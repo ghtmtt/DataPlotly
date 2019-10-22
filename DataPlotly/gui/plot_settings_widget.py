@@ -201,8 +201,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.draw_btn.clicked.connect(self.createPlot)
         self.update_btn.clicked.connect(self.UpdatePlot)
         self.clear_btn.clicked.connect(self.clearPlotView)
-        self.save_plot_btn.clicked.connect(self.savePlotAsImage)
-        self.save_plot_html_btn.clicked.connect(self.savePlotAsHtml)
+        self.save_plot_btn.clicked.connect(self.save_plot_as_image)
+        self.save_plot_html_btn.clicked.connect(self.save_plot_as_html)
         self.save_plot_btn.setIcon(GuiUtils.get_icon('save_as_image.svg'))
         self.save_plot_html_btn.setIcon(GuiUtils.get_icon('save_as_html.svg'))
 
@@ -1148,51 +1148,48 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         except:  # pylint: disable=bare-except  # noqa: F401
             pass
 
-    def savePlotAsImage(self):
+    def save_plot_as_image(self):
         """
-        save the current plot view as png image.
+        Save the current plot view as a png image.
         The user can choose the path and the file name
         """
-        self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save Plot"), "", "PNG Files (*.png)")
+        plot_file, _ = QFileDialog.getSaveFileName(self, self.tr("Save Plot"), "", "*.png")
+        if not plot_file:
+            return
 
-        self.plot_file = self.plot_file[0]
-        if self.plot_file:
-            self.plot_file += '.png'
+        plot_file = QgsFileUtils.ensureFileNameHasExtension(plot_file, ['png'])
 
-        try:
-            frame = self.plot_view.page().mainFrame()
-            self.plot_view.page().setViewportSize(frame.contentsSize())
-            # render image
-            image = QImage(self.plot_view.page().viewportSize(), QImage.Format_ARGB32)
-            painter = QPainter(image)
-            frame.render(painter)
-            painter.end()
-            if self.plot_file:
-                image.save(self.plot_file)
-                self.iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
-        except:  # pylint: disable=bare-except  # noqa: F401
-            self.iface.messageBar().pushMessage(self.tr("Please select a directory to save the plot"),
-                                                Qgis.MessageLevel(1),
-                                                duration=4)
+        frame = self.plot_view.page().mainFrame()
+        self.plot_view.page().setViewportSize(frame.contentsSize())
+        # render image
+        image = QImage(self.plot_view.page().viewportSize(), QImage.Format_ARGB32)
+        painter = QPainter(image)
+        frame.render(painter)
+        painter.end()
+        image.save(plot_file)
+        if self.message_bar:
+            self.message_bar.pushSuccess(self.tr('DataPlotly'),
+                                         self.tr('Plot saved to <a href="{}">{}</a>').format(
+                                             QUrl.fromLocalFile(plot_file).toString(),
+                                             QDir.toNativeSeparators(plot_file)))
 
-    def savePlotAsHtml(self, plot_file=None):
+    def save_plot_as_html(self):
         """
-        save the plot as html local file. Basically just let the user choose
+        Saves the plot as a local html file. Basically just let the user choose
         where to save the already existing html file created by plotly
         """
 
-        try:
-            self.plot_file = QFileDialog.getSaveFileName(self, self.tr("Save Plot"), "", "HTML Files (*.html)")
-            self.plot_file = self.plot_file[0]
-        except:  # pylint: disable=bare-except  # noqa: F401
-            self.plot_file = plot_file
+        plot_file, _ = QFileDialog.getSaveFileName(self, self.tr("Save Plot"), "", "*.html")
+        if not plot_file:
+            return
 
-        if self.plot_file and not self.plot_file.endswith('.html'):
-            self.plot_file += '.html'
+        plot_file = QgsFileUtils.ensureFileNameHasExtension(plot_file, ['html'])
 
-        if self.plot_file:
-            copyfile(self.plot_path, self.plot_file)
-            self.iface.messageBar().pushMessage(self.tr("Plot succesfully saved"), Qgis.MessageLevel(0), duration=2)
+        copyfile(self.plot_path, plot_file)
+        if self.message_bar:
+            self.message_bar.pushSuccess(self.tr('DataPlotly'),
+                                         self.tr('Saved plot to <a href="{}">{}</a>').format(
+                                             QUrl.fromLocalFile(plot_file).toString(), QDir.toNativeSeparators(plot_file)))
 
     def showPlotFromDic(self, plot_input_dic):
         """
