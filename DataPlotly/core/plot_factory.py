@@ -15,15 +15,18 @@ import plotly
 import plotly.graph_objs as go
 from plotly import tools
 
-from qgis.core import QgsProject, QgsVectorLayerUtils
+from qgis.core import (
+    QgsProject,
+    QgsExpression,
+    QgsExpressionContext,
+    QgsExpressionContextUtils,
+    QgsFeatureRequest,
+    NULL
+)
 from qgis.PyQt.QtCore import QUrl
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
-from DataPlotly.utils import (
-    cleanData,
-    getIds
-)
 
 
 class PlotFactory:  # pylint:disable=too-many-instance-attributes
@@ -61,27 +64,118 @@ class PlotFactory:  # pylint:disable=too-many-instance-attributes
         self.settings = settings
         self.raw_plot = None
         self.plot_path = None
+        self.selected_features_only = False
+        self.trace = None
+        self.layout = None
 
-        if not settings.x and settings.source_layer_id:
-            # not using hardcoded values, collect values now
-            source_layer = QgsProject.instance().mapLayer(settings.source_layer_id)
-            if source_layer:
-                # todo - fix for single layer iteration instead
-                selected_features_only = settings.properties['selected_features_only']
-                xx = QgsVectorLayerUtils.getValues(source_layer, settings.properties['x_name'],
-                                                   selectedOnly=settings.properties['selected_features_only'])[0]
-                yy = QgsVectorLayerUtils.getValues(source_layer, settings.properties['y_name'],
-                                                   selectedOnly=selected_features_only)[0]
-                zz = QgsVectorLayerUtils.getValues(source_layer, settings.properties['z_name'],
-                                                   selectedOnly=selected_features_only)[0]
-                settings.feature_ids = getIds(source_layer, selected_features_only)
-                settings.additional_hover_text = QgsVectorLayerUtils.getValues(
-                    source_layer,
-                    settings.layout['additional_info_expression'],
-                    selectedOnly=selected_features_only)[0]
+        self.rebuild()
 
-                # call the function that will clean the data from NULL values
-                settings.x, settings.y, settings.z, = cleanData(xx, yy, zz)
+    def fetch_values_from_layer(self):
+        """
+        (Re)fetches plot values from the source layer.
+        """
+
+        # Note: we keep things nice and efficient and only iterate a single time over the layer!
+
+        source_layer = QgsProject.instance().mapLayer(self.settings.source_layer_id)
+        if not source_layer:
+            return
+
+        self.selected_features_only = self.settings.properties['selected_features_only']
+
+        # TODO - allow this to be specified
+        context = QgsExpressionContext()
+        context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(source_layer))
+
+        attrs = set()
+
+        def add_source_field_or_expression(field_or_expression):
+            field_index = source_layer.fields().lookupField(field_or_expression)
+            if field_index == -1:
+                expression = QgsExpression(field_or_expression)
+                if not expression.hasParserError() and expression.prepare(context):
+                    attrs.union(expression.referencedColumns())
+                return expression, expression.needsGeometry()
+            else:
+                attrs.add(field_or_expression)
+                return None, False
+
+        x_expression, x_needs_geom = add_source_field_or_expression(self.settings.properties['x_name']) if self.settings.properties[
+            'x_name'] else (None, False)
+        y_expression, y_needs_geom = add_source_field_or_expression(self.settings.properties['y_name']) if self.settings.properties[
+            'y_name'] else (None, False)
+        z_expression, z_needs_geom = add_source_field_or_expression(self.settings.properties['z_name']) if self.settings.properties[
+            'z_name'] else (None, False)
+        additional_info_expression, additional_needs_geom = add_source_field_or_expression(
+            self.settings.layout['additional_info_expression']) if self.settings.layout[
+            'additional_info_expression'] else (None, False)
+
+        request = QgsFeatureRequest().setSubsetOfAttributes(attrs, source_layer.fields())
+        if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom:
+            request.setFlags(QgsFeatureRequest.NoGeometry)
+
+        if self.selected_features_only:
+            it = source_layer.getSelectedFeatures(request)
+        else:
+            it = source_layer.getFeatures(request)
+
+        xx = []
+        yy = []
+        zz = []
+        additional_hover_text = []
+        for f in it:
+            self.settings.feature_ids.append(f.id())
+            context.setFeature(f)
+
+            if x_expression:
+                res = x_expression.evaluate(context)
+                if res == NULL or res is None:
+                    continue
+                xx.append(res)
+            elif self.settings.properties['x_name']:
+                res = f[self.settings.properties['x_name']]
+                if res == NULL or res is None:
+                    continue
+                xx.append(res)
+
+            if y_expression:
+                res = y_expression.evaluate(context)
+                if res == NULL or res is None:
+                    continue
+                yy.append(res)
+            elif self.settings.properties['y_name']:
+                res = f[self.settings.properties['y_name']]
+                if res == NULL or res is None:
+                    continue
+                yy.append(res)
+
+            if z_expression:
+                res = z_expression.evaluate(context)
+                if res == NULL or res is None:
+                    continue
+                zz.append(res)
+            elif self.settings.properties['z_name']:
+                res = f[self.settings.properties['z_name']]
+                if res == NULL or res is None:
+                    continue
+                zz.append(res)
+
+            if additional_info_expression:
+                additional_hover_text.append(additional_info_expression.evaluate(context))
+            elif self.settings.layout['additional_info_expression']:
+                additional_hover_text.append(f[self.settings.layout['additional_info_expression']])
+
+        self.settings.additional_hover_text = additional_hover_text
+        self.settings.x = xx
+        self.settings.y = yy
+        self.settings.z = zz
+
+    def rebuild(self):
+        """
+        Rebuilds the plot, re-fetching current values from the layer
+        """
+        if self.settings.source_layer_id:
+            self.fetch_values_from_layer()
 
         self.trace = self._build_trace()
         self.layout = self._build_layout()
