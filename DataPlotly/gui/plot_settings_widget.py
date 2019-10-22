@@ -182,10 +182,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
 
-        try:
-            self.layer_combo.currentIndexChanged.connect(self.refreshLayerSelected)
-        except:  # pylint: disable=bare-except  # noqa: F401
-            pass
+        self.layer_combo.currentIndexChanged.connect(self.refreshLayerSelected)
 
         # fill combo boxes when launching the UI
         self.x_combo.setLayer(self.layer_combo.currentLayer())
