@@ -264,6 +264,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         else:
             self.iface.mapCanvas().extentsChanged.connect(self.update_plot_visible_rect)
 
+        QgsProject.instance().layerWillBeRemoved.connect(self.layer_will_be_removed)
+
     def updateStacked(self, row):
         """
         according to the listWdiget row change the stackedWidget and
@@ -373,6 +375,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.size_defined_button.setVectorLayer(layer)
         self.additional_info_combo.setLayer(layer)
         self.in_color_defined_button.setVectorLayer(layer)
+
+    def layer_will_be_removed(self, layer_id):
+        """
+        Triggered when a layer is about to be removed
+        """
+        self.plot_factories = {k: v for k, v in self.plot_factories.items() if
+                               not v.source_layer or v.source_layer.id() != layer_id}
 
     def getJSmessage(self, status):
         """
@@ -1024,7 +1033,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         visible_region = None
         if settings.properties['visible_features_only']:
             visible_region = QgsReferencedRectangle(self.iface.mapCanvas().extent(),
-                                                  self.iface.mapCanvas().mapSettings().destinationCrs())
+                                                    self.iface.mapCanvas().mapSettings().destinationCrs())
 
         # plot instance
         plot_factory = PlotFactory(settings, visible_region=visible_region)
@@ -1050,7 +1059,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Called when the canvas rect changes, and we may need to update filtered plots
         """
         region = QgsReferencedRectangle(self.iface.mapCanvas().extent(),
-                                              self.iface.mapCanvas().mapSettings().destinationCrs())
+                                        self.iface.mapCanvas().mapSettings().destinationCrs())
         for _, factory in self.plot_factories.items():
             factory.set_visible_region(region)
 
