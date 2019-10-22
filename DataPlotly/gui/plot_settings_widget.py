@@ -662,7 +662,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.in_color_lab.setText(self.tr('Box Color'))
 
         # ScatterPlot
-        if self.ptype == 'scatter' or 'ternary':
+        if self.ptype == 'scatter' or self.ptype == 'ternary':
             self.in_color_lab.setText(self.tr('Marker Color'))
 
         # BarPlot
