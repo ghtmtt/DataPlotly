@@ -180,3 +180,32 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
 
         elem = node.toElement()
         return self.read_xml(elem.firstChildElement())
+
+    def write_to_file(self, file_name: str) -> bool:
+        """
+        Writes the settings to an XML file
+        """
+        document = QDomDocument("dataplotly")
+        elem = self.write_xml(document)
+        document.appendChild(elem)
+
+        try:
+            with open(file_name, "w") as f:
+                f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+                f.write(document.toString())
+                return True
+        except FileNotFoundError:
+            return False
+
+    def read_from_file(self, file_name: str) -> bool:
+        """
+        Reads the settings from an XML file
+        """
+        f = QFile(file_name)
+        if f.open(QIODevice.ReadOnly):
+            document = QDomDocument()
+            if document.setContent(f):
+                if self.read_xml(document.firstChildElement()):
+                    return True
+
+        return False
