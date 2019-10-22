@@ -1172,54 +1172,6 @@ QListWidget::item::selected {
  <resources/>
  <connections>
   <connection>
-   <sender>layer_combo</sender>
-   <signal>layerChanged(QgsMapLayer*)</signal>
-   <receiver>x_combo</receiver>
-   <slot>setLayer(QgsMapLayer*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>532</x>
-     <y>226</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>layer_combo</sender>
-   <signal>layerChanged(QgsMapLayer*)</signal>
-   <receiver>y_combo</receiver>
-   <slot>setLayer(QgsMapLayer*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>532</x>
-     <y>266</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>layer_combo</sender>
-   <signal>layerChanged(QgsMapLayer*)</signal>
-   <receiver>z_combo</receiver>
-   <slot>setLayer(QgsMapLayer*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>532</x>
-     <y>306</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>alpha_slid</sender>
    <signal>valueChanged(int)</signal>
    <receiver>alpha_num</receiver>
@@ -1248,22 +1200,6 @@ QListWidget::item::selected {
     <hint type="destinationlabel">
      <x>399</x>
      <y>673</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>layer_combo</sender>
-   <signal>layerChanged(QgsMapLayer*)</signal>
-   <receiver>size_defined_button</receiver>
-   <slot>setVectorLayer(QgsMapLayer*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>532</x>
-     <y>349</y>
     </hint>
    </hints>
   </connection>
@@ -1316,22 +1252,6 @@ QListWidget::item::selected {
    </hints>
   </connection>
   <connection>
-   <sender>layer_combo</sender>
-   <signal>layerChanged(QgsMapLayer*)</signal>
-   <receiver>additional_info_combo</receiver>
-   <slot>setLayer(QgsMapLayer*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>504</x>
-     <y>130</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>bins_check</sender>
    <signal>toggled(bool)</signal>
    <receiver>bins_value</receiver>
@@ -1360,22 +1280,6 @@ QListWidget::item::selected {
     <hint type="destinationlabel">
      <x>302</x>
      <y>423</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>layer_combo</sender>
-   <signal>layerChanged(QgsMapLayer*)</signal>
-   <receiver>in_color_defined_button</receiver>
-   <slot>setVectorLayer(QgsMapLayer*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>541</x>
-     <y>83</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>474</x>
-     <y>291</y>
     </hint>
    </hints>
   </connection>

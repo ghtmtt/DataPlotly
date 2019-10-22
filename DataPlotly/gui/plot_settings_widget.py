@@ -182,14 +182,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
 
-        self.layer_combo.currentIndexChanged.connect(self.refreshLayerSelected)
-
-        # fill combo boxes when launching the UI
-        self.x_combo.setLayer(self.layer_combo.currentLayer())
-        self.y_combo.setLayer(self.layer_combo.currentLayer())
-        self.z_combo.setLayer(self.layer_combo.currentLayer())
-        self.additional_info_combo.setLayer(self.layer_combo.currentLayer())
-
         # connect the combo boxes to the setLegend function
         self.x_combo.fieldChanged.connect(self.setLegend)
         self.y_combo.fieldChanged.connect(self.setLegend)
@@ -232,8 +224,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # get the plot type from the combobox
         self.ptype = self.plot_combo.currentData()
 
-        # load the layer fields in the init function for the datadefined buttons
-        self.refreshDataDefinedButtonLayer()
+        self.layer_combo.layerChanged.connect(self.selected_layer_changed)
+        # fill combo boxes when launching the UI
+        self.selected_layer_changed(self.layer_combo.currentLayer())
+
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
         # connect the color defined button to the correct function
@@ -363,18 +357,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         else:
             self.in_color = hex_to_rgb(self.in_color_combo)
 
-    def refreshLayerSelected(self):
+    def selected_layer_changed(self, layer):
         """
         Trigger actions after selected layer changes
         """
-        self.refreshDataDefinedButtonLayer()
-
-    def refreshDataDefinedButtonLayer(self):
-        """
-        load the layer fields for the data-defined buttons
-        """
-        self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
-        self.in_color_defined_button.setVectorLayer(self.layer_combo.currentLayer())
+        self.x_combo.setLayer(layer)
+        self.y_combo.setLayer(layer)
+        self.z_combo.setLayer(layer)
+        self.size_defined_button.setVectorLayer(layer)
+        self.additional_info_combo.setLayer(layer)
+        self.in_color_defined_button.setVectorLayer(layer)
 
     def getJSmessage(self, status):
         """
