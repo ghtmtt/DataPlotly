@@ -31,7 +31,7 @@ class DataPlotlyFactory(unittest.TestCase):
         """
 
         layer_path = os.path.join(
-            os.path.dirname(__file__), 'test_layer.geojson')
+            os.path.dirname(__file__), 'test_layer.shp')
 
         vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
         vl1.setSubsetString('id < 10')
@@ -113,7 +113,7 @@ class DataPlotlyFactory(unittest.TestCase):
         """
 
         layer_path = os.path.join(
-            os.path.dirname(__file__), 'test_layer.geojson')
+            os.path.dirname(__file__), 'test_layer.shp')
 
         vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
         vl1.setSubsetString('id < 10')
@@ -136,8 +136,8 @@ class DataPlotlyFactory(unittest.TestCase):
 
         vl1.selectByIds([1, 3, 4])
         factory = PlotFactory(settings)
-        self.assertEqual(factory.settings.x, [203, 350, 137])
-        self.assertEqual(factory.settings.y, [110.45, 116.44, 126.73])
+        self.assertEqual(factory.settings.x, [88, 329, 319])
+        self.assertEqual(factory.settings.y, [22.26, 35.05, 46.64])
 
         vl1.selectByIds([])
         factory = PlotFactory(settings)
@@ -150,7 +150,7 @@ class DataPlotlyFactory(unittest.TestCase):
         """
 
         layer_path = os.path.join(
-            os.path.dirname(__file__), 'test_layer.geojson')
+            os.path.dirname(__file__), 'test_layer.shp')
 
         vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
         vl1.setSubsetString('id < 10')
@@ -180,13 +180,13 @@ class DataPlotlyFactory(unittest.TestCase):
 
         vl1.selectByIds([1])
         self.assertEqual(len(spy), 1)
-        self.assertEqual(factory.settings.x, [203])
-        self.assertEqual(factory.settings.y, [110.45])
+        self.assertEqual(factory.settings.x, [88])
+        self.assertEqual(factory.settings.y, [22.26])
 
         vl1.selectByIds([1, 3, 4])
         self.assertEqual(len(spy), 2)
-        self.assertEqual(factory.settings.x, [203, 350, 137])
-        self.assertEqual(factory.settings.y, [110.45, 116.44, 126.73])
+        self.assertEqual(factory.settings.x, [88, 329, 319])
+        self.assertEqual(factory.settings.y, [22.26, 35.05, 46.64])
 
         vl1.selectByIds([])
         self.assertEqual(len(spy), 3)
@@ -199,7 +199,7 @@ class DataPlotlyFactory(unittest.TestCase):
         """
 
         layer_path = os.path.join(
-            os.path.dirname(__file__), 'test_layer.geojson')
+            os.path.dirname(__file__), 'test_layer.shp')
 
         vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
         vl1.setSubsetString('id < 10')
@@ -221,7 +221,7 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertTrue(vl1.startEditing())
         vl1.changeAttributeValue(1, vl1.fields().lookupField('so4'), 500)
         self.assertEqual(len(spy), 1)
-        self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 500])
+        self.assertEqual(factory.settings.x, [98, 500, 267, 329, 319, 137, 350, 151, 203])
         self.assertEqual(factory.settings.y, [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45])
 
         vl1.rollBack()
