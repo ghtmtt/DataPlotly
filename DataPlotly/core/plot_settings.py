@@ -58,6 +58,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'invert_hist': 'increasing',
             'bins': 0,
             'selected_features_only': False,
+            'visible_features_only': False,
             'in_color_value': '0,0,0,255',
             'in_color_property': QgsProperty().toVariant(),
             'size_property': QgsProperty().toVariant(),
