@@ -166,7 +166,7 @@ QListWidget::item::selected {
                 </sizepolicy>
                </property>
                <property name="text">
-                <string>Plot Type</string>
+                <string>Plot type</string>
                </property>
               </widget>
              </item>
@@ -248,7 +248,7 @@ QListWidget::item::selected {
                        </size>
                       </property>
                       <property name="text">
-                       <string>X Field</string>
+                       <string>X field</string>
                       </property>
                      </widget>
                     </item>
@@ -272,7 +272,7 @@ QListWidget::item::selected {
                     <item row="3" column="0">
                      <widget class="QLabel" name="y_label">
                       <property name="text">
-                       <string>Y Field</string>
+                       <string>Y field</string>
                       </property>
                      </widget>
                     </item>
@@ -349,14 +349,14 @@ QListWidget::item::selected {
                     <item row="7" column="0">
                      <widget class="QLabel" name="color_scale_label">
                       <property name="text">
-                       <string>Color Scale</string>
+                       <string>Color scale</string>
                       </property>
                      </widget>
                     </item>
                     <item row="6" column="4">
                      <widget class="QCheckBox" name="show_lines_check">
                       <property name="text">
-                       <string>Show Lines</string>
+                       <string>Show lines</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
@@ -414,7 +414,7 @@ QListWidget::item::selected {
                     <item row="4" column="0">
                      <widget class="QLabel" name="point_lab">
                       <property name="text">
-                       <string>Point Type</string>
+                       <string>Point type</string>
                       </property>
                      </widget>
                     </item>
@@ -431,14 +431,14 @@ QListWidget::item::selected {
                     <item row="2" column="0">
                      <widget class="QLabel" name="out_color_lab">
                       <property name="text">
-                       <string>Stroke Color</string>
+                       <string>Stroke color</string>
                       </property>
                      </widget>
                     </item>
                     <item row="0" column="3">
                      <widget class="QLabel" name="marker_size_lab">
                       <property name="text">
-                       <string>Marker Size</string>
+                       <string>Marker size</string>
                       </property>
                      </widget>
                     </item>
@@ -461,7 +461,7 @@ QListWidget::item::selected {
                     <item row="6" column="0">
                      <widget class="QLabel" name="contour_type_label">
                       <property name="text">
-                       <string>Contour Type</string>
+                       <string>Contour type</string>
                       </property>
                      </widget>
                     </item>
@@ -484,21 +484,21 @@ QListWidget::item::selected {
                     <item row="5" column="0">
                      <widget class="QLabel" name="line_lab">
                       <property name="text">
-                       <string>Line Type</string>
+                       <string>Line type</string>
                       </property>
                      </widget>
                     </item>
                     <item row="0" column="0">
                      <widget class="QLabel" name="in_color_lab">
                       <property name="text">
-                       <string>Marker Color</string>
+                       <string>Marker color</string>
                       </property>
                      </widget>
                     </item>
                     <item row="2" column="3">
                      <widget class="QLabel" name="marker_width_lab">
                       <property name="text">
-                       <string>Stroke Width</string>
+                       <string>Stroke width</string>
                       </property>
                      </widget>
                     </item>
@@ -522,7 +522,7 @@ QListWidget::item::selected {
                     <item row="1" column="0">
                      <widget class="QLabel" name="color_scale_data_defined_in_label">
                       <property name="text">
-                       <string>Color Scale</string>
+                       <string>Color scale</string>
                       </property>
                      </widget>
                     </item>
@@ -539,7 +539,7 @@ QListWidget::item::selected {
                     <item row="1" column="4">
                      <widget class="QCheckBox" name="color_scale_data_defined_in_invert_check">
                       <property name="text">
-                       <string>Invert Color</string>
+                       <string>Invert color</string>
                       </property>
                      </widget>
                     </item>
@@ -893,7 +893,7 @@ QListWidget::item::selected {
            <item row="0" column="0">
             <widget class="QLabel" name="subcombo_label">
              <property name="text">
-              <string>Type of Plot</string>
+              <string>Type of plot</string>
              </property>
             </widget>
            </item>
@@ -905,14 +905,14 @@ QListWidget::item::selected {
              <item>
               <widget class="QRadioButton" name="radio_columns">
                <property name="text">
-                <string>Plot in Columns</string>
+                <string>Plot in columns</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QRadioButton" name="radio_rows">
                <property name="text">
-                <string>Plot in Rows</string>
+                <string>Plot in rows</string>
                </property>
                <property name="checked">
                 <bool>true</bool>
@@ -1075,7 +1075,7 @@ QListWidget::item::selected {
            <item row="2" column="1">
             <widget class="QCheckBox" name="live_update_check">
              <property name="text">
-              <string>Live Update</string>
+              <string>Live update</string>
              </property>
              <property name="checked">
               <bool>false</bool>
