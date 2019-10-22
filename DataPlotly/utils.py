@@ -21,8 +21,6 @@
  ***************************************************************************/
 """
 
-from qgis.core import NULL
-
 
 def hex_to_rgb(value):
     '''
@@ -64,66 +62,3 @@ def getSortedId(_, field_list):
         res = sorted(set(field_list), key=field_list.index)
 
     return res
-
-
-def getIds(layer, checkstate):
-    '''
-    get the ids list by checking if features are selectedFeatures
-    '''
-
-    ids = []
-
-    if checkstate:
-        for i in layer.selectedFeatures():
-            ids.append(i.id())
-    else:
-        for i in layer.getFeatures():
-            ids.append(i.id())
-
-    ids.sort()
-
-    return ids
-
-
-def cleanData(x, y, z):
-    '''
-    function to clean the input lists from NULL values (missing values).
-    this function is required because plotly cannot handle NULL values
-
-    it checks if every list exist and creates new lists without NULL values and
-    without the corresponding value at the same index in the other lists
-
-    additonal check is needed when for Box Plot the optional X group field is
-    empty
-    '''
-
-    f1 = []
-    f2 = []
-    f3 = []
-
-    if x and y and z:
-        for i, _ in enumerate(x):
-            if x[i] and y[i] and z[i] != NULL:
-                f1.append(x[i])
-                f2.append(y[i])
-                f3.append(z[i])
-    elif x and y:
-        for i, _ in enumerate(x):
-            if x[i] and y[i] != NULL:
-                f1.append(x[i])
-                f2.append(y[i])
-                f3 = None
-    elif x:
-        for i, _ in enumerate(x):
-            if x[i] != NULL:
-                f1.append(x[i])
-                f2 = None
-                f3 = None
-    elif y:
-        for i, _ in enumerate(y):
-            if y[i] != NULL:
-                f1 = None
-                f2.append(y[i])
-                f3 = None
-
-    return f1, f2, f3
