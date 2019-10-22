@@ -1092,9 +1092,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
                     self.plot_path = plot_factory.build_sub_plots('col', gr, 1, pl)
             except:  # pylint: disable=bare-except  # noqa: F401
-                self.iface.messageBar().pushMessage(
-                    self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
-                    Qgis.MessageLevel(2), duration=5)
+                if self.message_bar:
+                    self.message_bar.pushMessage(
+                        self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
+                        Qgis.MessageLevel(2), duration=5)
                 return
 
         # connect to simple function that reloads the view
