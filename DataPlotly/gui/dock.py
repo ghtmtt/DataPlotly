@@ -19,7 +19,7 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
     Plot settings dock widget
     """
 
-    def __init__(self, parent=None, message_bar = None):
+    def __init__(self, parent=None, message_bar=None):
         super().__init__(parent)
         self.setWindowTitle(self.tr('DataPlotly'))
         self.setObjectName('DataPlotlyDock')

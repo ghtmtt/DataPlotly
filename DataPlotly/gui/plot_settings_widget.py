@@ -937,7 +937,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         if self.in_color_defined_button.isActive():
             plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
-            plot_properties['color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
+            plot_properties[
+                'color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
             if self.ptype in self.widgetType[self.color_scale_data_defined_in]:
                 plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData()
             else:
@@ -999,7 +1000,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         size_prop.loadVariant(settings.properties['size_property'])
         self.size_defined_button.setToProperty(size_prop)
 
-        self.color_scale_data_defined_in.setCurrentIndex(self.color_scale_data_defined_in.findData(settings.properties['color_scale']))
+        self.color_scale_data_defined_in.setCurrentIndex(
+            self.color_scale_data_defined_in.findData(settings.properties['color_scale']))
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
         self.color_scale_data_defined_in_invert_check.setChecked(
             settings.properties['color_scale_data_defined_in_invert_check'])
@@ -1346,5 +1348,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             file = QgsFileUtils.ensureFileNameHasExtension(file, ['xml'])
             self.get_settings().write_to_file(file)
             if self.message_bar:
-                self.message_bar.pushSuccess(self.tr('DataPlotly'), self.tr('Saved configuration to <a href="{}">{}</a>').format(QUrl.fromLocalFile(file).toString(), QDir.toNativeSeparators(file)))
-
+                self.message_bar.pushSuccess(self.tr('DataPlotly'),
+                                             self.tr('Saved configuration to <a href="{}">{}</a>').format(
+                                                 QUrl.fromLocalFile(file).toString(), QDir.toNativeSeparators(file)))
