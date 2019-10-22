@@ -1119,7 +1119,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
     def refreshPlotView(self):
         """
-        just resfresh the view, if the reload method is called immediatly after
+        just refresh the view, if the reload method is called immediately after
         the view creation it won't reload the page
         """
 
@@ -1302,6 +1302,5 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         settings = PlotSettings()
         if settings.read_from_project(document):
-            # TODO here we would call a method like self.set_settings, and update the dock
-            # state to match the read settings
-            pass
+            # update the dock state to match the read settings
+            self.set_settings(settings)
