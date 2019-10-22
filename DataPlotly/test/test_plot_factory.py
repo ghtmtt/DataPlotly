@@ -12,7 +12,10 @@ import unittest
 import os
 from qgis.core import (
     QgsProject,
-    QgsVectorLayer
+    QgsVectorLayer,
+    QgsReferencedRectangle,
+    QgsRectangle,
+    QgsCoordinateReferenceSystem
 )
 from qgis.PyQt.QtTest import QSignalSpy
 from DataPlotly.core.plot_settings import PlotSettings
@@ -225,6 +228,49 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(factory.settings.y, [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45])
 
         vl1.rollBack()
+
+    def test_visible_features(self):
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.shp')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl1.setSubsetString('id < 10')
+        self.assertTrue(vl1.isValid())
+        QgsProject.instance().addMapLayer(vl1)
+
+        # not using visible features
+        settings = PlotSettings('scatter')
+        settings.source_layer_id = vl1.id()
+
+        settings.properties['x_name'] = 'so4'
+        settings.properties['y_name'] = 'ca'
+
+        rect = QgsReferencedRectangle(QgsRectangle(10.1, 43.5, 10.8, 43.85), QgsCoordinateReferenceSystem(4326))
+        factory = PlotFactory(settings, visible_region=rect)
+        spy = QSignalSpy(factory.plot_built)
+        self.assertEqual(len(spy), 0)
+        self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 203])
+        self.assertEqual(factory.settings.y, [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45])
+
+        settings.properties['visible_features_only'] = True
+        factory = PlotFactory(settings, visible_region=rect)
+        spy = QSignalSpy(factory.plot_built)
+        self.assertEqual(factory.settings.x, [88, 350, 151, 203])
+        self.assertEqual(factory.settings.y, [22.26, 116.44, 108.25, 110.45])
+
+        factory.set_visible_region(
+            QgsReferencedRectangle(QgsRectangle(10.6, 43.1, 12, 43.8), QgsCoordinateReferenceSystem(4326)))
+        self.assertEqual(len(spy), 1)
+        self.assertEqual(factory.settings.x, [98, 267, 319, 137])
+        self.assertEqual(factory.settings.y, [81.87, 74.16, 46.64, 126.73])
+
+        # with reprojection
+        factory.set_visible_region(
+            QgsReferencedRectangle(QgsRectangle(1167379, 5310986, 1367180, 5391728),
+                                   QgsCoordinateReferenceSystem(3857)))
+        self.assertEqual(len(spy), 2)
+        self.assertEqual(factory.settings.x, [98, 267, 329, 319, 137])
+        self.assertEqual(factory.settings.y, [81.87, 74.16, 35.05, 46.64, 126.73])
 
 
 if __name__ == "__main__":

@@ -62,7 +62,8 @@ from qgis.core import (
     QgsProject,
     QgsSymbolLayerUtils,
     QgsProperty,
-    QgsFileUtils
+    QgsFileUtils,
+    QgsReferencedRectangle
 )
 from qgis.gui import QgsPanelWidget, QgsMessageBar
 from qgis.utils import iface
@@ -258,6 +259,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.clear_btn.setVisible(False)
             self.subcombo.setVisible(False)
             self.subcombo_label.setVisible(False)
+            self.visible_feature_check.setVisible(False)
+            self.selected_feature_check.setVisible(False)
+        else:
+            self.iface.mapCanvas().extentsChanged.connect(self.update_plot_visible_rect)
 
     def updateStacked(self, row):
         """
@@ -888,6 +893,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'show_mean_line': self.showMeanCheck.isChecked(),
                            'violin_side': self.violinSideCombo.currentData(),
                            'selected_features_only': self.selected_feature_check.isChecked(),
+                           'visible_features_only': self.visible_feature_check.isChecked(),
                            'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
                            'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
                            'size_property': self.size_defined_button.toProperty().toVariant(),
@@ -953,6 +959,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # Set the plot properties
         self.set_layer_id(settings.source_layer_id)
         self.selected_feature_check.setChecked(settings.properties.get('selected_features_only', False))
+        self.visible_feature_check.setChecked(settings.properties.get('visible_features_only', False))
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])
         self.z_combo.setExpression(settings.properties['z_name'])
@@ -1014,8 +1021,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         settings = self.get_settings()
 
+        visible_region = None
+        if settings.properties['visible_features_only']:
+            visible_region = QgsReferencedRectangle(self.iface.mapCanvas().extent(),
+                                                  self.iface.mapCanvas().mapSettings().destinationCrs())
+
         # plot instance
-        plot_factory = PlotFactory(settings)
+        plot_factory = PlotFactory(settings, visible_region=visible_region)
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = ('{}_{}'.format(str(self.idx), settings.plot_type))
@@ -1032,6 +1044,15 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.update_btn.setEnabled(True)
 
         return plot_factory
+
+    def update_plot_visible_rect(self):
+        """
+        Called when the canvas rect changes, and we may need to update filtered plots
+        """
+        region = QgsReferencedRectangle(self.iface.mapCanvas().extent(),
+                                              self.iface.mapCanvas().mapSettings().destinationCrs())
+        for _, factory in self.plot_factories.items():
+            factory.set_visible_region(region)
 
     def refresh_plot(self, factory):
         """
@@ -1189,7 +1210,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if self.message_bar:
             self.message_bar.pushSuccess(self.tr('DataPlotly'),
                                          self.tr('Saved plot to <a href="{}">{}</a>').format(
-                                             QUrl.fromLocalFile(plot_file).toString(), QDir.toNativeSeparators(plot_file)))
+                                             QUrl.fromLocalFile(plot_file).toString(),
+                                             QDir.toNativeSeparators(plot_file)))
 
     def showPlotFromDic(self, plot_input_dic):
         """

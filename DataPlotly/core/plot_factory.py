@@ -21,7 +21,9 @@ from qgis.core import (
     QgsExpressionContext,
     QgsExpressionContextUtils,
     QgsFeatureRequest,
-    NULL
+    NULL,
+    QgsReferencedRectangle,
+    QgsCoordinateTransform
 )
 from qgis.PyQt.QtCore import (
     QUrl,
@@ -63,7 +65,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
     plot_built = pyqtSignal()
 
-    def __init__(self, settings: PlotSettings = None):
+    def __init__(self, settings: PlotSettings = None, visible_region: QgsReferencedRectangle = None):
         super().__init__()
         if settings is None:
             settings = PlotSettings('scatter')
@@ -72,6 +74,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.raw_plot = None
         self.plot_path = None
         self.selected_features_only = self.settings.properties['selected_features_only']
+        self.visible_features_only = self.settings.properties['visible_features_only']
+        self.visible_region = visible_region
         self.trace = None
         self.layout = None
         self.source_layer = QgsProject.instance().mapLayer(
@@ -123,6 +127,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         request = QgsFeatureRequest().setSubsetOfAttributes(attrs, self.source_layer.fields())
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom:
             request.setFlags(QgsFeatureRequest.NoGeometry)
+
+        if self.visible_features_only and self.visible_region is not None:
+            ct = QgsCoordinateTransform(self.visible_region.crs(), self.source_layer.crs(), QgsProject.instance().transformContext())
+            rect = ct.transformBoundingBox(self.visible_region)
+            request.setFilterRect(rect)
 
         if self.selected_features_only:
             it = self.source_layer.getSelectedFeatures(request)
@@ -183,6 +192,15 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.settings.x = xx
         self.settings.y = yy
         self.settings.z = zz
+
+    def set_visible_region(self, region: QgsReferencedRectangle):
+        """
+        Sets the visible region associated with the factory, possibly triggering a rebuild
+        of a filtered plot
+        """
+        if self.visible_features_only:
+            self.visible_region = region
+            self.rebuild()
 
     def rebuild(self):
         """
