@@ -182,7 +182,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
 
-        self.setCheckState()
         try:
             self.layer_combo.currentIndexChanged.connect(self.refreshLayerSelected)
         except:  # pylint: disable=bare-except  # noqa: F401
@@ -372,7 +371,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Trigger actions after selected layer changes
         """
         self.refreshDataDefinedButtonLayer()
-        self.setCheckState()
 
     def refreshDataDefinedButtonLayer(self):
         """
@@ -380,20 +378,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         self.size_defined_button.setVectorLayer(self.layer_combo.currentLayer())
         self.in_color_defined_button.setVectorLayer(self.layer_combo.currentLayer())
-
-    def setCheckState(self):
-        """
-        change the selected_feature_check checkbox accordingly with the current
-        layer selection state
-        """
-        try:
-            if self.layer_combo.currentLayer().selectedFeatures():
-                self.selected_feature_check.setEnabled(True)
-            else:
-                self.selected_feature_check.setEnabled(False)
-                self.selected_feature_check.setChecked(False)
-        except:  # pylint: disable=bare-except  # noqa: F401
-            pass
 
     def getJSmessage(self, status):
         """
