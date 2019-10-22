@@ -79,8 +79,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         self.rebuild()
 
-        if self.source_layer and self.selected_features_only:
-            self.source_layer.selectionChanged.connect(self.rebuild)
+        if self.source_layer:
+            self.source_layer.layerModified.connect(self.rebuild)
+            if self.selected_features_only:
+                self.source_layer.selectionChanged.connect(self.rebuild)
 
     def fetch_values_from_layer(self):
         """
