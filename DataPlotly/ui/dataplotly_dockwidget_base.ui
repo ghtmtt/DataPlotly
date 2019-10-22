@@ -1082,7 +1082,7 @@ QListWidget::item::selected {
            <item row="2" column="1">
             <widget class="QCheckBox" name="live_update_check">
              <property name="text">
-              <string>Live update</string>
+              <string>Dynamically update size</string>
              </property>
              <property name="checked">
               <bool>false</bool>
