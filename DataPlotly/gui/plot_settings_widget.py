@@ -1034,6 +1034,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         return plot_factory
 
     def refresh_plot(self, factory):
+        """
+        Refreshes the plot built by the specified factory
+        """
         self.plot_path = factory.build_figure()
         self.refreshPlotView()
 

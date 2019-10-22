@@ -84,7 +84,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             if self.selected_features_only:
                 self.source_layer.selectionChanged.connect(self.rebuild)
 
-    def fetch_values_from_layer(self):
+    def fetch_values_from_layer(self):  # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         """
         (Re)fetches plot values from the source layer.
         """
@@ -102,8 +102,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 if not expression.hasParserError():
                     expression.prepare(context)
                 return expression, expression.needsGeometry(), expression.referencedColumns()
-            else:
-                return None, False, {field_or_expression}
+
+            return None, False, {field_or_expression}
 
         x_expression, x_needs_geom, x_attrs = add_source_field_or_expression(self.settings.properties['x_name']) if \
         self.settings.properties[
