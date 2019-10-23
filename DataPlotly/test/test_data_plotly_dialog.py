@@ -126,6 +126,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.layout['additional_info_expression'] = '1+2'
         settings.layout['bins_check'] = True
 
+        settings.filter_property = QgsProperty.fromExpression('"ap">50')
+
         dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog2.set_settings(settings)
 
@@ -139,6 +141,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for k in settings.layout.keys():
             self.assertEqual(dialog2.get_settings().layout[k], settings.layout[k])
         self.assertEqual(dialog2.get_settings().source_layer_id, vl3.id())
+        self.assertEqual(dialog2.get_settings().filter_property, settings.filter_property)
 
         settings = dialog.get_settings()
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
