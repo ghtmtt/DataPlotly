@@ -14,7 +14,9 @@ from qgis.PyQt.QtCore import (
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
 from qgis.core import (
     QgsXmlUtils,
-    QgsProperty
+    QgsProperty,
+    QgsPropertyCollection,
+    QgsPropertyDefinition
 )
 
 
@@ -23,6 +25,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     The PlotSettings class encapsulates all settings relating to a plot, and contains
     methods for serializing and deserializing these settings.
     """
+
+    PROPERTY_FILTER = 1
+    DYNAMIC_PROPERTIES = {
+      PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean)
+    }
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
                  source_layer_id=None):
@@ -104,7 +111,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'layout_prop': plot_base_layout
         }
 
-        self.filter_property = QgsProperty()
+        self.dynamic_properties = QgsPropertyCollection()
+        self.dynamic_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty())
 
         # Set class properties - we use the base dictionaries, replacing base values with
         # those from the passed properties dicts
@@ -135,7 +143,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'plot_properties': self.properties,
             'plot_layout': self.layout,
             'source_layer_id': self.source_layer_id,
-            'filter_property': self.filter_property.toVariant()
+            'dynamic_properties': self.dynamic_properties.toVariant(PlotSettings.DYNAMIC_PROPERTIES)
         }, document)
         return element
 
@@ -154,7 +162,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.properties = res['plot_properties']
         self.layout = res['plot_layout']
         self.source_layer_id = res.get('source_layer_id', None)
-        self.filter_property.loadVariant(res.get('filter_property', None))
+        self.dynamic_properties.loadVariant(res.get('dynamic_properties', None), PlotSettings.DYNAMIC_PROPERTIES)
 
         return True
 

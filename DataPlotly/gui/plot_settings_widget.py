@@ -960,7 +960,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
                             source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None)
-        settings.filter_property = self.feature_subset_defined_button.toProperty()
+        settings.dynamic_properties.setProperty(PlotSettings.PROPERTY_FILTER, self.feature_subset_defined_button.toProperty())
         return settings
 
     def set_layer_id(self, layer_id: str):
@@ -985,7 +985,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.selected_feature_check.setChecked(settings.properties.get('selected_features_only', False))
         self.visible_feature_check.setChecked(settings.properties.get('visible_features_only', False))
 
-        self.feature_subset_defined_button.setToProperty(settings.filter_property)
+        self.feature_subset_defined_button.setToProperty(settings.dynamic_properties.property(PlotSettings.PROPERTY_FILTER))
 
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])

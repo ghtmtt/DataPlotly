@@ -170,7 +170,7 @@ class DataPlotlyFactory(unittest.TestCase):
         settings.source_layer_id = vl1.id()
         settings.properties['x_name'] = 'so4'
         settings.properties['y_name'] = 'mg'
-        settings.filter_property = QgsProperty.fromExpression('so4/@some_var > 20')
+        settings.dynamic_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('so4/@some_var > 20'))
 
         factory = PlotFactory(settings)
         # should be empty, variable is not available
