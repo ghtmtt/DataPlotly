@@ -50,7 +50,7 @@ class LoggingWebPage(QWebPage):
         QgsMessageLog.logMessage('{}:{} {}'.format(source, lineNumber, message), 'DataPlotly')
 
 
-class PlotLayoutItem(QgsLayoutItem, QgsExpressionContextGenerator):
+class PlotLayoutItem(QgsLayoutItem):
 
     def __init__(self, layout):
         super().__init__(layout)
@@ -141,13 +141,6 @@ class PlotLayoutItem(QgsLayoutItem, QgsExpressionContextGenerator):
         super().refresh()
         self.html_loaded = False
         self.invalidateCache()
-
-    def createExpressionContext(self):
-        context = QgsExpressionContext()
-        context.appendScope(QgsExpressionContextUtils.globalScope())
-        context.appendScope(QgsExpressionContextUtils.projectScope(QgsProject.instance()))
-        context.appendScope(QgsExpressionContextUtils.layoutScope(self.layout()))
-        return context
 
 
 class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):
