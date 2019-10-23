@@ -11,7 +11,7 @@
 import unittest
 import os
 import tempfile
-from qgis.core import QgsProject
+from qgis.core import QgsProject, QgsProperty
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
 from DataPlotly.core.plot_settings import PlotSettings
@@ -59,6 +59,7 @@ class DataPlotlySettings(unittest.TestCase):
         doc = QDomDocument("properties")
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
                                 layout={'title': 'my plot', 'legend_orientation': 'v'})
+        original.filter_property = QgsProperty.fromExpression('"ap">50')
         elem = original.write_xml(doc)
         self.assertFalse(elem.isNull())
 
@@ -71,6 +72,7 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.plot_type, original.plot_type)
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
+        self.assertEqual(res.filter_property, original.filter_property)
 
     def test_read_write_project(self):
         """
@@ -81,6 +83,7 @@ class DataPlotlySettings(unittest.TestCase):
         doc.appendChild(doc.createElement('qgis'))
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
                                 layout={'title': 'my plot', 'legend_orientation': 'v'})
+        original.filter_property = QgsProperty.fromExpression('"ap">50')
         original.write_to_project(doc)
 
         res = PlotSettings('gg')
@@ -88,6 +91,7 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.plot_type, original.plot_type)
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
+        self.assertEqual(res.filter_property, original.filter_property)
 
     def test_read_write_project2(self):
         """
@@ -96,7 +100,7 @@ class DataPlotlySettings(unittest.TestCase):
         p = QgsProject()
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
                                 layout={'title': 'my plot', 'legend_orientation': 'v'})
-
+        original.filter_property = QgsProperty.fromExpression('"ap">50')
         self.test_read_write_project2_written = False
 
         def write(doc):
@@ -128,6 +132,7 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.plot_type, original.plot_type)
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
+        self.assertEqual(res.filter_property, original.filter_property)
 
     def test_read_write_file(self):
         """
@@ -135,7 +140,7 @@ class DataPlotlySettings(unittest.TestCase):
         """
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
                                 layout={'title': 'my plot', 'legend_orientation': 'v'})
-
+        original.filter_property = QgsProperty.fromExpression('"ap">50')
         path = os.path.join(tempfile.gettempdir(), 'plot_config.xml')
 
         self.assertFalse(original.write_to_file('/nooooooooo/nooooooooooo.xml'))
@@ -148,6 +153,7 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.plot_type, original.plot_type)
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
+        self.assertEqual(res.filter_property, original.filter_property)
 
 
 if __name__ == "__main__":

@@ -18,7 +18,8 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsExpressionContextGenerator,
     QgsExpressionContext,
-    QgsExpressionContextScope
+    QgsExpressionContextScope,
+    QgsProperty
 )
 from qgis.PyQt.QtTest import QSignalSpy
 from DataPlotly.core.plot_settings import PlotSettings
@@ -150,6 +151,47 @@ class DataPlotlyFactory(unittest.TestCase):
         factory = PlotFactory(settings, context_generator=generator)
         self.assertEqual(factory.settings.x, [9.8, 8.8, 26.7, 32.9, 31.9, 13.7, 35.0, 15.1, 20.3])
         self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
+        self.assertEqual(factory.settings.z, [])
+        self.assertEqual(factory.settings.additional_hover_text, [])
+
+    def test_filter(self):
+        """
+        Test that filters are correctly applied
+        """
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.shp')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl1.setSubsetString('id < 10')
+        self.assertTrue(vl1.isValid())
+        QgsProject.instance().addMapLayer(vl1)
+
+        settings = PlotSettings('scatter')
+        settings.source_layer_id = vl1.id()
+        settings.properties['x_name'] = 'so4'
+        settings.properties['y_name'] = 'mg'
+        settings.filter_property = QgsProperty.fromExpression('so4/@some_var > 20')
+
+        factory = PlotFactory(settings)
+        # should be empty, variable is not available
+        self.assertEqual(factory.settings.x, [])
+        self.assertEqual(factory.settings.y, [])
+        self.assertEqual(factory.settings.z, [])
+        self.assertEqual(factory.settings.additional_hover_text, [])
+
+        class TestGenerator(QgsExpressionContextGenerator):
+
+            def createExpressionContext(self) -> QgsExpressionContext:
+                context = QgsExpressionContext()
+                scope = QgsExpressionContextScope()
+                scope.setVariable('some_var', 10)
+                context.appendScope(scope)
+                return context
+
+        generator = TestGenerator()
+        factory = PlotFactory(settings, context_generator=generator)
+        self.assertEqual(factory.settings.x, [267, 329, 319, 350, 203])
+        self.assertEqual(factory.settings.y, [85.26, 81.11, 131.59, 112.88, 78.34])
         self.assertEqual(factory.settings.z, [])
         self.assertEqual(factory.settings.additional_hover_text, [])
 

@@ -59,7 +59,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'bins': 0,
             'selected_features_only': False,
             'visible_features_only': False,
-            'feature_subset_query': QgsProperty().toVariant(),
             'in_color_value': '0,0,0,255',
             'in_color_property': QgsProperty().toVariant(),
             'size_property': QgsProperty().toVariant(),
@@ -105,6 +104,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'layout_prop': plot_base_layout
         }
 
+        self.filter_property = QgsProperty()
+
         # Set class properties - we use the base dictionaries, replacing base values with
         # those from the passed properties dicts
         if properties is None:
@@ -133,7 +134,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'plot_type': self.plot_type,
             'plot_properties': self.properties,
             'plot_layout': self.layout,
-            'source_layer_id': self.source_layer_id
+            'source_layer_id': self.source_layer_id,
+            'filter_property': self.filter_property.toVariant()
         }, document)
         return element
 
@@ -152,6 +154,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.properties = res['plot_properties']
         self.layout = res['plot_layout']
         self.source_layer_id = res.get('source_layer_id', None)
+        self.filter_property.loadVariant(res.get('filter_property', None))
 
         return True
 

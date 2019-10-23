@@ -133,7 +133,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.configuration_btn.setMenu(self.configuration_menu)
 
         # set the icon of QgspropertyOverrideButton not taken automatically
-        self.feature_subset_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
         self.size_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
         self.in_color_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
 
@@ -906,7 +905,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'violin_side': self.violinSideCombo.currentData(),
                            'selected_features_only': self.selected_feature_check.isChecked(),
                            'visible_features_only': self.visible_feature_check.isChecked(),
-                           'feature_subset_query': self.feature_subset_defined_button.toProperty().toVariant(),
                            'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
                            'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
                            'size_property': self.size_defined_button.toProperty().toVariant(),
@@ -949,8 +947,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'additional_info_expression': self.additional_info_combo.expression(),
                              'bins_check': self.bins_check.isChecked()}
 
-        return PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
+        settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
                             source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None)
+        settings.filter_property = self.feature_subset_defined_button.toProperty()
+        return settings
 
     def set_layer_id(self, layer_id: str):
         """
@@ -974,9 +974,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.selected_feature_check.setChecked(settings.properties.get('selected_features_only', False))
         self.visible_feature_check.setChecked(settings.properties.get('visible_features_only', False))
 
-        feature_subset_query_property = QgsProperty()
-        feature_subset_query_property.loadVariant(settings.properties['feature_subset_query'])
-        self.feature_subset_defined_button.setToProperty(feature_subset_query_property)
+        self.feature_subset_defined_button.setToProperty(settings.filter_property)
 
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])

@@ -24,7 +24,8 @@ from qgis.core import (
     NULL,
     QgsReferencedRectangle,
     QgsCoordinateTransform,
-    QgsExpressionContextGenerator
+    QgsExpressionContextGenerator,
+    QgsProperty
 )
 from qgis.PyQt.QtCore import (
     QUrl,
@@ -131,14 +132,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         request = QgsFeatureRequest()
 
-        if self.settings.properties['feature_subset_query']['active']:
-            if 'expression' in self.settings.properties['feature_subset_query']:
-                expr = QgsExpression(self.settings.properties['feature_subset_query']['expression'])
-                if not expr.hasParserError():
-                    request.setFilterExpression(self.settings.properties['feature_subset_query']['expression'])
-                    request.setExpressionContext(context)
-                else:
-                    print("expr.hasParserError()")
+        if self.settings.filter_property.isActive():
+            expression = self.settings.filter_property.asExpression()
+            request.setFilterExpression(expression)
+            request.setExpressionContext(context)
 
         request.setSubsetOfAttributes(attrs, self.source_layer.fields())
 
