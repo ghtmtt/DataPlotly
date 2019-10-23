@@ -63,7 +63,8 @@ from qgis.core import (
     QgsSymbolLayerUtils,
     QgsProperty,
     QgsFileUtils,
-    QgsReferencedRectangle
+    QgsReferencedRectangle,
+    QgsExpressionContextGenerator
 )
 from qgis.gui import QgsPanelWidget, QgsMessageBar
 from qgis.utils import iface
@@ -280,6 +281,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # change the stackedWidgets index
         elif row > 1:
             self.stackedPlotWidget.setCurrentIndex(row - 1)
+
+    def registerExpressionContextGenerator(self, generator: QgsExpressionContextGenerator):
+        """
+        Register the panel's expression context generator with all relevant children
+        """
+        self.x_combo.registerExpressionContextGenerator(generator)
+        self.y_combo.registerExpressionContextGenerator(generator)
+        self.z_combo.registerExpressionContextGenerator(generator)
+        self.additional_info_combo.registerExpressionContextGenerator(generator)
+        self.feature_subset_defined_button.registerExpressionContextGenerator(generator)
 
     def set_plot_type(self, plot_type: str):
         """

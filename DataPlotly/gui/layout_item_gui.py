@@ -51,7 +51,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         Shows the plot properties panel
         """
         self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT, message_bar=self.message_bar)
-        self.panel.feature_subset_defined_button.registerExpressionContextGenerator(self.plot_item)
+        self.panel.registerExpressionContextGenerator(self.plot_item)
         self.panel.set_settings(self.plot_item.plot_settings)
         # self.panel.set_settings(self.layoutItem().plot_settings)
         self.openPanel(self.panel)
