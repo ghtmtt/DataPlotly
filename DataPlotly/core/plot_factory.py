@@ -135,8 +135,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             if 'expression' in self.settings.properties['feature_subset_query']:
                 expr = QgsExpression(self.settings.properties['feature_subset_query']['expression'])
                 if not expr.hasParserError():
-                    expr.prepare(context)
-                    request = QgsFeatureRequest(expr, context)
+                    request.setFilterExpression(self.settings.properties['feature_subset_query']['expression'])
+                    request.setExpressionContext(context)
                 else:
                     print("expr.hasParserError()")
 
