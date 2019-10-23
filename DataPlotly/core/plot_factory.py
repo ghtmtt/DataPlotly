@@ -66,14 +66,14 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
     plot_built = pyqtSignal()
 
-    def __init__(self, settings: PlotSettings = None, layout_item: QgsExpressionContextGenerator = None,
+    def __init__(self, settings: PlotSettings = None, context_generator: QgsExpressionContextGenerator = None,
                  visible_region: QgsReferencedRectangle = None):
         super().__init__()
         if settings is None:
             settings = PlotSettings('scatter')
 
         self.settings = settings
-        self.layout_item = layout_item
+        self.context_generator = context_generator
         self.raw_plot = None
         self.plot_path = None
         self.selected_features_only = self.settings.properties['selected_features_only']
@@ -98,7 +98,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         # Note: we keep things nice and efficient and only iterate a single time over the layer!
 
-        context = self.layout_item.createExpressionContext()
+        if not self.context_generator:
+            context = QgsExpressionContext()
+            context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(self.source_layer))
+        else:
+            context = self.context_generator.createExpressionContext()
 
         def add_source_field_or_expression(field_or_expression):
             field_index = self.source_layer.fields().lookupField(field_or_expression)
