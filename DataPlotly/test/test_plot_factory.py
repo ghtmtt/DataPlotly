@@ -15,7 +15,10 @@ from qgis.core import (
     QgsVectorLayer,
     QgsReferencedRectangle,
     QgsRectangle,
-    QgsCoordinateReferenceSystem
+    QgsCoordinateReferenceSystem,
+    QgsExpressionContextGenerator,
+    QgsExpressionContext,
+    QgsExpressionContextScope
 )
 from qgis.PyQt.QtTest import QSignalSpy
 from DataPlotly.core.plot_settings import PlotSettings
@@ -109,6 +112,46 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(factory.settings.y, [81.87, 85.26, 35.05, 131.59, 95.36, 112.88])
         self.assertEqual(factory.settings.z, [1, 1, 1, 1, 1, 1])
         self.assertEqual(factory.settings.additional_hover_text, [9, 7, 6, 5, 4, 3])
+
+    def test_expression_context(self):
+        """
+        Test that correct expression context is used when evaluating expressions
+        """
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.shp')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl1.setSubsetString('id < 10')
+        self.assertTrue(vl1.isValid())
+        QgsProject.instance().addMapLayer(vl1)
+
+        settings = PlotSettings('scatter')
+        settings.source_layer_id = vl1.id()
+        settings.properties['x_name'] = '"so4"/@some_var'
+        settings.properties['y_name'] = 'mg'
+
+        factory = PlotFactory(settings)
+        # should be empty, variable is not available
+        self.assertEqual(factory.settings.x, [])
+        self.assertEqual(factory.settings.y, [])
+        self.assertEqual(factory.settings.z, [])
+        self.assertEqual(factory.settings.additional_hover_text, [])
+
+        class TestGenerator(QgsExpressionContextGenerator):
+
+            def createExpressionContext(self) -> QgsExpressionContext:
+                context = QgsExpressionContext()
+                scope = QgsExpressionContextScope()
+                scope.setVariable('some_var', 10)
+                context.appendScope(scope)
+                return context
+
+        generator = TestGenerator()
+        factory = PlotFactory(settings, context_generator=generator)
+        self.assertEqual(factory.settings.x, [9.8, 8.8, 26.7, 32.9, 31.9, 13.7, 35.0, 15.1, 20.3])
+        self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
+        self.assertEqual(factory.settings.z, [])
+        self.assertEqual(factory.settings.additional_hover_text, [])
 
     def test_selected_feature_values(self):
         """
