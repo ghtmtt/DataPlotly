@@ -138,9 +138,9 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(factory.settings.z, [])
         self.assertEqual(factory.settings.additional_hover_text, [])
 
-        class TestGenerator(QgsExpressionContextGenerator):
+        class TestGenerator(QgsExpressionContextGenerator):  # pylint: disable=missing-docstring, too-few-public-methods
 
-            def createExpressionContext(self) -> QgsExpressionContext:
+            def createExpressionContext(self) -> QgsExpressionContext:  # pylint: disable=missing-docstring, no-self-use
                 context = QgsExpressionContext()
                 scope = QgsExpressionContextScope()
                 scope.setVariable('some_var', 10)
@@ -170,7 +170,8 @@ class DataPlotlyFactory(unittest.TestCase):
         settings.source_layer_id = vl1.id()
         settings.properties['x_name'] = 'so4'
         settings.properties['y_name'] = 'mg'
-        settings.dynamic_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('so4/@some_var > 20'))
+        settings.dynamic_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                QgsProperty.fromExpression('so4/@some_var > 20'))
 
         factory = PlotFactory(settings)
         # should be empty, variable is not available
@@ -179,9 +180,9 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(factory.settings.z, [])
         self.assertEqual(factory.settings.additional_hover_text, [])
 
-        class TestGenerator(QgsExpressionContextGenerator):
+        class TestGenerator(QgsExpressionContextGenerator):  # pylint: disable=missing-docstring, too-few-public-methods
 
-            def createExpressionContext(self) -> QgsExpressionContext:
+            def createExpressionContext(self) -> QgsExpressionContext:  # pylint: disable=missing-docstring, no-self-use
                 context = QgsExpressionContext()
                 scope = QgsExpressionContextScope()
                 scope.setVariable('some_var', 10)

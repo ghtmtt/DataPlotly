@@ -24,8 +24,7 @@ from qgis.core import (
     NULL,
     QgsReferencedRectangle,
     QgsCoordinateTransform,
-    QgsExpressionContextGenerator,
-    QgsProperty
+    QgsExpressionContextGenerator
 )
 from qgis.PyQt.QtCore import (
     QUrl,
