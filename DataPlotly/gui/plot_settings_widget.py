@@ -62,7 +62,8 @@ from qgis.core import (
     QgsFileUtils,
     QgsReferencedRectangle,
     QgsExpressionContextGenerator,
-    QgsPropertyCollection
+    QgsPropertyCollection,
+    QgsLayoutItemRegistry
 )
 from qgis.gui import (
     QgsPanelWidget,
@@ -332,6 +333,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         button.blockSignals(True)
         button.setToProperty(self.data_defined_properties.property(button.propertyKey()))
         button.blockSignals(False)
+
+    def set_print_layout(self, print_layout):
+        """
+        Sets the print layout linked with the widget, if in print layout mode
+        """
+        self.linked_map_combo.setCurrentLayout(print_layout)
+        self.linked_map_combo.setItemType(QgsLayoutItemRegistry.LayoutMap)
 
     def set_plot_type(self, plot_type: str):
         """

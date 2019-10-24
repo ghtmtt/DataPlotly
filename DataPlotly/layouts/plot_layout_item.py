@@ -56,6 +56,12 @@ class PlotLayoutItem(QgsLayoutItem):
         super().__init__(layout)
         self.setCacheMode(QGraphicsItem.NoCache)
         self.plot_settings = PlotSettings()
+        self.linked_map_uuid = ''
+        self.linked_map = None
+
+        self.filter_by_map = False
+        self.filter_by_atlas = False
+
         self.web_page = LoggingWebPage(self)
         self.web_page.setNetworkAccessManager(QgsNetworkAccessManager.instance())
 
@@ -87,6 +93,12 @@ class PlotLayoutItem(QgsLayoutItem):
         # we may need to expose this as a "scaling" setting
 
         return 72
+
+    def set_linked_map(self, map):
+        """
+        Sets the map linked to the plot item
+        """
+        self.linked_map = map
 
     def set_plot_settings(self, settings):
         """
@@ -124,13 +136,28 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def writePropertiesToElement(self, element, document, _):
         element.appendChild(self.plot_settings.write_xml(document))
+        element.setAttribute('filter_by_map', 1 if self.filter_by_map else 0)
+        element.setAttribute('filter_by_atlas', 1 if self.filter_by_atlas else 0)
+        element.setAttribute('linked_map', self.linked_map.uuid() if self.linked_map else '')
         return True
 
     def readPropertiesFromElement(self, element, document, context):
         res = self.plot_settings.read_xml(element.firstChildElement('Option'))
+
+        self.filter_by_map = bool(int(element.attribute('filter_by_map', '0')))
+        self.filter_by_atlas = bool(int(element.attribute('filter_by_atlas', '0')))
+        self.linked_map_uuid = element.attribute('linked_map')
+
         self.html_loaded = False
         self.invalidateCache()
         return res
+
+    def finalizeRestoreFromXml(self):
+        # has to happen after ALL items have been restored
+        if self.layout() and self.linked_map_uuid:
+            map = self.layout().itemByUuid(self.linked_map_uuid)
+            if map:
+                self.set_linked_map(map)
 
     def loading_html_finished(self):
         self.html_loaded = True

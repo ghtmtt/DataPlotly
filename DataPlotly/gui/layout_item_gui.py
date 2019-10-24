@@ -52,6 +52,24 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         """
         self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT, message_bar=self.message_bar)
         self.panel.registerExpressionContextGenerator(self.plot_item)
+        self.panel.set_print_layout(self.plot_item.layout())
+
+        self.panel.linked_map_combo.blockSignals(True)
+        self.panel.linked_map_combo.setItem(self.plot_item.linked_map)
+        self.panel.linked_map_combo.blockSignals(False)
+
+        self.panel.filter_by_map_check.toggled.connect(self.filter_by_map_toggled)
+        self.panel.filter_by_atlas_check.toggled.connect(self.filter_by_atlas_toggled)
+        self.panel.linked_map_combo.itemChanged.connect(self.linked_map_changed)
+
+        self.panel.filter_by_map_check.blockSignals(True)
+        self.panel.filter_by_map_check.setChecked(self.plot_item.filter_by_map)
+        self.panel.filter_by_map_check.blockSignals(False)
+
+        self.panel.filter_by_atlas_check.blockSignals(True)
+        self.panel.filter_by_atlas_check.setChecked(self.plot_item.filter_by_atlas)
+        self.panel.filter_by_atlas_check.blockSignals(False)
+
         self.panel.set_settings(self.plot_item.plot_settings)
         # self.panel.set_settings(self.layoutItem().plot_settings)
         self.openPanel(self.panel)
@@ -79,6 +97,27 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.panel = None
         self.plot_item.update()
 
+    def filter_by_map_toggled(self, value):
+        """
+        Triggered when the filter by map option is toggled
+        """
+        self.plot_item.filter_by_map = bool(value)
+        self.plot_item.update()
+
+    def filter_by_atlas_toggled(self, value):
+        """
+        Triggered when the filter by atlas option is toggled
+        """
+        self.plot_item.filter_by_atlas = bool(value)
+        self.plot_item.update()
+
+    def linked_map_changed(self, map):
+        """
+        Triggered when the linked map is changed
+        """
+        self.plot_item.set_linked_map(map)
+        self.plot_item.update()
+
     def setNewItem(self, item):  # pylint: disable=missing-docstring
         if item.type() != ITEM_TYPE:
             return False
@@ -88,6 +127,18 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
         if self.panel is not None:
             self.panel.set_settings(self.plot_item.plot_settings)
+
+            self.panel.filter_by_map_check.blockSignals(True)
+            self.panel.filter_by_map_check.setChecked(item.filter_by_map)
+            self.panel.filter_by_map_check.blockSignals(False)
+
+            self.panel.filter_by_atlas_check.blockSignals(True)
+            self.panel.filter_by_atlas_check.setChecked(item.filter_by_atlas)
+            self.panel.filter_by_atlas_check.blockSignals(False)
+
+            self.panel.linked_map_combo.blockSignals(True)
+            self.panel.linked_map_combo.setItem(self.plot_item.linked_map)
+            self.panel.linked_map_combo.blockSignals(False)
 
         return True
 
