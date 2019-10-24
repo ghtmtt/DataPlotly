@@ -42,7 +42,7 @@ class ScatterPlotFactory(PlotType):
             customdata=settings.properties['custom'],
             text=settings.additional_hover_text,
             hoverinfo=settings.properties['hover_text'],
-            marker={'color': settings.properties['in_color'],
+            marker={'color': settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
                     'colorscale': settings.properties['color_scale'],
                     'showscale': settings.properties['show_colorscale_legend'],
                     'reversescale': settings.properties['invert_color_scale'],

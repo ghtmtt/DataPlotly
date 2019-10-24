@@ -74,9 +74,6 @@ from qgis.gui import (
 )
 from qgis.utils import iface
 
-from DataPlotly.utils import (
-    hex_to_rgb
-)
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.gui_utils import GuiUtils
@@ -139,9 +136,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         action_save_configuration = self.configuration_menu.addAction(self.tr("Save Configuration…"))
         action_save_configuration.triggered.connect(self.save_configuration)
         self.configuration_btn.setMenu(self.configuration_menu)
-
-        # set the icon of QgspropertyOverrideButton not taken automatically
-        self.in_color_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
 
         # ListWidget icons and themes
         self.listWidget_icons = [
@@ -240,21 +234,19 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.register_data_defined_button(self.feature_subset_defined_button, PlotSettings.PROPERTY_FILTER)
         self.register_data_defined_button(self.size_defined_button, PlotSettings.PROPERTY_MARKER_SIZE)
         self.size_defined_button.registerEnabledWidget(self.marker_size, natural=False)
-
-        # connect the color defined button to the correct function
-        self.in_color_defined_button.changed.connect(self.resfreshColorDefined)
+        self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
+        self.in_color_defined_button.changed.connect(self.data_defined_color_updated)
 
         # connect to refreshing function of listWidget and stackedWidgets
         self.listWidget.currentRowChanged.connect(self.updateStacked)
 
         # connect the plot changing to the color data defined buttons
-        self.plot_combo.currentIndexChanged.connect(self.resfreshColorDefined)
+        self.plot_combo.currentIndexChanged.connect(self.data_defined_color_updated)
 
         # better default colors
         self.in_color_combo.setColor(QColor('#8EBAD9'))
         self.out_color_combo.setColor(QColor('#1F77B4'))
 
-        self.in_color = None
         self.pid = None
         self.plot_path = None
         self.plot_url = None
@@ -334,7 +326,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         self.plot_combo.setCurrentIndex(self.plot_combo.findData(plot_type))
 
-    def resfreshColorDefined(self):
+    def data_defined_color_updated(self):
         """
         refreshing function for color data defined button
 
@@ -373,21 +365,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.color_scale_data_defined_in_label.setVisible(False)
             self.color_scale_data_defined_in_check.setVisible(False)
             self.color_scale_data_defined_in_invert_check.setVisible(False)
-
-    def getColorDefined(self):
-        """
-        get the color code for plotly from the dataDefined button
-        """
-
-        if self.in_color_defined_button.isActive() and self.layer_combo.currentLayer():
-            if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
-                in_color = self.in_color_defined_button.toProperty().expressionString()
-                self.in_color = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), in_color,
-                                                              selectedOnly=self.selected_feature_check.isChecked())[0]
-            else:
-                self.in_color = hex_to_rgb(self.in_color_combo)
-        else:
-            self.in_color = hex_to_rgb(self.in_color_combo)
 
     def selected_layer_changed(self, layer):
         """
@@ -889,9 +866,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         Returns the plot settings as currently defined in the dialog
         """
-
-        self.getColorDefined()
-
         # get the plot type from the combo box
         self.ptype = self.plot_combo.currentData()
 
@@ -904,10 +878,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'x_name': self.x_combo.currentText(),
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
-                           'in_color': self.in_color,
+                           'in_color': self.in_color_combo.color().name(),
                            'show_colorscale_legend': color_scale_visible,
                            'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
-                           'out_color': hex_to_rgb(self.out_color_combo),
+                           'out_color': self.out_color_combo.color().name(),
                            'marker_width': self.marker_width.value(),
                            'marker_size': self.marker_size.value(),
                            'marker_symbol': self.point_types2[self.point_combo.currentData()],
@@ -929,11 +903,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'violin_side': self.violinSideCombo.currentData(),
                            'selected_features_only': self.selected_feature_check.isChecked(),
                            'visible_features_only': self.visible_feature_check.isChecked(),
-                           'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
-                           'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
                            'color_scale_data_defined_in_check': False,
                            'color_scale_data_defined_in_invert_check': False,
-                           'out_color_combo': QgsSymbolLayerUtils.encodeColor(self.out_color_combo.color()),
                            'marker_type_combo': self.marker_type_combo.currentText(),
                            'point_combo': self.point_combo.currentText(),
                            'line_combo': self.line_combo.currentText(),
@@ -1005,10 +976,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])
         self.z_combo.setExpression(settings.properties['z_name'])
-        self.in_color_combo.setColor(QgsSymbolLayerUtils.decodeColor(settings.properties['in_color_value']))
-        color_prop = QgsProperty()
-        color_prop.loadVariant(settings.properties['in_color_property'])
-        self.in_color_defined_button.setToProperty(color_prop)
+        self.in_color_combo.setColor(QColor(settings.properties['in_color']))
         self.marker_size.setValue(settings.properties['marker_size'])
 
         self.color_scale_data_defined_in.setCurrentIndex(
@@ -1016,7 +984,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
         self.color_scale_data_defined_in_invert_check.setChecked(
             settings.properties['color_scale_data_defined_in_invert_check'])
-        self.out_color_combo.setColor(QgsSymbolLayerUtils.decodeColor(settings.properties['out_color_combo']))
+        self.out_color_combo.setColor(QColor(settings.properties['out_color']))
         self.marker_width.setValue(settings.properties['marker_width'])
         self.marker_type_combo.setCurrentText(settings.properties['marker_type_combo'])
         self.point_combo.setCurrentText(settings.properties['point_combo'])

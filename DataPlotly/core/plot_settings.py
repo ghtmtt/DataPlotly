@@ -28,10 +28,12 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
 
     PROPERTY_FILTER = 1
     PROPERTY_MARKER_SIZE = 2
+    PROPERTY_COLOR = 3
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
-        PROPERTY_MARKER_SIZE: QgsPropertyDefinition('marker_size', 'Marker size', QgsPropertyDefinition.DoublePositive)
+        PROPERTY_MARKER_SIZE: QgsPropertyDefinition('marker_size', 'Marker size', QgsPropertyDefinition.DoublePositive),
+        PROPERTY_COLOR: QgsPropertyDefinition('color', 'Color', QgsPropertyDefinition.ColorWithAlpha)
     }
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
@@ -47,8 +49,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'x_name': '',
             'y_name': '',
             'z_name': '',
-            'in_color': None,
-            'out_color': 'rgb(0, 0, 0)',
+            'in_color': '#8ebad9',
+            'out_color': '#1f77b4',
             'marker_width': 1,
             'marker_size': 10,
             'marker_symbol': 0,
@@ -69,11 +71,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'bins': 0,
             'selected_features_only': False,
             'visible_features_only': False,
-            'in_color_value': '0,0,0,255',
-            'in_color_property': QgsProperty().toVariant(),
             'color_scale_data_defined_in_check': False,
             'color_scale_data_defined_in_invert_check': False,
-            'out_color_combo': '0,0,0,255',
             'marker_type_combo': 'Points',
             'point_combo': '',
             'line_combo': 'Solid Line',
@@ -134,6 +133,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.feature_ids = []
         self.additional_hover_text = []
         self.data_defined_marker_sizes = []
+        self.data_defined_colors = []
         self.source_layer_id = source_layer_id
 
     def write_xml(self, document: QDomDocument):

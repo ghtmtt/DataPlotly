@@ -31,6 +31,7 @@ from qgis.PyQt.QtCore import (
     QObject,
     pyqtSignal
 )
+from qgis.PyQt.QtGui import QColor
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
@@ -163,6 +164,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         zz = []
         additional_hover_text = []
         marker_sizes = []
+        colors = []
         for f in it:
             self.settings.feature_ids.append(f.id())
             context.setFeature(f)
@@ -214,6 +216,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 context.setOriginalValueVariable(default_value)
                 value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_MARKER_SIZE, context, default_value)
                 marker_sizes.append(value)
+            if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_COLOR):
+                default_value = QColor(self.settings.properties['in_color'])
+                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context, default_value)
+                colors.append(value.name())
 
         self.settings.additional_hover_text = additional_hover_text
         self.settings.x = xx
@@ -221,6 +227,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.settings.z = zz
         if marker_sizes:
             self.settings.data_defined_marker_sizes = marker_sizes
+        if colors:
+            self.settings.data_defined_colors = colors
 
     def set_visible_region(self, region: QgsReferencedRectangle):
         """
