@@ -40,7 +40,7 @@ class PolarChartFactory(PlotType):
                 name=settings.properties['y_name'],
                 marker=dict(
                     color=settings.properties['in_color'],
-                    size=settings.properties['marker_size'],
+                    size=settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
                     symbol=settings.properties['marker_symbol'],
                     line=dict(
                         color=settings.properties['out_color'],

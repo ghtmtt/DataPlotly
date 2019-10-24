@@ -105,7 +105,6 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['z_name'] = 'mg'
         settings.properties['in_color_value'] = '100,150,180,50'
         settings.properties['in_color_property'] = QgsProperty.fromExpression('5+6').toVariant()
-        settings.properties['size_property'] = QgsProperty.fromExpression('5+64').toVariant()
         settings.properties['color_scale'] = 'Earth'
 
         # TODO: likely need to test other settings.properties values here!
@@ -127,6 +126,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.layout['bins_check'] = True
 
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('"ap">50'))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE, QgsProperty.fromExpression('5+64'))
 
         dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog2.set_settings(settings)
@@ -142,6 +142,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
             self.assertEqual(dialog2.get_settings().layout[k], settings.layout[k])
         self.assertEqual(dialog2.get_settings().source_layer_id, vl3.id())
         self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_FILTER), settings.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE), settings.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
 
         settings = dialog.get_settings()
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)

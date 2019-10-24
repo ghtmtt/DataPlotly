@@ -48,7 +48,7 @@ class ScatterPlotFactory(PlotType):
                     'reversescale': settings.properties['invert_color_scale'],
                     'colorbar': {
                         'len': 0.8},
-                    'size': settings.properties['marker_size'],
+                    'size': settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
                     'symbol': settings.properties['marker_symbol'],
                     'line': {'color': settings.properties['out_color'],
                              'width': settings.properties['marker_width']}

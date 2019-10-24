@@ -27,8 +27,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     """
 
     PROPERTY_FILTER = 1
+    PROPERTY_MARKER_SIZE = 2
+
     DYNAMIC_PROPERTIES = {
-      PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean)
+        PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
+        PROPERTY_MARKER_SIZE: QgsPropertyDefinition('marker_size', 'Marker size', QgsPropertyDefinition.DoublePositive)
     }
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
@@ -68,7 +71,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'visible_features_only': False,
             'in_color_value': '0,0,0,255',
             'in_color_property': QgsProperty().toVariant(),
-            'size_property': QgsProperty().toVariant(),
             'color_scale_data_defined_in_check': False,
             'color_scale_data_defined_in_invert_check': False,
             'out_color_combo': '0,0,0,255',
@@ -112,7 +114,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         }
 
         self.data_defined_properties = QgsPropertyCollection()
-        self.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty())
 
         # Set class properties - we use the base dictionaries, replacing base values with
         # those from the passed properties dicts
@@ -132,6 +133,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.z = []
         self.feature_ids = []
         self.additional_hover_text = []
+        self.data_defined_marker_sizes = []
         self.source_layer_id = source_layer_id
 
     def write_xml(self, document: QDomDocument):
