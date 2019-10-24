@@ -369,22 +369,6 @@ QListWidget::item::selected {
                     <item row="4" column="1">
                      <widget class="QComboBox" name="point_combo"/>
                     </item>
-                    <item row="0" column="4">
-                     <widget class="QSpinBox" name="marker_size">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximum">
-                       <number>100</number>
-                      </property>
-                      <property name="value">
-                       <number>10</number>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="3" column="1" colspan="4">
                      <widget class="QComboBox" name="marker_type_combo"/>
                     </item>
@@ -468,22 +452,6 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="4">
-                     <widget class="QSpinBox" name="marker_width">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximum">
-                       <number>100</number>
-                      </property>
-                      <property name="value">
-                       <number>1</number>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="5" column="0">
                      <widget class="QLabel" name="line_lab">
                       <property name="text">
@@ -552,6 +520,12 @@ QListWidget::item::selected {
                        <string>...</string>
                       </property>
                      </widget>
+                    </item>
+                    <item row="0" column="4">
+                     <widget class="QgsDoubleSpinBox" name="marker_size"/>
+                    </item>
+                    <item row="2" column="4">
+                     <widget class="QgsDoubleSpinBox" name="marker_width"/>
                     </item>
                    </layout>
                   </widget>
@@ -811,7 +785,7 @@ QListWidget::item::selected {
                   <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
                  </item>
                  <item row="21" column="1">
-                  <widget class="QSpinBox" name="bins_value">
+                  <widget class="QgsSpinBox" name="bins_value">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
@@ -868,7 +842,7 @@ QListWidget::item::selected {
                   </widget>
                  </item>
                  <item row="22" column="1">
-                  <widget class="QDoubleSpinBox" name="bar_gap">
+                  <widget class="QgsDoubleSpinBox" name="bar_gap">
                    <property name="maximum">
                     <double>1.000000000000000</double>
                    </property>
@@ -1177,6 +1151,16 @@ QListWidget::item::selected {
    <slots>
     <slot>setVectorLayer(QgsMapLayer*)</slot>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>QgsDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>qgis.gui</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>qgis.gui</header>
   </customwidget>
  </customwidgets>
  <resources/>
