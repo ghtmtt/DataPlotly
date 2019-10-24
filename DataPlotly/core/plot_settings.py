@@ -29,12 +29,15 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_MARKER_SIZE = 2
     PROPERTY_COLOR = 3
     PROPERTY_STROKE_COLOR = 4
+    PROPERTY_STROKE_WIDTH = 5
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
         PROPERTY_MARKER_SIZE: QgsPropertyDefinition('marker_size', 'Marker size', QgsPropertyDefinition.DoublePositive),
         PROPERTY_COLOR: QgsPropertyDefinition('color', 'Color', QgsPropertyDefinition.ColorWithAlpha),
-        PROPERTY_STROKE_COLOR: QgsPropertyDefinition('stroke_color', 'Stroke color', QgsPropertyDefinition.ColorWithAlpha)
+        PROPERTY_STROKE_COLOR: QgsPropertyDefinition('stroke_color', 'Stroke color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_STROKE_WIDTH: QgsPropertyDefinition('stroke_width', 'Stroke width',
+                                                     QgsPropertyDefinition.DoublePositive)
     }
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
@@ -135,6 +138,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.data_defined_marker_sizes = []
         self.data_defined_colors = []
         self.data_defined_stroke_colors = []
+        self.data_defined_stroke_widths = []
         self.source_layer_id = source_layer_id
 
     def write_xml(self, document: QDomDocument):

@@ -239,6 +239,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.register_data_defined_button(self.feature_subset_defined_button, PlotSettings.PROPERTY_FILTER)
         self.register_data_defined_button(self.size_defined_button, PlotSettings.PROPERTY_MARKER_SIZE)
         self.size_defined_button.registerEnabledWidget(self.marker_size, natural=False)
+        self.register_data_defined_button(self.stroke_defined_button, PlotSettings.PROPERTY_STROKE_WIDTH)
+        self.stroke_defined_button.registerEnabledWidget(self.marker_width, natural=False)
         self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
         self.in_color_defined_button.changed.connect(self.data_defined_color_updated)
         self.register_data_defined_button(self.out_color_defined_button, PlotSettings.PROPERTY_STROKE_COLOR)
@@ -724,6 +726,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.stroke_defined_button: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_size_lab: ['scatter', 'polar', 'ternary'],
             self.marker_size: ['scatter', 'polar', 'ternary'],
             self.size_defined_button: ['scatter', 'ternary'],

@@ -49,7 +49,7 @@ class PolarChartFactory(PlotType):
                 ),
                 line=dict(
                     color=settings.properties['in_color'],
-                    width=settings.properties['marker_width'],
+                    width=settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width'],
                     dash=settings.properties['line_dash']
                 ),
                 opacity=settings.properties['opacity'],

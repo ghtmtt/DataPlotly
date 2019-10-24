@@ -123,9 +123,13 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.layout['additional_info_expression'] = '1+2'
         settings.layout['bins_check'] = True
 
-        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('"ap">50'))
-        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE, QgsProperty.fromExpression('5+64'))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                     QgsProperty.fromExpression('"ap">50'))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
+                                                     QgsProperty.fromExpression('5+64'))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR, QgsProperty.fromExpression("'red'"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
+                                                     QgsProperty.fromExpression("12/2"))
 
         dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog2.set_settings(settings)
@@ -138,9 +142,14 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for k in settings.layout.keys():
             self.assertEqual(dialog2.get_settings().layout[k], settings.layout[k])
         self.assertEqual(dialog2.get_settings().source_layer_id, vl3.id())
-        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_FILTER), settings.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
-        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE), settings.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
-        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_COLOR), settings.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
 
         settings = dialog.get_settings()
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
