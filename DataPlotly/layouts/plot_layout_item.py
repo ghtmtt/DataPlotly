@@ -25,12 +25,12 @@ from qgis.core import (
     QgsLayoutItemAbstractMetadata,
     QgsNetworkAccessManager,
     QgsMessageLog,
-    QgsReferencedRectangle
+    QgsGeometry
 )
 from qgis.PyQt.QtWebKitWidgets import QWebPage
 
 from DataPlotly.core.plot_settings import PlotSettings
-from DataPlotly.core.plot_factory import PlotFactory
+from DataPlotly.core.plot_factory import PlotFactory, FilterRegion
 from DataPlotly.gui.gui_utils import GuiUtils
 
 ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
@@ -100,14 +100,20 @@ class PlotLayoutItem(QgsLayoutItem):
 
         self.linked_map = map
         self.linked_map.extentChanged.connect(self.map_extent_changed)
+        self.linked_map.mapRotationChanged.connect(self.map_extent_changed)
         self.linked_map.destroyed.connect(self.disconnect_current_map)
 
     def disconnect_current_map(self):
         if not self.linked_map:
             return
 
-        self.linked_map.extentChanged.disconnect(self.map_extent_changed)
-        self.linked_map.destroyed.disconnect(self.disconnect_current_map)
+        try:
+            self.linked_map.extentChanged.disconnect(self.map_extent_changed)
+            self.linked_map.mapRotationChanged.disconnect(self.map_extent_changed)
+            self.linked_map.destroyed.disconnect(self.disconnect_current_map)
+        except RuntimeError:
+            # c++ object already gone!
+            pass
         self.linked_map = None
 
     def set_plot_settings(self, settings):
@@ -134,13 +140,17 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def create_plot(self):
         if self.linked_map and self.filter_by_map:
-            visible_region = QgsReferencedRectangle(self.linked_map.extent(), self.linked_map.crs())
+            polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
+                                          self.linked_map.crs())
+            self.plot_settings.properties['visible_features_only'] = True
+        elif self.filter_by_atlas and self.layout().reportContext().feature().isValid():
+            polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
             self.plot_settings.properties['visible_features_only'] = True
         else:
-            visible_region = None
+            polygon_filter = None
             self.plot_settings.properties['visible_features_only'] = False
 
-        factory = PlotFactory(self.plot_settings, self, visible_region=visible_region)
+        factory = PlotFactory(self.plot_settings, self, polygon_filter=polygon_filter)
         config = {'displayModeBar': False, 'staticPlot': True}
         return factory.build_html(config)
 
