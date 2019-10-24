@@ -154,6 +154,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # highlight the first row when starting the first time
         self.listWidget.setCurrentRow(0)
 
+        self.marker_size.setValue(10)
+        self.marker_size.setSingleStep(0.2)
+        self.marker_size.setClearValue(10)
+
+        self.marker_width.setValue(1)
+        self.marker_width.setSingleStep(0.2)
+        self.marker_width.setClearValue(0, self.tr('None'))
+
         # Populate PlotTypes combobox
         # we sort available types by translated name
         type_classes = [clazz for _, clazz in PlotFactory.PLOT_TYPES.items()]
