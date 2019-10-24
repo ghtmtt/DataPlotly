@@ -64,9 +64,14 @@ from qgis.core import (
     QgsProperty,
     QgsFileUtils,
     QgsReferencedRectangle,
-    QgsExpressionContextGenerator
+    QgsExpressionContextGenerator,
+    QgsPropertyCollection
 )
-from qgis.gui import QgsPanelWidget, QgsMessageBar
+from qgis.gui import (
+    QgsPanelWidget,
+    QgsMessageBar,
+    QgsPropertyOverrideButton
+)
 from qgis.utils import iface
 
 from DataPlotly.utils import (
@@ -106,6 +111,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.save_to_project = True
         self.read_from_project = True
+
+        self.data_defined_properties = QgsPropertyCollection()
 
         # listen out for project save/restore, and update our state accordingly
         QgsProject.instance().writeProject.connect(self.write_project)
@@ -231,6 +238,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # fill combo boxes when launching the UI
         self.selected_layer_changed(self.layer_combo.currentLayer())
 
+        self.register_data_defined_button(self.feature_subset_defined_button, PlotSettings.PROPERTY_FILTER)
+
         # connect the size defined button to the correct functions
         self.size_defined_button.changed.connect(self.refreshSizeDefined)
         # connect the color defined button to the correct function
@@ -290,7 +299,36 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.y_combo.registerExpressionContextGenerator(generator)
         self.z_combo.registerExpressionContextGenerator(generator)
         self.additional_info_combo.registerExpressionContextGenerator(generator)
-        self.feature_subset_defined_button.registerExpressionContextGenerator(generator)
+
+        buttons = self.findChildren(QgsPropertyOverrideButton)
+        for button in buttons:
+            button.registerExpressionContextGenerator(generator)
+
+    def register_data_defined_button(self, button, property_key: int):
+        """
+        Registers a new data defined button, linked to the given property key (see values in PlotSettings)
+        """
+        button.init(property_key, self.data_defined_properties, PlotSettings.DYNAMIC_PROPERTIES, None, False)
+        button.changed.connect(self._update_property)
+
+    def _update_property(self):
+        """
+        Triggered when a property override button value is changed
+        """
+        button = self.sender()
+        self.data_defined_properties.setProperty(button.propertyKey(), button.toProperty())
+
+    def update_data_defined_button(self, button):
+        """
+        Updates the current state of a property override button to reflect the current
+        property value
+        """
+        if button.propertyKey() < 0:
+            return
+
+        button.blockSignals(True)
+        button.setToProperty(self.data_defined_properties.property(button.propertyKey()))
+        button.blockSignals(False)
 
     def set_plot_type(self, plot_type: str):
         """
@@ -383,10 +421,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.x_combo.setLayer(layer)
         self.y_combo.setLayer(layer)
         self.z_combo.setLayer(layer)
-        self.feature_subset_defined_button.setVectorLayer(self.layer_combo.currentLayer())
-        self.size_defined_button.setVectorLayer(layer)
         self.additional_info_combo.setLayer(layer)
-        self.in_color_defined_button.setVectorLayer(layer)
+
+        buttons = self.findChildren(QgsPropertyOverrideButton)
+        for button in buttons:
+            button.setVectorLayer(layer)
 
     def layer_will_be_removed(self, layer_id):
         """
@@ -960,7 +999,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
                             source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None)
-        settings.dynamic_properties.setProperty(PlotSettings.PROPERTY_FILTER, self.feature_subset_defined_button.toProperty())
+        settings.data_defined_properties = self.data_defined_properties
         return settings
 
     def set_layer_id(self, layer_id: str):
@@ -985,7 +1024,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.selected_feature_check.setChecked(settings.properties.get('selected_features_only', False))
         self.visible_feature_check.setChecked(settings.properties.get('visible_features_only', False))
 
-        self.feature_subset_defined_button.setToProperty(settings.dynamic_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.data_defined_properties = settings.data_defined_properties
+        buttons = self.findChildren(QgsPropertyOverrideButton)
+        for button in buttons:
+            self.update_data_defined_button(button)
+
+        self.feature_subset_defined_button.setToProperty(settings.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
 
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])

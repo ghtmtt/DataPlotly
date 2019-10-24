@@ -111,8 +111,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'layout_prop': plot_base_layout
         }
 
-        self.dynamic_properties = QgsPropertyCollection()
-        self.dynamic_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty())
+        self.data_defined_properties = QgsPropertyCollection()
+        self.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty())
 
         # Set class properties - we use the base dictionaries, replacing base values with
         # those from the passed properties dicts
@@ -143,7 +143,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'plot_properties': self.properties,
             'plot_layout': self.layout,
             'source_layer_id': self.source_layer_id,
-            'dynamic_properties': self.dynamic_properties.toVariant(PlotSettings.DYNAMIC_PROPERTIES)
+            'dynamic_properties': self.data_defined_properties.toVariant(PlotSettings.DYNAMIC_PROPERTIES)
         }, document)
         return element
 
@@ -162,7 +162,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.properties = res['plot_properties']
         self.layout = res['plot_layout']
         self.source_layer_id = res.get('source_layer_id', None)
-        self.dynamic_properties.loadVariant(res.get('dynamic_properties', None), PlotSettings.DYNAMIC_PROPERTIES)
+        self.data_defined_properties.loadVariant(res.get('dynamic_properties', None), PlotSettings.DYNAMIC_PROPERTIES)
 
         return True
 
