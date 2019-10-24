@@ -104,6 +104,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         else:
             context = self.context_generator.createExpressionContext()
 
+        self.settings.data_defined_properties.prepare(context)
+
         def add_source_field_or_expression(field_or_expression):
             field_index = self.source_layer.fields().lookupField(field_or_expression)
             if field_index == -1:
@@ -127,7 +129,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.layout['additional_info_expression']) if self.settings.layout[
             'additional_info_expression'] else (None, False, set())
 
-        attrs = set().union(x_attrs, y_attrs, z_attrs, additional_attrs)
+        attrs = set().union(self.settings.data_defined_properties.referencedFields(),
+                            x_attrs,
+                            y_attrs,
+                            z_attrs,
+                            additional_attrs)
 
         request = QgsFeatureRequest()
 
@@ -138,7 +144,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         request.setSubsetOfAttributes(attrs, self.source_layer.fields())
 
-        if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom:
+        if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom and not self.settings.data_defined_properties.hasActiveProperties():
             request.setFlags(QgsFeatureRequest.NoGeometry)
 
         if self.visible_features_only and self.visible_region is not None:
@@ -156,6 +162,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         yy = []
         zz = []
         additional_hover_text = []
+        marker_sizes = []
         for f in it:
             self.settings.feature_ids.append(f.id())
             context.setFeature(f)
@@ -202,10 +209,18 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             if z is not None:
                 zz.append(z)
 
+            if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_MARKER_SIZE):
+                default_value = self.settings.properties['marker_size']
+                context.setOriginalValueVariable(default_value)
+                value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_MARKER_SIZE, context, default_value)
+                marker_sizes.append(value)
+
         self.settings.additional_hover_text = additional_hover_text
         self.settings.x = xx
         self.settings.y = yy
         self.settings.z = zz
+        if marker_sizes:
+            self.settings.data_defined_marker_sizes = marker_sizes
 
     def set_visible_region(self, region: QgsReferencedRectangle):
         """

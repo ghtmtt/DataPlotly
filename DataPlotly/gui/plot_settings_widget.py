@@ -141,7 +141,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.configuration_btn.setMenu(self.configuration_menu)
 
         # set the icon of QgspropertyOverrideButton not taken automatically
-        self.size_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
         self.in_color_defined_button.setIcon(GuiUtils.get_icon('mIconDataDefineExpression.svg'))
 
         # ListWidget icons and themes
@@ -239,9 +238,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.selected_layer_changed(self.layer_combo.currentLayer())
 
         self.register_data_defined_button(self.feature_subset_defined_button, PlotSettings.PROPERTY_FILTER)
+        self.register_data_defined_button(self.size_defined_button, PlotSettings.PROPERTY_MARKER_SIZE)
+        self.size_defined_button.registerEnabledWidget(self.marker_size, natural=False)
 
-        # connect the size defined button to the correct functions
-        self.size_defined_button.changed.connect(self.refreshSizeDefined)
         # connect the color defined button to the correct function
         self.in_color_defined_button.changed.connect(self.resfreshColorDefined)
 
@@ -255,7 +254,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.in_color_combo.setColor(QColor('#8EBAD9'))
         self.out_color_combo.setColor(QColor('#1F77B4'))
 
-        self.marker_size_value = None
         self.in_color = None
         self.pid = None
         self.plot_path = None
@@ -336,15 +334,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         self.plot_combo.setCurrentIndex(self.plot_combo.findData(plot_type))
 
-    def refreshSizeDefined(self):
-        """
-        enable/disable the correct buttons depending on the choice
-        """
-        if self.size_defined_button.isActive():
-            self.marker_size.setEnabled(False)
-        else:
-            self.marker_size.setEnabled(True)
-
     def resfreshColorDefined(self):
         """
         refreshing function for color data defined button
@@ -384,20 +373,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.color_scale_data_defined_in_label.setVisible(False)
             self.color_scale_data_defined_in_check.setVisible(False)
             self.color_scale_data_defined_in_invert_check.setVisible(False)
-
-    def getMarkerSize(self):
-        """
-        get the marker size
-        """
-
-        if self.size_defined_button.isActive() and self.layer_combo.currentLayer():
-            mark_size = self.size_defined_button.toProperty().expressionString()
-            self.marker_size_value = QgsVectorLayerUtils.getValues(self.layer_combo.currentLayer(), mark_size,
-                                                                   selectedOnly=self.selected_feature_check.isChecked())[
-                0]
-        else:
-            # self.marker_size.setEnabled(True)
-            self.marker_size_value = self.marker_size.value()
 
     def getColorDefined(self):
         """
@@ -914,8 +889,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         Returns the plot settings as currently defined in the dialog
         """
-        # call the method to get the correct marker size
-        self.getMarkerSize()
+
         self.getColorDefined()
 
         # get the plot type from the combo box
@@ -935,7 +909,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
                            'out_color': hex_to_rgb(self.out_color_combo),
                            'marker_width': self.marker_width.value(),
-                           'marker_size': self.marker_size_value,
+                           'marker_size': self.marker_size.value(),
                            'marker_symbol': self.point_types2[self.point_combo.currentData()],
                            'line_dash': self.line_types2[self.line_combo.currentText()],
                            'box_orientation': self.orientation_combo.currentData(),
@@ -957,7 +931,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'visible_features_only': self.visible_feature_check.isChecked(),
                            'in_color_value': QgsSymbolLayerUtils.encodeColor(self.in_color_combo.color()),
                            'in_color_property': self.in_color_defined_button.toProperty().toVariant(),
-                           'size_property': self.size_defined_button.toProperty().toVariant(),
                            'color_scale_data_defined_in_check': False,
                            'color_scale_data_defined_in_invert_check': False,
                            'out_color_combo': QgsSymbolLayerUtils.encodeColor(self.out_color_combo.color()),
@@ -1029,8 +1002,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         for button in buttons:
             self.update_data_defined_button(button)
 
-        self.feature_subset_defined_button.setToProperty(settings.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
-
         self.x_combo.setExpression(settings.properties['x_name'])
         self.y_combo.setExpression(settings.properties['y_name'])
         self.z_combo.setExpression(settings.properties['z_name'])
@@ -1039,10 +1010,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         color_prop.loadVariant(settings.properties['in_color_property'])
         self.in_color_defined_button.setToProperty(color_prop)
         self.marker_size.setValue(settings.properties['marker_size'])
-
-        size_prop = QgsProperty()
-        size_prop.loadVariant(settings.properties['size_property'])
-        self.size_defined_button.setToProperty(size_prop)
 
         self.color_scale_data_defined_in.setCurrentIndex(
             self.color_scale_data_defined_in.findData(settings.properties['color_scale']))

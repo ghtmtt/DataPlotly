@@ -59,7 +59,10 @@ class DataPlotlySettings(unittest.TestCase):
         doc = QDomDocument("properties")
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
                                 layout={'title': 'my plot', 'legend_orientation': 'v'})
-        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('"ap">50'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                     QgsProperty.fromExpression('"ap">50'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
+                                                     QgsProperty.fromExpression('5+6'))
         elem = original.write_xml(doc)
         self.assertFalse(elem.isNull())
 
@@ -72,7 +75,10 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.plot_type, original.plot_type)
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
-        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_FILTER), original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
 
     def test_read_write_project(self):
         """
@@ -83,7 +89,11 @@ class DataPlotlySettings(unittest.TestCase):
         doc.appendChild(doc.createElement('qgis'))
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
                                 layout={'title': 'my plot', 'legend_orientation': 'v'})
-        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('"ap">50'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                     QgsProperty.fromExpression('"ap">50'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
+                                                     QgsProperty.fromExpression('5+6'))
+
         original.write_to_project(doc)
 
         res = PlotSettings('gg')
@@ -91,7 +101,10 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.plot_type, original.plot_type)
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
-        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_FILTER), original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
 
     def test_read_write_project2(self):
         """
@@ -100,7 +113,11 @@ class DataPlotlySettings(unittest.TestCase):
         p = QgsProject()
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
                                 layout={'title': 'my plot', 'legend_orientation': 'v'})
-        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('"ap">50'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                     QgsProperty.fromExpression('"ap">50'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
+                                                     QgsProperty.fromExpression('5+6'))
+
         self.test_read_write_project2_written = False
 
         def write(doc):
@@ -132,7 +149,10 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.plot_type, original.plot_type)
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
-        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_FILTER), original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
 
     def test_read_write_file(self):
         """
@@ -140,7 +160,11 @@ class DataPlotlySettings(unittest.TestCase):
         """
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
                                 layout={'title': 'my plot', 'legend_orientation': 'v'})
-        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('"ap">50'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                     QgsProperty.fromExpression('"ap">50'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
+                                                     QgsProperty.fromExpression('5+6'))
+
         path = os.path.join(tempfile.gettempdir(), 'plot_config.xml')
 
         self.assertFalse(original.write_to_file('/nooooooooo/nooooooooooo.xml'))
@@ -153,7 +177,10 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.plot_type, original.plot_type)
         self.assertEqual(res.properties, original.properties)
         self.assertEqual(res.layout, original.layout)
-        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_FILTER), original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
 
 
 if __name__ == "__main__":
