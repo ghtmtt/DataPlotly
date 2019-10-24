@@ -24,7 +24,10 @@ from qgis.core import (
     NULL,
     QgsReferencedRectangle,
     QgsCoordinateTransform,
-    QgsExpressionContextGenerator
+    QgsExpressionContextGenerator,
+    QgsReferencedGeometryBase,
+    QgsGeometry,
+    QgsCsException
 )
 from qgis.PyQt.QtCore import (
     QUrl,
@@ -35,6 +38,16 @@ from qgis.PyQt.QtGui import QColor
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
+
+
+class FilterRegion(QgsReferencedGeometryBase):
+    """
+    Filter region, consisting of a geometry with CRS
+    """
+
+    def __init__(self, geometry, crs):
+        super().__init__(crs)
+        self.geometry = geometry
 
 
 class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
@@ -68,7 +81,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     plot_built = pyqtSignal()
 
     def __init__(self, settings: PlotSettings = None, context_generator: QgsExpressionContextGenerator = None,
-                 visible_region: QgsReferencedRectangle = None):
+                 visible_region: QgsReferencedRectangle = None, polygon_filter: FilterRegion = None):
         super().__init__()
         if settings is None:
             settings = PlotSettings('scatter')
@@ -80,6 +93,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.selected_features_only = self.settings.properties['selected_features_only']
         self.visible_features_only = self.settings.properties.get('visible_features_only', False)
         self.visible_region = visible_region
+        self.polygon_filter = polygon_filter
         self.trace = None
         self.layout = None
         self.source_layer = QgsProject.instance().mapLayer(
@@ -119,13 +133,13 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         x_expression, x_needs_geom, x_attrs = add_source_field_or_expression(self.settings.properties['x_name']) if \
             self.settings.properties[
-            'x_name'] else (None, False, set())
+                'x_name'] else (None, False, set())
         y_expression, y_needs_geom, y_attrs = add_source_field_or_expression(self.settings.properties['y_name']) if \
             self.settings.properties[
-            'y_name'] else (None, False, set())
+                'y_name'] else (None, False, set())
         z_expression, z_needs_geom, z_attrs = add_source_field_or_expression(self.settings.properties['z_name']) if \
             self.settings.properties[
-            'z_name'] else (None, False, set())
+                'z_name'] else (None, False, set())
         additional_info_expression, additional_needs_geom, additional_attrs = add_source_field_or_expression(
             self.settings.layout['additional_info_expression']) if self.settings.layout[
             'additional_info_expression'] else (None, False, set())
@@ -148,11 +162,28 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom and not self.settings.data_defined_properties.hasActiveProperties():
             request.setFlags(QgsFeatureRequest.NoGeometry)
 
+        visible_geom_engine = None
         if self.visible_features_only and self.visible_region is not None:
             ct = QgsCoordinateTransform(self.visible_region.crs(), self.source_layer.crs(),
                                         QgsProject.instance().transformContext())
-            rect = ct.transformBoundingBox(self.visible_region)
-            request.setFilterRect(rect)
+            try:
+                rect = ct.transformBoundingBox(self.visible_region)
+                request.setFilterRect(rect)
+            except QgsCsException:
+                pass
+        elif self.visible_features_only and self.polygon_filter is not None:
+            ct = QgsCoordinateTransform(self.polygon_filter.crs(), self.source_layer.crs(),
+                                        QgsProject.instance().transformContext())
+            try:
+                rect = ct.transformBoundingBox(self.polygon_filter.geometry.boundingBox())
+                request.setFilterRect(rect)
+                g = self.polygon_filter.geometry
+                g.transform(ct)
+
+                visible_geom_engine = QgsGeometry.createGeometryEngine(g.constGet())
+                visible_geom_engine.prepareGeometry()
+            except QgsCsException:
+                pass
 
         if self.selected_features_only:
             it = self.source_layer.getSelectedFeatures(request)
@@ -168,6 +199,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         stroke_colors = []
         stroke_widths = []
         for f in it:
+            if visible_geom_engine and not visible_geom_engine.intersects(f.geometry().constGet()):
+                continue
+
             self.settings.feature_ids.append(f.id())
             context.setFeature(f)
 
@@ -216,7 +250,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_MARKER_SIZE):
                 default_value = self.settings.properties['marker_size']
                 context.setOriginalValueVariable(default_value)
-                value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_MARKER_SIZE, context, default_value)
+                value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_MARKER_SIZE,
+                                                                               context, default_value)
                 marker_sizes.append(value)
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_STROKE_WIDTH):
                 default_value = self.settings.properties['marker_width']
@@ -226,11 +261,13 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 stroke_widths.append(value)
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_COLOR):
                 default_value = QColor(self.settings.properties['in_color'])
-                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context, default_value)
+                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context,
+                                                                              default_value)
                 colors.append(value.name())
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_STROKE_COLOR):
                 default_value = QColor(self.settings.properties['out_color'])
-                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_STROKE_COLOR, context, default_value)
+                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_STROKE_COLOR,
+                                                                              context, default_value)
                 stroke_colors.append(value.name())
 
         self.settings.additional_hover_text = additional_hover_text
