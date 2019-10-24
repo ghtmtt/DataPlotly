@@ -166,6 +166,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         marker_sizes = []
         colors = []
         stroke_colors = []
+        stroke_widths = []
         for f in it:
             self.settings.feature_ids.append(f.id())
             context.setFeature(f)
@@ -217,6 +218,12 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 context.setOriginalValueVariable(default_value)
                 value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_MARKER_SIZE, context, default_value)
                 marker_sizes.append(value)
+            if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_STROKE_WIDTH):
+                default_value = self.settings.properties['marker_width']
+                context.setOriginalValueVariable(default_value)
+                value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_STROKE_WIDTH,
+                                                                               context, default_value)
+                stroke_widths.append(value)
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_COLOR):
                 default_value = QColor(self.settings.properties['in_color'])
                 value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context, default_value)
@@ -236,6 +243,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.data_defined_colors = colors
         if stroke_colors:
             self.settings.data_defined_stroke_colors = stroke_colors
+        if stroke_widths:
+            self.settings.data_defined_stroke_widths = stroke_widths
 
     def set_visible_region(self, region: QgsReferencedRectangle):
         """

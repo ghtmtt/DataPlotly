@@ -51,7 +51,7 @@ class ScatterPlotFactory(PlotType):
                     'size': settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
                     'symbol': settings.properties['marker_symbol'],
                     'line': {'color': settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
-                             'width': settings.properties['marker_width']}
+                             'width': settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']}
                     },
             line={'width': settings.properties['marker_width'],
                   'dash': settings.properties['line_dash']},

@@ -65,6 +65,8 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression('5+6'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR,
                                                      QgsProperty.fromExpression("'red'"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
+                                                     QgsProperty.fromExpression('12/2'))
         elem = original.write_xml(doc)
         self.assertFalse(elem.isNull())
 
@@ -83,6 +85,8 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
 
     def test_read_write_project(self):
         """
@@ -99,6 +103,8 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression('5+6'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR,
                                                      QgsProperty.fromExpression("'red'"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
+                                                     QgsProperty.fromExpression('12/2'))
 
         original.write_to_project(doc)
 
@@ -113,6 +119,8 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
 
     def test_read_write_project2(self):
         """
@@ -127,6 +135,8 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression('5+6'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR,
                                                      QgsProperty.fromExpression("'red'"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
+                                                     QgsProperty.fromExpression('12/2'))
 
         self.test_read_write_project2_written = False
 
@@ -165,6 +175,8 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
 
     def test_read_write_file(self):
         """
@@ -178,6 +190,8 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression('5+6'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR,
                                                      QgsProperty.fromExpression("'red'"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
+                                                     QgsProperty.fromExpression('12/2'))
 
         path = os.path.join(tempfile.gettempdir(), 'plot_config.xml')
 
@@ -197,7 +211,8 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
-
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlySettings)
