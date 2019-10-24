@@ -57,7 +57,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'marker_symbol': 0,
             'line_dash': 'solid',
             'box_orientation': 'v',
-            'opacity': 0.99,
             'box_stat': None,
             'box_outliers': False,
             'name': '',
@@ -79,7 +78,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'line_combo': 'Solid Line',
             'contour_type_combo': 'Fill',
             'show_lines_check': False,
-            'alpha': 1,
+            'opacity': 1,
             'violin_side': None,
             'show_mean_line': False
         }
