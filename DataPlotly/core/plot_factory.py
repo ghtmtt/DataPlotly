@@ -131,8 +131,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         request = QgsFeatureRequest()
 
-        if self.settings.dynamic_properties.property(PlotSettings.PROPERTY_FILTER).isActive():
-            expression = self.settings.dynamic_properties.property(PlotSettings.PROPERTY_FILTER).asExpression()
+        if self.settings.data_defined_properties.property(PlotSettings.PROPERTY_FILTER).isActive():
+            expression = self.settings.data_defined_properties.property(PlotSettings.PROPERTY_FILTER).asExpression()
             request.setFilterExpression(expression)
             request.setExpressionContext(context)
 
