@@ -22,18 +22,6 @@
 """
 
 
-def hex_to_rgb(value):
-    '''
-    convert hex string to rgb tuple directly from a QgsColorButton
-    '''
-    name = value.color().name()
-    value = name.lstrip('#')
-    lv = len(value)
-    col = tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
-    final = 'rgb' + str(col)
-    return final
-
-
 def getSortedId(_, field_list):
     '''
     return a list with values needed for js interaction

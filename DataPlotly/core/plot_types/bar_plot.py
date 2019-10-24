@@ -52,7 +52,7 @@ class BarPlotFactory(PlotType):
             ids=featureBox,
             customdata=settings.properties['custom'],
             orientation=settings.properties['box_orientation'],
-            marker={'color': settings.properties['in_color'],
+            marker={'color': settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
                     'colorscale': settings.properties['color_scale'],
                     'showscale': settings.properties['show_colorscale_legend'],
                     'reversescale': settings.properties['invert_color_scale'],

@@ -63,6 +63,8 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression('"ap">50'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
                                                      QgsProperty.fromExpression('5+6'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR,
+                                                     QgsProperty.fromExpression("'red'"))
         elem = original.write_xml(doc)
         self.assertFalse(elem.isNull())
 
@@ -79,6 +81,8 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
 
     def test_read_write_project(self):
         """
@@ -93,6 +97,8 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression('"ap">50'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
                                                      QgsProperty.fromExpression('5+6'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR,
+                                                     QgsProperty.fromExpression("'red'"))
 
         original.write_to_project(doc)
 
@@ -105,6 +111,8 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
 
     def test_read_write_project2(self):
         """
@@ -117,6 +125,8 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression('"ap">50'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
                                                      QgsProperty.fromExpression('5+6'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR,
+                                                     QgsProperty.fromExpression("'red'"))
 
         self.test_read_write_project2_written = False
 
@@ -153,6 +163,8 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
 
     def test_read_write_file(self):
         """
@@ -164,6 +176,8 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression('"ap">50'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
                                                      QgsProperty.fromExpression('5+6'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR,
+                                                     QgsProperty.fromExpression("'red'"))
 
         path = os.path.join(tempfile.gettempdir(), 'plot_config.xml')
 
@@ -181,6 +195,8 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_MARKER_SIZE))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
 
 
 if __name__ == "__main__":

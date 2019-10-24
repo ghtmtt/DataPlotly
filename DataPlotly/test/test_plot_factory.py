@@ -396,11 +396,63 @@ class DataPlotlyFactory(unittest.TestCase):
                 return context
 
         generator = TestGenerator()
-        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE, QgsProperty.fromExpression('round("ca"/@some_var *@value)'))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
+                                                     QgsProperty.fromExpression('round("ca"/@some_var *@value)'))
         factory = PlotFactory(settings, context_generator=generator)
         self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 203])
         self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
-        self.assertEqual(factory.settings.data_defined_marker_sizes, [123.0, 33.0, 111.0, 53.0, 70.0, 190.0, 175.0, 162.0, 166.0])
+        self.assertEqual(factory.settings.data_defined_marker_sizes,
+                         [123.0, 33.0, 111.0, 53.0, 70.0, 190.0, 175.0, 162.0, 166.0])
+
+    def test_data_defined_color(self):
+        """
+        Test data defined color
+        """
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.shp')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl1.setSubsetString('id < 10')
+        self.assertTrue(vl1.isValid())
+        QgsProject.instance().addMapLayer(vl1)
+
+        settings = PlotSettings('scatter')
+        settings.source_layer_id = vl1.id()
+        settings.properties['x_name'] = 'so4'
+        settings.properties['y_name'] = 'mg'
+        settings.properties['in_color'] = 'red'
+
+        factory = PlotFactory(settings)
+        # should be empty, not using data defined size
+        self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 203])
+        self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
+        self.assertEqual(factory.settings.data_defined_colors, [])
+
+        class TestGenerator(QgsExpressionContextGenerator):  # pylint: disable=missing-docstring, too-few-public-methods
+
+            def createExpressionContext(self) -> QgsExpressionContext:  # pylint: disable=missing-docstring, no-self-use
+                context = QgsExpressionContext()
+                scope = QgsExpressionContextScope()
+                scope.setVariable('some_var', 10)
+                context.appendScope(scope)
+                context.appendScope(vl1.createExpressionContextScope())
+                return context
+
+        generator = TestGenerator()
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR, QgsProperty.fromExpression(
+            'case when round("ca"/@some_var)>10 then \'yellow\' else \'blue\' end'))
+        factory = PlotFactory(settings, context_generator=generator)
+        self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 203])
+        self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
+        self.assertEqual(factory.settings.data_defined_colors, ['#0000ff',
+                                                                '#0000ff',
+                                                                '#0000ff',
+                                                                '#0000ff',
+                                                                '#0000ff',
+                                                                '#ffff00',
+                                                                '#ffff00',
+                                                                '#ffff00',
+                                                                '#ffff00'])
 
 
 if __name__ == "__main__":
