@@ -143,7 +143,7 @@ class PlotLayoutItem(QgsLayoutItem):
             polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
                                           self.linked_map.crs())
             self.plot_settings.properties['visible_features_only'] = True
-        elif self.filter_by_atlas and self.layout().reportContext().feature().isValid():
+        elif self.filter_by_atlas and self.layout().reportContext().layer() and self.layout().reportContext().feature().isValid():
             polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
             self.plot_settings.properties['visible_features_only'] = True
         else:

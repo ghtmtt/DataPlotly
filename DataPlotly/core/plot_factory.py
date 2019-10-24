@@ -40,7 +40,7 @@ from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
 
 
-class FilterRegion(QgsReferencedGeometryBase):
+class FilterRegion(QgsReferencedGeometryBase):  # pylint: disable=too-few-public-methods
     """
     Filter region, consisting of a geometry with CRS
     """

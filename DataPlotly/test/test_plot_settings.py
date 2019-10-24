@@ -214,6 +214,7 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlySettings)
     runner = unittest.TextTestRunner(verbosity=2)
