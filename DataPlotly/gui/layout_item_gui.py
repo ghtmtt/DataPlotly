@@ -111,11 +111,11 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.plot_item.filter_by_atlas = bool(value)
         self.plot_item.update()
 
-    def linked_map_changed(self, map):
+    def linked_map_changed(self, linked_map):
         """
         Triggered when the linked map is changed
         """
-        self.plot_item.set_linked_map(map)
+        self.plot_item.set_linked_map(linked_map)
         self.plot_item.update()
 
     def setNewItem(self, item):  # pylint: disable=missing-docstring
