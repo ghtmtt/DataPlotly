@@ -60,7 +60,7 @@ class BarPlotFactory(PlotType):
                         'len': 0.8
                     },
                     'line': {
-                        'color': settings.properties['out_color'],
+                        'color': settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
                         'width': settings.properties['marker_width']}
                     },
             opacity=settings.properties['opacity']

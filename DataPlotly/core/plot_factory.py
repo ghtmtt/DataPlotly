@@ -165,6 +165,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         additional_hover_text = []
         marker_sizes = []
         colors = []
+        stroke_colors = []
         for f in it:
             self.settings.feature_ids.append(f.id())
             context.setFeature(f)
@@ -220,6 +221,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 default_value = QColor(self.settings.properties['in_color'])
                 value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context, default_value)
                 colors.append(value.name())
+            if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_STROKE_COLOR):
+                default_value = QColor(self.settings.properties['out_color'])
+                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_STROKE_COLOR, context, default_value)
+                stroke_colors.append(value.name())
 
         self.settings.additional_hover_text = additional_hover_text
         self.settings.x = xx
@@ -229,6 +234,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.data_defined_marker_sizes = marker_sizes
         if colors:
             self.settings.data_defined_colors = colors
+        if stroke_colors:
+            self.settings.data_defined_stroke_colors = stroke_colors
 
     def set_visible_region(self, region: QgsReferencedRectangle):
         """
