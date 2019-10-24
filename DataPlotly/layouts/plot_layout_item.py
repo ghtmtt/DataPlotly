@@ -24,13 +24,8 @@ from qgis.core import (
     QgsLayoutItemRegistry,
     QgsLayoutItemAbstractMetadata,
     QgsNetworkAccessManager,
-    QgsLayoutMeasurement,
-    QgsUnitTypes,
     QgsMessageLog,
-    QgsProject,
-    QgsExpressionContext,
-    QgsExpressionContextUtils,
-    QgsExpressionContextGenerator
+    QgsReferencedRectangle
 )
 from qgis.PyQt.QtWebKitWidgets import QWebPage
 
@@ -98,7 +93,22 @@ class PlotLayoutItem(QgsLayoutItem):
         """
         Sets the map linked to the plot item
         """
+        if self.linked_map == map:
+            return
+
+        self.disconnect_current_map()
+
         self.linked_map = map
+        self.linked_map.extentChanged.connect(self.map_extent_changed)
+        self.linked_map.destroyed.connect(self.disconnect_current_map)
+
+    def disconnect_current_map(self):
+        if not self.linked_map:
+            return
+
+        self.linked_map.extentChanged.disconnect(self.map_extent_changed)
+        self.linked_map.destroyed.disconnect(self.disconnect_current_map)
+        self.linked_map = None
 
     def set_plot_settings(self, settings):
         """
@@ -123,7 +133,14 @@ class PlotLayoutItem(QgsLayoutItem):
         painter.restore()
 
     def create_plot(self):
-        factory = PlotFactory(self.plot_settings, self)
+        if self.linked_map and self.filter_by_map:
+            visible_region = QgsReferencedRectangle(self.linked_map.extent(), self.linked_map.crs())
+            self.plot_settings.properties['visible_features_only'] = True
+        else:
+            visible_region = None
+            self.plot_settings.properties['visible_features_only'] = False
+
+        factory = PlotFactory(self.plot_settings, self, visible_region=visible_region)
         config = {'displayModeBar': False, 'staticPlot': True}
         return factory.build_html(config)
 
@@ -147,6 +164,7 @@ class PlotLayoutItem(QgsLayoutItem):
         self.filter_by_map = bool(int(element.attribute('filter_by_map', '0')))
         self.filter_by_atlas = bool(int(element.attribute('filter_by_atlas', '0')))
         self.linked_map_uuid = element.attribute('linked_map')
+        self.disconnect_current_map()
 
         self.html_loaded = False
         self.invalidateCache()
@@ -155,6 +173,7 @@ class PlotLayoutItem(QgsLayoutItem):
     def finalizeRestoreFromXml(self):
         # has to happen after ALL items have been restored
         if self.layout() and self.linked_map_uuid:
+            self.disconnect_current_map()
             map = self.layout().itemByUuid(self.linked_map_uuid)
             if map:
                 self.set_linked_map(map)
@@ -168,6 +187,15 @@ class PlotLayoutItem(QgsLayoutItem):
         super().refresh()
         self.html_loaded = False
         self.invalidateCache()
+
+    def map_extent_changed(self):
+        if not self.linked_map or not self.filter_by_map:
+            return
+
+        self.html_loaded = False
+        self.invalidateCache()
+
+        self.update()
 
 
 class PlotLayoutItemMetadata(QgsLayoutItemAbstractMetadata):
