@@ -272,6 +272,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.selected_feature_check.setVisible(False)
         else:
             self.iface.mapCanvas().extentsChanged.connect(self.update_plot_visible_rect)
+            self.label_linked_map.setVisible(False)
+            self.linked_map_combo.setVisible(False)
+            self.filter_by_map_check.setVisible(False)
+            self.filter_by_atlas_check.setVisible(False)
 
         QgsProject.instance().layerWillBeRemoved.connect(self.layer_will_be_removed)
 
