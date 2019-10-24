@@ -335,107 +335,6 @@ QListWidget::item::selected {
                     <string>Properties</string>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_22">
-                    <item row="0" column="5">
-                     <widget class="QgsPropertyOverrideButton" name="size_defined_button">
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="2">
-                     <widget class="QgsPropertyOverrideButton" name="out_color_defined_button">
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="6" column="1" colspan="5">
-                     <widget class="QComboBox" name="line_combo"/>
-                    </item>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="in_color_lab">
-                      <property name="text">
-                       <string>Marker color</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="2">
-                     <widget class="QgsPropertyOverrideButton" name="in_color_defined_button">
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="4" column="0">
-                     <widget class="QLabel" name="marker_type_lab">
-                      <property name="text">
-                       <string>Marker type</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="10" column="1" colspan="3">
-                     <widget class="QSlider" name="alpha_slid">
-                      <property name="maximum">
-                       <number>100</number>
-                      </property>
-                      <property name="singleStep">
-                       <number>5</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="tickPosition">
-                       <enum>QSlider::TicksAbove</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="4">
-                     <widget class="QgsDoubleSpinBox" name="marker_size"/>
-                    </item>
-                    <item row="4" column="1" colspan="5">
-                     <widget class="QComboBox" name="marker_type_combo"/>
-                    </item>
-                    <item row="10" column="4">
-                     <widget class="QSpinBox" name="alpha_num">
-                      <property name="maximum">
-                       <number>100</number>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="3">
-                     <widget class="QLabel" name="marker_size_lab">
-                      <property name="text">
-                       <string>Marker size</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="4">
-                     <widget class="QgsDoubleSpinBox" name="marker_width"/>
-                    </item>
-                    <item row="0" column="1">
-                     <widget class="QgsColorButton" name="in_color_combo">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="color_scale_data_defined_in_label">
-                      <property name="text">
-                       <string>Color scale</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="10" column="0">
-                     <widget class="QLabel" name="alpha_lab">
-                      <property name="text">
-                       <string>Transparency</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="6" column="0">
                      <widget class="QLabel" name="line_lab">
                       <property name="text">
@@ -449,6 +348,77 @@ QListWidget::item::selected {
                        <string>Point type</string>
                       </property>
                      </widget>
+                    </item>
+                    <item row="7" column="1" colspan="5">
+                     <layout class="QHBoxLayout" name="horizontalLayout_4">
+                      <item>
+                       <widget class="QComboBox" name="contour_type_combo"/>
+                      </item>
+                      <item>
+                       <widget class="QCheckBox" name="show_lines_check">
+                        <property name="text">
+                         <string>Show lines</string>
+                        </property>
+                        <property name="checked">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="in_color_lab">
+                      <property name="text">
+                       <string>Marker color</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="out_color_lab">
+                      <property name="text">
+                       <string>Stroke color</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QgsColorButton" name="out_color_combo">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="2">
+                     <widget class="QgsPropertyOverrideButton" name="out_color_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="0">
+                     <widget class="QLabel" name="color_scale_label">
+                      <property name="text">
+                       <string>Color scale</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="1" colspan="5">
+                     <widget class="QComboBox" name="point_combo"/>
+                    </item>
+                    <item row="4" column="1" colspan="5">
+                     <widget class="QComboBox" name="marker_type_combo"/>
+                    </item>
+                    <item row="0" column="3">
+                     <widget class="QLabel" name="marker_size_lab">
+                      <property name="text">
+                       <string>Marker size</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="1" colspan="5">
+                     <widget class="QComboBox" name="color_scale_combo"/>
                     </item>
                     <item row="1" column="1" colspan="5">
                      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0,0">
@@ -474,28 +444,15 @@ QListWidget::item::selected {
                       </item>
                      </layout>
                     </item>
-                    <item row="3" column="0">
-                     <widget class="QLabel" name="out_color_lab">
-                      <property name="text">
-                       <string>Stroke color</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="9" column="1" colspan="5">
-                     <widget class="QComboBox" name="color_scale_combo"/>
-                    </item>
-                    <item row="9" column="0">
-                     <widget class="QLabel" name="color_scale_label">
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="color_scale_data_defined_in_label">
                       <property name="text">
                        <string>Color scale</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="5" column="1" colspan="5">
-                     <widget class="QComboBox" name="point_combo"/>
-                    </item>
-                    <item row="3" column="1">
-                     <widget class="QgsColorButton" name="out_color_combo">
+                    <item row="0" column="1">
+                     <widget class="QgsColorButton" name="in_color_combo">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -504,10 +461,47 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
+                    <item row="0" column="2">
+                     <widget class="QgsPropertyOverrideButton" name="in_color_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="4">
+                     <widget class="QgsDoubleSpinBox" name="marker_size"/>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLabel" name="marker_type_lab">
+                      <property name="text">
+                       <string>Marker type</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="6" column="1" colspan="5">
+                     <widget class="QComboBox" name="line_combo"/>
+                    </item>
                     <item row="3" column="3">
                      <widget class="QLabel" name="marker_width_lab">
                       <property name="text">
                        <string>Stroke width</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="10" column="0">
+                     <widget class="QLabel" name="alpha_lab">
+                      <property name="text">
+                       <string>Opacity</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="4">
+                     <widget class="QgsDoubleSpinBox" name="marker_width"/>
+                    </item>
+                    <item row="0" column="5">
+                     <widget class="QgsPropertyOverrideButton" name="size_defined_button">
+                      <property name="text">
+                       <string>...</string>
                       </property>
                      </widget>
                     </item>
@@ -518,22 +512,12 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="7" column="1" colspan="5">
-                     <layout class="QHBoxLayout" name="horizontalLayout_4">
-                      <item>
-                       <widget class="QComboBox" name="contour_type_combo"/>
-                      </item>
-                      <item>
-                       <widget class="QCheckBox" name="show_lines_check">
-                        <property name="text">
-                         <string>Show lines</string>
-                        </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
+                    <item row="10" column="1" colspan="5">
+                     <widget class="QgsOpacityWidget" name="opacity_widget" native="true">
+                      <property name="focusPolicy">
+                       <enum>Qt::StrongFocus</enum>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -1133,29 +1117,29 @@ QListWidget::item::selected {
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgscollapsiblegroupbox.h</header>
+   <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsColorButton</class>
    <extends>QToolButton</extends>
-   <header>qgscolorbutton.h</header>
+   <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
-   <header>qgsfieldexpressionwidget.h</header>
+   <header>qgis.gui</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgsmaplayercombobox.h</header>
+   <header>qgis.gui</header>
   </customwidget>
   <customwidget>
    <class>QgsPropertyOverrideButton</class>
    <extends>QToolButton</extends>
-   <header>qgspropertyoverridebutton.h</header>
+   <header>qgis.gui</header>
    <slots>
     <slot>setVectorLayer(QgsMapLayer*)</slot>
    </slots>
@@ -1170,41 +1154,15 @@ QListWidget::item::selected {
    <extends>QSpinBox</extends>
    <header>qgis.gui</header>
   </customwidget>
+  <customwidget>
+   <class>QgsOpacityWidget</class>
+   <extends>QWidget</extends>
+   <header>qgis.gui</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>alpha_slid</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>alpha_num</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>399</x>
-     <y>673</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>503</x>
-     <y>675</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>alpha_num</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>alpha_slid</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>503</x>
-     <y>675</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>673</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>x_combo</sender>
    <signal>fieldChanged(QString)</signal>

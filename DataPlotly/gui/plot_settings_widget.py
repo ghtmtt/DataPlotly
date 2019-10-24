@@ -729,9 +729,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.size_defined_button: ['scatter', 'ternary'],
             self.marker_type_lab: ['scatter', 'polar'],
             self.marker_type_combo: ['scatter', 'polar'],
-            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
-            self.alpha_slid: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
-            self.alpha_num: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'violin'],
+            self.opacity_widget: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram',
                                'violin'],
             self.bar_mode_lab: ['bar', 'histogram'],
@@ -895,7 +893,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'line_dash': self.line_types2[self.line_combo.currentText()],
                            'box_orientation': self.orientation_combo.currentData(),
                            'marker': self.marker_types[self.marker_type_combo.currentText()],
-                           'opacity': (100 - self.alpha_slid.value()) / 100.0,
+                           'opacity': self.opacity_widget.opacity(),
                            'box_stat': self.box_statistic_combo.currentData(),
                            'box_outliers': self.outliers_combo.currentData(),
                            'name': self.legend_title.text(),
@@ -916,8 +914,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'point_combo': self.point_combo.currentText(),
                            'line_combo': self.line_combo.currentText(),
                            'contour_type_combo': self.contour_type_combo.currentText(),
-                           'show_lines_check': self.show_lines_check.isChecked(),
-                           'alpha': self.alpha_slid.value()}
+                           'show_lines_check': self.show_lines_check.isChecked()
+                           }
 
         if self.in_color_defined_button.isActive():
             plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
@@ -999,8 +997,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.contour_type_combo.setCurrentText(settings.properties['contour_type_combo'])
         self.show_lines_check.setChecked(settings.properties['show_lines_check'])
         self.color_scale_combo.setCurrentIndex(self.color_scale_combo.findData(settings.properties['color_scale']))
-        self.alpha_slid.setValue(settings.properties['alpha'])
-        self.alpha_num.setValue(settings.properties['alpha'])
+        self.opacity_widget.setOpacity(settings.properties['opacity'])
         self.orientation_legend_check.setChecked(settings.layout['legend_orientation'] == 'h')
         self.range_slider_combo.setChecked(settings.layout['range_slider']['visible'])
         self.plot_title_line.setText(settings.layout['title'])
