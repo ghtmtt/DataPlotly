@@ -21,7 +21,6 @@
  ***************************************************************************/
 """
 
-import os
 import json
 from collections import OrderedDict
 from shutil import copyfile
@@ -476,7 +475,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         the language (looks for translations)
         """
 
-        locale = QSettings().value('locale/userLocale', 'en_US')[0:2]
+        # locale = QSettings().value('locale/userLocale', 'en_US')[0:2]
 
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)
