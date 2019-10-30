@@ -1,7 +1,7 @@
 #!/bin/bash
 PLUGINNAME="DataPlotly"
 LOCALES=$*
-LRELEASE=lrelease-qt5
+LRELEASE=lrelease
 
 for LOCALE in ${LOCALES}
 do

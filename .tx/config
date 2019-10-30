@@ -2,9 +2,9 @@
 host = https://www.transifex.com
 
 [dataplotly-ui.application]
-file_filter = i18n/DataPlotly_<lang>.ts
-source_file = i18n/DataPlotly_en.ts
+file_filter = DataPlotly/i18n/DataPlotly_<lang>.ts
+source_file = DataPlotly/i18n/DataPlotly_en.ts
 source_lang = en
 
-trans.it = i18n/DataPlotly_it.ts
+trans.it = DataPlotly/i18n/DataPlotly_it.ts
 type = QT
