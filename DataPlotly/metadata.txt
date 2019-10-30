@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=2.3
+version=3.0
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,15 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 3.0
+  - [feature] total refactoring of the code
+  - [feature] plots also in print composer
+  - [feature] atlas based plots
+  - [feature] chance to save/load configuration file of plot setting
+  - [feature] plot settings saved together with the project
+  - [feature] more datadefined properties
+  - [feature] show only selected/visible/filtered features
+  - [feature] unit tests and continuous integration
   Version 2.3
   - [feature] tweaks polar plots, thanks @josephholler
   Version 2.2
@@ -57,7 +66,7 @@ changelog=
   - [feature] DataPlotly as Processing provider, thanks to Michaël Douchin of 3Liz
 
 # Tags are comma separated with spaces allowed
-tags=python, d3, plots, vector, graphs
+tags=python, d3, plots, vector, graphs, datavis
 
 homepage=https://github.com/ghtmtt/DataPlotly
 category=Plugins

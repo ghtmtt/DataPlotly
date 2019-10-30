@@ -144,7 +144,7 @@ package:
 	@echo "Exporting plugin to zip package.	"
 	@echo "------------------------------------"
 	rm -f $(PLUGINNAME).zip
-	git archive --prefix=$(PLUGINNAME)/ -o $(PLUGINNAME).zip $(VERSION)
+	cd $(PLUGINNAME) && git archive --prefix=$(PLUGINNAME)/ -o $(PLUGINNAME).zip $(VERSION)
 	echo "Created package: $(PLUGINNAME).zip"
 
 upload: zip

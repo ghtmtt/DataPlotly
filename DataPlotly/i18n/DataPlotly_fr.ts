@@ -1,409 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" version="2.0">
 <context>
     <name>@default</name>
     <message>
-        <location filename="../test/test_translations.py" line="47"/>
+        <location filename="../test/test_translations.py" line="48"/>
         <source>Good morning</source>
-        <translation type="unfinished"></translation>
+        <translation>Bonjour</translation>
     </message>
 </context>
 <context>
     <name>DataPlotly</name>
     <message>
-        <location filename="../data_plotly.py" line="205"/>
-        <source>&amp;Data Plotly</source>
-        <translation type="unfinished"></translation>
+        <location filename="../data_plotly.py" line="116"/>
+        <source>DataPlotly</source>
+        <translation>DataPlotly</translation>
     </message>
     <message>
-        <location filename="../data_plotly.py" line="177"/>
-        <source>DataPlotly</source>
-        <translation type="unfinished"></translation>
+        <location filename="../gui/layout_item_gui.py" line="158"/>
+        <source>Plot Item</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../data_plotly.py" line="105"/>
+        <source>&amp;DataPlotly</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../data_plotly.py" line="119"/>
+        <source>Shows the DataPlotly dock</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
-    <name>DataPlotlyDockWidget</name>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Scatter Plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Box Plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Bar Plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Histogram</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Pie Plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>2D Histogram</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Polar Plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Ternary Plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Contour Plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="145"/>
-        <source>Violin Plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="164"/>
-        <source>SinglePlot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="844"/>
-        <source>SubPlots</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="513"/>
-        <source>X Field</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="521"/>
-        <source>Vertical</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="521"/>
-        <source>Horizontal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="530"/>
-        <source>No Outliers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="530"/>
-        <source>Standard Outliers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="530"/>
-        <source>Suspected Outliers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="530"/>
-        <source>All Points</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="540"/>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="540"/>
-        <source>Mean</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="540"/>
-        <source>Standard Deviation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="560"/>
-        <source>Linear</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="560"/>
-        <source>Logarithmic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="560"/>
-        <source>Categorized</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="861"/>
-        <source>Points</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="870"/>
-        <source>Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="570"/>
-        <source>Points and Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="615"/>
-        <source>Solid Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="615"/>
-        <source>Dot Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="615"/>
-        <source>Dash Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="615"/>
-        <source>Long Dash Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="615"/>
-        <source>Dot Dash Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="615"/>
-        <source>Long Dash Dot Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="629"/>
-        <source>Grouped</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="629"/>
-        <source>Stacked</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="629"/>
-        <source>Overlay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="639"/>
-        <source>Enumerated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="639"/>
-        <source>Percents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="639"/>
-        <source>Probability</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="639"/>
-        <source>Density</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="639"/>
-        <source>Prob Density</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="651"/>
-        <source>Fill</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="651"/>
-        <source>Heatmap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="651"/>
-        <source>Only Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>Grey Scale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>Green Scale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>Fire Scale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>BlueYellowRed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>BlueGreenRed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>BlueToRed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>BlueToRed Soft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>BlackRedYellowBlue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>Terrain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>Electric Scale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>RedOrangeYellow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>DeepblueBlueWhite</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="661"/>
-        <source>BlueWhitePurple</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="686"/>
-        <source>Grouping Field 
-(Optional)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="692"/>
-        <source>Box Orientation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="693"/>
-        <source>Box Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="697"/>
-        <source>Marker Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="701"/>
-        <source>Bar Orientation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="702"/>
-        <source>Bar Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="706"/>
-        <source>Grouping Field</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="713"/>
-        <source>All Values</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="713"/>
-        <source>X Values</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="713"/>
-        <source>Y Values</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="713"/>
-        <source>No Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="724"/>
-        <source>Both Sides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="724"/>
-        <source>Only Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="724"/>
-        <source>Only right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="1087"/>
-        <source>{} plot is not compatible for subplotting
- see </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="1174"/>
-        <source>Save plot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="1184"/>
-        <source>Plot succesfully saved</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../data_plotly_dialog.py" line="1163"/>
-        <source>Please select a directory to save the plot</source>
-        <translation type="unfinished"></translation>
+    <name>DataPlotlyDock</name>
+    <message>
+        <location filename="../gui/dock.py" line="24"/>
+        <source>DataPlotly</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -411,380 +43,776 @@
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="14"/>
         <source>DataPlotly</source>
-        <translation type="unfinished"></translation>
+        <translation>DataPlotly</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="156"/>
-        <source>Plot Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="214"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="440"/>
         <source>Plot Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres du graphique</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="238"/>
-        <source>X Field</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="245"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="493"/>
         <source>Z field</source>
-        <translation type="unfinished"></translation>
+        <translation>Champ Z</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="255"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="473"/>
         <source>Use only selected features</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser les entités sélectionnées</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="262"/>
-        <source>Y Field</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="279"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="480"/>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Couche</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="319"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="240"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriétés</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="325"/>
-        <source>Transparency</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="332"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="382"/>
         <source>Marker type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type de marqueur</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="512"/>
-        <source>Color Scale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="346"/>
-        <source>Show Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="404"/>
-        <source>Point Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="421"/>
-        <source>Stroke Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="428"/>
-        <source>Marker Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="451"/>
-        <source>Contour Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="474"/>
-        <source>Line Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="481"/>
-        <source>Marker Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="488"/>
-        <source>Stroke Width</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="502"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="446"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="519"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="336"/>
         <source>Visible</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="529"/>
-        <source>Invert Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="605"/>
-        <source>Bar orientation</source>
-        <translation type="unfinished"></translation>
+        <translation>Visible</translation>
     </message>
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="625"/>
+        <source>Bar orientation</source>
+        <translation>Orientation des bâtons</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="645"/>
         <source>Y Axis Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="632"/>
-        <source>Show Mean Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="642"/>
-        <source>Y Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de l&apos;axe Y</translation>
     </message>
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="652"/>
-        <source>Legend Title</source>
-        <translation type="unfinished"></translation>
+        <source>Show Mean Line</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="662"/>
-        <source>Normalization</source>
-        <translation type="unfinished"></translation>
+        <source>Y Label</source>
+        <translation>Étiquette Y</translation>
     </message>
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="672"/>
+        <source>Legend Title</source>
+        <translation>Titre de la légende</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="682"/>
+        <source>Normalization</source>
+        <translation>Normalisation</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="692"/>
         <source>X Axis Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="685"/>
-        <source>Outliers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="695"/>
-        <source>Bar Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de l&apos;axe X</translation>
     </message>
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="705"/>
+        <source>Outliers</source>
+        <translation>Valeurs abberantes</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="715"/>
+        <source>Bar Mode</source>
+        <translation>Mode du diagramme en bâton</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="725"/>
         <source>Show Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>Montrer la légende</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="721"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="741"/>
         <source>Show Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Montrer les statistiques</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="728"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="748"/>
         <source>Plot Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titre du graphique</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="735"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="755"/>
         <source>X Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Étiquette X</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="742"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="762"/>
         <source>Show RangeSlider</source>
-        <translation type="unfinished"></translation>
+        <translation>Montrer le sélecteur d&apos;intervalle</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="749"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="769"/>
         <source>Hover Infos</source>
-        <translation type="unfinished"></translation>
+        <translation>Informations au survol</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="759"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="779"/>
         <source>Invert X Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Inverser l&apos;axe X</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="766"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="786"/>
         <source>Invert Y Axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Inverser l&apos;axe Y</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="776"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="796"/>
         <source>Z Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Axe Z</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="783"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="803"/>
         <source>Additional Hover Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Étiquette au survol</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="812"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="832"/>
         <source>Cumulative Histogram</source>
-        <translation type="unfinished"></translation>
+        <translation>Histogramme cumulatif</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="819"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="839"/>
         <source>Choose manually the bins</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir les manuellement les classes</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="826"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="846"/>
         <source>Bar gap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="833"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="853"/>
         <source>Horizontal Legend</source>
-        <translation type="unfinished"></translation>
+        <translation>Légende horizontale</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="843"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="863"/>
         <source>Invert Histogram Direction</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="860"/>
-        <source>Violin side</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="880"/>
-        <source>Plot in Rows</source>
-        <translation type="unfinished"></translation>
+        <source>Violin side</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="890"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="952"/>
         <source>Clean Plot Canvas</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="900"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="975"/>
         <source>Update Plot</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre à jour le graphique</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="997"/>
+        <source>Create Plot</source>
+        <translation>Créer un graphique</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1056"/>
+        <source>Export as image</source>
+        <translation>Exporter comme image</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1075"/>
+        <source>Export as html</source>
+        <translation>Exporter en HTML</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="169"/>
+        <source>Plot type</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="246"/>
+        <source>Line type</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="253"/>
+        <source>Point type</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="265"/>
+        <source>Show lines</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="277"/>
+        <source>Marker color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="284"/>
+        <source>Stroke color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="355"/>
+        <source>Color scale</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="321"/>
+        <source>Marker size</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="346"/>
+        <source>Invert color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="392"/>
+        <source>Stroke width</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="399"/>
+        <source>Opacity</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="416"/>
+        <source>Contour type</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="453"/>
+        <source>Linked map</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="463"/>
+        <source>Use only visible features</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="500"/>
+        <source>Feature subset</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="510"/>
+        <source>Y field</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="535"/>
+        <source>X field</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="555"/>
+        <source>Use only features visible in map</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="562"/>
+        <source>Use only features inside atlas feature</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="903"/>
+        <source>Type of plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="915"/>
+        <source>Plot in columns</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui/dataplotly_dockwidget_base.ui" line="922"/>
-        <source>Create Plot</source>
-        <translation type="unfinished"></translation>
+        <source>Plot in rows</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="929"/>
-        <source>Plot in Columns</source>
-        <translation type="unfinished"></translation>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1004"/>
+        <source>Configuration</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="939"/>
-        <source>Type of Plot</source>
-        <translation type="unfinished"></translation>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1092"/>
+        <source>Dynamically update size</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>DataPlotlyPanelWidget</name>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="103"/>
+        <source>Plot Properties</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="989"/>
-        <source>Export as image</source>
-        <translation type="unfinished"></translation>
+        <location filename="../gui/plot_settings_widget.py" line="130"/>
+        <source>Load Configurationâ¦</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1008"/>
-        <source>Export as html</source>
-        <translation type="unfinished"></translation>
+        <location filename="../gui/plot_settings_widget.py" line="132"/>
+        <source>Save Configurationâ¦</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1025"/>
-        <source>Live Update</source>
-        <translation type="unfinished"></translation>
+        <location filename="../gui/plot_settings_widget.py" line="547"/>
+        <source>None</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="175"/>
+        <source>Single Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="176"/>
+        <source>Subplots</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="535"/>
+        <source>Vertical</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="536"/>
+        <source>Horizontal</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="540"/>
+        <source>No Outliers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="541"/>
+        <source>Standard Outliers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="542"/>
+        <source>Suspected Outliers</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="543"/>
+        <source>All Points</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="548"/>
+        <source>Mean</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="549"/>
+        <source>Standard Deviation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="557"/>
+        <source>Linear</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="558"/>
+        <source>Logarithmic</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="559"/>
+        <source>Categorized</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="838"/>
+        <source>Points</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="847"/>
+        <source>Lines</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="562"/>
+        <source>Points and Lines</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <source>Solid Line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <source>Dot Line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <source>Dash Line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <source>Long Dash Line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <source>Dot Dash Line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <source>Long Dash Dot Line</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="622"/>
+        <source>Grouped</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="623"/>
+        <source>Stacked</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="624"/>
+        <source>Overlay</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="628"/>
+        <source>Enumerated</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="629"/>
+        <source>Percents</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="630"/>
+        <source>Probability</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="631"/>
+        <source>Density</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="632"/>
+        <source>Prob Density</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="635"/>
+        <source>Fill</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="635"/>
+        <source>Heatmap</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="635"/>
+        <source>Only Lines</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="671"/>
+        <source>Grouping field 
+(optional)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="677"/>
+        <source>Box orientation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="678"/>
+        <source>Box color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="681"/>
+        <source>X field</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="685"/>
+        <source>Marker color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="687"/>
+        <source>Bar orientation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="688"/>
+        <source>Bar color</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="691"/>
+        <source>Grouping field</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="699"/>
+        <source>All Values</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="700"/>
+        <source>X Values</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="701"/>
+        <source>Y Values</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="702"/>
+        <source>No Data</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="706"/>
+        <source>Both Sides</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="707"/>
+        <source>Only Left</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="708"/>
+        <source>Only right</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1134"/>
+        <source>{} plot is not compatible for subplotting
+ see </source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1221"/>
+        <source>Save Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1364"/>
+        <source>DataPlotly</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1210"/>
+        <source>Plot saved to &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1229"/>
+        <source>Saved plot to &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1346"/>
+        <source>Load Configuration</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1353"/>
+        <source>Could not read settings from file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1359"/>
+        <source>Save Configuration</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/plot_settings_widget.py" line="1364"/>
+        <source>Saved configuration to &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
     <name>DataPlotlyProcessingPlot</name>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="87"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="88"/>
         <source>Input layer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="94"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="95"/>
         <source>Plot type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="102"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="103"/>
         <source>Plot title</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="110"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="111"/>
         <source>X Field</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="120"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="121"/>
         <source>Y Field</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="130"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="131"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="139"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="140"/>
         <source>Color (any valid HTML color) If set, this is used instead of the color set in the previous input.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="148"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="149"/>
         <source>HTML File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="148"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="149"/>
         <source>HTML files (*.html)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="155"/>
-        <source>Dataplotly - Generic plot HTML output</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="158"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="157"/>
         <source>JSON file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="158"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="157"/>
         <source>JSON Files (*.json)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="165"/>
-        <source>Dataplotly - Generic plot JSON output</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="173"/>
+        <location filename="../processing/dataplotly_algorithms.py" line="170"/>
         <source>Build a generic plot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../processing/dataplotly_algorithms.py" line="176"/>
         <source>Plots</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../processing/dataplotly_algorithms.py" line="179"/>
-        <source>plots</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../processing/dataplotly_algorithms.py" line="209"/>
         <source>The chosen plot type needs a X field !</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../processing/dataplotly_algorithms.py" line="211"/>
         <source>The chosen plot type needs a Y field !</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing/dataplotly_algorithms.py" line="173"/>
+        <source>Creates a generic Plotly plot</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>PlotLayoutItemWidget</name>
+    <message>
+        <location filename="../gui/layout_item_gui.py" line="39"/>
+        <source>Setup Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../gui/layout_item_gui.py" line="44"/>
+        <source>Plot Properties</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>PlotType</name>
+    <message>
+        <location filename="../core/plot_types/histogram2d.py" line="28"/>
+        <source>2D Histogram</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/box.py" line="28"/>
+        <source>Box Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/histogram.py" line="28"/>
+        <source>Histogram</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/bar_plot.py" line="29"/>
+        <source>Bar Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/scatter.py" line="28"/>
+        <source>Scatter Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/violin.py" line="28"/>
+        <source>Violin Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/polar.py" line="28"/>
+        <source>Polar Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/contour.py" line="28"/>
+        <source>Contour Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/ternary.py" line="28"/>
+        <source>Ternary Plot</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../core/plot_types/pie.py" line="28"/>
+        <source>Pie Chart</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
