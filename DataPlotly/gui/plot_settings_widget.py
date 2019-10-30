@@ -43,7 +43,6 @@ from qgis.PyQt.QtGui import (
 )
 from qgis.PyQt.QtCore import (
     QUrl,
-    QSettings,
     pyqtSignal,
     QDir
 )
