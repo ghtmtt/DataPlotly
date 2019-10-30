@@ -480,12 +480,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)
-        help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/{}/{}.html'.format(locale, self.ptype))
-        # check if the file exists, else open the default home page
-        if not os.path.exists(help_link):
-            help_link = os.path.join(os.path.dirname(__file__), 'help/build/html/en/{}.html'.format(self.ptype))
-
-        help_url = QUrl.fromLocalFile(help_link)
+        help_url = QUrl('https://dataplotly-docs.readthedocs.io/en/latest/{}.html'.format(self.ptype))
         self.help_view.load(help_url)
 
     def resizeEvent(self, event):
