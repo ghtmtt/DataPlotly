@@ -11,11 +11,9 @@ DataPlotly makes plot creation and customization easy for every needs.
 Besides all the plot and customizations available, the plot is **linked** with
 the QGIS map canvas:
 
-![Plot interactions](./help/source/img/readme/plot_interaction_scatter.gif)
+![Plot interactions](img/plot_interaction_scatter.gif)
 
-![Plot interactions](./help/source/img/readme/plot_interaction_box.gif)
-
-![Plot interactions](./help/source/img/readme/plot_interaction_scatter_box.gif)
+![Plot interactions](img/plot_interaction_box.gif)
 
 ## Usage
 DataPlotly works **only with QGIS 3** (or current QGIS dev). No additional
@@ -28,31 +26,34 @@ libraries are necessary.
 Some examples of single plot type with some options. The list is far away to show all the possibilities.
 
 #### Scatter Plot
-![Plot interactions](./help/source/img/readme/plot_scatter.png)
+![Plot interactions](img/plot_scatter.png)
 
 #### Box Plot with statistics
-![Plot interactions](./help/source/img/readme/plot_box.png)
+![Plot interactions](img/plot_box.png)
+
+#### Violin Plot
+![Plot interactions](img/plot_violin.png)
 
 #### Stacked Bar Plot
-![Plot interactions](./help/source/img/readme/plot_bar_stack.png)
+![Plot interactions](img/plot_bar_stack.png)
 
 #### Probability Histogram
-![Plot interactions](./help/source/img/readme/plot_histogram.png)
+![Plot interactions](img/plot_histogram.png)
 
 #### Pie Chart
-![Plot interactions](./help/source/img/readme/plot_pie.png)
+![Plot interactions](img/plot_pie.png)
 
 #### 2D Histogram
-![Plot interactions](./help/source/img/readme/plot_2dhistogram.png)
+![Plot interactions](img/plot_2dhistogram.png)
 
 #### Polar Plot
-![Plot interactions](./help/source/img/readme/plot_polar.png)
+![Plot interactions](img/plot_polar.png)
 
 #### Ternary Plot
-![Plot interactions](./help/source/img/readme/plot_ternary.png)
+![Plot interactions](img/plot_ternary.png)
 
-#### Contour Plot with fire color scale
-![Plot interactions](./help/source/img/readme/plot_contour.png)
+#### Contour Plo
+![Plot interactions](img/plot_contour.png)
 
 ### Multi Plots
 DataPloty allows creation of different plot type in the same *plot canvas* but also allows the chance to separate each plot in a different canvas.
@@ -63,10 +64,10 @@ Some plot are not compatible with overlapping or subplotting. A message will war
 
 
 ## Overlapped Plots
-![Plot interactions](./help/source/img/readme/plot_scatter_bar.png)
+![Plot interactions](img/plot_scatter_bar.png)
 
 ## Subplots in row
-![Plot interactions](./help/source/img/readme/plot_histogram_box.png)
+![Plot interactions](img/plot_histogram_violin.png)
 
 ## Subplots in column
-![Plot interactions](./help/source/img/readme/plot_scatter_histogram.png)
+![Plot interactions](img/plot_scatter_histogram.png)
