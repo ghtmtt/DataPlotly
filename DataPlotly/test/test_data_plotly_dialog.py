@@ -86,6 +86,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings = dialog.get_settings()
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'scatter')
+        print('dialog loaded')
 
         # customise settings
         settings.plot_type = 'bar'
@@ -134,8 +135,11 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog2.set_settings(settings)
 
+        print('set settings')
+
         self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
+            print(k)
             if k in ['x', 'y', 'z', 'additional_hover_text', 'featureIds', 'featureBox', 'custom']:
                 continue
             self.assertEqual(dialog2.get_settings().properties[k], settings.properties[k])
@@ -153,6 +157,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         settings = dialog.get_settings()
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
+        print('dialog 2')
         dialog3.set_settings(settings)
 
         self.assertEqual(dialog3.get_settings().plot_type, settings.plot_type)
