@@ -159,14 +159,18 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         print('dialog 2')
         dialog3.set_settings(settings)
+        print('set settings')
 
         self.assertEqual(dialog3.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
+            print(k)
             self.assertEqual(dialog3.get_settings().properties[k], settings.properties[k])
         self.assertEqual(dialog3.get_settings().properties, settings.properties)
         for k in settings.layout.keys():
+            print(k)
             self.assertEqual(dialog3.get_settings().layout[k], settings.layout[k])
 
+        print('done')
         QgsProject.instance().clear()
 
     def test_read_write_project(self):
