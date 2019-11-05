@@ -172,11 +172,13 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         print('done')
         QgsProject.instance().clear()
+        print('clear done')
 
     def test_read_write_project(self):
         """
         Test saving/restoring dialog state in project
         """
+        print('read write project test')
         p = QgsProject.instance()
         dialog = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog.set_plot_type('violin')
