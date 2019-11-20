@@ -59,12 +59,35 @@ class PlotType:
             x_title = settings.layout['x_title']
             y_title = settings.layout['y_title']
 
+        range_x = None
+        if 'x_min' in settings.layout and 'x_max' in settings.layout:
+            if settings.layout['x_min'] is not None and settings.layout['x_max'] is not None:
+                range_x = [
+                    settings.layout['x_min'],
+                    settings.layout['x_max']
+                ]
+        range_y = None
+        if 'y_min' in settings.layout and 'y_max' in settings.layout:
+            if settings.layout['y_min'] is not None and settings.layout['y_max'] is not None:
+                range_y = [
+                    settings.layout['y_min'],
+                    settings.layout['y_max']
+                ]
+
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
             legend={'orientation': settings.layout['legend_orientation']},
             title=settings.layout['title'],
-            xaxis={'title': x_title, 'autorange': settings.layout['x_inv']},
-            yaxis={'title': y_title, 'autorange': settings.layout['y_inv']}
+            xaxis={
+                'title': x_title,
+                'autorange': settings.layout['x_inv'],
+                'range': range_x
+            },
+            yaxis={
+                'title': y_title,
+                'autorange': settings.layout['y_inv'],
+                'range': range_y
+            }
         )
 
         # update the x and y axis and add the linear and log only if the data are numeric
