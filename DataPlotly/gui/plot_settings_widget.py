@@ -244,6 +244,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.in_color_defined_button.changed.connect(self.data_defined_color_updated)
         self.register_data_defined_button(self.out_color_defined_button, PlotSettings.PROPERTY_STROKE_COLOR)
         self.out_color_defined_button.registerEnabledWidget(self.out_color_combo, natural=False)
+        self.x_axis_min_defined_button.setVisible(False)  # Hide buttons until data defined feature is implemented
+        self.x_axis_max_defined_button.setVisible(False)
+        self.y_axis_min_defined_button.setVisible(False)
+        self.y_axis_max_defined_button.setVisible(False)
 
         # connect to refreshing function of listWidget and stackedWidgets
         self.listWidget.currentRowChanged.connect(self.updateStacked)
@@ -771,6 +775,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.y_axis_mode_combo: ['scatter', 'box'],
             self.invert_x_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
             self.invert_y_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
+            self.x_axis_min: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
+            self.x_axis_max: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
+            self.y_axis_min: ['scatter', 'bar', 'box', '2dhistogram', 'ternary', 'violin'],
+            self.y_axis_max: ['scatter', 'bar', 'box', '2dhistogram', 'ternary', 'violin'],
             self.orientation_label: ['bar', 'box', 'histogram', 'violin'],
             self.orientation_combo: ['bar', 'box', 'histogram', 'violin'],
             self.box_statistic_label: ['box'],
@@ -950,6 +958,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'y_type': self.y_axis_mode_combo.currentData(),
                              'x_inv': None if not self.invert_x_check.isChecked() else 'reversed',
                              'y_inv': None if not self.invert_y_check.isChecked() else 'reversed',
+                             'x_min': self.x_axis_min.text() if self.x_axis_bounds_check.isChecked() else None,
+                             'x_max': self.x_axis_max.text() if self.x_axis_bounds_check.isChecked() else None,
+                             'y_min': self.y_axis_min.text() if self.y_axis_bounds_check.isChecked() else None,
+                             'y_max': self.y_axis_max.text() if self.y_axis_bounds_check.isChecked() else None,
                              'bargaps': self.bar_gap.value(),
                              'additional_info_expression': self.additional_info_combo.expression(),
                              'bins_check': self.bins_check.isChecked()}
@@ -1019,6 +1031,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.x_axis_mode_combo.setCurrentIndex(self.x_axis_mode_combo.findData(settings.layout['x_type']))
         self.invert_y_check.setChecked(settings.layout['y_inv'] == 'reversed')
         self.y_axis_mode_combo.setCurrentIndex(self.y_axis_mode_combo.findData(settings.layout['y_type']))
+        self.x_axis_bounds_check.setChecked(settings.layout['x_min'] is not None)
+        self.x_axis_bounds_check.setCollapsed(settings.layout['x_min'] is None)
+        self.x_axis_min.setText(str(settings.layout['x_min'] if settings.layout['x_min'] is not None else ''))
+        self.x_axis_max.setText(str(settings.layout['x_max'] if settings.layout['x_max'] is not None else ''))
+        self.y_axis_bounds_check.setChecked(settings.layout['y_min'] is not None)
+        self.y_axis_bounds_check.setCollapsed(settings.layout['y_min'] is None)
+        self.y_axis_min.setText(str(settings.layout['y_min'] if settings.layout['y_min'] is not None else ''))
+        self.y_axis_max.setText(str(settings.layout['y_max'] if settings.layout['y_max'] is not None else ''))
         self.orientation_combo.setCurrentIndex(self.orientation_combo.findData(settings.properties['box_orientation']))
         self.bar_mode_combo.setCurrentIndex(self.bar_mode_combo.findData(settings.layout['bar_mode']))
         self.hist_norm_combo.setCurrentIndex(self.hist_norm_combo.findData(settings.properties['normalization']))

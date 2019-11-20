@@ -35,7 +35,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
         PROPERTY_MARKER_SIZE: QgsPropertyDefinition('marker_size', 'Marker size', QgsPropertyDefinition.DoublePositive),
         PROPERTY_COLOR: QgsPropertyDefinition('color', 'Color', QgsPropertyDefinition.ColorWithAlpha),
-        PROPERTY_STROKE_COLOR: QgsPropertyDefinition('stroke_color', 'Stroke color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_STROKE_COLOR: QgsPropertyDefinition('stroke_color', 'Stroke color',
+                                                     QgsPropertyDefinition.ColorWithAlpha),
         PROPERTY_STROKE_WIDTH: QgsPropertyDefinition('stroke_width', 'Stroke width',
                                                      QgsPropertyDefinition.DoublePositive)
     }
@@ -101,6 +102,10 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'y_type': None,
             'x_inv': None,
             'y_inv': None,
+            'x_min': None,
+            'x_max': None,
+            'y_min': None,
+            'y_max': None,
             'range_slider': {'borderwidth': 1, 'visible': False},
             'bargaps': 0,
             'polar': {'angularaxis': {'direction': 'clockwise'}},
