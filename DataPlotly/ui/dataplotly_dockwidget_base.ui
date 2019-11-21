@@ -204,8 +204,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>487</width>
-                  <height>552</height>
+                  <width>531</width>
+                  <height>685</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_9">
@@ -418,7 +418,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="10" column="1" colspan="5">
-                     <widget class="QgsOpacityWidget" name="opacity_widget" native="true">
+                     <widget class="QgsOpacityWidget" name="opacity_widget">
                       <property name="focusPolicy">
                        <enum>Qt::StrongFocus</enum>
                       </property>
@@ -485,7 +485,7 @@ QListWidget::item::selected {
                      <widget class="QgsLayoutItemComboBox" name="linked_map_combo"/>
                     </item>
                     <item row="8" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="y_combo" native="true"/>
+                     <widget class="QgsFieldExpressionWidget" name="y_combo"/>
                     </item>
                     <item row="9" column="0">
                      <widget class="QLabel" name="z_label">
@@ -502,7 +502,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="7" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="x_combo" native="true"/>
+                     <widget class="QgsFieldExpressionWidget" name="x_combo"/>
                     </item>
                     <item row="8" column="0">
                      <widget class="QLabel" name="y_label">
@@ -537,7 +537,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="9" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="z_combo" native="true"/>
+                     <widget class="QgsFieldExpressionWidget" name="z_combo"/>
                     </item>
                     <item row="0" column="1" colspan="2">
                      <widget class="QgsMapLayerComboBox" name="layer_combo">
@@ -600,7 +600,7 @@ QListWidget::item::selected {
                   <x>0</x>
                   <y>0</y>
                   <width>512</width>
-                  <height>656</height>
+                  <height>687</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25">
@@ -616,17 +616,147 @@ QListWidget::item::selected {
                  <property name="bottomMargin">
                   <number>0</number>
                  </property>
-                 <item row="15" column="1" colspan="2">
-                  <widget class="QComboBox" name="hist_norm_combo"/>
+                 <item row="4" column="1" rowspan="2" colspan="2">
+                  <widget class="QLineEdit" name="y_axis_title"/>
                  </item>
-                 <item row="13" column="0">
-                  <widget class="QLabel" name="orientation_label">
+                 <item row="22" column="0">
+                  <widget class="QCheckBox" name="bins_check">
                    <property name="text">
-                    <string>Bar orientation</string>
+                    <string>Choose manually the bins</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="23" column="0" colspan="3">
+                 <item row="15" column="0">
+                  <widget class="QLabel" name="hist_norm_label">
+                   <property name="text">
+                    <string>Normalization</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QCheckBox" name="orientation_legend_check">
+                   <property name="text">
+                    <string>Horizontal Legend</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="0">
+                  <widget class="QLabel" name="additional_info_label">
+                   <property name="text">
+                    <string>Additional Hover Label</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1" colspan="2">
+                  <widget class="QLineEdit" name="z_axis_title"/>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="x_axis_label">
+                   <property name="text">
+                    <string>X Label</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="20" column="0">
+                  <widget class="QCheckBox" name="showMeanCheck">
+                   <property name="text">
+                    <string>Show Mean Line</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="plot_title_lab">
+                   <property name="text">
+                    <string>Plot Title</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="18" column="1" colspan="2">
+                  <widget class="QComboBox" name="violinSideCombo"/>
+                 </item>
+                 <item row="13" column="1" colspan="2">
+                  <widget class="QComboBox" name="orientation_combo"/>
+                 </item>
+                 <item row="4" column="0" rowspan="2">
+                  <widget class="QLabel" name="y_axis_label">
+                   <property name="text">
+                    <string>Y Label</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1" colspan="2">
+                  <widget class="QLineEdit" name="plot_title_line"/>
+                 </item>
+                 <item row="23" column="1">
+                  <widget class="QgsDoubleSpinBox" name="bar_gap">
+                   <property name="maximum">
+                    <double>1.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1" colspan="2">
+                  <widget class="QLineEdit" name="legend_title"/>
+                 </item>
+                 <item row="22" column="1">
+                  <widget class="QgsSpinBox" name="bins_value">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="maximum">
+                    <number>1000</number>
+                   </property>
+                   <property name="value">
+                    <number>10</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="14" column="0">
+                  <widget class="QLabel" name="bar_mode_lab">
+                   <property name="text">
+                    <string>Bar Mode</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="2">
+                  <widget class="QComboBox" name="y_axis_mode_combo"/>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="legend_label">
+                   <property name="text">
+                    <string>Legend Title</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="1" colspan="2">
+                  <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
+                 </item>
+                 <item row="11" column="1">
+                  <widget class="QLabel" name="y_axis_mode_label">
+                   <property name="text">
+                    <string>Y Axis Mode</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QCheckBox" name="show_legend_check">
+                   <property name="text">
+                    <string>Show Legend</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="17" column="1" colspan="2">
+                  <widget class="QComboBox" name="outliers_combo"/>
+                 </item>
+                 <item row="24" column="0" colspan="3">
                   <spacer name="verticalSpacer_6">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
@@ -639,120 +769,13 @@ QListWidget::item::selected {
                    </property>
                   </spacer>
                  </item>
-                 <item row="11" column="1">
-                  <widget class="QLabel" name="y_axis_mode_label">
-                   <property name="text">
-                    <string>Y Axis Mode</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="19" column="0">
-                  <widget class="QCheckBox" name="showMeanCheck">
-                   <property name="text">
-                    <string>Show Mean Line</string>
-                   </property>
-                   <property name="checked">
+                 <item row="21" column="1" colspan="2">
+                  <widget class="QCheckBox" name="invert_hist_check">
+                   <property name="enabled">
                     <bool>true</bool>
                    </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="0" rowspan="2">
-                  <widget class="QLabel" name="y_axis_label">
                    <property name="text">
-                    <string>Y Label</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="17" column="1" colspan="2">
-                  <widget class="QComboBox" name="outliers_combo"/>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="legend_label">
-                   <property name="text">
-                    <string>Legend Title</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1" colspan="2">
-                  <widget class="QLineEdit" name="legend_title"/>
-                 </item>
-                 <item row="15" column="0">
-                  <widget class="QLabel" name="hist_norm_label">
-                   <property name="text">
-                    <string>Normalization</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="11" column="2">
-                  <widget class="QComboBox" name="y_axis_mode_combo"/>
-                 </item>
-                 <item row="10" column="1">
-                  <widget class="QLabel" name="x_axis_mode_label">
-                   <property name="text">
-                    <string>X Axis Mode</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1" colspan="2">
-                  <widget class="QLineEdit" name="plot_title_line"/>
-                 </item>
-                 <item row="3" column="1" colspan="2">
-                  <widget class="QLineEdit" name="x_axis_title"/>
-                 </item>
-                 <item row="17" column="0">
-                  <widget class="QLabel" name="outliers_label">
-                   <property name="text">
-                    <string>Outliers</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="14" column="1" colspan="2">
-                  <widget class="QComboBox" name="bar_mode_combo"/>
-                 </item>
-                 <item row="14" column="0">
-                  <widget class="QLabel" name="bar_mode_lab">
-                   <property name="text">
-                    <string>Bar Mode</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="1" rowspan="2" colspan="2">
-                  <widget class="QLineEdit" name="y_axis_title"/>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QCheckBox" name="show_legend_check">
-                   <property name="text">
-                    <string>Show Legend</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="13" column="1" colspan="2">
-                  <widget class="QComboBox" name="orientation_combo"/>
-                 </item>
-                 <item row="16" column="1" colspan="2">
-                  <widget class="QComboBox" name="box_statistic_combo"/>
-                 </item>
-                 <item row="16" column="0">
-                  <widget class="QLabel" name="box_statistic_label">
-                   <property name="text">
-                    <string>Show Statistics</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="plot_title_lab">
-                   <property name="text">
-                    <string>Plot Title</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="x_axis_label">
-                   <property name="text">
-                    <string>X Label</string>
+                    <string>Invert Histogram Direction</string>
                    </property>
                   </widget>
                  </item>
@@ -763,15 +786,52 @@ QListWidget::item::selected {
                    </property>
                   </widget>
                  </item>
-                 <item row="7" column="0">
-                  <widget class="QLabel" name="info_label">
+                 <item row="23" column="0">
+                  <widget class="QLabel" name="bar_gap_label">
                    <property name="text">
-                    <string>Hover Infos</string>
+                    <string>Bar gap</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QLabel" name="z_axis_label">
+                   <property name="text">
+                    <string>Z Label</string>
                    </property>
                   </widget>
                  </item>
                  <item row="10" column="2">
                   <widget class="QComboBox" name="x_axis_mode_combo"/>
+                 </item>
+                 <item row="3" column="1" colspan="2">
+                  <widget class="QLineEdit" name="x_axis_title"/>
+                 </item>
+                 <item row="16" column="1" colspan="2">
+                  <widget class="QComboBox" name="box_statistic_combo"/>
+                 </item>
+                 <item row="17" column="0">
+                  <widget class="QLabel" name="outliers_label">
+                   <property name="text">
+                    <string>Outliers</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="18" column="0">
+                  <widget class="QLabel" name="violinSideLabel">
+                   <property name="text">
+                    <string>Violin side</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="21" column="0">
+                  <widget class="QCheckBox" name="cumulative_hist_check">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string>Cumulative Histogram</string>
+                   </property>
+                  </widget>
                  </item>
                  <item row="10" column="0">
                   <widget class="QCheckBox" name="invert_x_check">
@@ -787,102 +847,49 @@ QListWidget::item::selected {
                    </property>
                   </widget>
                  </item>
+                 <item row="16" column="0">
+                  <widget class="QLabel" name="box_statistic_label">
+                   <property name="text">
+                    <string>Show Statistics</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="7" column="1" colspan="2">
                   <widget class="QComboBox" name="info_combo"/>
                  </item>
-                 <item row="6" column="0">
-                  <widget class="QLabel" name="z_axis_label">
+                 <item row="10" column="1">
+                  <widget class="QLabel" name="x_axis_mode_label">
                    <property name="text">
-                    <string>Z Label</string>
+                    <string>X Axis Mode</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="8" column="0">
-                  <widget class="QLabel" name="additional_info_label">
+                 <item row="14" column="1" colspan="2">
+                  <widget class="QComboBox" name="bar_mode_combo"/>
+                 </item>
+                 <item row="15" column="1" colspan="2">
+                  <widget class="QComboBox" name="hist_norm_combo"/>
+                 </item>
+                 <item row="13" column="0">
+                  <widget class="QLabel" name="orientation_label">
                    <property name="text">
-                    <string>Additional Hover Label</string>
+                    <string>Bar orientation</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="8" column="1" colspan="2">
-                  <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
-                 </item>
-                 <item row="21" column="1">
-                  <widget class="QgsSpinBox" name="bins_value">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="maximum">
-                    <number>1000</number>
-                   </property>
-                   <property name="value">
-                    <number>10</number>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="1" colspan="2">
-                  <widget class="QLineEdit" name="z_axis_title"/>
-                 </item>
-                 <item row="20" column="0">
-                  <widget class="QCheckBox" name="cumulative_hist_check">
-                   <property name="enabled">
-                    <bool>true</bool>
-                   </property>
+                 <item row="7" column="0">
+                  <widget class="QLabel" name="info_label">
                    <property name="text">
-                    <string>Cumulative Histogram</string>
+                    <string>Hover Infos</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="21" column="0">
-                  <widget class="QCheckBox" name="bins_check">
+                 <item row="19" column="0">
+                  <widget class="QCheckBox" name="violinBox">
                    <property name="text">
-                    <string>Choose manually the bins</string>
+                    <string>Show Box</string>
                    </property>
                   </widget>
-                 </item>
-                 <item row="22" column="0">
-                  <widget class="QLabel" name="bar_gap_label">
-                   <property name="text">
-                    <string>Bar gap</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QCheckBox" name="orientation_legend_check">
-                   <property name="text">
-                    <string>Horizontal Legend</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="20" column="1" colspan="2">
-                  <widget class="QCheckBox" name="invert_hist_check">
-                   <property name="enabled">
-                    <bool>true</bool>
-                   </property>
-                   <property name="text">
-                    <string>Invert Histogram Direction</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="22" column="1">
-                  <widget class="QgsDoubleSpinBox" name="bar_gap">
-                   <property name="maximum">
-                    <double>1.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="18" column="0">
-                  <widget class="QLabel" name="violinSideLabel">
-                   <property name="text">
-                    <string>Violin side</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="18" column="1" colspan="2">
-                  <widget class="QComboBox" name="violinSideCombo"/>
                  </item>
                 </layout>
                </widget>
@@ -1148,48 +1155,48 @@ QListWidget::item::selected {
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis.gui</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsColorButton</class>
    <extends>QToolButton</extends>
-   <header>qgis.gui</header>
+   <header>qgscolorbutton.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>qgsdoublespinbox.h</header>
   </customwidget>
   <customwidget>
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
-   <header>qgis.gui</header>
+   <header>qgsfieldexpressionwidget.h</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgis.gui</header>
+   <header>qgsmaplayercombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsOpacityWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsopacitywidget.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsPropertyOverrideButton</class>
    <extends>QToolButton</extends>
-   <header>qgis.gui</header>
+   <header>qgspropertyoverridebutton.h</header>
    <slots>
     <slot>setVectorLayer(QgsMapLayer*)</slot>
    </slots>
   </customwidget>
   <customwidget>
-   <class>QgsDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>qgis.gui</header>
-  </customwidget>
-  <customwidget>
    <class>QgsSpinBox</class>
    <extends>QSpinBox</extends>
-   <header>qgis.gui</header>
-  </customwidget>
-  <customwidget>
-   <class>QgsOpacityWidget</class>
-   <extends>QWidget</extends>
-   <header>qgis.gui</header>
-   <container>1</container>
+   <header>qgsspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>QgsLayoutItemComboBox</class>

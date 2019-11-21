@@ -57,5 +57,6 @@ class ViolinFactory(PlotType):
             meanline=dict(
                 visible=settings.properties['show_mean_line']
             ),
-            side=settings.properties['violin_side']
+            side=settings.properties['violin_side'],
+            box_visible=settings.properties['violin_box']
         )]

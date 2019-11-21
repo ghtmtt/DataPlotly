@@ -83,6 +83,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'show_lines_check': False,
             'opacity': 1,
             'violin_side': None,
+            'violin_box': False,
             'show_mean_line': False
         }
 
