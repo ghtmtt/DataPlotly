@@ -325,7 +325,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         """
         assert self.settings.plot_type in PlotFactory.PLOT_TYPES
 
-        print(PlotFactory.PLOT_TYPES[self.settings.plot_type].create_trace(self.settings))
         return PlotFactory.PLOT_TYPES[self.settings.plot_type].create_trace(self.settings)
 
     def _build_layout(self):
