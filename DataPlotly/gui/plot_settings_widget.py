@@ -931,6 +931,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 'color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
             if self.ptype in self.widgetType[self.color_scale_data_defined_in]:
                 plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData()
+                plot_properties['color'] = self.color_scale_data_defined_in.currentData()
+
             else:
                 plot_properties['color_scale'] = self.color_scale_combo.currentData()
 

@@ -260,10 +260,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                                                                                context, default_value)
                 stroke_widths.append(value)
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_COLOR):
-                default_value = QColor(self.settings.properties['in_color'])
-                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context,
-                                                                              default_value)
-                colors.append(value.name())
+                value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_COLOR,
+                                                                               context)
+                colors.append(value)
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_STROKE_COLOR):
                 default_value = QColor(self.settings.properties['out_color'])
                 value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_STROKE_COLOR,
