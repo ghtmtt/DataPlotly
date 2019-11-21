@@ -829,6 +829,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.bar_gap: ['histogram'],
             self.violinSideLabel: ['violin'],
             self.violinSideCombo: ['violin'],
+            self.violinBox: ['violin'],
         }
 
         # enable the widget according to the plot type
@@ -952,6 +953,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'bins': self.bins_value.value(),
                            'show_mean_line': self.showMeanCheck.isChecked(),
                            'violin_side': self.violinSideCombo.currentData(),
+                           'violin_box': self.violinBox.isChecked(),
                            'selected_features_only': self.selected_feature_check.isChecked(),
                            'visible_features_only': self.visible_feature_check.isChecked(),
                            'color_scale_data_defined_in_check': False,
@@ -1075,6 +1077,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.box_statistic_combo.setCurrentIndex(self.box_statistic_combo.findData(settings.properties['box_stat']))
         self.outliers_combo.setCurrentIndex(self.outliers_combo.findData(settings.properties['box_outliers']))
         self.violinSideCombo.setCurrentIndex(self.violinSideCombo.findData(settings.properties['violin_side']))
+        self.violinBox.setChecked(settings.properties['violin_box'])
         self.showMeanCheck.setChecked(settings.properties['show_mean_line'])
         self.cumulative_hist_check.setChecked(settings.properties['cumulative'])
         self.invert_hist_check.setChecked(settings.properties['invert_hist'] == 'decreasing')
