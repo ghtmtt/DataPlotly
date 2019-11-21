@@ -52,13 +52,13 @@ class BarPlotFactory(PlotType):
             ids=featureBox,
             customdata=settings.properties['custom'],
             orientation=settings.properties['box_orientation'],
-            marker={'color': settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
-                    'colorscale': settings.properties['color_scale'],
+            marker={'color': list(range(len(settings.data_defined_colors))) if settings.data_defined_colors else settings.properties['in_color'],
+                    'colorscale': settings.data_defined_color_scale if settings.data_defined_colors else settings.properties['color_scale'],
                     'showscale': settings.properties['show_colorscale_legend'],
                     'reversescale': settings.properties['invert_color_scale'],
                     'colorbar': {
-                        'len': 0.8
-                    },
+                        'len': 0.8,
+                        'showticklabels': False},
                     'line': {
                         'color': settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
                         'width': settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']}

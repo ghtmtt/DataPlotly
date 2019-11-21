@@ -357,10 +357,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             # if plot is scatter or bar
             if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
                 self.in_color_combo.setEnabled(False)
-                self.color_scale_data_defined_in.setVisible(True)
-                self.color_scale_data_defined_in.setEnabled(True)
-                self.color_scale_data_defined_in_label.setVisible(True)
-                self.color_scale_data_defined_in_label.setEnabled(True)
                 self.color_scale_data_defined_in_check.setVisible(True)
                 self.color_scale_data_defined_in_check.setEnabled(True)
                 self.color_scale_data_defined_in_invert_check.setVisible(True)
@@ -368,10 +364,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             # if plot is not scatter or bar
             else:
                 self.in_color_combo.setEnabled(True)
-                self.color_scale_data_defined_in.setVisible(False)
-                self.color_scale_data_defined_in.setEnabled(False)
-                self.color_scale_data_defined_in_label.setVisible(False)
-                self.color_scale_data_defined_in_label.setEnabled(False)
                 self.color_scale_data_defined_in_check.setVisible(False)
                 self.color_scale_data_defined_in_check.setEnabled(False)
                 self.color_scale_data_defined_in_invert_check.setVisible(False)
@@ -379,9 +371,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # if datadefined button is deactivated
         else:
             self.in_color_combo.setEnabled(True)
-            self.color_scale_data_defined_in.setVisible(False)
-            self.color_scale_data_defined_in.setEnabled(False)
-            self.color_scale_data_defined_in_label.setVisible(False)
             self.color_scale_data_defined_in_check.setVisible(False)
             self.color_scale_data_defined_in_invert_check.setVisible(False)
 
@@ -658,11 +647,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                             'BlueWhitePurple': 'Picnic'}
 
         self.color_scale_combo.clear()
-        self.color_scale_data_defined_in.clear()
 
         for k, v in scale_color_dict.items():
             self.color_scale_combo.addItem(k, v)
-            self.color_scale_data_defined_in.addItem(k, v)
 
         # according to the plot type, change the label names
 
@@ -723,8 +710,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.in_color_defined_button: ['scatter', 'bar', 'ternary'],
-            self.color_scale_data_defined_in: ['scatter', 'bar', 'ternary'],
-            self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
@@ -807,8 +792,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.bins_value.setEnabled(False)
 
         # disable at first run the color data defined buttons
-        self.color_scale_data_defined_in.setVisible(False)
-        self.color_scale_data_defined_in_label.setVisible(False)
         self.color_scale_data_defined_in_check.setVisible(False)
         self.color_scale_data_defined_in_invert_check.setVisible(False)
 
@@ -929,11 +912,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
             plot_properties[
                 'color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
-            if self.ptype in self.widgetType[self.color_scale_data_defined_in]:
-                plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData()
-                plot_properties['color'] = self.color_scale_data_defined_in.currentData()
-
-            else:
+            if not self.ptype in ['scatter', 'bar', 'ternary']:
                 plot_properties['color_scale'] = self.color_scale_combo.currentData()
 
         # add widgets properties to the dictionary
@@ -994,8 +973,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.in_color_combo.setColor(QColor(settings.properties['in_color']))
         self.marker_size.setValue(settings.properties['marker_size'])
 
-        self.color_scale_data_defined_in.setCurrentIndex(
-            self.color_scale_data_defined_in.findData(settings.properties['color_scale']))
         self.color_scale_data_defined_in_check.setChecked(settings.properties['color_scale_data_defined_in_check'])
         self.color_scale_data_defined_in_invert_check.setChecked(
             settings.properties['color_scale_data_defined_in_invert_check'])

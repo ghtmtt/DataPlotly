@@ -66,13 +66,13 @@ class TernaryFactory(PlotType):
             text=text,
             mode='markers',
             marker=dict(
-                color=settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
-                colorscale=settings.properties['color_scale'],
+                color=list(range(len(settings.data_defined_colors))) if settings.data_defined_colors else settings.properties['in_color'],
+                colorscale=settings.data_defined_color_scale if settings.data_defined_colors else settings.properties['color_scale'],
                 showscale=settings.properties['show_colorscale_legend'],
                 reversescale=settings.properties['invert_color_scale'],
-                colorbar=dict(
-                    len=0.8
-                ),
+                colorbar={
+                    'len': 0.8,
+                    'showticklabels': False},
                 size=settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
                 symbol=settings.properties['marker_symbol'],
                 line=dict(

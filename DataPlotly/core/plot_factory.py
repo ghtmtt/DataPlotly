@@ -196,6 +196,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         additional_hover_text = []
         marker_sizes = []
         colors = []
+        color_scale = []
         stroke_colors = []
         stroke_widths = []
         for f in it:
@@ -260,9 +261,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                                                                                context, default_value)
                 stroke_widths.append(value)
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_COLOR):
-                value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_COLOR,
-                                                                               context)
-                colors.append(value)
+                default_value = QColor(self.settings.properties['in_color'])
+                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context,
+                                                                              default_value)
+                colors.append(value.name())
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_STROKE_COLOR):
                 default_value = QColor(self.settings.properties['out_color'])
                 value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_STROKE_COLOR,
@@ -277,6 +279,14 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.data_defined_marker_sizes = marker_sizes
         if colors:
             self.settings.data_defined_colors = colors
+            try:
+                total = 1.0 / (len(colors) - 1)
+            except ZeroDivisionError:
+                total = 1.0
+            for current, color in enumerate(colors):
+                tc = round((current * total), 2)
+                color_scale.append([tc, color])
+            self.settings.data_defined_color_scale = color_scale
         if stroke_colors:
             self.settings.data_defined_stroke_colors = stroke_colors
         if stroke_widths:
@@ -315,6 +325,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         """
         assert self.settings.plot_type in PlotFactory.PLOT_TYPES
 
+        print(PlotFactory.PLOT_TYPES[self.settings.plot_type].create_trace(self.settings))
         return PlotFactory.PLOT_TYPES[self.settings.plot_type].create_trace(self.settings)
 
     def _build_layout(self):

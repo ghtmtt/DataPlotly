@@ -137,6 +137,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.additional_hover_text = []
         self.data_defined_marker_sizes = []
         self.data_defined_colors = []
+        self.data_defined_color_scale = []
         self.data_defined_stroke_colors = []
         self.data_defined_stroke_widths = []
         self.source_layer_id = source_layer_id
