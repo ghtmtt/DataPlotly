@@ -8,7 +8,7 @@ library and its Python API.
 
 DataPlotly makes plot creation and customization easy for every needs.
 
-Besides all the plot and customizations available, the plot is **linked** with
+Besides all the plot and customization available, the plot is **linked** with
 the QGIS map canvas:
 
 ![Plot interactions](img/plot_interaction_scatter.gif)
@@ -16,8 +16,7 @@ the QGIS map canvas:
 ![Plot interactions](img/plot_interaction_box.gif)
 
 ## Usage
-DataPlotly works **only with QGIS 3** (or current QGIS dev). No additional
-libraries are necessary.
+DataPlotly works **only with QGIS 3**. No additional libraries are necessary.
 
 ## Gallery
 
@@ -52,7 +51,7 @@ Some examples of single plot type with some options. The list is far away to sho
 #### Ternary Plot
 ![Plot interactions](img/plot_ternary.png)
 
-#### Contour Plo
+#### Contour Plot
 ![Plot interactions](img/plot_contour.png)
 
 ### Multi Plots
