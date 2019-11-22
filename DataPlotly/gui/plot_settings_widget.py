@@ -244,10 +244,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.in_color_defined_button.changed.connect(self.data_defined_color_updated)
         self.register_data_defined_button(self.out_color_defined_button, PlotSettings.PROPERTY_STROKE_COLOR)
         self.out_color_defined_button.registerEnabledWidget(self.out_color_combo, natural=False)
-        self.x_axis_min_defined_button.setVisible(False)  # Hide buttons until data defined feature is implemented
-        self.x_axis_max_defined_button.setVisible(False)
-        self.y_axis_min_defined_button.setVisible(False)
-        self.y_axis_max_defined_button.setVisible(False)
 
         # connect to refreshing function of listWidget and stackedWidgets
         self.listWidget.currentRowChanged.connect(self.updateStacked)
