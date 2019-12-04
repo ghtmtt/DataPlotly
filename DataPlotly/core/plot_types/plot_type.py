@@ -60,19 +60,17 @@ class PlotType:
             y_title = settings.layout['y_title']
 
         range_x = None
-        if 'x_min' in settings.layout and 'x_max' in settings.layout:
-            if settings.layout['x_min'] is not None and settings.layout['x_max'] is not None:
-                range_x = [
-                    settings.layout['x_min'],
-                    settings.layout['x_max']
-                ]
+        if settings.layout.get('x_min', None) is not None and settings.layout.get('x_max', None) is not None:
+            range_x = [
+                settings.layout['x_min'],
+                settings.layout['x_max']
+            ]
         range_y = None
-        if 'y_min' in settings.layout and 'y_max' in settings.layout:
-            if settings.layout['y_min'] is not None and settings.layout['y_max'] is not None:
-                range_y = [
-                    settings.layout['y_min'],
-                    settings.layout['y_max']
-                ]
+        if settings.layout.get('y_min', None) is not None and settings.layout.get('y_max', None) is not None:
+            range_y = [
+                settings.layout['y_min'],
+                settings.layout['y_max']
+            ]
 
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
