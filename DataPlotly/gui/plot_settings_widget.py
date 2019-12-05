@@ -25,6 +25,7 @@ import json
 from collections import OrderedDict
 from shutil import copyfile
 from functools import partial
+import sys
 
 from qgis.PyQt import uic
 from qgis.PyQt.QtWidgets import (
@@ -254,6 +255,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # better default colors
         self.in_color_combo.setColor(QColor('#8EBAD9'))
         self.out_color_combo.setColor(QColor('#1F77B4'))
+
+        # set minimum of axis bound spin boxes
+        self.x_axis_min.setRange(sys.float_info.max*-1, sys.float_info.max)
+        self.x_axis_max.setRange(sys.float_info.max*-1, sys.float_info.max)
+        self.y_axis_min.setRange(sys.float_info.max*-1, sys.float_info.max)
+        self.y_axis_max.setRange(sys.float_info.max*-1, sys.float_info.max)
 
         self.pid = None
         self.plot_path = None
@@ -954,10 +961,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'y_type': self.y_axis_mode_combo.currentData(),
                              'x_inv': None if not self.invert_x_check.isChecked() else 'reversed',
                              'y_inv': None if not self.invert_y_check.isChecked() else 'reversed',
-                             'x_min': self.x_axis_min.text() if self.x_axis_bounds_check.isChecked() else None,
-                             'x_max': self.x_axis_max.text() if self.x_axis_bounds_check.isChecked() else None,
-                             'y_min': self.y_axis_min.text() if self.y_axis_bounds_check.isChecked() else None,
-                             'y_max': self.y_axis_max.text() if self.y_axis_bounds_check.isChecked() else None,
+                             'x_min': self.x_axis_min.value() if self.x_axis_bounds_check.isChecked() else None,
+                             'x_max': self.x_axis_max.value() if self.x_axis_bounds_check.isChecked() else None,
+                             'y_min': self.y_axis_min.value() if self.y_axis_bounds_check.isChecked() else None,
+                             'y_max': self.y_axis_max.value() if self.y_axis_bounds_check.isChecked() else None,
                              'bargaps': self.bar_gap.value(),
                              'additional_info_expression': self.additional_info_combo.expression(),
                              'bins_check': self.bins_check.isChecked()}
@@ -1027,14 +1034,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.x_axis_mode_combo.setCurrentIndex(self.x_axis_mode_combo.findData(settings.layout['x_type']))
         self.invert_y_check.setChecked(settings.layout['y_inv'] == 'reversed')
         self.y_axis_mode_combo.setCurrentIndex(self.y_axis_mode_combo.findData(settings.layout['y_type']))
-        self.x_axis_bounds_check.setChecked(settings.layout['x_min'] is not None)
-        self.x_axis_bounds_check.setCollapsed(settings.layout['x_min'] is None)
-        self.x_axis_min.setText(str(settings.layout['x_min'] if settings.layout['x_min'] is not None else ''))
-        self.x_axis_max.setText(str(settings.layout['x_max'] if settings.layout['x_max'] is not None else ''))
-        self.y_axis_bounds_check.setChecked(settings.layout['y_min'] is not None)
-        self.y_axis_bounds_check.setCollapsed(settings.layout['y_min'] is None)
-        self.y_axis_min.setText(str(settings.layout['y_min'] if settings.layout['y_min'] is not None else ''))
-        self.y_axis_max.setText(str(settings.layout['y_max'] if settings.layout['y_max'] is not None else ''))
+        if 'x_min' in settings.layout and 'x_max' in settings.layout:
+            self.x_axis_bounds_check.setChecked(settings.layout['x_min'] is not None)
+            self.x_axis_bounds_check.setCollapsed(settings.layout['x_min'] is None)
+            self.x_axis_min.setValue(settings.layout['x_min'] if settings.layout['x_min'] is not None else 0.0)
+            self.x_axis_max.setValue(settings.layout['x_max'] if settings.layout['x_max'] is not None else 0.0)
+        if 'y_min' in settings.layout and 'y_max' in settings.layout:
+            self.y_axis_bounds_check.setChecked(settings.layout['y_min'] is not None)
+            self.y_axis_bounds_check.setCollapsed(settings.layout['y_min'] is None)
+            self.y_axis_min.setValue(settings.layout['y_min'] if settings.layout['y_min'] is not None else 0.0)
+            self.y_axis_max.setValue(settings.layout['y_max'] if settings.layout['y_max'] is not None else 0.0)
         self.orientation_combo.setCurrentIndex(self.orientation_combo.findData(settings.properties['box_orientation']))
         self.bar_mode_combo.setCurrentIndex(self.bar_mode_combo.findData(settings.layout['bar_mode']))
         self.hist_norm_combo.setCurrentIndex(self.hist_norm_combo.findData(settings.properties['normalization']))
