@@ -257,10 +257,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.out_color_combo.setColor(QColor('#1F77B4'))
 
         # set range of axis min/max spin boxes
-        self.x_axis_min.setRange(sys.float_info.max*-1, sys.float_info.max)
-        self.x_axis_max.setRange(sys.float_info.max*-1, sys.float_info.max)
-        self.y_axis_min.setRange(sys.float_info.max*-1, sys.float_info.max)
-        self.y_axis_max.setRange(sys.float_info.max*-1, sys.float_info.max)
+        self.x_axis_min.setRange(sys.float_info.max * -1, sys.float_info.max)
+        self.x_axis_max.setRange(sys.float_info.max * -1, sys.float_info.max)
+        self.y_axis_min.setRange(sys.float_info.max * -1, sys.float_info.max)
+        self.y_axis_max.setRange(sys.float_info.max * -1, sys.float_info.max)
 
         self.pid = None
         self.plot_path = None
