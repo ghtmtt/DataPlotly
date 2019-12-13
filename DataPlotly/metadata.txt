@@ -66,7 +66,7 @@ changelog=
   - [feature] DataPlotly as Processing provider, thanks to Michaël Douchin of 3Liz
 
 # Tags are comma separated with spaces allowed
-tags=python, d3, plots, vector, graphs, datavis
+tags=python, d3, plots, vector, graphs, datavis, dataviz, dataplotly
 
 homepage=https://github.com/ghtmtt/DataPlotly
 category=Plugins
