@@ -282,7 +282,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             color_scale = []
             # 25th step for the colors scale bar
             step = round(len(colors) / 4)
-            color_scale = [[0, colors[0]], [0.25, colors[step]], [0.5, colors[step*2]], [0.75, colors[step*3]] ,[1.0, colors[-1]]]
+            color_scale = [[0, colors[0]], [0.25, colors[step]], [0.5, colors[step*2]], [0.75, colors[step*3]], [1.0, colors[-1]]]
             self.settings.data_defined_color_scale = color_scale
         if stroke_colors:
             self.settings.data_defined_stroke_colors = stroke_colors
