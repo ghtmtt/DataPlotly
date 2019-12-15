@@ -279,13 +279,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.data_defined_marker_sizes = marker_sizes
         if colors:
             self.settings.data_defined_colors = colors
-            try:
-                total = 1.0 / (len(colors) - 1)
-            except ZeroDivisionError:
-                total = 1.0
-            for current, color in enumerate(colors):
-                tc = round((current * total), 2)
-                color_scale.append([tc, color])
+            color_scale = []
+            # 25th step for the colors scale bar
+            step = round(len(colors) / 4)
+            color_scale = [[0, colors[0]], [0.25, colors[step]], [0.5, colors[step*2]], [0.75, colors[step*3]] ,[1.0, colors[-1]]]
             self.settings.data_defined_color_scale = color_scale
         if stroke_colors:
             self.settings.data_defined_stroke_colors = stroke_colors
