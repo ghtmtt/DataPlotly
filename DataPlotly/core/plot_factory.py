@@ -27,7 +27,8 @@ from qgis.core import (
     QgsExpressionContextGenerator,
     QgsReferencedGeometryBase,
     QgsGeometry,
-    QgsCsException
+    QgsCsException,
+    QgsColorRampTransformer
 )
 from qgis.PyQt.QtCore import (
     QUrl,
@@ -271,6 +272,17 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                                                                               context, default_value)
                 stroke_colors.append(value.name())
 
+        # build up color scale for legend (if possible!)
+        if isinstance(self.settings.data_defined_properties.property(PlotSettings.PROPERTY_COLOR).transformer(),
+                      QgsColorRampTransformer):
+            # we can only do this if using a color ramp transformer -- if the data defined color is set via expression,
+            # then it could be a categorical classification, or even defined by something more esoteric (e.g. a layout
+            # or project variable)
+            ramp_transformer = self.settings.data_defined_properties.property(PlotSettings.PROPERTY_COLOR).transformer()
+            ramp = ramp_transformer.colorRamp()
+            for c in range(ramp.count()):
+                color_scale.append([ramp.value(c), ramp.color(ramp.value(c)).name()])
+
         self.settings.additional_hover_text = additional_hover_text
         self.settings.x = xx
         self.settings.y = yy
@@ -279,10 +291,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.data_defined_marker_sizes = marker_sizes
         if colors:
             self.settings.data_defined_colors = colors
-            color_scale = []
-            # 25th step for the colors scale bar
-            step = round(len(colors) / 4)
-            color_scale = [[0, colors[0]], [0.25, colors[step]], [0.5, colors[step*2]], [0.75, colors[step*3]], [1.0, colors[-1]]]
             self.settings.data_defined_color_scale = color_scale
         if stroke_colors:
             self.settings.data_defined_stroke_colors = stroke_colors

@@ -66,18 +66,18 @@ class TernaryFactory(PlotType):
             text=text,
             mode='markers',
             marker=dict(
-                color=list(range(len(settings.data_defined_colors))) if settings.data_defined_colors else settings.properties['in_color'],
-                colorscale=settings.data_defined_color_scale if settings.data_defined_colors else settings.properties['color_scale'],
+                color=settings.data_defined_colors or settings.properties['in_color'],
+                colorscale=settings.data_defined_color_scale or settings.properties['color_scale'],
                 showscale=settings.properties['show_colorscale_legend'],
                 reversescale=settings.properties['invert_color_scale'],
                 colorbar={
                     'len': 0.8,
                     'showticklabels': False},
-                size=settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
+                size=settings.data_defined_marker_sizes or settings.properties['marker_size'],
                 symbol=settings.properties['marker_symbol'],
                 line=dict(
-                    color=settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
-                    width=settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']
+                    color=settings.data_defined_stroke_colors or settings.properties['out_color'],
+                    width=settings.data_defined_stroke_widths or settings.properties['marker_width']
                 )
             ),
             opacity=settings.properties['opacity']
