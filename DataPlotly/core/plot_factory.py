@@ -125,6 +125,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         self.settings.data_defined_properties.prepare(context)
 
+        self.fetch_layout_properties(context)
+
         def add_source_field_or_expression(field_or_expression):
             field_index = self.source_layer.fields().lookupField(field_or_expression)
             if field_index == -1:
@@ -286,6 +288,60 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.data_defined_stroke_colors = stroke_colors
         if stroke_widths:
             self.settings.data_defined_stroke_widths = stroke_widths
+
+    def fetch_layout_properties(self, context):
+
+        def add_source_field_or_expression(field_or_expression):
+            field_index = self.source_layer.fields().lookupField(field_or_expression)
+            if field_index == -1:
+                expression = QgsExpression(field_or_expression)
+                if not expression.hasParserError():
+                    expression.prepare(context)
+                return expression, expression.needsGeometry(), expression.referencedColumns()
+
+            return None, False, {field_or_expression}
+
+        x_min = None
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_X_MIN):
+            default_value = self.settings.layout['x_min']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_X_MIN,
+                                                                           context, default_value)
+            x_min = value
+        x_max = None
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_X_MAX):
+            default_value = self.settings.layout['x_max']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_X_MAX,
+                                                                           context, default_value)
+            x_max = value
+        y_min = None
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_Y_MIN):
+            default_value = self.settings.layout['y_min']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_Y_MIN,
+                                                                           context, default_value)
+            y_min = value
+        y_max = None
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_Y_MAX):
+            default_value = self.settings.layout['y_max']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_Y_MAX,
+                                                                           context, default_value)
+            y_max = value
+        title = ''
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_PLOT_TITLE):
+            default_value = self.settings.layout['title']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsString(PlotSettings.PROPERTY_PLOT_TITLE,
+                                                                           context, default_value)
+            title = value
+
+        self.settings.data_defined_x_min = x_min
+        self.settings.data_defined_x_max = x_max
+        self.settings.data_defined_y_min = y_min
+        self.settings.data_defined_y_max = y_max
+        self.settings.data_defined_title = title
 
     def set_visible_region(self, region: QgsReferencedRectangle):
         """

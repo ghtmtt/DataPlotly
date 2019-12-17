@@ -547,6 +547,68 @@ class DataPlotlyFactory(unittest.TestCase):
                                                                        '#ffff00',
                                                                        '#ffff00'])
 
+    def test_data_defined_layout_properties(self):
+        """
+        Test data defined stroke color
+        """
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.shp')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl1.setSubsetString('id < 10')
+        self.assertTrue(vl1.isValid())
+        QgsProject.instance().addMapLayer(vl1)
+
+        settings = PlotSettings('scatter')
+        settings.source_layer_id = vl1.id()
+        settings.properties['x_name'] = 'so4'
+        settings.properties['y_name'] = 'mg'
+        settings.layout['x_min'] = 0
+        settings.layout['x_max'] = 1
+        settings.layout['y_min'] = 0
+        settings.layout['y_max'] = 1
+        settings.layout['title'] = 'title'
+
+        factory = PlotFactory(settings)
+        # should be empty, not using data defined size
+        self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 203])
+        self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
+        self.assertEqual(factory.settings.data_defined_x_min, None)
+        self.assertEqual(factory.settings.data_defined_x_max, None)
+        self.assertEqual(factory.settings.data_defined_y_min, None)
+        self.assertEqual(factory.settings.data_defined_y_max, None)
+        self.assertEqual(factory.settings.data_defined_title, '')
+
+        class TestGenerator(QgsExpressionContextGenerator):  # pylint: disable=missing-docstring, too-few-public-methods
+
+            def createExpressionContext(self) -> QgsExpressionContext:  # pylint: disable=missing-docstring, no-self-use
+                context = QgsExpressionContext()
+                scope = QgsExpressionContextScope()
+                scope.setVariable('some_var', 10)
+                context.appendScope(scope)
+                context.appendScope(vl1.createExpressionContextScope())
+                return context
+
+        generator = TestGenerator()
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MIN,
+                                                     QgsProperty.fromExpression("-1*@some_var"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MAX,
+                                                     QgsProperty.fromExpression("+1*@some_var"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MIN,
+                                                     QgsProperty.fromExpression("-1*@some_var"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MAX,
+                                                     QgsProperty.fromExpression("+1*@some_var"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_PLOT_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_title_', @some_var)"))
+        factory = PlotFactory(settings, context_generator=generator)
+        self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 203])
+        self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
+        self.assertEqual(factory.settings.data_defined_x_min, -10)
+        self.assertEqual(factory.settings.data_defined_x_max, 10)
+        self.assertEqual(factory.settings.data_defined_y_min, -10)
+        self.assertEqual(factory.settings.data_defined_y_max, 10)
+        self.assertEqual(factory.settings.data_defined_title, 'my_title_10')
+
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyFactory)

@@ -67,6 +67,12 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression("'red'"))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
                                                      QgsProperty.fromExpression('12/2'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MIN, QgsProperty.fromExpression("-1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MAX, QgsProperty.fromExpression("+1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MIN, QgsProperty.fromExpression("-1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MAX, QgsProperty.fromExpression("+1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_PLOT_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', 'title')"))
         elem = original.write_xml(doc)
         self.assertFalse(elem.isNull())
 
@@ -87,6 +93,16 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_X_MIN),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_X_MIN))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_X_MAX),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_X_MAX))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE))
 
     def test_read_write_project(self):
         """
@@ -105,6 +121,12 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression("'red'"))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
                                                      QgsProperty.fromExpression('12/2'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MIN, QgsProperty.fromExpression("-1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MAX, QgsProperty.fromExpression("+1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MIN, QgsProperty.fromExpression("-1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MAX, QgsProperty.fromExpression("+1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_PLOT_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', 'title')"))
 
         original.write_to_project(doc)
 
@@ -121,6 +143,16 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_X_MIN),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_X_MIN))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_X_MAX),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_X_MAX))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE))
 
     def test_read_write_project2(self):
         """
@@ -137,6 +169,12 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression("'red'"))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
                                                      QgsProperty.fromExpression('12/2'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MIN, QgsProperty.fromExpression("-1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MAX, QgsProperty.fromExpression("+1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MIN, QgsProperty.fromExpression("-1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MAX, QgsProperty.fromExpression("+1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_PLOT_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', 'title')"))
 
         self.test_read_write_project2_written = False
 
@@ -177,6 +215,16 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_X_MIN),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_X_MIN))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_X_MAX),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_X_MAX))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE))
 
     def test_read_write_file(self):
         """
@@ -192,6 +240,12 @@ class DataPlotlySettings(unittest.TestCase):
                                                      QgsProperty.fromExpression("'red'"))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
                                                      QgsProperty.fromExpression('12/2'))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MIN, QgsProperty.fromExpression("-1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MAX, QgsProperty.fromExpression("+1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MIN, QgsProperty.fromExpression("-1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MAX, QgsProperty.fromExpression("+1*10"))
+        original.data_defined_properties.setProperty(PlotSettings.PROPERTY_PLOT_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', 'title')"))
 
         path = os.path.join(tempfile.gettempdir(), 'plot_config.xml')
 
@@ -213,6 +267,16 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_COLOR))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_STROKE_WIDTH))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_X_MIN),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_X_MIN))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_X_MAX),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_X_MAX))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX))
+        self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE),
+                         original.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE))
 
 
 if __name__ == "__main__":
