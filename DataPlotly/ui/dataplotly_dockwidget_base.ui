@@ -600,7 +600,7 @@ QListWidget::item::selected {
                   <x>0</x>
                   <y>0</y>
                   <width>384</width>
-                  <height>674</height>
+                  <height>682</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25">
@@ -631,7 +631,18 @@ QListWidget::item::selected {
                   </widget>
                  </item>
                  <item row="1" column="1" colspan="2">
-                  <widget class="QLineEdit" name="plot_title_line"/>
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <item>
+                    <widget class="QLineEdit" name="plot_title_line"/>
+                   </item>
+                   <item>
+                    <widget class="QgsPropertyOverrideButton" name="plot_title_defined_button">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                  <item row="20" column="1" colspan="2">
                   <widget class="QComboBox" name="violinSideCombo"/>
@@ -895,9 +906,23 @@ QListWidget::item::selected {
                    <property name="checked">
                     <bool>false</bool>
                    </property>
-                   <layout class="QGridLayout" name="gridLayout_11">
+                   <layout class="QGridLayout" name="gridXAxisBounds">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="x_axis_min_label">
+                      <property name="text">
+                       <string>Minimum</string>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="0" column="1">
                      <widget class="QgsDoubleSpinBox" name="x_axis_min"/>
+                    </item>
+					<item row="0" column="2">
+                     <widget class="QgsPropertyOverrideButton" name="x_axis_min_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
                     </item>
                     <item row="1" column="0">
                      <widget class="QLabel" name="x_axis_max_label">
@@ -906,15 +931,15 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="x_axis_min_label">
-                      <property name="text">
-                       <string>Minimum</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="1" column="1">
                      <widget class="QgsDoubleSpinBox" name="x_axis_max"/>
+                    </item>
+                    <item row="1" column="2">
+                     <widget class="QgsPropertyOverrideButton" name="x_axis_max_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -930,11 +955,21 @@ QListWidget::item::selected {
                    <property name="checked">
                     <bool>false</bool>
                    </property>
-                   <layout class="QGridLayout" name="gridLayout_10">
+                   <layout class="QGridLayout" name="gridYAxisBounds">
                     <item row="0" column="0">
                      <widget class="QLabel" name="y_axis_min_label">
                       <property name="text">
                        <string>Minimum</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QgsDoubleSpinBox" name="y_axis_min"/>
+                    </item>
+                    <item row="0" column="2">
+                     <widget class="QgsPropertyOverrideButton" name="y_axis_min_defined_button">
+                      <property name="text">
+                       <string>...</string>
                       </property>
                      </widget>
                     </item>
@@ -945,11 +980,15 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="0" column="1">
-                     <widget class="QgsDoubleSpinBox" name="y_axis_min"/>
-                    </item>
                     <item row="1" column="1">
                      <widget class="QgsDoubleSpinBox" name="y_axis_max"/>
+                    </item>
+                    <item row="1" column="2">
+                     <widget class="QgsPropertyOverrideButton" name="y_axis_max_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
