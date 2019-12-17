@@ -62,20 +62,20 @@ class PlotType:
         range_x = None
         if settings.layout.get('x_min', None) is not None and settings.layout.get('x_max', None) is not None:
             range_x = [
-                settings.layout['x_min'],
-                settings.layout['x_max']
+                settings.data_defined_x_min if settings.data_defined_x_min else settings.layout['x_min'],
+                settings.data_defined_x_max if settings.data_defined_x_max else settings.layout['x_max']
             ]
         range_y = None
         if settings.layout.get('y_min', None) is not None and settings.layout.get('y_max', None) is not None:
             range_y = [
-                settings.layout['y_min'],
-                settings.layout['y_max']
+                settings.data_defined_y_min if settings.data_defined_y_min else settings.layout['y_min'],
+                settings.data_defined_y_max if settings.data_defined_y_max else settings.layout['y_max']
             ]
 
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
             legend={'orientation': settings.layout['legend_orientation']},
-            title=settings.layout['title'],
+            title=settings.data_defined_title if settings.data_defined_title else settings.layout['title'],
             xaxis={
                 'title': x_title,
                 'autorange': settings.layout['x_inv'],

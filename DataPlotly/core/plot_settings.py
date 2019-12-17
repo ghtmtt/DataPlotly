@@ -30,6 +30,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_COLOR = 3
     PROPERTY_STROKE_COLOR = 4
     PROPERTY_STROKE_WIDTH = 5
+    PROPERTY_X_MIN = 6
+    PROPERTY_X_MAX = 7
+    PROPERTY_Y_MIN = 8
+    PROPERTY_Y_MAX = 9
+    PROPERTY_PLOT_TITLE = 10
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
@@ -38,7 +43,12 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         PROPERTY_STROKE_COLOR: QgsPropertyDefinition('stroke_color', 'Stroke color',
                                                      QgsPropertyDefinition.ColorWithAlpha),
         PROPERTY_STROKE_WIDTH: QgsPropertyDefinition('stroke_width', 'Stroke width',
-                                                     QgsPropertyDefinition.DoublePositive)
+                                                     QgsPropertyDefinition.DoublePositive),
+        PROPERTY_X_MIN: QgsPropertyDefinition('x_min', 'X axis minimum', QgsPropertyDefinition.Double),
+        PROPERTY_X_MAX: QgsPropertyDefinition('x_max', 'X axis maximum', QgsPropertyDefinition.Double),
+        PROPERTY_Y_MIN: QgsPropertyDefinition('y_min', 'Y axis minimum', QgsPropertyDefinition.Double),
+        PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double),
+        PROPERTY_PLOT_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.String)
     }
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
@@ -144,6 +154,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.data_defined_colors = []
         self.data_defined_stroke_colors = []
         self.data_defined_stroke_widths = []
+        self.data_defined_x_min = None
+        self.data_defined_x_max = None
+        self.data_defined_y_min = None
+        self.data_defined_y_max = None
+        self.data_defined_title = ""
         self.source_layer_id = source_layer_id
 
     def write_xml(self, document: QDomDocument):
