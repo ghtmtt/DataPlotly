@@ -49,7 +49,7 @@ class TernaryFactory(PlotType):
                 settings.properties['x_name'] + ': {}'.format(
                     settings.x[k]) + '<br>{}: {}'.format(
                     settings.properties['y_name'],
-                    settings.u[k]) + '<br>{}: {}'.format(
+                    settings.y[k]) + '<br>{}: {}'.format(
                     settings.properties['z_name'],
                     settings.z[k]) + '<br>{}'.format(
                     settings.additional_hover_text[k]) for k in
