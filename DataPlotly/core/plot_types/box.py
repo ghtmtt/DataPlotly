@@ -43,7 +43,7 @@ class BoxPlotFactory(PlotType):
             y = settings.y
 
         return [graph_objs.Box(
-            x=x if x else None,
+            x=x or None,
             y=y,
             name=settings.properties['name'],
             customdata=settings.properties['custom'],
