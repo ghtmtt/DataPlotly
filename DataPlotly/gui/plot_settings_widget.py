@@ -245,6 +245,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.in_color_defined_button.changed.connect(self.data_defined_color_updated)
         self.register_data_defined_button(self.out_color_defined_button, PlotSettings.PROPERTY_STROKE_COLOR)
         self.out_color_defined_button.registerEnabledWidget(self.out_color_combo, natural=False)
+        self.register_data_defined_button(self.x_axis_min_defined_button, PlotSettings.PROPERTY_X_MIN)
+        self.x_axis_min_defined_button.registerEnabledWidget(self.x_axis_min, natural=False)
+        self.register_data_defined_button(self.x_axis_max_defined_button, PlotSettings.PROPERTY_X_MAX)
+        self.x_axis_max_defined_button.registerEnabledWidget(self.x_axis_max, natural=False)
+        self.register_data_defined_button(self.y_axis_min_defined_button, PlotSettings.PROPERTY_Y_MIN)
+        self.y_axis_min_defined_button.registerEnabledWidget(self.y_axis_min, natural=False)
+        self.register_data_defined_button(self.y_axis_max_defined_button, PlotSettings.PROPERTY_Y_MAX)
+        self.y_axis_max_defined_button.registerEnabledWidget(self.y_axis_max, natural=False)
+        self.register_data_defined_button(self.plot_title_defined_button, PlotSettings.PROPERTY_PLOT_TITLE)
+        self.plot_title_defined_button.registerEnabledWidget(self.plot_title_line, natural=False)
 
         # connect to refreshing function of listWidget and stackedWidgets
         self.listWidget.currentRowChanged.connect(self.updateStacked)
@@ -766,6 +776,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.orientation_legend_check: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'pie', 'violin'],
             self.plot_title_lab: ['all'],
             self.plot_title_line: ['all'],
+            self.plot_title_defined_button: ['all'],
             self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
             self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
             self.y_axis_label: ['scatter', 'bar', 'box', '2dhistogram', 'ternary', 'violin'],
@@ -780,8 +791,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.invert_y_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
             self.x_axis_min: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
             self.x_axis_max: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
+            self.x_axis_min_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
+            self.x_axis_max_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
             self.y_axis_min: ['scatter', 'bar', 'box', '2dhistogram', 'violin'],
             self.y_axis_max: ['scatter', 'bar', 'box', '2dhistogram', 'violin'],
+            self.y_axis_min_defined_button: ['scatter', 'bar', 'box', '2dhistogram', 'violin'],
+            self.y_axis_max_defined_button: ['scatter', 'bar', 'box', '2dhistogram', 'violin'],
             self.orientation_label: ['bar', 'box', 'histogram', 'violin'],
             self.orientation_combo: ['bar', 'box', 'histogram', 'violin'],
             self.box_statistic_label: ['box'],
