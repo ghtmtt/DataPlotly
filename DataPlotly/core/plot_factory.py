@@ -290,16 +290,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.data_defined_stroke_widths = stroke_widths
 
     def fetch_layout_properties(self, context):
-
-        def add_source_field_or_expression(field_or_expression):
-            field_index = self.source_layer.fields().lookupField(field_or_expression)
-            if field_index == -1:
-                expression = QgsExpression(field_or_expression)
-                if not expression.hasParserError():
-                    expression.prepare(context)
-                return expression, expression.needsGeometry(), expression.referencedColumns()
-
-            return None, False, {field_or_expression}
+        """
+        (Re)fetches layout properties.
+        """
 
         x_min = None
         if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_X_MIN):
