@@ -44,7 +44,7 @@ class ViolinFactory(PlotType):
         return [graph_objs.Violin(
             x=x,
             y=y,
-            name=settings.properties['name'],
+            name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
             customdata=settings.properties['custom'],
             orientation=settings.properties['box_orientation'],
             points=settings.properties['box_outliers'],
