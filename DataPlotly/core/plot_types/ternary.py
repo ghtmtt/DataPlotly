@@ -89,11 +89,17 @@ class TernaryFactory(PlotType):
 
         # flip the variables according to the box orientation
         if settings.properties['box_orientation'] == 'h':
-            x_title = settings.layout['y_title']
-            y_title = settings.layout['x_title']
+            x_title = settings.data_defined_y_title if settings.data_defined_y_title != ''\
+                else settings.layout['y_title']
+            y_title = settings.data_defined_x_title if settings.data_defined_x_title != ''\
+                else settings.layout['x_title']
         else:
-            x_title = settings.layout['x_title']
-            y_title = settings.layout['y_title']
+            x_title = settings.data_defined_x_title if settings.data_defined_x_title != ''\
+                else settings.layout['x_title']
+            y_title = settings.data_defined_y_title if settings.data_defined_y_title != ''\
+                else settings.layout['y_title']
+        z_title = settings.data_defined_z_title if settings.data_defined_z_title != '' \
+            else settings.layout['z_title']
 
         layout['xaxis'].update(title='')
         layout['xaxis'].update(showgrid=False)
@@ -116,7 +122,7 @@ class TernaryFactory(PlotType):
                 ticksuffix='%'
             ),
             caxis=dict(
-                title=settings.layout['z_title'],
+                title=z_title,
                 ticksuffix='%'
             ),
         )

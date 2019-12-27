@@ -34,7 +34,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_X_MAX = 7
     PROPERTY_Y_MIN = 8
     PROPERTY_Y_MAX = 9
-    PROPERTY_PLOT_TITLE = 10
+    PROPERTY_TITLE = 10
+    PROPERTY_LEGEND_TITLE = 11
+    PROPERTY_X_TITLE = 12
+    PROPERTY_Y_TITLE = 13
+    PROPERTY_Z_TITLE = 14
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
@@ -44,11 +48,15 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
                                                      QgsPropertyDefinition.ColorWithAlpha),
         PROPERTY_STROKE_WIDTH: QgsPropertyDefinition('stroke_width', 'Stroke width',
                                                      QgsPropertyDefinition.DoublePositive),
+        PROPERTY_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.String),
+        PROPERTY_LEGEND_TITLE: QgsPropertyDefinition('legend_title', 'Legend title', QgsPropertyDefinition.String),
+        PROPERTY_X_TITLE: QgsPropertyDefinition('x_title', 'X title', QgsPropertyDefinition.String),
+        PROPERTY_Y_TITLE: QgsPropertyDefinition('y_title', 'Y title', QgsPropertyDefinition.String),
+        PROPERTY_Z_TITLE: QgsPropertyDefinition('z_title', 'Z title', QgsPropertyDefinition.String),
         PROPERTY_X_MIN: QgsPropertyDefinition('x_min', 'X axis minimum', QgsPropertyDefinition.Double),
         PROPERTY_X_MAX: QgsPropertyDefinition('x_max', 'X axis maximum', QgsPropertyDefinition.Double),
         PROPERTY_Y_MIN: QgsPropertyDefinition('y_min', 'Y axis minimum', QgsPropertyDefinition.Double),
-        PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double),
-        PROPERTY_PLOT_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.String)
+        PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double)
     }
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
@@ -154,11 +162,17 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.data_defined_colors = []
         self.data_defined_stroke_colors = []
         self.data_defined_stroke_widths = []
+
+        # layout properties
+        self.data_defined_title = ""
+        self.data_defined_legend_title = ""
+        self.data_defined_x_title = ""
+        self.data_defined_y_title = ""
+        self.data_defined_z_title = ""
         self.data_defined_x_min = None
         self.data_defined_x_max = None
         self.data_defined_y_min = None
         self.data_defined_y_max = None
-        self.data_defined_title = ""
         self.source_layer_id = source_layer_id
 
     def write_xml(self, document: QDomDocument):

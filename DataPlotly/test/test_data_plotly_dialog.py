@@ -131,12 +131,20 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR, QgsProperty.fromExpression("'red'"))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_STROKE_WIDTH,
                                                      QgsProperty.fromExpression("12/2"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_title_', @some_var)"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_LEGEND_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_legend_', @some_var)"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_x_axis_', @some_var)"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_y_axis_', @some_var)"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Z_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_z_axis_', @some_var)"))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MIN, QgsProperty.fromExpression("-1*10"))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MAX, QgsProperty.fromExpression("+1*10"))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MIN, QgsProperty.fromExpression("-1*10"))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MAX, QgsProperty.fromExpression("+1*10"))
-        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_PLOT_TITLE,
-                                                     QgsProperty.fromExpression("+1*10"))
 
         dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog2.set_settings(settings)
@@ -168,8 +176,16 @@ class DataPlotlyDialogTest(unittest.TestCase):
                          settings.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN))
         self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX),
                          settings.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX))
-        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE),
-                         settings.data_defined_properties.property(PlotSettings.PROPERTY_PLOT_TITLE))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_TITLE),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_TITLE))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_LEGEND_TITLE),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_LEGEND_TITLE))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_X_TITLE),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_X_TITLE))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_Y_TITLE),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_Y_TITLE))
+        self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_Z_TITLE),
+                         settings.data_defined_properties.property(PlotSettings.PROPERTY_Z_TITLE))
 
         settings = dialog.get_settings()
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
