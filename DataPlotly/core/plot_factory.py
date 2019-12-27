@@ -290,6 +290,41 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         (Re)fetches layout properties.
         """
 
+        title = ''
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_TITLE):
+            default_value = self.settings.layout['title']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsString(PlotSettings.PROPERTY_TITLE,
+                                                                           context, default_value)
+            title = value
+        legend_title = ''
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_LEGEND_TITLE):
+            default_value = self.settings.layout['legend_title']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsString(PlotSettings.PROPERTY_LEGEND_TITLE,
+                                                                           context, default_value)
+            legend_title = value
+        x_title = ''
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_X_TITLE):
+            default_value = self.settings.layout['x_title']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsString(PlotSettings.PROPERTY_X_TITLE,
+                                                                           context, default_value)
+            x_title = value
+        y_title = ''
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_Y_TITLE):
+            default_value = self.settings.layout['y_title']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsString(PlotSettings.PROPERTY_Y_TITLE,
+                                                                           context, default_value)
+            y_title = value
+        z_title = ''
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_Z_TITLE):
+            default_value = self.settings.layout['z_title']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsString(PlotSettings.PROPERTY_Z_TITLE,
+                                                                           context, default_value)
+            z_title = value
         x_min = None
         if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_X_MIN):
             default_value = self.settings.layout['x_min']
@@ -318,19 +353,16 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_Y_MAX,
                                                                            context, default_value)
             y_max = value
-        title = ''
-        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_PLOT_TITLE):
-            default_value = self.settings.layout['title']
-            context.setOriginalValueVariable(default_value)
-            value, _ = self.settings.data_defined_properties.valueAsString(PlotSettings.PROPERTY_PLOT_TITLE,
-                                                                           context, default_value)
-            title = value
 
+        self.settings.data_defined_title = title
+        self.settings.data_defined_legend_title = legend_title
+        self.settings.data_defined_x_title = x_title
+        self.settings.data_defined_y_title = y_title
+        self.settings.data_defined_z_title = z_title
         self.settings.data_defined_x_min = x_min
         self.settings.data_defined_x_max = x_max
         self.settings.data_defined_y_min = y_min
         self.settings.data_defined_y_max = y_max
-        self.settings.data_defined_title = title
 
     def set_visible_region(self, region: QgsReferencedRectangle):
         """
