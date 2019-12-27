@@ -37,7 +37,7 @@ class ScatterPlotFactory(PlotType):
             x=settings.x,
             y=settings.y,
             mode=settings.properties['marker'],
-            name=settings.properties['name'],
+            name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
             ids=settings.feature_ids,
             customdata=settings.properties['custom'],
             text=settings.additional_hover_text,
