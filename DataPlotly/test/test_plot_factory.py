@@ -563,21 +563,29 @@ class DataPlotlyFactory(unittest.TestCase):
         settings.source_layer_id = vl1.id()
         settings.properties['x_name'] = 'so4'
         settings.properties['y_name'] = 'mg'
+        settings.layout['title'] = 'title'
+        settings.layout['legend_title'] = 'legend_title'
+        settings.layout['x_title'] = 'x_title'
+        settings.layout['y_title'] = 'y_title'
+        settings.layout['z_title'] = 'z_title'
         settings.layout['x_min'] = 0
         settings.layout['x_max'] = 1
         settings.layout['y_min'] = 0
         settings.layout['y_max'] = 1
-        settings.layout['title'] = 'title'
 
         factory = PlotFactory(settings)
         # should be empty, not using data defined size
         self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 203])
         self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
+        self.assertEqual(factory.settings.data_defined_title, '')
+        self.assertEqual(factory.settings.data_defined_legend_title, '')
+        self.assertEqual(factory.settings.data_defined_x_title, '')
+        self.assertEqual(factory.settings.data_defined_y_title, '')
+        self.assertEqual(factory.settings.data_defined_z_title, '')
         self.assertEqual(factory.settings.data_defined_x_min, None)
         self.assertEqual(factory.settings.data_defined_x_max, None)
         self.assertEqual(factory.settings.data_defined_y_min, None)
         self.assertEqual(factory.settings.data_defined_y_max, None)
-        self.assertEqual(factory.settings.data_defined_title, '')
 
         class TestGenerator(QgsExpressionContextGenerator):  # pylint: disable=missing-docstring, too-few-public-methods
 
@@ -590,6 +598,16 @@ class DataPlotlyFactory(unittest.TestCase):
                 return context
 
         generator = TestGenerator()
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_title_', @some_var)"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_LEGEND_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_legend_', @some_var)"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_x_axis_', @some_var)"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_y_axis_', @some_var)"))
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Z_TITLE,
+                                                     QgsProperty.fromExpression("concat('my', '_z_axis_', @some_var)"))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MIN,
                                                      QgsProperty.fromExpression("-1*@some_var"))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_X_MAX,
@@ -598,16 +616,18 @@ class DataPlotlyFactory(unittest.TestCase):
                                                      QgsProperty.fromExpression("-1*@some_var"))
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_Y_MAX,
                                                      QgsProperty.fromExpression("+1*@some_var"))
-        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_PLOT_TITLE,
-                                                     QgsProperty.fromExpression("concat('my', '_title_', @some_var)"))
         factory = PlotFactory(settings, context_generator=generator)
         self.assertEqual(factory.settings.x, [98, 88, 267, 329, 319, 137, 350, 151, 203])
         self.assertEqual(factory.settings.y, [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34])
+        self.assertEqual(factory.settings.data_defined_title, 'my_title_10')
+        self.assertEqual(factory.settings.data_defined_legend_title, 'my_legend_10')
+        self.assertEqual(factory.settings.data_defined_x_title, 'my_x_axis_10')
+        self.assertEqual(factory.settings.data_defined_y_title, 'my_y_axis_10')
+        self.assertEqual(factory.settings.data_defined_z_title, 'my_z_axis_10')
         self.assertEqual(factory.settings.data_defined_x_min, -10)
         self.assertEqual(factory.settings.data_defined_x_max, 10)
         self.assertEqual(factory.settings.data_defined_y_min, -10)
         self.assertEqual(factory.settings.data_defined_y_max, 10)
-        self.assertEqual(factory.settings.data_defined_title, 'my_title_10')
 
 
 if __name__ == "__main__":

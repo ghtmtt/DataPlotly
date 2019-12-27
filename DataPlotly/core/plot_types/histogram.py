@@ -36,7 +36,7 @@ class HistogramFactory(PlotType):
         return [graph_objs.Histogram(
                 x=settings.x,
                 y=settings.x,
-                name=settings.properties['name'],
+                name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
                 orientation=settings.properties['box_orientation'],
                 nbinsx=settings.properties['bins'],
                 nbinsy=settings.properties['bins'],

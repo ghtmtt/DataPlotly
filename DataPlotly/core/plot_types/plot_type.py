@@ -53,11 +53,15 @@ class PlotType:
 
         # flip the variables according to the box orientation
         if settings.properties['box_orientation'] == 'h':
-            x_title = settings.layout['y_title']
-            y_title = settings.layout['x_title']
+            y_title = settings.data_defined_y_title if settings.data_defined_y_title != ''\
+                else settings.layout['y_title']
+            x_title = settings.data_defined_x_title if settings.data_defined_x_title != ''\
+                else settings.layout['x_title']
         else:
-            x_title = settings.layout['x_title']
-            y_title = settings.layout['y_title']
+            x_title = settings.data_defined_x_title if settings.data_defined_x_title != ''\
+                else settings.layout['x_title']
+            y_title = settings.data_defined_y_title if settings.data_defined_y_title != ''\
+                else settings.layout['y_title']
 
         range_x = None
         if settings.layout.get('x_min', None) is not None and settings.layout.get('x_max', None) is not None:
