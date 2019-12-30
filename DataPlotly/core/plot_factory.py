@@ -118,6 +118,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(self.source_layer))
         else:
             context = self.context_generator.createExpressionContext()
+            # add a new scope corresponding to the source layer -- this will potentially overwrite any other
+            # layer scopes which may be present in the context (e.g. from atlas layers), but we need to ensure
+            # that source layer fields and attributes are present in the context
+            context.appendScope(self.source_layer.createExpressionContextScope())
 
         self.settings.data_defined_properties.prepare(context)
 

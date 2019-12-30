@@ -51,6 +51,11 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         Shows the plot properties panel
         """
         self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT, message_bar=self.message_bar)
+
+        # not quite right -- we ideally want to also add the source layer scope into the context given by plot item,
+        # but that causes a hard lock in the Python GIL (because PyQt doesn't release the GIL when creating the menu
+        # for the property override buttons). Nothing much we can do about that here (or in QGIS,
+        # it's a Python/PyQt limitation)
         self.panel.registerExpressionContextGenerator(self.plot_item)
         self.panel.set_print_layout(self.plot_item.layout())
 
