@@ -165,7 +165,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
 
         # layout properties
         self.data_defined_title = ""
-        self.data_defined_legend_title = ""
         self.data_defined_x_title = ""
         self.data_defined_y_title = ""
         self.data_defined_z_title = ""

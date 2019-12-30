@@ -1051,7 +1051,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.orientation_legend_check.setChecked(settings.layout['legend_orientation'] == 'h')
         self.range_slider_combo.setChecked(settings.layout['range_slider']['visible'])
         self.plot_title_line.setText(settings.layout['title'])
-        self.legend_title.setText(settings.layout['legend_title'])
+        self.legend_title.setText(settings.properties['name'])
         self.x_axis_title.setText(settings.layout['x_title'])
         self.y_axis_title.setText(settings.layout['y_title'])
         self.z_axis_title.setText(settings.layout['z_title'])
