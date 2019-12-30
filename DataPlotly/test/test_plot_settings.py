@@ -120,7 +120,6 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX))
 
-
     def test_read_write_project(self):
         """
         Test reading and writing to project document
@@ -186,7 +185,6 @@ class DataPlotlySettings(unittest.TestCase):
                          original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MIN))
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX))
-
 
     def test_read_write_project2(self):
         """
