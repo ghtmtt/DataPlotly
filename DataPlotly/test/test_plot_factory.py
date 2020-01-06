@@ -547,7 +547,7 @@ class DataPlotlyFactory(unittest.TestCase):
                                                                        '#ffff00',
                                                                        '#ffff00'])
 
-    def test_data_defined_layout_properties(self):
+    def test_data_defined_layout_properties(self):  # pylint: disable=too-many-statements
         """
         Test data defined stroke color
         """

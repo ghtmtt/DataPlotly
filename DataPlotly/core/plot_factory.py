@@ -289,7 +289,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         if stroke_widths:
             self.settings.data_defined_stroke_widths = stroke_widths
 
-    def fetch_layout_properties(self, context):
+    def fetch_layout_properties(self, context):  # pylint: disable=too-many-statements
         """
         (Re)fetches layout properties.
         """
