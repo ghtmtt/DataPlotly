@@ -1061,8 +1061,11 @@ QListWidget::item::selected {
                  </item>
                  <item row="23" column="0" colspan="4">
                   <widget class="QCheckBox" name="violinBox">
+                   <property name="toolTip">
+                    <string>If checked, box plots will be overlaid on top of violin plots</string>
+                   </property>
                    <property name="text">
-                    <string>Show box</string>
+                    <string>Include box plots</string>
                    </property>
                    <property name="checked">
                     <bool>true</bool>
