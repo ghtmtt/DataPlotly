@@ -105,6 +105,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['y_name'] = 'ca'
         settings.properties['z_name'] = 'mg'
         settings.properties['color_scale'] = 'Earth'
+        settings.properties['violin_box'] = True
 
         # TODO: likely need to test other settings.properties values here!
 
@@ -186,6 +187,62 @@ class DataPlotlyDialogTest(unittest.TestCase):
                          settings.data_defined_properties.property(PlotSettings.PROPERTY_Y_TITLE))
         self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_Z_TITLE),
                          settings.data_defined_properties.property(PlotSettings.PROPERTY_Z_TITLE))
+
+        settings = dialog.get_settings()
+        dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
+        print('dialog 2')
+        dialog3.set_settings(settings)
+        print('set settings')
+
+        self.assertEqual(dialog3.get_settings().plot_type, settings.plot_type)
+        for k in settings.properties.keys():
+            print(k)
+            self.assertEqual(dialog3.get_settings().properties[k], settings.properties[k])
+        self.assertEqual(dialog3.get_settings().properties, settings.properties)
+        for k in settings.layout.keys():
+            print(k)
+            self.assertEqual(dialog3.get_settings().layout[k], settings.layout[k])
+
+        print('done')
+        QgsProject.instance().clear()
+        print('clear done')
+
+    def test_settings_round_trip_secondary(self):  # pylint: disable=too-many-statements
+        """
+        Test setting and retrieving settings results in identical results -- this secondary test allows for
+        different values to be checked (e.g. True if the first test checks for False)
+        """
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.geojson')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        vl2 = QgsVectorLayer(layer_path, 'test_layer1', 'ogr')
+        vl3 = QgsVectorLayer(layer_path, 'test_layer2', 'ogr')
+        QgsProject.instance().addMapLayers([vl1, vl2, vl3])
+
+        dialog = DataPlotlyPanelWidget(None, override_iface=IFACE)
+        settings = dialog.get_settings()
+        # default should be scatter plot
+        self.assertEqual(settings.plot_type, 'scatter')
+        print('dialog loaded')
+
+        # customise settings
+        settings.plot_type = 'bar'
+        settings.properties['violin_box'] = False
+
+        dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
+        dialog2.set_settings(settings)
+
+        print('set settings')
+
+        self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
+        for k in settings.properties.keys():
+            print(k)
+            if k in ['x', 'y', 'z', 'additional_hover_text', 'featureIds', 'featureBox', 'custom']:
+                continue
+            self.assertEqual(dialog2.get_settings().properties[k], settings.properties[k])
+        for k in settings.layout.keys():
+            self.assertEqual(dialog2.get_settings().layout[k], settings.layout[k])
 
         settings = dialog.get_settings()
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
