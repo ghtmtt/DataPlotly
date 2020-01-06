@@ -619,7 +619,7 @@ QListWidget::item::selected {
                  <item row="10" column="0">
                   <widget class="QCheckBox" name="invert_x_check">
                    <property name="text">
-                    <string>Invert X Axis</string>
+                    <string>Invert X axis</string>
                    </property>
                   </widget>
                  </item>
@@ -666,7 +666,7 @@ QListWidget::item::selected {
                  <item row="11" column="0">
                   <widget class="QCheckBox" name="invert_y_check">
                    <property name="text">
-                    <string>Invert Y Axis</string>
+                    <string>Invert Y axis</string>
                    </property>
                   </widget>
                  </item>
@@ -676,7 +676,7 @@ QListWidget::item::selected {
                  <item row="3" column="0">
                   <widget class="QLabel" name="x_axis_label">
                    <property name="text">
-                    <string>X Label</string>
+                    <string>X label</string>
                    </property>
                   </widget>
                  </item>
@@ -719,7 +719,7 @@ QListWidget::item::selected {
                  <item row="8" column="0">
                   <widget class="QLabel" name="additional_info_label">
                    <property name="text">
-                    <string>Additional Hover Label</string>
+                    <string>Additional hover label</string>
                    </property>
                   </widget>
                  </item>
@@ -729,7 +729,7 @@ QListWidget::item::selected {
                  <item row="0" column="2">
                   <widget class="QCheckBox" name="range_slider_combo">
                    <property name="text">
-                    <string>Show RangeSlider</string>
+                    <string>Show range slider</string>
                    </property>
                   </widget>
                  </item>
@@ -739,28 +739,28 @@ QListWidget::item::selected {
                  <item row="6" column="0">
                   <widget class="QLabel" name="z_axis_label">
                    <property name="text">
-                    <string>Z Label</string>
+                    <string>Z label</string>
                    </property>
                   </widget>
                  </item>
                  <item row="23" column="0">
                   <widget class="QCheckBox" name="bins_check">
                    <property name="text">
-                    <string>Choose manually the bins</string>
+                    <string>Manual bin size</string>
                    </property>
                   </widget>
                  </item>
                  <item row="2" column="0">
                   <widget class="QLabel" name="legend_label">
                    <property name="text">
-                    <string>Legend Title</string>
+                    <string>Legend title</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="0">
                   <widget class="QCheckBox" name="show_legend_check">
                    <property name="text">
-                    <string>Show Legend</string>
+                    <string>Show legend</string>
                    </property>
                    <property name="checked">
                     <bool>true</bool>
@@ -797,21 +797,21 @@ QListWidget::item::selected {
                  <item row="7" column="0">
                   <widget class="QLabel" name="info_label">
                    <property name="text">
-                    <string>Hover Infos</string>
+                    <string>Hover tooltip</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
                   <widget class="QCheckBox" name="orientation_legend_check">
                    <property name="text">
-                    <string>Horizontal Legend</string>
+                    <string>Horizontal legend</string>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="plot_title_lab">
                    <property name="text">
-                    <string>Plot Title</string>
+                    <string>Plot title</string>
                    </property>
                   </widget>
                  </item>
@@ -821,14 +821,14 @@ QListWidget::item::selected {
                     <bool>true</bool>
                    </property>
                    <property name="text">
-                    <string>Cumulative Histogram</string>
+                    <string>Cumulative histogram</string>
                    </property>
                   </widget>
                  </item>
                  <item row="4" column="0" rowspan="2">
                   <widget class="QLabel" name="y_axis_label">
                    <property name="text">
-                    <string>Y Label</string>
+                    <string>Y label</string>
                    </property>
                   </widget>
                  </item>
@@ -838,7 +838,7 @@ QListWidget::item::selected {
                     <bool>true</bool>
                    </property>
                    <property name="text">
-                    <string>Invert Histogram Direction</string>
+                    <string>Invert histogram direction</string>
                    </property>
                   </widget>
                  </item>
@@ -848,7 +848,7 @@ QListWidget::item::selected {
                  <item row="18" column="0">
                   <widget class="QLabel" name="box_statistic_label">
                    <property name="text">
-                    <string>Show Statistics</string>
+                    <string>Show statistics</string>
                    </property>
                   </widget>
                  </item>
@@ -882,7 +882,7 @@ QListWidget::item::selected {
                  <item row="21" column="0">
                   <widget class="QCheckBox" name="showMeanCheck">
                    <property name="text">
-                    <string>Show Mean Line</string>
+                    <string>Show mean line</string>
                    </property>
                    <property name="checked">
                     <bool>true</bool>
@@ -892,7 +892,7 @@ QListWidget::item::selected {
                  <item row="16" column="0">
                   <widget class="QLabel" name="bar_mode_lab">
                    <property name="text">
-                    <string>Bar Mode</string>
+                    <string>Bar mode</string>
                    </property>
                   </widget>
                  </item>
@@ -912,21 +912,21 @@ QListWidget::item::selected {
                  <item row="11" column="1">
                   <widget class="QLabel" name="y_axis_mode_label">
                    <property name="text">
-                    <string>Y Axis Mode</string>
+                    <string>Y axis mode</string>
                    </property>
                   </widget>
                  </item>
                  <item row="10" column="1">
                   <widget class="QLabel" name="x_axis_mode_label">
                    <property name="text">
-                    <string>X Axis Mode</string>
+                    <string>X axis mode</string>
                    </property>
                   </widget>
                  </item>
                  <item row="12" column="0" colspan="3">
                   <widget class="QgsCollapsibleGroupBox" name="x_axis_bounds_check">
                    <property name="title">
-                    <string>Set X Axis bounds</string>
+                    <string>Set X Axis Bounds</string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
@@ -975,7 +975,7 @@ QListWidget::item::selected {
                  <item row="13" column="0" colspan="3">
                   <widget class="QgsCollapsibleGroupBox" name="y_axis_bounds_check">
                    <property name="title">
-                    <string>Set Y Axis bounds</string>
+                    <string>Set Y Axis Bounds</string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
