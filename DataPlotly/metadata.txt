@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=3.0
+version=3.1
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,14 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 3.1
+  - [feature] more data defined options available (in layout customization). Thanks @SGroe 
+  - [feature] X and Y axis bounds limits. Thanks @SGroe
+  - [feature] add box plot within violin plots
+  - [feature] renaming of plugin metadata to better search. Thanks @Gustry
+  - [bugfix] Box plot not working when no group is selected 
+  - [bugfix] Data-defined property overrides do not work in layout
+
   Version 3.0
   - [feature] total refactoring of the code
   - [feature] plots also in print composer
