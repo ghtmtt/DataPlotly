@@ -42,7 +42,7 @@ class ViolinFactory(PlotType):
             y = settings.y
 
         return [graph_objs.Violin(
-            x=x,
+            x=x or None,
             y=y,
             name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
             customdata=settings.properties['custom'],
