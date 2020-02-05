@@ -72,7 +72,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     POLY_FILL_PATH = QUrl.fromLocalFile(
         os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
     PLOTLY_PATH = QUrl.fromLocalFile(
-        os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.34.0.min.js'))).toString()
+        os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.52.2.min.js'))).toString()
 
     PLOT_TYPES = {
         t.type_name(): t for t in PlotType.__subclasses__()
