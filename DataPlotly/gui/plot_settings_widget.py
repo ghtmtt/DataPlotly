@@ -1390,7 +1390,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         settings = PlotSettings()
         if settings.read_from_project(document):
             # update the dock state to match the read settings
-            self.set_settings(settings)
+            try:
+                self.set_settings(settings)
+            except KeyError:
+                pass
 
     def load_configuration(self):
         """
