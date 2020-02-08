@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=3.1
+version=3.2
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,9 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 3.2
+  - [bugfix] fix violin plot bug
+  - [bugfix] better loading project handling
   Version 3.1
   - [feature] more data defined options available (in layout customization). Thanks @SGroe 
   - [feature] X and Y axis bounds limits. Thanks @SGroe
