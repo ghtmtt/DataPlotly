@@ -440,6 +440,13 @@ QListWidget::item::selected {
                     <string>Plot Parameters</string>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_23">
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="label_feature_subset">
+                      <property name="text">
+                       <string>Feature subset</string>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="3" column="1">
                      <widget class="QgsPropertyOverrideButton" name="feature_subset_defined_button">
                       <property name="text">
@@ -491,13 +498,6 @@ QListWidget::item::selected {
                      <widget class="QLabel" name="z_label">
                       <property name="text">
                        <string>Z field</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="0">
-                     <widget class="QLabel" name="y_label">
-                      <property name="text">
-                       <string>Feature subset</string>
                       </property>
                      </widget>
                     </item>
