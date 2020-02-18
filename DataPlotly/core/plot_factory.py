@@ -32,7 +32,12 @@ from qgis.core import (
 from qgis.PyQt.QtCore import (
     QUrl,
     QObject,
-    pyqtSignal
+    pyqtSignal,
+    QDate,
+    QDateTime
+)
+from qgis.PyQt.Qt import (
+    Qt
 )
 from qgis.PyQt.QtGui import QColor
 from DataPlotly.core.plot_settings import PlotSettings
@@ -79,6 +84,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     }
 
     plot_built = pyqtSignal()
+
+    # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
+    QDate.isoformat = lambda d: d.toString(Qt.ISODate)
+    QDateTime.isoformat = lambda d: d.toString(Qt.ISODate)
 
     def __init__(self, settings: PlotSettings = None, context_generator: QgsExpressionContextGenerator = None,
                  visible_region: QgsReferencedRectangle = None, polygon_filter: FilterRegion = None):
