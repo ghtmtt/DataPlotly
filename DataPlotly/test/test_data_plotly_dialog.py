@@ -70,7 +70,6 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for k in settings.layout.keys():
             self.assertEqual(dialog.get_settings().layout[k], settings.layout[k])
 
-    @unittest.skip('test')
     def test_settings_round_trip(self):  # pylint: disable=too-many-statements
         """
         Test setting and retrieving settings results in identical results
@@ -189,7 +188,13 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(dialog2.get_settings().data_defined_properties.property(PlotSettings.PROPERTY_Z_TITLE),
                          settings.data_defined_properties.property(PlotSettings.PROPERTY_Z_TITLE))
 
+        dialog2.deleteLater()
+        del dialog2
+
         settings = dialog.get_settings()
+        dialog.deleteLater()
+        del dialog
+
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         print('dialog 2')
         dialog3.set_settings(settings)
@@ -203,6 +208,9 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for k in settings.layout.keys():
             print(k)
             self.assertEqual(dialog3.get_settings().layout[k], settings.layout[k])
+
+        dialog3.deleteLater()
+        del dialog3
 
         print('done')
         QgsProject.instance().clear()
@@ -245,7 +253,13 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for k in settings.layout.keys():
             self.assertEqual(dialog2.get_settings().layout[k], settings.layout[k])
 
+        dialog2.deleteLater()
+        del dialog2
+
         settings = dialog.get_settings()
+        dialog.deleteLater()
+        del dialog
+
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         print('dialog 2')
         dialog3.set_settings(settings)
@@ -259,6 +273,9 @@ class DataPlotlyDialogTest(unittest.TestCase):
         for k in settings.layout.keys():
             print(k)
             self.assertEqual(dialog3.get_settings().layout[k], settings.layout[k])
+
+        dialog3.deleteLater()
+        del dialog3
 
         print('done')
         QgsProject.instance().clear()
