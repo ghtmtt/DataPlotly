@@ -225,3 +225,11 @@ txpull:
 	tx pull -a
 	@echo
 	@echo "Pull completed"
+
+txcompile: txpull
+	@echo
+	@echo "----------------------------------------"
+	@echo "Compiled translation files to .qm files."
+	@echo "----------------------------------------"
+	@chmod +x scripts/compile-strings.sh
+	@scripts/compile-strings.sh $(LOCALES)
