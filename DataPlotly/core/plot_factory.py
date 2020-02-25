@@ -656,7 +656,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         return self.plot_path
 
-    def build_figures(self, plot_type, ptrace) -> str:
+    def build_figures(self, plot_type, ptrace, config=None) -> str:
         """
         Overlaps plots on the same map canvas
 
@@ -700,7 +700,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             figures = go.Figure(data=ptrace, layout=self.layout)
 
         # set some configurations
-        config = {'scrollZoom': True, 'editable': True}
+        if config is None:
+            config = {'scrollZoom': True, 'editable': True}
         # first lines of additional html with the link to the local javascript
         self.raw_plot = '<head><meta charset="utf-8" /><script src="{}">' \
                         '</script><script src="{}"></script></head>'.format(

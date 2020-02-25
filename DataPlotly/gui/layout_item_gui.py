@@ -7,8 +7,13 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    QItemSelectionModel
+)
 from qgis.PyQt.QtWidgets import (
+    QListWidget,
+    QHBoxLayout,
     QPushButton,
     QVBoxLayout
 )
@@ -36,7 +41,36 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         vl = QVBoxLayout()
         vl.setContentsMargins(0, 0, 0, 0)
 
-        self.plot_properties_button = QPushButton(self.tr('Setup Plot'))
+        plot_tools_layout = QHBoxLayout()
+
+        self.plot_add_button = QPushButton(self.tr('Add Plot'))
+        self.plot_add_button.setToolTip('Add a new plot')
+        plot_tools_layout.addWidget(self.plot_add_button)
+        self.plot_add_button.clicked.connect(self.add_plot)
+
+        self.plot_remove_button = QPushButton(self.tr('Remove Plot'))
+        self.plot_add_button.setToolTip('Remove selected plot')
+        plot_tools_layout.addWidget(self.plot_remove_button)
+        self.plot_remove_button.clicked.connect(self.remove_plot)
+
+        self.plot_move_up_button = QPushButton(self.tr('Move Up'))
+        self.plot_add_button.setToolTip('Move selected plot up')
+        plot_tools_layout.addWidget(self.plot_move_up_button)
+        self.plot_move_up_button.clicked.connect(self.move_up_plot)
+
+        self.plot_move_down_button = QPushButton(self.tr('Move Down'))
+        self.plot_add_button.setToolTip('Move selected plot down')
+        plot_tools_layout.addWidget(self.plot_move_down_button)
+        self.plot_move_down_button.clicked.connect(self.move_down_plot)
+
+        vl.addLayout(plot_tools_layout)
+
+        self.plot_list = QListWidget()
+        self.plot_list.setSelectionMode(QListWidget.SingleSelection)
+        vl.addWidget(self.plot_list)
+        self.populate_plot_list()
+
+        self.plot_properties_button = QPushButton(self.tr('Setup Selected Plot'))
         vl.addWidget(self.plot_properties_button)
         self.plot_properties_button.clicked.connect(self.show_properties)
 
@@ -45,6 +79,51 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.item_properties_widget = QgsLayoutItemPropertiesWidget(self, layout_object)
         vl.addWidget(self.item_properties_widget)
         self.setLayout(vl)
+
+    def populate_plot_list(self):
+        selected_index = self.plot_list.currentRow()
+        self.plot_list.clear()
+        for setting in self.plot_item.plot_settings:
+            print("Add plot settings list item")
+            plot_type = setting.plot_type + ' ' if setting.plot_type is not None else '(not set)'
+            legend_title = setting.properties.get('name', '')
+            self.plot_list.addItem(plot_type + ' [' + legend_title + ']')
+
+        print("A " + str(selected_index))
+        # select index within range [0, len(plot_settings)-1]
+        selected_index = max(0, min(len(self.plot_item.plot_settings) - 1, selected_index))
+        print("B " + str(selected_index))
+        self.plot_list.setCurrentRow(selected_index, QItemSelectionModel.SelectCurrent)
+
+    def add_plot(self):
+        print('layout_item_plot.add_plot')
+        self.plot_item.add_plot()
+        self.populate_plot_list()
+        self.plot_item.refresh()
+
+    def remove_plot(self):
+        index = self.plot_list.currentRow()
+        self.plot_item.remove_plot(index)
+        self.populate_plot_list()
+        self.plot_item.refresh()
+
+    def move_up_plot(self):
+        selected_index = self.plot_list.currentRow()
+        if selected_index > 0:
+            item = self.plot_item.plot_settings.pop(selected_index)
+            self.plot_item.plot_settings.insert(selected_index - 1, item)
+            self.plot_list.setCurrentRow(selected_index - 1, QItemSelectionModel.SelectCurrent)
+            self.populate_plot_list()
+            self.plot_item.refresh()
+
+    def move_down_plot(self):
+        selected_index = self.plot_list.currentRow()
+        if selected_index < len(self.plot_item.plot_settings) - 1:
+            item = self.plot_item.plot_settings.pop(selected_index)
+            self.plot_item.plot_settings.insert(selected_index + 1, item)
+            self.plot_list.setCurrentRow(selected_index + 1, QItemSelectionModel.SelectCurrent)
+            self.populate_plot_list()
+            self.plot_item.refresh()
 
     def show_properties(self):
         """
@@ -75,7 +154,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.panel.filter_by_atlas_check.setChecked(self.plot_item.filter_by_atlas)
         self.panel.filter_by_atlas_check.blockSignals(False)
 
-        self.panel.set_settings(self.plot_item.plot_settings)
+        self.panel.set_settings(self.plot_item.plot_settings[self.plot_list.currentRow()])
         # self.panel.set_settings(self.layoutItem().plot_settings)
         self.openPanel(self.panel)
         self.panel.widgetChanged.connect(self.update_item_settings)
@@ -88,7 +167,8 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         if not self.panel:
             return
 
-        self.plot_item.set_plot_settings(self.panel.get_settings())
+        self.plot_item.set_plot_settings(self.plot_list.currentRow(), self.panel.get_settings())
+        self.populate_plot_list()
         self.plot_item.update()
 
     def set_item_settings(self):
@@ -98,7 +178,8 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         if not self.panel:
             return
 
-        self.plot_item.set_plot_settings(self.panel.get_settings())
+        self.plot_item.set_plot_settings(self.plot_list.currentRow(), self.panel.get_settings())
+        self.populate_plot_list()
         self.panel = None
         self.plot_item.update()
 
@@ -127,11 +208,13 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         if item.type() != ITEM_TYPE:
             return False
 
+        print('layout_item_gui.setNewItem()')
         self.plot_item = item
         self.item_properties_widget.setItem(item)
+        self.populate_plot_list()
 
         if self.panel is not None:
-            self.panel.set_settings(self.plot_item.plot_settings)
+            self.panel.set_settings(self.plot_item.plot_settings[0])
 
             self.panel.filter_by_map_check.blockSignals(True)
             self.panel.filter_by_map_check.setChecked(item.filter_by_map)
