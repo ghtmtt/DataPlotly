@@ -644,7 +644,7 @@ class DataPlotlyFactory(unittest.TestCase):
 
         # no source layer, fixed values must be used
         settings.source_layer_id = ''
-        settings.x = [QDate(2020,1,1), QDate(2020,2,1), QDate(2020,3,1)]
+        settings.x = [QDate(2020, 1, 1), QDate(2020, 2, 1), QDate(2020, 3, 1)]
         settings.y = [4, 5, 6]
         factory = PlotFactory(settings)
 
@@ -658,7 +658,7 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(plot_dictionary['x'], ["2020-01-01", "2020-02-01", "2020-03-01"])
         self.assertEqual(plot_dictionary['y'], [4, 5, 6])
 
-        settings.x = [QDateTime(2020,1,1,11,21), QDateTime(2020,2,1,0,15), QDateTime(2020,3,1,17,23,11)]
+        settings.x = [QDateTime(2020, 1, 1, 11, 21), QDateTime(2020, 2, 1, 0, 15), QDateTime(2020, 3, 1, 17, 23, 11)]
         settings.y = [4, 5, 6]
         factory = PlotFactory(settings)
 
@@ -669,7 +669,7 @@ class DataPlotlyFactory(unittest.TestCase):
         match = re.search(r'\[.*\]', plot_html)
         plot_dictionary = json.loads(match.group(0))[0]
 
-        self.assertEqual(plot_dictionary['x'], ["2020-01-01 11:21:00", "2020-02-01 00:15:00", "2020-03-01 17:23:11"])
+        self.assertEqual(plot_dictionary['x'], ["2020-01-01T11:21:00", "2020-02-01T00:15:00", "2020-03-01T17:23:11"])
         self.assertEqual(plot_dictionary['y'], [4, 5, 6])
 
 
