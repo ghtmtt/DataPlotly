@@ -15,7 +15,7 @@
         <translation>DataPlotly</translation>
     </message>
     <message>
-        <location filename="../gui/layout_item_gui.py" line="158"/>
+        <location filename="../gui/layout_item_gui.py" line="163"/>
         <source>Plot Item</source>
         <translation>Crea grafico</translation>
     </message>
@@ -51,17 +51,17 @@
         <translation>Parametri del grafico</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="493"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="500"/>
         <source>Z field</source>
         <translation>Campo Z</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="473"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="480"/>
         <source>Use only selected features</source>
         <translation>Usa solo geometrie selezionate</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="480"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="487"/>
         <source>Layer</source>
         <translation>Vettore</translation>
     </message>
@@ -76,7 +76,7 @@
         <translation>Tipo di simbolo</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="446"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1058"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -86,152 +86,52 @@
         <translation>Visibile</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="625"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="887"/>
         <source>Bar orientation</source>
         <translation>Orientamento barra</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="645"/>
-        <source>Y Axis Mode</source>
-        <translation>Modalità asse Y</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="652"/>
-        <source>Show Mean Line</source>
-        <translation>Mostra linea della media</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="662"/>
-        <source>Y Label</source>
-        <translation>Etichetta asse Y</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="672"/>
-        <source>Legend Title</source>
-        <translation>Titolo legenda</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="682"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="690"/>
         <source>Normalization</source>
         <translation>Normalizzazione</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="692"/>
-        <source>X Axis Mode</source>
-        <translation>Modalità asse X</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="705"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="901"/>
         <source>Outliers</source>
         <translation>Outlier</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="715"/>
-        <source>Bar Mode</source>
-        <translation>Modalità barra</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="725"/>
-        <source>Show Legend</source>
-        <translation>Mostra legenda</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="741"/>
-        <source>Show Statistics</source>
-        <translation>Mostra statistiche</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="748"/>
-        <source>Plot Title</source>
-        <translation>Titolo del grafico</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="755"/>
-        <source>X Label</source>
-        <translation>Etichetta asse X</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="762"/>
-        <source>Show RangeSlider</source>
-        <translation>Mostra slider</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="769"/>
-        <source>Hover Infos</source>
-        <translation>Informazioni mouse</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="779"/>
-        <source>Invert X Axis</source>
-        <translation>Inverti asse X</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="786"/>
-        <source>Invert Y Axis</source>
-        <translation>Inverti asse Y</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="796"/>
-        <source>Z Label</source>
-        <translation>Etichetta asse Z</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="803"/>
-        <source>Additional Hover Label</source>
-        <translation>Etichetta aggiuntiva mouse</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="832"/>
-        <source>Cumulative Histogram</source>
-        <translation>Istogramma cumulativo</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="839"/>
-        <source>Choose manually the bins</source>
-        <translation>Scegli il numero delle barre </translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="846"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="823"/>
         <source>Bar gap</source>
         <translation>Spazio fra le barre</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="853"/>
-        <source>Horizontal Legend</source>
-        <translation>Legenda orizzontale</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="863"/>
-        <source>Invert Histogram Direction</source>
-        <translation>Inverti direzione istogramma</translation>
-    </message>
-    <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="880"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="999"/>
         <source>Violin side</source>
         <translation>Lato del violino</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="952"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1140"/>
         <source>Clean Plot Canvas</source>
         <translation>Pulisci grafici</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="975"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1163"/>
         <source>Update Plot</source>
         <translation>Aggiorna grafico</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="997"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1185"/>
         <source>Create Plot</source>
         <translation>Crea grafico</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1056"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1244"/>
         <source>Export as image</source>
         <translation>Esporta come immagine</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1075"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1263"/>
         <source>Export as html</source>
         <translation>Esporta come html</translation>
     </message>
@@ -296,17 +196,17 @@
         <translation>Tipo di contorno</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="453"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="460"/>
         <source>Linked map</source>
         <translation>Mappa di riferimento</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="463"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="470"/>
         <source>Use only visible features</source>
         <translation>Solo elementi visibili</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="500"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="446"/>
         <source>Feature subset</source>
         <translation>Filtra elementi</translation>
     </message>
@@ -331,338 +231,468 @@
         <translation>Solo elementi dentro l&apos;atlante</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="903"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1091"/>
         <source>Type of plot</source>
         <translation>Tipo di grafico</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="915"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1103"/>
         <source>Plot in columns</source>
         <translation>Grafico in colonne</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="922"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1110"/>
         <source>Plot in rows</source>
         <translation>Grafico in righe</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1004"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1192"/>
         <source>Configuration</source>
         <translation>Configurazione</translation>
     </message>
     <message>
-        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1092"/>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1280"/>
         <source>Dynamically update size</source>
         <translation>Dimensione dinamica</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="624"/>
+        <source>Show legend</source>
+        <translation>Mostra legenda</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="634"/>
+        <source>Horizontal legend</source>
+        <translation>Legenda orizzontale</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="641"/>
+        <source>Show range slider</source>
+        <translation>Mostra slider</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="658"/>
+        <source>Invert histogram direction</source>
+        <translation>Inverti direzione istogramma</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="668"/>
+        <source>Cumulative histogram</source>
+        <translation>Istogramma cumulativo</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="733"/>
+        <source>Hover tooltip</source>
+        <translation>Suggerimento aggiuntivo</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="740"/>
+        <source>Bar mode</source>
+        <translation>Modalità barra</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="747"/>
+        <source>Show statistics</source>
+        <translation>Mostra statistiche</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="760"/>
+        <source>Z label</source>
+        <translation>Etichetta asse Z</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="767"/>
+        <source>Set X Axis Bounds</source>
+        <translation>Imposta limiti asse X</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1021"/>
+        <source>Minimum</source>
+        <translation>Minimo</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1038"/>
+        <source>Maximum</source>
+        <translation>Massimo</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="833"/>
+        <source>X axis mode</source>
+        <translation>Modalità asse X</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="843"/>
+        <source>Y axis mode</source>
+        <translation>Modalità asse Y</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="853"/>
+        <source>Show mean line</source>
+        <translation>Mostra linea della media</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="866"/>
+        <source>Invert Y axis</source>
+        <translation>Inverti asse Y</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="873"/>
+        <source>Legend title</source>
+        <translation>Titolo legenda</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="880"/>
+        <source>X label</source>
+        <translation>Etichetta asse X</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="915"/>
+        <source>Additional hover label</source>
+        <translation>Etichetta aggiuntiva</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="922"/>
+        <source>Manual bin size</source>
+        <translation>Dimensione manuale barra</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="929"/>
+        <source>Invert X axis</source>
+        <translation>Inverti asse X</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="982"/>
+        <source>Plot title</source>
+        <translation>Titolo del grafico</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="992"/>
+        <source>Y label</source>
+        <translation>Etichetta Y</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1009"/>
+        <source>Set Y Axis Bounds</source>
+        <translation>Imposta limiti asse Y</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1065"/>
+        <source>If checked, box plots will be overlaid on top of violin plots</source>
+        <translation>Se spuntato, il grafico violino conterrà un diagramma a scatola e baffi</translation>
+    </message>
+    <message>
+        <location filename="../ui/dataplotly_dockwidget_base.ui" line="1068"/>
+        <source>Include box plots</source>
+        <translation>Includi diagramma a scatola e baffi</translation>
     </message>
 </context>
 <context>
     <name>DataPlotlyPanelWidget</name>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="103"/>
+        <location filename="../gui/plot_settings_widget.py" line="104"/>
         <source>Plot Properties</source>
         <translation>Proprietà</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="130"/>
+        <location filename="../gui/plot_settings_widget.py" line="131"/>
         <source>Load Configurationâ¦</source>
         <translation>Carica configurazione</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="132"/>
+        <location filename="../gui/plot_settings_widget.py" line="133"/>
         <source>Save Configurationâ¦</source>
         <translation>Salva configurazione</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="547"/>
+        <location filename="../gui/plot_settings_widget.py" line="572"/>
         <source>None</source>
         <translation>Niente</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="175"/>
+        <location filename="../gui/plot_settings_widget.py" line="176"/>
         <source>Single Plot</source>
         <translation>Grafico singolo</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="176"/>
+        <location filename="../gui/plot_settings_widget.py" line="177"/>
         <source>Subplots</source>
         <translation>Multi grafico</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="535"/>
+        <location filename="../gui/plot_settings_widget.py" line="560"/>
         <source>Vertical</source>
         <translation>Verticale</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="536"/>
+        <location filename="../gui/plot_settings_widget.py" line="561"/>
         <source>Horizontal</source>
         <translation>Orizzontale</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="540"/>
+        <location filename="../gui/plot_settings_widget.py" line="565"/>
         <source>No Outliers</source>
         <translation>No outlier</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="541"/>
+        <location filename="../gui/plot_settings_widget.py" line="566"/>
         <source>Standard Outliers</source>
         <translation>Outlier standard</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="542"/>
+        <location filename="../gui/plot_settings_widget.py" line="567"/>
         <source>Suspected Outliers</source>
         <translation>Outlier sospetti</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="543"/>
+        <location filename="../gui/plot_settings_widget.py" line="568"/>
         <source>All Points</source>
         <translation>Tutti i punti</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="548"/>
+        <location filename="../gui/plot_settings_widget.py" line="573"/>
         <source>Mean</source>
         <translation>Media</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="549"/>
+        <location filename="../gui/plot_settings_widget.py" line="574"/>
         <source>Standard Deviation</source>
         <translation>Deviazione standard</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="557"/>
+        <location filename="../gui/plot_settings_widget.py" line="582"/>
         <source>Linear</source>
         <translation>Lineare</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="558"/>
+        <location filename="../gui/plot_settings_widget.py" line="583"/>
         <source>Logarithmic</source>
         <translation>Logaritmico</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="559"/>
+        <location filename="../gui/plot_settings_widget.py" line="584"/>
         <source>Categorized</source>
         <translation>Categorizzato</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="838"/>
+        <location filename="../gui/plot_settings_widget.py" line="877"/>
         <source>Points</source>
         <translation>Punti</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="847"/>
+        <location filename="../gui/plot_settings_widget.py" line="886"/>
         <source>Lines</source>
         <translation>Linee</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="562"/>
+        <location filename="../gui/plot_settings_widget.py" line="587"/>
         <source>Points and Lines</source>
         <translation>Punti e linee</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <location filename="../gui/plot_settings_widget.py" line="632"/>
         <source>Solid Line</source>
         <translation>Linea continua</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <location filename="../gui/plot_settings_widget.py" line="632"/>
         <source>Dot Line</source>
         <translation>Linea punteggiata</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <location filename="../gui/plot_settings_widget.py" line="632"/>
         <source>Dash Line</source>
         <translation>Linea tratteggiata</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <location filename="../gui/plot_settings_widget.py" line="632"/>
         <source>Long Dash Line</source>
         <translation>Linea a tratteggi lunghi</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <location filename="../gui/plot_settings_widget.py" line="632"/>
         <source>Dot Dash Line</source>
         <translation>Linea a tratteggi e punti</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="607"/>
+        <location filename="../gui/plot_settings_widget.py" line="632"/>
         <source>Long Dash Dot Line</source>
         <translation>Linea a tratteggi lunghi e punti</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="622"/>
+        <location filename="../gui/plot_settings_widget.py" line="647"/>
         <source>Grouped</source>
         <translation>Raggruppato</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="623"/>
+        <location filename="../gui/plot_settings_widget.py" line="648"/>
         <source>Stacked</source>
         <translation>Impilato</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="624"/>
+        <location filename="../gui/plot_settings_widget.py" line="649"/>
         <source>Overlay</source>
         <translation>Sovrapposto</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="628"/>
+        <location filename="../gui/plot_settings_widget.py" line="653"/>
         <source>Enumerated</source>
         <translation>Enumerato</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="629"/>
+        <location filename="../gui/plot_settings_widget.py" line="654"/>
         <source>Percents</source>
         <translation>Pecentuale</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="630"/>
+        <location filename="../gui/plot_settings_widget.py" line="655"/>
         <source>Probability</source>
         <translation>Probabilità</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="631"/>
+        <location filename="../gui/plot_settings_widget.py" line="656"/>
         <source>Density</source>
         <translation>Densità</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="632"/>
+        <location filename="../gui/plot_settings_widget.py" line="657"/>
         <source>Prob Density</source>
         <translation>Probabilità di densità</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="635"/>
+        <location filename="../gui/plot_settings_widget.py" line="660"/>
         <source>Fill</source>
         <translation>Riempimento</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="635"/>
+        <location filename="../gui/plot_settings_widget.py" line="660"/>
         <source>Heatmap</source>
         <translation>Mappa di calore</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="635"/>
+        <location filename="../gui/plot_settings_widget.py" line="660"/>
         <source>Only Lines</source>
         <translation>Solo linee</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="671"/>
+        <location filename="../gui/plot_settings_widget.py" line="696"/>
         <source>Grouping field 
 (optional)</source>
         <translation>Gruppo
 (opzionale)</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="677"/>
+        <location filename="../gui/plot_settings_widget.py" line="702"/>
         <source>Box orientation</source>
         <translation>Orientamento scatola</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="678"/>
+        <location filename="../gui/plot_settings_widget.py" line="703"/>
         <source>Box color</source>
         <translation>Colore scatola</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="681"/>
+        <location filename="../gui/plot_settings_widget.py" line="706"/>
         <source>X field</source>
         <translation>Campo X</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="685"/>
+        <location filename="../gui/plot_settings_widget.py" line="710"/>
         <source>Marker color</source>
         <translation>Colore del simbolo</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="687"/>
+        <location filename="../gui/plot_settings_widget.py" line="712"/>
         <source>Bar orientation</source>
         <translation>Orientamento barra</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="688"/>
+        <location filename="../gui/plot_settings_widget.py" line="713"/>
         <source>Bar color</source>
         <translation>Colore barra</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="691"/>
+        <location filename="../gui/plot_settings_widget.py" line="716"/>
         <source>Grouping field</source>
         <translation>Gruppo</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="699"/>
+        <location filename="../gui/plot_settings_widget.py" line="724"/>
         <source>All Values</source>
         <translation>Tutti i valori</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="700"/>
+        <location filename="../gui/plot_settings_widget.py" line="725"/>
         <source>X Values</source>
         <translation>Valori X</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="701"/>
+        <location filename="../gui/plot_settings_widget.py" line="726"/>
         <source>Y Values</source>
         <translation>Valori Y</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="702"/>
+        <location filename="../gui/plot_settings_widget.py" line="727"/>
         <source>No Data</source>
         <translation>Nessun dato</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="706"/>
+        <location filename="../gui/plot_settings_widget.py" line="731"/>
         <source>Both Sides</source>
         <translation>Entrambi i lati</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="707"/>
+        <location filename="../gui/plot_settings_widget.py" line="732"/>
         <source>Only Left</source>
         <translation>Solo sinistro</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="708"/>
+        <location filename="../gui/plot_settings_widget.py" line="733"/>
         <source>Only right</source>
         <translation>Solo destro</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1134"/>
+        <location filename="../gui/plot_settings_widget.py" line="1193"/>
         <source>{} plot is not compatible for subplotting
  see </source>
         <translation>{} grafico non è compatibile con la modalità multigrafico</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1221"/>
+        <location filename="../gui/plot_settings_widget.py" line="1280"/>
         <source>Save Plot</source>
         <translation>Salva grafico</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1364"/>
+        <location filename="../gui/plot_settings_widget.py" line="1423"/>
         <source>DataPlotly</source>
         <translation>DataPlotly</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1210"/>
+        <location filename="../gui/plot_settings_widget.py" line="1269"/>
         <source>Plot saved to &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</source>
         <translation>Grafico salvato in &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1229"/>
+        <location filename="../gui/plot_settings_widget.py" line="1288"/>
         <source>Saved plot to &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</source>
         <translation>Grafico salvato in &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1346"/>
+        <location filename="../gui/plot_settings_widget.py" line="1405"/>
         <source>Load Configuration</source>
         <translation>Carica configurazione</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1353"/>
+        <location filename="../gui/plot_settings_widget.py" line="1412"/>
         <source>Could not read settings from file</source>
         <translation>Impossibile leggere il file</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1359"/>
+        <location filename="../gui/plot_settings_widget.py" line="1418"/>
         <source>Save Configuration</source>
         <translation>Salva configurazione</translation>
     </message>
     <message>
-        <location filename="../gui/plot_settings_widget.py" line="1364"/>
+        <location filename="../gui/plot_settings_widget.py" line="1423"/>
         <source>Saved configuration to &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</source>
         <translation>Configurazione salvata in &lt;a href=&quot;{}&quot;&gt;{}&lt;/a&gt;</translation>
     </message>
