@@ -50,7 +50,8 @@ class PlotLayoutItem(QgsLayoutItem):
     def __init__(self, layout):
         super().__init__(layout)
         self.setCacheMode(QGraphicsItem.NoCache)
-        self.plot_settings = PlotSettings()
+        self.plot_settings = []
+        self.plot_settings.append(PlotSettings())
         self.linked_map_uuid = ''
         self.linked_map = None
 
@@ -116,13 +117,30 @@ class PlotLayoutItem(QgsLayoutItem):
             pass
         self.linked_map = None
 
-    def set_plot_settings(self, settings):
+    def add_plot(self):
+        """
+        Adds a new plot to the item
+        """
+        print('plot_layout_item.add_plot')
+        plot_setting = PlotSettings()
+        self.plot_settings.append(plot_setting)
+        return plot_setting
+
+    def remove_plot(self, index):
+        """
+        Removes a plot from the item
+        """
+        print('plot_layout_item.remove_plot')
+        return self.plot_settings.pop(index)
+
+    def set_plot_settings(self, plot_id, settings):
         """
         Sets the plot settings to show in the item
         """
-        self.plot_settings = settings
-        self.html_loaded = False
-        self.invalidateCache()
+        if plot_id < len(self.plot_settings):
+            self.plot_settings[plot_id] = settings
+            self.html_loaded = False
+            self.invalidateCache()
 
     def draw(self, context):
         if not self.html_loaded:
@@ -139,20 +157,39 @@ class PlotLayoutItem(QgsLayoutItem):
         painter.restore()
 
     def create_plot(self):
+        print('plot_layout_item.create_plot')
         if self.linked_map and self.filter_by_map:
             polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
                                           self.linked_map.crs())
-            self.plot_settings.properties['visible_features_only'] = True
+            visible_features_only = True
         elif self.filter_by_atlas and self.layout().reportContext().layer() and self.layout().reportContext().feature().isValid():
             polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
-            self.plot_settings.properties['visible_features_only'] = True
+            visible_features_only = True
         else:
             polygon_filter = None
-            self.plot_settings.properties['visible_features_only'] = False
+            visible_features_only = False
 
-        factory = PlotFactory(self.plot_settings, self, polygon_filter=polygon_filter)
         config = {'displayModeBar': False, 'staticPlot': True}
-        return factory.build_html(config)
+
+        if len(self.plot_settings) == 1:
+            plot_factory = PlotFactory(self.plot_settings[0], self, polygon_filter=polygon_filter)
+            self.plot_settings[0].properties['visible_features_only'] = visible_features_only
+            return plot_factory.build_html(config)
+
+        # to plot many plots in the same figure
+        elif len(self.plot_settings) > 1:
+            # plot list ready to be called within go.Figure
+            pl = []
+            plot_factory = PlotFactory(self.plot_settings[0], self, polygon_filter=polygon_filter)
+
+            for plot_setting in self.plot_settings:
+                plot_setting.properties['visible_features_only'] = visible_features_only
+                factory = PlotFactory(plot_setting, self, polygon_filter=polygon_filter)
+                pl.append(factory.trace[0])
+
+            plot_path = plot_factory.build_figures(self.plot_settings[0].plot_type, pl, config=config)
+            with open(plot_path, 'r') as myfile:
+                return myfile.read()
 
     def load_content(self):
         self.html_loaded = False
@@ -161,15 +198,36 @@ class PlotLayoutItem(QgsLayoutItem):
                                             self.rect().height() * self.html_units_to_layout_units))
         self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
 
-    def writePropertiesToElement(self, element, document, _):
-        element.appendChild(self.plot_settings.write_xml(document))
+    def writePropertiesToElement(self, element, document, _) -> bool:
+        print('plot_layout_item.writePropertiesToElement')
+        for plot_setting in self.plot_settings:
+            element.appendChild(plot_setting.write_xml(document))
         element.setAttribute('filter_by_map', 1 if self.filter_by_map else 0)
         element.setAttribute('filter_by_atlas', 1 if self.filter_by_atlas else 0)
         element.setAttribute('linked_map', self.linked_map.uuid() if self.linked_map else '')
         return True
 
-    def readPropertiesFromElement(self, element, document, context):
-        res = self.plot_settings.read_xml(element.firstChildElement('Option'))
+    def readPropertiesFromElement(self, element, document, context) -> bool:
+        print('plot_layout_item.readPropertiesFromElement')
+        self.plot_settings = []
+        # Read first plot
+        print('Read first plot')
+        child = element.firstChildElement('Option')
+        # plot_setting = self.add_plot()
+        # reading_result = plot_setting.read_xml(child)
+        # print("reading_result of first plot " + str(reading_result))
+
+        # Read other plots
+        reading_result = True
+        while reading_result:
+            if child.isNull():
+                print('no plots remaining')
+                break
+            print('Read next plot')
+            plot_setting = self.add_plot()
+            reading_result = plot_setting.read_xml(child)
+
+            child = child.nextSiblingElement('Option')
 
         self.filter_by_map = bool(int(element.attribute('filter_by_map', '0')))
         self.filter_by_atlas = bool(int(element.attribute('filter_by_atlas', '0')))
@@ -178,7 +236,7 @@ class PlotLayoutItem(QgsLayoutItem):
 
         self.html_loaded = False
         self.invalidateCache()
-        return res
+        return reading_result
 
     def finalizeRestoreFromXml(self):
         # has to happen after ALL items have been restored
