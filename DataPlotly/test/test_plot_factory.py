@@ -10,6 +10,8 @@
 
 import unittest
 import os
+import re
+import json
 from qgis.core import (
     QgsProject,
     QgsVectorLayer,
@@ -22,6 +24,10 @@ from qgis.core import (
     QgsProperty
 )
 from qgis.PyQt.QtTest import QSignalSpy
+from qgis.PyQt.QtCore import (
+    QDate,
+    QDateTime
+)
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_factory import PlotFactory
 
@@ -628,6 +634,43 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(factory.settings.data_defined_x_max, 10)
         self.assertEqual(factory.settings.data_defined_y_min, -10)
         self.assertEqual(factory.settings.data_defined_y_max, 10)
+
+    def test_dates(self):  # pylint: disable=too-many-statements
+        """
+        Test handling of dates
+        """
+        # default plot settings
+        settings = PlotSettings('scatter')
+
+        # no source layer, fixed values must be used
+        settings.source_layer_id = ''
+        settings.x = [QDate(2020,1,1), QDate(2020,2,1), QDate(2020,3,1)]
+        settings.y = [4, 5, 6]
+        factory = PlotFactory(settings)
+
+        # Build the HTML/JavaScript for the plot
+        plot_html = factory.build_html({})
+
+        # Find the plot specification in the HTML
+        match = re.search(r'\[.*\]', plot_html)
+        plot_dictionary = json.loads(match.group(0))[0]
+
+        self.assertEqual(plot_dictionary['x'], ["2020-01-01", "2020-02-01", "2020-03-01"])
+        self.assertEqual(plot_dictionary['y'], [4, 5, 6])
+
+        settings.x = [QDateTime(2020,1,1,11,21), QDateTime(2020,2,1,0,15), QDateTime(2020,3,1,17,23,11)]
+        settings.y = [4, 5, 6]
+        factory = PlotFactory(settings)
+
+        # Build the HTML/JavaScript for the plot
+        plot_html = factory.build_html({})
+
+        # Find the plot specification in the HTML
+        match = re.search(r'\[.*\]', plot_html)
+        plot_dictionary = json.loads(match.group(0))[0]
+
+        self.assertEqual(plot_dictionary['x'], ["2020-01-01 11:21:00", "2020-02-01 00:15:00", "2020-03-01 17:23:11"])
+        self.assertEqual(plot_dictionary['y'], [4, 5, 6])
 
 
 if __name__ == "__main__":
