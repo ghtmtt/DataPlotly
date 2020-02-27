@@ -43,25 +43,25 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
         plot_tools_layout = QHBoxLayout()
 
-        self.plot_add_button = QPushButton(self.tr('Add Plot'))
-        self.plot_add_button.setToolTip('Add a new plot')
-        plot_tools_layout.addWidget(self.plot_add_button)
-        self.plot_add_button.clicked.connect(self.add_plot)
+        plot_add_button = QPushButton(self.tr('Add Plot'))
+        plot_add_button.setToolTip('Add a new plot')
+        plot_tools_layout.addWidget(plot_add_button)
+        plot_add_button.clicked.connect(self.add_plot)
 
-        self.plot_remove_button = QPushButton(self.tr('Remove Plot'))
-        self.plot_add_button.setToolTip('Remove selected plot')
-        plot_tools_layout.addWidget(self.plot_remove_button)
-        self.plot_remove_button.clicked.connect(self.remove_plot)
+        plot_remove_button = QPushButton(self.tr('Remove Plot'))
+        plot_remove_button.setToolTip('Remove selected plot')
+        plot_tools_layout.addWidget(plot_remove_button)
+        plot_remove_button.clicked.connect(self.remove_plot)
 
-        self.plot_move_up_button = QPushButton(self.tr('Move Up'))
-        self.plot_add_button.setToolTip('Move selected plot up')
-        plot_tools_layout.addWidget(self.plot_move_up_button)
-        self.plot_move_up_button.clicked.connect(self.move_up_plot)
+        plot_move_up_button = QPushButton(self.tr('Move Up'))
+        plot_move_up_button.setToolTip('Move selected plot up')
+        plot_tools_layout.addWidget(plot_move_up_button)
+        plot_move_up_button.clicked.connect(self.move_up_plot)
 
-        self.plot_move_down_button = QPushButton(self.tr('Move Down'))
-        self.plot_add_button.setToolTip('Move selected plot down')
-        plot_tools_layout.addWidget(self.plot_move_down_button)
-        self.plot_move_down_button.clicked.connect(self.move_down_plot)
+        plot_move_down_button = QPushButton(self.tr('Move Down'))
+        plot_move_down_button.setToolTip('Move selected plot down')
+        plot_tools_layout.addWidget(plot_move_down_button)
+        plot_move_down_button.clicked.connect(self.move_down_plot)
 
         vl.addLayout(plot_tools_layout)
 
@@ -70,9 +70,9 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         vl.addWidget(self.plot_list)
         self.populate_plot_list()
 
-        self.plot_properties_button = QPushButton(self.tr('Setup Selected Plot'))
-        vl.addWidget(self.plot_properties_button)
-        self.plot_properties_button.clicked.connect(self.show_properties)
+        plot_properties_button = QPushButton(self.tr('Setup Selected Plot'))
+        vl.addWidget(plot_properties_button)
+        plot_properties_button.clicked.connect(self.show_properties)
 
         self.panel = None
         self.setPanelTitle(self.tr('Plot Properties'))
