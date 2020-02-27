@@ -81,6 +81,9 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.setLayout(vl)
 
     def populate_plot_list(self):
+        """
+        Clears and re-populates the plot list widget. The currently selection is retained
+        """
         selected_index = self.plot_list.currentRow()
         self.plot_list.clear()
         for setting in self.plot_item.plot_settings:
@@ -93,17 +96,26 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.plot_list.setCurrentRow(selected_index, QItemSelectionModel.SelectCurrent)
 
     def add_plot(self):
+        """
+         Adds a new plot and updates the plot list and the plot item
+        """
         self.plot_item.add_plot()
         self.populate_plot_list()
         self.plot_item.refresh()
 
     def remove_plot(self):
+        """
+        Removes the selected plot and updates the plot list and the plot item
+        """
         index = self.plot_list.currentRow()
         self.plot_item.remove_plot(index)
         self.populate_plot_list()
         self.plot_item.refresh()
 
     def move_up_plot(self):
+        """
+        Moves the selected plot up and updates the plot list and the plot item
+        """
         selected_index = self.plot_list.currentRow()
         if selected_index > 0:
             item = self.plot_item.plot_settings.pop(selected_index)
@@ -113,6 +125,9 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
             self.plot_item.refresh()
 
     def move_down_plot(self):
+        """
+        Moves the selected plot down and updates the plot list and the plot item
+        """
         selected_index = self.plot_list.currentRow()
         if selected_index < len(self.plot_item.plot_settings) - 1:
             item = self.plot_item.plot_settings.pop(selected_index)
