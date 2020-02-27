@@ -107,10 +107,11 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         """
         Removes the selected plot and updates the plot list and the plot item
         """
-        index = self.plot_list.currentRow()
-        self.plot_item.remove_plot(index)
-        self.populate_plot_list()
-        self.plot_item.refresh()
+        selected_plot_index = self.plot_list.currentRow()
+        if selected_plot_index >= 0:
+            self.plot_item.remove_plot(selected_plot_index)
+            self.populate_plot_list()
+            self.plot_item.refresh()
 
     def move_up_plot(self):
         """
@@ -140,36 +141,38 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         """
         Shows the plot properties panel
         """
-        self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT, message_bar=self.message_bar)
+        selected_plot_index = self.plot_list.currentRow()
+        if selected_plot_index >= 0:
+            self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT, message_bar=self.message_bar)
 
-        # not quite right -- we ideally want to also add the source layer scope into the context given by plot item,
-        # but that causes a hard lock in the Python GIL (because PyQt doesn't release the GIL when creating the menu
-        # for the property override buttons). Nothing much we can do about that here (or in QGIS,
-        # it's a Python/PyQt limitation)
-        self.panel.registerExpressionContextGenerator(self.plot_item)
-        self.panel.set_print_layout(self.plot_item.layout())
+            # not quite right -- we ideally want to also add the source layer scope into the context given by plot item,
+            # but that causes a hard lock in the Python GIL (because PyQt doesn't release the GIL when creating the menu
+            # for the property override buttons). Nothing much we can do about that here (or in QGIS,
+            # it's a Python/PyQt limitation)
+            self.panel.registerExpressionContextGenerator(self.plot_item)
+            self.panel.set_print_layout(self.plot_item.layout())
 
-        self.panel.linked_map_combo.blockSignals(True)
-        self.panel.linked_map_combo.setItem(self.plot_item.linked_map)
-        self.panel.linked_map_combo.blockSignals(False)
+            self.panel.linked_map_combo.blockSignals(True)
+            self.panel.linked_map_combo.setItem(self.plot_item.linked_map)
+            self.panel.linked_map_combo.blockSignals(False)
 
-        self.panel.filter_by_map_check.toggled.connect(self.filter_by_map_toggled)
-        self.panel.filter_by_atlas_check.toggled.connect(self.filter_by_atlas_toggled)
-        self.panel.linked_map_combo.itemChanged.connect(self.linked_map_changed)
+            self.panel.filter_by_map_check.toggled.connect(self.filter_by_map_toggled)
+            self.panel.filter_by_atlas_check.toggled.connect(self.filter_by_atlas_toggled)
+            self.panel.linked_map_combo.itemChanged.connect(self.linked_map_changed)
 
-        self.panel.filter_by_map_check.blockSignals(True)
-        self.panel.filter_by_map_check.setChecked(self.plot_item.filter_by_map)
-        self.panel.filter_by_map_check.blockSignals(False)
+            self.panel.filter_by_map_check.blockSignals(True)
+            self.panel.filter_by_map_check.setChecked(self.plot_item.filter_by_map)
+            self.panel.filter_by_map_check.blockSignals(False)
 
-        self.panel.filter_by_atlas_check.blockSignals(True)
-        self.panel.filter_by_atlas_check.setChecked(self.plot_item.filter_by_atlas)
-        self.panel.filter_by_atlas_check.blockSignals(False)
+            self.panel.filter_by_atlas_check.blockSignals(True)
+            self.panel.filter_by_atlas_check.setChecked(self.plot_item.filter_by_atlas)
+            self.panel.filter_by_atlas_check.blockSignals(False)
 
-        self.panel.set_settings(self.plot_item.plot_settings[self.plot_list.currentRow()])
-        # self.panel.set_settings(self.layoutItem().plot_settings)
-        self.openPanel(self.panel)
-        self.panel.widgetChanged.connect(self.update_item_settings)
-        self.panel.panelAccepted.connect(self.set_item_settings)
+            self.panel.set_settings(self.plot_item.plot_settings[selected_plot_index])
+            # self.panel.set_settings(self.layoutItem().plot_settings)
+            self.openPanel(self.panel)
+            self.panel.widgetChanged.connect(self.update_item_settings)
+            self.panel.panelAccepted.connect(self.set_item_settings)
 
     def update_item_settings(self):
         """
