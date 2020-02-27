@@ -121,7 +121,6 @@ class PlotLayoutItem(QgsLayoutItem):
         """
         Adds a new plot to the item
         """
-        print('plot_layout_item.add_plot')
         plot_setting = PlotSettings()
         self.plot_settings.append(plot_setting)
         return plot_setting
@@ -130,7 +129,6 @@ class PlotLayoutItem(QgsLayoutItem):
         """
         Removes a plot from the item
         """
-        print('plot_layout_item.remove_plot')
         return self.plot_settings.pop(index)
 
     def set_plot_settings(self, plot_id, settings):
@@ -157,7 +155,6 @@ class PlotLayoutItem(QgsLayoutItem):
         painter.restore()
 
     def create_plot(self):
-        print('plot_layout_item.create_plot')
         if self.linked_map and self.filter_by_map:
             polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
                                           self.linked_map.crs())
@@ -199,7 +196,6 @@ class PlotLayoutItem(QgsLayoutItem):
         self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
 
     def writePropertiesToElement(self, element, document, _) -> bool:
-        print('plot_layout_item.writePropertiesToElement')
         for plot_setting in self.plot_settings:
             element.appendChild(plot_setting.write_xml(document))
         element.setAttribute('filter_by_map', 1 if self.filter_by_map else 0)
@@ -208,22 +204,13 @@ class PlotLayoutItem(QgsLayoutItem):
         return True
 
     def readPropertiesFromElement(self, element, document, context) -> bool:
-        print('plot_layout_item.readPropertiesFromElement')
         self.plot_settings = []
-        # Read first plot
-        print('Read first plot')
-        child = element.firstChildElement('Option')
-        # plot_setting = self.add_plot()
-        # reading_result = plot_setting.read_xml(child)
-        # print("reading_result of first plot " + str(reading_result))
 
-        # Read other plots
+        child = element.firstChildElement('Option')
         reading_result = True
         while reading_result:
             if child.isNull():
-                print('no plots remaining')
                 break
-            print('Read next plot')
             plot_setting = self.add_plot()
             reading_result = plot_setting.read_xml(child)
 

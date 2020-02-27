@@ -84,19 +84,15 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         selected_index = self.plot_list.currentRow()
         self.plot_list.clear()
         for setting in self.plot_item.plot_settings:
-            print("Add plot settings list item")
             plot_type = setting.plot_type + ' ' if setting.plot_type is not None else '(not set)'
             legend_title = setting.properties.get('name', '')
             self.plot_list.addItem(plot_type + ' [' + legend_title + ']')
 
-        print("A " + str(selected_index))
         # select index within range [0, len(plot_settings)-1]
         selected_index = max(0, min(len(self.plot_item.plot_settings) - 1, selected_index))
-        print("B " + str(selected_index))
         self.plot_list.setCurrentRow(selected_index, QItemSelectionModel.SelectCurrent)
 
     def add_plot(self):
-        print('layout_item_plot.add_plot')
         self.plot_item.add_plot()
         self.populate_plot_list()
         self.plot_item.refresh()
@@ -208,7 +204,6 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         if item.type() != ITEM_TYPE:
             return False
 
-        print('layout_item_gui.setNewItem()')
         self.plot_item = item
         self.item_properties_widget.setItem(item)
         self.populate_plot_list()
