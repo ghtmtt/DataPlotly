@@ -87,9 +87,10 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         selected_index = self.plot_list.currentRow()
         self.plot_list.clear()
         for setting in self.plot_item.plot_settings:
-            plot_type = setting.plot_type + ' ' if setting.plot_type is not None else '(not set)'
-            legend_title = setting.properties.get('name', '')
-            self.plot_list.addItem(plot_type + ' [' + legend_title + ']')
+            plot_type = setting.plot_type if setting.plot_type is not None else '(not set)'
+            legend_title = ('[' + setting.properties.get('name') + ']') \
+                if setting.properties.get('name', '') != '' else ''
+            self.plot_list.addItem(plot_type + ' ' + legend_title)
 
         # select index within range [0, len(plot_settings)-1]
         selected_index = max(0, min(len(self.plot_item.plot_settings) - 1, selected_index))
@@ -107,72 +108,80 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         """
         Removes the selected plot and updates the plot list and the plot item
         """
-        selected_plot_index = self.plot_list.currentRow()
-        if selected_plot_index >= 0:
-            self.plot_item.remove_plot(selected_plot_index)
-            self.populate_plot_list()
-            self.plot_item.refresh()
+        selected_index = self.plot_list.currentRow()
+        if selected_index < 0:
+            return
+
+        self.plot_item.remove_plot(selected_index)
+        self.populate_plot_list()
+        self.plot_item.refresh()
 
     def move_up_plot(self):
         """
         Moves the selected plot up and updates the plot list and the plot item
         """
         selected_index = self.plot_list.currentRow()
-        if selected_index > 0:
-            item = self.plot_item.plot_settings.pop(selected_index)
-            self.plot_item.plot_settings.insert(selected_index - 1, item)
-            self.plot_list.setCurrentRow(selected_index - 1, QItemSelectionModel.SelectCurrent)
-            self.populate_plot_list()
-            self.plot_item.refresh()
+        if selected_index <= 0:
+            return
+
+        item = self.plot_item.plot_settings.pop(selected_index)
+        self.plot_item.plot_settings.insert(selected_index - 1, item)
+        self.plot_list.setCurrentRow(selected_index - 1, QItemSelectionModel.SelectCurrent)
+        self.populate_plot_list()
+        self.plot_item.refresh()
 
     def move_down_plot(self):
         """
         Moves the selected plot down and updates the plot list and the plot item
         """
         selected_index = self.plot_list.currentRow()
-        if selected_index < len(self.plot_item.plot_settings) - 1:
-            item = self.plot_item.plot_settings.pop(selected_index)
-            self.plot_item.plot_settings.insert(selected_index + 1, item)
-            self.plot_list.setCurrentRow(selected_index + 1, QItemSelectionModel.SelectCurrent)
-            self.populate_plot_list()
-            self.plot_item.refresh()
+        if selected_index >= len(self.plot_item.plot_settings) - 1:
+            return
+
+        item = self.plot_item.plot_settings.pop(selected_index)
+        self.plot_item.plot_settings.insert(selected_index + 1, item)
+        self.plot_list.setCurrentRow(selected_index + 1, QItemSelectionModel.SelectCurrent)
+        self.populate_plot_list()
+        self.plot_item.refresh()
 
     def show_properties(self):
         """
         Shows the plot properties panel
         """
         selected_plot_index = self.plot_list.currentRow()
-        if selected_plot_index >= 0:
-            self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT, message_bar=self.message_bar)
+        if selected_plot_index < 0:
+            return
 
-            # not quite right -- we ideally want to also add the source layer scope into the context given by plot item,
-            # but that causes a hard lock in the Python GIL (because PyQt doesn't release the GIL when creating the menu
-            # for the property override buttons). Nothing much we can do about that here (or in QGIS,
-            # it's a Python/PyQt limitation)
-            self.panel.registerExpressionContextGenerator(self.plot_item)
-            self.panel.set_print_layout(self.plot_item.layout())
+        self.panel = DataPlotlyPanelWidget(mode=DataPlotlyPanelWidget.MODE_LAYOUT, message_bar=self.message_bar)
 
-            self.panel.linked_map_combo.blockSignals(True)
-            self.panel.linked_map_combo.setItem(self.plot_item.linked_map)
-            self.panel.linked_map_combo.blockSignals(False)
+        # not quite right -- we ideally want to also add the source layer scope into the context given by plot item,
+        # but that causes a hard lock in the Python GIL (because PyQt doesn't release the GIL when creating the menu
+        # for the property override buttons). Nothing much we can do about that here (or in QGIS,
+        # it's a Python/PyQt limitation)
+        self.panel.registerExpressionContextGenerator(self.plot_item)
+        self.panel.set_print_layout(self.plot_item.layout())
 
-            self.panel.filter_by_map_check.toggled.connect(self.filter_by_map_toggled)
-            self.panel.filter_by_atlas_check.toggled.connect(self.filter_by_atlas_toggled)
-            self.panel.linked_map_combo.itemChanged.connect(self.linked_map_changed)
+        self.panel.linked_map_combo.blockSignals(True)
+        self.panel.linked_map_combo.setItem(self.plot_item.linked_map)
+        self.panel.linked_map_combo.blockSignals(False)
 
-            self.panel.filter_by_map_check.blockSignals(True)
-            self.panel.filter_by_map_check.setChecked(self.plot_item.filter_by_map)
-            self.panel.filter_by_map_check.blockSignals(False)
+        self.panel.filter_by_map_check.toggled.connect(self.filter_by_map_toggled)
+        self.panel.filter_by_atlas_check.toggled.connect(self.filter_by_atlas_toggled)
+        self.panel.linked_map_combo.itemChanged.connect(self.linked_map_changed)
 
-            self.panel.filter_by_atlas_check.blockSignals(True)
-            self.panel.filter_by_atlas_check.setChecked(self.plot_item.filter_by_atlas)
-            self.panel.filter_by_atlas_check.blockSignals(False)
+        self.panel.filter_by_map_check.blockSignals(True)
+        self.panel.filter_by_map_check.setChecked(self.plot_item.filter_by_map)
+        self.panel.filter_by_map_check.blockSignals(False)
 
-            self.panel.set_settings(self.plot_item.plot_settings[selected_plot_index])
-            # self.panel.set_settings(self.layoutItem().plot_settings)
-            self.openPanel(self.panel)
-            self.panel.widgetChanged.connect(self.update_item_settings)
-            self.panel.panelAccepted.connect(self.set_item_settings)
+        self.panel.filter_by_atlas_check.blockSignals(True)
+        self.panel.filter_by_atlas_check.setChecked(self.plot_item.filter_by_atlas)
+        self.panel.filter_by_atlas_check.blockSignals(False)
+
+        self.panel.set_settings(self.plot_item.plot_settings[selected_plot_index])
+        # self.panel.set_settings(self.layoutItem().plot_settings)
+        self.openPanel(self.panel)
+        self.panel.widgetChanged.connect(self.update_item_settings)
+        self.panel.panelAccepted.connect(self.set_item_settings)
 
     def update_item_settings(self):
         """
