@@ -235,7 +235,7 @@ QListWidget::item::selected {
                   </spacer>
                  </item>
                  <item row="1" column="0">
-                  <widget class="QgsCollapsibleGroupBox" name="mGroupBox_2">
+                  <widget class="QgsCollapsibleGroupBox" name="properties_group_box">
                    <property name="title">
                     <string>Properties</string>
                    </property>

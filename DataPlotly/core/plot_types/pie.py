@@ -36,6 +36,9 @@ class PieChartFactory(PlotType):
         return [graph_objs.Pie(
                 labels=settings.x,
                 values=settings.y,
+                marker=dict(
+                    colors=settings.data_defined_colors if settings.data_defined_colors else [settings.properties['in_color']]
+                ),
                 name=settings.properties['custom'][0],
             )]
 

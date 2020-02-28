@@ -186,7 +186,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
         self.marker_type_combo.currentIndexChanged.connect(self.refreshWidgets3)
 
-        self.mGroupBox_2.collapsedStateChanged.connect(self.refreshWidgets)
+        self.properties_group_box.collapsedStateChanged.connect(self.refreshWidgets)
 
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
@@ -380,8 +380,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         # if data defined button is active
         if self.in_color_defined_button.isActive():
-            # if plot is scatter or bar
-            if self.ptype == 'scatter' or self.ptype == 'bar' or self.ptype == 'ternary':
+            # if plot is type for which using an expression for the color selection makes sense
+            if self.ptype in ['scatter', 'bar', 'pie', 'ternary', 'histogram']:
                 self.in_color_combo.setEnabled(False)
                 self.color_scale_data_defined_in.setVisible(True)
                 self.color_scale_data_defined_in.setEnabled(True)
@@ -391,7 +391,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 self.color_scale_data_defined_in_check.setEnabled(True)
                 self.color_scale_data_defined_in_invert_check.setVisible(True)
                 self.color_scale_data_defined_in_invert_check.setEnabled(True)
-            # if plot is not scatter or bar
+            # if plot is type for which using an expression for the color selection does not make sense
             else:
                 self.in_color_combo.setEnabled(True)
                 self.color_scale_data_defined_in.setVisible(False)
@@ -752,15 +752,15 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.z_combo: ['ternary'],
             self.info_label: ['scatter'],
             self.info_combo: ['scatter'],
-            self.in_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
-            self.in_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
-            self.in_color_defined_button: ['scatter', 'bar', 'ternary'],
-            self.color_scale_data_defined_in: ['scatter', 'bar', 'ternary'],
+            self.in_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
+            self.in_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
+            self.in_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'ternary'],
+            self.color_scale_data_defined_in: ['scatter', 'bar', 'pie', 'histogram', 'ternary'],
             self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
-            self.out_color_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
-            self.out_color_combo: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.out_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
+            self.out_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.stroke_defined_button: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
@@ -770,9 +770,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.marker_type_lab: ['scatter', 'polar'],
             self.marker_type_combo: ['scatter', 'polar'],
             self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
-            self.opacity_widget: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
-            self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram',
-                               'violin'],
+            self.opacity_widget: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
+            self.properties_group_box: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram',
+                                        'violin'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
             self.legend_label: ['all'],

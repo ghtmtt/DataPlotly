@@ -27,7 +27,8 @@ from qgis.core import (
     QgsExpressionContextGenerator,
     QgsReferencedGeometryBase,
     QgsGeometry,
-    QgsCsException
+    QgsCsException,
+    QgsSymbolLayerUtils
 )
 from qgis.PyQt.QtCore import (
     QUrl,
@@ -207,6 +208,12 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         else:
             it = self.source_layer.getFeatures(request)
 
+        # Some plot types don't draw individual glyphs for each feature, but aggregate them instead.
+        # In that case it doesn't make sense to evaluate expressions for settings like marker size or color for each
+        # feature. Instead, the evaluation should be executed only once for these settings.
+        aggregating = self.settings.plot_type in ['box', 'histogram']
+        executed = False
+
         xx = []
         yy = []
         zz = []
@@ -276,16 +283,42 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_STROKE_WIDTH,
                                                                                context, default_value)
                 stroke_widths.append(value)
-            if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_COLOR):
+
+            if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_COLOR) and (not aggregating or not executed):
                 default_value = QColor(self.settings.properties['in_color'])
-                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context,
-                                                                              default_value)
-                colors.append(value.name())
-            if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_STROKE_COLOR):
+                value, conversion_success = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_COLOR, context,
+                                                                                               default_value)
+                if conversion_success:
+                    # We were given a valid color specification, use that color
+                    colors.append(value.name())
+                else:
+                    try:
+                        # Attempt to interpret the value as a list of color specifications
+                        value_list = self.settings.data_defined_properties.value(PlotSettings.PROPERTY_COLOR, context)
+                        color_list = [QgsSymbolLayerUtils.decodeColor(item).name() for item in value_list]
+                        colors.extend(color_list)
+                    except TypeError:
+                        # Not a list of color specifications, use the default color instead
+                        colors.append(default_value.name())
+
+            if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_STROKE_COLOR) and (not aggregating or not executed):
                 default_value = QColor(self.settings.properties['out_color'])
-                value, _ = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_STROKE_COLOR,
-                                                                              context, default_value)
-                stroke_colors.append(value.name())
+                value, conversion_success = self.settings.data_defined_properties.valueAsColor(PlotSettings.PROPERTY_STROKE_COLOR, context,
+                                                                                               default_value)
+                if conversion_success:
+                    # We were given a valid color specification, use that color
+                    stroke_colors.append(value.name())
+                else:
+                    try:
+                        # Attempt to interpret the value as a list of color specifications
+                        value_list = self.settings.data_defined_properties.value(PlotSettings.PROPERTY_STROKE_COLOR, context)
+                        color_list = [QgsSymbolLayerUtils.decodeColor(item).name() for item in value_list]
+                        stroke_colors.extend(color_list)
+                    except TypeError:
+                        # Not a list of color specifications, use the default color instead
+                        stroke_colors.append(default_value.name())
+
+            executed = True
 
         self.settings.additional_hover_text = additional_hover_text
         self.settings.x = xx
