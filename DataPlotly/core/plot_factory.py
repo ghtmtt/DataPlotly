@@ -493,11 +493,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             // correct axis orientation
             if(data.points[i].data.orientation == 'v'){
                 dd["id"] = data.points[i].x
-                dd["bin_step"] = data.points[i].data.xbins.size
+                dd["bin_step"] = data.points[i].fullData.xbins.size
             }
             else {
                 dd["id"] = data.points[i].y
-                dd["bin_step"] = data.points[i].data.ybins.size
+                dd["bin_step"] = data.points[i].fullData.ybins.size
             }
         }
 
