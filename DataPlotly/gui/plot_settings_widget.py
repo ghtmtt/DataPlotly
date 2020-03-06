@@ -62,7 +62,8 @@ from qgis.core import (
     QgsReferencedRectangle,
     QgsExpressionContextGenerator,
     QgsPropertyCollection,
-    QgsLayoutItemRegistry
+    QgsLayoutItemRegistry,
+    QgsPropertyDefinition
 )
 from qgis.gui import (
     QgsPanelWidget,
@@ -702,6 +703,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.x_label.setFixedWidth(100)
             self.orientation_label.setText(self.tr('Box orientation'))
             self.in_color_lab.setText(self.tr('Box color'))
+            self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
 
         elif self.ptype in ('scatter', 'ternary', 'bar', '2dhistogram', 'contour', 'polar'):
             self.x_label.setText(self.tr('X field'))
@@ -712,6 +714,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             elif self.ptype == 'bar':
                 self.orientation_label.setText(self.tr('Bar orientation'))
                 self.in_color_lab.setText(self.tr('Bar color'))
+            self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
 
         elif self.ptype == 'pie':
             self.x_label.setText(self.tr('Grouping field'))
@@ -719,6 +722,26 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             ff.setPointSizeF(8.5)
             self.x_label.setFont(ff)
             self.x_label.setFixedWidth(80)
+            # Register button again with more specific help text
+            self.in_color_defined_button.init(
+                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                QgsPropertyDefinition(
+                    'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
+                    "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
+                    "or an array of such strings"
+                ), None, False
+            )
+
+        elif self.ptype == 'histogram':
+            # Register button again with more specific help text
+            self.in_color_defined_button.init(
+                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                QgsPropertyDefinition(
+                    'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
+                    "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
+                    "or an array of such strings"
+                ), None, False
+            )
 
         # info combo for data hovering
         self.info_combo.clear()
