@@ -726,6 +726,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.info_combo.addItem(self.tr('Y Values'), 'y')
         self.info_combo.addItem(self.tr('No Data'), 'none')
 
+        # label text position choice
+        self.combo_text_position.clear()
+        self.combo_text_position.addItem(self.tr('Automatic'), 'auto')
+        self.combo_text_position.addItem(self.tr('Inside bar'), 'inside')
+        self.combo_text_position.addItem(self.tr('Outside bar'), 'outside')
+
         # Violin side
         self.violinSideCombo.clear()
         self.violinSideCombo.addItem(self.tr('Both Sides'), 'both')
@@ -819,8 +825,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.range_slider_combo: ['scatter'],
             self.hist_norm_label: ['histogram'],
             self.hist_norm_combo: ['histogram'],
-            self.additional_info_label: ['scatter', 'ternary'],
-            self.additional_info_combo: ['scatter', 'ternary'],
+            self.additional_info_label: ['scatter', 'ternary', 'bar'],
+            self.additional_info_combo: ['scatter', 'ternary', 'bar'],
+            self.hover_as_text_check: ['scatter'],
+            self.label_text_position: ['bar'],
+            self.combo_text_position: ['bar'],
             self.cumulative_hist_check: ['histogram'],
             self.invert_hist_check: ['histogram'],
             self.bins_check: ['histogram'],
@@ -927,6 +936,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # dictionary of all the plot properties
         plot_properties = {'custom': [self.x_combo.currentText()],
                            'hover_text': self.info_combo.currentData(),
+                           'hover_label_text': '+text' if self.hover_as_text_check.isChecked() else '',
+                           'hover_label_position': self.combo_text_position.currentData(),
                            'x_name': self.x_combo.currentText(),
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
