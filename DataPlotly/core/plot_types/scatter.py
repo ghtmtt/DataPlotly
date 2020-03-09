@@ -36,7 +36,9 @@ class ScatterPlotFactory(PlotType):
         return [graph_objs.Scatter(
             x=settings.x,
             y=settings.y,
-            mode=settings.properties['marker'],
+            mode=settings.properties['marker'] +
+                settings.properties['hover_label_text'],
+            textposition="top center",
             name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
             ids=settings.feature_ids,
             customdata=settings.properties['custom'],
