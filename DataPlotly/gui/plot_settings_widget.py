@@ -762,7 +762,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.size_defined_button: ['scatter', 'ternary'],
             self.marker_type_lab: ['scatter', 'polar'],
             self.marker_type_combo: ['scatter', 'polar'],
-            self.opacity_widget: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
+            self.opacity_widget: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
             self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram',
                                'violin'],
             self.bar_mode_lab: ['bar', 'histogram'],
@@ -971,8 +972,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 'color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
             if self.ptype in self.widgetType[self.color_scale_data_defined_in]:
                 plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData()
-            else:
-                plot_properties['color_scale'] = self.color_scale_combo.currentData()
+        else:
+            plot_properties['color_scale'] = self.color_scale_combo.currentData()
 
         # add widgets properties to the dictionary
 
