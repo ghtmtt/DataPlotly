@@ -359,7 +359,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         layout = QgsPrintLayout(project)
         layout_name = "PrintLayout"
         layout.initializeDefaults()
-        layout.setname(layout_name)
+        layout.setName(layout_name)
         layout_plot = PlotLayoutItem(layout)
         layout.addLayoutItem(layout_plot)
         plot_dialog = PlotLayoutItemWidget(None, layout_plot)
