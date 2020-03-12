@@ -19,12 +19,15 @@ import os
 from qgis.core import (
     QgsProject,
     QgsVectorLayer,
-    QgsProperty
+    QgsProperty,
+    QgsPrintLayout
 )
 from qgis.PyQt.QtCore import QCoreApplication
 
 from DataPlotly.core.plot_settings import PlotSettings
+from DataPlotly.gui.layout_item_gui import PlotLayoutItemWidget
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
+from DataPlotly.layouts.plot_layout_item import PlotLayoutItem
 
 from DataPlotly.test.utilities import get_qgis_app
 
@@ -344,6 +347,69 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog.x_combo.currentText()
 
         self.assertTrue(dialog.x_combo.expression(), '"Ca"')
+
+    def test_read_write_project_with_layout(self):
+        """
+        Test saving/restoring dialog state of layout plot in project
+        """
+        print('read write project with layout test')
+
+        # create project and layout
+        project = QgsProject.instance()
+        layout = QgsPrintLayout(project)
+        layout_name = "PrintLayout"
+        layout.initializeDefaults()
+        layout.setname(layout_name)
+        layout_plot = PlotLayoutItem(layout)
+        layout.addLayoutItem(layout_plot)
+        plot_dialog = PlotLayoutItemWidget(None, layout_plot)
+
+        # add second plot
+        plot_dialog.add_plot()
+
+        # edit first plot
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        plot_property_panel.set_plot_type('violin')
+
+        # edit second plot
+        plot_dialog.plot_list.setCurrentRow(1)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        plot_property_panel.set_plot_type('bar')
+
+        path = os.path.join(tempfile.gettempdir(), 'test_dataplotly_project.qgs')
+
+        self.assertTrue(project.write(path))
+
+        project.clear()
+        for _ in range(100):
+            QCoreApplication.processEvents()
+
+        self.assertTrue(project.read(path))
+
+        # read layout
+        manager = project.layoutManager()
+        layouts_list = manager.printLayouts()
+        self.assertEqual(len(layouts_list), 1)
+        for layout in layouts_list:
+            self.assertEqual(layout.name(), layout_name)
+            if layout.name() == layout_name:
+                self.assertEqual(len(layout.items()), 1)
+                layout_plot = layout.items()[0]
+                self.assertEqual(len(layout_plot.plot_settings), 2)
+
+                # set and check first plot
+                plot_dialog = PlotLayoutItemWidget(None, layout_plot)
+                plot_dialog.show_properties()
+                plot_property_panel = plot_dialog.panel
+                self.assertEqual(plot_property_panel.ptype, 'violin')
+
+                # set and check second plot
+                plot_dialog.plot_list.setCurrentRow(1)
+                plot_dialog.show_properties()
+                plot_property_panel = plot_dialog.panel
+                self.assertEqual(plot_property_panel.ptype, 'bar')
 
 
 if __name__ == "__main__":
