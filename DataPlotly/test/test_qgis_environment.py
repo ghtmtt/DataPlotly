@@ -12,11 +12,9 @@ __date__ = '20/01/2011'
 __copyright__ = ('Copyright 2012, Australia Indonesia Facility for '
                  'Disaster Reduction')
 
-import os
 import unittest
 from qgis.core import (QgsProviderRegistry,
-                       QgsCoordinateReferenceSystem,
-                       QgsRasterLayer)
+                       QgsCoordinateReferenceSystem)
 from .utilities import get_qgis_app
 
 
@@ -46,13 +44,6 @@ class QGISTest(unittest.TestCase):
         crs.createFromWkt(wkt)
         auth_id = crs.authid()
         expected_auth_id = 'EPSG:4326'
-        self.assertEqual(auth_id, expected_auth_id)
-
-        # now test for a loaded layer
-        path = os.path.join(os.path.dirname(__file__), 'tenbytenraster.asc')
-        title = 'TestRaster'
-        layer = QgsRasterLayer(path, title)
-        auth_id = layer.crs().authid()
         self.assertEqual(auth_id, expected_auth_id)
 
 

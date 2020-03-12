@@ -37,17 +37,17 @@ from qgis.core import (
     QgsProcessingOutputHtml,
     QgsProcessingOutputFile,
     QgsSettings,
-    QgsFeatureRequest
+    QgsFeatureRequest,
+    QgsProcessingAlgorithm
 )
 
 from qgis.PyQt.QtCore import QCoreApplication
 
-from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
 
 
-class DataPlotlyProcessingPlot(QgisAlgorithm):
+class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
     """
     Create a simple plot with DataPlotly plugin
     """
