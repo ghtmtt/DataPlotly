@@ -33,11 +33,16 @@ class ScatterPlotFactory(PlotType):
 
     @staticmethod
     def create_trace(settings):
+
+        if settings.properties['hover_label_text'] is not None:
+            mode = settings.properties['marker'] + \
+                settings.properties['hover_label_text']
+        else:
+            mode = settings.properties['marker']
         return [graph_objs.Scatter(
             x=settings.x,
             y=settings.y,
-            mode=settings.properties['marker'] +
-                settings.properties['hover_label_text'],
+            mode=mode,
             textposition="top center",
             name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
             ids=settings.feature_ids,

@@ -69,6 +69,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'custom': None,
             'hover_text': None,
             'additional_hover_text': None,
+            'hover_label_text': None,
             'x_name': '',
             'y_name': '',
             'z_name': '',
