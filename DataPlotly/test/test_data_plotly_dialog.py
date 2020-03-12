@@ -63,7 +63,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(dialog.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
             if k in ['x', 'y', 'z', 'additional_hover_text', 'featureIds', 'featureBox', 'custom',
-                     'marker_size']:
+                     'marker_size', 'hover_text', 'hover_label_text']:
                 continue
 
             self.assertEqual(dialog.get_settings().properties[k], settings.properties[k])
