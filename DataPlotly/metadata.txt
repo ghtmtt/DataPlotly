@@ -25,6 +25,10 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 3.4
+  - [feature] get labels within the plot itself 
+  - [bugfix] Native datetime support! thanks @jdugge
+  - [bugfix] Fix histogram selection
   Version 3.3
   - [bugfix] better loading project part 2
   Version 3.2
