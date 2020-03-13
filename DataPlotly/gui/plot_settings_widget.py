@@ -937,7 +937,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # dictionary of all the plot properties
         plot_properties = {'custom': [self.x_combo.currentText()],
                            'hover_text': self.info_combo.currentData(),
-                           'hover_label_text': '+text' if self.hover_as_text_check.isChecked() else '',
+                           'hover_label_text': '+text' if self.hover_as_text_check.isChecked() else None,
                            'hover_label_position': self.combo_text_position.currentData(),
                            'x_name': self.x_combo.currentText(),
                            'y_name': self.y_combo.currentText(),
@@ -1077,6 +1077,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.z_axis_title.setText(settings.layout.get('z_title', ''))
         self.info_combo.setCurrentIndex(self.info_combo.findData(settings.properties.get('hover_text', None)))
         self.additional_info_combo.setExpression(settings.layout.get('additional_info_expression', ''))
+        self.hover_as_text_check.setChecked(settings.properties.get('hover_label_text') == '+text')
+        self.combo_text_position.setCurrentIndex(
+            self.combo_text_position.findData(settings.layout.get('hover_label_position', 'auto')))
         self.invert_x_check.setChecked(settings.layout.get('x_inv') == 'reversed')
         self.x_axis_mode_combo.setCurrentIndex(self.x_axis_mode_combo.findData(settings.layout.get('x_type', None)))
         self.invert_y_check.setChecked(settings.layout.get('y_inv') == 'reversed')
