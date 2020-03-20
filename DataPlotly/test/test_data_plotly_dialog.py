@@ -364,56 +364,58 @@ class DataPlotlyDialogTest(unittest.TestCase):
         manager = project.layoutManager()
         manager.addLayout(layout)
         layout_plot = PlotLayoutItem(layout)
+        plot_item_id = layout_plot.id()
+        self.assertEqual(len(layout_plot.plot_settings), 1)
+        # self.assertEqual(len(layout.items()), 0)
         layout.addLayoutItem(layout_plot)
+        # self.assertEqual(len(layout.items()), 1)
         plot_dialog = PlotLayoutItemWidget(None, layout_plot)
 
         # add second plot
         plot_dialog.add_plot()
+        self.assertEqual(len(layout_plot.plot_settings), 2)
 
         # edit first plot
+        plot_dialog.setDockMode(True)
         plot_dialog.show_properties()
         plot_property_panel = plot_dialog.panel
         plot_property_panel.set_plot_type('violin')
+        self.assertEqual(plot_property_panel.ptype, 'violin')
+        plot_property_panel.acceptPanel()
+        plot_property_panel.destroy()
 
         # edit second plot
         plot_dialog.plot_list.setCurrentRow(1)
         plot_dialog.show_properties()
         plot_property_panel = plot_dialog.panel
         plot_property_panel.set_plot_type('bar')
+        self.assertEqual(plot_property_panel.ptype, 'bar')
+        plot_property_panel.acceptPanel()
+        plot_property_panel.destroy()
 
+        # write xml
         xml_doc = QDomDocument('layout')
         element = manager.writeXml(xml_doc)
 
         layout_plot.remove_plot(0)
         self.assertEqual(len(layout_plot.plot_settings), 1)
-        plot_dialog = PlotLayoutItemWidget(None, layout_plot)
-        plot_dialog.show_properties()
-        plot_property_panel = plot_dialog.panel
-        self.assertEqual(plot_property_panel.ptype, 'bar')
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'bar')
 
         layout_plot.remove_plot(0)
         self.assertEqual(len(layout_plot.plot_settings), 0)
 
+        # read xml
         self.assertEqual(True, manager.readXml(element, xml_doc))
 
-        self.assertEqual(1, len(manager.layouts))
-        layout = manager.layouts[0]
-        self.assertEqual(len(layout.items()), 1)
-        layout_plot = layout.items()[0]
+        layout = manager.layoutByName(layout_name)
+        layout.itemById(plot_item_id)
+        # self.assertEqual(len(layout.items()), 1)
+        layout_plot = layout.itemById(plot_item_id)
 
         self.assertEqual(len(layout_plot.plot_settings), 2)
 
-        # set and check first plot
-        plot_dialog = PlotLayoutItemWidget(None, layout_plot)
-        plot_dialog.show_properties()
-        plot_property_panel = plot_dialog.panel
-        self.assertEqual(plot_property_panel.ptype, 'violin')
-
-        # set and check second plot
-        plot_dialog.plot_list.setCurrentRow(1)
-        plot_dialog.show_properties()
-        plot_property_panel = plot_dialog.panel
-        self.assertEqual(plot_property_panel.ptype, 'bar')
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
 
 
 if __name__ == "__main__":
