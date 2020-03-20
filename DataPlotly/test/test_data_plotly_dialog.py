@@ -23,6 +23,7 @@ from qgis.core import (
     QgsPrintLayout
 )
 from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtXml import QDomDocument
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.layout_item_gui import PlotLayoutItemWidget
@@ -360,6 +361,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         layout_name = "PrintLayout"
         layout.initializeDefaults()
         layout.setName(layout_name)
+        manager = project.layoutManager()
+        manager.addLayout(layout)
         layout_plot = PlotLayoutItem(layout)
         layout.addLayoutItem(layout_plot)
         plot_dialog = PlotLayoutItemWidget(None, layout_plot)
@@ -378,38 +381,39 @@ class DataPlotlyDialogTest(unittest.TestCase):
         plot_property_panel = plot_dialog.panel
         plot_property_panel.set_plot_type('bar')
 
-        path = os.path.join(tempfile.gettempdir(), 'test_dataplotly_project.qgs')
+        xml_doc = QDomDocument('layout')
+        element = manager.writeXml(xml_doc)
 
-        self.assertTrue(project.write(path))
+        layout_plot.remove_plot(0)
+        self.assertEqual(len(layout_plot.plot_settings), 1)
+        plot_dialog = PlotLayoutItemWidget(None, layout_plot)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        self.assertEqual(plot_property_panel.ptype, 'bar')
 
-        project.clear()
-        for _ in range(100):
-            QCoreApplication.processEvents()
+        layout_plot.remove_plot(0)
+        self.assertEqual(len(layout_plot.plot_settings), 0)
 
-        self.assertTrue(project.read(path))
+        self.assertEqual(True, manager.readXml(element, xml_doc))
 
-        # read layout
-        manager = project.layoutManager()
-        layouts_list = manager.printLayouts()
-        self.assertEqual(len(layouts_list), 1)
-        for layout in layouts_list:
-            self.assertEqual(layout.name(), layout_name)
-            if layout.name() == layout_name:
-                self.assertEqual(len(layout.items()), 1)
-                layout_plot = layout.items()[0]
-                self.assertEqual(len(layout_plot.plot_settings), 2)
+        self.assertEqual(1, len(manager.layouts))
+        layout = manager.layouts[0]
+        self.assertEqual(len(layout.items()), 1)
+        layout_plot = layout.items()[0]
 
-                # set and check first plot
-                plot_dialog = PlotLayoutItemWidget(None, layout_plot)
-                plot_dialog.show_properties()
-                plot_property_panel = plot_dialog.panel
-                self.assertEqual(plot_property_panel.ptype, 'violin')
+        self.assertEqual(len(layout_plot.plot_settings), 2)
 
-                # set and check second plot
-                plot_dialog.plot_list.setCurrentRow(1)
-                plot_dialog.show_properties()
-                plot_property_panel = plot_dialog.panel
-                self.assertEqual(plot_property_panel.ptype, 'bar')
+        # set and check first plot
+        plot_dialog = PlotLayoutItemWidget(None, layout_plot)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        self.assertEqual(plot_property_panel.ptype, 'violin')
+
+        # set and check second plot
+        plot_dialog.plot_list.setCurrentRow(1)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        self.assertEqual(plot_property_panel.ptype, 'bar')
 
 
 if __name__ == "__main__":
