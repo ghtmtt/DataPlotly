@@ -393,30 +393,6 @@ class DataPlotlyDialogTest(unittest.TestCase):
         plot_property_panel.acceptPanel()
         plot_property_panel.destroy()
 
-        # move up and down
-
-        # cannot move up first item
-        plot_dialog.plot_list.setCurrentRow(0)
-        plot_dialog.move_up_plot()
-        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
-        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
-        # move up second item
-        plot_dialog.plot_list.setCurrentRow(1)
-        plot_dialog.move_up_plot()
-        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'bar')
-        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'violin')
-
-        # cannot move down second item
-        plot_dialog.plot_list.setCurrentRow(1)
-        plot_dialog.move_down_plot()
-        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'bar')
-        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'violin')
-        # move down first item
-        plot_dialog.plot_list.setCurrentRow(0)
-        plot_dialog.move_down_plot()
-        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
-        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
-
         # write xml
 
         xml_doc = QDomDocument('layout')
@@ -439,6 +415,73 @@ class DataPlotlyDialogTest(unittest.TestCase):
         layout_plot = layout.itemById(plot_item_id)
 
         self.assertEqual(len(layout_plot.plot_settings), 2)
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
+
+    def test_move_chart_in_layout(self):
+        """
+        Test saving/restoring dialog state of layout plot in project
+        """
+        print('read write project with layout test')
+
+        # create project and layout
+        project = QgsProject.instance()
+        layout = QgsPrintLayout(project)
+        layout_name = "PrintLayout"
+        layout.initializeDefaults()
+        layout.setName(layout_name)
+        manager = project.layoutManager()
+        manager.addLayout(layout)
+        layout_plot = PlotLayoutItem(layout)
+        self.assertEqual(len(layout_plot.plot_settings), 1)
+        # self.assertEqual(len(layout.items()), 0)
+        layout.addLayoutItem(layout_plot)
+        # self.assertEqual(len(layout.items()), 1)
+        plot_dialog = PlotLayoutItemWidget(None, layout_plot)
+
+        # add second plot
+        plot_dialog.add_plot()
+        self.assertEqual(len(layout_plot.plot_settings), 2)
+
+        # edit first plot
+        plot_dialog.setDockMode(True)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        plot_property_panel.set_plot_type('violin')
+        self.assertEqual(plot_property_panel.ptype, 'violin')
+        plot_property_panel.acceptPanel()
+        plot_property_panel.destroy()
+
+        # edit second plot
+        plot_dialog.plot_list.setCurrentRow(1)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        plot_property_panel.set_plot_type('bar')
+        self.assertEqual(plot_property_panel.ptype, 'bar')
+        plot_property_panel.acceptPanel()
+        plot_property_panel.destroy()
+
+        # move up and down
+
+        # cannot move up first item
+        plot_dialog.plot_list.setCurrentRow(0)
+        plot_dialog.move_up_plot()
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
+        # move up second item
+        plot_dialog.plot_list.setCurrentRow(1)
+        plot_dialog.move_up_plot()
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'bar')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'violin')
+
+        # cannot move down second item
+        plot_dialog.plot_list.setCurrentRow(1)
+        plot_dialog.move_down_plot()
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'bar')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'violin')
+        # move down first item
+        plot_dialog.plot_list.setCurrentRow(0)
+        plot_dialog.move_down_plot()
         self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
         self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
 
