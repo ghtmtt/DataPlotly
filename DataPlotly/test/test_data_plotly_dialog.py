@@ -393,7 +393,32 @@ class DataPlotlyDialogTest(unittest.TestCase):
         plot_property_panel.acceptPanel()
         plot_property_panel.destroy()
 
+        # move up and down
+
+        # cannot move up first item
+        plot_dialog.plot_list.setCurrentRow(0)
+        plot_dialog.move_up_plot()
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
+        # move up second item
+        plot_dialog.plot_list.setCurrentRow(1)
+        plot_dialog.move_up_plot()
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'bar')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'violin')
+
+        # cannot move down second item
+        plot_dialog.plot_list.setCurrentRow(1)
+        plot_dialog.move_down_plot()
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'bar')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'violin')
+        # move down first item
+        plot_dialog.plot_list.setCurrentRow(0)
+        plot_dialog.move_down_plot()
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
+
         # write xml
+
         xml_doc = QDomDocument('layout')
         element = manager.writeXml(xml_doc)
 
@@ -405,6 +430,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(len(layout_plot.plot_settings), 0)
 
         # read xml
+
         self.assertEqual(True, manager.readXml(element, xml_doc))
 
         layout = manager.layoutByName(layout_name)
@@ -413,7 +439,6 @@ class DataPlotlyDialogTest(unittest.TestCase):
         layout_plot = layout.itemById(plot_item_id)
 
         self.assertEqual(len(layout_plot.plot_settings), 2)
-
         self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
         self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
 
