@@ -32,7 +32,12 @@ from qgis.core import (
 from qgis.PyQt.QtCore import (
     QUrl,
     QObject,
-    pyqtSignal
+    pyqtSignal,
+    QDate,
+    QDateTime
+)
+from qgis.PyQt.Qt import (
+    Qt
 )
 from qgis.PyQt.QtGui import QColor
 from DataPlotly.core.plot_settings import PlotSettings
@@ -79,6 +84,12 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     }
 
     plot_built = pyqtSignal()
+
+    # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
+    if not hasattr(QDate, 'isoformat'):
+        QDate.isoformat = lambda d: d.toString(Qt.ISODate)
+    if not hasattr(QDateTime, 'isoformat'):
+        QDateTime.isoformat = lambda d: d.toString(Qt.ISODate)
 
     def __init__(self, settings: PlotSettings = None, context_generator: QgsExpressionContextGenerator = None,
                  visible_region: QgsReferencedRectangle = None, polygon_filter: FilterRegion = None):
@@ -493,11 +504,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             // correct axis orientation
             if(data.points[i].data.orientation == 'v'){
                 dd["id"] = data.points[i].x
-                dd["bin_step"] = data.points[i].data.xbins.size
+                dd["bin_step"] = data.points[i].fullData.xbins.size
             }
             else {
                 dd["id"] = data.points[i].y
-                dd["bin_step"] = data.points[i].data.ybins.size
+                dd["bin_step"] = data.points[i].fullData.ybins.size
             }
         }
 

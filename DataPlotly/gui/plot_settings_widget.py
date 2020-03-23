@@ -726,6 +726,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.info_combo.addItem(self.tr('Y Values'), 'y')
         self.info_combo.addItem(self.tr('No Data'), 'none')
 
+        # label text position choice
+        self.combo_text_position.clear()
+        self.combo_text_position.addItem(self.tr('Automatic'), 'auto')
+        self.combo_text_position.addItem(self.tr('Inside bar'), 'inside')
+        self.combo_text_position.addItem(self.tr('Outside bar'), 'outside')
+
         # Violin side
         self.violinSideCombo.clear()
         self.violinSideCombo.addItem(self.tr('Both Sides'), 'both')
@@ -762,7 +768,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.size_defined_button: ['scatter', 'ternary'],
             self.marker_type_lab: ['scatter', 'polar'],
             self.marker_type_combo: ['scatter', 'polar'],
-            self.opacity_widget: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
+            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
+            self.opacity_widget: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
             self.mGroupBox_2: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram',
                                'violin'],
             self.bar_mode_lab: ['bar', 'histogram'],
@@ -819,8 +826,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.range_slider_combo: ['scatter'],
             self.hist_norm_label: ['histogram'],
             self.hist_norm_combo: ['histogram'],
-            self.additional_info_label: ['scatter', 'ternary'],
-            self.additional_info_combo: ['scatter', 'ternary'],
+            self.additional_info_label: ['scatter', 'ternary', 'bar'],
+            self.additional_info_combo: ['scatter', 'ternary', 'bar'],
+            self.hover_as_text_check: ['scatter'],
+            self.label_text_position: ['bar'],
+            self.combo_text_position: ['bar'],
             self.cumulative_hist_check: ['histogram'],
             self.invert_hist_check: ['histogram'],
             self.bins_check: ['histogram'],
@@ -927,6 +937,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # dictionary of all the plot properties
         plot_properties = {'custom': [self.x_combo.currentText()],
                            'hover_text': self.info_combo.currentData(),
+                           'hover_label_text': '+text' if self.hover_as_text_check.isChecked() else None,
+                           'hover_label_position': self.combo_text_position.currentData(),
                            'x_name': self.x_combo.currentText(),
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
@@ -971,8 +983,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 'color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
             if self.ptype in self.widgetType[self.color_scale_data_defined_in]:
                 plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData()
-            else:
-                plot_properties['color_scale'] = self.color_scale_combo.currentData()
+        else:
+            plot_properties['color_scale'] = self.color_scale_combo.currentData()
 
         # add widgets properties to the dictionary
 
@@ -1065,6 +1077,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.z_axis_title.setText(settings.layout.get('z_title', ''))
         self.info_combo.setCurrentIndex(self.info_combo.findData(settings.properties.get('hover_text', None)))
         self.additional_info_combo.setExpression(settings.layout.get('additional_info_expression', ''))
+        self.hover_as_text_check.setChecked(settings.properties.get('hover_label_text') == '+text')
+        self.combo_text_position.setCurrentIndex(
+            self.combo_text_position.findData(settings.layout.get('hover_label_position', 'auto')))
         self.invert_x_check.setChecked(settings.layout.get('x_inv') == 'reversed')
         self.x_axis_mode_combo.setCurrentIndex(self.x_axis_mode_combo.findData(settings.layout.get('x_type', None)))
         self.invert_y_check.setChecked(settings.layout.get('y_inv') == 'reversed')

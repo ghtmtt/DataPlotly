@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=3.3
+version=3.5
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,12 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 3.5
+  - [bugfix] Fix loading old projects
+  Version 3.4
+  - [feature] get labels within the plot itself 
+  - [bugfix] Native datetime support! thanks @jdugge
+  - [bugfix] Fix histogram selection
   Version 3.3
   - [bugfix] better loading project part 2
   Version 3.2

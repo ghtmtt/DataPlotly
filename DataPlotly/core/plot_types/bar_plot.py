@@ -48,6 +48,8 @@ class BarPlotFactory(PlotType):
         return [graph_objs.Bar(
             x=x,
             y=y,
+            text=settings.additional_hover_text,
+            textposition=settings.properties.get('hover_label_position'),
             name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
             ids=featureBox,
             customdata=settings.properties['custom'],
