@@ -358,11 +358,12 @@ class DataPlotlyDialogTest(unittest.TestCase):
         # create project and layout
         project = QgsProject.instance()
         layout = QgsPrintLayout(project)
-        layout_name = "PrintLayout"
+        layout_name = "PrintLayoutReadWrite"
         layout.initializeDefaults()
         layout.setName(layout_name)
         manager = project.layoutManager()
-        manager.addLayout(layout)
+        self.assertEqual(True, manager.addLayout(layout))
+        layout = manager.layoutByName(layout_name)
         layout_plot = PlotLayoutItem(layout)
         plot_item_id = layout_plot.id()
         self.assertEqual(len(layout_plot.plot_settings), 1)
@@ -418,20 +419,23 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
         self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
 
+        self.assertEqual(True, manager.removeLayout(layout))
+
     def test_move_chart_in_layout(self):
         """
-        Test saving/restoring dialog state of layout plot in project
+        Test moving charts in layout plot up and down
         """
-        print('read write project with layout test')
+        print('moving charts in layout plot up and down')
 
         # create project and layout
         project = QgsProject.instance()
         layout = QgsPrintLayout(project)
-        layout_name = "PrintLayout"
+        layout_name = "PrintLayoutMovingUpDown"
         layout.initializeDefaults()
         layout.setName(layout_name)
         manager = project.layoutManager()
-        manager.addLayout(layout)
+        self.assertEqual(True, manager.addLayout(layout))
+        layout = manager.layoutByName(layout_name)
         layout_plot = PlotLayoutItem(layout)
         self.assertEqual(len(layout_plot.plot_settings), 1)
         # self.assertEqual(len(layout.items()), 0)
@@ -484,6 +488,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         plot_dialog.move_down_plot()
         self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
         self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
+
+        self.assertEqual(True, manager.removeLayout(layout))
 
 
 if __name__ == "__main__":
