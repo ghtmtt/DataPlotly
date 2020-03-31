@@ -731,6 +731,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                     "or an array of such strings"
                 ), None, False
             )
+            self.in_color_defined_button.changed.connect(self._update_property)
 
         elif self.ptype == 'histogram':
             # Register button again with more specific help text
