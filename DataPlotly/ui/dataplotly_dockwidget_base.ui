@@ -43,7 +43,7 @@
      <item row="0" column="0">
       <widget class="QFrame" name="frame">
        <property name="styleSheet">
-        <string notr="true">QFrame{ background-color: rgb(69, 69, 69, 220) }</string>
+        <string notr="true">QFrame{ background-color: rgba(69, 69, 69, 220) }</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
@@ -83,7 +83,7 @@
           </property>
           <property name="styleSheet">
            <string notr="true">QListWidget{
-	background-color: rgb(69, 69, 69, 0);
+	background-color: rgba(69, 69, 69, 0);
 	outline: 0;
 }
 QListWidget::item {
