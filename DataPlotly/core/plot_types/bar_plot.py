@@ -51,7 +51,7 @@ class BarPlotFactory(PlotType):
             text=settings.additional_hover_text,
             textposition=settings.properties.get('hover_label_position'),
             name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
-            ids=featureBox,
+            ids=settings.feature_ids,
             customdata=settings.properties['custom'],
             orientation=settings.properties['box_orientation'],
             marker={'color': settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
