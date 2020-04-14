@@ -12,8 +12,6 @@ import os
 from plotly import graph_objs
 from qgis.PyQt.QtGui import QIcon
 from DataPlotly.core.plot_types.plot_type import PlotType
-from DataPlotly.utils import getSortedId
-
 
 class BarPlotFactory(PlotType):
     """
@@ -42,8 +40,6 @@ class BarPlotFactory(PlotType):
         else:
             x = settings.x
             y = settings.y
-
-        featureBox = getSortedId(None, settings.x)
 
         return [graph_objs.Bar(
             x=x,
