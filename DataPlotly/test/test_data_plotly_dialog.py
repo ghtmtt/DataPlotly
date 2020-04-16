@@ -20,7 +20,9 @@ from qgis.core import (
     QgsProject,
     QgsVectorLayer,
     QgsProperty,
-    QgsPrintLayout
+    QgsPrintLayout,
+    QgsReadWriteContext,
+    QgsApplication
 )
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtXml import QDomDocument
@@ -29,6 +31,7 @@ from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.layout_item_gui import PlotLayoutItemWidget
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 from DataPlotly.layouts.plot_layout_item import PlotLayoutItem
+from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
 
 from DataPlotly.test.utilities import get_qgis_app
 
@@ -41,6 +44,10 @@ class DataPlotlyDialogTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.read_triggered = False
+
+        self.plot_item_metadata = PlotLayoutItemMetadata()
+        self.plot_item_gui_metadata = None
+        QgsApplication.layoutItemRegistry().addLayoutItemType(self.plot_item_metadata)
 
     def test_get_settings(self):
         """
@@ -361,10 +368,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         layout_name = "PrintLayoutReadWrite"
         layout.initializeDefaults()
         layout.setName(layout_name)
-        manager = project.layoutManager()
-        self.assertEqual(True, manager.addLayout(layout))
-        layout = manager.layoutByName(layout_name)
         layout_plot = PlotLayoutItem(layout)
+        layout_plot.setId('plot_item')
         plot_item_id = layout_plot.id()
         self.assertEqual(len(layout_plot.plot_settings), 1)
         # self.assertEqual(len(layout.items()), 0)
@@ -397,7 +402,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         # write xml
 
         xml_doc = QDomDocument('layout')
-        element = manager.writeXml(xml_doc)
+        element = layout.writeXml(xml_doc, QgsReadWriteContext())
 
         layout_plot.remove_plot(0)
         self.assertEqual(len(layout_plot.plot_settings), 1)
@@ -407,19 +412,14 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(len(layout_plot.plot_settings), 0)
 
         # read xml
+        layout2 = QgsPrintLayout(project)
+        self.assertTrue(layout2.readXml(element, xml_doc, QgsReadWriteContext()))
+        layout_plot2 = layout2.itemById(plot_item_id)
+        self.assertTrue(layout_plot2)
 
-        self.assertEqual(True, manager.readXml(element, xml_doc))
-
-        layout = manager.layoutByName(layout_name)
-        layout.itemById(plot_item_id)
-        # self.assertEqual(len(layout.items()), 1)
-        layout_plot = layout.itemById(plot_item_id)
-
-        self.assertEqual(len(layout_plot.plot_settings), 2)
-        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
-        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
-
-        self.assertEqual(True, manager.removeLayout(layout))
+        self.assertEqual(len(layout_plot2.plot_settings), 2)
+        self.assertEqual(layout_plot2.plot_settings[0].plot_type, 'violin')
+        self.assertEqual(layout_plot2.plot_settings[1].plot_type, 'bar')
 
     def test_move_chart_in_layout(self):
         """
