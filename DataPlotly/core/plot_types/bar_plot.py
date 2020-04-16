@@ -43,8 +43,6 @@ class BarPlotFactory(PlotType):
             x = settings.x
             y = settings.y
 
-        featureBox = getSortedId(None, settings.x)
-
         return [graph_objs.Bar(
             x=x,
             y=y,
