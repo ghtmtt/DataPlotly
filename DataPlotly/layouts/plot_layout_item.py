@@ -144,6 +144,12 @@ class PlotLayoutItem(QgsLayoutItem):
         if not self.html_loaded:
             self.load_content()
 
+            if not self.layout().renderContext().isPreviewRender():
+                # this is NOT safe to do when rendering in the gui (i.e. a preview render), but for exports we have
+                # to loop around until the HTML has fully loaded
+                while not self.html_loaded:
+                    QCoreApplication.processEvents()
+
         # almost a direct copy from QgsLayoutItemLabel!
         painter = context.renderContext().painter()
         painter.save()
