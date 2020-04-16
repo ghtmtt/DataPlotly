@@ -112,7 +112,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         QgsProject.instance().writeProject.connect(self.write_project)
         QgsProject.instance().readProject.connect(self.read_project)
 
-        self.listWidget.setIconSize(self.iface.iconSize(False))
+        if self.iface is not None:
+            self.listWidget.setIconSize(self.iface.iconSize(False))
         self.listWidget.setMaximumWidth(int(self.listWidget.iconSize().width() * 1.18))
 
         # connect signal to function to reload the plot view
