@@ -722,6 +722,7 @@ class DataPlotlyFactory(unittest.TestCase):
                                                                 "#81bad8",
                                                                 "#2c7bb6"])
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyFactory)
     runner = unittest.TextTestRunner(verbosity=2)
