@@ -50,8 +50,8 @@ class BoxPlotFactory(PlotType):
             boxmean=settings.properties['box_stat'],
             orientation=settings.properties['box_orientation'],
             boxpoints=settings.properties['box_outliers'],
-            fillcolor=settings.properties['in_color'],
-            line={'color': settings.properties['out_color'],
-                  'width': settings.properties['marker_width']},
+            fillcolor=settings.data_defined_colors[0] if settings.data_defined_colors else settings.properties['in_color'],
+            line={'color': settings.data_defined_stroke_colors[0] if settings.data_defined_stroke_colors else settings.properties['out_color'],
+                  'width': settings.data_defined_stroke_widths[0] if settings.data_defined_stroke_widths else settings.properties['marker_width']},
             opacity=settings.properties['opacity']
         )]

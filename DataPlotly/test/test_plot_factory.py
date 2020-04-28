@@ -672,6 +672,56 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(plot_dictionary['x'], ["2020-01-01T11:21:00", "2020-02-01T00:15:00", "2020-03-01T17:23:11"])
         self.assertEqual(plot_dictionary['y'], [4, 5, 6])
 
+    def test_data_defined_histogram_color(self):
+        """
+        Test data defined stroke color
+        """
+        layer_path = os.path.join(
+            os.path.dirname(__file__), 'test_layer.geojson')
+
+        vl1 = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+        QgsProject.instance().addMapLayer(vl1)
+
+        settings = PlotSettings('histogram')
+        settings.source_layer_id = vl1.id()
+        settings.properties['x_name'] = 'so4'
+
+        factory = PlotFactory(settings)
+
+        self.assertEqual(factory.settings.x, [203, 151, 350, 137, 319, 329, 267, 88, 98, 84, 100, 627, 306, 513, 267,
+                                              457, 683, 791, 788, 265, 296, 680, 536, 1122, 632, 1055, 1322])
+        self.assertEqual(factory.settings.data_defined_colors, [])
+
+        class TestGenerator(QgsExpressionContextGenerator):  # pylint: disable=missing-docstring, too-few-public-methods
+
+            def createExpressionContext(self) -> QgsExpressionContext:  # pylint: disable=missing-docstring, no-self-use
+                context = QgsExpressionContext()
+                scope = QgsExpressionContextScope()
+                context.appendScope(scope)
+                context.appendScope(vl1.createExpressionContextScope())
+                return context
+
+        generator = TestGenerator()
+        settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_COLOR, QgsProperty.fromExpression(
+            """array('215,25,28,255',
+                     '241,124,74,255',
+                     '254,201,128,255',
+                     '255,255,191,255',
+                     '199,230,219,255',
+                     '129,186,216,255',
+                     '44,123,182,255')"""))
+        factory = PlotFactory(settings, context_generator=generator)
+        self.assertEqual(factory.settings.x, [203, 151, 350, 137, 319, 329, 267, 88, 98, 84, 100, 627, 306, 513, 267,
+                                              457, 683, 791, 788, 265, 296, 680, 536, 1122, 632, 1055, 1322])
+        self.assertEqual(factory.settings.y, [])
+        self.assertEqual(factory.settings.data_defined_colors, ["#d7191c",
+                                                                "#f17c4a",
+                                                                "#fec980",
+                                                                "#ffffbf",
+                                                                "#c7e6db",
+                                                                "#81bad8",
+                                                                "#2c7bb6"])
+
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyFactory)
