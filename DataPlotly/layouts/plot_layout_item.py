@@ -122,6 +122,7 @@ class PlotLayoutItem(QgsLayoutItem):
         Adds a new plot to the item
         """
         plot_setting = PlotSettings()
+        plot_setting.layout['bg_color'] = 'rgba(0,0,0,0)'
         self.plot_settings.append(plot_setting)
         return plot_setting
 
@@ -137,6 +138,7 @@ class PlotLayoutItem(QgsLayoutItem):
         """
         if plot_id < len(self.plot_settings):
             self.plot_settings[plot_id] = settings
+            self.plot_settings[plot_id].layout['bg_color'] = 'rgba(0,0,0,0)'
             self.html_loaded = False
             self.invalidateCache()
 
@@ -219,6 +221,9 @@ class PlotLayoutItem(QgsLayoutItem):
                 break
             plot_setting = self.add_plot()
             reading_result = plot_setting.read_xml(child)
+
+            # ensure layout plots from earlier versions always have transparent backgrounds
+            plot_setting.layout['bg_color'] = 'rgba(0,0,0,0)'
 
             child = child.nextSiblingElement('Option')
 

@@ -76,6 +76,8 @@ class PlotType:
                 settings.data_defined_y_max if settings.data_defined_y_max else settings.layout['y_max']
             ]
 
+        bg_color = settings.layout.get('bg_color', 'rgb(255,255,255)')
+
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
             legend={'orientation': settings.layout['legend_orientation']},
@@ -89,7 +91,9 @@ class PlotType:
                 'title': y_title,
                 'autorange': settings.layout['y_inv'],
                 'range': range_y
-            }
+            },
+            paper_bgcolor=bg_color,
+            plot_bgcolor=bg_color
         )
 
         # update the x and y axis and add the linear and log only if the data are numeric
