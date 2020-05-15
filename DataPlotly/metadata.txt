@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=3.7
+version=3.7.1
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -28,7 +28,6 @@ changelog=
   Version 3.7
   - [feature] histogram and pie chart bar and slices with same color of category! kudos to @jdugge
   - [feature] plot background transparent in layouts!
-changelog=
   Version 3.6
   - [feature] Multi Plot in layout composer! Ultra kudos to @SGroe
   - [bugfix] Fix layout composer issue with many plots (ref #207). Thanks to the Italian Community for testing
