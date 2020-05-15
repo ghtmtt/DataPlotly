@@ -60,7 +60,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     }
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
-                 source_layer_id=None):
+                 source_layer_id=None, source_layer_name=None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
         # plot properties
@@ -176,6 +176,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.data_defined_y_min = None
         self.data_defined_y_max = None
         self.source_layer_id = source_layer_id
+        self.source_layer_name = source_layer_name
 
     def write_xml(self, document: QDomDocument):
         """

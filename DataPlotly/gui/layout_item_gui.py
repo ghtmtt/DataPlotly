@@ -92,9 +92,11 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.plot_list.clear()
         for setting in self.plot_item.plot_settings:
             plot_type = setting.plot_type if setting.plot_type is not None else '(not set)'
-            legend_title = ('[' + setting.properties.get('name') + ']') \
-                if setting.properties.get('name', '') != '' else ''
-            self.plot_list.addItem(plot_type + ' ' + legend_title)
+            layer_name = ('- ' + setting.source_layer_name +
+                          ' -') if setting.source_layer_name is not None else ''
+            legend_title = ('[' + setting.properties.get('name') +
+                            ']') if setting.properties.get('name', '') != '' else ''
+            self.plot_list.addItem(f'{plot_type} {layer_name} {legend_title}')
 
         # select index within range [0, len(plot_settings)-1]
         selected_index = max(0, min(len(self.plot_item.plot_settings) - 1, selected_index))

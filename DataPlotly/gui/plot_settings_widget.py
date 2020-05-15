@@ -1036,7 +1036,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'bins_check': self.bins_check.isChecked()}
 
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
-                            source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None)
+                            source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None,
+                            source_layer_name=self.layer_combo.currentLayer().name() if self.layer_combo.currentLayer() else None)
         settings.data_defined_properties = self.data_defined_properties
         return settings
 
