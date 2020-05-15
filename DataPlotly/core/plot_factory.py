@@ -223,7 +223,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         stroke_colors = []
         stroke_widths = []
         for f in it:
-            if visible_geom_engine and not visible_geom_engine.intersects(f.geometry().constGet()):
+            if visible_geom_engine and not visible_geom_engine.within(f.geometry().constGet()):
                 continue
 
             self.settings.feature_ids.append(f.id())
