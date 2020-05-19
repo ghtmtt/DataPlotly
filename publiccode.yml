@@ -17,16 +17,15 @@ platforms:
 categories:
   - geographic-information-systems
   - data-analytics
-  - dataviz
-  - plots
+  - data-visualization 
 developmentStatus: stable
-softwareType: softwareAddon
+softwareType: addon 
 dependsOn:
   open:
     - name: QGIS
       versionMin: '3.4'
       versionMax: '3.99'
-      optional: 'no'
+      optional: no
 maintenance:
   type: internal
   contacts:
@@ -43,9 +42,8 @@ intendedAudience:
     - research
     - infrastructures
     - environment
-    - dataviz
 localisation:
-  localisationReady: 'yes'
+  localisationReady: yes
   availableLanguages:
     - en
     - it
