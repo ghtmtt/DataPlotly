@@ -1,0 +1,101 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+name: DataPlotly
+applicationSuite: QGIS
+url: 'https://github.com/ghtmtt/DataPlotly'
+landingURL: 'https://www.faunalia.eu/it/dev/dataplotly'
+softwareVersion: '3.7'
+releaseDate: '2017-09-14'
+logo: icon.svg
+platforms:
+  - linux
+  - windows
+  - mac
+categories:
+  - geographic-information-systems
+  - data-analytics
+  - dataviz
+  - plots
+developmentStatus: stable
+softwareType: softwareAddon
+dependsOn:
+  open:
+    - name: QGIS
+      versionMin: '3.4'
+      versionMax: '3.99'
+      optional: 'no'
+maintenance:
+  type: internal
+  contacts:
+    - name: Matteo Ghetta
+      email: matteo.ghetta@faunalia.eu
+      affiliation: Faunalia
+legal:
+  license: GPL-2.0
+  mainCopyrightOwner: Matteo Ghetta
+  repoOwner: Faunalia
+intendedAudience:
+  scope:
+    - science-and-technology
+    - research
+    - infrastructures
+    - environment
+    - dataviz
+localisation:
+  localisationReady: 'yes'
+  availableLanguages:
+    - en
+    - it
+    - sv
+    - nl
+    - es
+description:
+  en:
+    localisedName: DataPltoly
+    genericName: DataPltoly
+    shortDescription: >
+      DataPlotly is a QGIS plugin that allows the user to create interactive D3
+      like charts based on vector data.
+    longDescription: >
+      With the DataPlotly plugin for QGIS the user can create fully customized
+      and fully interactive D3 like charts withing QGIS itself. Currently 10
+      different charts are available (scatter plot, pie chart, bar plot, polar
+      plot, boxplot, contour plot, density chart, histogram, polar chart, violin
+      plot, ternary plot). The plugin is also available in the Layout and Report
+      composer in  order to enrich the cartographic export as a dataviz like
+      tool. Within
+       the Layout and Report composer it is also available in Atlas mode. 
+    documentation: 'https://dataplotly-docs.readthedocs.io/en/latest/'
+    features:
+      - qgis
+      - plotly
+      - dataviz
+      - python
+      - charts
+    screenshots:
+      - img/plot_scatter.png
+  it:
+    localisedName: DataPltoly
+    genericName: DataPltoly
+    shortDescription: >
+      DataPlotly è un plugin di QGIS che permette di creare grafici interattivi
+      in stile D3 di dati vettoriali.
+    longDescription: >
+      Con il plugin DatapPlotly per QGIS l'utente può creare grafici 
+      completamente personalizzabili e interettivi all'interno di QGIS. Al
+      momento sono disponibli 10 grafici diversi (diagramma a dispersione,
+      grafico a torta, diagramma a barre, diagramma polare, grafici a scatola e
+      baffi, grafici di densità, istogramma, grafico polare, grafico a  violino,
+      grafico ternario) con molte personalizzazioni disponibili. Il plugin è
+      abilitato anche nel Compositore di Stampe, ovvero è in grado di arricchire
+      l'esportazione cartografica con grafici, anche bastati su atlante.
+    documentation: 'https://dataplotly-docs.readthedocs.io/en/latest/'
+    features:
+      - qgis
+      - plotly
+      - dataviz
+      - python
+      - charts
