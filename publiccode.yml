@@ -8,7 +8,7 @@ applicationSuite: QGIS
 url: 'https://github.com/ghtmtt/DataPlotly'
 landingURL: 'https://www.faunalia.eu/it/dev/dataplotly'
 softwareVersion: '3.7'
-releaseDate: '2017-09-14'
+releaseDate: '2020-05-20'
 logo: DataPlotly/icons/dataplotly.svg
 platforms:
   - linux
