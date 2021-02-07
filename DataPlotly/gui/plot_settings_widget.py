@@ -999,7 +999,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'point_combo': self.point_combo.currentText(),
                            'line_combo': self.line_combo.currentText(),
                            'contour_type_combo': self.contour_type_combo.currentText(),
-                           'show_lines_check': self.show_lines_check.isChecked()
+                           'show_lines_check': self.show_lines_check.isChecked(),
+                           'layout_filter_by_map': self.filter_by_map_check.isChecked(),
+                           'layout_filter_by_atlas': self.filter_by_atlas_check.isChecked()
                            }
 
         if self.in_color_defined_button.isActive():

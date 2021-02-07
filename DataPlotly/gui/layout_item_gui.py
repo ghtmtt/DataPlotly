@@ -174,11 +174,13 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.panel.linked_map_combo.itemChanged.connect(self.linked_map_changed)
 
         self.panel.filter_by_map_check.blockSignals(True)
-        self.panel.filter_by_map_check.setChecked(self.plot_item.filter_by_map)
+        self.panel.filter_by_atlas_check.setChecked(
+            self.plot_item.plot_settings[selected_plot_index].properties.get('layout_filter_by_map', False))
         self.panel.filter_by_map_check.blockSignals(False)
 
         self.panel.filter_by_atlas_check.blockSignals(True)
-        self.panel.filter_by_atlas_check.setChecked(self.plot_item.filter_by_atlas)
+        self.panel.filter_by_atlas_check.setChecked(
+            self.plot_item.plot_settings[selected_plot_index].properties.get('layout_filter_by_atlas', False))
         self.panel.filter_by_atlas_check.blockSignals(False)
 
         self.panel.set_settings(self.plot_item.plot_settings[selected_plot_index])
@@ -214,14 +216,22 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         """
         Triggered when the filter by map option is toggled
         """
-        self.plot_item.filter_by_map = bool(value)
+        selected_plot_index = self.plot_list.currentRow()
+        if selected_plot_index < 0:
+            return
+
+        self.plot_item.plot_settings[selected_plot_index].properties['layout_filter_by_map'] = bool(value)
         self.plot_item.update()
 
     def filter_by_atlas_toggled(self, value):
         """
         Triggered when the filter by atlas option is toggled
         """
-        self.plot_item.filter_by_atlas = bool(value)
+        selected_plot_index = self.plot_list.currentRow()
+        if selected_plot_index < 0:
+            return
+
+        self.plot_item.plot_settings[selected_plot_index].properties['layout_filter_by_atlas'] = bool(value)
         self.plot_item.update()
 
     def linked_map_changed(self, linked_map):
@@ -244,10 +254,13 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
             self.panel.filter_by_map_check.blockSignals(True)
             self.panel.filter_by_map_check.setChecked(item.filter_by_map)
+            self.panel.filter_by_map_check.setChecked(
+                self.plot_item.plot_settings[0].properties.get('layout_filter_by_map', False))
             self.panel.filter_by_map_check.blockSignals(False)
 
             self.panel.filter_by_atlas_check.blockSignals(True)
-            self.panel.filter_by_atlas_check.setChecked(item.filter_by_atlas)
+            self.panel.filter_by_atlas_check.setChecked(
+                self.plot_item.plot_settings[0].properties.get('layout_filter_by_atlas', False))
             self.panel.filter_by_atlas_check.blockSignals(False)
 
             self.panel.linked_map_combo.blockSignals(True)
