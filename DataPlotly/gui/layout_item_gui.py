@@ -253,7 +253,6 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
             self.panel.set_settings(self.plot_item.plot_settings[0])
 
             self.panel.filter_by_map_check.blockSignals(True)
-            self.panel.filter_by_map_check.setChecked(item.filter_by_map)
             self.panel.filter_by_map_check.setChecked(
                 self.plot_item.plot_settings[0].properties.get('layout_filter_by_map', False))
             self.panel.filter_by_map_check.blockSignals(False)
