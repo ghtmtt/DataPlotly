@@ -25,7 +25,8 @@ from qgis.core import (
     QgsLayoutItemAbstractMetadata,
     QgsNetworkAccessManager,
     QgsMessageLog,
-    QgsGeometry
+    QgsGeometry,
+    QgsPropertyCollection
 )
 from qgis.PyQt.QtWebKitWidgets import QWebPage
 
@@ -125,6 +126,19 @@ class PlotLayoutItem(QgsLayoutItem):
         plot_setting.layout['bg_color'] = 'rgba(0,0,0,0)'
         self.plot_settings.append(plot_setting)
         return plot_setting
+
+    def duplicate_plot(self, index):
+        """
+        Duplicates a plot and adds it to the item
+        """
+        if index < len(self.plot_settings):
+            plot_setting = PlotSettings(self.plot_settings[index].plot_type, self.plot_settings[index].properties,
+                                        self.plot_settings[index].layout, self.plot_settings[index].source_layer_id)
+            plot_setting.data_defined_properties = QgsPropertyCollection(
+                self.plot_settings[index].data_defined_properties)
+            plot_setting.layout['bg_color'] = 'rgba(0,0,0,0)'
+            self.plot_settings.insert(index + 1, plot_setting)
+            return plot_setting
 
     def remove_plot(self, index):
         """
