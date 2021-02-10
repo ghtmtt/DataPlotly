@@ -174,7 +174,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.panel.linked_map_combo.itemChanged.connect(self.linked_map_changed)
 
         self.panel.filter_by_map_check.blockSignals(True)
-        self.panel.filter_by_atlas_check.setChecked(
+        self.panel.filter_by_map_check.setChecked(
             self.plot_item.plot_settings[selected_plot_index].properties.get('layout_filter_by_map', False))
         self.panel.filter_by_map_check.blockSignals(False)
 
