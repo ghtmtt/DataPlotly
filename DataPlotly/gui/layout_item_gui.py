@@ -55,8 +55,8 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         plot_tools_layout.addWidget(plot_remove_button)
         plot_remove_button.clicked.connect(self.remove_plot)
 
-        plot_duplicate_button = QPushButton(self.tr('Duplicate'))
-        # plot_duplicate_button.setIcon(GuiUtils.get_icon('mActionArrowUp.svg'))  # TODO replace icon
+        plot_duplicate_button = QPushButton()
+        plot_duplicate_button.setIcon(GuiUtils.get_icon('mActionDuplicateLayer.svg'))
         plot_duplicate_button.setToolTip('Duplicates the selected plot')
         plot_tools_layout.addWidget(plot_duplicate_button)
         plot_duplicate_button.clicked.connect(self.duplicate_plot)
