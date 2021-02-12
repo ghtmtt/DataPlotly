@@ -491,6 +491,98 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         self.assertEqual(True, manager.removeLayout(layout))
 
+    def test_duplicate_chart_in_layout(self):
+        """
+        Test duplicate charts in layout plot up and down
+        """
+        print('duplicate charts in layout plot up and down')
+
+        # create project and layout
+        project = QgsProject.instance()
+        layout = QgsPrintLayout(project)
+        layout_name = "PrintLayoutDuplicatePlot"
+        layout.initializeDefaults()
+        layout.setName(layout_name)
+        manager = project.layoutManager()
+        self.assertEqual(True, manager.addLayout(layout))
+        layout = manager.layoutByName(layout_name)
+        layout_plot = PlotLayoutItem(layout)
+        self.assertEqual(len(layout_plot.plot_settings), 1)
+        # self.assertEqual(len(layout.items()), 0)
+        layout.addLayoutItem(layout_plot)
+        # self.assertEqual(len(layout.items()), 1)
+        plot_dialog = PlotLayoutItemWidget(None, layout_plot)
+        self.assertEqual(len(layout_plot.plot_settings), 1)
+
+        # edit first plot
+        plot_dialog.setDockMode(True)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        plot_property_panel.set_plot_type('violin')
+        self.assertEqual(plot_property_panel.ptype, 'violin')
+        plot_property_panel.x_combo.setExpression('mid')
+        plot_property_panel.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                                QgsProperty.fromExpression('"mid">20'))
+        plot_property_panel.acceptPanel()
+        plot_property_panel.destroy()
+
+        # duplicate plot
+        plot_dialog.duplicate_plot()
+        self.assertEqual(len(layout_plot.plot_settings), 2)
+
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'violin')
+        self.assertEqual((layout_plot.plot_settings[0]).properties['x_name'], 'mid')
+        self.assertEqual((layout_plot.plot_settings[1]).properties['x_name'], 'mid')
+        self.assertEqual(layout_plot.plot_settings[0].data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         QgsProperty.fromExpression('"mid">20'))
+        self.assertEqual(layout_plot.plot_settings[1].data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         QgsProperty.fromExpression('"mid">20'))
+
+        # edit second plot
+        plot_dialog.plot_list.setCurrentRow(1)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        plot_property_panel.set_plot_type('bar')
+        self.assertEqual(plot_property_panel.ptype, 'bar')
+        plot_property_panel.x_combo.setExpression('qid')
+        plot_property_panel.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                                QgsProperty.fromExpression('"qid">20'))
+        plot_property_panel.acceptPanel()
+        plot_property_panel.destroy()
+
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'violin')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
+        self.assertEqual((layout_plot.plot_settings[0]).properties['x_name'], 'mid')
+        self.assertEqual((layout_plot.plot_settings[1]).properties['x_name'], 'qid')
+        self.assertEqual(layout_plot.plot_settings[0].data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         QgsProperty.fromExpression('"mid">20'))
+        self.assertEqual(layout_plot.plot_settings[1].data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         QgsProperty.fromExpression('"qid">20'))
+
+        # edit first plot
+        plot_dialog.plot_list.setCurrentRow(0)
+        plot_dialog.show_properties()
+        plot_property_panel = plot_dialog.panel
+        plot_property_panel.set_plot_type('scatter')
+        self.assertEqual(plot_property_panel.ptype, 'scatter')
+        plot_property_panel.x_combo.setExpression('uid')
+        plot_property_panel.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
+                                                                QgsProperty.fromExpression('"uid">20'))
+        plot_property_panel.acceptPanel()
+        plot_property_panel.destroy()
+
+        self.assertEqual(layout_plot.plot_settings[0].plot_type, 'scatter')
+        self.assertEqual(layout_plot.plot_settings[1].plot_type, 'bar')
+        self.assertEqual((layout_plot.plot_settings[0]).properties['x_name'], 'uid')
+        self.assertEqual((layout_plot.plot_settings[1]).properties['x_name'], 'qid')
+        self.assertEqual(layout_plot.plot_settings[0].data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         QgsProperty.fromExpression('"uid">20'))
+        self.assertEqual(layout_plot.plot_settings[1].data_defined_properties.property(PlotSettings.PROPERTY_FILTER),
+                         QgsProperty.fromExpression('"qid">20'))
+
+        self.assertEqual(True, manager.removeLayout(layout))
+
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDialogTest)
