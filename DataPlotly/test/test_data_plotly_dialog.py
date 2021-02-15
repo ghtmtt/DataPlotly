@@ -117,6 +117,8 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.properties['z_name'] = 'mg'
         settings.properties['color_scale'] = 'Earth'
         settings.properties['violin_box'] = True
+        settings.properties['layout_filter_by_map'] = True
+        settings.properties['layout_filter_by_atlas'] = True
 
         # TODO: likely need to test other settings.properties values here!
 
