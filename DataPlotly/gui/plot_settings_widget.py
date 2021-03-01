@@ -182,6 +182,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # widgets
         self.refreshWidgets()
         self.refreshWidgets2()
+        self.refreshWidgets3()
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
         self.plot_combo.currentIndexChanged.connect(self.helpPage)
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
