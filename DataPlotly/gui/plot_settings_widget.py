@@ -187,8 +187,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
         self.marker_type_combo.currentIndexChanged.connect(self.refreshWidgets3)
 
-        self.properties_group_box.collapsedStateChanged.connect(self.refreshWidgets)
-
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
 
