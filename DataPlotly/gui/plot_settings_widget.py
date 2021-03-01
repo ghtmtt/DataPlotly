@@ -243,6 +243,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.register_data_defined_button(self.stroke_defined_button, PlotSettings.PROPERTY_STROKE_WIDTH)
         self.stroke_defined_button.registerEnabledWidget(self.marker_width, natural=False)
         self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
+        self.in_color_defined_button.registerEnabledWidget(self.in_color_combo, natural=False)
         self.in_color_defined_button.changed.connect(self.data_defined_color_updated)
         self.register_data_defined_button(self.out_color_defined_button, PlotSettings.PROPERTY_STROKE_COLOR)
         self.out_color_defined_button.registerEnabledWidget(self.out_color_combo, natural=False)
@@ -1065,6 +1066,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         buttons = self.findChildren(QgsPropertyOverrideButton)
         for button in buttons:
             self.update_data_defined_button(button)
+
+        # trigger methods depending on data defined button properties
+        self.data_defined_color_updated()
 
         self.x_combo.setExpression(settings.properties.get('x_name', ''))
         self.y_combo.setExpression(settings.properties.get('y_name', ''))
