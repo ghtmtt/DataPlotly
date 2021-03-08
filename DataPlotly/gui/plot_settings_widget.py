@@ -513,7 +513,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         reimplemented event to detect the dialog resizing
         """
         self.resizeWindow.emit()
-        return super(DataPlotlyPanelWidget, self).resizeEvent(event)
+        return super(DataPlotlyPanelWidget, self).resizeEvent(event)  # pylint:disable=super-with-arguments
 
     def reloadPlotCanvas(self):
         """
