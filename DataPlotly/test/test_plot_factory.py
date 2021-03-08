@@ -652,8 +652,8 @@ class DataPlotlyFactory(unittest.TestCase):
         plot_html = factory.build_html({})
 
         # Find the plot specification in the HTML
-        match = re.search(r'\[.*\]', plot_html)
-        plot_dictionary = json.loads(match.group(0))[0]
+        match = re.search(r'\[(.*?\]})\]', plot_html)
+        plot_dictionary = json.loads(match.group(1))
 
         self.assertEqual(plot_dictionary['x'], ["2020-01-01", "2020-02-01", "2020-03-01"])
         self.assertEqual(plot_dictionary['y'], [4, 5, 6])
@@ -666,8 +666,8 @@ class DataPlotlyFactory(unittest.TestCase):
         plot_html = factory.build_html({})
 
         # Find the plot specification in the HTML
-        match = re.search(r'\[.*\]', plot_html)
-        plot_dictionary = json.loads(match.group(0))[0]
+        match = re.search(r'\[(.*?\]})\]', plot_html)
+        plot_dictionary = json.loads(match.group(1))
 
         self.assertEqual(plot_dictionary['x'], ["2020-01-01T11:21:00", "2020-02-01T00:15:00", "2020-03-01T17:23:11"])
         self.assertEqual(plot_dictionary['y'], [4, 5, 6])
