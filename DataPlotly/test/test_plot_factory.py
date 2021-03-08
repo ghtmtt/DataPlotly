@@ -688,8 +688,7 @@ class DataPlotlyFactory(unittest.TestCase):
 
         factory = PlotFactory(settings)
 
-        self.assertEqual(factory.settings.x, [203, 151, 350, 137, 319, 329, 267, 88, 98, 84, 100, 627, 306, 513, 267,
-                                              457, 683, 791, 788, 265, 296, 680, 536, 1122, 632, 1055, 1322])
+        self.assertEqual(factory.settings.x, [1322, 1055, 632, 1122, 536, 680, 296, 265, 788, 791, 683, 457, 267, 513, 306, 627, 100, 84, 98, 88, 267, 329, 319, 137, 350, 151, 203])
         self.assertEqual(factory.settings.data_defined_colors, [])
 
         class TestGenerator(QgsExpressionContextGenerator):  # pylint: disable=missing-docstring, too-few-public-methods
@@ -711,8 +710,7 @@ class DataPlotlyFactory(unittest.TestCase):
                      '129,186,216,255',
                      '44,123,182,255')"""))
         factory = PlotFactory(settings, context_generator=generator)
-        self.assertEqual(factory.settings.x, [203, 151, 350, 137, 319, 329, 267, 88, 98, 84, 100, 627, 306, 513, 267,
-                                              457, 683, 791, 788, 265, 296, 680, 536, 1122, 632, 1055, 1322])
+        self.assertEqual(factory.settings.x, [1322, 1055, 632, 1122, 536, 680, 296, 265, 788, 791, 683, 457, 267, 513, 306, 627, 100, 84, 98, 88, 267, 329, 319, 137, 350, 151, 203])
         self.assertEqual(factory.settings.y, [])
         self.assertEqual(factory.settings.data_defined_colors, ["#d7191c",
                                                                 "#f17c4a",
