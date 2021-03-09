@@ -12,10 +12,12 @@ __author__ = 'matteo.ghetta@gmail.com'
 __date__ = '2017-03-05'
 __copyright__ = 'Copyright 2017, matteo ghetta'
 
-import unittest
-import tempfile
 import os
+import tempfile
+import unittest
 
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtXml import QDomDocument
 from qgis.core import (
     QgsProject,
     QgsVectorLayer,
@@ -24,15 +26,12 @@ from qgis.core import (
     QgsReadWriteContext,
     QgsApplication
 )
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtXml import QDomDocument
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.layout_item_gui import PlotLayoutItemWidget
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 from DataPlotly.layouts.plot_layout_item import PlotLayoutItem
 from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
-
 from DataPlotly.test.utilities import get_qgis_app
 
 QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
@@ -97,7 +96,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings = dialog.get_settings()
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'scatter')
-        print('dialog loaded')
+        # print('dialog loaded')
 
         # customise settings
         settings.plot_type = 'bar'
@@ -161,11 +160,11 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog2.set_settings(settings)
 
-        print('set settings')
+        # print('set settings')
 
         self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
-            print(k)
+            # print(k)
             if k in ['x', 'y', 'z', 'additional_hover_text', 'featureIds', 'featureBox', 'custom']:
                 continue
             self.assertEqual(dialog2.get_settings().properties[k], settings.properties[k])
@@ -207,25 +206,25 @@ class DataPlotlyDialogTest(unittest.TestCase):
         del dialog
 
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
-        print('dialog 2')
+        # print('dialog 2')
         dialog3.set_settings(settings)
-        print('set settings')
+        # print('set settings')
 
         self.assertEqual(dialog3.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
-            print(k)
+            # print(k)
             self.assertEqual(dialog3.get_settings().properties[k], settings.properties[k])
         self.assertEqual(dialog3.get_settings().properties, settings.properties)
         for k in settings.layout.keys():
-            print(k)
+            # print(k)
             self.assertEqual(dialog3.get_settings().layout[k], settings.layout[k])
 
         dialog3.deleteLater()
         del dialog3
 
-        print('done')
+        # print('done')
         QgsProject.instance().clear()
-        print('clear done')
+        # print('clear done')
 
     def test_settings_round_trip_secondary(self):  # pylint: disable=too-many-statements
         """
@@ -244,7 +243,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings = dialog.get_settings()
         # default should be scatter plot
         self.assertEqual(settings.plot_type, 'scatter')
-        print('dialog loaded')
+        # print('dialog loaded')
 
         # customise settings
         settings.plot_type = 'bar'
@@ -253,11 +252,11 @@ class DataPlotlyDialogTest(unittest.TestCase):
         dialog2 = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog2.set_settings(settings)
 
-        print('set settings')
+        # print('set settings')
 
         self.assertEqual(dialog2.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
-            print(k)
+            # print(k)
             if k in ['x', 'y', 'z', 'additional_hover_text', 'featureIds', 'featureBox', 'custom']:
                 continue
             self.assertEqual(dialog2.get_settings().properties[k], settings.properties[k])
@@ -272,32 +271,32 @@ class DataPlotlyDialogTest(unittest.TestCase):
         del dialog
 
         dialog3 = DataPlotlyPanelWidget(None, override_iface=IFACE)
-        print('dialog 2')
+        # print('dialog 2')
         dialog3.set_settings(settings)
-        print('set settings')
+        # print('set settings')
 
         self.assertEqual(dialog3.get_settings().plot_type, settings.plot_type)
         for k in settings.properties.keys():
-            print(k)
+            # print(k)
             self.assertEqual(dialog3.get_settings().properties[k], settings.properties[k])
         self.assertEqual(dialog3.get_settings().properties, settings.properties)
         for k in settings.layout.keys():
-            print(k)
+            # print(k)
             self.assertEqual(dialog3.get_settings().layout[k], settings.layout[k])
 
         dialog3.deleteLater()
         del dialog3
 
-        print('done')
+        # print('done')
         QgsProject.instance().clear()
-        print('clear done')
+        # print('clear done')
 
     @unittest.skip('causing crash?')
     def test_read_write_project(self):
         """
         Test saving/restoring dialog state in project
         """
-        print('read write project test')
+        # print('read write project test')
         p = QgsProject.instance()
         dialog = DataPlotlyPanelWidget(None, override_iface=IFACE)
         dialog.set_plot_type('violin')
@@ -361,7 +360,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         """
         Test saving/restoring dialog state of layout plot in project
         """
-        print('read write project with layout test')
+        # print('read write project with layout test')
 
         # create project and layout
         project = QgsProject.instance()
@@ -426,7 +425,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         """
         Test moving charts in layout plot up and down
         """
-        print('moving charts in layout plot up and down')
+        # print('moving charts in layout plot up and down')
 
         # create project and layout
         project = QgsProject.instance()
