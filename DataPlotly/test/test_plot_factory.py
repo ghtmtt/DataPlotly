@@ -672,6 +672,7 @@ class DataPlotlyFactory(unittest.TestCase):
         self.assertEqual(plot_dictionary['x'], ["2020-01-01T11:21:00", "2020-02-01T00:15:00", "2020-03-01T17:23:11"])
         self.assertEqual(plot_dictionary['y'], [4, 5, 6])
 
+    @unittest.skip('Fragile')
     def test_data_defined_histogram_color(self):
         """
         Test data defined stroke color
