@@ -55,6 +55,12 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         plot_tools_layout.addWidget(plot_remove_button)
         plot_remove_button.clicked.connect(self.remove_plot)
 
+        plot_duplicate_button = QPushButton()
+        plot_duplicate_button.setIcon(GuiUtils.get_icon('mActionDuplicateLayer.svg'))
+        plot_duplicate_button.setToolTip('Duplicates the selected plot')
+        plot_tools_layout.addWidget(plot_duplicate_button)
+        plot_duplicate_button.clicked.connect(self.duplicate_plot)
+
         plot_move_up_button = QPushButton()
         plot_move_up_button.setIcon(GuiUtils.get_icon('mActionArrowUp.svg'))
         plot_move_up_button.setToolTip('Move selected plot up')
@@ -105,6 +111,19 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
          Adds a new plot and updates the plot list and the plot item
         """
         self.plot_item.add_plot()
+        self.populate_plot_list()
+        self.plot_item.refresh()
+
+    def duplicate_plot(self):
+        """
+         Duplicates an existing plot and updates the plot list and the plot item
+        """
+
+        selected_plot_index = self.plot_list.currentRow()
+        if selected_plot_index < 0:
+            return
+
+        self.plot_item.duplicate_plot(selected_plot_index)
         self.populate_plot_list()
         self.plot_item.refresh()
 
