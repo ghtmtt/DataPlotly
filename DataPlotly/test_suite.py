@@ -15,7 +15,6 @@ import unittest
 import tempfile
 from osgeo import gdal
 import qgis  # pylint: disable=unused-import
-from qgis.PyQt.QtCore import QT_VERSION_STR
 
 try:
     from pip import main as pipmain
@@ -41,11 +40,10 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     print('########')
     print('%s tests has been discovered in %s' % (count, package_name))
     print('Python GDAL : %s' % gdal.VersionInfo('VERSION_NUM'))
-    print('QT : {}'.format(QT_VERSION_STR))
     print('########')
     if with_coverage:
         cov = coverage.Coverage(
-            source=['/processing_r'],
+            source=['/DataPlotly'],
             omit=['*/test/*'],
         )
         cov.start()

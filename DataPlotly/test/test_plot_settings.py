@@ -186,6 +186,7 @@ class DataPlotlySettings(unittest.TestCase):
         self.assertEqual(res.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX),
                          original.data_defined_properties.property(PlotSettings.PROPERTY_Y_MAX))
 
+    @unittest.skip('Fragile')
     def test_read_write_project2(self):
         """
         Test reading and writing to project, signals based

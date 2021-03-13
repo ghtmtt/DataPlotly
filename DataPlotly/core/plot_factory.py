@@ -721,7 +721,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         # ptrace = kwargs['pl']
 
         # check if the plot type and render the correct figure
-        if plot_type == 'bar' or 'histogram':
+        if plot_type in ('bar', 'histogram'):
             del self.layout
             self.layout = PlotFactory.PLOT_TYPES[plot_type].create_layout(self.settings)
             figures = go.Figure(data=ptrace, layout=self.layout)

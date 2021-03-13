@@ -182,12 +182,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # widgets
         self.refreshWidgets()
         self.refreshWidgets2()
+        self.refreshWidgets3()
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
         self.plot_combo.currentIndexChanged.connect(self.helpPage)
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
         self.marker_type_combo.currentIndexChanged.connect(self.refreshWidgets3)
-
-        self.properties_group_box.collapsedStateChanged.connect(self.refreshWidgets)
 
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
@@ -244,6 +243,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.register_data_defined_button(self.stroke_defined_button, PlotSettings.PROPERTY_STROKE_WIDTH)
         self.stroke_defined_button.registerEnabledWidget(self.marker_width, natural=False)
         self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
+        self.in_color_defined_button.registerEnabledWidget(self.in_color_combo, natural=False)
         self.in_color_defined_button.changed.connect(self.data_defined_color_updated)
         self.register_data_defined_button(self.out_color_defined_button, PlotSettings.PROPERTY_STROKE_COLOR)
         self.out_color_defined_button.registerEnabledWidget(self.out_color_combo, natural=False)
@@ -513,7 +513,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         reimplemented event to detect the dialog resizing
         """
         self.resizeWindow.emit()
-        return super(DataPlotlyPanelWidget, self).resizeEvent(event)
+        return super(DataPlotlyPanelWidget, self).resizeEvent(event)  # pylint:disable=super-with-arguments
 
     def reloadPlotCanvas(self):
         """
@@ -1068,6 +1068,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         buttons = self.findChildren(QgsPropertyOverrideButton)
         for button in buttons:
             self.update_data_defined_button(button)
+
+        # trigger methods depending on data defined button properties
+        self.data_defined_color_updated()
 
         self.filter_by_map_check.setChecked(settings.properties.get('layout_filter_by_map', False))
         self.filter_by_atlas_check.setChecked(settings.properties.get('layout_filter_by_atlas', False))
