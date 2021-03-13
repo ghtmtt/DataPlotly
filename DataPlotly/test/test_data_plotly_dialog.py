@@ -421,7 +421,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         self.assertEqual(layout_plot2.plot_settings[0].plot_type, 'violin')
         self.assertEqual(layout_plot2.plot_settings[1].plot_type, 'bar')
 
-    def test_move_chart_in_layout(self):  # pylint: disable=too-many-statements
+    def test_move_chart_in_layout(self):
         """
         Test moving charts in layout plot up and down
         """
@@ -491,7 +491,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
         self.assertEqual(True, manager.removeLayout(layout))
 
-    def test_duplicate_chart_in_layout(self):
+    def test_duplicate_chart_in_layout(self):  # pylint: disable=too-many-statements
         """
         Test duplicate charts in layout plot up and down
         """
