@@ -1069,6 +1069,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         for button in buttons:
             self.update_data_defined_button(button)
 
+        self.filter_by_map_check.setChecked(settings.properties.get('layout_filter_by_map', False))
+        self.filter_by_atlas_check.setChecked(settings.properties.get('layout_filter_by_atlas', False))
         self.x_combo.setExpression(settings.properties.get('x_name', ''))
         self.y_combo.setExpression(settings.properties.get('y_name', ''))
         self.z_combo.setExpression(settings.properties.get('z_name', ''))
