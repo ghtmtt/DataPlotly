@@ -77,6 +77,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
         self.plot_list = QListWidget()
         self.plot_list.setSelectionMode(QListWidget.SingleSelection)
+        self.plot_list.doubleClicked.connect(self.show_properties)
         vl.addWidget(self.plot_list)
         self.populate_plot_list()
 
