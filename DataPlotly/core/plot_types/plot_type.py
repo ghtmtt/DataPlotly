@@ -85,12 +85,14 @@ class PlotType:
             xaxis={
                 'title': x_title,
                 'autorange': settings.layout['x_inv'],
-                'range': range_x
+                'range': range_x,
+                'gridcolor': settings.layout['gridcolor']
             },
             yaxis={
                 'title': y_title,
                 'autorange': settings.layout['y_inv'],
-                'range': range_y
+                'range': range_y,
+                'gridcolor': settings.layout['gridcolor']
             },
             paper_bgcolor=bg_color,
             plot_bgcolor=bg_color

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>593</width>
-    <height>624</height>
+    <width>1072</width>
+    <height>845</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -138,6 +138,123 @@ QListWidget::item::selected {
          <property name="bottomMargin">
           <number>0</number>
          </property>
+         <item row="2" column="0">
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="1" colspan="3">
+            <widget class="QComboBox" name="subcombo"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="subcombo_label">
+             <property name="text">
+              <string>Type of plot</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="4">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QRadioButton" name="radio_columns">
+               <property name="text">
+                <string>Plot in columns</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radio_rows">
+               <property name="text">
+                <string>Plot in rows</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="0" colspan="4">
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="clear_btn">
+               <property name="text">
+                <string>Clean Plot Canvas</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="update_btn">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Update Plot</string>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <property name="autoDefault">
+                <bool>true</bool>
+               </property>
+               <property name="default">
+                <bool>false</bool>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="draw_btn">
+               <property name="text">
+                <string>Create Plot</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="configuration_btn">
+               <property name="text">
+                <string>Configuration</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
          <item row="0" column="0">
           <widget class="QStackedWidget" name="stackedNestedPlotWidget">
            <property name="currentIndex">
@@ -204,8 +321,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>531</width>
-                  <height>653</height>
+                  <width>804</width>
+                  <height>719</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_9">
@@ -418,7 +535,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="10" column="1" colspan="5">
-                     <widget class="QgsOpacityWidget" name="opacity_widget" native="true">
+                     <widget class="QgsOpacityWidget" name="opacity_widget">
                       <property name="focusPolicy">
                        <enum>Qt::StrongFocus</enum>
                       </property>
@@ -492,7 +609,7 @@ QListWidget::item::selected {
                      <widget class="QgsLayoutItemComboBox" name="linked_map_combo"/>
                     </item>
                     <item row="8" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="y_combo" native="true"/>
+                     <widget class="QgsFieldExpressionWidget" name="y_combo"/>
                     </item>
                     <item row="9" column="0">
                      <widget class="QLabel" name="z_label">
@@ -502,7 +619,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="7" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="x_combo" native="true"/>
+                     <widget class="QgsFieldExpressionWidget" name="x_combo"/>
                     </item>
                     <item row="8" column="0">
                      <widget class="QLabel" name="y_label">
@@ -537,7 +654,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="9" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="z_combo" native="true"/>
+                     <widget class="QgsFieldExpressionWidget" name="z_combo"/>
                     </item>
                     <item row="0" column="1" colspan="2">
                      <widget class="QgsMapLayerComboBox" name="layer_combo">
@@ -588,6 +705,12 @@ QListWidget::item::selected {
              </property>
              <item row="0" column="0">
               <widget class="QScrollArea" name="scrollArea_6">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
@@ -598,9 +721,9 @@ QListWidget::item::selected {
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>424</width>
-                  <height>979</height>
+                  <y>-210</y>
+                  <width>790</width>
+                  <height>958</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,1,0">
@@ -616,323 +739,10 @@ QListWidget::item::selected {
                  <property name="bottomMargin">
                   <number>0</number>
                  </property>
-                 <item row="3" column="1" colspan="2">
-                  <widget class="QLineEdit" name="plot_title_line"/>
-                 </item>
-                 <item row="28" column="1" colspan="3">
-                  <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,1">
-                   <item>
-                    <widget class="QgsSpinBox" name="bins_value">
-                     <property name="enabled">
-                      <bool>false</bool>
-                     </property>
-                     <property name="maximum">
-                      <number>1000</number>
-                     </property>
-                     <property name="value">
-                      <number>10</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_4">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                  </layout>
-                 </item>
-                 <item row="21" column="1" colspan="3">
-                  <widget class="QComboBox" name="box_statistic_combo"/>
-                 </item>
                  <item row="6" column="3">
                   <widget class="QgsPropertyOverrideButton" name="y_axis_title_defined_button">
                    <property name="text">
                     <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="10" column="0">
-                  <widget class="QLabel" name="additional_info_label">
-                   <property name="text">
-                    <string>Additional hover label</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="1" rowspan="2" colspan="2">
-                  <widget class="QLineEdit" name="y_axis_title"/>
-                 </item>
-                 <item row="2" column="0" colspan="4">
-                  <layout class="QHBoxLayout" name="horizontalLayout_6">
-                   <item>
-                    <widget class="QCheckBox" name="show_legend_check">
-                     <property name="text">
-                      <string>Show legend</string>
-                     </property>
-                     <property name="checked">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="orientation_legend_check">
-                     <property name="text">
-                      <string>Horizontal legend</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="range_slider_combo">
-                     <property name="text">
-                      <string>Show range slider</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="plot_title_lab">
-                   <property name="text">
-                    <string>Plot title</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="22" column="0">
-                  <widget class="QLabel" name="outliers_label">
-                   <property name="text">
-                    <string>Outliers</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="22" column="1" colspan="3">
-                  <widget class="QComboBox" name="outliers_combo"/>
-                 </item>
-                 <item row="30" column="0" colspan="3">
-                  <spacer name="verticalSpacer_6">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>255</width>
-                     <height>222</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item row="5" column="1" colspan="2">
-                  <widget class="QLineEdit" name="x_axis_title"/>
-                 </item>
-                 <item row="4" column="1" colspan="2">
-                  <widget class="QLineEdit" name="legend_title"/>
-                 </item>
-                 <item row="23" column="1" colspan="3">
-                  <widget class="QComboBox" name="violinSideCombo"/>
-                 </item>
-                 <item row="18" column="0">
-                  <widget class="QLabel" name="orientation_label">
-                   <property name="text">
-                    <string>Bar orientation</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="10" column="1" colspan="3">
-                  <widget class="QgsFieldExpressionWidget" name="additional_info_combo" native="true"/>
-                 </item>
-                 <item row="15" column="0" colspan="4">
-                  <widget class="QgsCollapsibleGroupBox" name="x_axis_bounds_check">
-                   <property name="title">
-                    <string>Set X Axis Bounds</string>
-                   </property>
-                   <property name="checkable">
-                    <bool>true</bool>
-                   </property>
-                   <property name="checked">
-                    <bool>false</bool>
-                   </property>
-                   <layout class="QGridLayout" name="gridXAxisBounds">
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="x_axis_min_label">
-                      <property name="text">
-                       <string>Minimum</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="1">
-                     <widget class="QgsDoubleSpinBox" name="x_axis_min"/>
-                    </item>
-                    <item row="0" column="2">
-                     <widget class="QgsPropertyOverrideButton" name="x_axis_min_defined_button">
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="x_axis_max_label">
-                      <property name="text">
-                       <string>Maximum</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="1">
-                     <widget class="QgsDoubleSpinBox" name="x_axis_max"/>
-                    </item>
-                    <item row="1" column="2">
-                     <widget class="QgsPropertyOverrideButton" name="x_axis_max_defined_button">
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item row="3" column="3">
-                  <widget class="QgsPropertyOverrideButton" name="plot_title_defined_button">
-                   <property name="text">
-                    <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="26" column="0" colspan="4">
-                  <layout class="QHBoxLayout" name="horizontalLayout_7">
-                   <item>
-                    <widget class="QCheckBox" name="invert_hist_check">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="text">
-                      <string>Invert histogram direction</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="cumulative_hist_check">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="text">
-                      <string>Cumulative histogram</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item row="5" column="3">
-                  <widget class="QgsPropertyOverrideButton" name="x_axis_title_defined_button">
-                   <property name="text">
-                    <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="19" column="1" colspan="3">
-                  <widget class="QComboBox" name="bar_mode_combo"/>
-                 </item>
-                 <item row="13" column="0">
-                  <widget class="QCheckBox" name="invert_x_check">
-                   <property name="text">
-                    <string>Invert X axis</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="19" column="0">
-                  <widget class="QLabel" name="bar_mode_lab">
-                   <property name="text">
-                    <string>Bar mode</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="9" column="0">
-                  <widget class="QLabel" name="info_label">
-                   <property name="text">
-                    <string>Hover tooltip</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="11" column="0">
-                  <widget class="QCheckBox" name="hover_as_text_check">
-                   <property name="text">
-                    <string>Hover label as text</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="13" column="1">
-                  <widget class="QLabel" name="x_axis_mode_label">
-                   <property name="text">
-                    <string>X axis mode</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="21" column="0">
-                  <widget class="QLabel" name="box_statistic_label">
-                   <property name="text">
-                    <string>Show statistics</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="9" column="1" colspan="3">
-                  <widget class="QComboBox" name="info_combo"/>
-                 </item>
-                 <item row="14" column="2" colspan="2">
-                  <widget class="QComboBox" name="y_axis_mode_combo"/>
-                 </item>
-                 <item row="4" column="0">
-                  <widget class="QLabel" name="legend_label">
-                   <property name="text">
-                    <string>Legend title</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="25" column="0" colspan="4">
-                  <widget class="QCheckBox" name="showMeanCheck">
-                   <property name="text">
-                    <string>Show mean line</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="0">
-                  <widget class="QLabel" name="x_axis_label">
-                   <property name="text">
-                    <string>X label</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="29" column="0">
-                  <widget class="QLabel" name="bar_gap_label">
-                   <property name="text">
-                    <string>Bar gap</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="14" column="0">
-                  <widget class="QCheckBox" name="invert_y_check">
-                   <property name="text">
-                    <string>Invert Y axis</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="3">
-                  <widget class="QgsPropertyOverrideButton" name="legend_title_defined_button">
-                   <property name="text">
-                    <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="0" rowspan="2">
-                  <widget class="QLabel" name="y_axis_label">
-                   <property name="text">
-                    <string>Y label</string>
                    </property>
                   </widget>
                  </item>
@@ -985,27 +795,10 @@ QListWidget::item::selected {
                    </layout>
                   </widget>
                  </item>
-                 <item row="14" column="1">
-                  <widget class="QLabel" name="y_axis_mode_label">
-                   <property name="text">
-                    <string>Y axis mode</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="1" colspan="2">
-                  <widget class="QLineEdit" name="z_axis_title"/>
-                 </item>
                  <item row="28" column="0">
                   <widget class="QCheckBox" name="bins_check">
                    <property name="text">
                     <string>Manual bin size</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="0">
-                  <widget class="QLabel" name="z_axis_label">
-                   <property name="text">
-                    <string>Z label</string>
                    </property>
                   </widget>
                  </item>
@@ -1016,23 +809,272 @@ QListWidget::item::selected {
                    </property>
                   </widget>
                  </item>
-                 <item row="8" column="3">
-                  <widget class="QgsPropertyOverrideButton" name="z_axis_title_defined_button">
+                 <item row="26" column="0" colspan="4">
+                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                   <item>
+                    <widget class="QCheckBox" name="invert_hist_check">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="text">
+                      <string>Invert histogram direction</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="cumulative_hist_check">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="text">
+                      <string>Cumulative histogram</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="11" column="0">
+                  <widget class="QCheckBox" name="hover_as_text_check">
                    <property name="text">
-                    <string>...</string>
+                    <string>Hover label as text</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="20" column="1" colspan="3">
+                  <widget class="QComboBox" name="hist_norm_combo"/>
+                 </item>
+                 <item row="21" column="0">
+                  <widget class="QLabel" name="box_statistic_label">
+                   <property name="text">
+                    <string>Show statistics</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="18" column="0">
+                  <widget class="QLabel" name="orientation_label">
+                   <property name="text">
+                    <string>Bar orientation</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="1" colspan="2">
+                  <widget class="QLineEdit" name="z_axis_title"/>
+                 </item>
+                 <item row="2" column="0" colspan="4">
+                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                   <item>
+                    <widget class="QCheckBox" name="show_legend_check">
+                     <property name="text">
+                      <string>Show legend</string>
+                     </property>
+                     <property name="checked">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="orientation_legend_check">
+                     <property name="text">
+                      <string>Horizontal legend</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="range_slider_combo">
+                     <property name="text">
+                      <string>Show range slider</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="12" column="1" colspan="3">
+                  <widget class="QComboBox" name="combo_text_position"/>
+                 </item>
+                 <item row="30" column="0">
+                  <widget class="QLabel" name="bar_gap_label">
+                   <property name="text">
+                    <string>Bar gap</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="12" column="0">
+                  <widget class="QLabel" name="label_text_position">
+                   <property name="text">
+                    <string>Label text position</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="19" column="1" colspan="3">
+                  <widget class="QComboBox" name="bar_mode_combo"/>
+                 </item>
+                 <item row="24" column="0" colspan="4">
+                  <widget class="QCheckBox" name="violinBox">
+                   <property name="toolTip">
+                    <string>If checked, box plots will be overlaid on top of violin plots</string>
+                   </property>
+                   <property name="text">
+                    <string>Include box plots</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="23" column="1" colspan="3">
+                  <widget class="QComboBox" name="violinSideCombo"/>
+                 </item>
+                 <item row="13" column="0">
+                  <widget class="QCheckBox" name="invert_x_check">
+                   <property name="text">
+                    <string>Invert X axis</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="28" column="1" colspan="3">
+                  <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,1">
+                   <item>
+                    <widget class="QgsSpinBox" name="bins_value">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="maximum">
+                      <number>1000</number>
+                     </property>
+                     <property name="value">
+                      <number>10</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_4">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QLabel" name="x_axis_label">
+                   <property name="text">
+                    <string>X label</string>
                    </property>
                   </widget>
                  </item>
                  <item row="18" column="1" colspan="3">
                   <widget class="QComboBox" name="orientation_combo"/>
                  </item>
-                 <item row="20" column="1" colspan="3">
-                  <widget class="QComboBox" name="hist_norm_combo"/>
+                 <item row="4" column="0">
+                  <widget class="QLabel" name="legend_label">
+                   <property name="text">
+                    <string>Legend title</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="15" column="0" colspan="4">
+                  <widget class="QgsCollapsibleGroupBox" name="x_axis_bounds_check">
+                   <property name="title">
+                    <string>Set X Axis Bounds</string>
+                   </property>
+                   <property name="checkable">
+                    <bool>true</bool>
+                   </property>
+                   <property name="checked">
+                    <bool>false</bool>
+                   </property>
+                   <layout class="QGridLayout" name="gridXAxisBounds">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="x_axis_min_label">
+                      <property name="text">
+                       <string>Minimum</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QgsDoubleSpinBox" name="x_axis_min"/>
+                    </item>
+                    <item row="0" column="2">
+                     <widget class="QgsPropertyOverrideButton" name="x_axis_min_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="x_axis_max_label">
+                      <property name="text">
+                       <string>Maximum</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QgsDoubleSpinBox" name="x_axis_max"/>
+                    </item>
+                    <item row="1" column="2">
+                     <widget class="QgsPropertyOverrideButton" name="x_axis_max_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="14" column="1">
+                  <widget class="QLabel" name="y_axis_mode_label">
+                   <property name="text">
+                    <string>Y axis mode</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1" colspan="2">
+                  <widget class="QLineEdit" name="plot_title_line"/>
+                 </item>
+                 <item row="22" column="0">
+                  <widget class="QLabel" name="outliers_label">
+                   <property name="text">
+                    <string>Outliers</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="1" colspan="2">
+                  <widget class="QLineEdit" name="legend_title"/>
+                 </item>
+                 <item row="14" column="0">
+                  <widget class="QCheckBox" name="invert_y_check">
+                   <property name="text">
+                    <string>Invert Y axis</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="19" column="0">
+                  <widget class="QLabel" name="bar_mode_lab">
+                   <property name="text">
+                    <string>Bar mode</string>
+                   </property>
+                  </widget>
                  </item>
                  <item row="13" column="2" colspan="2">
                   <widget class="QComboBox" name="x_axis_mode_combo"/>
                  </item>
-                 <item row="29" column="1" colspan="3">
+                 <item row="25" column="0" colspan="4">
+                  <widget class="QCheckBox" name="showMeanCheck">
+                   <property name="text">
+                    <string>Show mean line</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="30" column="1" colspan="3">
                   <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="1,1">
                    <item>
                     <widget class="QgsDoubleSpinBox" name="bar_gap">
@@ -1059,18 +1101,78 @@ QListWidget::item::selected {
                    </item>
                   </layout>
                  </item>
-                 <item row="24" column="0" colspan="4">
-                  <widget class="QCheckBox" name="violinBox">
-                   <property name="toolTip">
-                    <string>If checked, box plots will be overlaid on top of violin plots</string>
-                   </property>
+                 <item row="21" column="1" colspan="3">
+                  <widget class="QComboBox" name="box_statistic_combo"/>
+                 </item>
+                 <item row="5" column="1" colspan="2">
+                  <widget class="QLineEdit" name="x_axis_title"/>
+                 </item>
+                 <item row="8" column="3">
+                  <widget class="QgsPropertyOverrideButton" name="z_axis_title_defined_button">
                    <property name="text">
-                    <string>Include box plots</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
+                    <string>...</string>
                    </property>
                   </widget>
+                 </item>
+                 <item row="13" column="1">
+                  <widget class="QLabel" name="x_axis_mode_label">
+                   <property name="text">
+                    <string>X axis mode</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="0">
+                  <widget class="QLabel" name="additional_info_label">
+                   <property name="text">
+                    <string>Additional hover label</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="14" column="2" colspan="2">
+                  <widget class="QComboBox" name="y_axis_mode_combo"/>
+                 </item>
+                 <item row="4" column="3">
+                  <widget class="QgsPropertyOverrideButton" name="legend_title_defined_button">
+                   <property name="text">
+                    <string>...</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1" rowspan="2" colspan="2">
+                  <widget class="QLineEdit" name="y_axis_title"/>
+                 </item>
+                 <item row="6" column="0" rowspan="2">
+                  <widget class="QLabel" name="y_axis_label">
+                   <property name="text">
+                    <string>Y label</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="1" colspan="3">
+                  <widget class="QComboBox" name="info_combo"/>
+                 </item>
+                 <item row="32" column="0" colspan="3">
+                  <spacer name="verticalSpacer_6">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>255</width>
+                     <height>222</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="3" column="3">
+                  <widget class="QgsPropertyOverrideButton" name="plot_title_defined_button">
+                   <property name="text">
+                    <string>...</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="1" colspan="3">
+                  <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
                  </item>
                  <item row="20" column="0">
                   <widget class="QLabel" name="hist_norm_label">
@@ -1079,15 +1181,65 @@ QListWidget::item::selected {
                    </property>
                   </widget>
                  </item>
-                 <item row="12" column="0">
-                  <widget class="QLabel" name="label_text_position">
+                 <item row="5" column="3">
+                  <widget class="QgsPropertyOverrideButton" name="x_axis_title_defined_button">
                    <property name="text">
-                    <string>Label text position</string>
+                    <string>...</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="12" column="1" colspan="3">
-                  <widget class="QComboBox" name="combo_text_position"/>
+                 <item row="8" column="0">
+                  <widget class="QLabel" name="z_axis_label">
+                   <property name="text">
+                    <string>Z label</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="22" column="1" colspan="3">
+                  <widget class="QComboBox" name="outliers_combo"/>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="plot_title_lab">
+                   <property name="text">
+                    <string>Plot title</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="0">
+                  <widget class="QLabel" name="info_label">
+                   <property name="text">
+                    <string>Hover tooltip</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="31" column="0" colspan="4">
+                  <widget class="QgsCollapsibleGroupBox" name="layout_configuration_box">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="title">
+                    <string>Layout Options</string>
+                   </property>
+                   <layout class="QFormLayout" name="formLayout">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="grid_color_label">
+                      <property name="text">
+                       <string>Grid color</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QgsColorButton" name="layout_grid_axis_color">
+                      <property name="allowOpacity">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
                  </item>
                 </layout>
                </widget>
@@ -1096,123 +1248,6 @@ QListWidget::item::selected {
             </layout>
            </widget>
           </widget>
-         </item>
-         <item row="1" column="0">
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="1" colspan="3">
-            <widget class="QComboBox" name="subcombo"/>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="subcombo_label">
-             <property name="text">
-              <string>Type of plot</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="4">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QRadioButton" name="radio_columns">
-               <property name="text">
-                <string>Plot in columns</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radio_rows">
-               <property name="text">
-                <string>Plot in rows</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item row="2" column="0" colspan="4">
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QPushButton" name="clear_btn">
-               <property name="text">
-                <string>Clean Plot Canvas</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QPushButton" name="update_btn">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Update Plot</string>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-               <property name="autoDefault">
-                <bool>true</bool>
-               </property>
-               <property name="default">
-                <bool>false</bool>
-               </property>
-               <property name="flat">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="draw_btn">
-               <property name="text">
-                <string>Create Plot</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="configuration_btn">
-               <property name="text">
-                <string>Configuration</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
          </item>
         </layout>
        </widget>
@@ -1353,48 +1388,48 @@ QListWidget::item::selected {
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis.gui</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsColorButton</class>
    <extends>QToolButton</extends>
-   <header>qgis.gui</header>
+   <header>qgscolorbutton.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>qgsdoublespinbox.h</header>
   </customwidget>
   <customwidget>
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
-   <header>qgis.gui</header>
+   <header>qgsfieldexpressionwidget.h</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgis.gui</header>
+   <header>qgsmaplayercombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsOpacityWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsopacitywidget.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsPropertyOverrideButton</class>
    <extends>QToolButton</extends>
-   <header>qgis.gui</header>
+   <header>qgspropertyoverridebutton.h</header>
    <slots>
     <slot>setVectorLayer(QgsMapLayer*)</slot>
    </slots>
   </customwidget>
   <customwidget>
-   <class>QgsDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>qgis.gui</header>
-  </customwidget>
-  <customwidget>
    <class>QgsSpinBox</class>
    <extends>QSpinBox</extends>
-   <header>qgis.gui</header>
-  </customwidget>
-  <customwidget>
-   <class>QgsOpacityWidget</class>
-   <extends>QWidget</extends>
-   <header>qgis.gui</header>
-   <container>1</container>
+   <header>qgsspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>QgsLayoutItemComboBox</class>

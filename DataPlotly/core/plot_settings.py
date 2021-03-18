@@ -132,7 +132,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'bargaps': 0,
             'polar': {'angularaxis': {'direction': 'clockwise'}},
             'additional_info_expression': '',
-            'bins_check': False
+            'bins_check': False,
+            'gridcolor': None
         }
 
         self.plot_base_dic = {
