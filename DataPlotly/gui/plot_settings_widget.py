@@ -726,7 +726,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.in_color_defined_button.init(
                 PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
                 QgsPropertyDefinition(
-                    'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
+                    'color', QgsPropertyDefinition.DataTypeString, 'Color Array',
                     "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
                     "or an array of such strings"
                 ), None, False
@@ -738,7 +738,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.in_color_defined_button.init(
                 PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
                 QgsPropertyDefinition(
-                    'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
+                    'color', QgsPropertyDefinition.DataTypeString, 'Color Array',
                     "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
                     "or an array of such strings"
                 ), None, False
