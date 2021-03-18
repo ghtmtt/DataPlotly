@@ -104,7 +104,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'opacity': 1,
             'violin_side': None,
             'violin_box': False,
-            'show_mean_line': False
+            'show_mean_line': False,
+            'layout_filter_by_map': False,
+            'layout_filter_by_atlas': False
         }
 
         # layout nested dictionary

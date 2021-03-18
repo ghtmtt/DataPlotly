@@ -999,7 +999,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'point_combo': self.point_combo.currentText(),
                            'line_combo': self.line_combo.currentText(),
                            'contour_type_combo': self.contour_type_combo.currentText(),
-                           'show_lines_check': self.show_lines_check.isChecked()
+                           'show_lines_check': self.show_lines_check.isChecked(),
+                           'layout_filter_by_map': self.filter_by_map_check.isChecked(),
+                           'layout_filter_by_atlas': self.filter_by_atlas_check.isChecked()
                            }
 
         if self.in_color_defined_button.isActive():
@@ -1070,6 +1072,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # trigger methods depending on data defined button properties
         self.data_defined_color_updated()
 
+        self.filter_by_map_check.setChecked(settings.properties.get('layout_filter_by_map', False))
+        self.filter_by_atlas_check.setChecked(settings.properties.get('layout_filter_by_atlas', False))
         self.x_combo.setExpression(settings.properties.get('x_name', ''))
         self.y_combo.setExpression(settings.properties.get('y_name', ''))
         self.z_combo.setExpression(settings.properties.get('z_name', ''))

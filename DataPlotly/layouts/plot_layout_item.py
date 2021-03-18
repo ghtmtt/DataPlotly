@@ -56,9 +56,6 @@ class PlotLayoutItem(QgsLayoutItem):
         self.linked_map_uuid = ''
         self.linked_map = None
 
-        self.filter_by_map = False
-        self.filter_by_atlas = False
-
         self.web_page = LoggingWebPage(self)
         self.web_page.setNetworkAccessManager(QgsNetworkAccessManager.instance())
 
@@ -177,16 +174,7 @@ class PlotLayoutItem(QgsLayoutItem):
         painter.restore()
 
     def create_plot(self):
-        if self.linked_map and self.filter_by_map:
-            polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
-                                          self.linked_map.crs())
-            visible_features_only = True
-        elif self.filter_by_atlas and self.layout().reportContext().layer() and self.layout().reportContext().feature().isValid():
-            polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
-            visible_features_only = True
-        else:
-            polygon_filter = None
-            visible_features_only = False
+        polygon_filter, visible_features_only = self.get_polygon_filter(0)
 
         config = {'displayModeBar': False, 'staticPlot': True}
 
@@ -201,7 +189,8 @@ class PlotLayoutItem(QgsLayoutItem):
             pl = []
             plot_factory = PlotFactory(self.plot_settings[0], self, polygon_filter=polygon_filter)
 
-            for plot_setting in self.plot_settings:
+            for current, plot_setting in enumerate(self.plot_settings):
+                polygon_filter, visible_features_only = self.get_polygon_filter(current)
                 plot_setting.properties['visible_features_only'] = visible_features_only
                 factory = PlotFactory(plot_setting, self, polygon_filter=polygon_filter)
                 pl.append(factory.trace[0])
@@ -209,6 +198,22 @@ class PlotLayoutItem(QgsLayoutItem):
             plot_path = plot_factory.build_figures(self.plot_settings[0].plot_type, pl, config=config)
             with open(plot_path, 'r') as myfile:
                 return myfile.read()
+
+    def get_polygon_filter(self, index=0):
+        if self.linked_map and self.plot_settings[index].properties.get('layout_filter_by_map', False):
+            polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
+                                          self.linked_map.crs())
+            visible_features_only = True
+        elif self.plot_settings[index].properties.get('layout_filter_by_atlas', False) and \
+                self.layout().reportContext().layer() and self.layout().reportContext().feature().isValid():
+
+            polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
+            visible_features_only = True
+        else:
+            polygon_filter = None
+            visible_features_only = False
+
+        return polygon_filter, visible_features_only
 
     def load_content(self):
         self.html_loaded = False
@@ -220,8 +225,6 @@ class PlotLayoutItem(QgsLayoutItem):
     def writePropertiesToElement(self, element, document, _) -> bool:
         for plot_setting in self.plot_settings:
             element.appendChild(plot_setting.write_xml(document))
-        element.setAttribute('filter_by_map', 1 if self.filter_by_map else 0)
-        element.setAttribute('filter_by_atlas', 1 if self.filter_by_atlas else 0)
         element.setAttribute('linked_map', self.linked_map.uuid() if self.linked_map else '')
         return True
 
@@ -241,8 +244,6 @@ class PlotLayoutItem(QgsLayoutItem):
 
             child = child.nextSiblingElement('Option')
 
-        self.filter_by_map = bool(int(element.attribute('filter_by_map', '0')))
-        self.filter_by_atlas = bool(int(element.attribute('filter_by_atlas', '0')))
         self.linked_map_uuid = element.attribute('linked_map')
         self.disconnect_current_map()
 
@@ -269,7 +270,11 @@ class PlotLayoutItem(QgsLayoutItem):
         self.invalidateCache()
 
     def map_extent_changed(self):
-        if not self.linked_map or not self.filter_by_map:
+        filter_by_map = False
+        for setting in self.plot_settings:
+            if setting.properties.get('layout_filter_by_map', False):
+                filter_by_map = True
+        if not self.linked_map or not filter_by_map:
             return
 
         self.html_loaded = False

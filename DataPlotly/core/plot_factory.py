@@ -103,7 +103,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.raw_plot = None
         self.plot_path = None
         self.selected_features_only = self.settings.properties['selected_features_only']
-        self.visible_features_only = self.settings.properties.get('visible_features_only', False)
         self.visible_region = visible_region
         self.polygon_filter = polygon_filter
         self.trace = None
@@ -181,7 +180,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             request.setFlags(QgsFeatureRequest.NoGeometry)
 
         visible_geom_engine = None
-        if self.visible_features_only and self.visible_region is not None:
+        if self.settings.properties.get('visible_features_only', False) and self.visible_region is not None:
             ct = QgsCoordinateTransform(self.visible_region.crs(), self.source_layer.crs(),
                                         QgsProject.instance().transformContext())
             try:
@@ -189,7 +188,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 request.setFilterRect(rect)
             except QgsCsException:
                 pass
-        elif self.visible_features_only and self.polygon_filter is not None:
+        elif self.settings.properties.get('visible_features_only', False) and self.polygon_filter is not None:
             ct = QgsCoordinateTransform(self.polygon_filter.crs(), self.source_layer.crs(),
                                         QgsProject.instance().transformContext())
             try:
@@ -417,7 +416,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         Sets the visible region associated with the factory, possibly triggering a rebuild
         of a filtered plot
         """
-        if self.visible_features_only:
+        if self.settings.properties.get('visible_features_only', False):
             self.visible_region = region
             self.rebuild()
 
