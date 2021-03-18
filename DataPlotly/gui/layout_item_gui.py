@@ -218,7 +218,11 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         self.plot_item.set_plot_settings(self.plot_list.currentRow(), self.panel.get_settings())
         self.populate_plot_list()
         self.panel = None
-        self.plot_item.update()
+        try:
+            self.plot_item.update()
+        except RuntimeError:
+            # c++ object already gone!
+            pass
 
     def linked_map_changed(self, linked_map):
         """
