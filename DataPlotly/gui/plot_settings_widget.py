@@ -282,6 +282,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.y_axis_min.setRange(sys.float_info.max * -1, sys.float_info.max)
         self.y_axis_max.setRange(sys.float_info.max * -1, sys.float_info.max)
 
+        # default gridaxis color
+        self.layout_grid_axis_color.setColor(QColor('#bdbfc0'))
+
         self.pid = None
         self.plot_path = None
         self.plot_url = None
@@ -1035,7 +1038,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'y_max': self.y_axis_max.value() if self.y_axis_bounds_check.isChecked() else None,
                              'bargaps': self.bar_gap.value(),
                              'additional_info_expression': self.additional_info_combo.expression(),
-                             'bins_check': self.bins_check.isChecked()}
+                             'bins_check': self.bins_check.isChecked(),
+                             'gridcolor': self.layout_grid_axis_color.color().name()}
 
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
                             source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None)
@@ -1138,6 +1142,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.bins_value.setValue(settings.properties.get('bins', 0))
         self.bar_gap.setValue(settings.layout.get('bargaps', 0))
         self.show_legend_check.setChecked(settings.layout.get('legend', True))
+        self.layout_grid_axis_color.setColor(
+            QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
 
     def create_plot_factory(self) -> PlotFactory:
         """
