@@ -86,7 +86,7 @@ class PlotType:
                 'title': x_title,
                 'autorange': settings.layout['x_inv'],
                 'range': range_x,
-                'gridcolor': settings.layout['gridcolor']
+                'gridcolor': settings.layout.get('gridcolor', '#BDBFC0')
             },
             yaxis={
                 'title': y_title,
