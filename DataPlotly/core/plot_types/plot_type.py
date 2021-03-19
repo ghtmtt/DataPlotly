@@ -92,7 +92,7 @@ class PlotType:
                 'title': y_title,
                 'autorange': settings.layout['y_inv'],
                 'range': range_y,
-                'gridcolor': settings.layout['gridcolor']
+                'gridcolor': settings.layout.get('gridcolor', '#BDBFC0')
             },
             paper_bgcolor=bg_color,
             plot_bgcolor=bg_color

@@ -1143,7 +1143,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.bar_gap.setValue(settings.layout.get('bargaps', 0))
         self.show_legend_check.setChecked(settings.layout.get('legend', True))
         self.layout_grid_axis_color.setColor(
-            QColor(settings.layout.get('gridcolor', None) if settings.layout.get('gridcolor', None) is not None else '#BDBFC0'))
+            QColor(settings.layout.get('gridcolor') or '#BDBFC0'))
 
     def create_plot_factory(self) -> PlotFactory:
         """
