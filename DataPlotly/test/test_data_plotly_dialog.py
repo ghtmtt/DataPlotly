@@ -136,7 +136,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.layout['bargaps'] = 0.8
         settings.layout['additional_info_expression'] = '1+2'
         settings.layout['bins_check'] = True
-        settings.layout['gridcolor'] = 'rgba(189, 191, 192, 255)'
+        settings.layout['gridcolor'] = '#bdbfc0'
 
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
                                                      QgsProperty.fromExpression('"ap">50'))
