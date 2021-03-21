@@ -151,7 +151,11 @@ class PlotLayoutItem(QgsLayoutItem):
             self.plot_settings[plot_id] = settings
             self.plot_settings[plot_id].layout['bg_color'] = 'rgba(0,0,0,0)'
             self.html_loaded = False
-            self.invalidateCache()
+            try:
+                self.invalidateCache()
+            except RuntimeError:
+                # c++ object already gone!
+                pass
 
     def draw(self, context):
         if not self.html_loaded:
