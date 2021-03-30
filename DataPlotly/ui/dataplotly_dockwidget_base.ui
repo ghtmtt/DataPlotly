@@ -258,7 +258,7 @@ QListWidget::item::selected {
          <item row="0" column="0">
           <widget class="QStackedWidget" name="stackedNestedPlotWidget">
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page">
             <layout class="QGridLayout" name="gridLayout">
@@ -321,8 +321,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>673</width>
-                  <height>989</height>
+                  <width>665</width>
+                  <height>1011</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_9">
@@ -883,8 +883,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>687</width>
-                  <height>748</height>
+                  <width>686</width>
+                  <height>742</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0">
