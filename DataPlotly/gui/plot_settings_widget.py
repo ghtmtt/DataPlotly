@@ -797,7 +797,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.size_defined_button: ['scatter', 'ternary'],
             self.marker_type_lab: ['scatter', 'polar'],
             self.marker_type_combo: ['scatter', 'polar'],
-            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
+            self.alpha_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
             self.opacity_widget: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
             self.properties_group_box: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram',
                                         'violin'],
