@@ -40,6 +40,7 @@ class PieChartFactory(PlotType):
                     colors=settings.data_defined_colors if settings.data_defined_colors else [settings.properties['in_color']]
                 ),
                 name=settings.properties['custom'][0],
+                opacity=settings.properties['opacity']
             )]
 
     @staticmethod
