@@ -30,6 +30,7 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
+    # pylint: disable=import-outside-toplevel
     from .data_plotly import DataPlotly
     return DataPlotly(iface)
 
@@ -41,5 +42,9 @@ def serverClassFactory(server_iface):
     :type server_iface: QgsServerInterface
     """
     _ = server_iface
-    from .server import DataPlotlyServer
-    return DataPlotlyServer()
+    # pylint: disable=import-outside-toplevel
+    from qgis.core import QgsApplication, QgsMessageLog, Qgis
+    from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
+
+    QgsApplication.layoutItemRegistry().addLayoutItemType(PlotLayoutItemMetadata())
+    QgsMessageLog.logMessage("Custom DataPlotly layout item loaded", "DataPlotly", Qgis.Info)

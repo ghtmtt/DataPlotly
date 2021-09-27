@@ -53,12 +53,11 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     if with_coverage:
         cov.stop()
         cov.save()
-        report = tempfile.NamedTemporaryFile(delete=False)
-        cov.report(file=report)
+        with tempfile.NamedTemporaryFile(delete=False) as report:
+            cov.report(file=report)
         # Produce HTML reports in the `htmlcov` folder and open index.html
         # cov.html_report()
-        report.close()
-        with open(report.name, 'r') as fin:
+        with open(report.name, 'r', encoding='utf8') as fin:
             print(fin.read())
 
 

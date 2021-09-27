@@ -697,7 +697,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # according to the plot type, change the label names
 
         # BoxPlot
-        if self.ptype == 'box' or self.ptype == 'violin':
+        if self.ptype in ('box', 'violin'):
             self.x_label.setText(self.tr('Grouping field \n(optional)'))
             # set the horizontal and vertical size of the label and reduce the label font size
             ff = QFont()
@@ -1282,7 +1282,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layoutw.addWidget(self.plot_view)
 
         self.raw_plot_text.clear()
-        with open(self.plot_path, 'r') as myfile:
+        with open(self.plot_path, 'r', encoding="utf8") as myfile:
             plot_text = myfile.read()
 
         self.raw_plot_text.setPlainText(plot_text)

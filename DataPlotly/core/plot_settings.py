@@ -247,7 +247,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         document.appendChild(elem)
 
         try:
-            with open(file_name, "w") as f:
+            with open(file_name, "w", encoding="utf8") as f:
                 f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 f.write(document.toString())
                 return True

@@ -683,7 +683,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             'modeBarButtonsToRemove': ['toImage', 'sendDataToCloud', 'editInChartStudio']
         }
 
-        with open(self.plot_path, "w") as f:
+        with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.build_html(config))
 
         return self.plot_path
@@ -748,7 +748,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.raw_plot = self.raw_plot.replace('ReplaceTheDiv', substr)
 
         self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
-        with open(self.plot_path, "w") as f:
+        with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.raw_plot)
 
         return self.plot_path
@@ -807,7 +807,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.raw_plot = self.raw_plot.replace('ReplaceTheDiv', substr)
 
         self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
-        with open(self.plot_path, "w") as f:
+        with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.raw_plot)
 
         return self.plot_path
