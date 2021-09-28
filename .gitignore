@@ -1,8 +1,14 @@
+# Python
 *.pyc
+.venv
+venv
+__pycache__/
+
+# IDE
 .idea/*
+
 .backuputils.py
 help/.tx/*
 *.zip
-__pycache__/
 .coverage
 .noseids
