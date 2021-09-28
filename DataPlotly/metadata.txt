@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=3.8
+version=3.8.1
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
