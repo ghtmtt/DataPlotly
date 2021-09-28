@@ -11,7 +11,7 @@ name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=3.7.1
+version=3.8
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -25,6 +25,8 @@ repository=https://github.com/ghtmtt/DataPlotly
 
 # Uncomment the following line and add your changelog:
 changelog=
+  Version 3.8
+  - [feature] expose DataPlotly on QGIS Server for a GetPrint request kudos to @Gustry
   Version 3.7
   - [feature] histogram and pie chart bar and slices with same color of category! kudos to @jdugge
   - [feature] plot background transparent in layouts!
