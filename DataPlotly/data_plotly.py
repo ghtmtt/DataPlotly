@@ -22,9 +22,10 @@
 """
 import os.path
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from qgis.PyQt.QtWidgets import QAction, QMenu
-from qgis.core import QgsApplication
+from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt, QUrl
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtWidgets import QAction
+from qgis.core import Qgis, QgsApplication
 from qgis.gui import QgsGui
 
 # Import the code for the dialog
@@ -77,7 +78,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         self.dock_widget = None
         self.show_dock_action = None
-        self.menu = None
+        self.help_action = None
         self.toolbar = None
 
         self.plot_item_metadata = PlotLayoutItemMetadata()
@@ -101,9 +102,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
-
-        self.menu = QMenu(self.tr('&DataPlotly'))
-        self.iface.pluginMenu().addMenu(self.menu)
+        icon = GuiUtils.get_icon('dataplotly.svg')
 
         # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar('DataPlotly')
@@ -113,15 +112,13 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
         self.dock_widget.hide()
 
-        self.show_dock_action = QAction(
-            GuiUtils.get_icon('dataplotly.svg'),
-            self.tr('DataPlotly'))
+        self.show_dock_action = QAction(icon, self.tr('DataPlotly'))
         self.show_dock_action.setToolTip(self.tr('Shows the DataPlotly dock'))
         self.show_dock_action.setCheckable(True)
 
         self.dock_widget.setToggleVisibilityAction(self.show_dock_action)
 
-        self.menu.addAction(self.show_dock_action)
+        self.iface.pluginMenu().addAction(self.show_dock_action)
         self.toolbar.addAction(self.show_dock_action)
 
         # Add processing provider
@@ -131,21 +128,35 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.plot_item_gui_metadata = PlotLayoutItemGuiMetadata()
         QgsGui.layoutItemGuiRegistry().addLayoutItemGuiMetadata(self.plot_item_gui_metadata)
 
+        # Open the online help
+        if Qgis.QGIS_VERSION_INT >= 31000:
+            self.help_action = QAction(icon, 'DataPlotly', self.iface.mainWindow())
+            self.iface.pluginHelpMenu().addAction(self.help_action)
+            self.help_action.triggered.connect(self.open_help)
+
     def initProcessing(self):
         """Create the Processing provider"""
         QgsApplication.processingRegistry().addProvider(self.provider)
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
+        self.iface.pluginMenu().removeAction(self.show_dock_action)
         self.show_dock_action.deleteLater()
         self.show_dock_action = None
-        self.menu.deleteLater()
-        self.menu = None
         self.toolbar.deleteLater()
         self.toolbar = None
 
+        if Qgis.QGIS_VERSION_INT >= 31000 and self.help_action:
+            self.iface.pluginHelpMenu().removeAction(self.help_action)
+            self.help_action = None
+
         # Remove processing provider
         QgsApplication.processingRegistry().removeProvider(self.provider)
+
+    @staticmethod
+    def open_help():
+        """ Open the online help. """
+        QDesktopServices.openUrl(QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.md'))
 
     def loadPlotFromDic(self, plot_dic):
         """
