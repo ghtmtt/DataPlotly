@@ -320,7 +320,7 @@ QListWidget::item::selected {
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-270</y>
                   <width>673</width>
                   <height>989</height>
                  </rect>
@@ -883,8 +883,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>687</width>
-                  <height>748</height>
+                  <width>414</width>
+                  <height>583</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0">
@@ -1437,12 +1437,12 @@ QListWidget::item::selected {
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>532</x>
-     <y>226</y>
+     <x>903</x>
+     <y>-14</y>
     </hint>
     <hint type="destinationlabel">
-     <x>504</x>
-     <y>-15</y>
+     <x>364</x>
+     <y>3</y>
     </hint>
    </hints>
   </connection>
@@ -1453,12 +1453,12 @@ QListWidget::item::selected {
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>532</x>
-     <y>266</y>
+     <x>903</x>
+     <y>15</y>
     </hint>
     <hint type="destinationlabel">
-     <x>504</x>
-     <y>18</y>
+     <x>364</x>
+     <y>20</y>
     </hint>
    </hints>
   </connection>
@@ -1469,12 +1469,28 @@ QListWidget::item::selected {
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>532</x>
-     <y>306</y>
+     <x>903</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
-     <x>504</x>
-     <y>51</y>
+     <x>364</x>
+     <y>32</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bins_check</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bins_value</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>337</x>
+     <y>722</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>438</x>
+     <y>721</y>
     </hint>
    </hints>
   </connection>
