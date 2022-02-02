@@ -82,16 +82,21 @@ class PlotType:
             showlegend=settings.layout['legend'],
             legend={'orientation': settings.layout['legend_orientation']},
             title=settings.data_defined_title if settings.data_defined_title else settings.layout['title'],
+            font={
+                "size": settings.layout.get('font_size_title', 20)
+            },
             xaxis={
                 'title': x_title,
                 'autorange': settings.layout['x_inv'],
                 'range': range_x,
+                'tickfont': dict(size=settings.layout.get('font_size_xticks', 20)),
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             yaxis={
                 'title': y_title,
                 'autorange': settings.layout['y_inv'],
                 'range': range_y,
+                'tickfont': dict(size=settings.layout.get('font_size_yticks', 20)),
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             paper_bgcolor=bg_color,

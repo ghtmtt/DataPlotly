@@ -39,6 +39,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_X_TITLE = 12
     PROPERTY_Y_TITLE = 13
     PROPERTY_Z_TITLE = 14
+    PROPERTY_FONT_SIZE_TITLE = 15
+    PROPERTY_FONT_SIZE_XTICKS = 16
+    PROPERTY_FONT_SIZE_YTICKS = 17
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
@@ -50,6 +53,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
                                                      QgsPropertyDefinition.DoublePositive),
         PROPERTY_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.String),
         PROPERTY_LEGEND_TITLE: QgsPropertyDefinition('legend_title', 'Legend title', QgsPropertyDefinition.String),
+        PROPERTY_FONT_SIZE_TITLE: QgsPropertyDefinition('font_size_title', 'Font size title', QgsPropertyDefinition.Double),
+        PROPERTY_FONT_SIZE_XTICKS: QgsPropertyDefinition('font_size_xticks', 'Font size xticks', QgsPropertyDefinition.Double),
+        PROPERTY_FONT_SIZE_YTICKS: QgsPropertyDefinition('font_size_yticks', 'Font size yticks', QgsPropertyDefinition.Double),
         PROPERTY_X_TITLE: QgsPropertyDefinition('x_title', 'X title', QgsPropertyDefinition.String),
         PROPERTY_Y_TITLE: QgsPropertyDefinition('y_title', 'Y title', QgsPropertyDefinition.String),
         PROPERTY_Z_TITLE: QgsPropertyDefinition('z_title', 'Z title', QgsPropertyDefinition.String),
@@ -118,6 +124,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'x_title': '',
             'y_title': '',
             'z_title': '',
+            'font_size_title': 20,
+            'font_size_xticks': 20,
+            'font_size_yticks': 20,
             'xaxis': None,
             'bar_mode': None,
             'x_type': None,
