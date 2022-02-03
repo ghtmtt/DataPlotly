@@ -78,25 +78,30 @@ class PlotType:
 
         bg_color = settings.layout.get('bg_color', 'rgb(255,255,255)')
 
+        # add font size parameter from the title setting
+        title = settings.data_defined_title if settings.data_defined_title else settings.layout['title']
+        if isinstance(title, str):
+            title = {"text": title}
+        title["font"] = {"size": settings.layout.get('font_size_title', 20)}
+
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
             legend={'orientation': settings.layout['legend_orientation']},
-            title=settings.data_defined_title if settings.data_defined_title else settings.layout['title'],
-            font={
-                "size": settings.layout.get('font_size_title', 20)
-            },
+            title=title,
             xaxis={
                 'title': x_title,
+                'titlefont': {"size": settings.layout.get('font_size_xlabel', 20)},
                 'autorange': settings.layout['x_inv'],
                 'range': range_x,
-                'tickfont': dict(size=settings.layout.get('font_size_xticks', 20)),
+                'tickfont': {"size": settings.layout.get('font_size_xticks', 20)},
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             yaxis={
                 'title': y_title,
+                'titlefont': {"size": settings.layout.get('font_size_ylabel', 20)},
                 'autorange': settings.layout['y_inv'],
                 'range': range_y,
-                'tickfont': dict(size=settings.layout.get('font_size_yticks', 20)),
+                'tickfont': {"size": settings.layout.get('font_size_yticks', 20)},
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             paper_bgcolor=bg_color,

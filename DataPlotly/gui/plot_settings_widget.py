@@ -822,10 +822,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.plot_title_line: ['all'],
             self.plot_title_defined_button: ['all'],
             self.font_size_title_label: ['all'],
+            self.font_size_xlabel_label: ['all'],
             self.font_size_xticks_label: ['all'],
+            self.font_size_ylabel_label: ['all'],
             self.font_size_yticks_label: ['all'],
             self.font_size_title_value: ['all'],
+            self.font_size_xlabel_value: ['all'],
             self.font_size_xticks_value: ['all'],
+            self.font_size_ylabel_value: ['all'],
             self.font_size_yticks_value: ['all'],
             self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
             self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
@@ -1035,7 +1039,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'legend_orientation': 'h' if self.orientation_legend_check.isChecked() else 'v',
                              'title': self.plot_title_line.text(),
                              'font_size_title': self.font_size_title_value.value(),
+                             'font_size_xlabel': self.font_size_xlabel_value.value(),
                              'font_size_xticks': self.font_size_xticks_value.value(),
+                             'font_size_ylabel': self.font_size_ylabel_value.value(),
                              'font_size_yticks': self.font_size_yticks_value.value(),
                              'x_title': self.x_axis_title.text(),
                              'y_title': self.y_axis_title.text(),
@@ -1125,7 +1131,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.legend_title.setText(settings.properties.get('name', ''))
         self.font_size_title_value.setValue(settings.layout.get('font_size_title', 20))
         self.font_size_xticks_value.setValue(settings.layout.get('font_size_xticks', 20))
+        self.font_size_xlabel_value.setValue(settings.layout.get('font_size_xlabel', 20))
         self.font_size_yticks_value.setValue(settings.layout.get('font_size_yticks', 20))
+        self.font_size_ylabel_value.setValue(settings.layout.get('font_size_ylabel', 20))
         self.x_axis_title.setText(settings.layout.get('x_title', ''))
         self.y_axis_title.setText(settings.layout.get('y_title', ''))
         self.z_axis_title.setText(settings.layout.get('z_title', ''))
