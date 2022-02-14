@@ -1241,7 +1241,7 @@ QListWidget::item::selected {
                           <number>1000</number>
                          </property>
                          <property name="value">
-                          <number>20</number>
+                          <number>10</number>
                          </property>
                         </widget>
                        </item>
@@ -1254,7 +1254,7 @@ QListWidget::item::selected {
                           <number>1000</number>
                          </property>
                          <property name="value">
-                          <number>20</number>
+                          <number>10</number>
                          </property>
                         </widget>
                        </item>
@@ -1267,7 +1267,7 @@ QListWidget::item::selected {
                           <number>1000</number>
                          </property>
                          <property name="value">
-                          <number>20</number>
+                          <number>10</number>
                          </property>
                         </widget>
                        </item>
@@ -1294,7 +1294,7 @@ QListWidget::item::selected {
                           <number>1000</number>
                          </property>
                          <property name="value">
-                          <number>20</number>
+                          <number>10</number>
                          </property>
                         </widget>
                        </item>
@@ -1307,7 +1307,7 @@ QListWidget::item::selected {
                           <number>1000</number>
                          </property>
                          <property name="value">
-                          <number>20</number>
+                          <number>10</number>
                          </property>
                         </widget>
                        </item>
