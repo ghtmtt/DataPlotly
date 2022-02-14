@@ -9,8 +9,15 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from plotly import graph_objs
+from qgis.core import QgsTextFormat
 from qgis.PyQt.QtCore import QCoreApplication
 
+def from_QgsTextFormat_to_Font(input):
+    return {
+        "size": input.size() or 10,
+        "color": input.color().name() or "black",
+        "family": input.resolvedFontFamily() or "Arial",
+    }
 
 class PlotType:
     """
@@ -82,7 +89,8 @@ class PlotType:
         title = settings.data_defined_title if settings.data_defined_title else settings.layout['title']
         if isinstance(title, str):
             title = {"text": title}
-        title["font"] = {"size": settings.layout.get('font_size_title', 10)}
+        title["font"] = from_QgsTextFormat_to_Font(
+            settings.layout.get('font_title', QgsTextFormat()))
 
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
@@ -90,18 +98,26 @@ class PlotType:
             title=title,
             xaxis={
                 'title': x_title,
-                'titlefont': {"size": settings.layout.get('font_size_xlabel', 10)},
+                'titlefont': from_QgsTextFormat_to_Font(
+                    settings.layout.get('font_xlabel', QgsTextFormat())
+                ),
                 'autorange': settings.layout['x_inv'],
                 'range': range_x,
-                'tickfont': {"size": settings.layout.get('font_size_xticks', 10)},
+                'tickfont': from_QgsTextFormat_to_Font(
+                    settings.layout.get('font_xticks', QgsTextFormat())
+                ),
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             yaxis={
                 'title': y_title,
-                'titlefont': {"size": settings.layout.get('font_size_ylabel', 10)},
+                'titlefont': from_QgsTextFormat_to_Font(
+                    settings.layout.get('font_ylabel', QgsTextFormat())
+                ),
                 'autorange': settings.layout['y_inv'],
                 'range': range_y,
-                'tickfont': {"size": settings.layout.get('font_size_yticks', 10)},
+                'tickfont': from_QgsTextFormat_to_Font(
+                    settings.layout.get('font_yticks', QgsTextFormat())
+                ),
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             paper_bgcolor=bg_color,

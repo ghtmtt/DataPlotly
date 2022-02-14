@@ -15,7 +15,8 @@ from qgis.PyQt.QtXml import QDomDocument, QDomElement
 from qgis.core import (
     QgsXmlUtils,
     QgsPropertyCollection,
-    QgsPropertyDefinition
+    QgsPropertyDefinition,
+    QgsTextFormat
 )
 
 
@@ -39,11 +40,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_X_TITLE = 12
     PROPERTY_Y_TITLE = 13
     PROPERTY_Z_TITLE = 14
-    PROPERTY_FONT_SIZE_TITLE = 15
-    PROPERTY_FONT_SIZE_XLABEL = 16
-    PROPERTY_FONT_SIZE_XTICKS = 17
-    PROPERTY_FONT_SIZE_YLABEL = 18
-    PROPERTY_FONT_SIZE_YTICKS = 19
+    PROPERTY_FONT_TITLE = 15
+    PROPERTY_FONT_XLABEL = 16
+    PROPERTY_FONT_XTICKS = 17
+    PROPERTY_FONT_YLABEL = 18
+    PROPERTY_FONT_YTICKS = 19
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
@@ -55,11 +56,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
                                                      QgsPropertyDefinition.DoublePositive),
         PROPERTY_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.String),
         PROPERTY_LEGEND_TITLE: QgsPropertyDefinition('legend_title', 'Legend title', QgsPropertyDefinition.String),
-        PROPERTY_FONT_SIZE_TITLE: QgsPropertyDefinition('font_size_title', 'Font size title', QgsPropertyDefinition.DoublePositive),
-        PROPERTY_FONT_SIZE_XLABEL: QgsPropertyDefinition('font_size_xlabel', 'Font size xlabel', QgsPropertyDefinition.DoublePositive),
-        PROPERTY_FONT_SIZE_XTICKS: QgsPropertyDefinition('font_size_xticks', 'Font size xticks', QgsPropertyDefinition.DoublePositive),
-        PROPERTY_FONT_SIZE_YLABEL: QgsPropertyDefinition('font_size_ylabel', 'Font size ylabel', QgsPropertyDefinition.DoublePositive),
-        PROPERTY_FONT_SIZE_YTICKS: QgsPropertyDefinition('font_size_yticks', 'Font size yticks', QgsPropertyDefinition.DoublePositive),
+        # PROPERTY_FONT_TITLE: QgsPropertyDefinition('font_title', 'Font title', QgsTextFormat),
+        # PROPERTY_FONT_XLABEL: QgsPropertyDefinition('font_xlabel', 'Font xlabel', QgsTextFormat),
+        # PROPERTY_FONT_XTICKS: QgsPropertyDefinition('font_xticks', 'Font xticks', QgsTextFormat),
+        # PROPERTY_FONT_YLABEL: QgsPropertyDefinition('font_ylabel', 'Font ylabel', QgsTextFormat),
+        # PROPERTY_FONT_YTICKS: QgsPropertyDefinition('font_yticks', 'Font yticks', QgsTextFormat),
         PROPERTY_X_TITLE: QgsPropertyDefinition('x_title', 'X title', QgsPropertyDefinition.String),
         PROPERTY_Y_TITLE: QgsPropertyDefinition('y_title', 'Y title', QgsPropertyDefinition.String),
         PROPERTY_Z_TITLE: QgsPropertyDefinition('z_title', 'Z title', QgsPropertyDefinition.String),
@@ -128,11 +129,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'x_title': '',
             'y_title': '',
             'z_title': '',
-            'font_size_title': 10,
-            'font_size_xlabel': 10,
-            'font_size_xticks': 10,
-            'font_size_ylabel': 10,
-            'font_size_yticks': 10,
+            'font_title': None,
+            'font_xlabel': None,
+            'font_xticks': None,
+            'font_ylabel': None,
+            'font_yticks': None,
             'xaxis': None,
             'bar_mode': None,
             'x_type': None,

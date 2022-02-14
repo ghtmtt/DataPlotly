@@ -1212,104 +1212,54 @@ QListWidget::item::selected {
                       </property>
                       <layout class="QGridLayout" name="gridLayout_11">
                        <item row="0" column="0">
-                        <widget class="QLabel" name="font_size_title_label">
+                        <widget class="QLabel" name="font_title_label">
                          <property name="text">
-                          <string>Title font size</string>
+                          <string>Title font</string>
                          </property>
                         </widget>
                        </item>
                        <item row="3" column="0">
-                        <widget class="QLabel" name="font_size_xlabel_label">
+                        <widget class="QLabel" name="font_xlabel_label">
                          <property name="text">
-                          <string>X label font size</string>
+                          <string>X label font</string>
                          </property>
                         </widget>
                        </item>
                        <item row="6" column="0">
-                        <widget class="QLabel" name="font_size_yticks_label">
+                        <widget class="QLabel" name="font_yticks_label">
                          <property name="text">
-                          <string>Y ticks font size</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="4" column="2">
-                        <widget class="QSpinBox" name="font_size_xticks_value">
-                         <property name="minimum">
-                          <number>1</number>
-                         </property>
-                         <property name="maximum">
-                          <number>1000</number>
-                         </property>
-                         <property name="value">
-                          <number>10</number>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="0" column="2">
-                        <widget class="QSpinBox" name="font_size_title_value">
-                         <property name="minimum">
-                          <number>1</number>
-                         </property>
-                         <property name="maximum">
-                          <number>1000</number>
-                         </property>
-                         <property name="value">
-                          <number>10</number>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="6" column="2">
-                        <widget class="QSpinBox" name="font_size_yticks_value">
-                         <property name="minimum">
-                          <number>1</number>
-                         </property>
-                         <property name="maximum">
-                          <number>1000</number>
-                         </property>
-                         <property name="value">
-                          <number>10</number>
+                          <string>Y ticks font</string>
                          </property>
                         </widget>
                        </item>
                        <item row="4" column="0">
-                        <widget class="QLabel" name="font_size_xticks_label">
+                        <widget class="QLabel" name="font_xticks_label">
                          <property name="text">
-                          <string>X ticks font size</string>
+                          <string>X ticks font</string>
                          </property>
                         </widget>
                        </item>
                        <item row="5" column="0">
-                        <widget class="QLabel" name="font_size_ylabel_label">
+                        <widget class="QLabel" name="font_ylabel_label">
                          <property name="text">
-                          <string>Y label font size</string>
+                          <string>Y label font</string>
                          </property>
                         </widget>
+                       </item>
+                       <item row="0" column="2">
+                        <widget class="QgsFontButton" name="font_title_style"/>
                        </item>
                        <item row="3" column="2">
-                        <widget class="QSpinBox" name="font_size_xlabel_value">
-                         <property name="minimum">
-                          <number>1</number>
-                         </property>
-                         <property name="maximum">
-                          <number>1000</number>
-                         </property>
-                         <property name="value">
-                          <number>10</number>
-                         </property>
-                        </widget>
+                        <widget class="QgsFontButton" name="font_xlabel_style"/>
+                       </item>
+                       <item row="4" column="2">
+                        <widget class="QgsFontButton" name="font_xticks_style"/>
                        </item>
                        <item row="5" column="2">
-                        <widget class="QSpinBox" name="font_size_ylabel_value">
-                         <property name="minimum">
-                          <number>1</number>
-                         </property>
-                         <property name="maximum">
-                          <number>1000</number>
-                         </property>
-                         <property name="value">
-                          <number>10</number>
-                         </property>
-                        </widget>
+                        <widget class="QgsFontButton" name="font_ylabel_style"/>
+                       </item>
+                       <item row="6" column="2">
+                        <widget class="QgsFontButton" name="font_yticks_style"/>
                        </item>
                       </layout>
                      </widget>
@@ -1512,6 +1462,11 @@ QListWidget::item::selected {
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
    <header>qgsfieldexpressionwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsFontButton</class>
+   <extends>QToolButton</extends>
+   <header>qgsfontbutton.h</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
