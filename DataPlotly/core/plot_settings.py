@@ -40,11 +40,21 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_X_TITLE = 12
     PROPERTY_Y_TITLE = 13
     PROPERTY_Z_TITLE = 14
-    PROPERTY_FONT_TITLE = 15
-    PROPERTY_FONT_XLABEL = 16
-    PROPERTY_FONT_XTICKS = 17
-    PROPERTY_FONT_YLABEL = 18
-    PROPERTY_FONT_YTICKS = 19
+    PROPERTY_FONT_TITLE_SIZE = 15
+    PROPERTY_FONT_TITLE_FAMILY = 16
+    PROPERTY_FONT_TITLE_COLOR = 17
+    PROPERTY_FONT_XLABEL_SIZE = 18
+    PROPERTY_FONT_XLABEL_FAMILY = 19
+    PROPERTY_FONT_XLABEL_COLOR = 20
+    PROPERTY_FONT_XTICKS_SIZE = 21
+    PROPERTY_FONT_XTICKS_FAMILY = 22
+    PROPERTY_FONT_XTICKS_COLOR = 23
+    PROPERTY_FONT_YLABEL_SIZE = 24
+    PROPERTY_FONT_YLABEL_FAMILY = 25
+    PROPERTY_FONT_YLABEL_COLOR = 26
+    PROPERTY_FONT_YTICKS_SIZE = 27
+    PROPERTY_FONT_YTICKS_FAMILY = 28
+    PROPERTY_FONT_YTICKS_COLOR = 29
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
@@ -56,11 +66,21 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
                                                      QgsPropertyDefinition.DoublePositive),
         PROPERTY_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.String),
         PROPERTY_LEGEND_TITLE: QgsPropertyDefinition('legend_title', 'Legend title', QgsPropertyDefinition.String),
-        # PROPERTY_FONT_TITLE: QgsPropertyDefinition('font_title', 'Font title', QgsTextFormat),
-        # PROPERTY_FONT_XLABEL: QgsPropertyDefinition('font_xlabel', 'Font xlabel', QgsTextFormat),
-        # PROPERTY_FONT_XTICKS: QgsPropertyDefinition('font_xticks', 'Font xticks', QgsTextFormat),
-        # PROPERTY_FONT_YLABEL: QgsPropertyDefinition('font_ylabel', 'Font ylabel', QgsTextFormat),
-        # PROPERTY_FONT_YTICKS: QgsPropertyDefinition('font_yticks', 'Font yticks', QgsTextFormat),
+        PROPERTY_FONT_TITLE_SIZE: QgsPropertyDefinition('font_title_size', 'Font title size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_TITLE_FAMILY: QgsPropertyDefinition('font_title_family', 'Font title family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_TITLE_COLOR: QgsPropertyDefinition('font_title_color', 'Font title color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_XLABEL_SIZE: QgsPropertyDefinition('font_xlabel_size', 'Font xlabel size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_XLABEL_FAMILY: QgsPropertyDefinition('font_xlabel_family', 'Font xlabel family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_XLABEL_COLOR: QgsPropertyDefinition('font_xlabel_color', 'Font xlabel color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_XTICKS_SIZE: QgsPropertyDefinition('font_xticks_size', 'Font xticks size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_XTICKS_FAMILY: QgsPropertyDefinition('font_xticks_family', 'Font xticks family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_XTICKS_COLOR: QgsPropertyDefinition('font_xticks_color', 'Font xticks color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_YLABEL_SIZE: QgsPropertyDefinition('font_ylabel_size', 'Font ylabel size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_YLABEL_FAMILY: QgsPropertyDefinition('font_ylabel_family', 'Font ylabel family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_YLABEL_COLOR: QgsPropertyDefinition('font_ylabel_color', 'Font ylabel color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_YTICKS_SIZE: QgsPropertyDefinition('font_yticks_size', 'Font yticks size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_YTICKS_FAMILY: QgsPropertyDefinition('font_yticks_family', 'Font yticks family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_YTICKS_COLOR: QgsPropertyDefinition('font_yticks_color', 'Font yticks color', QgsPropertyDefinition.ColorWithAlpha),
         PROPERTY_X_TITLE: QgsPropertyDefinition('x_title', 'X title', QgsPropertyDefinition.String),
         PROPERTY_Y_TITLE: QgsPropertyDefinition('y_title', 'Y title', QgsPropertyDefinition.String),
         PROPERTY_Z_TITLE: QgsPropertyDefinition('z_title', 'Z title', QgsPropertyDefinition.String),
@@ -129,11 +149,21 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'x_title': '',
             'y_title': '',
             'z_title': '',
-            'font_title': None,
-            'font_xlabel': None,
-            'font_xticks': None,
-            'font_ylabel': None,
-            'font_yticks': None,
+            'font_title_size': 10,
+            'font_title_family': "Arial",
+            'font_title_color': "#000000",
+            'font_xlabel_size': 10,
+            'font_xlabel_family': "Arial",
+            'font_xlabel_color': "#000000",
+            'font_xticks_size': 10,
+            'font_xticks_family': "Arial",
+            'font_xticks_color': "#000000",
+            'font_ylabel_size': 10,
+            'font_ylabel_family': "Arial",
+            'font_ylabel_color': "#000000",
+            'font_yticks_size': 10,
+            'font_yticks_family': "Arial",
+            'font_yticks_color': "#000000",
             'xaxis': None,
             'bar_mode': None,
             'x_type': None,

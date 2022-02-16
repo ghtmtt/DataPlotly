@@ -1211,6 +1211,27 @@ QListWidget::item::selected {
                        <bool>true</bool>
                       </property>
                       <layout class="QGridLayout" name="gridLayout_11">
+                       <item row="6" column="0">
+                        <widget class="QLabel" name="font_yticks_label">
+                         <property name="text">
+                          <string>Y ticks font</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="5" column="0">
+                        <widget class="QLabel" name="font_ylabel_label">
+                         <property name="text">
+                          <string>Y label font</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="4" column="0">
+                        <widget class="QLabel" name="font_xticks_label">
+                         <property name="text">
+                          <string>X ticks font</string>
+                         </property>
+                        </widget>
+                       </item>
                        <item row="0" column="0">
                         <widget class="QLabel" name="font_title_label">
                          <property name="text">
@@ -1225,41 +1246,55 @@ QListWidget::item::selected {
                          </property>
                         </widget>
                        </item>
-                       <item row="6" column="0">
-                        <widget class="QLabel" name="font_yticks_label">
-                         <property name="text">
-                          <string>Y ticks font</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="4" column="0">
-                        <widget class="QLabel" name="font_xticks_label">
-                         <property name="text">
-                          <string>X ticks font</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item row="5" column="0">
-                        <widget class="QLabel" name="font_ylabel_label">
-                         <property name="text">
-                          <string>Y label font</string>
-                         </property>
-                        </widget>
+                       <item row="0" column="3">
+                        <widget class="QgsColorButton" name="font_title_color"/>
                        </item>
                        <item row="0" column="2">
-                        <widget class="QgsFontButton" name="font_title_style"/>
-                       </item>
-                       <item row="3" column="2">
-                        <widget class="QgsFontButton" name="font_xlabel_style"/>
+                        <widget class="QgsFontButton" name="font_title_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
                        </item>
                        <item row="4" column="2">
-                        <widget class="QgsFontButton" name="font_xticks_style"/>
+                        <widget class="QgsFontButton" name="font_xticks_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
                        </item>
                        <item row="5" column="2">
-                        <widget class="QgsFontButton" name="font_ylabel_style"/>
+                        <widget class="QgsFontButton" name="font_ylabel_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
                        </item>
                        <item row="6" column="2">
-                        <widget class="QgsFontButton" name="font_yticks_style"/>
+                        <widget class="QgsFontButton" name="font_yticks_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="3" column="3">
+                        <widget class="QgsColorButton" name="font_xlabel_color"/>
+                       </item>
+                       <item row="3" column="2">
+                        <widget class="QgsFontButton" name="font_xlabel_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="4" column="3">
+                        <widget class="QgsColorButton" name="font_xticks_color"/>
+                       </item>
+                       <item row="5" column="3">
+                        <widget class="QgsColorButton" name="font_ylabel_color"/>
+                       </item>
+                       <item row="6" column="3">
+                        <widget class="QgsColorButton" name="font_yticks_color"/>
                        </item>
                       </layout>
                      </widget>

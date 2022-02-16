@@ -9,15 +9,24 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from plotly import graph_objs
-from qgis.core import QgsTextFormat
 from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtGui import (
+    QFont, QColor
+)
 
-def from_QgsTextFormat_to_Font(input):
-    return {
-        "size": input.size() or 10,
-        "color": input.color().name() or "black",
-        "family": input.resolvedFontFamily() or "Arial",
-    }
+def from_qfont_to_plotly(style, color):
+    if style is not None and color is not None:
+        return {
+            "size": style.pointSize() or 10,
+            "color": color.name() or "black",
+            "family": style.family() or "Arial",
+        }
+    else:
+        return {
+            "size": 10,
+            "color": "black",
+            "family": "Arial",
+        }
 
 class PlotType:
     """
@@ -89,8 +98,11 @@ class PlotType:
         title = settings.data_defined_title if settings.data_defined_title else settings.layout['title']
         if isinstance(title, str):
             title = {"text": title}
-        title["font"] = from_QgsTextFormat_to_Font(
-            settings.layout.get('font_title', QgsTextFormat()))
+        title["font"] = {
+            "size": settings.layout.get('font_title_size', 10),
+            "color": settings.layout.get('font_title_color', "#000"),
+            "family": settings.layout.get('font_title_family', "Arial"),
+        }
 
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
@@ -98,26 +110,34 @@ class PlotType:
             title=title,
             xaxis={
                 'title': x_title,
-                'titlefont': from_QgsTextFormat_to_Font(
-                    settings.layout.get('font_xlabel', QgsTextFormat())
-                ),
+                'titlefont': {
+                    "size": settings.layout.get('font_xlabel_size', 10),
+                    "color": settings.layout.get('font_xlabel_color', "#000"),
+                    "family": settings.layout.get('font_xlabel_family', "Arial"),
+                },
                 'autorange': settings.layout['x_inv'],
                 'range': range_x,
-                'tickfont': from_QgsTextFormat_to_Font(
-                    settings.layout.get('font_xticks', QgsTextFormat())
-                ),
+                'tickfont': {
+                    "size": settings.layout.get('font_xticks_size', 10),
+                    "color": settings.layout.get('font_xticks_color', "#000"),
+                    "family": settings.layout.get('font_xticks_family', "Arial"),
+                },
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             yaxis={
                 'title': y_title,
-                'titlefont': from_QgsTextFormat_to_Font(
-                    settings.layout.get('font_ylabel', QgsTextFormat())
-                ),
+                'titlefont': {
+                    "size": settings.layout.get('font_ylabel_size', 10),
+                    "color": settings.layout.get('font_ylabel_color', "#000"),
+                    "family": settings.layout.get('font_ylabel_family', "Arial"),
+                },
                 'autorange': settings.layout['y_inv'],
                 'range': range_y,
-                'tickfont': from_QgsTextFormat_to_Font(
-                    settings.layout.get('font_yticks', QgsTextFormat())
-                ),
+                'tickfont': {
+                    "size": settings.layout.get('font_yticks_size', 10),
+                    "color": settings.layout.get('font_yticks_color', "#000"),
+                    "family": settings.layout.get('font_yticks_family', "Arial"),
+                },
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             paper_bgcolor=bg_color,
