@@ -7,17 +7,9 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 
-from qgis.PyQt.QtCore import (
-    QFile,
-    QIODevice
-)
+from qgis.PyQt.QtCore import QFile, QIODevice
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
-from qgis.core import (
-    QgsXmlUtils,
-    QgsPropertyCollection,
-    QgsPropertyDefinition,
-    QgsTextFormat
-)
+from qgis.core import QgsXmlUtils, QgsPropertyCollection, QgsPropertyDefinition
 
 
 class PlotSettings:  # pylint: disable=too-many-instance-attributes

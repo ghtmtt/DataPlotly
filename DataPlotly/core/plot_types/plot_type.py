@@ -10,23 +10,23 @@ the Free Software Foundation; either version 2 of the License, or
 
 from plotly import graph_objs
 from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtGui import (
-    QFont, QColor
-)
+
 
 def from_qfont_to_plotly(style, color):
+    """
+    Converts a QFont to a Plotly basic font settings dictionary
+    """
     if style is not None and color is not None:
         return {
             "size": style.pointSize() or 10,
             "color": color.name() or "black",
             "family": style.family() or "Arial",
         }
-    else:
-        return {
-            "size": 10,
-            "color": "black",
-            "family": "Arial",
-        }
+    return {
+        "size": 10,
+        "color": "black",
+        "family": "Arial",
+    }
 
 class PlotType:
     """
