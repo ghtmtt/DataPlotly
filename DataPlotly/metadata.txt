@@ -1,17 +1,8 @@
-# This file contains metadata for your plugin. Since
-# version 2.0 of QGIS this is the proper way to supply
-# information about a plugin. The old method of
-# embedding metadata in __init__.py will
-# is no longer supported since version 2.0.
-
-# This file should be included when you package your plugin.# Mandatory items:
-
 [general]
 name=Data Plotly
 qgisMinimumVersion=3.4
 qgisMaximumVersion=3.98
 description=D3 Plots for QGIS
-version=3.9
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
@@ -21,80 +12,15 @@ tracker=https://github.com/ghtmtt/DataPlotly/issues
 repository=https://github.com/ghtmtt/DataPlotly
 # End of mandatory metadata
 
-# Recommended items:
-
-# Uncomment the following line and add your changelog:
+# Done by qgis-plugin-ci
+version=master
 changelog=
-  Version 3.9
-  - [feature] Customize font for plot title and plot axis. Kudos to @giliam
-  Version 3.8
-  - [feature] expose DataPlotly on QGIS Server for a GetPrint request kudos to @Gustry
-  Version 3.7
-  - [feature] histogram and pie chart bar and slices with same color of category! kudos to @jdugge
-  - [feature] plot background transparent in layouts!
-  Version 3.6
-  - [feature] Multi Plot in layout composer! Ultra kudos to @SGroe
-  - [bugfix] Fix layout composer issue with many plots (ref #207). Thanks to the Italian Community for testing
-  - [bugfix] Fix categorical bar plot wrong behavior 
-  - [bugfix] code cleaning 
-  Version 3.5
-  - [bugfix] Fix loading old projects
-  Version 3.4
-  - [feature] get labels within the plot itself 
-  - [bugfix] Native datetime support! thanks @jdugge
-  - [bugfix] Fix histogram selection
-  Version 3.3
-  - [bugfix] better loading project part 2
-  Version 3.2
-  - [bugfix] fix violin plot bug
-  - [bugfix] better loading project handling
-  Version 3.1
-  - [feature] more data defined options available (in layout customization). Thanks @SGroe 
-  - [feature] X and Y axis bounds limits. Thanks @SGroe
-  - [feature] add box plot within violin plots
-  - [feature] renaming of plugin metadata to better search. Thanks @Gustry
-  - [bugfix] Box plot not working when no group is selected 
-  - [bugfix] Data-defined property overrides do not work in layout
+commitNumber=
+commitSha1=
+dateTime=
+# End of qgis-plugin-ci
 
-  Version 3.0
-  - [feature] total refactoring of the code
-  - [feature] plots also in print composer
-  - [feature] atlas based plots
-  - [feature] chance to save/load configuration file of plot setting
-  - [feature] plot settings saved together with the project
-  - [feature] more datadefined properties
-  - [feature] show only selected/visible/filtered features
-  - [feature] unit tests and continuous integration
-  Version 2.3
-  - [feature] tweaks polar plots, thanks @josephholler
-  Version 2.2
-  - [feature] UI tweaks, thanks @nyalldawson
-  Version 2.1
-  - [fix] typos in UI (thanks @leonmvd and @nyalldawson)
-  - [fix] better python packages imports (thanks @nyalldawson)
-  Version 2.0
-  - [feature] DataPlotly is updated with plotly 3.3 version
-  Version 1.6
-  - [feature] wheel zoom! Give it a try
-  - [feature] Edit plot title and X/Y labels in place
-  Version 1.5.1
-  - [feature] Spanish translation. Special thanks to Luca Bellani
-  - [bugfix] always open English manual if locale not translated
-  Version 1.5
-  - [feature] **new** Violin plots!
-  - [feature] **new** Polar plot layout!
-  - [feature] better default color choice
-  Version 1.4.3
-  - [bugfix] correct interaction with pie plot
-  - update plotly.js to v 1.34.0
-  Version 1.4.2
-  - [bugfix] correct saving html plot
-  Version 1.4.1
-  - [bugfixing] adaptation for new API
-  Version 1.4
-  - [feature] update plotly.js to v 1.33.1
-  - [feature] multiple selection with Shift + selection tool
-  - [feature] DataPlotly as Processing provider, thanks to Michaël Douchin of 3Liz
+# Recommended items:
 
 # Tags are comma separated with spaces allowed
 tags=python, d3, plots, vector, graphs, datavis, dataviz, dataplotly
