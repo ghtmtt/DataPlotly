@@ -12,6 +12,22 @@ from plotly import graph_objs
 from qgis.PyQt.QtCore import QCoreApplication
 
 
+def from_qfont_to_plotly(style, color):
+    """
+    Converts a QFont to a Plotly basic font settings dictionary
+    """
+    if style is not None and color is not None:
+        return {
+            "size": style.pointSize() or 10,
+            "color": color.name() or "black",
+            "family": style.family() or "Arial",
+        }
+    return {
+        "size": 10,
+        "color": "black",
+        "family": "Arial",
+    }
+
 class PlotType:
     """
     Base class for plot subclasses
@@ -78,20 +94,50 @@ class PlotType:
 
         bg_color = settings.layout.get('bg_color', 'rgb(255,255,255)')
 
+        # add font size parameter from the title setting
+        title = settings.data_defined_title if settings.data_defined_title else settings.layout['title']
+        if isinstance(title, str):
+            title = {"text": title}
+        title["font"] = {
+            "size": settings.layout.get('font_title_size', 10),
+            "color": settings.layout.get('font_title_color', "#000"),
+            "family": settings.layout.get('font_title_family', "Arial"),
+        }
+
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
             legend={'orientation': settings.layout['legend_orientation']},
-            title=settings.data_defined_title if settings.data_defined_title else settings.layout['title'],
+            title=title,
             xaxis={
                 'title': x_title,
+                'titlefont': {
+                    "size": settings.layout.get('font_xlabel_size', 10),
+                    "color": settings.layout.get('font_xlabel_color', "#000"),
+                    "family": settings.layout.get('font_xlabel_family', "Arial"),
+                },
                 'autorange': settings.layout['x_inv'],
                 'range': range_x,
+                'tickfont': {
+                    "size": settings.layout.get('font_xticks_size', 10),
+                    "color": settings.layout.get('font_xticks_color', "#000"),
+                    "family": settings.layout.get('font_xticks_family', "Arial"),
+                },
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             yaxis={
                 'title': y_title,
+                'titlefont': {
+                    "size": settings.layout.get('font_ylabel_size', 10),
+                    "color": settings.layout.get('font_ylabel_color', "#000"),
+                    "family": settings.layout.get('font_ylabel_family', "Arial"),
+                },
                 'autorange': settings.layout['y_inv'],
                 'range': range_y,
+                'tickfont': {
+                    "size": settings.layout.get('font_yticks_size', 10),
+                    "color": settings.layout.get('font_yticks_color', "#000"),
+                    "family": settings.layout.get('font_yticks_family', "Arial"),
+                },
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             paper_bgcolor=bg_color,

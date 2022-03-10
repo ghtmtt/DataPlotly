@@ -915,131 +915,14 @@ QListWidget::item::selected {
                     <bool>false</bool>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_10">
-                    <item row="7" column="3">
-                     <widget class="QgsPropertyOverrideButton" name="z_axis_title_defined_button">
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="2">
-                     <widget class="QLineEdit" name="x_axis_title"/>
-                    </item>
-                    <item row="12" column="0">
-                     <widget class="QLabel" name="additional_info_label">
-                      <property name="text">
-                       <string>Additional hover label</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="10" column="0">
-                     <widget class="QLabel" name="bar_mode_lab">
-                      <property name="text">
-                       <string>Bar mode</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="2">
-                     <widget class="QLineEdit" name="z_axis_title"/>
-                    </item>
-                    <item row="1" column="3">
-                     <widget class="QgsPropertyOverrideButton" name="plot_title_defined_button">
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="0">
-                     <widget class="QLabel" name="z_axis_label">
-                      <property name="text">
-                       <string>Z label</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="5" column="0">
-                     <widget class="QLabel" name="y_axis_label">
-                      <property name="text">
-                       <string>Y label</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="29" column="2" colspan="2">
+                    <item row="32" column="2" colspan="2">
                      <widget class="QgsColorButton" name="layout_grid_axis_color">
                       <property name="allowOpacity">
                        <bool>true</bool>
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="plot_title_lab">
-                      <property name="text">
-                       <string>Plot title</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="14" column="2" colspan="2">
-                     <layout class="QHBoxLayout" name="horizontalLayout_10">
-                      <item>
-                       <widget class="QLabel" name="x_axis_mode_label">
-                        <property name="text">
-                         <string>X axis mode</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QComboBox" name="x_axis_mode_combo">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item row="5" column="3">
-                     <widget class="QgsPropertyOverrideButton" name="y_axis_title_defined_button">
-                      <property name="text">
-                       <string>...</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="16" column="2" colspan="2">
-                     <layout class="QHBoxLayout" name="horizontalLayout_11">
-                      <item>
-                       <widget class="QLabel" name="y_axis_mode_label">
-                        <property name="text">
-                         <string>Y axis mode</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QComboBox" name="y_axis_mode_combo">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item row="12" column="2">
-                     <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
-                    </item>
-                    <item row="11" column="0">
-                     <widget class="QLabel" name="bar_gap_label">
-                      <property name="text">
-                       <string>Bar gap</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="5" column="2">
-                     <widget class="QLineEdit" name="y_axis_title"/>
-                    </item>
-                    <item row="27" column="0" colspan="4">
+                    <item row="30" column="0" colspan="4">
                      <widget class="QgsCollapsibleGroupBox" name="x_axis_bounds_check">
                       <property name="title">
                        <string>Set X Axis Bounds</string>
@@ -1088,14 +971,7 @@ QListWidget::item::selected {
                       </layout>
                      </widget>
                     </item>
-                    <item row="29" column="0">
-                     <widget class="QLabel" name="grid_color_label">
-                      <property name="text">
-                       <string>Grid color</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="28" column="0" colspan="4">
+                    <item row="31" column="0" colspan="4">
                      <widget class="QgsCollapsibleGroupBox" name="y_axis_bounds_check">
                       <property name="title">
                        <string>Set Y Axis Bounds</string>
@@ -1144,47 +1020,96 @@ QListWidget::item::selected {
                       </layout>
                      </widget>
                     </item>
-                    <item row="1" column="2">
-                     <widget class="QLineEdit" name="plot_title_line"/>
-                    </item>
-                    <item row="10" column="2" colspan="2">
-                     <widget class="QComboBox" name="bar_mode_combo"/>
-                    </item>
-                    <item row="3" column="0">
+                    <item row="2" column="0">
                      <widget class="QLabel" name="x_axis_label">
                       <property name="text">
                        <string>X label</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="14" column="0">
-                     <widget class="QCheckBox" name="invert_x_check">
-                      <property name="text">
-                       <string>Invert X axis</string>
-                      </property>
-                     </widget>
+                    <item row="2" column="2">
+                     <widget class="QLineEdit" name="x_axis_title"/>
                     </item>
-                    <item row="3" column="3">
+                    <item row="3" column="2">
+                     <widget class="QLineEdit" name="y_axis_title"/>
+                    </item>
+                    <item row="2" column="3">
                      <widget class="QgsPropertyOverrideButton" name="x_axis_title_defined_button">
                       <property name="text">
                        <string>...</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="16" column="0">
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="y_axis_label">
+                      <property name="text">
+                       <string>Y label</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="3">
+                     <widget class="QgsPropertyOverrideButton" name="y_axis_title_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="19" column="0">
                      <widget class="QCheckBox" name="invert_y_check">
                       <property name="text">
                        <string>Invert Y axis</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="11" column="2" colspan="2">
-                     <widget class="QgsDoubleSpinBox" name="bar_gap">
-                      <property name="maximum">
-                       <double>1.000000000000000</double>
-                      </property>
-                      <property name="singleStep">
-                       <double>0.100000000000000</double>
+                    <item row="19" column="2" colspan="2">
+                     <layout class="QHBoxLayout" name="horizontalLayout_11">
+                      <item>
+                       <widget class="QLabel" name="y_axis_mode_label">
+                        <property name="text">
+                         <string>Y axis mode</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="y_axis_mode_combo">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item row="13" column="2" colspan="2">
+                     <widget class="QComboBox" name="bar_mode_combo"/>
+                    </item>
+                    <item row="17" column="2" colspan="2">
+                     <layout class="QHBoxLayout" name="horizontalLayout_10">
+                      <item>
+                       <widget class="QLabel" name="x_axis_mode_label">
+                        <property name="text">
+                         <string>X axis mode</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="x_axis_mode_combo">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item row="1" column="3">
+                     <widget class="QgsPropertyOverrideButton" name="plot_title_defined_button">
+                      <property name="text">
+                       <string>...</string>
                       </property>
                      </widget>
                     </item>
@@ -1215,6 +1140,181 @@ QListWidget::item::selected {
                        </widget>
                       </item>
                      </layout>
+                    </item>
+                    <item row="13" column="0">
+                     <widget class="QLabel" name="bar_mode_lab">
+                      <property name="text">
+                       <string>Bar mode</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="15" column="2">
+                     <widget class="QgsFieldExpressionWidget" name="additional_info_combo"/>
+                    </item>
+                    <item row="14" column="2" colspan="2">
+                     <widget class="QgsDoubleSpinBox" name="bar_gap">
+                      <property name="maximum">
+                       <double>1.000000000000000</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="2">
+                     <widget class="QLineEdit" name="plot_title_line"/>
+                    </item>
+                    <item row="32" column="0">
+                     <widget class="QLabel" name="grid_color_label">
+                      <property name="text">
+                       <string>Grid color</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="17" column="0">
+                     <widget class="QCheckBox" name="invert_x_check">
+                      <property name="text">
+                       <string>Invert X axis</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="14" column="0">
+                     <widget class="QLabel" name="bar_gap_label">
+                      <property name="text">
+                       <string>Bar gap</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="plot_title_lab">
+                      <property name="text">
+                       <string>Plot title</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="15" column="0">
+                     <widget class="QLabel" name="additional_info_label">
+                      <property name="text">
+                       <string>Additional hover label</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="0" colspan="4">
+                     <widget class="QgsCollapsibleGroupBox" name="layout_font_sizes">
+                      <property name="title">
+                       <string>Title and labels customization</string>
+                      </property>
+                      <property name="checkable">
+                       <bool>false</bool>
+                      </property>
+                      <property name="collapsed">
+                       <bool>true</bool>
+                      </property>
+                      <layout class="QGridLayout" name="gridLayout_11">
+                       <item row="6" column="0">
+                        <widget class="QLabel" name="font_yticks_label">
+                         <property name="text">
+                          <string>Y ticks font</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="5" column="0">
+                        <widget class="QLabel" name="font_ylabel_label">
+                         <property name="text">
+                          <string>Y label font</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="4" column="0">
+                        <widget class="QLabel" name="font_xticks_label">
+                         <property name="text">
+                          <string>X ticks font</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="font_title_label">
+                         <property name="text">
+                          <string>Title font</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="3" column="0">
+                        <widget class="QLabel" name="font_xlabel_label">
+                         <property name="text">
+                          <string>X label font</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="3">
+                        <widget class="QgsColorButton" name="font_title_color"/>
+                       </item>
+                       <item row="0" column="2">
+                        <widget class="QgsFontButton" name="font_title_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="4" column="2">
+                        <widget class="QgsFontButton" name="font_xticks_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="5" column="2">
+                        <widget class="QgsFontButton" name="font_ylabel_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="6" column="2">
+                        <widget class="QgsFontButton" name="font_yticks_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="3" column="3">
+                        <widget class="QgsColorButton" name="font_xlabel_color"/>
+                       </item>
+                       <item row="3" column="2">
+                        <widget class="QgsFontButton" name="font_xlabel_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="4" column="3">
+                        <widget class="QgsColorButton" name="font_xticks_color"/>
+                       </item>
+                       <item row="5" column="3">
+                        <widget class="QgsColorButton" name="font_ylabel_color"/>
+                       </item>
+                       <item row="6" column="3">
+                        <widget class="QgsColorButton" name="font_yticks_color"/>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item row="4" column="2">
+                     <widget class="QLineEdit" name="z_axis_title"/>
+                    </item>
+                    <item row="4" column="3">
+                     <widget class="QgsPropertyOverrideButton" name="z_axis_title_defined_button">
+                      <property name="text">
+                       <string>...</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLabel" name="z_axis_label">
+                      <property name="text">
+                       <string>Z label</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -1397,6 +1497,11 @@ QListWidget::item::selected {
    <class>QgsFieldExpressionWidget</class>
    <extends>QWidget</extends>
    <header>qgsfieldexpressionwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsFontButton</class>
+   <extends>QToolButton</extends>
+   <header>qgsfontbutton.h</header>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
