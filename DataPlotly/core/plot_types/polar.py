@@ -38,22 +38,22 @@ class PolarChartFactory(PlotType):
                 theta=settings.x,
                 mode=settings.properties['marker'],
                 name=settings.properties['y_name'],
-                marker=dict(
-                    color=settings.properties['in_color'],
-                    size=settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
-                    symbol=settings.properties['marker_symbol'],
-                    line=dict(
-                        color=settings.properties['out_color'],
-                        width=settings.properties['marker_width']
-                    )
-                ),
-                line=dict(
-                    color=settings.properties['in_color'],
-                    width=settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width'],
-                    dash=settings.properties['line_dash']
-                ),
+                marker={
+                    "color": settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
+                    "size": settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
+                    "symbol": settings.properties['marker_symbol'],
+                    "line": {
+                        "color": settings.properties['out_color'],
+                        "width": settings.properties['marker_width']
+                    }
+                },
+                line={
+                    "color": settings.properties['in_color'],
+                    "width": settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width'],
+                    "dash": settings.properties['line_dash']
+                },
                 opacity=settings.properties['opacity'],
-            )]
+                )]
 
     @staticmethod
     def create_layout(settings):
