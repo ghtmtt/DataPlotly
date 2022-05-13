@@ -84,7 +84,7 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
         return QCoreApplication.translate(context, string)
 
     def createInstance(self):
-        return type(self)()
+        return DataPlotlyProcessingPlot()
 
     def initAlgorithm(self, config=None):
 
