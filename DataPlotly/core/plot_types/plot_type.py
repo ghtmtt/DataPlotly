@@ -28,6 +28,7 @@ def from_qfont_to_plotly(style, color):
         "family": "Arial",
     }
 
+
 class PlotType:
     """
     Base class for plot subclasses
