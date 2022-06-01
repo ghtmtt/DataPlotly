@@ -22,7 +22,7 @@
 """
 import os.path
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt, QUrl
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QAction
 from qgis.core import Qgis, QgsApplication
@@ -67,14 +67,12 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'DataPlotly_{}.qm'.format(locale))
+            'application_{}.qm'.format(locale))
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
             self.translator.load(locale_path)
-
-            if qVersion() > '4.3.3':
-                QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
 
         self.dock_widget = None
         self.show_dock_action = None
