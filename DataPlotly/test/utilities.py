@@ -41,7 +41,7 @@ def get_qgis_app(cleanup=True):
     global QGISAPP  # pylint: disable=global-variable-undefined
 
     try:
-        QGISAPP
+        QGISAPP  # pylint: disable=used-before-assignment
     except NameError:
         myGuiFlag = True  # All test will run qgis in gui mode
 
