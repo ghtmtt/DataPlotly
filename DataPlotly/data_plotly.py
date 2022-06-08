@@ -25,7 +25,7 @@ import os.path
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QAction
-from qgis.core import Qgis, QgsApplication
+from qgis.core import Qgis, QgsApplication, QgsExpression
 from qgis.gui import QgsGui
 
 # Import the code for the dialog
@@ -38,6 +38,9 @@ from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
 # import layout classes
 from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
 from DataPlotly.gui.layout_item_gui import PlotLayoutItemGuiMetadata
+
+# import custom expressions
+from .core.plot_expressions import get_categories_colors
 
 
 class DataPlotly:  # pylint: disable=too-many-instance-attributes
@@ -132,6 +135,9 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
             self.iface.pluginHelpMenu().addAction(self.help_action)
             self.help_action.triggered.connect(self.open_help)
 
+        # register the function
+        QgsExpression.registerFunction(get_categories_colors)
+
     def initProcessing(self):
         """Create the Processing provider"""
         QgsApplication.processingRegistry().addProvider(self.provider)
@@ -150,6 +156,9 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         # Remove processing provider
         QgsApplication.processingRegistry().removeProvider(self.provider)
+
+        # unregister the function
+        QgsExpression.unregisterFunction('get_categories_colors')
 
     @staticmethod
     def open_help():
