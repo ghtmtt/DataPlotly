@@ -511,6 +511,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         if(data.points[i].data.type == 'scatter'){
             dd["uid"] = data.points[i].data.uid
             dd["type"] = data.points[i].data.type
+            dd["field"] = data.points[i].data.customdata[0]
+            dd["id"] = data.points[i].x
 
             data.points.forEach(function(pt){
             dd["fid"] = pt.id
