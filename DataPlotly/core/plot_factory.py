@@ -13,7 +13,7 @@ import os
 import re
 import plotly
 import plotly.graph_objs as go
-from plotly import tools
+from plotly import subplots
 
 from qgis.core import (
     QgsProject,
@@ -777,17 +777,17 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         if grid == 'row':
 
-            fig = tools.make_subplots(rows=row, cols=column)
+            fig = subplots.make_subplots(rows=row, cols=column)
 
             for i, itm in enumerate(ptrace):
-                fig.append_trace(itm, row, i + 1)
+                fig.add_trace(itm, row, i + 1)
 
         elif grid == 'col':
 
-            fig = tools.make_subplots(rows=row, cols=column)
+            fig = subplots.make_subplots(rows=row, cols=column)
 
             for i, itm in enumerate(ptrace):
-                fig.append_trace(itm, i + 1, column)
+                fig.add_trace(itm, i + 1, column)
 
         # set some configurations
         config = {'scrollZoom': True, 'editable': True}
