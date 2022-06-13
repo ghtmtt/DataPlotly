@@ -475,10 +475,15 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
             # if a selection event is performed
             if dic['mode'] == 'selection':
+                exp = """ {} IN {} """.format(dic['field'], dic['id'])
+                exp = exp.replace('[', '(').replace(']', ')')
+                # set the iterator with the expression as filter in feature request
+                request = QgsFeatureRequest().setFilterExpression(exp)
+                it = self.layer_combo.currentLayer().getFeatures(request)
                 if dic['type'] == 'scatter':
-                    self.layer_combo.currentLayer().selectByIds(dic['id'])
+                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
                 else:
-                    self.layer_combo.currentLayer().selectByIds(dic['tid'])
+                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
 
             # if a clicking event is performed depending on the plot type
             elif dic["mode"] == 'clicking':

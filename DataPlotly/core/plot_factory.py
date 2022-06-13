@@ -485,13 +485,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         dds["type"] = data.points[0].data.type
 
         featureIds = [];
-        featureIdsTernary = [];
 
         data.points.forEach(function(pt){
-        featureIds.push(parseInt(pt.id))
-        featureIdsTernary.push(parseInt(pt.pointNumber))
+        featureIds.push(pt.x)
         dds["id"] = featureIds
-        dds["tid"] = featureIdsTernary
+        dds["field"] = pt.data.customdata[0]
             })
         //console.log(dds)
         window.status = JSON.stringify(dds)
