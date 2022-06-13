@@ -8,7 +8,10 @@ __pycache__/
 .idea/*
 
 .backuputils.py
-help/.tx/*
-*.zip
+
+# QGIS-Plugin-CI
+DataPlotly.*.zip
+DataPlotly/i18n/
+
 .coverage
 .noseids
