@@ -55,7 +55,6 @@ from qgis.PyQt.QtWebKitWidgets import (
 from qgis.core import (
     Qgis,
     QgsNetworkAccessManager,
-    QgsFeatureRequest,
     QgsMapLayerProxyModel,
     QgsProject,
     QgsFileUtils,
@@ -475,37 +474,34 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
             # if a selection event is performed
             if dic['mode'] == 'selection':
-                if dic['type'] == 'scatter':
-                    self.layer_combo.currentLayer().selectByIds(dic['id'])
-                else:
-                    self.layer_combo.currentLayer().selectByIds(dic['tid'])
+                exp = """ {} IN {} """.format(dic['field'], dic['id'])
+                exp = exp.replace('[', '(').replace(']', ')')
+                # select the features from the layer by expression
+                self.layer_combo.currentLayer().selectByExpression(exp)
 
             # if a clicking event is performed depending on the plot type
             elif dic["mode"] == 'clicking':
                 if dic['type'] == 'scatter':
-                    self.layer_combo.currentLayer().selectByIds([dic['fidd']])
+                    exp = """ {} = '{}' """.format(dic['field'], dic['id'])
+                    # select the features from the layer by expression
+                    self.layer_combo.currentLayer().selectByExpression(exp)
                 elif dic["type"] == 'pie':
                     exp = """ "{}" = '{}' """.format(dic['field'], dic['label'])
-                    # set the iterator with the expression as filter in feature request
-                    request = QgsFeatureRequest().setFilterExpression(exp)
-                    it = self.layer_combo.currentLayer().getFeatures(request)
-                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                    # select the features from the layer by expression
+                    self.layer_combo.currentLayer().selectByExpression(exp)
                 elif dic["type"] == 'histogram':
                     vmin = dic['id'] - dic['bin_step'] / 2
                     vmax = dic['id'] + dic['bin_step'] / 2
                     exp = """ "{}" <= {} AND "{}" > {} """.format(dic['field'], vmax, dic['field'], vmin)
-                    request = QgsFeatureRequest().setFilterExpression(exp)
-                    it = self.layer_combo.currentLayer().getFeatures(request)
-                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                    # select the features from the layer by expression
+                    self.layer_combo.currentLayer().selectByExpression(exp)
                 elif dic["type"] == 'scatterternary':
                     self.layer_combo.currentLayer().selectByIds([dic['fid']])
                 else:
                     # build the expression from the js dic (customdata)
                     exp = """ "{}" = '{}' """.format(dic['field'], dic['id'])
-                    # set the iterator with the expression as filter in feature request
-                    request = QgsFeatureRequest().setFilterExpression(exp)
-                    it = self.layer_combo.currentLayer().getFeatures(request)
-                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                    # select the features from the layer by expression
+                    self.layer_combo.currentLayer().selectByExpression(exp)
                     # print(exp)
         except:  # pylint: disable=bare-except # noqa: F401
             pass
