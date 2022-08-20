@@ -31,7 +31,7 @@ jobs:
         run: pip install qgis-plugin-ci
 
       - name : Get current changelog
-        run: qgis-plugin-ci changelog ${{ env.CI_COMMIT_TAG }} >> release.md
+        run: qgis-plugin-ci changelog ${{ env.RELEASE_VERSION }} >> release.md
 
       - name: Create release on GitHub
         uses: ncipollo/release-action@v1.10.0
