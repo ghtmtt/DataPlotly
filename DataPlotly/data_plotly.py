@@ -40,7 +40,7 @@ from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
 from DataPlotly.gui.layout_item_gui import PlotLayoutItemGuiMetadata
 
 # import custom expressions
-from .core.plot_expressions import get_categories_colors
+from .core.plot_expressions import get_symbol_colors
 
 
 class DataPlotly:  # pylint: disable=too-many-instance-attributes
@@ -136,7 +136,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
             self.help_action.triggered.connect(self.open_help)
 
         # register the function
-        QgsExpression.registerFunction(get_categories_colors)
+        QgsExpression.registerFunction(get_symbol_colors)
 
     def initProcessing(self):
         """Create the Processing provider"""
@@ -158,7 +158,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
         # unregister the function
-        QgsExpression.unregisterFunction('get_categories_colors')
+        QgsExpression.unregisterFunction('get_symbol_colors')
 
     @staticmethod
     def open_help():

@@ -21,33 +21,34 @@
  ***************************************************************************/
 """
 
-from qgis.utils import qgsfunction, iface
+from qgis.utils import qgsfunction
+from qgis.core import QgsRenderContext
+
 
 @qgsfunction(args='auto', group='DataPlotly')
-def get_categories_colors(field, feature, parent):
+def get_symbol_colors(feature, parent, context):
     """
         Retrieve the color of each category as html code. You can use this function
         to set the plot items (pie slices, bars, points, etc) to the same color
         of the feature visible in the map.
         <h4>Syntax</h4>
         <p>
-            get_categories_colors(categorization_field)
-        </p>
-        <h4>Arguments</h4>
-        <p><strong>categorization_field</strong>: the name of the field used in the categorization</p>
-        <h4>Example</h4>
-        <p>
-            get_categories_colors("CONTINENT") -> '#da1ddd'
+            get_symbol_colors() -> '#da1ddd'
         </p>
     """
 
-    layer = iface.activeLayer()
+    layer = context.variable('layer')
+    renderer_context = QgsRenderContext()
     renderer = layer.renderer()
-  
-    if layer.renderer().type() == "categorizedSymbol":
-        for category in renderer.categories():
-            if field == category.value():
-                category_color = category.symbol().color().name()
-                break
-                
-    return category_color
+    renderer.startRender(renderer_context, layer.fields())
+
+    symbols = renderer.originalSymbolsForFeature(feature, renderer_context)
+
+    if symbols:
+        color = symbols[0].color().name()
+    else:
+        color = '#000000'
+    
+    renderer.stopRender(renderer_context)
+
+    return color
