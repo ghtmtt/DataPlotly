@@ -5,9 +5,9 @@
                                  A QGIS plugin
  D3 Plots for QGIS
                               -------------------
-        begin                : 2017-03-05
+        begin                : 2022-08-20
         git sha              : $Format:%H$
-        copyright            : (C) 2017 by matteo ghetta
+        copyright            : (C) 2022 by matteo ghetta
         email                : matteo.ghetta@gmail.com
  ***************************************************************************/
 /***************************************************************************
@@ -157,7 +157,8 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
                 self.OUTPUT_JSON_FILE,
                 self.tr('JSON file'),
                 self.tr('JSON Files (*.json)'),
-                createByDefault=False
+                createByDefault=False,
+                optional=True
             )
         )
 
@@ -293,9 +294,6 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         
         df = pd.DataFrame(data=data, columns=colnames)
 
-        feedback.pushDebugInfo(f'{df}')
-
-        # print(df)
         fig = px.scatter(
             df,
             x='x',
@@ -312,12 +310,13 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         
         fig.update_layout(showlegend=True)
 
-        fig.write_html(output_html, include_plotlyjs=offline)
-        fig.write_json(output_json, pretty=True)
-
         results = {}
 
+        fig.write_html(output_html, include_plotlyjs=offline)
         results[self.OUTPUT_HTML_FILE] =  output_html
-        results[self.OUTPUT_JSON_FILE] = output_json
+
+        if output_json:
+            fig.write_json(output_json, pretty=True)
+            results[self.OUTPUT_JSON_FILE] = output_json
 
         return results
