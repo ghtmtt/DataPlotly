@@ -2,8 +2,12 @@
 
 ## Unreleased
 
-- Fix "Build a generic plot" processing algorithm. Kudos to @agiudiceandrea
+
+## 3.9.1 - 2022-08-20
+
+- Add custom function to have plot color the same as map color
 - Fix #237 add data-driven color to Polar Plot marker color. Kudos to @jmonticolo
+- Fix "Build a generic plot" processing algorithm. Kudos to @agiudiceandrea
 
 ## 3.9.0 - 2022-04-11
 
