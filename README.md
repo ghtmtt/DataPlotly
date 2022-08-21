@@ -1,6 +1,6 @@
 # DataPlotly
 
-[![Build Status](https://travis-ci.org/ghtmtt/DataPlotly.svg?branch=master)](https://travis-ci.org/ghtmtt/DataPlotly)
+[![Test plugin](https://github.com/ghtmtt/DataPlotly/actions/workflows/test_plugin.yaml/badge.svg)](https://github.com/ghtmtt/DataPlotly/actions/workflows/test_plugin.yaml)
 
 The DataPlotly plugin allows creation of ![D3](https://d3js.org/)-like
 interactive plots directly within QGIS, thanks to the ![Plotly](https://plot.ly/python/)
