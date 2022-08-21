@@ -811,3 +811,18 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             f.write(self.raw_plot)
 
         return self.plot_path
+
+    def build_plot_dict(self) -> dict:
+        """
+        Returns a python dictionary of the whole Figure object.
+
+        This method is not used in the plugin itself, but it is used in the
+        testing suite to avoid finding the Figure parameters with weird regex
+        from the html
+
+        :return: dictionary of the Figure object
+        """
+
+        fig = go.Figure(data=self.trace, layout=self.layout)
+
+        return fig.to_dict()
