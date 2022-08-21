@@ -10,8 +10,6 @@
 
 import unittest
 import os
-import re
-import json
 from qgis.core import (
     QgsProject,
     QgsVectorLayer,
@@ -648,29 +646,31 @@ class DataPlotlyFactory(unittest.TestCase):
         settings.y = [4, 5, 6]
         factory = PlotFactory(settings)
 
-        # Build the HTML/JavaScript for the plot
+        # Build the dictionary from teh figure
         plot_dict = factory.build_plot_dict()
 
+        # get the x and y fields as list
         for items in plot_dict['data']:
-            x = [str(i.toPyDate()) for i in items['x']]
+            x = [str(i.toPyDate()) for i in items['x']] # converts the QDate into strings
             y = items['y']
-        
+
         self.assertEqual(x, ["2020-01-01", "2020-02-01", "2020-03-01"])
         self.assertEqual(y, [4, 5, 6])
 
-        # settings.x = [QDateTime(2020, 1, 1, 11, 21), QDateTime(2020, 2, 1, 0, 15), QDateTime(2020, 3, 1, 17, 23, 11)]
-        # settings.y = [4, 5, 6]
-        # factory = PlotFactory(settings)
+        settings.x = [QDateTime(2020, 1, 1, 11, 21), QDateTime(2020, 2, 1, 0, 15), QDateTime(2020, 3, 1, 17, 23, 11)]
+        settings.y = [4, 5, 6]
+        factory = PlotFactory(settings)
 
-        # # Build the HTML/JavaScript for the plot
-        # plot_html = factory.build_html({})
+        # Build the dictionary from teh figure
+        plot_dict = factory.build_plot_dict()
 
-        # # Find the plot specification in the HTML
-        # match = re.search(r'\[(.*?\]})\]', plot_html)
-        # plot_dictionary = json.loads(match.group(1))
+        # get the x and y fields as list
+        for items in plot_dict['data']:
+            x = [str(i.toPyDate()) for i in items['x']] # converts the QDate into strings
+            y = items['y']
 
-        # self.assertEqual(plot_dictionary['x'], ["2020-01-01T11:21:00", "2020-02-01T00:15:00", "2020-03-01T17:23:11"])
-        # self.assertEqual(plot_dictionary['y'], [4, 5, 6])
+        self.assertEqual(x, ["2020-01-01T11:21:00", "2020-02-01T00:15:00", "2020-03-01T17:23:11"])
+        self.assertEqual(y, [4, 5, 6])
 
     @unittest.skip('Fragile')
     def test_data_defined_histogram_color(self):

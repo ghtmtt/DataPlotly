@@ -36,7 +36,7 @@ def get_symbol_colors(feature, parent, context):
             get_symbol_colors() -> '#da1ddd'
         </p>
     """
-
+    _ = parent
     layer = context.variable('layer')
     renderer_context = QgsRenderContext()
     renderer = layer.renderer()
@@ -48,7 +48,7 @@ def get_symbol_colors(feature, parent, context):
         color = symbols[0].color().name()
     else:
         color = '#000000'
-    
+
     renderer.stopRender(renderer_context)
 
     return color
