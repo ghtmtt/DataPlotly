@@ -200,18 +200,19 @@ class PlotLayoutItem(QgsLayoutItem):
                 return myfile.read()
 
     def get_polygon_filter(self, index=0):
-        if self.linked_map and self.plot_settings[index].properties.get('layout_filter_by_map', False):
-            polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
-                                          self.linked_map.crs())
-            visible_features_only = True
-        elif self.plot_settings[index].properties.get('layout_filter_by_atlas', False) and \
-                self.layout().reportContext().layer() and self.layout().reportContext().feature().isValid():
+        polygon_filter = None
+        visible_features_only = False
 
-            polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
-            visible_features_only = True
-        else:
-            polygon_filter = None
-            visible_features_only = False
+        if self.plot_settings:
+            if self.linked_map and self.plot_settings[index].properties.get('layout_filter_by_map', False):
+                polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
+                                            self.linked_map.crs())
+                visible_features_only = True
+            elif self.plot_settings[index].properties.get('layout_filter_by_atlas', False) and \
+                    self.layout().reportContext().layer() and self.layout().reportContext().feature().isValid():
+
+                polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
+                visible_features_only = True
 
         return polygon_filter, visible_features_only
 
