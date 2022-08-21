@@ -800,6 +800,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.out_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
+            self.out_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.stroke_defined_button: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
