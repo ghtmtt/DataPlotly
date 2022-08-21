@@ -653,6 +653,12 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         raw_plot = raw_plot.replace('ReplaceTheDiv', substr)
         return raw_plot
 
+    def build_plot_dict(self):
+
+        fig = go.Figure(data=self.trace, layout=self.layout)
+
+        return fig.to_dict()
+
     def build_figure(self) -> str:
         """
         Creates the final plot (single plot)
