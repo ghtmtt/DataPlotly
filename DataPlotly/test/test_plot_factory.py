@@ -651,7 +651,8 @@ class DataPlotlyFactory(unittest.TestCase):
 
         # get the x and y fields as list
         for items in plot_dict['data']:
-            x = [str(i.toPyDate()) for i in items['x']] # converts the QDate into strings
+            # converts the QDate into strings
+            x = [str(i.toPyDate()) for i in items['x']]
             y = items['y']
 
         self.assertEqual(x, ["2020-01-01", "2020-02-01", "2020-03-01"])
@@ -666,7 +667,8 @@ class DataPlotlyFactory(unittest.TestCase):
 
         # get the x and y fields as list
         for items in plot_dict['data']:
-            x = [str(i.toPyDate()) for i in items['x']] # converts the QDate into strings
+            # converts the QDate into strings
+            x = [str(i.toPyDate()) for i in items['x']]
             y = items['y']
 
         self.assertEqual(x, ["2020-01-01T11:21:00", "2020-02-01T00:15:00", "2020-03-01T17:23:11"])
