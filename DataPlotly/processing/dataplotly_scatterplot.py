@@ -131,7 +131,6 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         )
         self.addParameter(color_param)
 
-
         # offline parameter
         offline_param = QgsProcessingParameterBoolean(
             self.OFFLINE,
@@ -141,11 +140,10 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         offline_param.setFlags(QgsProcessingParameterDefinition.FlagAdvanced)
         self.addParameter(offline_param)
 
-
         # html file output
         self.addParameter(
             QgsProcessingParameterFileDestination(
-                self.OUTPUT_HTML_FILE, 
+                self.OUTPUT_HTML_FILE,
                 self.tr('Scatter Plot'),
                 self.tr('HTML files (*.html)')
             )
@@ -195,7 +193,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
 
         x_expression = self.parameterAsString(
             parameters,
-            self.XEXPRESSION, 
+            self.XEXPRESSION,
             context
         )
         x_expression = QgsExpression(x_expression)
@@ -206,7 +204,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         
         y_expression = self.parameterAsString(
             parameters,
-            self.YEXPRESSION, 
+            self.YEXPRESSION,
             context
         )
         y_expression = QgsExpression(y_expression)
@@ -214,7 +212,6 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         if y_expression.hasParserError():
             y_expression.prepare(expressionContext)
             raise QgsProcessingException(y_expression.parserErrorString())
-
 
         size = self.parameterAsDouble(
             parameters,
@@ -233,7 +230,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         color_property = None
         if QgsProcessingParameters.isDynamic(parameters, "COLOR"):
             color_property = parameters["COLOR"]
-        
+
         offline = self.parameterAsBool(
             parameters,
             self.OFFLINE,
@@ -253,7 +250,6 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             self.OUTPUT_JSON_FILE,
             context
         )
-
 
         colnames = ['x', 'y', 'customdata']
         data = []
@@ -307,7 +303,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
 
         if color_property is None:
             fig.update_traces(marker_color=color.name())
-        
+
         fig.update_layout(showlegend=True)
 
         results = {}
