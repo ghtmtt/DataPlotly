@@ -201,7 +201,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         if x_expression.hasParserError():
             x_expression.prepare(expressionContext)
             raise QgsProcessingException(x_expression.parserErrorString())
-        
+
         y_expression = self.parameterAsString(
             parameters,
             self.YEXPRESSION,
@@ -237,7 +237,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             context
         )
         if offline is not True:
-            offline='cdn'
+            offline = 'cdn'
 
         output_html = self.parameterAsFileOutput(
             parameters,
@@ -281,13 +281,12 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
 
             data.append(tl)
 
-
         if size_property:
             colnames.append('size')
-        
+
         if color_property:
             colnames.append('color')
-        
+
         df = pd.DataFrame(data=data, columns=colnames)
 
         fig = px.scatter(
@@ -309,7 +308,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         results = {}
 
         fig.write_html(output_html, include_plotlyjs=offline)
-        results[self.OUTPUT_HTML_FILE] =  output_html
+        results[self.OUTPUT_HTML_FILE] = output_html
 
         if output_json:
             fig.write_json(output_json, pretty=True)
