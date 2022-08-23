@@ -21,12 +21,11 @@
  ***************************************************************************/
 """
 from qgis.core import QgsProcessingProvider
-from DataPlotly.processing.dataplotly_algorithms import DataPlotlyProcessingPlot
 from DataPlotly.gui.gui_utils import GuiUtils
+from DataPlotly.processing.dataplotly_scatterplot import DataPlotlyProcessingScatterPlot
 
 
 class DataPlotlyProvider(QgsProcessingProvider):
-    MY_DUMMY_SETTING = 'MY_DUMMY_SETTING'
 
     def __init__(self, plugin_version):
         super().__init__()
@@ -78,4 +77,4 @@ class DataPlotlyProvider(QgsProcessingProvider):
         even if the list does not change, since the self.algs list is
         cleared before calling this method.
         """
-        self.addAlgorithm(DataPlotlyProcessingPlot())
+        self.addAlgorithm(DataPlotlyProcessingScatterPlot())
