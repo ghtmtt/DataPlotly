@@ -391,9 +391,18 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         refreshing function for color data defined button
 
+        sets the vector layer to the data defined buttons
+
         checks is the datadefined button is active and check also the plot type
         in order to deactivate the color when not needed
         """
+
+        # set the vector layer for all the data defined buttons
+        layer = self.layer_combo.currentLayer()
+        buttons = self.findChildren(QgsPropertyOverrideButton)
+        for button in buttons:
+            button.setVectorLayer(layer)
+
         # if data defined button is active
         if self.in_color_defined_button.isActive():
             # if plot is type for which using an expression for the color selection makes sense
