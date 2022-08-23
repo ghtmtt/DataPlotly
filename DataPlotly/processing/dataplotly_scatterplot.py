@@ -22,7 +22,6 @@
 
 
 from qgis.core import (
-    QgsProcessingAlgorithm,
     QgsProcessingParameterFeatureSource,
     QgsProcessingParameterExpression,
     QgsProcessingParameterNumber,
@@ -59,6 +58,8 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
     OFFLINE = 'OFFLINE'
     COLOR = 'COLOR'
     SIZE = 'SIZE'
+    FACET_COL = 'FACET_ROW'
+    FACET_ROW = 'FACET_COL'
     OUTPUT_HTML_FILE = 'OUTPUT_HTML_FILE'
     OUTPUT_JSON_FILE = 'OUTPUT_JSON_FILE'
 
@@ -130,6 +131,23 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             )
         )
         self.addParameter(color_param)
+
+        facet_row = QgsProcessingParameterExpression(
+            self.FACET_ROW,
+            self.tr('Facet row'),
+            parentLayerParameterName=self.INPUT
+        )
+        facet_row.setFlags(QgsProcessingParameterDefinition.FlagAdvanced | QgsProcessingParameterDefinition.FlagOptional)
+        self.addParameter(facet_row)
+
+        facet_col = QgsProcessingParameterExpression(
+            self.FACET_COL,
+            self.tr('Facet col'),
+            optional=True,
+            parentLayerParameterName=self.INPUT
+        )
+        facet_col.setFlags(QgsProcessingParameterDefinition.FlagAdvanced | QgsProcessingParameterDefinition.FlagOptional)
+        self.addParameter(facet_col)
 
         # offline parameter
         offline_param = QgsProcessingParameterBoolean(
@@ -231,6 +249,28 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         if QgsProcessingParameters.isDynamic(parameters, "COLOR"):
             color_property = parameters["COLOR"]
 
+        facet_row = self.parameterAsString(
+            parameters,
+            self.FACET_ROW,
+            context
+        )
+        facet_row_expression = QgsExpression(facet_row)
+
+        if facet_row and facet_row_expression.hasParserError():
+            facet_row_expression.prepare(expressionContext)
+            raise QgsProcessingException(facet_row_expression.parserErrorString())
+
+        facet_col = self.parameterAsString(
+            parameters,
+            self.FACET_COL,
+            context
+        )
+        facet_col_expression = QgsExpression(facet_col)
+
+        if facet_col and facet_col_expression.hasParserError():
+            facet_col_expression.prepare(expressionContext)
+            raise QgsProcessingException(facet_col_expression.parserErrorString())
+
         offline = self.parameterAsBool(
             parameters,
             self.OFFLINE,
@@ -271,6 +311,14 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             tl.append(y_val)
             tl.append(ids)
 
+            if facet_row:
+                facet_row_val = facet_row_expression.evaluate(expressionContext)
+                tl.append(facet_row_val)
+
+            if facet_col:
+                facet_col_val = facet_col_expression.evaluate(expressionContext)
+                tl.append(facet_col_val)
+
             if size_property:
                 the_size, _ = size_property.valueAsDouble(expressionContext, size)
                 tl.append(the_size)
@@ -281,6 +329,12 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
 
             data.append(tl)
 
+        if facet_row:
+            colnames.append('facet_row')
+
+        if facet_col:
+            colnames.append('facet_col')
+
         if size_property:
             colnames.append('size')
 
@@ -289,12 +343,16 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
 
         df = pd.DataFrame(data=data, columns=colnames)
 
+        feedback.pushDebugInfo(f'{df}')
+
         fig = px.scatter(
             df,
             x='x',
             y='y',
             size='size' if size_property else None,
-            color='color' if color_property else None
+            color='color' if color_property else None,
+            facet_row="facet_row" if facet_row else None,
+            facet_col="facet_col" if facet_col else None
         )
 
         if size_property is None:
