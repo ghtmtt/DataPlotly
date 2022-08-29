@@ -25,6 +25,7 @@ class TestProcessing(unittest.TestCase):
         if not QgsApplication.processingRegistry().providers():
             self.provider = DataPlotlyProvider(plugin_version='2.3')
             QgsApplication.processingRegistry().addProvider(self.provider)
+        self.maxDiff = None
 
     def test_scatterplot_figure(self):
         """Test for the Processing scatterplot"""
