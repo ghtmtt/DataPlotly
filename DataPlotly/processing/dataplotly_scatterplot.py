@@ -38,7 +38,9 @@ from qgis.core import (
 )
 
 from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtGui import QIcon
 
+import os
 import pandas as pd
 import plotly.express as px
 
@@ -192,8 +194,8 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
     def groupId(self):
         return 'plots'
 
-    def type_name(self):
-        return 'scatter'
+    def icon(self):
+        return QIcon(os.path.join(os.path.dirname(__file__), '..', 'core', 'plot_types', 'icons', 'scatterplot.svg'))
 
     def processAlgorithm(self, parameters, context, feedback):
 
@@ -297,6 +299,8 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         request = QgsFeatureRequest()
         request.setFlags(QgsFeatureRequest.NoGeometry)
 
+        total = source.featureCount() if source else 0
+
         for current, f in enumerate(source.getFeatures(request)):
 
             tl = []
@@ -329,6 +333,8 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
 
             data.append(tl)
 
+            feedback.setProgress(int(total * current))
+
         if facet_row:
             colnames.append('facet_row')
 
@@ -342,8 +348,6 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             colnames.append('color')
 
         df = pd.DataFrame(data=data, columns=colnames)
-
-        feedback.pushDebugInfo(f'{df}')
 
         fig = px.scatter(
             df,
