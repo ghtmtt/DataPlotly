@@ -26,7 +26,6 @@ class TestProcessing(unittest.TestCase):
             self.provider = DataPlotlyProvider(plugin_version='2.3')
             QgsApplication.processingRegistry().addProvider(self.provider)
 
-
     def test_scatterplot_figure(self):
         """Test for the Processing scatterplot"""
 
@@ -40,13 +39,13 @@ class TestProcessing(unittest.TestCase):
         plot_html = processing.run("DataPlotly:dataplotly_scatterplot",
             {
                 'INPUT': vl,
-                'XEXPRESSION':'"so4"',
-                'YEXPRESSION':'"ca"',
-                'SIZE':10,
-                'COLOR':QColor(142, 186, 217),
-                'FACET_COL':'',
-                'FACET_ROW':'',
-                'OFFLINE':False,
+                'XEXPRESSION': '"so4"',
+                'YEXPRESSION': '"ca"',
+                'SIZE': 10,
+                'COLOR': QColor(142, 186, 217),
+                'FACET_COL': '',
+                'FACET_ROW': '',
+                'OFFLINE': False,
                 'OUTPUT_HTML_FILE': plot_path
             }
         )['OUTPUT_HTML_FILE']
@@ -65,6 +64,7 @@ class TestProcessing(unittest.TestCase):
             result = f.read()
 
         self.assertEqual(plot_div, result)
+
 
 if __name__ == '__main__':
     unittest.main()
