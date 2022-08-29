@@ -12,9 +12,9 @@ from qgis.PyQt.QtGui import QColor
 
 from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
 
-__copyright__ = 'Copyright 2021, 3Liz'
+__copyright__ = 'Copyright 2022, Faunalia'
 __license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
+__email__ = 'info@faunalia.eu'
 
 
 class TestProcessing(unittest.TestCase):
