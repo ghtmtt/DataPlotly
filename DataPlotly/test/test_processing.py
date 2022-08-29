@@ -1,8 +1,7 @@
 """Tests for processing algorithms."""
 
 import os
-import tempfile
-import re
+import json
 
 import processing
 
@@ -35,36 +34,31 @@ class TestProcessing(unittest.TestCase):
 
         vl = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
 
-        plot_path = os.path.join(tempfile.gettempdir(), 'scatterplot.html')
+        plot_path = os.path.join(
+            os.path.dirname(__file__), 'scatterplot.json')
 
-        plot_html = processing.run("DataPlotly:dataplotly_scatterplot",
-            {
-                'INPUT': vl,
-                'XEXPRESSION': '"so4"',
-                'YEXPRESSION': '"ca"',
-                'SIZE': 10,
-                'COLOR': QColor(142, 186, 217),
-                'FACET_COL': '',
-                'FACET_ROW': '',
-                'OFFLINE': False,
-                'OUTPUT_HTML_FILE': plot_path
-            }
-        )['OUTPUT_HTML_FILE']
+        plot_param = {
+            'INPUT': vl,
+            'XEXPRESSION': '"so4"',
+            'YEXPRESSION': '"ca"',
+            'SIZE': 10,
+            'COLOR': QColor(142, 186, 217),
+            'FACET_COL': '',
+            'FACET_ROW': '',
+            'OFFLINE': False,
+            'OUTPUT_HTML_FILE': 'TEMPORARY_OUTPUT',
+            'OUTPUT_JSON_FILE': 'TEMPORARY_OUTPUT'
+        }
 
-        # read the html file as a string
-        with open(plot_html, 'r', encoding='utf-8') as f:
-            plot_div = f.read()
+        plot_json = processing.run("DataPlotly:dataplotly_scatterplot", plot_param)['OUTPUT_JSON_FILE']
 
-        # find the UUID (random for each plot) and replace it with a custom div
-        res = re.search('<div id="([^"]*)"', plot_div)
-        div_id = res.groups()[0]
-        plot_div = plot_div.replace(div_id, 'ReplaceTheDiv')
+        with open(plot_json, 'r', encoding='utf8') as f:
+            plot_dict_result = json.load(f)
 
-        # read the comparing html as a string
-        with open(os.path.join(os.path.dirname(__file__), 'processing_scatter.html'), encoding='utf-8') as f:
-            result = f.read()
+        with open(plot_path, 'r', encoding='utf8') as f:
+            plot_dict_template = json.load(f)
 
-        self.assertEqual(plot_div, result)
+        self.assertEqual(plot_dict_result, plot_dict_template)
 
 
 if __name__ == '__main__':

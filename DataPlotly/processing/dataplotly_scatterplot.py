@@ -377,3 +377,6 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             results[self.OUTPUT_JSON_FILE] = output_json
 
         return results
+
+    def figure_to_dict(self, figure):
+        return figure.to_dict()
