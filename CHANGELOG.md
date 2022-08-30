@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 3.10 - 2022-08-23
+
+- test added for Processing
+- Processing algorithm refactored using plotly.express (scatter plot)
+- fix stacktrace when removing all the plots from the layout
+- fix signal not updating the fields in the data defined buttons automatically
 
 ## 3.9.1 - 2022-08-20
 
