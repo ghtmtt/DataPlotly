@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## 3.10 - 2022-08-23
+## 3.9.2 - 2022-08-30
 
 - test added for Processing
 - Processing algorithm refactored using plotly.express (scatter plot)
