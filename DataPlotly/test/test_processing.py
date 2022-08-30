@@ -34,8 +34,10 @@ class TestProcessing(unittest.TestCase):
 
         vl = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
 
-        plot_path = os.path.join(
-            os.path.dirname(__file__), 'scatterplot.json')
+        # plot_path = os.path.join(
+        #     os.path.dirname(__file__), 'scatterplot.json')
+        # with open(plot_path, 'r') as f:
+        #     template_dict = json.load(f)
 
         plot_param = {
             'INPUT': vl,
@@ -50,15 +52,19 @@ class TestProcessing(unittest.TestCase):
             'OUTPUT_JSON_FILE': 'TEMPORARY_OUTPUT'
         }
 
-        plot_json = processing.run("DataPlotly:dataplotly_scatterplot", plot_param)['OUTPUT_JSON_FILE']
+        result = processing.run("DataPlotly:dataplotly_scatterplot", plot_param)
 
-        with open(plot_json, 'r', encoding='utf8') as f:
-            plot_dict_result = json.load(f)
+        with open(result['OUTPUT_JSON_FILE'], 'r', encoding='utf8') as f:
+            result_dict = json.load(f)
 
-        with open(plot_path, 'r', encoding='utf8') as f:
-            plot_dict_template = json.load(f)
-
-        self.assertEqual(plot_dict_result, plot_dict_template)
+        self.assertListEqual(
+            result_dict['data'][0]['x'],
+            [98, 88, 267, 329, 319, 137, 350, 151, 203]
+        )
+        self.assertListEqual(
+            result_dict['data'][0]['y'],
+            [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
+        )
 
 
 if __name__ == '__main__':
