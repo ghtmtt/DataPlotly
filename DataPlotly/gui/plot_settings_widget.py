@@ -674,6 +674,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.bar_mode_combo.addItem(self.tr('Stacked'), 'stack')
         self.bar_mode_combo.addItem(self.tr('Overlay'), 'overlay')
 
+        # BarPlot value sorting
+        self.bar_sort_combo.clear()
+        self.bar_sort_combo.addItem(self.tr('None'), 'trace')
+        self.bar_sort_combo.addItem(self.tr('Descending'), 'total descending')
+        self.bar_sort_combo.addItem(self.tr('Ascending'), 'total ascending')
+        self.bar_sort_combo.addItem(self.tr('Mean Ascending'), 'mean ascending')
+        self.bar_sort_combo.addItem(self.tr('Mean Descending'), 'mean descending')
+        self.bar_sort_combo.addItem(self.tr('Median Ascending'), 'median ascending')
+        self.bar_sort_combo.addItem(self.tr('Median Descending'), 'median descending')
+
         # Histogram normalization mode
         self.hist_norm_combo.clear()
         self.hist_norm_combo.addItem(self.tr('Enumerated'), '')
@@ -768,6 +778,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 ), None, False
             )
 
+        # change the label and the spin box value when the bar plot is chosen
+        if self.ptype == 'bar':
+            self.marker_size_lab.setText(self.tr('Bar width'))
+            self.marker_size.setValue(0.5)
+
+        # change the label and the spin box value when the scatter plot is chosen
+        if self.ptype == 'scatter':
+            self.marker_size_lab.setText(self.tr('Marker size'))
+            self.marker_size.setValue(10)
+
         # info combo for data hovering
         self.info_combo.clear()
         self.info_combo.addItem(self.tr('All Values'), 'all')
@@ -813,9 +833,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.stroke_defined_button: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
-            self.marker_size_lab: ['scatter', 'polar', 'ternary'],
-            self.marker_size: ['scatter', 'polar', 'ternary'],
-            self.size_defined_button: ['scatter', 'polar', 'ternary'],
+            self.marker_size_lab: ['scatter', 'polar', 'ternary', 'bar'],
+            self.marker_size: ['scatter', 'polar', 'ternary', 'bar'],
+            self.size_defined_button: ['scatter', 'polar', 'ternary', 'bar'],
             self.marker_type_lab: ['scatter', 'polar'],
             self.marker_type_combo: ['scatter', 'polar'],
             self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
@@ -824,6 +844,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                                         'violin'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
+            self.bar_sort_label: ['bar'],
+            self.bar_sort_combo: ['bar'],
             self.legend_label: ['all'],
             self.legend_title: ['all'],
             self.legend_title_defined_button: ['all'],
@@ -1096,6 +1118,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'range_slider': {'visible': self.range_slider_combo.isChecked(),
                                               'borderwidth': 1},
                              'bar_mode': self.bar_mode_combo.currentData(),
+                             'bar_sort': self.bar_sort_combo.currentData(),
                              'x_type': self.x_axis_mode_combo.currentData(),
                              'y_type': self.y_axis_mode_combo.currentData(),
                              'x_inv': None if not self.invert_x_check.isChecked() else 'reversed',
@@ -1223,6 +1246,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.y_axis_max.setValue(settings.layout.get('y_max') if settings.layout.get('y_max', None) is not None else 0.0)
         self.orientation_combo.setCurrentIndex(self.orientation_combo.findData(settings.properties.get('box_orientation', 'v')))
         self.bar_mode_combo.setCurrentIndex(self.bar_mode_combo.findData(settings.layout.get('bar_mode', None)))
+        self.bar_sort_combo.setCurrentIndex(self.bar_sort_combo.findData(settings.layout.get('bar_sort', None)))
         self.hist_norm_combo.setCurrentIndex(self.hist_norm_combo.findData(settings.properties.get('normalization', None)))
         self.box_statistic_combo.setCurrentIndex(self.box_statistic_combo.findData(settings.properties.get('box_stat', None)))
         self.outliers_combo.setCurrentIndex(self.outliers_combo.findData(settings.properties.get('box_outliers', None)))
