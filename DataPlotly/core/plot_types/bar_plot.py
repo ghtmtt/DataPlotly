@@ -62,6 +62,7 @@ class BarPlotFactory(PlotType):
                         'color': settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
                         'width': settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']}
                     },
+            width=settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
             opacity=settings.properties['opacity']
         )]
 

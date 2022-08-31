@@ -768,6 +768,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 ), None, False
             )
 
+        # change the label and the spin box value when the bar plot is chosen
+        if self.ptype == 'bar':
+            self.marker_size_lab.setText(self.tr('Bar width'))
+            self.marker_size.setValue(0.5)
+
+        # change the label and the spin box value when the scatter plot is chosen
+        if self.ptype == 'scatter':
+            self.marker_size_lab.setText(self.tr('Marker size'))
+            self.marker_size.setValue(10)
+
         # info combo for data hovering
         self.info_combo.clear()
         self.info_combo.addItem(self.tr('All Values'), 'all')
@@ -813,9 +823,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.stroke_defined_button: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
-            self.marker_size_lab: ['scatter', 'polar', 'ternary'],
-            self.marker_size: ['scatter', 'polar', 'ternary'],
-            self.size_defined_button: ['scatter', 'polar', 'ternary'],
+            self.marker_size_lab: ['scatter', 'polar', 'ternary', 'bar'],
+            self.marker_size: ['scatter', 'polar', 'ternary', 'bar'],
+            self.size_defined_button: ['scatter', 'polar', 'ternary', 'bar'],
             self.marker_type_lab: ['scatter', 'polar'],
             self.marker_type_combo: ['scatter', 'polar'],
             self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
