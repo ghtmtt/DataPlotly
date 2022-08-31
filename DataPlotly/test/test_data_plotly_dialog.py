@@ -144,6 +144,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.layout['font_yticks_color'] = "#000000"
         settings.layout['range_slider']['visible'] = True
         settings.layout['bar_mode'] = 'overlay'
+        settings.layout['bar_sort'] = 'total ascending'
         settings.layout['x_type'] = 'log'
         settings.layout['y_type'] = 'category'
         settings.layout['x_inv'] = 'reversed'
