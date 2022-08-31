@@ -773,6 +773,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.marker_size_lab.setText(self.tr('Bar width'))
             self.marker_size.setValue(0.5)
 
+        # change the label and the spin box value when the scatter plot is chosen
+        if self.ptype == 'scatter':
+            self.marker_size_lab.setText(self.tr('Marker size'))
+            self.marker_size.setValue(10)
+
         # info combo for data hovering
         self.info_combo.clear()
         self.info_combo.addItem(self.tr('All Values'), 'all')
