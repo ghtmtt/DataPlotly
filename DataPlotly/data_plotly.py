@@ -175,9 +175,11 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         """ Open the online help. """
         QDesktopServices.openUrl(QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.md'))
 
-    def loadPlotFromDic(self, plot_dic):
+    def loadPlotFromDic(self, plot_dic, dock_id='DataPlotly'):
         """
         Calls the method to load the DataPlotly dialog with a given dictionary
         """
-        self.dock_widget.main_panel.showPlotFromDic(plot_dic)
-        self.dock_widget.setUserVisible(True)
+        dock = self.dock_manager.getDock(dock_id)
+        if dock:
+            dock.main_panel.showPlotFromDic(plot_dic)
+            dock.setUserVisible(True)
