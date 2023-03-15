@@ -321,10 +321,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.filter_by_atlas_check.setVisible(False)
 
         QgsProject.instance().layerWillBeRemoved.connect(self.layer_will_be_removed)
-
+        
         # new dock instance from project
         if project:
             self.read_project(project)
+            # FIXME: creation plot is not working
+            # self.create_plot()
+
 
     def updateStacked(self, row):
         """

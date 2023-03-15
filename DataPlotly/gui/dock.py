@@ -88,6 +88,9 @@ class DataPlotlyDockManager():
                                 hide = False, 
                                 message_bar = None, 
                                 project = document)
+                # FIXME : trigger the plot creation (not working)
+                # main_panel = self.getDock(tag_name).main_panel
+                # main_panel.create_plot()
 
     def getDock(self, dock_id: str) -> DataPlotlyDock:
         dock = self.dock_widgets.get(dock_id)
