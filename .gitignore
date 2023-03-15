@@ -15,3 +15,6 @@ DataPlotly/i18n/
 
 .coverage
 .noseids
+
+# Vscode
+.vscode/*
