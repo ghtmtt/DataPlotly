@@ -83,7 +83,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     }
 
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
-                 source_layer_id=None):
+                 source_layer_id=None, dock_id: str = None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
         # plot properties
@@ -218,6 +218,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.data_defined_y_max = None
         self.source_layer_id = source_layer_id
 
+        # multiple_dock
+        self.dock_id = dock_id
+
     def write_xml(self, document: QDomDocument):
         """
         Writes the plot settings to an XML element
@@ -255,7 +258,10 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         Writes the settings to a project (represented by the given DOM document)
         """
         elem = self.write_xml(document)
-        parent_elem = document.createElement('DataPlotly')
+        if self.dock_id == 'DataPlotly':
+            parent_elem = document.createElement(f'DataPlotly')
+        else:
+            parent_elem = document.createElement(f'DataPlotly_{self.dock_id}')
         parent_elem.appendChild(elem)
 
         root_node = document.elementsByTagName("qgis").item(0)
@@ -269,7 +275,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         if root_node.isNull():
             return False
 
-        node = root_node.toElement().firstChildElement('DataPlotly')
+        node = root_node.toElement().firstChildElement(f'DataPlotly_{self.dock_id}')
         if node.isNull():
             return False
 

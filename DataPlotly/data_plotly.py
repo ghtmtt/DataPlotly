@@ -22,14 +22,15 @@
 """
 import os.path
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl, pyqtSignal
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QAction
-from qgis.core import Qgis, QgsApplication, QgsExpression
+from qgis.PyQt.QtXml import QDomDocument
+from qgis.core import Qgis, QgsApplication, QgsExpression, QgsProject
 from qgis.gui import QgsGui
 
 # Import the code for the dialog
-from DataPlotly.gui.dock import DataPlotlyDock
+from DataPlotly.gui.dock import DataPlotlyDockManager
 from DataPlotly.gui.gui_utils import GuiUtils
 
 # import processing provider
@@ -46,7 +47,7 @@ from .core.plot_expressions import get_symbol_colors
 class DataPlotly:  # pylint: disable=too-many-instance-attributes
     """QGIS Plugin Implementation."""
 
-    VERSION = '2.3'
+    VERSION = '4.0'
 
     def __init__(self, iface):
         """Constructor.
@@ -81,10 +82,17 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.show_dock_action = None
         self.help_action = None
         self.toolbar = None
+        self.dock_project_empty = True
+
+        self.dock_widgets = dict()
+        self.dock_manager = DataPlotlyDockManager(self.iface, self.dock_widgets)
 
         self.plot_item_metadata = PlotLayoutItemMetadata()
         self.plot_item_gui_metadata = None
         QgsApplication.layoutItemRegistry().addLayoutItemType(self.plot_item_metadata)
+
+        QgsProject.instance().cleared.connect(self.dock_manager.removeDocks)
+        QgsProject.instance().readProject.connect(self.dock_manager.addDocksFromProject)
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):  # pylint: disable=no-self-use
@@ -109,9 +117,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.toolbar = self.iface.addToolBar('DataPlotly')
         self.toolbar.setObjectName('DataPlotly')
 
-        self.dock_widget = DataPlotlyDock(message_bar=self.iface.messageBar())
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
-        self.dock_widget.hide()
+        self.dock_widget = self.dock_manager.addNewDock()
 
         self.show_dock_action = QAction(icon, self.tr('DataPlotly'))
         self.show_dock_action.setToolTip(self.tr('Shows the DataPlotly dock'))
@@ -159,6 +165,10 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         # unregister the function
         QgsExpression.unregisterFunction('get_symbol_colors')
+
+        # remove all docks
+        for dock in self.dock_widgets.values():
+            self.iface.removeDockWidget(dock)
 
     @staticmethod
     def open_help():

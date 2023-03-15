@@ -109,6 +109,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.layout = None
         self.source_layer = QgsProject.instance().mapLayer(
             self.settings.source_layer_id) if self.settings.source_layer_id else None
+        self.plot_path = os.path.join(
+            tempfile.gettempdir(), 
+            f'temp_plot_name_{self.settings.dock_id}.html')
 
         self.rebuild()
 
@@ -676,7 +679,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             path_to_output = factory.build_figure()
         """
 
-        self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
         config = {
             'scrollZoom': True,
             'editable': True,
@@ -747,7 +749,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         substr = match.group(1)
         self.raw_plot = self.raw_plot.replace('ReplaceTheDiv', substr)
 
-        self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
         with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.raw_plot)
 
@@ -806,7 +807,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         substr = match.group(1)
         self.raw_plot = self.raw_plot.replace('ReplaceTheDiv', substr)
 
-        self.plot_path = os.path.join(tempfile.gettempdir(), 'temp_plot_name.html')
         with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.raw_plot)
 
