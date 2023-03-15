@@ -166,6 +166,10 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         # unregister the function
         QgsExpression.unregisterFunction('get_symbol_colors')
 
+        # disconnect signals for easy dev when using plugin reloader
+        QgsProject.instance().cleared.disconnect(self.dock_manager.removeDocks)
+        QgsProject.instance().readProject.disconnect(self.dock_manager.addDocksFromProject)
+
         # remove all docks
         for dock in self.dock_widgets.values():
             self.iface.removeDockWidget(dock)
