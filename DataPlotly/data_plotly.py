@@ -90,9 +90,9 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.plot_item_metadata = PlotLayoutItemMetadata()
         self.plot_item_gui_metadata = None
         QgsApplication.layoutItemRegistry().addLayoutItemType(self.plot_item_metadata)
-
         QgsProject.instance().cleared.connect(self.dock_manager.removeDocks)
         QgsProject.instance().readProject.connect(self.dock_manager.addDocksFromProject)
+        QgsProject.instance().writeProject.connect(self.dock_manager.write_to_project)
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):  # pylint: disable=no-self-use

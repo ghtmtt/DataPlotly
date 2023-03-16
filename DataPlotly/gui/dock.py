@@ -6,12 +6,13 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
-from qgis.PyQt.QtCore import QCoreApplication, Qt
-from qgis.PyQt.QtXml import QDomDocument
+from qgis.PyQt.QtCore import QByteArray, QCoreApplication, Qt
+from qgis.PyQt.QtXml import QDomDocument, QDomElement
 
+from qgis.core import QgsSettings, QgsProject, QgsXmlUtils
 from qgis.gui import (
     QgsDockWidget,
-    QgsPanelWidgetStack
+    QgsPanelWidgetStack,
 )
 
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
@@ -91,6 +92,9 @@ class DataPlotlyDockManager():
                 # FIXME : trigger the plot creation (not working)
                 # main_panel = self.getDock(tag_name).main_panel
                 # main_panel.create_plot()
+        if self.read_from_project(document):
+            self.iface.mainWindow().restoreGeometry(self.geometry)
+            self.iface.mainWindow().restoreState(self.state, version = 999)
 
     def getDock(self, dock_id: str) -> DataPlotlyDock:
         dock = self.dock_widgets.get(dock_id)
@@ -99,3 +103,58 @@ class DataPlotlyDockManager():
                 self.tr('Warning'), 
                 self.tr(f'DataPlotlyDock {dock_id} can not be found'))
         return dock
+    
+    # TODO: Refactor : this functions are almost the same in plot_settings.py
+    def write_xml(self, document: QDomDocument):
+        """
+        Writes the docks position settings to an XML element
+        """
+        mw = self.iface.mainWindow()
+        state = mw.saveState(version = 999).toBase64()
+        geometry = mw.saveGeometry().toBase64()
+
+        element = QgsXmlUtils.writeVariant({
+            'state' : str(state, "utf-8"),
+            'geometry' : str(geometry, "utf-8")
+        }, document)
+        return element
+
+    def read_xml(self, element: QDomElement) -> bool:
+        """
+        Reads the docs state settings from an XML element
+        """
+        res = QgsXmlUtils.readVariant(element)
+        if not isinstance(res, dict) or \
+                'geometry' not in res or \
+                'state' not in res:
+            return False
+        # state and geom are stored in  str(Base64)
+        restore = lambda b_str_64 : QByteArray.fromBase64(QByteArray(b_str_64.encode()))
+        self.state = restore(res['state'])
+        self.geometry = restore(res['geometry'])
+        return True
+    
+    def write_to_project(self, document: QDomDocument):
+        """
+        Writes the settings to a project (represented by the given DOM document)
+        """
+        elem = self.write_xml(document)
+        parent_elem = document.createElement('StateDataPlotly')
+        parent_elem.appendChild(elem)
+        root_node = document.elementsByTagName("qgis").item(0)
+        root_node.appendChild(parent_elem)
+
+    def read_from_project(self, document: QDomDocument):
+        """
+        Reads the settings from a project (represented by the given DOM document)
+        """
+        root_node = document.elementsByTagName("qgis").item(0)
+        if root_node.isNull():
+            return False
+
+        node = root_node.toElement().firstChildElement('StateDataPlotly')
+        if node.isNull():
+            return False
+
+        elem = node.toElement()
+        return self.read_xml(elem.firstChildElement())
