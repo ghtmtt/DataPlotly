@@ -12,7 +12,7 @@ from qgis.PyQt.QtXml import QDomDocument, QDomElement
 from qgis.core import QgsSettings, QgsProject, QgsXmlUtils
 from qgis.gui import (
     QgsDockWidget,
-    QgsPanelWidgetStack,
+    QgsPanelWidgetStack
 )
 
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
