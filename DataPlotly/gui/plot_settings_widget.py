@@ -91,7 +91,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
     resizeWindow = pyqtSignal()
 
     def __init__(self, mode=MODE_CANVAS, parent=None, override_iface=None, message_bar: QgsMessageBar = None,
-                 dock_id: str = None, project: QDomDocument = None):  # pylint: disable=too-many-statements
+                 dock_title: str = None, dock_id: str = None, project: QDomDocument = None):  # pylint: disable=too-many-statements
         """Constructor."""
         super().__init__(parent)
         self.setupUi(self)
@@ -102,6 +102,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.mode = mode
         self.message_bar = message_bar
+        self.dock_title = dock_title
         self.dock_id = dock_id
 
         self.setPanelTitle(self.tr('Plot Properties'))
@@ -1130,6 +1131,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
                             source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None,
+                            dock_title = self.dock_title,
                             dock_id = self.dock_id)
         settings.data_defined_properties = self.data_defined_properties
         return settings
@@ -1559,7 +1561,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if not self.read_from_project:
             return
 
-        settings = PlotSettings(dock_id = self.dock_id)
+        settings = PlotSettings(dock_title = self.dock_title, dock_id = self.dock_id)
         if settings.read_from_project(document):
             # update the dock state to match the read settings
             self.set_settings(settings)

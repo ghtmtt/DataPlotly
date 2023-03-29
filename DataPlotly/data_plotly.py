@@ -265,6 +265,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         # disconnect signals for easy dev when using plugin reloader
         QgsProject.instance().cleared.disconnect(self.dock_manager.removeDocks)
         QgsProject.instance().readProject.disconnect(self.dock_manager.addDocksFromProject)
+        QgsProject.instance().writeProject.disconnect(self.dock_manager.write_to_project)
 
         # remove all docks
         for dock in self.dock_widgets.values():
