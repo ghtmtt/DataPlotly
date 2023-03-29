@@ -14,7 +14,7 @@ from qgis.gui import (
     QgsDockWidget,
     QgsPanelWidgetStack
 )
-
+from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockDialog
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
 class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
@@ -44,6 +44,14 @@ class DataPlotlyDockManager():
     
     def tr(self, message):
         return QCoreApplication.translate('DataPlotly', message)
+    
+    def addNewDockFromDlg(self):
+        """Open a dlg and add dock"""
+        dlg = DataPlotlyNewDockDialog(self.dock_widgets)
+        if dlg.exec_():
+            dock_title, dock_id = dlg.get_params()
+            self.addNewDock(dock_title, dock_id, False)
+
 
     def addNewDock(self, title='DataPlotly', dock_id='DataPlotly', hide = True, message_bar = None, project = None):
         if dock_id in self.dock_widgets:

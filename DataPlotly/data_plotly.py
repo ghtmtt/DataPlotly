@@ -23,9 +23,8 @@
 import os.path
 
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl, pyqtSignal
-from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtWidgets import QAction
-from qgis.PyQt.QtXml import QDomDocument
+from qgis.PyQt.QtGui import QDesktopServices, QIcon
+from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
 from qgis.core import Qgis, QgsApplication, QgsExpression, QgsProject
 from qgis.gui import QgsGui
 
@@ -113,9 +112,11 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         icon = GuiUtils.get_icon('dataplotly.svg')
 
-        # TODO: We are going to let the user set this up in a future iteration
-        self.toolbar = self.iface.addToolBar('DataPlotly')
-        self.toolbar.setObjectName('DataPlotly')
+        # # TODO: We are going to let the user set this up in a future iteration
+        # self.toolbar = self.iface.addToolBar('DataPlotly')
+        # self.toolbar.setObjectName('DataPlotly')
+
+        self.actions = []
 
         self.dock_widget = self.dock_manager.addNewDock()
 
@@ -125,8 +126,30 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         self.dock_widget.setToggleVisibilityAction(self.show_dock_action)
 
-        self.iface.pluginMenu().addAction(self.show_dock_action)
-        self.toolbar.addAction(self.show_dock_action)
+        # self.iface.pluginMenu().addAction(self.show_dock_action)
+        # self.toolbar.addAction(self.show_dock_action)
+        
+        self.toolButton = QToolButton()
+        self.toolButtonMenu = QMenu()
+        self.toolButton.setMenu(self.toolButtonMenu)
+        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolBtnAction = self.iface.addToolBarWidget(self.toolButton)
+        self.toolButton.setDefaultAction(self.show_dock_action)
+
+
+        sub_actions = [
+            {
+                "text": self.tr("Add a new dock"),
+                "icon_path":icon,
+                "callback": self.dock_manager.addNewDockFromDlg,
+                "parent": self.iface.mainWindow(),
+                "toolbutton": self.toolButton,
+                "add_to_menu": False
+            }
+        ]
+
+        for action in sub_actions:
+            self.add_action(**action)
 
         # Add processing provider
         self.initProcessing()
@@ -143,6 +166,79 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         # register the function
         QgsExpression.registerFunction(get_symbol_colors)
+    
+    def add_action(
+        self,
+        icon_path,
+        text,
+        callback,
+        enabled_flag=True,
+        add_to_menu=True,
+        add_to_toolbar=True,
+        toolbutton=None,
+        status_tip=None,
+        whats_this=None,
+        parent=None,
+        args=None):
+        """Add a toolbar icon to the toolbar.
+        :param icon_path: Path to the icon for this action. Can be a resource
+            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
+        :type icon_path: str
+        :param text: Text that should be shown in menu items for this action.
+        :type text: str
+        :param callback: Function to be called when the action is triggered.
+        :type callback: function
+        :param enabled_flag: A flag indicating if the action should be enabled
+            by default. Defaults to True.
+        :type enabled_flag: bool
+        :param add_to_menu: Flag indicating whether the action should also
+            be added to the menu. Defaults to True.
+        :type add_to_menu: bool
+        :param add_to_toolbar: Flag indicating whether the action should also
+            be added to the toolbar. Defaults to True.
+        :type add_to_toolbar: bool
+        :param status_tip: Optional text to show in a popup when mouse pointer
+            hovers over the action.
+        :type status_tip: str
+        :param parent: Parent widget for the new action. Defaults None.
+        :type parent: QWidget
+        :param whats_this: Optional text to show in the status bar when the
+            mouse pointer hovers over the action.
+        :returns: The action that was created. Note that the action is also
+            added to self.actions list.
+        :rtype: QAction
+        """
+        if not icon_path:
+            action = QAction(text, parent)
+        else:
+            icon = QIcon(icon_path) if isinstance(icon_path, str) else icon_path
+            action = QAction(icon, text, parent)
+        if args:
+            callback = partial(callback, action, *args)
+        action.triggered.connect(callback)
+        action.setEnabled(enabled_flag)
+
+        if status_tip is not None:
+            action.setStatusTip(status_tip)
+
+        if whats_this is not None:
+            action.setWhatsThis(whats_this)
+
+        if toolbutton:
+            self.toolButtonMenu.addAction(action)     
+        else:
+            if add_to_toolbar:
+                # Adds plugin icon to Plugins toolbar
+                self.iface.addToolBarIcon(action)
+
+        if add_to_menu:
+            self.iface.addPluginToMenu(
+                self.menu,
+                action)
+
+        self.actions.append(action)
+
+        return action
 
     def initProcessing(self):
         """Create the Processing provider"""
@@ -153,8 +249,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.iface.pluginMenu().removeAction(self.show_dock_action)
         self.show_dock_action.deleteLater()
         self.show_dock_action = None
-        self.toolbar.deleteLater()
-        self.toolbar = None
+        self.toolButton.deleteLater()
+        self.toolButton = None
 
         if Qgis.QGIS_VERSION_INT >= 31000 and self.help_action:
             self.iface.pluginHelpMenu().removeAction(self.help_action)
