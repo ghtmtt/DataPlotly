@@ -275,8 +275,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         root_node = document.elementsByTagName("qgis").item(0)
         if root_node.isNull():
             return False
-
-        node = root_node.toElement().firstChildElement(f'DataPlotly_{self.dock_title}_{self.dock_id}')
+        if self.dock_id == 'DataPlotly':
+            tag = "DataPlotly"
+        else:
+            tag = f'DataPlotly_{self.dock_title}_{self.dock_id}'
+        node = root_node.toElement().firstChildElement(tag)
         if node.isNull():
             return False
 
