@@ -145,6 +145,14 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
                 "parent": self.iface.mainWindow(),
                 "toolbutton": self.toolButton,
                 "add_to_menu": False
+            },
+            {
+                "text": self.tr("Remove a dock"),
+                "icon_path":icon,
+                "callback": self.dock_manager.removeDockFromDlg,
+                "parent": self.iface.mainWindow(),
+                "toolbutton": self.toolButton,
+                "add_to_menu": False
             }
         ]
 

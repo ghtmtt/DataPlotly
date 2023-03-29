@@ -15,6 +15,7 @@ from qgis.gui import (
     QgsPanelWidgetStack
 )
 from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockDialog
+from DataPlotly.gui.remove_dock_dlg import DataPlotlyRemoveDockDialog
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
 safe_str_xml = lambda s : s.replace(" ", ".")
@@ -26,8 +27,8 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
 
     def __init__(self, parent=None, message_bar=None, dock_title = 'DataPlotly', dock_id : str = 'DataPlotly', project : QDomDocument= None):
         super().__init__(parent)
-        title = restore_safe_str_xml(dock_title)
-        self.setWindowTitle(title)
+        self.title = restore_safe_str_xml(dock_title)
+        self.setWindowTitle(self.title)
         self.setObjectName(f'DataPlotly-{dock_id}-Dock')
 
         self.panel_stack = QgsPanelWidgetStack()
@@ -54,6 +55,14 @@ class DataPlotlyDockManager():
         if dlg.exec_():
             dock_title, dock_id = dlg.get_params()
             self.addNewDock(dock_title, dock_id, False)
+
+    def removeDockFromDlg(self):
+        """Open a dlg to remove a dock"""
+        dlg = DataPlotlyRemoveDockDialog(self.dock_widgets)
+        if dlg.exec_():
+            dock_id = dlg.get_param()
+            self.removeDock(dock_id)
+        return dlg
 
 
     def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly', hide = True, message_bar = None, project = None):
