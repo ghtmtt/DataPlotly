@@ -74,6 +74,10 @@ class DataPlotlyNewDockIdValidator(QValidator):
             state = QValidator.Intermediate
             msg = self.tr(f'DockId {dock_id} is already taken')
         
+        if '_' in dock_id:
+            state = QValidator.Intermediate
+            msg = self.tr('The underscore _ is not allowed')
+
         self.validationChanged.emit(state, msg)
 
         return state, dock_id, pos

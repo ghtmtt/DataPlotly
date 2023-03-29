@@ -6,7 +6,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
-from qgis.PyQt.QtCore import QByteArray, QCoreApplication, Qt
+from qgis.PyQt.QtCore import QByteArray, QCoreApplication, QUrl, Qt
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
 
 from qgis.core import QgsSettings, QgsProject, QgsXmlUtils
@@ -17,6 +17,8 @@ from qgis.gui import (
 from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockDialog
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
+safe_str_xml = lambda s : s.replace(" ", ".")
+restore_safe_str_xml = lambda s: s.replace(".", " ")
 class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
     """
     Plot settings dock widget
@@ -24,7 +26,8 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
 
     def __init__(self, parent=None, message_bar=None, dock_title = 'DataPlotly', dock_id : str = 'DataPlotly', project : QDomDocument= None):
         super().__init__(parent)
-        self.setWindowTitle(dock_title)
+        title = restore_safe_str_xml(dock_title)
+        self.setWindowTitle(title)
         self.setObjectName(f'DataPlotly-{dock_id}-Dock')
 
         self.panel_stack = QgsPanelWidgetStack()
@@ -54,6 +57,8 @@ class DataPlotlyDockManager():
 
 
     def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly', hide = True, message_bar = None, project = None):
+        dock_title = safe_str_xml(dock_title)
+        dock_id = safe_str_xml(dock_id)
         if dock_id in self.dock_widgets:
             if dock_id == 'DataPlotly':
                 return self.dock_widgets[dock_id]
@@ -92,8 +97,8 @@ class DataPlotlyDockManager():
             tag_name = nodes.at(i).toElement().tagName()
             if tag_name.startswith('DataPlotly_'):
                 _, dock_title, dock_id = tag_name.split('_')
-                self.addNewDock(dock_title = dock_title, 
-                                dock_id = dock_id, 
+                self.addNewDock(dock_title = restore_safe_str_xml(dock_title), 
+                                dock_id = restore_safe_str_xml(dock_id), 
                                 hide = False, 
                                 message_bar = None, 
                                 project = document)
