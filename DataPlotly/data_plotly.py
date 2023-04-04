@@ -140,7 +140,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         sub_actions = [
             {
                 "text": self.tr("Add a new dock"),
-                "icon_path":icon,
+                "icon_path": icon,
                 "callback": self.dock_manager.addNewDockFromDlg,
                 "parent": self.iface.mainWindow(),
                 "toolbutton": self.toolButton,
