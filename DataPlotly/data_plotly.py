@@ -148,7 +148,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
             },
             {
                 "text": self.tr("Remove a dock"),
-                "icon_path":icon,
+                "icon_path": icon,
                 "callback": self.dock_manager.removeDockFromDlg,
                 "parent": self.iface.mainWindow(),
                 "toolbutton": self.toolButton,
