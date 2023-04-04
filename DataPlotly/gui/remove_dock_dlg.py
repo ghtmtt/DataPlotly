@@ -21,3 +21,4 @@ class DataPlotlyRemoveDockDialog(QDialog, WIDGET):
 
     def get_param(self):
         return self.DockIdsComboBox.currentText()
+        
