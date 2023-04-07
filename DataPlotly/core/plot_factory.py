@@ -485,13 +485,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         dds["type"] = data.points[0].data.type
 
         featureIds = [];
-        featureIdsTernary = [];
 
         data.points.forEach(function(pt){
-        featureIds.push(parseInt(pt.id))
-        featureIdsTernary.push(parseInt(pt.pointNumber))
+        featureIds.push(pt.x)
         dds["id"] = featureIds
-        dds["tid"] = featureIdsTernary
+        dds["field"] = pt.data.customdata[0]
             })
         //console.log(dds)
         window.status = JSON.stringify(dds)
@@ -511,6 +509,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         if(data.points[i].data.type == 'scatter'){
             dd["uid"] = data.points[i].data.uid
             dd["type"] = data.points[i].data.type
+            dd["field"] = data.points[i].data.customdata[0]
+            dd["id"] = data.points[i].x
 
             data.points.forEach(function(pt){
             dd["fid"] = pt.id
