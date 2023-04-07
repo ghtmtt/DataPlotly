@@ -71,5 +71,6 @@ class BarPlotFactory(PlotType):
         layout = super(BarPlotFactory, BarPlotFactory).create_layout(settings)
 
         layout['barmode'] = settings.layout['bar_mode']
+        layout['xaxis']['categoryorder'] = settings.layout['bar_sort']
 
         return layout
