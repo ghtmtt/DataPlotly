@@ -6,10 +6,10 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
-from qgis.PyQt.QtCore import QByteArray, QCoreApplication, QUrl, Qt
+from qgis.PyQt.QtCore import QByteArray, QCoreApplication, Qt
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
 
-from qgis.core import QgsSettings, QgsProject, QgsXmlUtils
+from qgis.core import QgsXmlUtils
 from qgis.gui import (
     QgsDockWidget,
     QgsPanelWidgetStack
@@ -45,6 +45,8 @@ class DataPlotlyDockManager():
     def __init__(self, iface, dock_widgets):
         self.iface = iface
         self.dock_widgets = dock_widgets
+        self.state = None
+        self.geometry = None
     
     def tr(self, message):
         return QCoreApplication.translate('DataPlotly', message)
@@ -93,7 +95,7 @@ class DataPlotlyDockManager():
                 continue
             self.removeDock(dock_id)
 
-        self.dock_project_empty = True
+        #self.dock_project_empty = True
 
     def addDocksFromProject(self, document: QDomDocument):
         root_node = document.elementsByTagName("qgis").item(0)
