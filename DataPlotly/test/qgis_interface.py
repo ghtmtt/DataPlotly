@@ -35,7 +35,7 @@ LOGGER = logging.getLogger('QGIS')
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
-class QgisInterface(QObject):
+class QgisInterface(QObject): # pylint: disable=too-many-public-methods
     """Class to expose QGIS objects and functions to plugins.
 
     This class is here for enabling us to run unit tests only,
@@ -195,6 +195,17 @@ class QgisInterface(QObject):
 
     def addDockWidget(self, area, dock_widget: QDockWidget):
         """Add a dock widget to the main window.
+
+        :param area: Where in the ui the dock should be placed.
+        :type area:
+
+        :param dock_widget: A dock widget to add to the UI.
+        :type dock_widget: QDockWidget
+        """
+        pass  # pylint: disable=unnecessary-pass
+
+    def removeDockWidget(self, dock_widget: QDockWidget):
+        """Remove a dock widget to the main window.
 
         :param area: Where in the ui the dock should be placed.
         :type area:
