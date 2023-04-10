@@ -21,8 +21,9 @@
  ***************************************************************************/
 """
 import os.path
+from functools import partial
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl, pyqtSignal
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
 from qgis.core import Qgis, QgsApplication, QgsExpression, QgsProject
@@ -83,14 +84,23 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.toolbar = None
         self.dock_project_empty = True
 
-        self.dock_widgets = dict()
-        self.dock_manager = DataPlotlyDockManager(self.iface, self.dock_widgets)
+        # initialize variable setup in initGui
+        self.actions = None
+        self.toolButton = None
+        self.toolButtonMenu = None
+        self.toolBtnAction = None
+
+        # dock_widgets
+        self.dock_widgets = {}
+        self.dock_manager = DataPlotlyDockManager(
+            self.iface, self.dock_widgets)
 
         self.plot_item_metadata = PlotLayoutItemMetadata()
         self.plot_item_gui_metadata = None
         QgsApplication.layoutItemRegistry().addLayoutItemType(self.plot_item_metadata)
         QgsProject.instance().cleared.connect(self.dock_manager.removeDocks)
-        QgsProject.instance().readProject.connect(self.dock_manager.addDocksFromProject)
+        QgsProject.instance().readProject.connect(
+            self.dock_manager.addDocksFromProject)
         QgsProject.instance().writeProject.connect(self.dock_manager.write_to_project)
 
     # noinspection PyMethodMayBeStatic
@@ -126,9 +136,6 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         self.dock_widget.setToggleVisibilityAction(self.show_dock_action)
 
-        # self.iface.pluginMenu().addAction(self.show_dock_action)
-        # self.toolbar.addAction(self.show_dock_action)
-        
         self.toolButton = QToolButton()
         self.toolButtonMenu = QMenu()
         self.toolButton.setMenu(self.toolButtonMenu)
@@ -136,23 +143,20 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.toolBtnAction = self.iface.addToolBarWidget(self.toolButton)
         self.toolButton.setDefaultAction(self.show_dock_action)
 
-
         sub_actions = [
             {
                 "text": self.tr("Add a new dock"),
                 "icon_path": icon,
                 "callback": self.dock_manager.addNewDockFromDlg,
                 "parent": self.iface.mainWindow(),
-                "toolbutton": self.toolButton,
-                "add_to_menu": False
+                "toolbutton": self.toolButton
             },
             {
                 "text": self.tr("Remove a dock"),
                 "icon_path": icon,
                 "callback": self.dock_manager.removeDockFromDlg,
                 "parent": self.iface.mainWindow(),
-                "toolbutton": self.toolButton,
-                "add_to_menu": False
+                "toolbutton": self.toolButton
             }
         ]
 
@@ -168,26 +172,26 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         # Open the online help
         if Qgis.QGIS_VERSION_INT >= 31000:
-            self.help_action = QAction(icon, 'DataPlotly', self.iface.mainWindow())
+            self.help_action = QAction(
+                icon, 'DataPlotly', self.iface.mainWindow())
             self.iface.pluginHelpMenu().addAction(self.help_action)
             self.help_action.triggered.connect(self.open_help)
 
         # register the function
         QgsExpression.registerFunction(get_symbol_colors)
-    
-    def add_action(
-        self,
-        icon_path,
-        text,
-        callback,
-        enabled_flag=True,
-        add_to_menu=True,
-        add_to_toolbar=True,
-        toolbutton=None,
-        status_tip=None,
-        whats_this=None,
-        parent=None,
-        args=None):
+
+    def add_action(  # pylint: disable = too-many-arguments
+            self,
+            icon_path,
+            text,
+            callback,
+            enabled_flag=True,
+            add_to_toolbar=True,
+            toolbutton=None,
+            status_tip=None,
+            whats_this=None,
+            parent=None,
+            args=None):
         """Add a toolbar icon to the toolbar.
         :param icon_path: Path to the icon for this action. Can be a resource
             path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
@@ -219,7 +223,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         if not icon_path:
             action = QAction(text, parent)
         else:
-            icon = QIcon(icon_path) if isinstance(icon_path, str) else icon_path
+            icon = QIcon(icon_path) if isinstance(
+                icon_path, str) else icon_path
             action = QAction(icon, text, parent)
         if args:
             callback = partial(callback, action, *args)
@@ -233,16 +238,11 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
             action.setWhatsThis(whats_this)
 
         if toolbutton:
-            self.toolButtonMenu.addAction(action)     
+            self.toolButtonMenu.addAction(action)
         else:
             if add_to_toolbar:
                 # Adds plugin icon to Plugins toolbar
                 self.iface.addToolBarIcon(action)
-
-        if add_to_menu:
-            self.iface.addPluginToMenu(
-                self.menu,
-                action)
 
         self.actions.append(action)
 
@@ -272,8 +272,10 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         # disconnect signals for easy dev when using plugin reloader
         QgsProject.instance().cleared.disconnect(self.dock_manager.removeDocks)
-        QgsProject.instance().readProject.disconnect(self.dock_manager.addDocksFromProject)
-        QgsProject.instance().writeProject.disconnect(self.dock_manager.write_to_project)
+        QgsProject.instance().readProject.disconnect(
+            self.dock_manager.addDocksFromProject)
+        QgsProject.instance().writeProject.disconnect(
+            self.dock_manager.write_to_project)
 
         # remove all docks
         for dock in self.dock_widgets.values():
@@ -282,7 +284,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
     @staticmethod
     def open_help():
         """ Open the online help. """
-        QDesktopServices.openUrl(QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.md'))
+        QDesktopServices.openUrl(
+            QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.md'))
 
     def loadPlotFromDic(self, plot_dic, dock_id='DataPlotly'):
         """

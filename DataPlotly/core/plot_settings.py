@@ -82,7 +82,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double)
     }
 
-    def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
+    def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None, # pylint: disable=too-many-arguments
                  source_layer_id=None, dock_title: str= None, dock_id: str = None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
@@ -260,7 +260,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         """
         elem = self.write_xml(document)
         if self.dock_id == 'DataPlotly':
-            parent_elem = document.createElement(f'DataPlotly')
+            parent_elem = document.createElement('DataPlotly')
         else:
             parent_elem = document.createElement(f'DataPlotly_{self.dock_title}_{self.dock_id}')
         parent_elem.appendChild(elem)
