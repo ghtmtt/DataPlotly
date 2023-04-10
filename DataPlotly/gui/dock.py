@@ -19,12 +19,15 @@ from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockDialog
 from DataPlotly.gui.remove_dock_dlg import DataPlotlyRemoveDockDialog
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
+
 class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
     """
     Plot settings dock widget
     """
 
-    def __init__(self, parent=None, message_bar=None, dock_title = 'DataPlotly', dock_id : str = 'DataPlotly', project : QDomDocument= None):
+    def __init__(self, parent=None, message_bar=None,
+                 dock_title: str = 'DataPlotly', dock_id: str = 'DataPlotly',
+                 project: QDomDocument = None):  # pylint: disable=too-many-arguments
         super().__init__(parent)
         self.title = restore_safe_str_xml(dock_title)
         self.setWindowTitle(self.title)
@@ -33,14 +36,17 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
         self.panel_stack = QgsPanelWidgetStack()
         self.setWidget(self.panel_stack)
 
-        self.main_panel = DataPlotlyPanelWidget(message_bar=message_bar,  dock_title = dock_title, dock_id = dock_id, project = project)
+        self.main_panel = DataPlotlyPanelWidget(
+            message_bar=message_bar,  dock_title=dock_title, dock_id=dock_id, project=project)
         self.panel_stack.setMainPanel(self.main_panel)
         self.main_panel.setDockMode(True)
+
 
 class DataPlotlyDockManager():
     """
     Manager to add multiple docks
     """
+
     def __init__(self, iface, dock_widgets):
         self.iface = iface
         self.dock_widgets = dock_widgets
@@ -65,18 +71,20 @@ class DataPlotlyDockManager():
             dock_id = dlg.get_param()
             self.removeDock(dock_id)
 
-
-    def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly', hide = True, message_bar = None, project = None):
+    def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly',
+                   hide=True, message_bar=None, project=None):  # pylint: disable=too-many-arguments
         """ Add new dock """
         dock_title = safe_str_xml(dock_title)
         dock_id = safe_str_xml(dock_id)
         if dock_id in self.dock_widgets:
             if dock_id == 'DataPlotly':
                 return self.dock_widgets[dock_id]
-            self.iface.messageBar().pushWarning(self.tr('Warning'), self.tr(f'DataPlotlyDock can not be added because {dock_id} is already present'))
+            self.iface.messageBar().pushWarning(self.tr('Warning'), self.tr(
+                f'DataPlotlyDock can not be added because {dock_id} is already present'))
             return False
         message_bar = message_bar or self.iface.messageBar()
-        dock = DataPlotlyDock(dock_title = dock_title, message_bar=message_bar, dock_id = dock_id, project = project)
+        dock = DataPlotlyDock(
+            dock_title=dock_title, message_bar=message_bar, dock_id=dock_id, project=project)
         self.dock_widgets[dock_id] = dock
         self.iface.addDockWidget(Qt.RightDockWidgetArea, dock)
         if hide:
@@ -88,7 +96,7 @@ class DataPlotlyDockManager():
         dock = self.dock_widgets.pop(dock_id, None)
         if dock:
             self.iface.removeDockWidget(dock)
-        #TODO remove dock_id in project file
+        # TODO remove dock_id in project file
 
     def removeDocks(self):
         """ Remove all docks except the main one """
@@ -105,23 +113,24 @@ class DataPlotlyDockManager():
         root_node = document.elementsByTagName("qgis").item(0)
         if root_node.isNull():
             return False
-        #loop to find matching dock
+        # loop to find matching dock
         nodes = root_node.childNodes()
         for i in range(nodes.length()):
             tag_name = nodes.at(i).toElement().tagName()
             if tag_name.startswith('DataPlotly_'):
                 _, dock_title, dock_id = tag_name.split('_')
-                self.addNewDock(dock_title = restore_safe_str_xml(dock_title),
-                                dock_id = restore_safe_str_xml(dock_id),
-                                hide = False,
-                                message_bar = None,
-                                project = document)
+                self.addNewDock(dock_title=restore_safe_str_xml(dock_title),
+                                dock_id=restore_safe_str_xml(dock_id),
+                                hide=False,
+                                message_bar=None,
+                                project=document)
                 # FIXME : trigger the plot creation (not working)
                 # main_panel = self.getDock(tag_name).main_panel
                 # main_panel.create_plot()
         if self.read_from_project(document):
             self.iface.mainWindow().restoreGeometry(self.geometry)
-            self.iface.mainWindow().restoreState(self.state, version = 999)
+            self.iface.mainWindow().restoreState(self.state, version=999)
+        return True
 
     def getDock(self, dock_id: str) -> DataPlotlyDock:
         """ Return the dock from the dock_id """
@@ -138,12 +147,12 @@ class DataPlotlyDockManager():
         Writes the docks position settings to an XML element
         """
         mw = self.iface.mainWindow()
-        state = mw.saveState(version = 999).toBase64()
+        state = mw.saveState(version=999).toBase64()
         geometry = mw.saveGeometry().toBase64()
 
         element = QgsXmlUtils.writeVariant({
-            'state' : str(state, "utf-8"),
-            'geometry' : str(geometry, "utf-8")
+            'state': str(state, "utf-8"),
+            'geometry': str(geometry, "utf-8")
         }, document)
         return element
 
