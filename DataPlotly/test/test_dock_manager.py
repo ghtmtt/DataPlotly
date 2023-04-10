@@ -8,12 +8,34 @@
 
 """
 
+import os.path
 import unittest
+
+from qgis.PyQt.QtCore import QFile, QIODevice
+from qgis.PyQt.QtXml import QDomDocument
 from DataPlotly.test.utilities import get_qgis_app
 from DataPlotly.gui.dock import (DataPlotlyDock, DataPlotlyDockManager)
 
 
 QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
+
+
+def read_project(project_path):
+    """Retur a document from qgs file
+
+    Args:
+        project_path (str): path to qgs file
+
+    Returns:
+        QDocument: document
+    """
+    xml_file = QFile(project_path)
+    if xml_file.open(QIODevice.ReadOnly):
+        xml_doc = QDomDocument()
+        xml_doc.setContent(xml_file)
+        xml_file.close()
+        return xml_doc
+    return None
 
 
 class DataPlotlyDockManagerTest(unittest.TestCase):
@@ -56,7 +78,7 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
             dock_title='DataPlotly2b', dock_id='DataPlotly2')
         self.assertFalse(new_dock_widget)
 
-    def test_003_remove_deck(self):
+    def test_003_remove_dock(self):
         """
         Test removeDock
         """
@@ -91,7 +113,33 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
         self.assertIsInstance(dock, DataPlotlyDock)
         self.assertIs(dock, self.dock_widgets['DataPlotly3'])
 
-    # TODO add others test (addDocksFromProject, read_from_project, write_to_project)
+    def test_read_project(self):
+        """
+        Test read_project with or without StateDataPlotly
+        """
+        project_path = os.path.join(os.path.dirname(
+            __file__), 'test_project_with_state.qgs')
+        document = read_project(project_path)
+        ok = self.dock_manager.read_from_project(document)
+        self.assertTrue(ok)
+        project_path = os.path.join(os.path.dirname(
+            __file__), 'test_project_without_state.qgs')
+        document = read_project(project_path)
+        ko = self.dock_manager.read_from_project(document)
+        self.assertFalse(ko)
+
+    def test_add_docks_from_project(self):
+        """
+        Test docks are added, custom project without StateDataPlotly node
+        """
+        project_path = os.path.join(os.path.dirname(
+            __file__), 'test_project_without_state.qgs')
+        document = read_project(project_path)
+        self.dock_manager.addDocksFromProject(document)
+        # all docks except main DataPlotlyDock are created
+        self.assertIn('my-test', self.dock_widgets)
+
+    # TODO add others test (write_to_project, maybe some tests with the state and geometry)
 
 
 if __name__ == "__main__":
