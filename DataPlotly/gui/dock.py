@@ -62,7 +62,6 @@ class DataPlotlyDockManager():
         if dlg.exec_():
             dock_id = dlg.get_param()
             self.removeDock(dock_id)
-        return dlg
 
 
     def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly', hide = True, message_bar = None, project = None):
