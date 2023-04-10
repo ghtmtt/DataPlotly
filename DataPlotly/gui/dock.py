@@ -6,7 +6,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
-from qgis.PyQt.QtCore import QByteArray, QCoreApplication, Qt
+from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
 
 from qgis.core import QgsXmlUtils
@@ -14,7 +14,7 @@ from qgis.gui import (
     QgsDockWidget,
     QgsPanelWidgetStack
 )
-from DataPlotly.core.core_utils import restore_safe_str_xml, safe_str_xml
+from DataPlotly.core.core_utils import restore, restore_safe_str_xml, safe_str_xml
 from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockDialog
 from DataPlotly.gui.remove_dock_dlg import DataPlotlyRemoveDockDialog
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
@@ -46,19 +46,20 @@ class DataPlotlyDockManager():
         self.dock_widgets = dock_widgets
         self.state = None
         self.geometry = None
-    
+
     def tr(self, message):
+        """ Translate function"""
         return QCoreApplication.translate('DataPlotly', message)
-    
+
     def addNewDockFromDlg(self):
-        """Open a dlg and add dock"""
+        """ Open a dlg and add dock"""
         dlg = DataPlotlyNewDockDialog(self.dock_widgets)
         if dlg.exec_():
             dock_title, dock_id = dlg.get_params()
             self.addNewDock(dock_title, dock_id, False)
 
     def removeDockFromDlg(self):
-        """Open a dlg to remove a dock"""
+        """ Open a dlg to remove a dock"""
         dlg = DataPlotlyRemoveDockDialog(self.dock_widgets)
         if dlg.exec_():
             dock_id = dlg.get_param()
@@ -66,6 +67,7 @@ class DataPlotlyDockManager():
 
 
     def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly', hide = True, message_bar = None, project = None):
+        """ Add new dock """
         dock_title = safe_str_xml(dock_title)
         dock_id = safe_str_xml(dock_id)
         if dock_id in self.dock_widgets:
@@ -80,14 +82,16 @@ class DataPlotlyDockManager():
         if hide:
             dock.hide()
         return dock
-    
+
     def removeDock(self, dock_id):
+        """ Remove dock with id """
         dock = self.dock_widgets.pop(dock_id, None)
         if dock:
             self.iface.removeDockWidget(dock)
         #TODO remove dock_id in project file
 
     def removeDocks(self):
+        """ Remove all docks except the main one """
         dock_widgets = self.dock_widgets.copy()
         for dock_id in dock_widgets.keys():
             if dock_id == 'DataPlotly':
@@ -97,6 +101,7 @@ class DataPlotlyDockManager():
         #self.dock_project_empty = True
 
     def addDocksFromProject(self, document: QDomDocument):
+        """ Add docks from project instance """
         root_node = document.elementsByTagName("qgis").item(0)
         if root_node.isNull():
             return False
@@ -106,10 +111,10 @@ class DataPlotlyDockManager():
             tag_name = nodes.at(i).toElement().tagName()
             if tag_name.startswith('DataPlotly_'):
                 _, dock_title, dock_id = tag_name.split('_')
-                self.addNewDock(dock_title = restore_safe_str_xml(dock_title), 
-                                dock_id = restore_safe_str_xml(dock_id), 
-                                hide = False, 
-                                message_bar = None, 
+                self.addNewDock(dock_title = restore_safe_str_xml(dock_title),
+                                dock_id = restore_safe_str_xml(dock_id),
+                                hide = False,
+                                message_bar = None,
                                 project = document)
                 # FIXME : trigger the plot creation (not working)
                 # main_panel = self.getDock(tag_name).main_panel
@@ -119,13 +124,14 @@ class DataPlotlyDockManager():
             self.iface.mainWindow().restoreState(self.state, version = 999)
 
     def getDock(self, dock_id: str) -> DataPlotlyDock:
+        """ Return the dock from the dock_id """
         dock = self.dock_widgets.get(dock_id)
         if not dock:
             self.iface.messageBar().pushWarning(
-                self.tr('Warning'), 
+                self.tr('Warning'),
                 self.tr(f'DataPlotlyDock {dock_id} can not be found'))
         return dock
-    
+
     # TODO: Refactor : this functions are almost the same in plot_settings.py
     def write_xml(self, document: QDomDocument):
         """
@@ -150,12 +156,11 @@ class DataPlotlyDockManager():
                 'geometry' not in res or \
                 'state' not in res:
             return False
-        # state and geom are stored in  str(Base64)
-        restore = lambda b_str_64 : QByteArray.fromBase64(QByteArray(b_str_64.encode()))
+
         self.state = restore(res['state'])
         self.geometry = restore(res['geometry'])
         return True
-    
+
     def write_to_project(self, document: QDomDocument):
         """
         Writes the settings to a project (represented by the given DOM document)
