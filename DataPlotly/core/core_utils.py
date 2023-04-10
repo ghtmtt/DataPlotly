@@ -6,7 +6,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
-
+from qgis.PyQt.QtCore import QByteArray
 
 def safe_str_xml(s):
     """ replaces spaces by .
@@ -17,3 +17,7 @@ def restore_safe_str_xml(s):
     """ replaces . by spaces
     """
     return s.replace(".", " ")
+
+def restore(b_str_64):
+    """state and geom are stored in  str(Base64) in project xml file"""
+    return QByteArray.fromBase64(QByteArray(b_str_64.encode()))
