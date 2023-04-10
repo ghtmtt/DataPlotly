@@ -1,23 +1,21 @@
-import uuid
-
+"""
+Dialog to add new DataPlotlyDock with custom validator
+"""
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import pyqtSignal
 from qgis.PyQt.QtGui import QValidator
 from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox
 
+from DataPlotly.core.core_utils import uuid_suffix
 from DataPlotly.gui.gui_utils import GuiUtils
-
 
 WIDGET, _ = uic.loadUiType(GuiUtils.get_ui_file_path('add_dock_dlg.ui'))
 
 
-def uuid_suffix(string: str) -> str:
-    return f"{string}{uuid.uuid4()}"
-
-
 class DataPlotlyNewDockDialog(QDialog, WIDGET):
+    """Dialog to add new dock"""
+
     def __init__(self, dock_widgets=None, parent=None):
-        """Dialog to add new dock"""
         super().__init__(parent)
         self.setupUi(self)
 
@@ -29,6 +27,7 @@ class DataPlotlyNewDockDialog(QDialog, WIDGET):
         self.mCustomizeGroupBox.clicked.connect(self.updateDockIdLineEdit)
 
     def update_dlg(self, state, msg):
+        """validator slot"""
         is_valid = state != QValidator.Intermediate
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(is_valid)
         label = self.DockIdInformationLabel
@@ -42,19 +41,23 @@ class DataPlotlyNewDockDialog(QDialog, WIDGET):
         label.setText(msg)
         lineEdit.setStyleSheet(style_border)
 
-    def updateDockIdLineEdit(self, signal):
+    def updateDockIdLineEdit(self):
+        """update the dockid with uuid suffix when
+        <Customize dockid> checkbox is unchecked
+        """
         if not self.mCustomizeGroupBox.isChecked():
             title = self.DockTitleLineEdit.value()
             self.DockIdLineEdit.setValue(uuid_suffix(title))
 
     def get_params(self):
+        """greturn dock_title and dock_id"""
         dock_title = self.DockTitleLineEdit.value()
         dock_id = self.DockIdLineEdit.value()
         return dock_title, dock_id
 
 
-class DataPlotlyNewDockIdValidator(QValidator):
-
+class DataPlotlyNewDockIdValidator(QValidator): # pylint: disable=too-few-public-methods
+    """Custom validator to prevent some users action"""
     validationChanged = pyqtSignal(QValidator.State, str)
 
     def __init__(self, parent=None, dock_widgets=None):
@@ -69,7 +72,7 @@ class DataPlotlyNewDockIdValidator(QValidator):
 
         if dock_id == "":
             state = QValidator.Intermediate
-            msg = self.tr(f'DockId can not be empty')
+            msg = self.tr('DockId can not be empty')
 
         if dock_id in self.dock_widgets:
             state = QValidator.Intermediate

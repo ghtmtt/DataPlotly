@@ -25,9 +25,9 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
     Plot settings dock widget
     """
 
-    def __init__(self, parent=None, message_bar=None,
+    def __init__(self, parent=None, message_bar=None,  # pylint: disable=too-many-arguments
                  dock_title: str = 'DataPlotly', dock_id: str = 'DataPlotly',
-                 project: QDomDocument = None):  # pylint: disable=too-many-arguments
+                 project: QDomDocument = None):
         super().__init__(parent)
         self.title = restore_safe_str_xml(dock_title)
         self.setWindowTitle(self.title)
@@ -71,8 +71,8 @@ class DataPlotlyDockManager():
             dock_id = dlg.get_param()
             self.removeDock(dock_id)
 
-    def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly',
-                   hide=True, message_bar=None, project=None):  # pylint: disable=too-many-arguments
+    def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly',  # pylint: disable=too-many-arguments
+                   hide=True, message_bar=None, project=None):
         """ Add new dock """
         dock_title = safe_str_xml(dock_title)
         dock_id = safe_str_xml(dock_id)

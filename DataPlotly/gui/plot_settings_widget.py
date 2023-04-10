@@ -76,7 +76,8 @@ from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.gui_utils import GuiUtils
 
-WIDGET, _ = uic.loadUiType(GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
+WIDGET, _ = uic.loadUiType(
+    GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
 
 
 class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,too-many-instance-attributes,too-many-public-methods
@@ -90,8 +91,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
     # emit signal when dialog is resized
     resizeWindow = pyqtSignal()
 
-    def __init__(self, mode=MODE_CANVAS, parent=None, override_iface=None, message_bar: QgsMessageBar = None,
-                 dock_title: str = None, dock_id: str = None, project: QDomDocument = None):  # pylint: disable=too-many-statements
+    def __init__(self, mode=MODE_CANVAS, parent=None, override_iface=None, message_bar: QgsMessageBar = None,  # pylint: disable=too-many-statements,too-many-arguments
+                 dock_title: str = None, dock_id: str = None, project: QDomDocument = None):
         """Constructor."""
         super().__init__(parent)
         self.setupUi(self)
@@ -118,7 +119,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         if self.iface is not None:
             self.listWidget.setIconSize(self.iface.iconSize(False))
-        self.listWidget.setMaximumWidth(int(self.listWidget.iconSize().width() * 1.18))
+        self.listWidget.setMaximumWidth(
+            int(self.listWidget.iconSize().width() * 1.18))
 
         # connect signal to function to reload the plot view
         self.resizeWindow.connect(self.reloadPlotCanvas)
@@ -133,9 +135,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.reload_btn.clicked.connect(self.reloadPlotCanvas2)
 
         self.configuration_menu = QMenu(self)
-        action_load_configuration = self.configuration_menu.addAction(self.tr("Load Configuration…"))
+        action_load_configuration = self.configuration_menu.addAction(
+            self.tr("Load Configuration…"))
         action_load_configuration.triggered.connect(self.load_configuration)
-        action_save_configuration = self.configuration_menu.addAction(self.tr("Save Configuration…"))
+        action_save_configuration = self.configuration_menu.addAction(
+            self.tr("Save Configuration…"))
         action_save_configuration.triggered.connect(self.save_configuration)
         self.configuration_btn.setMenu(self.configuration_menu)
 
@@ -172,7 +176,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         type_classes = [clazz for _, clazz in PlotFactory.PLOT_TYPES.items()]
         type_classes.sort(key=lambda x: x.name().lower())
         for clazz in type_classes:
-            self.plot_combo.addItem(clazz.icon(), clazz.name(), clazz.type_name())
+            self.plot_combo.addItem(
+                clazz.icon(), clazz.name(), clazz.type_name())
 
         # default to scatter plots
         self.set_plot_type('scatter')
@@ -189,7 +194,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
         self.plot_combo.currentIndexChanged.connect(self.helpPage)
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
-        self.marker_type_combo.currentIndexChanged.connect(self.refreshWidgets3)
+        self.marker_type_combo.currentIndexChanged.connect(
+            self.refreshWidgets3)
 
         # fill the layer combobox with vector layers
         self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
@@ -225,12 +231,15 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layoutw.setContentsMargins(0, 0, 0, 0)
         self.plot_qview.setLayout(self.layoutw)
         self.plot_view = QWebView()
-        self.plot_view.page().setNetworkAccessManager(QgsNetworkAccessManager.instance())
+        self.plot_view.page().setNetworkAccessManager(
+            QgsNetworkAccessManager.instance())
         self.plot_view.statusBarMessage.connect(self.getJSmessage)
         plot_view_settings = self.plot_view.settings()
         plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
-        plot_view_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
-        plot_view_settings.setAttribute(QWebSettings.Accelerated2dCanvasEnabled, True)
+        plot_view_settings.setAttribute(
+            QWebSettings.DeveloperExtrasEnabled, True)
+        plot_view_settings.setAttribute(
+            QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
 
         # get the plot type from the combobox
@@ -240,40 +249,69 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # fill combo boxes when launching the UI
         self.selected_layer_changed(self.layer_combo.currentLayer())
 
-        self.register_data_defined_button(self.feature_subset_defined_button, PlotSettings.PROPERTY_FILTER)
-        self.register_data_defined_button(self.size_defined_button, PlotSettings.PROPERTY_MARKER_SIZE)
-        self.size_defined_button.registerEnabledWidget(self.marker_size, natural=False)
-        self.register_data_defined_button(self.stroke_defined_button, PlotSettings.PROPERTY_STROKE_WIDTH)
-        self.stroke_defined_button.registerEnabledWidget(self.marker_width, natural=False)
-        self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
-        self.in_color_defined_button.registerEnabledWidget(self.in_color_combo, natural=False)
-        self.in_color_defined_button.changed.connect(self.data_defined_color_updated)
-        self.register_data_defined_button(self.out_color_defined_button, PlotSettings.PROPERTY_STROKE_COLOR)
-        self.out_color_defined_button.registerEnabledWidget(self.out_color_combo, natural=False)
-        self.register_data_defined_button(self.plot_title_defined_button, PlotSettings.PROPERTY_TITLE)
-        self.plot_title_defined_button.registerEnabledWidget(self.plot_title_line, natural=False)
-        self.register_data_defined_button(self.legend_title_defined_button, PlotSettings.PROPERTY_LEGEND_TITLE)
-        self.legend_title_defined_button.registerEnabledWidget(self.legend_title, natural=False)
-        self.register_data_defined_button(self.x_axis_title_defined_button, PlotSettings.PROPERTY_X_TITLE)
-        self.x_axis_title_defined_button.registerEnabledWidget(self.x_axis_title, natural=False)
-        self.register_data_defined_button(self.y_axis_title_defined_button, PlotSettings.PROPERTY_Y_TITLE)
-        self.y_axis_title_defined_button.registerEnabledWidget(self.y_axis_title, natural=False)
-        self.register_data_defined_button(self.z_axis_title_defined_button, PlotSettings.PROPERTY_Z_TITLE)
-        self.z_axis_title_defined_button.registerEnabledWidget(self.z_axis_title, natural=False)
-        self.register_data_defined_button(self.x_axis_min_defined_button, PlotSettings.PROPERTY_X_MIN)
-        self.x_axis_min_defined_button.registerEnabledWidget(self.x_axis_min, natural=False)
-        self.register_data_defined_button(self.x_axis_max_defined_button, PlotSettings.PROPERTY_X_MAX)
-        self.x_axis_max_defined_button.registerEnabledWidget(self.x_axis_max, natural=False)
-        self.register_data_defined_button(self.y_axis_min_defined_button, PlotSettings.PROPERTY_Y_MIN)
-        self.y_axis_min_defined_button.registerEnabledWidget(self.y_axis_min, natural=False)
-        self.register_data_defined_button(self.y_axis_max_defined_button, PlotSettings.PROPERTY_Y_MAX)
-        self.y_axis_max_defined_button.registerEnabledWidget(self.y_axis_max, natural=False)
+        self.register_data_defined_button(
+            self.feature_subset_defined_button, PlotSettings.PROPERTY_FILTER)
+        self.register_data_defined_button(
+            self.size_defined_button, PlotSettings.PROPERTY_MARKER_SIZE)
+        self.size_defined_button.registerEnabledWidget(
+            self.marker_size, natural=False)
+        self.register_data_defined_button(
+            self.stroke_defined_button, PlotSettings.PROPERTY_STROKE_WIDTH)
+        self.stroke_defined_button.registerEnabledWidget(
+            self.marker_width, natural=False)
+        self.register_data_defined_button(
+            self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
+        self.in_color_defined_button.registerEnabledWidget(
+            self.in_color_combo, natural=False)
+        self.in_color_defined_button.changed.connect(
+            self.data_defined_color_updated)
+        self.register_data_defined_button(
+            self.out_color_defined_button, PlotSettings.PROPERTY_STROKE_COLOR)
+        self.out_color_defined_button.registerEnabledWidget(
+            self.out_color_combo, natural=False)
+        self.register_data_defined_button(
+            self.plot_title_defined_button, PlotSettings.PROPERTY_TITLE)
+        self.plot_title_defined_button.registerEnabledWidget(
+            self.plot_title_line, natural=False)
+        self.register_data_defined_button(
+            self.legend_title_defined_button, PlotSettings.PROPERTY_LEGEND_TITLE)
+        self.legend_title_defined_button.registerEnabledWidget(
+            self.legend_title, natural=False)
+        self.register_data_defined_button(
+            self.x_axis_title_defined_button, PlotSettings.PROPERTY_X_TITLE)
+        self.x_axis_title_defined_button.registerEnabledWidget(
+            self.x_axis_title, natural=False)
+        self.register_data_defined_button(
+            self.y_axis_title_defined_button, PlotSettings.PROPERTY_Y_TITLE)
+        self.y_axis_title_defined_button.registerEnabledWidget(
+            self.y_axis_title, natural=False)
+        self.register_data_defined_button(
+            self.z_axis_title_defined_button, PlotSettings.PROPERTY_Z_TITLE)
+        self.z_axis_title_defined_button.registerEnabledWidget(
+            self.z_axis_title, natural=False)
+        self.register_data_defined_button(
+            self.x_axis_min_defined_button, PlotSettings.PROPERTY_X_MIN)
+        self.x_axis_min_defined_button.registerEnabledWidget(
+            self.x_axis_min, natural=False)
+        self.register_data_defined_button(
+            self.x_axis_max_defined_button, PlotSettings.PROPERTY_X_MAX)
+        self.x_axis_max_defined_button.registerEnabledWidget(
+            self.x_axis_max, natural=False)
+        self.register_data_defined_button(
+            self.y_axis_min_defined_button, PlotSettings.PROPERTY_Y_MIN)
+        self.y_axis_min_defined_button.registerEnabledWidget(
+            self.y_axis_min, natural=False)
+        self.register_data_defined_button(
+            self.y_axis_max_defined_button, PlotSettings.PROPERTY_Y_MAX)
+        self.y_axis_max_defined_button.registerEnabledWidget(
+            self.y_axis_max, natural=False)
 
         # connect to refreshing function of listWidget and stackedWidgets
         self.listWidget.currentRowChanged.connect(self.updateStacked)
 
         # connect the plot changing to the color data defined buttons
-        self.plot_combo.currentIndexChanged.connect(self.data_defined_color_updated)
+        self.plot_combo.currentIndexChanged.connect(
+            self.data_defined_color_updated)
 
         # better default colors
         self.in_color_combo.setColor(QColor('#8EBAD9'))
@@ -322,13 +360,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.filter_by_atlas_check.setVisible(False)
 
         QgsProject.instance().layerWillBeRemoved.connect(self.layer_will_be_removed)
-        
+
         # new dock instance from project
         if project:
             self.read_project(project)
             # FIXME: creation plot is not working
             # self.create_plot()
-
 
     def updateStacked(self, row):
         """
@@ -352,7 +389,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.x_combo.registerExpressionContextGenerator(generator)
         self.y_combo.registerExpressionContextGenerator(generator)
         self.z_combo.registerExpressionContextGenerator(generator)
-        self.additional_info_combo.registerExpressionContextGenerator(generator)
+        self.additional_info_combo.registerExpressionContextGenerator(
+            generator)
 
         buttons = self.findChildren(QgsPropertyOverrideButton)
         for button in buttons:
@@ -362,7 +400,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         Registers a new data defined button, linked to the given property key (see values in PlotSettings)
         """
-        button.init(property_key, self.data_defined_properties, PlotSettings.DYNAMIC_PROPERTIES, None, False)
+        button.init(property_key, self.data_defined_properties,
+                    PlotSettings.DYNAMIC_PROPERTIES, None, False)
         button.changed.connect(self._update_property)
 
     def _update_property(self):
@@ -370,7 +409,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Triggered when a property override button value is changed
         """
         button = self.sender()
-        self.data_defined_properties.setProperty(button.propertyKey(), button.toProperty())
+        self.data_defined_properties.setProperty(
+            button.propertyKey(), button.toProperty())
 
     def update_data_defined_button(self, button):
         """
@@ -381,7 +421,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             return
 
         button.blockSignals(True)
-        button.setToProperty(self.data_defined_properties.property(button.propertyKey()))
+        button.setToProperty(
+            self.data_defined_properties.property(button.propertyKey()))
         button.blockSignals(False)
 
     def set_print_layout(self, print_layout):
@@ -504,18 +545,22 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 if dic['type'] == 'scatter':
                     self.layer_combo.currentLayer().selectByIds([dic['fidd']])
                 elif dic["type"] == 'pie':
-                    exp = """ "{}" = '{}' """.format(dic['field'], dic['label'])
+                    exp = """ "{}" = '{}' """.format(
+                        dic['field'], dic['label'])
                     # set the iterator with the expression as filter in feature request
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
-                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                    self.layer_combo.currentLayer().selectByIds(
+                        [f.id() for f in it])
                 elif dic["type"] == 'histogram':
                     vmin = dic['id'] - dic['bin_step'] / 2
                     vmax = dic['id'] + dic['bin_step'] / 2
-                    exp = """ "{}" <= {} AND "{}" > {} """.format(dic['field'], vmax, dic['field'], vmin)
+                    exp = """ "{}" <= {} AND "{}" > {} """.format(
+                        dic['field'], vmax, dic['field'], vmin)
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
-                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                    self.layer_combo.currentLayer().selectByIds(
+                        [f.id() for f in it])
                 elif dic["type"] == 'scatterternary':
                     self.layer_combo.currentLayer().selectByIds([dic['fid']])
                 else:
@@ -524,7 +569,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                     # set the iterator with the expression as filter in feature request
                     request = QgsFeatureRequest().setFilterExpression(exp)
                     it = self.layer_combo.currentLayer().getFeatures(request)
-                    self.layer_combo.currentLayer().selectByIds([f.id() for f in it])
+                    self.layer_combo.currentLayer().selectByIds(
+                        [f.id() for f in it])
                     # print(exp)
         except:  # pylint: disable=bare-except # noqa: F401
             pass
@@ -539,7 +585,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)
-        help_url = QUrl('https://dataplotly-docs.readthedocs.io/en/latest/{}.html'.format(self.ptype))
+        help_url = QUrl(
+            'https://dataplotly-docs.readthedocs.io/en/latest/{}.html'.format(self.ptype))
         self.help_view.load(help_url)
 
     def resizeEvent(self, event):
@@ -600,7 +647,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.outliers_combo.clear()
         self.outliers_combo.addItem(self.tr('No Outliers'), False)
         self.outliers_combo.addItem(self.tr('Standard Outliers'), 'outliers')
-        self.outliers_combo.addItem(self.tr('Suspected Outliers'), 'suspectedoutliers')
+        self.outliers_combo.addItem(
+            self.tr('Suspected Outliers'), 'suspectedoutliers')
         self.outliers_combo.addItem(self.tr('All Points'), 'all')
 
         # BoxPlot statistic types
@@ -690,7 +738,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.hist_norm_combo.addItem(self.tr('Percents'), 'percent')
         self.hist_norm_combo.addItem(self.tr('Probability'), 'probability')
         self.hist_norm_combo.addItem(self.tr('Density'), 'density')
-        self.hist_norm_combo.addItem(self.tr('Prob Density'), 'probability density')
+        self.hist_norm_combo.addItem(
+            self.tr('Prob Density'), 'probability density')
 
         # Contour Plot rendering type
         self.contour_type = OrderedDict([
@@ -737,7 +786,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.x_label.setFixedWidth(100)
             self.orientation_label.setText(self.tr('Box orientation'))
             self.in_color_lab.setText(self.tr('Box color'))
-            self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
+            self.register_data_defined_button(
+                self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
 
         elif self.ptype in ('scatter', 'ternary', 'bar', '2dhistogram', 'contour', 'polar'):
             self.x_label.setText(self.tr('X field'))
@@ -748,7 +798,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             elif self.ptype == 'bar':
                 self.orientation_label.setText(self.tr('Bar orientation'))
                 self.in_color_lab.setText(self.tr('Bar color'))
-            self.register_data_defined_button(self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
+            self.register_data_defined_button(
+                self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
 
         elif self.ptype == 'pie':
             self.x_label.setText(self.tr('Grouping field'))
@@ -758,7 +809,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.x_label.setFixedWidth(80)
             # Register button again with more specific help text
             self.in_color_defined_button.init(
-                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
+                    PlotSettings.PROPERTY_COLOR),
                 QgsPropertyDefinition(
                     'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
                     "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
@@ -770,7 +822,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         elif self.ptype == 'histogram':
             # Register button again with more specific help text
             self.in_color_defined_button.init(
-                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(PlotSettings.PROPERTY_COLOR),
+                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
+                    PlotSettings.PROPERTY_COLOR),
                 QgsPropertyDefinition(
                     'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
                     "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
@@ -1012,7 +1065,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         elif self.ptype == 'histogram':
             self.legend_title.setText(self.x_combo.currentText())
         else:
-            legend_title_string = ('{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
+            legend_title_string = (
+                '{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
             self.legend_title.setText(legend_title_string)
 
     def get_settings(self) -> PlotSettings:  # pylint: disable=R0915
@@ -1023,7 +1077,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.ptype = self.plot_combo.currentData()
 
         # if colorscale should be visible or not
-        color_scale_visible = self.color_scale_data_defined_in_check.isVisible() and self.color_scale_data_defined_in_check.isChecked()
+        color_scale_visible = self.color_scale_data_defined_in_check.isVisible(
+        ) and self.color_scale_data_defined_in_check.isChecked()
 
         # dictionary of all the plot properties
         plot_properties = {'custom': [self.x_combo.currentText()],
@@ -1075,7 +1130,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             plot_properties[
                 'color_scale_data_defined_in_invert_check'] = self.color_scale_data_defined_in_invert_check.isChecked()
             if self.ptype in self.widgetType[self.color_scale_data_defined_in]:
-                plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData()
+                plot_properties['color_scale'] = self.color_scale_data_defined_in.currentData(
+                )
         else:
             plot_properties['color_scale'] = self.color_scale_combo.currentData()
 
@@ -1086,53 +1142,54 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                              'legend_orientation': 'h' if self.orientation_legend_check.isChecked() else 'v',
                              'title': self.plot_title_line.text(),
                              'font_title_size': max(
-                                self.font_title_style.currentFont().pixelSize(),
-                                self.font_title_style.currentFont().pointSize()),
-                             'font_title_family': self.font_title_style.currentFont().family(),
-                             'font_title_color': self.font_title_color.color().name(),
-                             'font_xlabel_size': max(
-                                self.font_xlabel_style.currentFont().pixelSize(),
-                                self.font_xlabel_style.currentFont().pointSize()),
-                             'font_xlabel_family': self.font_xlabel_style.currentFont().family(),
-                             'font_xlabel_color': self.font_xlabel_color.color().name(),
-                             'font_xticks_size': max(
-                                self.font_xticks_style.currentFont().pixelSize(),
-                                self.font_xticks_style.currentFont().pointSize()),
-                             'font_xticks_family': self.font_xticks_style.currentFont().family(),
-                             'font_xticks_color': self.font_xticks_color.color().name(),
-                             'font_ylabel_size': max(
-                                self.font_ylabel_style.currentFont().pixelSize(),
-                                self.font_ylabel_style.currentFont().pointSize()),
-                             'font_ylabel_family': self.font_ylabel_style.currentFont().family(),
-                             'font_ylabel_color': self.font_ylabel_color.color().name(),
-                             'font_yticks_size': max(
-                                self.font_yticks_style.currentFont().pixelSize(),
-                                self.font_yticks_style.currentFont().pointSize()),
-                             'font_yticks_family': self.font_yticks_style.currentFont().family(),
-                             'font_yticks_color': self.font_yticks_color.color().name(),
-                             'x_title': self.x_axis_title.text(),
-                             'y_title': self.y_axis_title.text(),
-                             'z_title': self.z_axis_title.text(),
-                             'range_slider': {'visible': self.range_slider_combo.isChecked(),
-                                              'borderwidth': 1},
-                             'bar_mode': self.bar_mode_combo.currentData(),
-                             'x_type': self.x_axis_mode_combo.currentData(),
-                             'y_type': self.y_axis_mode_combo.currentData(),
-                             'x_inv': None if not self.invert_x_check.isChecked() else 'reversed',
-                             'y_inv': None if not self.invert_y_check.isChecked() else 'reversed',
-                             'x_min': self.x_axis_min.value() if self.x_axis_bounds_check.isChecked() else None,
-                             'x_max': self.x_axis_max.value() if self.x_axis_bounds_check.isChecked() else None,
-                             'y_min': self.y_axis_min.value() if self.y_axis_bounds_check.isChecked() else None,
-                             'y_max': self.y_axis_max.value() if self.y_axis_bounds_check.isChecked() else None,
-                             'bargaps': self.bar_gap.value(),
-                             'additional_info_expression': self.additional_info_combo.expression(),
-                             'bins_check': self.bins_check.isChecked(),
-                             'gridcolor': self.layout_grid_axis_color.color().name()}
+            self.font_title_style.currentFont().pixelSize(),
+            self.font_title_style.currentFont().pointSize()),
+            'font_title_family': self.font_title_style.currentFont().family(),
+            'font_title_color': self.font_title_color.color().name(),
+            'font_xlabel_size': max(
+            self.font_xlabel_style.currentFont().pixelSize(),
+            self.font_xlabel_style.currentFont().pointSize()),
+            'font_xlabel_family': self.font_xlabel_style.currentFont().family(),
+            'font_xlabel_color': self.font_xlabel_color.color().name(),
+            'font_xticks_size': max(
+            self.font_xticks_style.currentFont().pixelSize(),
+            self.font_xticks_style.currentFont().pointSize()),
+            'font_xticks_family': self.font_xticks_style.currentFont().family(),
+            'font_xticks_color': self.font_xticks_color.color().name(),
+            'font_ylabel_size': max(
+            self.font_ylabel_style.currentFont().pixelSize(),
+            self.font_ylabel_style.currentFont().pointSize()),
+            'font_ylabel_family': self.font_ylabel_style.currentFont().family(),
+            'font_ylabel_color': self.font_ylabel_color.color().name(),
+            'font_yticks_size': max(
+            self.font_yticks_style.currentFont().pixelSize(),
+            self.font_yticks_style.currentFont().pointSize()),
+            'font_yticks_family': self.font_yticks_style.currentFont().family(),
+            'font_yticks_color': self.font_yticks_color.color().name(),
+            'x_title': self.x_axis_title.text(),
+            'y_title': self.y_axis_title.text(),
+            'z_title': self.z_axis_title.text(),
+            'range_slider': {'visible': self.range_slider_combo.isChecked(),
+                             'borderwidth': 1},
+            'bar_mode': self.bar_mode_combo.currentData(),
+            'x_type': self.x_axis_mode_combo.currentData(),
+            'y_type': self.y_axis_mode_combo.currentData(),
+            'x_inv': None if not self.invert_x_check.isChecked() else 'reversed',
+            'y_inv': None if not self.invert_y_check.isChecked() else 'reversed',
+            'x_min': self.x_axis_min.value() if self.x_axis_bounds_check.isChecked() else None,
+            'x_max': self.x_axis_max.value() if self.x_axis_bounds_check.isChecked() else None,
+            'y_min': self.y_axis_min.value() if self.y_axis_bounds_check.isChecked() else None,
+            'y_max': self.y_axis_max.value() if self.y_axis_bounds_check.isChecked() else None,
+            'bargaps': self.bar_gap.value(),
+            'additional_info_expression': self.additional_info_combo.expression(),
+            'bins_check': self.bins_check.isChecked(),
+            'gridcolor': self.layout_grid_axis_color.color().name()}
 
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
-                            source_layer_id=self.layer_combo.currentLayer().id() if self.layer_combo.currentLayer() else None,
-                            dock_title = self.dock_title,
-                            dock_id = self.dock_id)
+                                source_layer_id=self.layer_combo.currentLayer().id(
+                                ) if self.layer_combo.currentLayer() else None,
+                                dock_title=self.dock_title,
+                                dock_id=self.dock_id)
         settings.data_defined_properties = self.data_defined_properties
         return settings
 
@@ -1155,8 +1212,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # Set the plot properties
         self.set_layer_id(settings.source_layer_id)
-        self.selected_feature_check.setChecked(settings.properties.get('selected_features_only', False))
-        self.visible_feature_check.setChecked(settings.properties.get('visible_features_only', False))
+        self.selected_feature_check.setChecked(
+            settings.properties.get('selected_features_only', False))
+        self.visible_feature_check.setChecked(
+            settings.properties.get('visible_features_only', False))
 
         self.data_defined_properties = settings.data_defined_properties
         buttons = self.findChildren(QgsPropertyOverrideButton)
@@ -1166,8 +1225,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # trigger methods depending on data defined button properties
         self.data_defined_color_updated()
 
-        self.filter_by_map_check.setChecked(settings.properties.get('layout_filter_by_map', False))
-        self.filter_by_atlas_check.setChecked(settings.properties.get('layout_filter_by_atlas', False))
+        self.filter_by_map_check.setChecked(
+            settings.properties.get('layout_filter_by_map', False))
+        self.filter_by_atlas_check.setChecked(
+            settings.properties.get('layout_filter_by_atlas', False))
         self.x_combo.setExpression(settings.properties.get('x_name', ''))
         self.y_combo.setExpression(settings.properties.get('y_name', ''))
         self.z_combo.setExpression(settings.properties.get('z_name', ''))
@@ -1177,7 +1238,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.color_scale_data_defined_in.setCurrentIndex(
             self.color_scale_data_defined_in.findData(settings.properties.get('color_scale', None)))
-        self.color_scale_data_defined_in_check.setChecked(settings.properties.get('color_scale_data_defined_in_check', False))
+        self.color_scale_data_defined_in_check.setChecked(
+            settings.properties.get('color_scale_data_defined_in_check', False))
         self.color_scale_data_defined_in_invert_check.setChecked(
             settings.properties.get('color_scale_data_defined_in_invert_check', False))
         self.out_color_combo.setColor(
@@ -1185,74 +1247,103 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.marker_width.setValue(settings.properties.get('marker_width', 1))
         self.marker_type_combo.setCurrentText(
             settings.properties.get('marker_type_combo', 'Points'))
-        self.point_combo.setCurrentText(settings.properties.get('point_combo', ''))
+        self.point_combo.setCurrentText(
+            settings.properties.get('point_combo', ''))
         self.line_combo.setCurrentText(
             settings.properties.get('line_combo', 'Solid Line'))
         self.contour_type_combo.setCurrentText(
             settings.properties.get('contour_type_combo', 'Fill'))
-        self.show_lines_check.setChecked(settings.properties.get('show_lines_check', False))
-        self.color_scale_combo.setCurrentIndex(self.color_scale_combo.findData(settings.properties.get('color_scale', None)))
+        self.show_lines_check.setChecked(
+            settings.properties.get('show_lines_check', False))
+        self.color_scale_combo.setCurrentIndex(self.color_scale_combo.findData(
+            settings.properties.get('color_scale', None)))
         self.opacity_widget.setOpacity(settings.properties.get('opacity', 1))
-        self.orientation_legend_check.setChecked(settings.layout.get('legend_orientation') == 'h')
-        self.range_slider_combo.setChecked(settings.layout['range_slider']['visible'])
+        self.orientation_legend_check.setChecked(
+            settings.layout.get('legend_orientation') == 'h')
+        self.range_slider_combo.setChecked(
+            settings.layout['range_slider']['visible'])
         self.plot_title_line.setText(
             settings.layout.get('title', 'Plot Title'))
         self.legend_title.setText(settings.properties.get('name', ''))
         self.font_title_style.setCurrentFont(
             QFont(settings.layout.get('font_title_family', "Arial"),
-                settings.layout.get('font_title_size', 10)))
+                  settings.layout.get('font_title_size', 10)))
         self.font_title_color.setColor(
             QColor(settings.layout.get('font_title_color', "#000000")))
         self.font_xticks_style.setCurrentFont(
             QFont(settings.layout.get('font_xticks_family', "Arial"),
-                settings.layout.get('font_xticks_size', 10)))
+                  settings.layout.get('font_xticks_size', 10)))
         self.font_xticks_color.setColor(
             QColor(settings.layout.get('font_xticks_color', "#000000")))
         self.font_xlabel_style.setCurrentFont(
             QFont(settings.layout.get('font_xlabel_family', "Arial"),
-                settings.layout.get('font_xlabel_size', 10)))
+                  settings.layout.get('font_xlabel_size', 10)))
         self.font_xlabel_color.setColor(
             QColor(settings.layout.get('font_xlabel_color', "#000000")))
         self.font_yticks_style.setCurrentFont(
             QFont(settings.layout.get('font_yticks_family', "Arial"),
-                settings.layout.get('font_yticks_size', 10)))
+                  settings.layout.get('font_yticks_size', 10)))
         self.font_yticks_color.setColor(
             QColor(settings.layout.get('font_yticks_color', "#000000")))
         self.font_ylabel_style.setCurrentFont(
             QFont(settings.layout.get('font_ylabel_family', "Arial"),
-                settings.layout.get('font_ylabel_size', 10)))
+                  settings.layout.get('font_ylabel_size', 10)))
         self.font_ylabel_color.setColor(
             QColor(settings.layout.get('font_ylabel_color', "#000000")))
         self.x_axis_title.setText(settings.layout.get('x_title', ''))
         self.y_axis_title.setText(settings.layout.get('y_title', ''))
         self.z_axis_title.setText(settings.layout.get('z_title', ''))
-        self.info_combo.setCurrentIndex(self.info_combo.findData(settings.properties.get('hover_text', None)))
-        self.additional_info_combo.setExpression(settings.layout.get('additional_info_expression', ''))
-        self.hover_as_text_check.setChecked(settings.properties.get('hover_label_text') == '+text')
+        self.info_combo.setCurrentIndex(self.info_combo.findData(
+            settings.properties.get('hover_text', None)))
+        self.additional_info_combo.setExpression(
+            settings.layout.get('additional_info_expression', ''))
+        self.hover_as_text_check.setChecked(
+            settings.properties.get('hover_label_text') == '+text')
         self.combo_text_position.setCurrentIndex(
             self.combo_text_position.findData(settings.layout.get('hover_label_position', 'auto')))
-        self.invert_x_check.setChecked(settings.layout.get('x_inv') == 'reversed')
-        self.x_axis_mode_combo.setCurrentIndex(self.x_axis_mode_combo.findData(settings.layout.get('x_type', None)))
-        self.invert_y_check.setChecked(settings.layout.get('y_inv') == 'reversed')
-        self.y_axis_mode_combo.setCurrentIndex(self.y_axis_mode_combo.findData(settings.layout.get('y_type', None)))
-        self.x_axis_bounds_check.setChecked(settings.layout.get('x_min', None) is not None)
-        self.x_axis_bounds_check.setCollapsed(settings.layout.get('x_min', None) is None)
-        self.x_axis_min.setValue(settings.layout.get('x_min') if settings.layout.get('x_min', None) is not None else 0.0)
-        self.x_axis_max.setValue(settings.layout.get('x_max') if settings.layout.get('x_max', None) is not None else 0.0)
-        self.y_axis_bounds_check.setChecked(settings.layout.get('y_min', None) is not None)
-        self.y_axis_bounds_check.setCollapsed(settings.layout.get('y_min', None) is None)
-        self.y_axis_min.setValue(settings.layout.get('y_min') if settings.layout.get('y_min', None) is not None else 0.0)
-        self.y_axis_max.setValue(settings.layout.get('y_max') if settings.layout.get('y_max', None) is not None else 0.0)
-        self.orientation_combo.setCurrentIndex(self.orientation_combo.findData(settings.properties.get('box_orientation', 'v')))
-        self.bar_mode_combo.setCurrentIndex(self.bar_mode_combo.findData(settings.layout.get('bar_mode', None)))
-        self.hist_norm_combo.setCurrentIndex(self.hist_norm_combo.findData(settings.properties.get('normalization', None)))
-        self.box_statistic_combo.setCurrentIndex(self.box_statistic_combo.findData(settings.properties.get('box_stat', None)))
-        self.outliers_combo.setCurrentIndex(self.outliers_combo.findData(settings.properties.get('box_outliers', None)))
-        self.violinSideCombo.setCurrentIndex(self.violinSideCombo.findData(settings.properties.get('violin_side', None)))
+        self.invert_x_check.setChecked(
+            settings.layout.get('x_inv') == 'reversed')
+        self.x_axis_mode_combo.setCurrentIndex(
+            self.x_axis_mode_combo.findData(settings.layout.get('x_type', None)))
+        self.invert_y_check.setChecked(
+            settings.layout.get('y_inv') == 'reversed')
+        self.y_axis_mode_combo.setCurrentIndex(
+            self.y_axis_mode_combo.findData(settings.layout.get('y_type', None)))
+        self.x_axis_bounds_check.setChecked(
+            settings.layout.get('x_min', None) is not None)
+        self.x_axis_bounds_check.setCollapsed(
+            settings.layout.get('x_min', None) is None)
+        self.x_axis_min.setValue(settings.layout.get(
+            'x_min') if settings.layout.get('x_min', None) is not None else 0.0)
+        self.x_axis_max.setValue(settings.layout.get(
+            'x_max') if settings.layout.get('x_max', None) is not None else 0.0)
+        self.y_axis_bounds_check.setChecked(
+            settings.layout.get('y_min', None) is not None)
+        self.y_axis_bounds_check.setCollapsed(
+            settings.layout.get('y_min', None) is None)
+        self.y_axis_min.setValue(settings.layout.get(
+            'y_min') if settings.layout.get('y_min', None) is not None else 0.0)
+        self.y_axis_max.setValue(settings.layout.get(
+            'y_max') if settings.layout.get('y_max', None) is not None else 0.0)
+        self.orientation_combo.setCurrentIndex(self.orientation_combo.findData(
+            settings.properties.get('box_orientation', 'v')))
+        self.bar_mode_combo.setCurrentIndex(
+            self.bar_mode_combo.findData(settings.layout.get('bar_mode', None)))
+        self.hist_norm_combo.setCurrentIndex(self.hist_norm_combo.findData(
+            settings.properties.get('normalization', None)))
+        self.box_statistic_combo.setCurrentIndex(
+            self.box_statistic_combo.findData(settings.properties.get('box_stat', None)))
+        self.outliers_combo.setCurrentIndex(self.outliers_combo.findData(
+            settings.properties.get('box_outliers', None)))
+        self.violinSideCombo.setCurrentIndex(self.violinSideCombo.findData(
+            settings.properties.get('violin_side', None)))
         self.violinBox.setChecked(settings.properties.get('violin_box', False))
-        self.showMeanCheck.setChecked(settings.properties.get('show_mean_line', False))
-        self.cumulative_hist_check.setChecked(settings.properties.get('cumulative', False))
-        self.invert_hist_check.setChecked(settings.properties.get('invert_hist') == 'decreasing')
+        self.showMeanCheck.setChecked(
+            settings.properties.get('show_mean_line', False))
+        self.cumulative_hist_check.setChecked(
+            settings.properties.get('cumulative', False))
+        self.invert_hist_check.setChecked(
+            settings.properties.get('invert_hist') == 'decreasing')
         self.bins_check.setChecked(settings.layout.get('bins_check', False))
         self.bins_value.setValue(settings.properties.get('bins', 0))
         self.bar_gap.setValue(settings.layout.get('bargaps', 0))
@@ -1280,7 +1371,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # create default dictionary that contains all the plot and properties
         self.plot_factories[self.pid] = plot_factory
 
-        plot_factory.plot_built.connect(partial(self.refresh_plot, plot_factory))
+        plot_factory.plot_built.connect(
+            partial(self.refresh_plot, plot_factory))
 
         # just add 1 to the index
         self.idx += 1
@@ -1350,16 +1442,19 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 # plot in single row and many columns
                 if self.radio_rows.isChecked():
 
-                    self.plot_path = plot_factory.build_sub_plots('row', 1, gr, pl)
+                    self.plot_path = plot_factory.build_sub_plots(
+                        'row', 1, gr, pl)
 
                 # plot in single column and many rows
                 elif self.radio_columns.isChecked():
 
-                    self.plot_path = plot_factory.build_sub_plots('col', gr, 1, pl)
+                    self.plot_path = plot_factory.build_sub_plots(
+                        'col', gr, 1, pl)
             except:  # pylint: disable=bare-except  # noqa: F401
                 if self.message_bar:
                     self.message_bar.pushMessage(
-                        self.tr("{} plot is not compatible for subplotting\n see ".format(self.ptype)),
+                        self.tr(
+                            "{} plot is not compatible for subplotting\n see ".format(self.ptype)),
                         Qgis.MessageLevel(2), duration=5)
                 return
 
@@ -1419,7 +1514,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Save the current plot view as a png image.
         The user can choose the path and the file name
         """
-        plot_file, _ = QFileDialog.getSaveFileName(self, self.tr("Save Plot"), "", "*.png")
+        plot_file, _ = QFileDialog.getSaveFileName(
+            self, self.tr("Save Plot"), "", "*.png")
         if not plot_file:
             return
 
@@ -1428,7 +1524,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         frame = self.plot_view.page().mainFrame()
         self.plot_view.page().setViewportSize(frame.contentsSize())
         # render image
-        image = QImage(self.plot_view.page().viewportSize(), QImage.Format_ARGB32)
+        image = QImage(self.plot_view.page().viewportSize(),
+                       QImage.Format_ARGB32)
         painter = QPainter(image)
         frame.render(painter)
         painter.end()
@@ -1436,7 +1533,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if self.message_bar:
             self.message_bar.pushSuccess(self.tr('DataPlotly'),
                                          self.tr('Plot saved to <a href="{}">{}</a>').format(
-                                             QUrl.fromLocalFile(plot_file).toString(),
+                                             QUrl.fromLocalFile(
+                                                 plot_file).toString(),
                                              QDir.toNativeSeparators(plot_file)))
 
     def save_plot_as_html(self):
@@ -1445,17 +1543,20 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         where to save the already existing html file created by plotly
         """
 
-        plot_file, _ = QFileDialog.getSaveFileName(self, self.tr("Save Plot"), "", "*.html")
+        plot_file, _ = QFileDialog.getSaveFileName(
+            self, self.tr("Save Plot"), "", "*.html")
         if not plot_file:
             return
 
-        plot_file = QgsFileUtils.ensureFileNameHasExtension(plot_file, ['html'])
+        plot_file = QgsFileUtils.ensureFileNameHasExtension(plot_file, [
+                                                            'html'])
 
         copyfile(self.plot_path, plot_file)
         if self.message_bar:
             self.message_bar.pushSuccess(self.tr('DataPlotly'),
                                          self.tr('Saved plot to <a href="{}">{}</a>').format(
-                                             QUrl.fromLocalFile(plot_file).toString(),
+                                             QUrl.fromLocalFile(
+                                                 plot_file).toString(),
                                              QDir.toNativeSeparators(plot_file)))
 
     def showPlotFromDic(self, plot_input_dic):
@@ -1497,7 +1598,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # set some dialog widget from the input dictionary
         # plot type in the plot_combo combobox
-        self.plot_combo.setCurrentIndex(self.plot_combo.findData(plot_input_dic["plot_type"]))
+        self.plot_combo.setCurrentIndex(
+            self.plot_combo.findData(plot_input_dic["plot_type"]))
 
         try:
             self.layer_combo.setLayer(plot_input_dic["layer"])
@@ -1561,7 +1663,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if not self.read_from_project:
             return
 
-        settings = PlotSettings(dock_title = self.dock_title, dock_id = self.dock_id)
+        settings = PlotSettings(
+            dock_title=self.dock_title, dock_id=self.dock_id)
         if settings.read_from_project(document):
             # update the dock state to match the read settings
             self.set_settings(settings)
@@ -1570,20 +1673,23 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         Loads configuration settings from a file
         """
-        file, _ = QFileDialog.getOpenFileName(self, self.tr("Load Configuration"), "", "XML files (*.xml)")
+        file, _ = QFileDialog.getOpenFileName(self, self.tr(
+            "Load Configuration"), "", "XML files (*.xml)")
         if file:
             settings = PlotSettings()
             if settings.read_from_file(file):
                 self.set_settings(settings)
             else:
                 if self.message_bar:
-                    self.message_bar.pushWarning(self.tr('DataPlotly'), self.tr('Could not read settings from file'))
+                    self.message_bar.pushWarning(self.tr('DataPlotly'), self.tr(
+                        'Could not read settings from file'))
 
     def save_configuration(self):
         """
         Saves configuration settings to a file
         """
-        file, _ = QFileDialog.getSaveFileName(self, self.tr("Save Configuration"), "", "XML files (*.xml)")
+        file, _ = QFileDialog.getSaveFileName(self, self.tr(
+            "Save Configuration"), "", "XML files (*.xml)")
         if file:
             file = QgsFileUtils.ensureFileNameHasExtension(file, ['xml'])
             self.get_settings().write_to_file(file)
