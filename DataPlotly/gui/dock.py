@@ -27,7 +27,7 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
 
     def __init__(self, parent=None, message_bar=None,  # pylint: disable=too-many-arguments
                  dock_title: str = 'DataPlotly', dock_id: str = 'DataPlotly',
-                 project: QDomDocument = None):
+                 project: QDomDocument = None, override_iface=None):
         super().__init__(parent)
         self.title = restore_safe_str_xml(dock_title)
         self.setWindowTitle(self.title)
@@ -37,7 +37,7 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
         self.setWidget(self.panel_stack)
 
         self.main_panel = DataPlotlyPanelWidget(
-            message_bar=message_bar,  dock_title=dock_title, dock_id=dock_id, project=project)
+            message_bar=message_bar,  dock_title=dock_title, dock_id=dock_id, project=project, override_iface=override_iface)
         self.panel_stack.setMainPanel(self.main_panel)
         self.main_panel.setDockMode(True)
 
@@ -85,7 +85,7 @@ class DataPlotlyDockManager():
             return False
         message_bar = message_bar or self.iface.messageBar()
         dock = DataPlotlyDock(
-            dock_title=dock_title, message_bar=message_bar, dock_id=dock_id, project=project)
+            dock_title=dock_title, message_bar=message_bar, dock_id=dock_id, project=project, override_iface=self.iface)
         self.dock_widgets[dock_id] = dock
         self.iface.addDockWidget(Qt.RightDockWidgetArea, dock)
         if hide:
