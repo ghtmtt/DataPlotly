@@ -14,12 +14,11 @@ from qgis.gui import (
     QgsDockWidget,
     QgsPanelWidgetStack
 )
+from DataPlotly.core.core_utils import restore_safe_str_xml, safe_str_xml
 from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockDialog
 from DataPlotly.gui.remove_dock_dlg import DataPlotlyRemoveDockDialog
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 
-safe_str_xml = lambda s : s.replace(" ", ".")
-restore_safe_str_xml = lambda s: s.replace(".", " ")
 class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
     """
     Plot settings dock widget
