@@ -53,7 +53,8 @@ class DataPlotlyDockManager():
         self.state = None
         self.geometry = None
 
-    def tr(self, message):
+    @staticmethod
+    def tr(message):
         """ Translate function"""
         return QCoreApplication.translate('DataPlotly', message)
 
