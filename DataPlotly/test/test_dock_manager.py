@@ -11,8 +11,9 @@
 import os.path
 import unittest
 
-from qgis.PyQt.QtCore import QFile, QIODevice
+from qgis.PyQt.QtCore import QByteArray, QFile, QIODevice
 from qgis.PyQt.QtXml import QDomDocument
+from DataPlotly.core.core_utils import restore, restore_safe_str_xml, safe_str_xml
 from DataPlotly.test.utilities import get_qgis_app
 from DataPlotly.gui.dock import (DataPlotlyDock, DataPlotlyDockManager)
 
@@ -113,22 +114,36 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
         self.assertIsInstance(dock, DataPlotlyDock)
         self.assertIs(dock, self.dock_widgets['DataPlotly3'])
 
-    def test_read_project(self):
+    def test_006_read_project(self):
         """
         Test read_project with or without StateDataPlotly
         """
+        # project with StateDataPlotly dom
         project_path = os.path.join(os.path.dirname(
             __file__), 'test_project_with_state.qgs')
         document = read_project(project_path)
         ok = self.dock_manager.read_from_project(document)
         self.assertTrue(ok)
+
+        # project without StateDataPlotly dom
         project_path = os.path.join(os.path.dirname(
             __file__), 'test_project_without_state.qgs')
         document = read_project(project_path)
         ko = self.dock_manager.read_from_project(document)
         self.assertFalse(ko)
 
-    def test_add_docks_from_project(self):
+    def test_007_utils_xml_function(self):
+        """
+        Test restore, restore_safe_str_xml, safe_str_xml
+        """
+        test_string = "My test"
+        self.assertEqual(test_string, restore_safe_str_xml(
+            safe_str_xml(test_string)))
+        test_string = b'test'
+        str_b64 = str(QByteArray(test_string).toBase64(), 'utf-8')
+        self.assertEqual(test_string, restore(str_b64))
+
+    def test_008_add_docks_from_project(self):
         """
         Test docks are added, custom project without StateDataPlotly node
         """
@@ -137,9 +152,11 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
         document = read_project(project_path)
         self.dock_manager.addDocksFromProject(document)
         # all docks except main DataPlotlyDock are created
-        self.assertIn('my-test', self.dock_widgets)
-
-    # TODO add others test (write_to_project, maybe some tests with the state and geometry)
+        dock_id = 'my-test'
+        dock_title = "My Test"
+        self.assertIn(dock_id, self.dock_widgets)
+        # . is replace by space My.Test -> My Test
+        self.assertEqual(self.dock_widgets[dock_id].title, dock_title)
 
 
 if __name__ == "__main__":
