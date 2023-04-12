@@ -12,11 +12,13 @@ import os.path
 import unittest
 
 from qgis.PyQt.QtCore import QByteArray, QFile, QIODevice
+from qgis.PyQt.QtGui import QValidator
 from qgis.PyQt.QtXml import QDomDocument
+
 from DataPlotly.core.core_utils import restore, restore_safe_str_xml, safe_str_xml
 from DataPlotly.test.utilities import get_qgis_app
 from DataPlotly.gui.dock import (DataPlotlyDock, DataPlotlyDockManager)
-
+from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockIdValidator
 
 QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 
@@ -158,6 +160,27 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
         # . is replace by space My.Test -> My Test
         self.assertEqual(self.dock_widgets[dock_id].title, dock_title)
 
+    def test_009_add_new_dock_validator(self):
+        """
+        Test DockIdValidator
+        """
+        validator = DataPlotlyNewDockIdValidator(
+            dock_widgets=self.dock_widgets)
+        docks = ['DataPlotly', 'DataPlotly2', 'DataPlotly3']
+        for dock in docks:
+            self.dock_manager.addNewDock(dock_id=dock)
+
+        # Dockid is valid
+        state, _, _ = validator.validate('NewDockId', None)
+        self.assertEqual(
+            QValidator.Acceptable,
+            state
+        )
+        # Dockid can not be empty / No underscore / Not already taken
+        for bad_dock_id in ['', 'with_underscore', 'DataPlotly2']:
+            state, _, _ = validator.validate(bad_dock_id, None)
+            self.assertEqual(QValidator.Intermediate, state)
+        
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDockManagerTest)
