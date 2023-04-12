@@ -1468,7 +1468,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         and call the method to create the plot with the updated settings
         """
         if self.mode == DataPlotlyPanelWidget.MODE_CANVAS:
-            plot_to_update = (sorted(self.plot_factories.keys())[-1])
+            plot_to_update = sorted(self.plot_factories.keys())[-1]
             del self.plot_factories[plot_to_update]
 
             self.create_plot()
