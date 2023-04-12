@@ -65,21 +65,21 @@ class TernaryFactory(PlotType):
             hoverinfo='text',
             text=text,
             mode='markers',
-            marker=dict(
-                color=settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
-                colorscale=settings.properties['color_scale'],
-                showscale=settings.properties['show_colorscale_legend'],
-                reversescale=settings.properties['invert_color_scale'],
-                colorbar=dict(
-                    len=0.8
-                ),
-                size=settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
-                symbol=settings.properties['marker_symbol'],
-                line=dict(
-                    color=settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
-                    width=settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']
-                )
-            ),
+            marker={
+                'color': settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
+                'colorscale': settings.properties['color_scale'],
+                'showscale': settings.properties['show_colorscale_legend'],
+                'reversescale':settings.properties['invert_color_scale'],
+                'colorbar': {
+                    'len': 0.8
+                },
+                'size': settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
+                'symbol': settings.properties['marker_symbol'],
+                'line': {
+                    'color': settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
+                    'width': settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']
+                }
+            },
             opacity=settings.properties['opacity']
         )]
 
@@ -111,20 +111,20 @@ class TernaryFactory(PlotType):
         layout['yaxis'].update(zeroline=False)
         layout['yaxis'].update(showline=False)
         layout['yaxis'].update(showticklabels=False)
-        layout['ternary'] = dict(
-            sum=100,
-            aaxis=dict(
-                title=x_title,
-                ticksuffix='%',
-            ),
-            baxis=dict(
-                title=y_title,
-                ticksuffix='%'
-            ),
-            caxis=dict(
-                title=z_title,
-                ticksuffix='%'
-            ),
-        )
+        layout['ternary'] = {
+            'sum': 100,
+            'aaxis': {
+                'title': x_title,
+                'ticksuffix': '%',
+            },
+            'baxis': {
+                'title': y_title,
+                'ticksuffix': '%'
+            },
+            'caxis': {
+                'title': z_title,
+                'ticksuffix': '%'
+            },
+        }
 
         return layout

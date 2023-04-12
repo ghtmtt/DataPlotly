@@ -44,19 +44,20 @@ class ViolinFactory(PlotType):
         return [graph_objs.Violin(
             x=x or None,
             y=y,
-            name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
+            name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties[
+                'name'],
             customdata=settings.properties['custom'],
             orientation=settings.properties['box_orientation'],
             points=settings.properties['box_outliers'],
             fillcolor=settings.properties['in_color'],
-            line=dict(
-                color=settings.properties['out_color'],
-                width=settings.properties['marker_width']
-            ),
+            line={
+                'color': settings.properties['out_color'],
+                'width': settings.properties['marker_width']
+            },
             opacity=settings.properties['opacity'],
-            meanline=dict(
-                visible=settings.properties['show_mean_line']
-            ),
+            meanline={
+                'visible': settings.properties['show_mean_line']
+            },
             side=settings.properties['violin_side'],
             box_visible=settings.properties['violin_box']
         )]
