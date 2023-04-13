@@ -37,7 +37,7 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
         self.setWidget(self.panel_stack)
 
         self.main_panel = DataPlotlyPanelWidget(
-            message_bar=message_bar,  dock_title=dock_title, dock_id=dock_id, project=project, override_iface=override_iface)
+            message_bar=message_bar, dock_title=dock_title, dock_id=dock_id, project=project, override_iface=override_iface)
         self.panel_stack.setMainPanel(self.main_panel)
         self.main_panel.setDockMode(True)
 
@@ -107,7 +107,7 @@ class DataPlotlyDockManager():
                 continue
             self.removeDock(dock_id)
 
-        #self.dock_project_empty = True
+        # self.dock_project_empty = True
 
     def addDocksFromProject(self, document: QDomDocument):
         """ Add docks from project instance """

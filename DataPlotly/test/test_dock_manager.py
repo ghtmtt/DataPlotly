@@ -181,6 +181,7 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
             state, _, _ = validator.validate(bad_dock_id, None)
             self.assertEqual(QValidator.Intermediate, state)
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDockManagerTest)
     runner = unittest.TextTestRunner(verbosity=2)

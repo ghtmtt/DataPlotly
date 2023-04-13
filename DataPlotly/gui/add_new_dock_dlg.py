@@ -56,7 +56,8 @@ class DataPlotlyNewDockDialog(QDialog, WIDGET):
         return dock_title, dock_id
 
 
-class DataPlotlyNewDockIdValidator(QValidator): # pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods
+class DataPlotlyNewDockIdValidator(QValidator):
     """Custom validator to prevent some users action"""
     validationChanged = pyqtSignal(QValidator.State, str)
 

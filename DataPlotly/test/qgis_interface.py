@@ -35,7 +35,8 @@ LOGGER = logging.getLogger('QGIS')
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
-class QgisInterface(QObject): # pylint: disable=too-many-public-methods
+# pylint: disable=too-many-public-methods
+class QgisInterface(QObject):
     """Class to expose QGIS objects and functions to plugins.
 
     This class is here for enabling us to run unit tests only,

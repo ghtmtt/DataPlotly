@@ -82,8 +82,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double)
     }
 
-    def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None, # pylint: disable=too-many-arguments
-                 source_layer_id=None, dock_title: str= None, dock_id: str = None):
+    # pylint: disable=too-many-arguments
+    def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
+                 source_layer_id=None, dock_title: str = None, dock_id: str = None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
         # plot properties

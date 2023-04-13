@@ -9,19 +9,23 @@ the Free Software Foundation; either version 2 of the License, or
 import uuid
 from qgis.PyQt.QtCore import QByteArray
 
+
 def safe_str_xml(s):
     """ replaces spaces by .
     """
     return s.replace(" ", ".")
+
 
 def restore_safe_str_xml(s):
     """ replaces . by spaces
     """
     return s.replace(".", " ")
 
+
 def restore(b_str_64):
     """state and geom are stored in  str(Base64) in project xml file"""
     return QByteArray.fromBase64(QByteArray(b_str_64.encode()))
+
 
 def uuid_suffix(string: str) -> str:
     """ uuid4 suffix"""
