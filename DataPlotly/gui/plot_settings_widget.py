@@ -364,8 +364,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # new dock instance from project
         if project:
             self.read_project(project)
-            # FIXME: creation plot is not working
-            # self.create_plot()
 
     def updateStacked(self, row):
         """
@@ -1668,6 +1666,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if settings.read_from_project(document):
             # update the dock state to match the read settings
             self.set_settings(settings)
+            self.create_plot()          
 
     def load_configuration(self):
         """
