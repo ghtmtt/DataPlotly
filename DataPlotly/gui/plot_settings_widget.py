@@ -116,6 +116,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # listen out for project save/restore, and update our state accordingly
         QgsProject.instance().writeProject.connect(self.write_project)
         QgsProject.instance().readProject.connect(self.read_project)
+        QgsProject.instance().cleared.connect(self.clearPlotView)
 
         if self.iface is not None:
             self.listWidget.setIconSize(self.iface.iconSize(False))
