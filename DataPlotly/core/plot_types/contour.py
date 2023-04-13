@@ -35,10 +35,10 @@ class ContourFactory(PlotType):
     def create_trace(settings):
         return [graph_objs.Contour(
                 z=[settings.x, settings.y],
-                contours=dict(
-                    coloring=settings.properties['cont_type'],
-                    showlines=settings.properties['show_lines']
-                ),
+                contours={
+                    'coloring': settings.properties['cont_type'],
+                    'showlines': settings.properties['show_lines']
+                },
                 colorscale=settings.properties['color_scale'],
                 opacity=settings.properties['opacity']
-            )]
+                )]

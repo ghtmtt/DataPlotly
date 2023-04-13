@@ -21,15 +21,16 @@
  ***************************************************************************/
 """
 import os.path
+from functools import partial
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl
-from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtWidgets import QAction
-from qgis.core import Qgis, QgsApplication, QgsExpression
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QUrl
+from qgis.PyQt.QtGui import QDesktopServices, QIcon
+from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
+from qgis.core import Qgis, QgsApplication, QgsExpression, QgsProject
 from qgis.gui import QgsGui
 
 # Import the code for the dialog
-from DataPlotly.gui.dock import DataPlotlyDock
+from DataPlotly.gui.dock import DataPlotlyDockManager
 from DataPlotly.gui.gui_utils import GuiUtils
 
 # import processing provider
@@ -46,7 +47,7 @@ from .core.plot_expressions import get_symbol_colors
 class DataPlotly:  # pylint: disable=too-many-instance-attributes
     """QGIS Plugin Implementation."""
 
-    VERSION = '2.3'
+    VERSION = '4.0'
 
     def __init__(self, iface):
         """Constructor.
@@ -81,10 +82,26 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.show_dock_action = None
         self.help_action = None
         self.toolbar = None
+        self.dock_project_empty = True
+
+        # initialize variable setup in initGui
+        self.actions = None
+        self.toolButton = None
+        self.toolButtonMenu = None
+        self.toolBtnAction = None
+
+        # dock_widgets
+        self.dock_widgets = {}
+        self.dock_manager = DataPlotlyDockManager(
+            self.iface, self.dock_widgets)
 
         self.plot_item_metadata = PlotLayoutItemMetadata()
         self.plot_item_gui_metadata = None
         QgsApplication.layoutItemRegistry().addLayoutItemType(self.plot_item_metadata)
+        QgsProject.instance().cleared.connect(self.dock_manager.removeDocks)
+        QgsProject.instance().readProject.connect(
+            self.dock_manager.addDocksFromProject)
+        QgsProject.instance().writeProject.connect(self.dock_manager.write_to_project)
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):  # pylint: disable=no-self-use
@@ -105,13 +122,13 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         icon = GuiUtils.get_icon('dataplotly.svg')
 
-        # TODO: We are going to let the user set this up in a future iteration
-        self.toolbar = self.iface.addToolBar('DataPlotly')
-        self.toolbar.setObjectName('DataPlotly')
+        # # TODO: We are going to let the user set this up in a future iteration
+        # self.toolbar = self.iface.addToolBar('DataPlotly')
+        # self.toolbar.setObjectName('DataPlotly')
 
-        self.dock_widget = DataPlotlyDock(message_bar=self.iface.messageBar())
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
-        self.dock_widget.hide()
+        self.actions = []
+
+        self.dock_widget = self.dock_manager.addNewDock()
 
         self.show_dock_action = QAction(icon, self.tr('DataPlotly'))
         self.show_dock_action.setToolTip(self.tr('Shows the DataPlotly dock'))
@@ -119,8 +136,32 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         self.dock_widget.setToggleVisibilityAction(self.show_dock_action)
 
-        self.iface.pluginMenu().addAction(self.show_dock_action)
-        self.toolbar.addAction(self.show_dock_action)
+        self.toolButton = QToolButton()
+        self.toolButtonMenu = QMenu()
+        self.toolButton.setMenu(self.toolButtonMenu)
+        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolBtnAction = self.iface.addToolBarWidget(self.toolButton)
+        self.toolButton.setDefaultAction(self.show_dock_action)
+
+        sub_actions = [
+            {
+                "text": self.tr("Add a new dock"),
+                "icon_path": icon,
+                "callback": self.dock_manager.addNewDockFromDlg,
+                "parent": self.iface.mainWindow(),
+                "toolbutton": self.toolButton
+            },
+            {
+                "text": self.tr("Remove a dock"),
+                "icon_path": icon,
+                "callback": self.dock_manager.removeDockFromDlg,
+                "parent": self.iface.mainWindow(),
+                "toolbutton": self.toolButton
+            }
+        ]
+
+        for action in sub_actions:
+            self.add_action(**action)
 
         # Add processing provider
         self.initProcessing()
@@ -131,12 +172,81 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
 
         # Open the online help
         if Qgis.QGIS_VERSION_INT >= 31000:
-            self.help_action = QAction(icon, 'DataPlotly', self.iface.mainWindow())
+            self.help_action = QAction(
+                icon, 'DataPlotly', self.iface.mainWindow())
             self.iface.pluginHelpMenu().addAction(self.help_action)
             self.help_action.triggered.connect(self.open_help)
 
         # register the function
         QgsExpression.registerFunction(get_symbol_colors)
+
+    def add_action(  # pylint: disable = too-many-arguments
+            self,
+            icon_path,
+            text,
+            callback,
+            enabled_flag=True,
+            add_to_toolbar=True,
+            toolbutton=None,
+            status_tip=None,
+            whats_this=None,
+            parent=None,
+            args=None):
+        """Add a toolbar icon to the toolbar.
+        :param icon_path: Path to the icon for this action. Can be a resource
+            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
+        :type icon_path: str
+        :param text: Text that should be shown in menu items for this action.
+        :type text: str
+        :param callback: Function to be called when the action is triggered.
+        :type callback: function
+        :param enabled_flag: A flag indicating if the action should be enabled
+            by default. Defaults to True.
+        :type enabled_flag: bool
+        :param add_to_menu: Flag indicating whether the action should also
+            be added to the menu. Defaults to True.
+        :type add_to_menu: bool
+        :param add_to_toolbar: Flag indicating whether the action should also
+            be added to the toolbar. Defaults to True.
+        :type add_to_toolbar: bool
+        :param status_tip: Optional text to show in a popup when mouse pointer
+            hovers over the action.
+        :type status_tip: str
+        :param parent: Parent widget for the new action. Defaults None.
+        :type parent: QWidget
+        :param whats_this: Optional text to show in the status bar when the
+            mouse pointer hovers over the action.
+        :returns: The action that was created. Note that the action is also
+            added to self.actions list.
+        :rtype: QAction
+        """
+        if not icon_path:
+            action = QAction(text, parent)
+        else:
+            icon = QIcon(icon_path) if isinstance(
+                icon_path, str) else icon_path
+            action = QAction(icon, text, parent)
+        if args:
+            callback = partial(callback, action, *args)
+        action.triggered.connect(callback)
+        action.setEnabled(enabled_flag)
+
+        if status_tip is not None:
+            action.setStatusTip(status_tip)
+
+        if whats_this is not None:
+            action.setWhatsThis(whats_this)
+
+        if toolbutton:
+            self.toolButtonMenu.addAction(action)
+        else:
+            if add_to_toolbar:
+                # Adds plugin icon to Plugins toolbar
+                self.iface.addToolBarIcon(action)
+
+        self.actions.append(action)
+
+        return action
 
     def initProcessing(self):
         """Create the Processing provider"""
@@ -147,8 +257,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.iface.pluginMenu().removeAction(self.show_dock_action)
         self.show_dock_action.deleteLater()
         self.show_dock_action = None
-        self.toolbar.deleteLater()
-        self.toolbar = None
+        self.toolButton.deleteLater()
+        self.toolButton = None
 
         if Qgis.QGIS_VERSION_INT >= 31000 and self.help_action:
             self.iface.pluginHelpMenu().removeAction(self.help_action)
@@ -160,14 +270,28 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         # unregister the function
         QgsExpression.unregisterFunction('get_symbol_colors')
 
+        # disconnect signals for easy dev when using plugin reloader
+        QgsProject.instance().cleared.disconnect(self.dock_manager.removeDocks)
+        QgsProject.instance().readProject.disconnect(
+            self.dock_manager.addDocksFromProject)
+        QgsProject.instance().writeProject.disconnect(
+            self.dock_manager.write_to_project)
+
+        # remove all docks
+        for dock in self.dock_widgets.values():
+            self.iface.removeDockWidget(dock)
+
     @staticmethod
     def open_help():
         """ Open the online help. """
-        QDesktopServices.openUrl(QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.md'))
+        QDesktopServices.openUrl(
+            QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.md'))
 
-    def loadPlotFromDic(self, plot_dic):
+    def loadPlotFromDic(self, plot_dic, dock_id='DataPlotly'):
         """
         Calls the method to load the DataPlotly dialog with a given dictionary
         """
-        self.dock_widget.main_panel.showPlotFromDic(plot_dic)
-        self.dock_widget.setUserVisible(True)
+        dock = self.dock_manager.getDock(dock_id)
+        if dock:
+            dock.main_panel.showPlotFromDic(plot_dic)
+            dock.setUserVisible(True)

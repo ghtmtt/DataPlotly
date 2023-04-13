@@ -33,27 +33,29 @@ class HistogramFactory(PlotType):
 
     @staticmethod
     def create_trace(settings):
-        return [graph_objs.Histogram(
+        return [
+            graph_objs.Histogram(
                 x=settings.x,
                 y=settings.x,
                 name=settings.data_defined_legend_title if settings.data_defined_legend_title != '' else settings.properties['name'],
                 orientation=settings.properties['box_orientation'],
                 nbinsx=settings.properties['bins'],
                 nbinsy=settings.properties['bins'],
-                marker=dict(
-                    color=settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
-                    line=dict(
-                        color=settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
-                        width=settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']
-                    )
-                ),
+                marker={
+                    'color': settings.data_defined_colors if settings.data_defined_colors else settings.properties['in_color'],
+                    'line': {
+                        'color': settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
+                        'width': settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']
+                    }
+                },
                 histnorm=settings.properties['normalization'],
                 opacity=settings.properties['opacity'],
-                cumulative=dict(
-                    enabled=settings.properties['cumulative'],
-                    direction=settings.properties['invert_hist']
-                )
-            )]
+                cumulative={
+                    'enabled': settings.properties['cumulative'],
+                    'direction': settings.properties['invert_hist']
+                }
+            )
+        ]
 
     @staticmethod
     def create_layout(settings):
