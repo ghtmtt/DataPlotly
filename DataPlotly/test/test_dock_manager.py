@@ -180,7 +180,6 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
         for bad_dock_id in ['', 'with_underscore', 'DataPlotly2']:
             state, _, _ = validator.validate(bad_dock_id, None)
             self.assertEqual(QValidator.Intermediate, state)
-        
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(DataPlotlyDockManagerTest)
