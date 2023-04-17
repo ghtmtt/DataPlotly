@@ -25,7 +25,7 @@ jobs:
       - name: Install Qt lrelease
         run: |
           sudo apt-get update
-          sudo apt-get install qt5-default qttools5-dev-tools
+          sudo apt-get install qtbase5-dev qt5-qmake qttools5-dev-tools
 
       - name: Install Python requirements
         run: pip install qgis-plugin-ci
