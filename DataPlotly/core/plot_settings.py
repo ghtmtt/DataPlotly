@@ -130,7 +130,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'violin_box': False,
             'show_mean_line': False,
             'layout_filter_by_map': False,
-            'layout_filter_by_atlas': False
+            'layout_filter_by_atlas': False,
+            'pie_hole': 0
         }
 
         # layout nested dictionary

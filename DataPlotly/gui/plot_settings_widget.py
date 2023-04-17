@@ -172,6 +172,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.marker_width.setSingleStep(0.2)
         self.marker_width.setClearValue(0, self.tr('None'))
 
+        # pie_hole
+        self.pie_hole.setClearValue(0, self.tr('None'))
+
         # Populate PlotTypes combobox
         # we sort available types by translated name
         type_classes = [clazz for _, clazz in PlotFactory.PLOT_TYPES.items()]
@@ -983,6 +986,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.violinSideLabel: ['violin'],
             self.violinSideCombo: ['violin'],
             self.violinBox: ['violin'],
+            self.pie_hole_label : ['pie'],
+            self.pie_hole : ['pie'],
         }
 
         # enable the widget according to the plot type
@@ -1121,7 +1126,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'contour_type_combo': self.contour_type_combo.currentText(),
                            'show_lines_check': self.show_lines_check.isChecked(),
                            'layout_filter_by_map': self.filter_by_map_check.isChecked(),
-                           'layout_filter_by_atlas': self.filter_by_atlas_check.isChecked()
+                           'layout_filter_by_atlas': self.filter_by_atlas_check.isChecked(),
+                           'pie_hole' : self.pie_hole.value()
                            }
 
         if self.in_color_defined_button.isActive():
@@ -1349,6 +1355,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.show_legend_check.setChecked(settings.layout.get('legend', True))
         self.layout_grid_axis_color.setColor(
             QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
+        self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
 
     def create_plot_factory(self) -> PlotFactory:
         """
