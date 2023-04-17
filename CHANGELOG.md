@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 4.0.0 - 2023-04-17
+
+- multiple plot docks thanks to @jdlom
+- add a pie hole parameter to have donuts like charts thanks to @jdlom
+
 ## 3.9.2 - 2022-08-30
 
 - test added for Processing
