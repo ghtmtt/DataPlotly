@@ -42,6 +42,15 @@ class BarPlotFactory(PlotType):
             x = settings.x
             y = settings.y
 
+        # tweak the width value
+        if settings.data_defined_marker_sizes:
+            width = settings.data_defined_marker_sizes
+        # set to None if 0.0 or Auto, useful especially for date/datetime data
+        elif settings.properties['marker_size'] == 0.0:
+            width = None
+        else:
+            width = settings.properties['marker_size']
+
         return [graph_objs.Bar(
             x=x,
             y=y,
@@ -62,7 +71,7 @@ class BarPlotFactory(PlotType):
                         'color': settings.data_defined_stroke_colors if settings.data_defined_stroke_colors else settings.properties['out_color'],
                         'width': settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']}
                     },
-            width=settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
+            width=width,
             opacity=settings.properties['opacity']
         )]
 
