@@ -836,7 +836,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # change the label and the spin box value when the bar plot is chosen
         if self.ptype == 'bar':
             self.marker_size_lab.setText(self.tr('Bar width'))
-            self.marker_size.setValue(0.5)
+            self.marker_size.setValue(0.0)
+            self.marker_size.setClearValue(0.0, self.tr('Auto'))
+            self.marker_size.setToolTip(self.tr('Set to Auto to automatically resize the bar width'))
 
         # change the label and the spin box value when the scatter plot is chosen
         if self.ptype == 'scatter':

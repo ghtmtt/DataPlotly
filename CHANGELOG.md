@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 4.0.1 2023-05-12
+
+- tweak the bar width values, usefull with time series
+- minimum QGIS version to 3.28 LTR
+
 ## 4.0.0 - 2023-04-17
 
 - multiple plot docks thanks to @jdlom
