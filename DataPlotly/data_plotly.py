@@ -26,7 +26,7 @@ from functools import partial
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
-from qgis.core import Qgis, QgsApplication, QgsExpression, QgsProject
+from qgis.core import QgsApplication, QgsExpression, QgsProject
 from qgis.gui import QgsGui
 
 # Import the code for the dialog
@@ -171,11 +171,10 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         QgsGui.layoutItemGuiRegistry().addLayoutItemGuiMetadata(self.plot_item_gui_metadata)
 
         # Open the online help
-        if Qgis.QGIS_VERSION_INT >= 31000:
-            self.help_action = QAction(
-                icon, 'DataPlotly', self.iface.mainWindow())
-            self.iface.pluginHelpMenu().addAction(self.help_action)
-            self.help_action.triggered.connect(self.open_help)
+        self.help_action = QAction(
+            icon, 'DataPlotly', self.iface.mainWindow())
+        self.iface.pluginHelpMenu().addAction(self.help_action)
+        self.help_action.triggered.connect(self.open_help)
 
         # register the function
         QgsExpression.registerFunction(get_symbol_colors)
@@ -260,9 +259,8 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.toolButton.deleteLater()
         self.toolButton = None
 
-        if Qgis.QGIS_VERSION_INT >= 31000 and self.help_action:
-            self.iface.pluginHelpMenu().removeAction(self.help_action)
-            self.help_action = None
+        self.iface.pluginHelpMenu().removeAction(self.help_action)
+        self.help_action = None
 
         # Remove processing provider
         QgsApplication.processingRegistry().removeProvider(self.provider)
