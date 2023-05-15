@@ -1,4 +1,3 @@
-# coding=utf-8
 """Plot factory test
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -183,6 +182,6 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(DataPlotlyDockManagerTest)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(DataPlotlyDockManagerTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

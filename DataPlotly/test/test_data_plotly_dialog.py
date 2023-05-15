@@ -1,4 +1,3 @@
-# coding=utf-8
 """Dialog test.
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -603,6 +602,6 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(DataPlotlyDialogTest)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(DataPlotlyDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

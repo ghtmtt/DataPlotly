@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  DataPlotly
@@ -71,7 +70,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'application_{}.qm'.format(locale))
+            f'application_{locale}.qm')
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()

@@ -1,4 +1,3 @@
-# coding=utf-8
 """Common functionality used by regression tests."""
 
 import sys
@@ -68,7 +67,7 @@ def get_qgis_app(cleanup=True):
             :param level: log message level (severity)
             :return:
             """
-            print('{}({}): {}'.format(tag, level, message))
+            print(f'{tag}({level}): {message}')
 
         QgsApplication.instance().messageLog().messageReceived.connect(
             debug_log_message)

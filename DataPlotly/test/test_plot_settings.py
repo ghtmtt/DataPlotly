@@ -1,4 +1,3 @@
-# coding=utf-8
 """Plot settings test
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -346,6 +345,6 @@ class DataPlotlySettings(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(DataPlotlySettings)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(DataPlotlySettings)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

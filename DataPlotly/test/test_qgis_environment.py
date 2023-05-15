@@ -1,4 +1,3 @@
-# coding=utf-8
 """Tests for QGIS functionality.
 
 .. note:: This program is free software; you can redistribute it and/or modify

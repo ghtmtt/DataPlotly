@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 Test Suite.
 
@@ -38,7 +37,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     """Core function to test a test suite."""
     count = test_suite.countTestCases()
     print('########')
-    print('%s tests has been discovered in %s' % (count, package_name))
+    print('{} tests has been discovered in {}'.format(count, package_name))
     print('Python GDAL : %s' % gdal.VersionInfo('VERSION_NUM'))
     print('########')
     if with_coverage:
@@ -57,7 +56,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
             cov.report(file=report)
         # Produce HTML reports in the `htmlcov` folder and open index.html
         # cov.html_report()
-        with open(report.name, 'r', encoding='utf8') as fin:
+        with open(report.name, encoding='utf8') as fin:
             print(fin.read())
 
 
