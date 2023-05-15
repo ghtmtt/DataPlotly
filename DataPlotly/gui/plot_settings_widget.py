@@ -1373,7 +1373,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         plot_factory = PlotFactory(settings, visible_region=visible_region)
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
-        self.pid = (f'{str(self.idx)}_{settings.plot_type}')
+        self.pid = f'{self.idx}_{settings.plot_type}'
 
         # create default dictionary that contains all the plot and properties
         self.plot_factories[self.pid] = plot_factory
