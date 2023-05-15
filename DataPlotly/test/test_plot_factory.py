@@ -1,4 +1,3 @@
-# coding=utf-8
 """Plot factory test
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -726,6 +725,6 @@ class DataPlotlyFactory(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(DataPlotlyFactory)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(DataPlotlyFactory)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

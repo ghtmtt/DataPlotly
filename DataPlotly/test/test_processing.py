@@ -54,7 +54,7 @@ class TestProcessing(unittest.TestCase):
 
         result = processing.run("DataPlotly:dataplotly_scatterplot", plot_param)
 
-        with open(result['OUTPUT_JSON_FILE'], 'r', encoding='utf8') as f:
+        with open(result['OUTPUT_JSON_FILE'], encoding='utf8') as f:
             result_dict = json.load(f)
 
         self.assertListEqual(

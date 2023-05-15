@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """COre Utilities
 
 .. note:: This program is free software; you can redistribute it and/or modify

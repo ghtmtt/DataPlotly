@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  DataPlotlyDialog
@@ -588,7 +587,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)
         help_url = QUrl(
-            'https://dataplotly-docs.readthedocs.io/en/latest/{}.html'.format(self.ptype))
+            f'https://dataplotly-docs.readthedocs.io/en/latest/{self.ptype}.html')
         self.help_view.load(help_url)
 
     def resizeEvent(self, event):
@@ -596,7 +595,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         reimplemented event to detect the dialog resizing
         """
         self.resizeWindow.emit()
-        return super(DataPlotlyPanelWidget, self).resizeEvent(event)  # pylint:disable=super-with-arguments
+        return super().resizeEvent(event)  # pylint:disable=super-with-arguments
 
     def reloadPlotCanvas(self):
         """
@@ -1072,7 +1071,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.legend_title.setText(self.x_combo.currentText())
         else:
             legend_title_string = (
-                '{} - {}'.format(self.x_combo.currentText(), self.y_combo.currentText()))
+                f'{self.x_combo.currentText()} - {self.y_combo.currentText()}')
             self.legend_title.setText(legend_title_string)
 
     def get_settings(self) -> PlotSettings:  # pylint: disable=R0915
@@ -1374,7 +1373,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         plot_factory = PlotFactory(settings, visible_region=visible_region)
 
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
-        self.pid = ('{}_{}'.format(str(self.idx), settings.plot_type))
+        self.pid = (f'{str(self.idx)}_{settings.plot_type}')
 
         # create default dictionary that contains all the plot and properties
         self.plot_factories[self.pid] = plot_factory
@@ -1462,7 +1461,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 if self.message_bar:
                     self.message_bar.pushMessage(
                         self.tr(
-                            "{} plot is not compatible for subplotting\n see ".format(self.ptype)),
+                            f"{self.ptype} plot is not compatible for subplotting\n see "),
                         Qgis.MessageLevel(2), duration=5)
                 return
 
@@ -1494,7 +1493,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layoutw.addWidget(self.plot_view)
 
         self.raw_plot_text.clear()
-        with open(self.plot_path, 'r', encoding="utf8") as myfile:
+        with open(self.plot_path, encoding="utf8") as myfile:
             plot_text = myfile.read()
 
         self.raw_plot_text.setPlainText(plot_text)

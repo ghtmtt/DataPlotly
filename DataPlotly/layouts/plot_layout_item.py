@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Plot Layout Item
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -43,7 +42,7 @@ class LoggingWebPage(QWebPage):
         super().__init__(parent)
 
     def javaScriptConsoleMessage(self, message, lineNumber, source):
-        QgsMessageLog.logMessage('{}:{} {}'.format(source, lineNumber, message), 'DataPlotly')
+        QgsMessageLog.logMessage(f'{source}:{lineNumber} {message}', 'DataPlotly')
 
 
 class PlotLayoutItem(QgsLayoutItem):
@@ -196,7 +195,7 @@ class PlotLayoutItem(QgsLayoutItem):
                 pl.append(factory.trace[0])
 
             plot_path = plot_factory.build_figures(self.plot_settings[0].plot_type, pl, config=config)
-            with open(plot_path, 'r') as myfile:
+            with open(plot_path) as myfile:
                 return myfile.read()
 
     def get_polygon_filter(self, index=0):
