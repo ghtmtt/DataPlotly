@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 4.0.2 2023-06-24
+
+- fix bug with old projects thanks to @jdlom
+
 ## 4.0.1 2023-05-12
 
 - tweak the bar width values, usefull with time series
