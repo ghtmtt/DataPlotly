@@ -2,13 +2,13 @@
 
 ## Unreleased
 
-## 4.0.2 2023-06-24
+## 4.0.2 - 2023-06-24
 
 - fix bug with old projects thanks to @jdlom
 
-## 4.0.1 2023-05-12
+## 4.0.1 - 2023-05-12
 
-- tweak the bar width values, usefull with time series
+- tweak the bar width values, useful with time series
 - minimum QGIS version to 3.28 LTR
 
 ## 4.0.0 - 2023-04-17
