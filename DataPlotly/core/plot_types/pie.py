@@ -39,7 +39,7 @@ class PieChartFactory(PlotType):
                     'colors': settings.data_defined_colors if settings.data_defined_colors else [settings.properties['in_color']]
                 },
                 name=settings.properties['custom'][0],
-                hole=settings.get('pie_hole', 0)
+                hole=settings.properties.get('pie_hole', 0)
                 )]
 
     @staticmethod
