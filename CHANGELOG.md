@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 4.0.3 - 2023-06-27
+
+- fix bug with old projects (second part) thanks to @jdlom
+
 ## 4.0.2 - 2023-06-24
 
 - fix bug with old projects thanks to @jdlom
