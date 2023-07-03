@@ -19,9 +19,18 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.core import QgsProcessingProvider
+from qgis.core import Qgis, QgsMessageLog, QgsProcessingProvider
 from DataPlotly.gui.gui_utils import GuiUtils
-from DataPlotly.processing.dataplotly_scatterplot import DataPlotlyProcessingScatterPlot
+
+try:
+    # 🐼
+    from DataPlotly.processing.dataplotly_scatterplot import DataPlotlyProcessingScatterPlot
+    WITH_PANDAS = True
+except ImportError:
+    WITH_PANDAS = False
+    QgsMessageLog.logMessage(
+        "Pandas has not been found. The processing algorithm will not be loaded. "
+        "Please install qgis-full or qgis standalone", "DataPlotly", Qgis.Warning)
 
 
 class DataPlotlyProvider(QgsProcessingProvider):
@@ -76,4 +85,5 @@ class DataPlotlyProvider(QgsProcessingProvider):
         even if the list does not change, since the self.algs list is
         cleared before calling this method.
         """
-        self.addAlgorithm(DataPlotlyProcessingScatterPlot())
+        if WITH_PANDAS:
+            self.addAlgorithm(DataPlotlyProcessingScatterPlot())

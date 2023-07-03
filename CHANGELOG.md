@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix loading of the plugin when the Pandas library is not found, contribution from @Gustry
+
 ## 4.0.3 - 2023-06-27
 
 - fix bug with old projects (second part) thanks to @jdlom
