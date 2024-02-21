@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fix loading of the plugin when used with `qgis_process`, contribution from @Gustry
+
 ## 4.1.0 - 2023-11-15
 
 - Fix loading of the plugin when the Pandas library is not found, contribution from @Gustry

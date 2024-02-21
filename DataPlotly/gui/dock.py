@@ -127,7 +127,7 @@ class DataPlotlyDockManager():
                 # FIXME : trigger the plot creation (not working)
                 # main_panel = self.getDock(tag_name).main_panel
                 # main_panel.create_plot()
-        if self.read_from_project(document):
+        if self.iface and self.read_from_project(document):
             self.iface.mainWindow().restoreGeometry(self.geometry)
             self.iface.mainWindow().restoreState(self.state, version=999)
         return True
