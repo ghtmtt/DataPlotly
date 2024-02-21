@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Plot Layout Item
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -43,7 +42,7 @@ class LoggingWebPage(QWebPage):
         super().__init__(parent)
 
     def javaScriptConsoleMessage(self, message, lineNumber, source):
-        QgsMessageLog.logMessage('{}:{} {}'.format(source, lineNumber, message), 'DataPlotly')
+        QgsMessageLog.logMessage(f'{source}:{lineNumber} {message}', 'DataPlotly')
 
 
 class PlotLayoutItem(QgsLayoutItem):
@@ -200,30 +199,31 @@ class PlotLayoutItem(QgsLayoutItem):
                 pl.append(factory.trace[0])
 
             plot_path = plot_factory.build_figures(self.plot_settings[0].plot_type, pl, config=config)
-            with open(plot_path, 'r') as myfile:
+            with open(plot_path) as myfile:
                 return myfile.read()
 
     def get_polygon_filter(self, index=0):
-        if self.linked_map and self.plot_settings[index].properties.get('layout_filter_by_map', False):
-            polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
-                                          self.linked_map.crs())
-            visible_features_only = True
-        elif self.plot_settings[index].properties.get('layout_filter_by_atlas', False) and \
-                self.layout().reportContext().layer() and self.layout().reportContext().feature().isValid():
+        polygon_filter = None
+        visible_features_only = False
 
-            polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
-            visible_features_only = True
-        else:
-            polygon_filter = None
-            visible_features_only = False
+        if self.plot_settings:
+            if self.linked_map and self.plot_settings[index].properties.get('layout_filter_by_map', False):
+                polygon_filter = FilterRegion(QgsGeometry.fromQPolygonF(self.linked_map.visibleExtentPolygon()),
+                                            self.linked_map.crs())
+                visible_features_only = True
+            elif self.plot_settings[index].properties.get('layout_filter_by_atlas', False) and \
+                    self.layout().reportContext().layer() and self.layout().reportContext().feature().isValid():
+
+                polygon_filter = FilterRegion(self.layout().reportContext().currentGeometry(), self.layout().reportContext().layer().crs())
+                visible_features_only = True
 
         return polygon_filter, visible_features_only
 
     def load_content(self):
         self.html_loaded = False
         base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
-        self.web_page.setViewportSize(QSize(self.rect().width() * self.html_units_to_layout_units,
-                                            self.rect().height() * self.html_units_to_layout_units))
+        self.web_page.setViewportSize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
+                                            int(self.rect().height()) * self.html_units_to_layout_units))
         self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
 
     def writePropertiesToElement(self, element, document, _) -> bool:

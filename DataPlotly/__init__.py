@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  DataPlotly
@@ -22,8 +21,6 @@
  This script initializes the plugin, making it known to QGIS.
 """
 
-from .data_plotly import DataPlotly
-
 
 # noinspection PyPep8Naming
 def classFactory(iface):  # pylint: disable=invalid-name
@@ -32,4 +29,21 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
+    # pylint: disable=import-outside-toplevel
+    from .data_plotly import DataPlotly
     return DataPlotly(iface)
+
+
+def serverClassFactory(server_iface):
+    """Load DataPlotly server.
+
+    :param server_iface: A QGIS Server interface instance.
+    :type server_iface: QgsServerInterface
+    """
+    _ = server_iface
+    # pylint: disable=import-outside-toplevel
+    from qgis.core import QgsApplication, QgsMessageLog, Qgis
+    from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
+
+    QgsApplication.layoutItemRegistry().addLayoutItemType(PlotLayoutItemMetadata())
+    QgsMessageLog.logMessage("Custom DataPlotly layout item loaded", "DataPlotly", Qgis.Info)

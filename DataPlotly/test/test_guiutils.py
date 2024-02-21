@@ -1,4 +1,3 @@
-# coding=utf-8
 """GUI Utils Test.
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -44,6 +43,6 @@ class GuiUtilsTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(GuiUtilsTest)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(GuiUtilsTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

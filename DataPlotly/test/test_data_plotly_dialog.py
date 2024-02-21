@@ -1,4 +1,3 @@
-# coding=utf-8
 """Dialog test.
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -127,6 +126,21 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.layout['x_title'] = 'my x title'
         settings.layout['y_title'] = 'my y title'
         settings.layout['z_title'] = 'my z title'
+        settings.layout['font_title_size'] = 10
+        settings.layout['font_title_family'] = "Arial"
+        settings.layout['font_title_color'] = "#000000"
+        settings.layout['font_xlabel_size'] = 10
+        settings.layout['font_xlabel_family'] = "Arial"
+        settings.layout['font_xlabel_color'] = "#000000"
+        settings.layout['font_xticks_size'] = 10
+        settings.layout['font_xticks_family'] = "Arial"
+        settings.layout['font_xticks_color'] = "#000000"
+        settings.layout['font_ylabel_size'] = 10
+        settings.layout['font_ylabel_family'] = "Arial"
+        settings.layout['font_ylabel_color'] = "#000000"
+        settings.layout['font_yticks_size'] = 10
+        settings.layout['font_yticks_family'] = "Arial"
+        settings.layout['font_yticks_color'] = "#000000"
         settings.layout['range_slider']['visible'] = True
         settings.layout['bar_mode'] = 'overlay'
         settings.layout['x_type'] = 'log'
@@ -136,6 +150,7 @@ class DataPlotlyDialogTest(unittest.TestCase):
         settings.layout['bargaps'] = 0.8
         settings.layout['additional_info_expression'] = '1+2'
         settings.layout['bins_check'] = True
+        settings.layout['gridcolor'] = '#bdbfc0'
 
         settings.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
                                                      QgsProperty.fromExpression('"ap">50'))
@@ -587,6 +602,6 @@ class DataPlotlyDialogTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(DataPlotlyDialogTest)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(DataPlotlyDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

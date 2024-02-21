@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Pie chart factory
 
@@ -36,11 +35,12 @@ class PieChartFactory(PlotType):
         return [graph_objs.Pie(
                 labels=settings.x,
                 values=settings.y,
-                marker=dict(
-                    colors=settings.data_defined_colors if settings.data_defined_colors else [settings.properties['in_color']]
-                ),
+                marker={
+                    'colors': settings.data_defined_colors if settings.data_defined_colors else [settings.properties['in_color']]
+                },
                 name=settings.properties['custom'][0],
-            )]
+                hole=settings.properties.get('pie_hole', 0)
+                )]
 
     @staticmethod
     def create_layout(settings):

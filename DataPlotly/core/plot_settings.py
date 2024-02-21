@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Encapsulates settings for a plot
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -7,16 +6,9 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 
-from qgis.PyQt.QtCore import (
-    QFile,
-    QIODevice
-)
+from qgis.PyQt.QtCore import QFile, QIODevice
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
-from qgis.core import (
-    QgsXmlUtils,
-    QgsPropertyCollection,
-    QgsPropertyDefinition
-)
+from qgis.core import QgsXmlUtils, QgsPropertyCollection, QgsPropertyDefinition
 
 
 class PlotSettings:  # pylint: disable=too-many-instance-attributes
@@ -39,6 +31,21 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_X_TITLE = 12
     PROPERTY_Y_TITLE = 13
     PROPERTY_Z_TITLE = 14
+    PROPERTY_FONT_TITLE_SIZE = 15
+    PROPERTY_FONT_TITLE_FAMILY = 16
+    PROPERTY_FONT_TITLE_COLOR = 17
+    PROPERTY_FONT_XLABEL_SIZE = 18
+    PROPERTY_FONT_XLABEL_FAMILY = 19
+    PROPERTY_FONT_XLABEL_COLOR = 20
+    PROPERTY_FONT_XTICKS_SIZE = 21
+    PROPERTY_FONT_XTICKS_FAMILY = 22
+    PROPERTY_FONT_XTICKS_COLOR = 23
+    PROPERTY_FONT_YLABEL_SIZE = 24
+    PROPERTY_FONT_YLABEL_FAMILY = 25
+    PROPERTY_FONT_YLABEL_COLOR = 26
+    PROPERTY_FONT_YTICKS_SIZE = 27
+    PROPERTY_FONT_YTICKS_FAMILY = 28
+    PROPERTY_FONT_YTICKS_COLOR = 29
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
@@ -50,6 +57,21 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
                                                      QgsPropertyDefinition.DoublePositive),
         PROPERTY_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.String),
         PROPERTY_LEGEND_TITLE: QgsPropertyDefinition('legend_title', 'Legend title', QgsPropertyDefinition.String),
+        PROPERTY_FONT_TITLE_SIZE: QgsPropertyDefinition('font_title_size', 'Font title size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_TITLE_FAMILY: QgsPropertyDefinition('font_title_family', 'Font title family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_TITLE_COLOR: QgsPropertyDefinition('font_title_color', 'Font title color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_XLABEL_SIZE: QgsPropertyDefinition('font_xlabel_size', 'Font xlabel size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_XLABEL_FAMILY: QgsPropertyDefinition('font_xlabel_family', 'Font xlabel family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_XLABEL_COLOR: QgsPropertyDefinition('font_xlabel_color', 'Font xlabel color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_XTICKS_SIZE: QgsPropertyDefinition('font_xticks_size', 'Font xticks size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_XTICKS_FAMILY: QgsPropertyDefinition('font_xticks_family', 'Font xticks family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_XTICKS_COLOR: QgsPropertyDefinition('font_xticks_color', 'Font xticks color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_YLABEL_SIZE: QgsPropertyDefinition('font_ylabel_size', 'Font ylabel size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_YLABEL_FAMILY: QgsPropertyDefinition('font_ylabel_family', 'Font ylabel family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_YLABEL_COLOR: QgsPropertyDefinition('font_ylabel_color', 'Font ylabel color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_YTICKS_SIZE: QgsPropertyDefinition('font_yticks_size', 'Font yticks size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_YTICKS_FAMILY: QgsPropertyDefinition('font_yticks_family', 'Font yticks family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_YTICKS_COLOR: QgsPropertyDefinition('font_yticks_color', 'Font yticks color', QgsPropertyDefinition.ColorWithAlpha),
         PROPERTY_X_TITLE: QgsPropertyDefinition('x_title', 'X title', QgsPropertyDefinition.String),
         PROPERTY_Y_TITLE: QgsPropertyDefinition('y_title', 'Y title', QgsPropertyDefinition.String),
         PROPERTY_Z_TITLE: QgsPropertyDefinition('z_title', 'Z title', QgsPropertyDefinition.String),
@@ -59,8 +81,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double)
     }
 
+    # pylint: disable=too-many-arguments
     def __init__(self, plot_type: str = 'scatter', properties: dict = None, layout: dict = None,
-                 source_layer_id=None):
+                 source_layer_id=None, dock_title: str = None, dock_id: str = None):
         # Define default plot dictionary used as a basis for plot initialization
         # prepare the default dictionary with None values
         # plot properties
@@ -106,7 +129,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'violin_box': False,
             'show_mean_line': False,
             'layout_filter_by_map': False,
-            'layout_filter_by_atlas': False
+            'layout_filter_by_atlas': False,
+            'pie_hole': 0
         }
 
         # layout nested dictionary
@@ -118,6 +142,21 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'x_title': '',
             'y_title': '',
             'z_title': '',
+            'font_title_size': 10,
+            'font_title_family': "Arial",
+            'font_title_color': "#000000",
+            'font_xlabel_size': 10,
+            'font_xlabel_family': "Arial",
+            'font_xlabel_color': "#000000",
+            'font_xticks_size': 10,
+            'font_xticks_family': "Arial",
+            'font_xticks_color': "#000000",
+            'font_ylabel_size': 10,
+            'font_ylabel_family': "Arial",
+            'font_ylabel_color': "#000000",
+            'font_yticks_size': 10,
+            'font_yticks_family': "Arial",
+            'font_yticks_color': "#000000",
             'xaxis': None,
             'bar_mode': None,
             'x_type': None,
@@ -132,7 +171,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'bargaps': 0,
             'polar': {'angularaxis': {'direction': 'clockwise'}},
             'additional_info_expression': '',
-            'bins_check': False
+            'bins_check': False,
+            'gridcolor': '#bdbfc0'
         }
 
         self.plot_base_dic = {
@@ -179,6 +219,10 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.data_defined_y_max = None
         self.source_layer_id = source_layer_id
 
+        # multiple_dock
+        self.dock_title = dock_title
+        self.dock_id = dock_id
+
     def write_xml(self, document: QDomDocument):
         """
         Writes the plot settings to an XML element
@@ -216,7 +260,10 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         Writes the settings to a project (represented by the given DOM document)
         """
         elem = self.write_xml(document)
-        parent_elem = document.createElement('DataPlotly')
+        if self.dock_id == 'DataPlotly':
+            parent_elem = document.createElement('DataPlotly')
+        else:
+            parent_elem = document.createElement(f'DataPlotly_{self.dock_title}_{self.dock_id}')
         parent_elem.appendChild(elem)
 
         root_node = document.elementsByTagName("qgis").item(0)
@@ -229,8 +276,11 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         root_node = document.elementsByTagName("qgis").item(0)
         if root_node.isNull():
             return False
-
-        node = root_node.toElement().firstChildElement('DataPlotly')
+        if self.dock_id == 'DataPlotly':
+            tag = "DataPlotly"
+        else:
+            tag = f'DataPlotly_{self.dock_title}_{self.dock_id}'
+        node = root_node.toElement().firstChildElement(tag)
         if node.isNull():
             return False
 
@@ -246,7 +296,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         document.appendChild(elem)
 
         try:
-            with open(file_name, "w") as f:
+            with open(file_name, "w", encoding="utf8") as f:
                 f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                 f.write(document.toString())
                 return True

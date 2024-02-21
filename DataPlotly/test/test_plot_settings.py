@@ -1,4 +1,3 @@
-# coding=utf-8
 """Plot settings test
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -45,12 +44,13 @@ class DataPlotlySettings(unittest.TestCase):
 
         # override base settings
         settings = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
-                                layout={'title': 'my plot', 'legend_orientation': 'v'})
+                                layout={'title': 'my plot', 'legend_orientation': 'v', 'font_title_size': 20})
         # base settings should be inherited
         self.assertEqual(settings.properties['marker_size'], 5)
         self.assertEqual(settings.properties['marker_width'], 2)
         self.assertEqual(settings.layout['legend_orientation'], 'v')
         self.assertEqual(settings.layout['title'], 'my plot')
+        self.assertEqual(settings.layout['font_title_size'], 20)
 
     def test_readwrite(self):
         """
@@ -128,7 +128,7 @@ class DataPlotlySettings(unittest.TestCase):
         doc = QDomDocument("test")
         doc.appendChild(doc.createElement('qgis'))
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
-                                layout={'title': 'my plot', 'legend_orientation': 'v'})
+                                layout={'title': 'my plot', 'legend_orientation': 'v', 'font_xlabel_color': "#00FFFF"})
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
                                                      QgsProperty.fromExpression('"ap">50'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
@@ -193,7 +193,7 @@ class DataPlotlySettings(unittest.TestCase):
         """
         p = QgsProject()
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
-                                layout={'title': 'my plot', 'legend_orientation': 'v'})
+                                layout={'title': 'my plot', 'legend_orientation': 'v', 'font_xlabel_color': '#00FFFF'})
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
                                                      QgsProperty.fromExpression('"ap">50'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
@@ -280,7 +280,7 @@ class DataPlotlySettings(unittest.TestCase):
         Test reading and writing configuration to files
         """
         original = PlotSettings('test', properties={'marker_width': 2, 'marker_size': 5},
-                                layout={'title': 'my plot', 'legend_orientation': 'v'})
+                                layout={'title': 'my plot', 'legend_orientation': 'v', 'font_xlabel_color': '#00FFFF'})
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_FILTER,
                                                      QgsProperty.fromExpression('"ap">50'))
         original.data_defined_properties.setProperty(PlotSettings.PROPERTY_MARKER_SIZE,
@@ -345,6 +345,6 @@ class DataPlotlySettings(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(DataPlotlySettings)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(DataPlotlySettings)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

@@ -1,4 +1,3 @@
-# coding=utf-8
 """Resources test.
 
 .. note:: This program is free software; you can redistribute it and/or modify
@@ -36,6 +35,6 @@ class DataPlotlyResourcesTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(DataPlotlyResourcesTest)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(DataPlotlyResourcesTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

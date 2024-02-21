@@ -1,0 +1,50 @@
+name: Release 🚀
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  release:
+
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'ghtmtt' && contains(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install Qt lrelease
+        run: |
+          sudo apt-get update
+          sudo apt-get install qtbase5-dev qt5-qmake qttools5-dev-tools
+
+      - name: Install Python requirements
+        run: pip install qgis-plugin-ci
+
+      - name : Get current changelog
+        run: qgis-plugin-ci changelog ${{ env.RELEASE_VERSION }} >> release.md
+
+      - name: Create release on GitHub
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          bodyFile: release.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Package and deploy the zip
+        run: >-
+          qgis-plugin-ci
+          release ${{ env.RELEASE_VERSION }}
+          --github-token ${{ secrets.GITHUB_TOKEN }}
+          --transifex-token ${{ secrets.TRANSIFEX_TOKEN }}
+          --osgeo-username ${{ secrets.OSGEO_USERNAME }}
+          --osgeo-password ${{ secrets.OSGEO_PASSWORD }}
+          --create-plugin-repo
