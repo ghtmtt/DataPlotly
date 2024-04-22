@@ -27,6 +27,7 @@ from qgis.core import (
     QgsGeometry,
     QgsPropertyCollection
 )
+from re import search
 from qgis.PyQt.QtWebKitWidgets import QWebPage
 
 from DataPlotly.core.plot_settings import PlotSettings
@@ -148,6 +149,7 @@ class PlotLayoutItem(QgsLayoutItem):
         """
         if plot_id < len(self.plot_settings):
             self.plot_settings[plot_id] = settings
+            self.web_page.mainFrame().setZoomFactor(settings.data_defined_zoom_factor if settings.data_defined_zoom_factor != None else settings.properties['zoom_factor'])
             self.plot_settings[plot_id].layout['bg_color'] = 'rgba(0,0,0,0)'
             self.html_loaded = False
             self.invalidateCache()
@@ -176,7 +178,6 @@ class PlotLayoutItem(QgsLayoutItem):
         polygon_filter, visible_features_only = self.get_polygon_filter(0)
 
         config = {'displayModeBar': False, 'staticPlot': True}
-
         if len(self.plot_settings) == 1:
             plot_factory = PlotFactory(self.plot_settings[0], self, polygon_filter=polygon_filter)
             self.plot_settings[0].properties['visible_features_only'] = visible_features_only
@@ -220,7 +221,16 @@ class PlotLayoutItem(QgsLayoutItem):
         base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
         self.web_page.setViewportSize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
                                             int(self.rect().height()) * self.html_units_to_layout_units))
-        self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
+        frameHtml = self.create_plot()
+        if self.plot_settings[0].plot_type == 'pie':
+            #We may want to override the defaults for pie charts to display values rather than percentages
+            if self.plot_settings[0].properties['pie_labels'] == 'Values':
+                pieChartReSearch = '(.*)("type": "pie", "values": )(\[[^\]]*\])(.*)'
+                regexResult = search(pieChartReSearch,frameHtml) #from re module
+                valueList = regexResult.group(3)
+                insertSection = ',"text": ' + str(valueList) + ',"textinfo": "text"'
+                frameHtml = "".join([regexResult.group(1), regexResult.group(2), regexResult.group(3), insertSection, regexResult.group(4)])
+        self.web_page.mainFrame().setHtml(frameHtml, base_url)
 
     def writePropertiesToElement(self, element, document, _) -> bool:
         for plot_setting in self.plot_settings:

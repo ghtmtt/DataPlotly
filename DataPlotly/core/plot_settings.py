@@ -46,6 +46,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_FONT_YTICKS_SIZE = 27
     PROPERTY_FONT_YTICKS_FAMILY = 28
     PROPERTY_FONT_YTICKS_COLOR = 29
+    PROPERTY_PIE_LABEL = 30
+    PROPERTY_ZOOM_FACTOR = 31
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
@@ -78,7 +80,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         PROPERTY_X_MIN: QgsPropertyDefinition('x_min', 'X axis minimum', QgsPropertyDefinition.Double),
         PROPERTY_X_MAX: QgsPropertyDefinition('x_max', 'X axis maximum', QgsPropertyDefinition.Double),
         PROPERTY_Y_MIN: QgsPropertyDefinition('y_min', 'Y axis minimum', QgsPropertyDefinition.Double),
-        PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double)
+        PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double),
+        PROPERTY_PIE_LABEL: QgsPropertyDefinition('pie_label', 'Pie chart labels as:', QgsPropertyDefinition.String),
+        PROPERTY_ZOOM_FACTOR: QgsPropertyDefinition('zoom_factor', 'Chart zoom factor', QgsPropertyDefinition.Double)
     }
 
     # pylint: disable=too-many-arguments
@@ -130,7 +134,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'show_mean_line': False,
             'layout_filter_by_map': False,
             'layout_filter_by_atlas': False,
-            'pie_hole': 0
+            'pie_hole': 0,
+            'pie_labels':'Values'
         }
 
         # layout nested dictionary
@@ -172,7 +177,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'polar': {'angularaxis': {'direction': 'clockwise'}},
             'additional_info_expression': '',
             'bins_check': False,
-            'gridcolor': '#bdbfc0'
+            'gridcolor': '#bdbfc0',
+            'zoom_factor': 10.0
         }
 
         self.plot_base_dic = {
@@ -217,7 +223,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.data_defined_x_max = None
         self.data_defined_y_min = None
         self.data_defined_y_max = None
+        self.data_defined_zoom_factor = None
         self.source_layer_id = source_layer_id
+        
 
         # multiple_dock
         self.dock_title = dock_title

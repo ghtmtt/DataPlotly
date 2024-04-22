@@ -413,6 +413,20 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_Y_MAX,
                                                                            context, default_value)
             y_max = value
+        pie_label = None 
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_PIE_LABEL):
+            default_value = self.settings.layout['pie_label']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsString(PlotSettings.PROPERTY_PIE_LABEL,
+                                                                           context, default_value)
+            pie_label = value
+        zoom_factor = None
+        if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_ZOOM_FACTOR):
+            default_value = self.settings.layout['zoom_factor']
+            context.setOriginalValueVariable(default_value)
+            value, _ = self.settings.data_defined_properties.valueAsDouble(PlotSettings.PROPERTY_ZOOM_FACTOR,
+                                                                           context, default_value)
+            zoom_factor = value
 
         self.settings.data_defined_title = title
         self.settings.data_defined_legend_title = legend_title
@@ -423,6 +437,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.settings.data_defined_x_max = x_max
         self.settings.data_defined_y_min = y_min
         self.settings.data_defined_y_max = y_max
+        self.settings.data_defined_zoom_factor = zoom_factor
 
     def set_visible_region(self, region: QgsReferencedRectangle):
         """

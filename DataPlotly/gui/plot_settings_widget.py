@@ -170,6 +170,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.marker_width.setValue(1)
         self.marker_width.setSingleStep(0.2)
         self.marker_width.setClearValue(0, self.tr('None'))
+        
+        self.zoom_factor.setValue(10)
+        self.zoom_factor.setSingleStep(0.2)
+        self.zoom_factor.setClearValue(10)
 
         # pie_hole
         self.pie_hole.setClearValue(0, self.tr('None'))
@@ -188,6 +192,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # SubPlots combobox
         self.subcombo.addItem(self.tr('Single Plot'), 'single')
         self.subcombo.addItem(self.tr('Subplots'), 'subplots')
+        
+        # Pie labels combobox
+        self.pieLabelsCombo.addItem(self.tr('Percentages'), 0)
+        self.pieLabelsCombo.addItem(self.tr('Values'), 1)
 
         # connect to the functions to clean the UI and fill with the correct
         # widgets
@@ -868,6 +876,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             # plot properties
             self.layer_combo: ['all'],
             self.feature_subset_defined_button: ['all'],
+            self.zoom_factor: ['all'],
             self.x_label: ['all'],
             self.x_combo: ['all'],
             self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin'],
@@ -989,6 +998,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.violinBox: ['violin'],
             self.pie_hole_label : ['pie'],
             self.pie_hole : ['pie'],
+            self.pieLabelsLabel : ['pie'],
+            self.pieLabelsCombo : ['pie'], 
         }
 
         # enable the widget according to the plot type
@@ -1026,6 +1037,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.radio_rows.setVisible(False)
             self.radio_columns.setEnabled(False)
             self.radio_columns.setVisible(False)
+            
+    def updatePieLabels(self):
+        """
+        Update the store value when this is changed
+        """
+        pass
 
     def refreshWidgets3(self):
         """
@@ -1099,6 +1116,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'out_color': self.out_color_combo.color().name(),
                            'marker_width': self.marker_width.value(),
                            'marker_size': self.marker_size.value(),
+                           'zoom_factor': self.zoom_factor.value(),
                            'marker_symbol': self.point_types2[self.point_combo.currentData()],
                            'line_dash': self.line_types2[self.line_combo.currentText()],
                            'box_orientation': self.orientation_combo.currentData(),
@@ -1128,7 +1146,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'show_lines_check': self.show_lines_check.isChecked(),
                            'layout_filter_by_map': self.filter_by_map_check.isChecked(),
                            'layout_filter_by_atlas': self.filter_by_atlas_check.isChecked(),
-                           'pie_hole' : self.pie_hole.value()
+                           'pie_hole' : self.pie_hole.value(),
+                           'pie_labels' : self.pieLabelsCombo.currentText(),
                            }
 
         if self.in_color_defined_button.isActive():
@@ -1251,6 +1270,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.out_color_combo.setColor(
             QColor(settings.properties.get('out_color', '#1f77b4')))
         self.marker_width.setValue(settings.properties.get('marker_width', 1))
+        self.zoom_factor.setValue(settings.properties.get('zoom_factor', 10))
         self.marker_type_combo.setCurrentText(
             settings.properties.get('marker_type_combo', 'Points'))
         self.point_combo.setCurrentText(
@@ -1357,6 +1377,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layout_grid_axis_color.setColor(
             QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
+        self.pieLabelsCombo.setCurrentText(
+            settings.properties.get('pie_labels', 'Values'))
 
     def create_plot_factory(self) -> PlotFactory:
         """
