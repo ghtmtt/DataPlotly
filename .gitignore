@@ -21,3 +21,4 @@ DataPlotly/i18n/
 
 # Test
 *.qgs~
+/.vs
