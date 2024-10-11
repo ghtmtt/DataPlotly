@@ -8,6 +8,7 @@ email=matteo.ghetta@gmail.com
 
 about=Draw D3 plots in QGIS
 
+homepage=https://github.com/ghtmtt/DataPlotly/blob/master/README.md
 tracker=https://github.com/ghtmtt/DataPlotly/issues
 repository=https://github.com/ghtmtt/DataPlotly
 # End of mandatory metadata
@@ -25,7 +26,6 @@ dateTime=
 # Tags are comma separated with spaces allowed
 tags=python, d3, plots, vector, graphs, datavis, dataviz, dataplotly
 
-homepage=https://github.com/ghtmtt/DataPlotly
 category=Plugins
 icon=icon.png
 # experimental flag
