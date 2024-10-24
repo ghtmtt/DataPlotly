@@ -2,7 +2,11 @@
 
 ## Unreleased
 
+## 4.2.0 - 2024-10-24
+
 - Fix loading of the plugin when used with `qgis_process`, contribution from @Gustry
+- Fix incomplete plots when used with atlas, thanks to @nyalldawson
+- Fix DataType in pie charts, contribution to @jdugge
 
 ## 4.1.0 - 2023-11-15
 
