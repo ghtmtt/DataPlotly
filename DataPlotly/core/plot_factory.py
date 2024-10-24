@@ -95,9 +95,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                  visible_region: QgsReferencedRectangle = None, polygon_filter: FilterRegion = None):
         super().__init__()
         if settings is None:
-            settings = PlotSettings('scatter')
-
-        self.settings = settings
+            self.settings = PlotSettings('scatter')
+        else:
+            self.settings = settings.clone()
         self.context_generator = context_generator
         self.raw_plot = None
         self.plot_path = None
