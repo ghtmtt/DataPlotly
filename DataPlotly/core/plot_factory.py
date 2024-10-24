@@ -7,11 +7,13 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 
+
 import tempfile
 import os
 import re
 import plotly
 import plotly.graph_objs as go
+from copy import deepcopy
 from plotly import subplots
 
 from qgis.core import (
@@ -97,7 +99,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         if settings is None:
             self.settings = PlotSettings('scatter')
         else:
-            self.settings = settings.clone()
+            self.settings = deepcopy(settings)
         self.context_generator = context_generator
         self.raw_plot = None
         self.plot_path = None

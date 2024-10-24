@@ -11,6 +11,10 @@ from qgis.PyQt.QtCore import QFile, QIODevice
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
 from qgis.core import QgsXmlUtils, QgsPropertyCollection, QgsPropertyDefinition
 
+def _pc_deepcopy(self, memo):
+    return QgsPropertyCollection(self)
+
+QgsPropertyCollection.__deepcopy__ = _pc_deepcopy
 
 class PlotSettings:  # pylint: disable=too-many-instance-attributes
     """
@@ -223,45 +227,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         # multiple_dock
         self.dock_title = dock_title
         self.dock_id = dock_id
-
-    def clone(self) -> 'PlotSettings':
-        """
-        Create a deep copy of PlotSettings.
-
-        Note that we can't just use deepcopy here, because of QgsPropertyCollection member
-        """
-        res = PlotSettings()
-        res.plot_base_dic = deepcopy(self.plot_base_dic)
-        res.data_defined_properties = QgsPropertyCollection(self.data_defined_properties)
-        res.properties = deepcopy(self.properties)
-        res.layout = deepcopy(self.layout)
-        res.plot_type = deepcopy(self.plot_type)
-
-        res.x = self.x[:]
-        res.y = self.y[:]
-        res.z = self.z[:]
-        res.feature_ids = self.feature_ids[:]
-        res.additional_hover_text = self.additional_hover_text[:]
-        res.data_defined_marker_sizes = self.data_defined_marker_sizes[:]
-        res.data_defined_colors = self.data_defined_colors[:]
-        res.data_defined_stroke_colors = self.data_defined_stroke_colors[:]
-        res.data_defined_stroke_widths = self.data_defined_stroke_widths[:]
-
-        res.data_defined_title = self.data_defined_title
-        res.data_defined_legend_title = self.data_defined_legend_title
-        res.data_defined_x_title = self.data_defined_x_title
-        res.data_defined_y_title = self.data_defined_y_title
-        res.data_defined_z_title = self.data_defined_z_title
-        res.data_defined_x_min = self.data_defined_x_min
-        res.data_defined_x_max = self.data_defined_x_max
-        res.data_defined_y_min = self.data_defined_y_min
-        res.data_defined_y_max = self.data_defined_y_max
-        res.source_layer_id = self.source_layer_id
-
-        res.dock_title = self.dock_title
-        res.dock_id = self.dock_id
-
-        return res
 
     def write_xml(self, document: QDomDocument):
         """
