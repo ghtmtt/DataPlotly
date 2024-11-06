@@ -4,8 +4,8 @@
 [![Test plugin](https://github.com/ghtmtt/DataPlotly/actions/workflows/test_plugin.yaml/badge.svg)](https://github.com/ghtmtt/DataPlotly/actions/workflows/test_plugin.yaml)
 [![Transifex 🗺](https://github.com/ghtmtt/DataPlotly/actions/workflows/transifex.yml/badge.svg)](https://github.com/ghtmtt/DataPlotly/actions/workflows/transifex.yml)
 
-The DataPlotly plugin allows creation of ![D3](https://d3js.org/)-like
-interactive plots directly within QGIS, thanks to the ![Plotly](https://plot.ly/python/)
+The DataPlotly plugin allows creation of [D3](https://d3js.org/)-like
+interactive plots directly within QGIS, thanks to the [Plotly](https://plot.ly/python/)
 library and its Python API.
 
 DataPlotly makes plot creation and customization easy for every needs.
