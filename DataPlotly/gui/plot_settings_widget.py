@@ -71,6 +71,7 @@ from qgis.gui import (
 )
 from qgis.utils import iface
 
+from DataPlotly.core.core_utils import DOC_URL
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.gui_utils import GuiUtils
@@ -586,8 +587,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)
-        help_url = QUrl(
-            f'https://dataplotly-docs.readthedocs.io/en/latest/{self.ptype}.html')
+        help_url = QUrl(f'{DOC_URL}/en/latest/{self.ptype}.html')
         self.help_view.load(help_url)
 
     def resizeEvent(self, event):

@@ -28,6 +28,9 @@ from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
 from qgis.core import QgsApplication, QgsExpression, QgsProject
 from qgis.gui import QgsGui
 
+# Help
+from DataPlotly.core.core_utils import DOC_URL
+
 # Import the code for the dialog
 from DataPlotly.gui.dock import DataPlotlyDockManager
 from DataPlotly.gui.gui_utils import GuiUtils
@@ -281,8 +284,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
     @staticmethod
     def open_help():
         """ Open the online help. """
-        QDesktopServices.openUrl(
-            QUrl('https://github.com/ghtmtt/DataPlotly/blob/master/README.md'))
+        QDesktopServices.openUrl(QUrl(DOC_URL))
 
     def loadPlotFromDic(self, plot_dic, dock_id='DataPlotly'):
         """
