@@ -8,7 +8,7 @@ email=matteo.ghetta@gmail.com
 
 about=Draw D3 plots in QGIS
 
-homepage=https://github.com/ghtmtt/DataPlotly/blob/master/README.md
+homepage=https://dataplotly-docs.readthedocs.io
 tracker=https://github.com/ghtmtt/DataPlotly/issues
 repository=https://github.com/ghtmtt/DataPlotly
 # End of mandatory metadata
