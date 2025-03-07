@@ -163,6 +163,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         z_expression, z_needs_geom, z_attrs = add_source_field_or_expression(self.settings.properties['z_name']) if \
             self.settings.properties[
                 'z_name'] else (None, False, set())
+        y_label_expression, y_label_needs_geom, y_label_attrs = add_source_field_or_expression(self.settings.properties['y_combo_radar_label']) if \
+            self.settings.properties[
+                'y_combo_radar_label'] else (None, False, set())
         additional_info_expression, additional_needs_geom, additional_attrs = add_source_field_or_expression(
             self.settings.layout['additional_info_expression']) if self.settings.layout[
             'additional_info_expression'] else (None, False, set())
@@ -230,6 +233,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         colors = []
         stroke_colors = []
         stroke_widths = []
+        y_radar_labels = []
+
         for f in it:
             if visible_geom_engine and not visible_geom_engine.intersects(f.geometry().constGet()):
                 continue
@@ -267,6 +272,16 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 if z == NULL or z is None:
                     continue
 
+            y_radar_label = None
+            if y_label_expression:
+                y_radar_label = y_label_expression.evaluate(context)
+                if y_radar_label == NULL or y_radar_label is None:
+                    continue
+            elif self.settings.properties['y_combo_radar_label']:
+                y_radar_label = f[self.settings.properties['y_combo_radar_label']]
+                if y_radar_label == NULL or y_radar_label is None:
+                    continue
+
             if additional_info_expression:
                 additional_hover_text.append(
                     additional_info_expression.evaluate(context))
@@ -280,6 +295,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 yy.append(y)
             if z is not None:
                 zz.append(z)
+            if y_radar_label is not None:
+                y_radar_labels.append(y_radar_label)
 
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_MARKER_SIZE):
                 default_value = self.settings.properties['marker_size']
@@ -338,6 +355,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.settings.x = xx
         self.settings.y = yy
         self.settings.z = zz
+        self.settings.y_radar_labels = y_radar_labels
         if marker_sizes:
             self.settings.data_defined_marker_sizes = marker_sizes
         if colors:
@@ -740,9 +758,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.layout = PlotFactory.PLOT_TYPES[plot_type].create_layout(
                 self.settings)
             figures = go.Figure(data=ptrace, layout=self.layout)
-
         else:
             figures = go.Figure(data=ptrace, layout=self.layout)
+        print(ptrace)
 
         # set some configurations
         if config is None:

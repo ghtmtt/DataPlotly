@@ -135,7 +135,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'show_mean_line': False,
             'layout_filter_by_map': False,
             'layout_filter_by_atlas': False,
-            'pie_hole': 0
+            'pie_hole': 0,
+            'radar_fill' : None
+
         }
 
         # layout nested dictionary
@@ -175,6 +177,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'range_slider': {'borderwidth': 1, 'visible': False},
             'bargaps': 0,
             'polar': {'angularaxis': {'direction': 'clockwise'}},
+            'radar': {'angularaxis': {'direction': 'clockwise'}},
             'additional_info_expression': '',
             'bins_check': False,
             'gridcolor': '#bdbfc0'
@@ -205,6 +208,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.x = []
         self.y = []
         self.z = []
+        self.y_radar_labels = []
         self.feature_ids = []
         self.additional_hover_text = []
         self.data_defined_marker_sizes = []

@@ -459,7 +459,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # if data defined button is active
         if self.in_color_defined_button.isActive():
             # if plot is type for which using an expression for the color selection makes sense
-            if self.ptype in ['scatter', 'bar', 'pie', 'ternary', 'histogram']:
+            if self.ptype in ['scatter', 'bar', 'pie', 'ternary', 'histogram', 'radar']:
                 self.in_color_combo.setEnabled(False)
                 self.color_scale_data_defined_in.setVisible(True)
                 self.color_scale_data_defined_in.setEnabled(True)
@@ -493,10 +493,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         Trigger actions after selected layer changes
         """
+        
+        self.y_fields_combo.clear()
         self.x_combo.setLayer(layer)
         self.y_combo.setLayer(layer)
+        self.y_combo_radar_label.setLayer(layer)
         self.z_combo.setLayer(layer)
         self.additional_info_combo.setLayer(layer)
+        if layer is not None :
+            field_names = [field.name() for field in layer.fields()]
+            self.y_fields_combo.addItems(field_names)
 
         buttons = self.findChildren(QgsPropertyOverrideButton)
         for button in buttons:
@@ -670,8 +676,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # ScatterPlot marker types
         self.marker_types = OrderedDict([
-            (self.tr('Points'), 'markers'),
             (self.tr('Lines'), 'lines'),
+            (self.tr('Points'), 'markers'),
             (self.tr('Points and Lines'), 'lines+markers')
         ])
         self.marker_type_combo.clear()
@@ -726,6 +732,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.line_combo.clear()
         for k, v in self.line_types.items():
             self.line_combo.addItem(k, v)
+            self.line_type_threshold.addItem(k,v)
 
         # BarPlot bar mode
         self.bar_mode_combo.clear()
@@ -768,6 +775,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                             'DeepblueBlueWhite': 'YIGnBu',
                             'BlueWhitePurple': 'Picnic'}
 
+     
         self.color_scale_combo.clear()
         self.color_scale_data_defined_in.clear()
 
@@ -790,7 +798,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.register_data_defined_button(
                 self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
 
-        elif self.ptype in ('scatter', 'ternary', 'bar', '2dhistogram', 'contour', 'polar'):
+        elif self.ptype in ('scatter', 'ternary', 'bar', '2dhistogram', 'contour', 'polar','radar'):
             self.x_label.setText(self.tr('X field'))
             self.x_label.setFont(self.font())
 
@@ -868,51 +876,54 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             # plot properties
             self.layer_combo: ['all'],
             self.feature_subset_defined_button: ['all'],
-            self.x_label: ['all'],
-            self.x_combo: ['all'],
-            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin'],
-            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin'],
+            self.x_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar','ternary', 'contour', 'violin'],
+            self.x_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar',  'ternary', 'contour', 'violin'],
+            self.y_fields_label: ['radar'],
+            self.y_fields_combo: ['radar'],
+            self.y_combo_radar_label: ['radar'],
+            self.y_radar_label: ['radar'],
+            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar','ternary', 'contour', 'violin'],
+            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar','ternary', 'contour', 'violin'],
             self.z_label: ['ternary'],
             self.z_combo: ['ternary'],
             self.info_label: ['scatter'],
             self.info_combo: ['scatter'],
             self.in_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.in_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
-            self.in_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary'],
+            self.in_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar',  'ternary'],
             self.color_scale_data_defined_in: ['scatter', 'bar', 'pie', 'histogram', 'ternary'],
             self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.out_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
-            self.out_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
+            self.out_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar',  'ternary', 'violin'],
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.stroke_defined_button: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
-            self.marker_size_lab: ['scatter', 'polar', 'ternary', 'bar'],
-            self.marker_size: ['scatter', 'polar', 'ternary', 'bar'],
-            self.size_defined_button: ['scatter', 'polar', 'ternary', 'bar'],
-            self.marker_type_lab: ['scatter', 'polar'],
-            self.marker_type_combo: ['scatter', 'polar'],
-            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
-            self.opacity_widget: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin', 'contour'],
-            self.properties_group_box: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'contour', '2dhistogram',
+            self.marker_size_lab: ['scatter', 'polar', 'ternary', 'bar', 'radar'],
+            self.marker_size: ['scatter', 'polar', 'ternary', 'bar', 'radar'],
+            self.size_defined_button: ['scatter', 'polar','ternary', 'bar'],
+            self.marker_type_lab: ['scatter', 'polar','radar'],
+            self.marker_type_combo: ['scatter', 'polar','radar'],
+            self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar','radar', 'ternary', 'violin', 'contour'],
+            self.opacity_widget: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'radar','ternary', 'violin', 'contour'],
+            self.properties_group_box: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'radar','ternary', 'contour', '2dhistogram',
                                         'violin'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
             self.legend_label: ['all'],
             self.legend_title: ['all'],
             self.legend_title_defined_button: ['all'],
-            self.point_lab: ['scatter', 'ternary', 'polar'],
+            self.point_lab: ['scatter', 'ternary', 'polar',],
             self.point_combo: ['scatter', 'ternary', 'polar'],
-            self.line_lab: ['scatter', 'polar'],
-            self.line_combo: ['scatter', 'polar'],
-            self.color_scale_label: ['contour', '2dhistogram'],
-            self.color_scale_combo: ['contour', '2dhistogram'],
+            self.line_lab: ['scatter', 'polar','radar',],
+            self.line_combo: ['scatter', 'polar', 'radar'],
+            self.color_scale_label: ['contour', '2dhistogram','radar'],
+            self.color_scale_combo: ['contour', '2dhistogram','radar'],
             self.contour_type_label: ['contour'],
             self.contour_type_combo: ['contour'],
             self.show_lines_check: ['contour'],
-
             # layout customization
             self.show_legend_check: ['all'],
             self.orientation_legend_check: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'pie', 'violin'],
@@ -989,8 +1000,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.violinBox: ['violin'],
             self.pie_hole_label : ['pie'],
             self.pie_hole : ['pie'],
-        }
+            self.radar_fill : ['radar'],
+            self.radar_threshold: ['radar'],
+            self.threshold_value: ['radar'],
+            self.line_threshold_value: ['radar'],
+            self.line_type_threshold: ['radar'],
+            self.threshold_value_label: ['radar']
 
+        }
         # enable the widget according to the plot type
         for k, v in self.widgetType.items():
             if 'all' in v or self.ptype in v:
@@ -1069,6 +1086,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.legend_title.setText(self.y_combo.currentText())
         elif self.ptype == 'histogram':
             self.legend_title.setText(self.x_combo.currentText())
+
         else:
             legend_title_string = (
                 f'{self.x_combo.currentText()} - {self.y_combo.currentText()}')
@@ -1080,7 +1098,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         # get the plot type from the combo box
         self.ptype = self.plot_combo.currentData()
-
         # if colorscale should be visible or not
         color_scale_visible = self.color_scale_data_defined_in_check.isVisible(
         ) and self.color_scale_data_defined_in_check.isChecked()
@@ -1128,8 +1145,20 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'show_lines_check': self.show_lines_check.isChecked(),
                            'layout_filter_by_map': self.filter_by_map_check.isChecked(),
                            'layout_filter_by_atlas': self.filter_by_atlas_check.isChecked(),
-                           'pie_hole' : self.pie_hole.value()
+                           'pie_hole': self.pie_hole.value(),
+                           'radar_fill':  self.radar_fill.isChecked(),
+                           'radar_threshold':  self.radar_threshold.isChecked(),
+                           'y_combo_radar_label': self.y_combo_radar_label.currentText(),
+                            'line_type_threshold' :  self.line_types2[self.line_type_threshold.currentText()],
+                            'threshold_value' : self.threshold_value.value()
+
+                                          
                            }
+        print(self.radar_fill.isChecked())
+        print(self.marker_size.value(), self.threshold_value.value())
+        if self.ptype == 'radar':
+            plot_properties['y_name'] = "array(" + ", ".join([f'"{field_name}"' for field_name in self.y_fields_combo.checkedItems()]) + ")"
+            plot_properties['x_name'] = "array(" + ", ".join([f"'{field_name}'" for field_name in self.y_fields_combo.checkedItems()]) + ")"
 
         if self.in_color_defined_button.isActive():
             plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
@@ -1236,6 +1265,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.filter_by_atlas_check.setChecked(
             settings.properties.get('layout_filter_by_atlas', False))
         self.x_combo.setExpression(settings.properties.get('x_name', ''))
+        # self.y_fields_combo.setExpression(settings.properties.get('y_name', ''))
         self.y_combo.setExpression(settings.properties.get('y_name', ''))
         self.z_combo.setExpression(settings.properties.get('z_name', ''))
         self.in_color_combo.setColor(
@@ -1358,6 +1388,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
 
+        self.radar_fill.setChecked(
+            settings.properties.get('radar_fill', True))
+        self.radar_threshold.setChecked(
+            settings.properties.get('radar_fill', True))
+  
     def create_plot_factory(self) -> PlotFactory:
         """
         Creates a PlotFactory based on the settings defined in the dialog
@@ -1424,17 +1459,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if self.subcombo.currentData() == 'single':
 
             # plot single plot, check the object dictionary length
-            if len(self.plot_factories) <= 1:
+            if len(self.plot_factories) or self.ptype == 'radar' <= 1:
                 self.plot_path = plot_factory.build_figure()
 
             # to plot many plots in the same figure
             else:
                 # plot list ready to be called within go.Figure
                 pl = []
-
                 for _, v in self.plot_factories.items():
                     pl.append(v.trace[0])
-
+                print(pl)
                 self.plot_path = plot_factory.build_figures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox
