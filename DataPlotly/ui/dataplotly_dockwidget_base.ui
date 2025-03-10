@@ -636,7 +636,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="6" column="2">
-                     <widget class="QCheckBox" name="radar_threshold">
+                     <widget class="QCheckBox" name="threshold">
                       <property name="text">
                        <string>threshold</string>
                       </property>
@@ -774,7 +774,7 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="6" column="1">
-                     <widget class="QCheckBox" name="radar_fill">
+                     <widget class="QCheckBox" name="fill">
                       <property name="text">
                        <string>Fill</string>
                       </property>

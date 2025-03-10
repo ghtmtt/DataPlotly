@@ -35,33 +35,34 @@ class RadarChartFactory(PlotType):
     @staticmethod
     def create_trace(settings):
         radar_plot_list = []
-        x =settings.x[0]
+        x = settings.x[0]
+        # Sample colors from the color scale based on the length of settings.y  
+        colors_list = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y)))
 
-        # Change plot colors
-        colors = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y)))
-        
-        # change type line for threshold
-        line = [settings.properties['line_dash']] *len(settings.y)
+        # List repeating the line type for each element in settings.y
+        line_type_list = [settings.properties['line_dash']] * len(settings.y[0])
 
-        if settings.properties['radar_threshold'] is True :
-            colors.append('#000000')
-            settings.y.append([settings.properties['threshold_value']] * len(settings.y))
-            settings.y_radar_labels.append('seuil')
-            line.append(settings.properties['line_type_threshold'])
+        # Add a black color and a threshold line to the data 
+        if settings.properties['threshold'] is True :
+            colors_list.append('#000000')
+            settings.y.append([settings.properties['threshold_value']] * len(settings.y[0]))
+            settings.y_radar_labels.append('threshold')
+            line_type_list.append(settings.properties['line_type_threshold'])
 
-        for (y, name, color,line) in zip(settings.y, settings.y_radar_labels, colors,line):
+        for (y, name, colors_list, line_type_list) in zip(settings.y, settings.y_radar_labels, colors_list, line_type_list):
 
-            # Close circle, create  fictif points
+            # If the marker type includes lines, close the plot by repeating the first (x, y) point  
             if settings.properties['marker'] in ('lines', 'lines+markers'):
                 x= x+[x[0]]
-                y= y+ y+[y[0]]
+                y = y+[y[0]]
+
             radar_plot_list.append(graph_objs.Scatterpolar(
                 r=y,
                 theta=x,
                 mode=settings.properties['marker'],
                 name=name,
                 marker={
-                    "color": colors,
+                    "color": colors_list,
                     "size": settings.data_defined_marker_sizes if settings.data_defined_marker_sizes else settings.properties['marker_size'],
                     "symbol": settings.properties['marker_symbol'],
                     "line": {
@@ -70,13 +71,13 @@ class RadarChartFactory(PlotType):
                     }
                 },
                 line={
-                    "color": color,
+                    "color": colors_list,
                     "width": settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width'],
-                    "dash": line
+                    "dash": line_type_list 
                     
                 },
                 opacity=settings.properties['opacity'],
-                fill = "toself" if settings.properties['radar_fill'] else None
+                fill="toself" if settings.properties['fill'] else None
                 ))
             
         return radar_plot_list

@@ -771,8 +771,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                             'BlackRedYellowBlue': 'Blackbody',
                             'Terrain': 'Earth',
                             'Electric Scale': 'Electric',
-                            'RedOrangeYellow': 'YIOrRd',
-                            'DeepblueBlueWhite': 'YIGnBu',
+                            'RedOrangeYellow': 'YlOrRd', # fix from https://github.com/plotly/graphing-library-docs/issues/14
+                            'DeepblueBlueWhite': 'YlGnBu', # fix from https://github.com/plotly/graphing-library-docs/issues/14
                             'BlueWhitePurple': 'Picnic'}
 
      
@@ -875,9 +875,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.widgetType = {
             # plot properties
             self.layer_combo: ['all'],
-            self.feature_subset_defined_button: ['all'],
-            self.x_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar','ternary', 'contour', 'violin'],
-            self.x_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar',  'ternary', 'contour', 'violin'],
+            self.feature_subset_defined_button: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
+            self.x_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour'],
+            self.x_combo: ['scatter', 'bar', 'box','pie' '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour'],
             self.y_fields_label: ['radar'],
             self.y_fields_combo: ['radar'],
             self.y_combo_radar_label: ['radar'],
@@ -890,14 +890,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.info_combo: ['scatter'],
             self.in_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.in_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
-            self.in_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar',  'ternary'],
+            self.in_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary'],
             self.color_scale_data_defined_in: ['scatter', 'bar', 'pie', 'histogram', 'ternary'],
             self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary'],
             self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.out_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
-            self.out_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar',  'ternary', 'violin'],
+            self.out_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width_lab: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.marker_width: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
             self.stroke_defined_button: ['scatter', 'bar', 'box', 'histogram', 'polar', 'ternary', 'violin'],
@@ -915,7 +915,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.legend_label: ['all'],
             self.legend_title: ['all'],
             self.legend_title_defined_button: ['all'],
-            self.point_lab: ['scatter', 'ternary', 'polar',],
+            self.point_lab: ['scatter', 'ternary', 'polar'],
             self.point_combo: ['scatter', 'ternary', 'polar'],
             self.line_lab: ['scatter', 'polar','radar',],
             self.line_combo: ['scatter', 'polar', 'radar'],
@@ -1000,8 +1000,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.violinBox: ['violin'],
             self.pie_hole_label : ['pie'],
             self.pie_hole : ['pie'],
-            self.radar_fill : ['radar'],
-            self.radar_threshold: ['radar'],
+            self.fill : ['radar'],
+            self.threshold: ['radar'],
             self.threshold_value: ['radar'],
             self.line_threshold_value: ['radar'],
             self.line_type_threshold: ['radar'],
@@ -1146,16 +1146,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'layout_filter_by_map': self.filter_by_map_check.isChecked(),
                            'layout_filter_by_atlas': self.filter_by_atlas_check.isChecked(),
                            'pie_hole': self.pie_hole.value(),
-                           'radar_fill':  self.radar_fill.isChecked(),
-                           'radar_threshold':  self.radar_threshold.isChecked(),
+                           'fill':  self.fill.isChecked(),
+                           'threshold':  self.threshold.isChecked(),
                            'y_combo_radar_label': self.y_combo_radar_label.currentText(),
-                            'line_type_threshold' :  self.line_types2[self.line_type_threshold.currentText()],
-                            'threshold_value' : self.threshold_value.value()
-
-                                          
+                           'line_type_threshold':  self.line_types2[self.line_type_threshold.currentText()],
+                           'threshold_value': self.threshold_value.value()                     
                            }
-        print(self.radar_fill.isChecked())
-        print(self.marker_size.value(), self.threshold_value.value())
+
         if self.ptype == 'radar':
             plot_properties['y_name'] = "array(" + ", ".join([f'"{field_name}"' for field_name in self.y_fields_combo.checkedItems()]) + ")"
             plot_properties['x_name'] = "array(" + ", ".join([f"'{field_name}'" for field_name in self.y_fields_combo.checkedItems()]) + ")"
@@ -1265,7 +1262,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.filter_by_atlas_check.setChecked(
             settings.properties.get('layout_filter_by_atlas', False))
         self.x_combo.setExpression(settings.properties.get('x_name', ''))
-        # self.y_fields_combo.setExpression(settings.properties.get('y_name', ''))
         self.y_combo.setExpression(settings.properties.get('y_name', ''))
         self.z_combo.setExpression(settings.properties.get('z_name', ''))
         self.in_color_combo.setColor(
@@ -1388,11 +1384,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
 
-        self.radar_fill.setChecked(
-            settings.properties.get('radar_fill', True))
-        self.radar_threshold.setChecked(
-            settings.properties.get('radar_fill', True))
-  
     def create_plot_factory(self) -> PlotFactory:
         """
         Creates a PlotFactory based on the settings defined in the dialog
@@ -1459,7 +1450,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if self.subcombo.currentData() == 'single':
 
             # plot single plot, check the object dictionary length
-            if len(self.plot_factories) or self.ptype == 'radar' <= 1:
+            if len(self.plot_factories) <= 1 or self.ptype == 'radar' :
                 self.plot_path = plot_factory.build_figure()
 
             # to plot many plots in the same figure
@@ -1468,7 +1459,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 pl = []
                 for _, v in self.plot_factories.items():
                     pl.append(v.trace[0])
-                print(pl)
                 self.plot_path = plot_factory.build_figures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox

@@ -136,7 +136,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'layout_filter_by_map': False,
             'layout_filter_by_atlas': False,
             'pie_hole': 0,
-            'radar_fill' : None
+            'fill' : None
 
         }
 
