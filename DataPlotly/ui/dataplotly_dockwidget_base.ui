@@ -320,7 +320,7 @@ QListWidget::item::selected {
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-191</y>
+                  <y>0</y>
                   <width>673</width>
                   <height>1200</height>
                  </rect>
@@ -638,7 +638,7 @@ QListWidget::item::selected {
                     <item row="6" column="2">
                      <widget class="QCheckBox" name="threshold">
                       <property name="text">
-                       <string>threshold</string>
+                       <string>Threshold</string>
                       </property>
                      </widget>
                     </item>
@@ -915,8 +915,12 @@ QListWidget::item::selected {
                     <item row="20" column="2" colspan="6">
                      <widget class="QComboBox" name="box_statistic_combo"/>
                     </item>
-                    <item row="7" column="5">
-                     <widget class="QDoubleSpinBox" name="threshold_value"/>
+                    <item row="7" column="6" colspan="2">
+                     <widget class="QDoubleSpinBox" name="threshold_value">
+                      <property name="maximum">
+                       <double>99990000.000000000000000</double>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -960,8 +964,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>687</width>
-                  <height>742</height>
+                  <width>449</width>
+                  <height>791</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0">
