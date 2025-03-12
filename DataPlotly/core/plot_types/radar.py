@@ -30,12 +30,14 @@ class RadarChartFactory(PlotType):
 
     @staticmethod
     def icon():
-        return QIcon(os.path.join(os.path.dirname(__file__), 'icons/polar.svg'))
+        return QIcon(os.path.join(os.path.dirname(__file__), 'icons/radar.svg'))
 
     @staticmethod
     def create_trace(settings):
+
         radar_plot_list = []
         x = settings.x[0]
+
         # Sample colors from the color scale based on the length of settings.y  
         colors_list = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y)))
 
