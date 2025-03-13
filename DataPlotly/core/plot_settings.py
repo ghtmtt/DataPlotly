@@ -51,6 +51,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_FONT_YTICKS_SIZE = 27
     PROPERTY_FONT_YTICKS_FAMILY = 28
     PROPERTY_FONT_YTICKS_COLOR = 29
+    PROPERTY_FONT_LEGEND_SIZE = 27
+    PROPERTY_FONT_LEGEND_FAMILY = 28
+    PROPERTY_FONT_LEGEND_COLOR = 29
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
@@ -77,6 +80,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         PROPERTY_FONT_YTICKS_SIZE: QgsPropertyDefinition('font_yticks_size', 'Font yticks size', QgsPropertyDefinition.String),
         PROPERTY_FONT_YTICKS_FAMILY: QgsPropertyDefinition('font_yticks_family', 'Font yticks family', QgsPropertyDefinition.String),
         PROPERTY_FONT_YTICKS_COLOR: QgsPropertyDefinition('font_yticks_color', 'Font yticks color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FONT_LEGEND_SIZE: QgsPropertyDefinition('font_legend_size', 'Font yticks size', QgsPropertyDefinition.String),
+        PROPERTY_FONT_LEGEND_FAMILY: QgsPropertyDefinition('font_legend_family', 'Font yticks family', QgsPropertyDefinition.String),
+        PROPERTY_FONT_LEGEND_COLOR: QgsPropertyDefinition('font_legend_color', 'Font yticks color', QgsPropertyDefinition.ColorWithAlpha),
         PROPERTY_X_TITLE: QgsPropertyDefinition('x_title', 'X title', QgsPropertyDefinition.String),
         PROPERTY_Y_TITLE: QgsPropertyDefinition('y_title', 'Y title', QgsPropertyDefinition.String),
         PROPERTY_Z_TITLE: QgsPropertyDefinition('z_title', 'Z title', QgsPropertyDefinition.String),
@@ -169,6 +175,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'font_yticks_size': 10,
             'font_yticks_family': "Arial",
             'font_yticks_color': "#000000",
+            'font_legend_size': 10,
+            'font_legend_family': "Arial",
+            'font_legend_color': "#000000",
             'xaxis': None,
             'bar_mode': None,
             'x_type': None,

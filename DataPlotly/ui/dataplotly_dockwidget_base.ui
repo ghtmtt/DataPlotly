@@ -1319,6 +1319,13 @@ QListWidget::item::selected {
                          </property>
                         </widget>
                        </item>
+                       <item row="7" column="0">
+                        <widget class="QLabel" name="font_legend_label">
+                         <property name="text">
+                          <string>Legend font</string>
+                         </property>
+                        </widget>
+                       </item>
                        <item row="0" column="0">
                         <widget class="QLabel" name="font_title_label">
                          <property name="text">
@@ -1350,6 +1357,13 @@ QListWidget::item::selected {
                          </property>
                         </widget>
                        </item>
+                       <item row="7" column="2">
+                        <widget class="QgsFontButton" name="font_legend_style">
+                         <property name="mode">
+                          <enum>QgsFontButton::ModeQFont</enum>
+                         </property>
+                        </widget>
+                       </item>
                        <item row="5" column="2">
                         <widget class="QgsFontButton" name="font_ylabel_style">
                          <property name="mode">
@@ -1366,6 +1380,9 @@ QListWidget::item::selected {
                        </item>
                        <item row="3" column="3">
                         <widget class="QgsColorButton" name="font_xlabel_color"/>
+                       </item>
+                       <item row="7" column="3">
+                        <widget class="QgsColorButton" name="font_legend_color"/>
                        </item>
                        <item row="3" column="2">
                         <widget class="QgsFontButton" name="font_xlabel_style">
