@@ -1386,7 +1386,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
 
         self.y_combo_radar_label.setExpression(settings.properties.get('y_combo_radar_label', ''))
-        self.line_type_threshold.setCurrentText(settings.properties.get('line_type_threshold', 'Solid Line'))
+        self.line_type_threshold.setCurrentText(settings.properties.get('line_type_threshold', 'Dash Line'))
         self.threshold_value.setValue(settings.properties.get('threshold_value', 1))     
         self.fill.setChecked(settings.properties.get('fill', False))
         self.threshold.setChecked(settings.properties.get('threshold', False))
@@ -1643,6 +1643,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 self.y_combo.setField(plot_input_dic["plot_prop"]["y_name"])
             if 'z_name' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["z_name"]:
                 self.z_combo.setField(plot_input_dic["plot_prop"]["z_name"])
+            if 'y_radar_label' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["y_radar_label"]:
+                self.y_combo_radar_label.setField(plot_input_dic["plot_prop"]["y_radar_label"])
+            if 'y_radar_fields' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["y_radar_fields"]:
+                #self.y_fields_combo.setCurrentText(plot_input_dic["plot_prop"]["y_radar_fields"])
+                for name in plot_input_dic["plot_prop"]["y_radar_fields"]:
+                    self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
         except:  # pylint: disable=bare-except  # noqa: F401
             pass
 

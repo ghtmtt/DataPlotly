@@ -12,8 +12,7 @@ from plotly import graph_objs
 from qgis.PyQt.QtGui import QIcon
 from DataPlotly.core.plot_types.plot_type import PlotType
 import plotly.colors as pc
-import matplotlib.cm as cm
-import matplotlib.colors as mcolors
+
 import numpy as np
 class RadarChartFactory(PlotType):
     """
@@ -35,7 +34,9 @@ class RadarChartFactory(PlotType):
     @staticmethod
     def create_trace(settings):
 
-        radar_plot_list = []
+        if len(settings.x) == 0:
+            return []
+        radar_plot_list = []    
         x = settings.x[0]
 
         # Sample colors from the color scale based on the length of settings.y  
@@ -52,7 +53,6 @@ class RadarChartFactory(PlotType):
             line_type_list.append(settings.properties['line_type_threshold'])
 
         for (y, name, colors_list, line_type_list) in zip(settings.y, settings.y_radar_labels, colors_list, line_type_list):
-
             # If the marker type includes lines, close the plot by repeating the first (x, y) point  
             if settings.properties['marker'] in ('lines', 'lines+markers'):
                 x= x+[x[0]]
@@ -75,13 +75,13 @@ class RadarChartFactory(PlotType):
                 line={
                     "color": colors_list,
                     "width": settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width'],
-                    "dash": line_type_list 
+                    "dash": line_type_list
                     
                 },
                 opacity=settings.properties['opacity'],
                 fill="toself" if settings.properties['fill'] else None
                 ))
-            
+
         return radar_plot_list
     
     @staticmethod
