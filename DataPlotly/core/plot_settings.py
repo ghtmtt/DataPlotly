@@ -101,6 +101,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'x_name': '',
             'y_name': '',
             'z_name': '',
+            'y_combo_radar_label': '',
             'in_color': '#8ebad9',
             'out_color': '#1f77b4',
             'marker_width': 1,
@@ -136,7 +137,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'layout_filter_by_map': False,
             'layout_filter_by_atlas': False,
             'pie_hole': 0,
-            'fill' : None
+            'fill' : None,
+            'line_type_threshold': '',
+            'threshold_value': '',
 
         }
 

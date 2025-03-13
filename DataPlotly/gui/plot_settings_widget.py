@@ -44,7 +44,8 @@ from qgis.PyQt.QtGui import (
 from qgis.PyQt.QtCore import (
     QUrl,
     pyqtSignal,
-    QDir
+    QDir,
+    Qt
 )
 from qgis.PyQt.QtWebKit import QWebSettings
 from qgis.PyQt.QtWebKitWidgets import (
@@ -78,7 +79,6 @@ from DataPlotly.gui.gui_utils import GuiUtils
 
 WIDGET, _ = uic.loadUiType(
     GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
-
 
 class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,too-many-instance-attributes,too-many-public-methods
     """
@@ -182,7 +182,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         for clazz in type_classes:
             self.plot_combo.addItem(
                 clazz.icon(), clazz.name(), clazz.type_name())
-
         # default to scatter plots
         self.set_plot_type('scatter')
 
@@ -493,17 +492,16 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         Trigger actions after selected layer changes
         """
-        
         self.y_fields_combo.clear()
         self.x_combo.setLayer(layer)
         self.y_combo.setLayer(layer)
         self.y_combo_radar_label.setLayer(layer)
         self.z_combo.setLayer(layer)
         self.additional_info_combo.setLayer(layer)
+
         if layer is not None :
             field_names = [field.name() for field in layer.fields()]
             self.y_fields_combo.addItems(field_names)
-
         buttons = self.findChildren(QgsPropertyOverrideButton)
         for button in buttons:
             button.setVectorLayer(layer)
@@ -644,7 +642,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # get the plot type from the combobox
         self.ptype = self.plot_combo.currentData()
-
         # BoxPlot BarPlot and Histogram orientation (same values)
         self.orientation_combo.clear()
         self.orientation_combo.addItem(self.tr('Vertical'), 'v')
@@ -931,20 +928,20 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.plot_title_line: ['all'],
             self.plot_title_defined_button: ['all'],
             self.font_title_label: ['all'],
-            self.font_xlabel_label: ['all'],
+            self.font_xlabel_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
             self.font_xticks_label: ['all'],
             self.font_ylabel_label: ['all'],
-            self.font_yticks_label: ['all'],
+            self.font_yticks_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
             self.font_title_style: ['all'],
-            self.font_xlabel_style: ['all'],
+            self.font_xlabel_style:  ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
             self.font_xticks_style: ['all'],
             self.font_ylabel_style: ['all'],
-            self.font_yticks_style: ['all'],
+            self.font_yticks_style:  ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
             self.font_title_color: ['all'],
-            self.font_xlabel_color: ['all'],
+            self.font_xlabel_color:  ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
             self.font_xticks_color: ['all'],
             self.font_ylabel_color: ['all'],
-            self.font_yticks_color: ['all'],
+            self.font_yticks_color:  ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
             self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
             self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
             self.x_axis_title_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
@@ -1149,10 +1146,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'fill':  self.fill.isChecked(),
                            'threshold':  self.threshold.isChecked(),
                            'y_combo_radar_label': self.y_combo_radar_label.currentText(),
-                           'line_type_threshold':  self.line_types2[self.line_type_threshold.currentText()],
-                           'threshold_value': self.threshold_value.value()                     
+                           'line_type_threshold':   self.line_type_threshold.currentText(),
+                           'threshold_value': self.threshold_value.value(),
+                           'y_fields_combo': self.y_fields_combo.currentText()
                            }
-
         if self.ptype == 'radar':
             plot_properties['y_name'] = "array(" + ", ".join([f'"{field_name}"' for field_name in self.y_fields_combo.checkedItems()]) + ")"
             plot_properties['x_name'] = "array(" + ", ".join([f"'{field_name}'" for field_name in self.y_fields_combo.checkedItems()]) + ")"
@@ -1172,6 +1169,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # build the layout customizations
         layout_properties = {'legend': self.show_legend_check.isChecked(),
                              'legend_orientation': 'h' if self.orientation_legend_check.isChecked() else 'v',
+
                              'title': self.plot_title_line.text(),
                              'font_title_size': max(
             self.font_title_style.currentFont().pixelSize(),
@@ -1216,7 +1214,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             'additional_info_expression': self.additional_info_combo.expression(),
             'bins_check': self.bins_check.isChecked(),
             'gridcolor': self.layout_grid_axis_color.color().name()}
-
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
                                 source_layer_id=self.layer_combo.currentLayer().id(
                                 ) if self.layer_combo.currentLayer() else None,
@@ -1383,13 +1380,22 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layout_grid_axis_color.setColor(
             QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
+        self.y_fields_combo.setCurrentText(settings.properties.get('y_fields_combo', ''))
+
+        for name in self.y_fields_combo.currentText().split(self.y_fields_combo.separator()):
+            self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
+
+        self.y_combo_radar_label.setExpression(settings.properties.get('y_combo_radar_label', ''))
+        self.line_type_threshold.setCurrentText(settings.properties.get('line_type_threshold', 'Solid Line'))
+        self.threshold_value.setValue(settings.properties.get('threshold_value', 1))     
+        self.fill.setChecked(settings.properties.get('fill', False))
+        self.threshold.setChecked(settings.properties.get('threshold', False))
 
     def create_plot_factory(self) -> PlotFactory:
         """
         Creates a PlotFactory based on the settings defined in the dialog
         """
         settings = self.get_settings()
-
         visible_region = None
         if settings.properties['visible_features_only']:
             visible_region = QgsReferencedRectangle(self.iface.mapCanvas().extent(),
@@ -1397,7 +1403,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # plot instance
         plot_factory = PlotFactory(settings, visible_region=visible_region)
-
         # unique name for each plot trace (name is idx_plot, e.g. 1_scatter)
         self.pid = f'{self.idx}_{settings.plot_type}'
 
@@ -1630,7 +1635,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # plot type in the plot_combo combobox
         self.plot_combo.setCurrentIndex(
             self.plot_combo.findData(plot_input_dic["plot_type"]))
-
         try:
             self.layer_combo.setLayer(plot_input_dic["layer"])
             if 'x_name' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["x_name"]:
@@ -1645,7 +1649,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         settings = PlotSettings(plot_input_dic['plot_type'],
                                 properties=plot_input_dic["plot_prop"],
                                 layout=plot_input_dic["layout_prop"])
-
         # create Plot instance
         factory = PlotFactory(settings)
 
