@@ -598,9 +598,6 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="7" column="2">
-                     <widget class="QComboBox" name="line_type_threshold"/>
-                    </item>
                     <item row="11" column="2" colspan="6">
                      <layout class="QHBoxLayout" name="horizontalLayout_4">
                       <item>
@@ -669,13 +666,6 @@ QListWidget::item::selected {
                      <widget class="QLabel" name="orientation_label">
                       <property name="text">
                        <string>Bar orientation</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="4">
-                     <widget class="QLabel" name="threshold_value_label">
-                      <property name="text">
-                       <string>Threshold value</string>
                       </property>
                      </widget>
                     </item>
@@ -922,6 +912,16 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
+                    <item row="7" column="2" colspan="2">
+                     <widget class="QComboBox" name="line_type_threshold"/>
+                    </item>
+                    <item row="7" column="4" colspan="2">
+                     <widget class="QLabel" name="threshold_value_label">
+                      <property name="text">
+                       <string>Threshold value</string>
+                      </property>
+                     </widget>
+                    </item>
                    </layout>
                   </widget>
                  </item>
@@ -965,7 +965,7 @@ QListWidget::item::selected {
                   <x>0</x>
                   <y>0</y>
                   <width>449</width>
-                  <height>791</height>
+                  <height>820</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0">
