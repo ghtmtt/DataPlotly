@@ -88,6 +88,21 @@ class RadarChartFactory(PlotType):
     def create_layout(settings):
         layout = super(RadarChartFactory, RadarChartFactory).create_layout(settings)
 
-        layout['polar'] = settings.layout['radar']
-
+        layout['polar'] = settings.layout['polar']
+        layout['polar'].update({
+                    'radialaxis': {
+                        'tickfont':{
+                            "size": settings.layout.get('font_xticks_size',30),
+                            "color": settings.layout.get('font_xticks_color',"#00000"),
+                            "family": settings.layout.get('font_xticks_family', "Arial"),
+                        }
+                    },
+                    'angularaxis':{
+                        'tickfont':{
+                            "size": settings.layout.get('font_ylabel_size',30),
+                            "color": settings.layout.get('font_ylabel_color',"#00000"),
+                            "family": settings.layout.get('font_ylabel_family', "Arial")
+                        }
+                    }
+                })
         return layout

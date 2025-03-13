@@ -180,7 +180,6 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'range_slider': {'borderwidth': 1, 'visible': False},
             'bargaps': 0,
             'polar': {'angularaxis': {'direction': 'clockwise'}},
-            'radar': {'angularaxis': {'direction': 'clockwise'}},
             'additional_info_expression': '',
             'bins_check': False,
             'gridcolor': '#bdbfc0'
