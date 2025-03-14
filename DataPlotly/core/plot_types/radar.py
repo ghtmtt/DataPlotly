@@ -39,11 +39,10 @@ class RadarChartFactory(PlotType):
         radar_plot_list = []    
         x = settings.x[0]
 
-        # Sample colors from the color scale based on the length of settings.y  
-        colors_list = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y)))
-
+        # Sample colors from the color scale based on the length of settings.y
+        colors_list = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y[0])))
         # List repeating the line type for each element in settings.y
-        line_type_list = [settings.properties['line_dash']] * len(settings.y[0])
+        line_type_list = [settings.properties['line_dash']] * len(settings.y)
 
         # Add a black color and a threshold line to the data 
         if settings.properties['threshold'] is True :

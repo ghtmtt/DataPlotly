@@ -717,7 +717,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.build_html(config))
-
         return self.plot_path
 
     def build_figures(self, plot_type, ptrace, config=None) -> str:
@@ -760,7 +759,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             figures = go.Figure(data=ptrace, layout=self.layout)
         else:
             figures = go.Figure(data=ptrace, layout=self.layout)
-        print(ptrace)
 
         # set some configurations
         if config is None:

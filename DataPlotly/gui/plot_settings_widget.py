@@ -727,7 +727,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         ])
 
         self.line_combo.clear()
-        for k, v in self.line_types.items():
+        self.line_type_threshold.clear()
+        for k, v in self.line_types2.items():
             self.line_combo.addItem(k, v)
             self.line_type_threshold.addItem(k,v)
 
@@ -1146,7 +1147,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'fill':  self.fill.isChecked(),
                            'threshold':  self.threshold.isChecked(),
                            'y_combo_radar_label': self.y_combo_radar_label.currentText(),
-                           'line_type_threshold':   self.line_type_threshold.currentText(),
+                           'line_type_threshold':  self.line_types2[self.line_type_threshold.currentText()],
                            'threshold_value': self.threshold_value.value(),
                            'y_fields_combo': self.y_fields_combo.currentText()
                            }
@@ -1385,11 +1386,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         for name in self.y_fields_combo.currentText().split(self.y_fields_combo.separator()):
             self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
 
+        self.line_type_threshold.setCurrentText(
+            settings.properties.get('line_type_threshold', 'Dash Line'))
+        self.threshold.setChecked(
+            settings.properties.get('threshold',True))
         self.y_combo_radar_label.setExpression(settings.properties.get('y_combo_radar_label', ''))
-        self.line_type_threshold.setCurrentText(settings.properties.get('line_type_threshold', 'Dash Line'))
+        self.threshold.setChecked(settings.properties.get('threshold', True))
         self.threshold_value.setValue(settings.properties.get('threshold_value', 1))     
         self.fill.setChecked(settings.properties.get('fill', False))
-        self.threshold.setChecked(settings.properties.get('threshold', False))
 
     def create_plot_factory(self) -> PlotFactory:
         """
@@ -1455,7 +1459,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         if self.subcombo.currentData() == 'single':
 
             # plot single plot, check the object dictionary length
-            if len(self.plot_factories) <= 1 or self.ptype == 'radar' :
+            if len(self.plot_factories) <= 1 or self.ptype == 'radar':
                 self.plot_path = plot_factory.build_figure()
 
             # to plot many plots in the same figure
@@ -1646,7 +1650,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             if 'y_radar_label' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["y_radar_label"]:
                 self.y_combo_radar_label.setField(plot_input_dic["plot_prop"]["y_radar_label"])
             if 'y_radar_fields' in plot_input_dic["plot_prop"] and plot_input_dic["plot_prop"]["y_radar_fields"]:
-                #self.y_fields_combo.setCurrentText(plot_input_dic["plot_prop"]["y_radar_fields"])
                 for name in plot_input_dic["plot_prop"]["y_radar_fields"]:
                     self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
         except:  # pylint: disable=bare-except  # noqa: F401
