@@ -34,28 +34,29 @@ class RadarChartFactory(PlotType):
     @staticmethod
     def create_trace(settings):
 
-        if len(settings.x) == 0:
+        if len(settings.y_radar_values) == 0:
             return []
-        radar_plot_list = []    
-        x = settings.x[0]
+
+        x = settings.properties["y_fields_combo"].split(", ")
 
         # Sample colors from the color scale based on the length of settings.y
-        colors_list = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y[0])))
+        colors_list = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y_radar_values[0])))
         # List repeating the line type for each element in settings.y
-        line_type_list = [settings.properties['line_dash']] * len(settings.y)
+        line_type_list = [settings.properties['line_dash']] * len(settings.y_radar_values)
 
         # Add a black color and a threshold line to the data 
         if settings.properties['threshold'] is True :
             colors_list.append('#000000')
-            settings.y.append([settings.properties['threshold_value']] * len(settings.y[0]))
+            settings.y.append([settings.properties['threshold_value']] * len(settings.y_radar_values[0]))
             settings.y_radar_labels.append('threshold')
             line_type_list.append(settings.properties['line_type_threshold'])
 
-        for (y, name, colors_list, line_type_list) in zip(settings.y, settings.y_radar_labels, colors_list, line_type_list):
+        radar_plot_list = []    
+        for (y, name, colors_list, line_type_list) in zip(settings.y_radar_values, settings.y_radar_labels, colors_list, line_type_list):
             # If the marker type includes lines, close the plot by repeating the first (x, y) point  
             if settings.properties['marker'] in ('lines', 'lines+markers'):
-                x= x+[x[0]]
-                y = y+[y[0]]
+                x.append(x[0])
+                y.append(y[0])
 
             radar_plot_list.append(graph_objs.Scatterpolar(
                 r=y,

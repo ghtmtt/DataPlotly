@@ -163,9 +163,14 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         z_expression, z_needs_geom, z_attrs = add_source_field_or_expression(self.settings.properties['z_name']) if \
             self.settings.properties[
                 'z_name'] else (None, False, set())
-        y_label_expression, y_label_needs_geom, y_label_attrs = add_source_field_or_expression(self.settings.properties['y_combo_radar_label']) if \
+        y_label_expression, _, y_label_attrs = add_source_field_or_expression(self.settings.properties['y_combo_radar_label']) if \
             self.settings.properties[
                 'y_combo_radar_label'] else (None, False, set())
+        y_fields_expression = QgsExpression("array(" + ", ".join([f'"{field_name}"'
+                                                                  for field_name in self.settings.properties['y_fields_combo'].split(", ")
+                                                                  ]) + ")") if \
+            self.settings.properties[
+                    'y_fields_combo'] else None
         additional_info_expression, additional_needs_geom, additional_attrs = add_source_field_or_expression(
             self.settings.layout['additional_info_expression']) if self.settings.layout[
             'additional_info_expression'] else (None, False, set())
@@ -174,6 +179,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                             x_attrs,
                             y_attrs,
                             z_attrs,
+                            y_label_attrs,
                             additional_attrs)
 
         request = QgsFeatureRequest()
@@ -234,6 +240,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         stroke_colors = []
         stroke_widths = []
         y_radar_labels = []
+        y_radar_values = []
 
         for f in it:
             if visible_geom_engine and not visible_geom_engine.intersects(f.geometry().constGet()):
@@ -282,6 +289,12 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 if y_radar_label == NULL or y_radar_label is None:
                     continue
 
+            y_radar_value = None
+            if y_fields_expression:
+                y_radar_value = y_fields_expression.evaluate(context)
+                if y_radar_value == NULL or y_radar_value is None:
+                    continue
+
             if additional_info_expression:
                 additional_hover_text.append(
                     additional_info_expression.evaluate(context))
@@ -297,6 +310,8 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 zz.append(z)
             if y_radar_label is not None:
                 y_radar_labels.append(y_radar_label)
+            if y_radar_value is not None:
+                y_radar_values.append(y_radar_value)
 
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_MARKER_SIZE):
                 default_value = self.settings.properties['marker_size']
@@ -356,6 +371,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         self.settings.y = yy
         self.settings.z = zz
         self.settings.y_radar_labels = y_radar_labels
+        self.settings.y_radar_values = y_radar_values
         if marker_sizes:
             self.settings.data_defined_marker_sizes = marker_sizes
         if colors:

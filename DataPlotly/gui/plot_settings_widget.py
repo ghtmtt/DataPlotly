@@ -500,8 +500,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.additional_info_combo.setLayer(layer)
 
         if layer is not None :
-            field_names = [field.name() for field in layer.fields()]
-            self.y_fields_combo.addItems(field_names)
+            self.y_fields_combo.addItems([field.name() for field in layer.fields()])
         buttons = self.findChildren(QgsPropertyOverrideButton)
         for button in buttons:
             button.setVectorLayer(layer)
@@ -1149,11 +1148,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'y_combo_radar_label': self.y_combo_radar_label.currentText(),
                            'line_type_threshold':  self.line_types2[self.line_type_threshold.currentText()],
                            'threshold_value': self.threshold_value.value(),
-                           'y_fields_combo': self.y_fields_combo.currentText()
+                           'y_fields_combo': ', '.join(self.y_fields_combo.checkedItems())
                            }
-        if self.ptype == 'radar':
-            plot_properties['y_name'] = "array(" + ", ".join([f'"{field_name}"' for field_name in self.y_fields_combo.checkedItems()]) + ")"
-            plot_properties['x_name'] = "array(" + ", ".join([f"'{field_name}'" for field_name in self.y_fields_combo.checkedItems()]) + ")"
 
         if self.in_color_defined_button.isActive():
             plot_properties['color_scale_data_defined_in_check'] = self.color_scale_data_defined_in_check.isChecked()
@@ -1382,10 +1378,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
         self.y_fields_combo.setCurrentText(settings.properties.get('y_fields_combo', ''))
-
-        for name in self.y_fields_combo.currentText().split(self.y_fields_combo.separator()):
+        for name in self.y_fields_combo.currentText().split(', '):
             self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
-
         self.line_type_threshold.setCurrentText(
             settings.properties.get('line_type_threshold', 'Dash Line'))
         self.threshold.setChecked(

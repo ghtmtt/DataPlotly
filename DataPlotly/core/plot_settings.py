@@ -212,6 +212,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.y = []
         self.z = []
         self.y_radar_labels = []
+        self.y_radar_values = []
         self.feature_ids = []
         self.additional_hover_text = []
         self.data_defined_marker_sizes = []
