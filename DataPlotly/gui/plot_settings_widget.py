@@ -1380,8 +1380,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.y_fields_combo.setCurrentText(settings.properties.get('y_fields_combo', ''))
         for name in self.y_fields_combo.currentText().split(', '):
             self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
-        self.line_type_threshold.setCurrentText(
-            settings.properties.get('line_type_threshold', 'Dash Line'))
+        self.line_type_threshold.setCurrentIndex(self.line_type_threshold.findData(
+            settings.properties.get('line_type_threshold', 'dot')
+        ))
         self.threshold.setChecked(
             settings.properties.get('threshold',True))
         self.y_combo_radar_label.setExpression(settings.properties.get('y_combo_radar_label', ''))

@@ -102,6 +102,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'y_name': '',
             'z_name': '',
             'y_combo_radar_label': '',
+            'y_fields_combo': '',
             'in_color': '#8ebad9',
             'out_color': '#1f77b4',
             'marker_width': 1,
@@ -137,11 +138,10 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'layout_filter_by_map': False,
             'layout_filter_by_atlas': False,
             'pie_hole': 0,
-            'fill': None,
-            'line_type_threshold': 'Dot Line',
-            'threshold_value': '1',
-            'threshold': True
-
+            'fill': False,
+            'line_type_threshold': 'dot',
+            'threshold_value': 1,
+            'threshold': False
         }
 
         # layout nested dictionary
