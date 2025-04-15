@@ -672,8 +672,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # ScatterPlot marker types
         self.marker_types = OrderedDict([
-            (self.tr('Lines'), 'lines'),
             (self.tr('Points'), 'markers'),
+            (self.tr('Lines'), 'lines'),
             (self.tr('Points and Lines'), 'lines+markers')
         ])
         self.marker_type_combo.clear()
@@ -727,9 +727,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         self.line_combo.clear()
         self.line_type_threshold.clear()
-        for k, v in self.line_types2.items():
+        for k, v in self.line_types.items():
             self.line_combo.addItem(k, v)
             self.line_type_threshold.addItem(k,v)
+
+
 
         # BarPlot bar mode
         self.bar_mode_combo.clear()
