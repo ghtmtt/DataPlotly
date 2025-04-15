@@ -458,7 +458,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # if data defined button is active
         if self.in_color_defined_button.isActive():
             # if plot is type for which using an expression for the color selection makes sense
-            if self.ptype in ['scatter', 'bar', 'pie', 'ternary', 'histogram', 'radar']:
+            if self.ptype in ['scatter', 'bar', 'pie', 'ternary', 'histogram']:
                 self.in_color_combo.setEnabled(False)
                 self.color_scale_data_defined_in.setVisible(True)
                 self.color_scale_data_defined_in.setEnabled(True)
