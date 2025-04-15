@@ -48,7 +48,7 @@ class RadarChartFactory(PlotType):
         if settings.properties['threshold']:
             colors_list.append('#000000')
             settings.y_radar_values.append([settings.properties['threshold_value']] * len(settings.y_radar_values[0]))
-            settings.y_radar_labels.append('threshold')
+            settings.y_radar_labels.append(QCoreApplication.translate('DataPlotly', 'threshold'))
             line_type_list.append(settings.properties['line_type_threshold'])
 
         radar_plot_list = []    
