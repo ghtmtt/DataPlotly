@@ -45,7 +45,7 @@ class RadarChartFactory(PlotType):
         line_type_list = [settings.properties['line_dash']] * len(settings.y_radar_values)
 
         # Add a black color and a threshold line to the data 
-        if settings.properties['threshold'] is True :
+        if settings.properties['threshold']:
             colors_list.append('#000000')
             settings.y_radar_values.append([settings.properties['threshold_value']] * len(settings.y_radar_values[0]))
             settings.y_radar_labels.append('threshold')
