@@ -1148,7 +1148,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'fill':  self.fill.isChecked(),
                            'threshold':  self.threshold.isChecked(),
                            'y_combo_radar_label': self.y_combo_radar_label.currentText(),
-                           'line_type_threshold':  self.line_types2[self.line_type_threshold.currentText()],
+                           'line_type_threshold':  self.line_type_threshold.currentText(),
                            'threshold_value': self.threshold_value.value(),
                            'y_fields_combo': ', '.join(self.y_fields_combo.checkedItems())
                            }
@@ -1381,9 +1381,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
         for name in settings.properties.get('y_fields_combo', '').split(", "):
             self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
-        self.line_type_threshold.setCurrentIndex(self.line_type_threshold.findData(
-            settings.properties.get('line_type_threshold', 'dot')
-        ))
+        self.line_type_threshold.setCurrentText(
+            settings.properties.get('line_type_threshold', 'Dot Line')
+        )
         self.threshold.setChecked(
             settings.properties.get('threshold', True))
         self.y_combo_radar_label.setExpression(settings.properties.get('y_combo_radar_label', ''))

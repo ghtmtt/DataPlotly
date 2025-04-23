@@ -139,7 +139,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'layout_filter_by_atlas': False,
             'pie_hole': 0,
             'fill': False,
-            'line_type_threshold': 'dot',
+            'line_type_threshold': 'Dot Line',
             'threshold_value': 1,
             'threshold': False
         }
