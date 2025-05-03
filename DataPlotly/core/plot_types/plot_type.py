@@ -109,11 +109,13 @@ class PlotType:
             legend={'orientation': settings.layout['legend_orientation']},
             title=title,
             xaxis={
-                'title': x_title,
-                'titlefont': {
-                    "size": settings.layout.get('font_xlabel_size', 10),
-                    "color": settings.layout.get('font_xlabel_color', "#000"),
-                    "family": settings.layout.get('font_xlabel_family', "Arial"),
+                'title': {
+                    'text': x_title,
+                    'font': {
+                        "size": settings.layout.get('font_xlabel_size', 10),
+                        "color": settings.layout.get('font_xlabel_color', "#000"),
+                        "family": settings.layout.get('font_xlabel_family', "Arial"),
+                },
                 },
                 'autorange': settings.layout['x_inv'],
                 'range': range_x,
@@ -125,11 +127,13 @@ class PlotType:
                 'gridcolor': settings.layout.get('gridcolor', '#bdbfc0')
             },
             yaxis={
-                'title': y_title,
-                'titlefont': {
-                    "size": settings.layout.get('font_ylabel_size', 10),
-                    "color": settings.layout.get('font_ylabel_color', "#000"),
-                    "family": settings.layout.get('font_ylabel_family', "Arial"),
+                'title': {
+                    'text': y_title,
+                    'font': {
+                        "size": settings.layout.get('font_ylabel_size', 10),
+                        "color": settings.layout.get('font_ylabel_color', "#000"),
+                        "family": settings.layout.get('font_ylabel_family', "Arial"),
+                    },
                 },
                 'autorange': settings.layout['y_inv'],
                 'range': range_y,
