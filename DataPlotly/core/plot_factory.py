@@ -485,7 +485,15 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         replaced in a second moment
         """
 
-        js_str = '''
+        js_str = """
+
+        <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+        <script>
+            new QWebChannel(qt.webChannelTransport, function(channel) {
+                window.pyReceiver = channel.objects.pyReceiver;
+                pyReceiver.getJSmessage("Messaggio da JS!");
+            });
+        </script>
         <script>
         // additional js function to select and click on the data
         // returns the ids of the selected/clicked feature
@@ -615,7 +623,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             }
         window.status = JSON.stringify(dd)
         });
-        </script>'''
+        </script>"""
 
         return js_str
 

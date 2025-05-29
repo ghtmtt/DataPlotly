@@ -27,7 +27,9 @@ from qgis.core import (
     QgsGeometry,
     QgsPropertyCollection
 )
-from qgis.PyQt.QtWebKitWidgets import QWebPage
+# from qgis.PyQt.QtWebKitWidgets import QWebPage
+from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
+from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_factory import PlotFactory, FilterRegion
@@ -36,7 +38,7 @@ from DataPlotly.gui.gui_utils import GuiUtils
 ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
 
 
-class LoggingWebPage(QWebPage):
+class LoggingWebPage(QWebEngineView):
 
     def __init__(self, parent=None):
         super().__init__(parent)

@@ -46,10 +46,15 @@ from qgis.PyQt.QtCore import (
     pyqtSignal,
     QDir
 )
-from qgis.PyQt.QtWebKit import QWebSettings
-from qgis.PyQt.QtWebKitWidgets import (
-    QWebView
-)
+# from qgis.PyQt.QtWebKit import QWebSettings
+# from qgis.PyQt.QtWebKitWidgets import (
+#     QWebView
+# )
+
+from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
+from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
+from qgis.PyQt.QtWebChannel import QWebChannel
+from qgis.PyQt.QtCore import pyqtSlot
 
 from qgis.core import (
     Qgis,
@@ -225,7 +230,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layouth = QVBoxLayout()
         self.layouth.setContentsMargins(0, 0, 0, 0)
         self.help_widget.setLayout(self.layouth)
-        self.help_view = QWebView()
+        self.help_view = QWebEngineView()
+        # self.help_view = QWebView()
         self.layouth.addWidget(self.help_view)
         self.helpPage()
 
@@ -233,16 +239,28 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layoutw = QVBoxLayout()
         self.layoutw.setContentsMargins(0, 0, 0, 0)
         self.plot_qview.setLayout(self.layoutw)
-        self.plot_view = QWebView()
-        self.plot_view.page().setNetworkAccessManager(
-            QgsNetworkAccessManager.instance())
-        self.plot_view.statusBarMessage.connect(self.getJSmessage)
-        plot_view_settings = self.plot_view.settings()
-        plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
-        plot_view_settings.setAttribute(
-            QWebSettings.DeveloperExtrasEnabled, True)
-        plot_view_settings.setAttribute(
-            QWebSettings.Accelerated2dCanvasEnabled, True)
+
+        self.plot_view = QWebEngineView()
+
+        settings = self.plot_view.settings()
+        settings.setAttribute(QWebEngineSettings.WebAttribute.WebGLEnabled, True)
+        # settings.setAttribute(QWebEngineSettings.WebAttribute.DeveloperExtrasEnabled, True)
+        settings.setAttribute(QWebEngineSettings.WebAttribute.Accelerated2dCanvasEnabled, True)
+
+        self.channel = QWebChannel()
+        self.channel.registerObject("pyReceiver", self)
+        self.plot_view.page().setWebChannel(self.channel)
+
+        # self.plot_view = QWebView()
+        # self.plot_view.page().setNetworkAccessManager(
+        #     QgsNetworkAccessManager.instance())
+        # self.plot_view.statusBarMessage.connect(self.getJSmessage)
+        # plot_view_settings = self.plot_view.settings()
+        # plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
+        # plot_view_settings.setAttribute(
+        #     QWebSettings.DeveloperExtrasEnabled, True)
+        # plot_view_settings.setAttribute(
+        #     QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
 
         # get the plot type from the combobox
@@ -507,7 +525,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         self.plot_factories = {k: v for k, v in self.plot_factories.items() if
                                not v.source_layer or v.source_layer.id() != layer_id}
-
+    @pyqtSlot(str)
     def getJSmessage(self, status):
         """
         landing method for statusBarMessage signal coming from PLOT.js_callback
