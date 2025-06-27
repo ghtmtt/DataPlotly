@@ -637,6 +637,9 @@ QListWidget::item::selected {
                       <property name="text">
                        <string>Threshold</string>
                       </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
                      </widget>
                     </item>
                     <item row="5" column="2" colspan="6">
@@ -909,6 +912,9 @@ QListWidget::item::selected {
                      <widget class="QDoubleSpinBox" name="threshold_value">
                       <property name="maximum">
                        <double>99990000.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>1.000000000000000</double>
                       </property>
                      </widget>
                     </item>
