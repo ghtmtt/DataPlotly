@@ -193,7 +193,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # widgets
         self.refreshWidgets()
         self.refreshWidgets2()
-        self.refreshWidgets3()
         self.plot_combo.currentIndexChanged.connect(self.refreshWidgets)
         self.plot_combo.currentIndexChanged.connect(self.helpPage)
         self.subcombo.currentIndexChanged.connect(self.refreshWidgets2)
@@ -1025,6 +1024,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.color_scale_data_defined_in_label.setVisible(False)
         self.color_scale_data_defined_in_check.setVisible(False)
         self.color_scale_data_defined_in_invert_check.setVisible(False)
+
+        self.refreshWidgets3()
 
     def refreshWidgets2(self):
         """
