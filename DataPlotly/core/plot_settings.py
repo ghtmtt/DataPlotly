@@ -101,6 +101,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'x_name': '',
             'y_name': '',
             'z_name': '',
+            'y_combo_radar_label': '',
+            'y_fields_combo': '',
             'in_color': '#8ebad9',
             'out_color': '#1f77b4',
             'marker_width': 1,
@@ -135,7 +137,12 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'show_mean_line': False,
             'layout_filter_by_map': False,
             'layout_filter_by_atlas': False,
-            'pie_hole': 0
+            'pie_hole': 0,
+            'fill': False,
+            'line_combo_threshold': 'Dot Line',
+            'line_dash_threshold': 'dash',
+            'threshold_value': 1,
+            'threshold': False
         }
 
         # layout nested dictionary
@@ -205,6 +212,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         self.x = []
         self.y = []
         self.z = []
+        self.y_radar_labels = []
+        self.y_radar_values = []
         self.feature_ids = []
         self.additional_hover_text = []
         self.data_defined_marker_sizes = []
