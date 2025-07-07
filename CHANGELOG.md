@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 4.3.0 - 2025-07-07
+
+- New radar plot type thanks to @soaubier Oslandia
+- Fix error with title thanks to @florianneukirchen
+- Add help link to help menu and metadata thanks to @Gustry
+
 ## 4.2.0 - 2024-10-24
 
 - Fix loading of the plugin when used with `qgis_process`, contribution from @Gustry
