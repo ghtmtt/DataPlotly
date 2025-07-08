@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 4.3.1 - 2025-07-08
+
+- Fix regression when loading projects
+
 ## 4.3.0 - 2025-07-07
 
 - New radar plot type thanks to @soaubier Oslandia
