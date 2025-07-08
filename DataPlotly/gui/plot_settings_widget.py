@@ -1381,8 +1381,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layout_grid_axis_color.setColor(
             QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
-        for name in settings.properties.get('y_fields_combo', '').split(", "):
-            self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
+        if settings.properties.get('y_fields_combo'):
+            for name in settings.properties.get('y_fields_combo', '').split(", "):
+                self.y_fields_combo.setItemCheckState(self.y_fields_combo.findText(name), Qt.CheckState.Checked)
         self.line_combo_threshold.setCurrentText(
             settings.properties.get('line_combo_threshold', 'Dash Line')
         )
