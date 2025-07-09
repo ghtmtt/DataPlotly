@@ -53,7 +53,7 @@ from qgis.PyQt.QtCore import (
 
 from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
 from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
-from qgis.PyQt.QtWebChannel import QWebChannel
+# from qgis.PyQt.QtWebChannel import QWebChannel
 from qgis.PyQt.QtCore import pyqtSlot
 
 from qgis.core import (
@@ -206,7 +206,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.refreshWidgets3)
 
         # fill the layer combobox with vector layers
-        self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
+        self.layer_combo.setFilters(QgsMapLayerProxyModel.Filter.VectorLayer)
 
         # connect the combo boxes to the setLegend function
         self.x_combo.fieldChanged.connect(self.setLegend)
@@ -247,9 +247,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # settings.setAttribute(QWebEngineSettings.WebAttribute.DeveloperExtrasEnabled, True)
         settings.setAttribute(QWebEngineSettings.WebAttribute.Accelerated2dCanvasEnabled, True)
 
-        self.channel = QWebChannel()
-        self.channel.registerObject("pyReceiver", self)
-        self.plot_view.page().setWebChannel(self.channel)
+        # self.channel = QWebChannel()
+        # self.channel.registerObject("pyReceiver", self)
+        # self.plot_view.page().setWebChannel(self.channel)
 
         # self.plot_view = QWebView()
         # self.plot_view.page().setNetworkAccessManager(
@@ -449,7 +449,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Sets the print layout linked with the widget, if in print layout mode
         """
         self.linked_map_combo.setCurrentLayout(print_layout)
-        self.linked_map_combo.setItemType(QgsLayoutItemRegistry.LayoutMap)
+        self.linked_map_combo.setItemType(QgsLayoutItemRegistry.ItemType.LayoutMap)
 
     def set_plot_type(self, plot_type: str):
         """
@@ -831,7 +831,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
                     PlotSettings.PROPERTY_COLOR),
                 QgsPropertyDefinition(
-                    'color', QgsPropertyDefinition.DataTypeString, 'Color Array',
+                    'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
                     "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
                     "or an array of such strings"
                 ), None, False
@@ -844,7 +844,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
                     PlotSettings.PROPERTY_COLOR),
                 QgsPropertyDefinition(
-                    'color', QgsPropertyDefinition.DataTypeString, 'Color Array',
+                    'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
                     "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
                     "or an array of such strings"
                 ), None, False
@@ -1549,7 +1549,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.plot_view.page().setViewportSize(frame.contentsSize())
         # render image
         image = QImage(self.plot_view.page().viewportSize(),
-                       QImage.Format_ARGB32)
+                       QImage.Format.Format_ARGB32)
         painter = QPainter(image)
         frame.render(painter)
         painter.end()

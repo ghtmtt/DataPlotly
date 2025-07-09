@@ -28,8 +28,8 @@ class DataPlotlyNewDockDialog(QDialog, WIDGET):
 
     def update_dlg(self, state, msg):
         """validator slot"""
-        is_valid = state != QValidator.Intermediate
-        self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(is_valid)
+        is_valid = state != QValidator.State.Intermediate
+        self.buttonBox.button(QDialogButtonBox.StandardButton.Ok).setEnabled(is_valid)
         label = self.DockIdInformationLabel
         lineEdit = self.DockIdLineEdit
         style_border = ""
@@ -68,19 +68,19 @@ class DataPlotlyNewDockIdValidator(QValidator):
 
     def validate(self, dock_id, pos):
         """Checks if dock_id is not empty and not is already present"""
-        state = QValidator.Acceptable
+        state = QValidator.State.Acceptable
         msg = None
 
         if dock_id == "":
-            state = QValidator.Intermediate
+            state = QValidator.State.Intermediate
             msg = self.tr('DockId can not be empty')
 
         if dock_id in self.dock_widgets:
-            state = QValidator.Intermediate
+            state = QValidator.State.Intermediate
             msg = self.tr(f'DockId {dock_id} is already taken')
 
         if '_' in dock_id:
-            state = QValidator.Intermediate
+            state = QValidator.State.Intermediate
             msg = self.tr('The underscore _ is not allowed')
 
         self.validationChanged.emit(state, msg)

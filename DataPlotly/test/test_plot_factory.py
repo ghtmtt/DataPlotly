@@ -668,7 +668,7 @@ class DataPlotlyFactory(unittest.TestCase):
         # get the x and y fields as list
         for items in plot_dict['data']:
             # converts the QDate into strings
-            x = [str(i.toString(Qt.ISODate)) for i in items['x']]
+            x = [str(i.toString(Qt.DateFormat.ISODate)) for i in items['x']]
             y = items['y']
 
         self.assertEqual(x, ["2020-01-01T11:21:00", "2020-02-01T00:15:00", "2020-03-01T17:23:11"])

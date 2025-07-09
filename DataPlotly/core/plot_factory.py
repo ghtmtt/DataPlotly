@@ -36,11 +36,8 @@ from qgis.PyQt.QtCore import (
     QObject,
     pyqtSignal,
     QDate,
-    QDateTime
-)
-from qgis.PyQt.Qt import (
-    Qt
-)
+    QDateTime, Qt)
+# from qgis.PyQt import Qt
 from qgis.PyQt.QtGui import QColor
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
@@ -89,9 +86,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
     # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
     if not hasattr(QDate, 'isoformat'):
-        QDate.isoformat = lambda d: d.toString(Qt.ISODate)
+        QDate.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
     if not hasattr(QDateTime, 'isoformat'):
-        QDateTime.isoformat = lambda d: d.toString(Qt.ISODate)
+        QDateTime.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
 
     def __init__(self, settings: PlotSettings = None, context_generator: QgsExpressionContextGenerator = None,
                  visible_region: QgsReferencedRectangle = None, polygon_filter: FilterRegion = None):
@@ -184,7 +181,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         request.setSubsetOfAttributes(attrs, self.source_layer.fields())
 
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom and not self.settings.data_defined_properties.hasActiveProperties():
-            request.setFlags(QgsFeatureRequest.NoGeometry)
+            request.setFlags(QgsFeatureRequest.Flag.NoGeometry)
 
         visible_geom_engine = None
         if self.settings.properties.get('visible_features_only', False) and self.visible_region is not None:

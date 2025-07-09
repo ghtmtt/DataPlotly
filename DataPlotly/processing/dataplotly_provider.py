@@ -30,7 +30,7 @@ except ImportError:
     WITH_PANDAS = False
     QgsMessageLog.logMessage(
         "Pandas has not been found. The processing algorithm will not be loaded. "
-        "Please install qgis-full or qgis standalone", "DataPlotly", Qgis.Warning)
+        "Please install qgis-full or qgis standalone", "DataPlotly", Qgis.MessageLevel.Warning)
 
 
 class DataPlotlyProvider(QgsProcessingProvider):

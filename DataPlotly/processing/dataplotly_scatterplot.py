@@ -110,7 +110,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             QgsPropertyDefinition(
                 "SIZE",
                 self.tr("Size"),
-                QgsPropertyDefinition.Double,
+                QgsPropertyDefinition.StandardPropertyTemplate.Double,
             )
         )
         self.addParameter(size_param)
@@ -128,7 +128,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             QgsPropertyDefinition(
                 "COLOR",
                 self.tr("Color"),
-                QgsPropertyDefinition.Double,
+                QgsPropertyDefinition.StandardPropertyTemplate.Double,
             )
         )
         self.addParameter(color_param)
@@ -138,7 +138,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             self.tr('Facet row'),
             parentLayerParameterName=self.INPUT
         )
-        facet_row.setFlags(QgsProcessingParameterDefinition.FlagAdvanced | QgsProcessingParameterDefinition.FlagOptional)
+        facet_row.setFlags(QgsProcessingParameterDefinition.Flag.FlagAdvanced | QgsProcessingParameterDefinition.Flag.FlagOptional)
         self.addParameter(facet_row)
 
         facet_col = QgsProcessingParameterExpression(
@@ -147,7 +147,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             optional=True,
             parentLayerParameterName=self.INPUT
         )
-        facet_col.setFlags(QgsProcessingParameterDefinition.FlagAdvanced | QgsProcessingParameterDefinition.FlagOptional)
+        facet_col.setFlags(QgsProcessingParameterDefinition.Flag.FlagAdvanced | QgsProcessingParameterDefinition.Flag.FlagOptional)
         self.addParameter(facet_col)
 
         # offline parameter
@@ -156,7 +156,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
             self.tr('Complete offline usage'),
             defaultValue=False
         )
-        offline_param.setFlags(QgsProcessingParameterDefinition.FlagAdvanced)
+        offline_param.setFlags(QgsProcessingParameterDefinition.Flag.FlagAdvanced)
         self.addParameter(offline_param)
 
         # html file output
@@ -296,7 +296,7 @@ class DataPlotlyProcessingScatterPlot(QgsProcessingAlgorithm):
         data = []
 
         request = QgsFeatureRequest()
-        request.setFlags(QgsFeatureRequest.NoGeometry)
+        request.setFlags(QgsFeatureRequest.Flag.NoGeometry)
 
         total = source.featureCount() if source else 0
 

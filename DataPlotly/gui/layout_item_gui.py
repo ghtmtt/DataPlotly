@@ -75,7 +75,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
         vl.addLayout(plot_tools_layout)
 
         self.plot_list = QListWidget()
-        self.plot_list.setSelectionMode(QListWidget.SingleSelection)
+        self.plot_list.setSelectionMode(QListWidget.SelectionMode.SingleSelection)
         self.plot_list.doubleClicked.connect(self.show_properties)
         vl.addWidget(self.plot_list)
         self.populate_plot_list()
@@ -104,7 +104,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
         # select index within range [0, len(plot_settings)-1]
         selected_index = max(0, min(len(self.plot_item.plot_settings) - 1, selected_index))
-        self.plot_list.setCurrentRow(selected_index, QItemSelectionModel.SelectCurrent)
+        self.plot_list.setCurrentRow(selected_index, QItemSelectionModel.SelectionFlag.SelectCurrent)
 
     def add_plot(self):
         """
@@ -149,7 +149,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
         item = self.plot_item.plot_settings.pop(selected_index)
         self.plot_item.plot_settings.insert(selected_index - 1, item)
-        self.plot_list.setCurrentRow(selected_index - 1, QItemSelectionModel.SelectCurrent)
+        self.plot_list.setCurrentRow(selected_index - 1, QItemSelectionModel.SelectionFlag.SelectCurrent)
         self.populate_plot_list()
         self.plot_item.refresh()
 
@@ -163,7 +163,7 @@ class PlotLayoutItemWidget(QgsLayoutItemBaseWidget):
 
         item = self.plot_item.plot_settings.pop(selected_index)
         self.plot_item.plot_settings.insert(selected_index + 1, item)
-        self.plot_list.setCurrentRow(selected_index + 1, QItemSelectionModel.SelectCurrent)
+        self.plot_list.setCurrentRow(selected_index + 1, QItemSelectionModel.SelectionFlag.SelectCurrent)
         self.populate_plot_list()
         self.plot_item.refresh()
 

@@ -53,37 +53,37 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_FONT_YTICKS_COLOR = 29
 
     DYNAMIC_PROPERTIES = {
-        PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
-        PROPERTY_MARKER_SIZE: QgsPropertyDefinition('marker_size', 'Marker size', QgsPropertyDefinition.DoublePositive),
-        PROPERTY_COLOR: QgsPropertyDefinition('color', 'Color', QgsPropertyDefinition.ColorWithAlpha),
+        PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.StandardPropertyTemplate.Boolean),
+        PROPERTY_MARKER_SIZE: QgsPropertyDefinition('marker_size', 'Marker size', QgsPropertyDefinition.StandardPropertyTemplate.DoublePositive),
+        PROPERTY_COLOR: QgsPropertyDefinition('color', 'Color', QgsPropertyDefinition.StandardPropertyTemplate.ColorWithAlpha),
         PROPERTY_STROKE_COLOR: QgsPropertyDefinition('stroke_color', 'Stroke color',
-                                                     QgsPropertyDefinition.ColorWithAlpha),
+                                                     QgsPropertyDefinition.StandardPropertyTemplate.ColorWithAlpha),
         PROPERTY_STROKE_WIDTH: QgsPropertyDefinition('stroke_width', 'Stroke width',
-                                                     QgsPropertyDefinition.DoublePositive),
-        PROPERTY_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.String),
-        PROPERTY_LEGEND_TITLE: QgsPropertyDefinition('legend_title', 'Legend title', QgsPropertyDefinition.String),
-        PROPERTY_FONT_TITLE_SIZE: QgsPropertyDefinition('font_title_size', 'Font title size', QgsPropertyDefinition.String),
-        PROPERTY_FONT_TITLE_FAMILY: QgsPropertyDefinition('font_title_family', 'Font title family', QgsPropertyDefinition.String),
-        PROPERTY_FONT_TITLE_COLOR: QgsPropertyDefinition('font_title_color', 'Font title color', QgsPropertyDefinition.ColorWithAlpha),
-        PROPERTY_FONT_XLABEL_SIZE: QgsPropertyDefinition('font_xlabel_size', 'Font xlabel size', QgsPropertyDefinition.String),
-        PROPERTY_FONT_XLABEL_FAMILY: QgsPropertyDefinition('font_xlabel_family', 'Font xlabel family', QgsPropertyDefinition.String),
-        PROPERTY_FONT_XLABEL_COLOR: QgsPropertyDefinition('font_xlabel_color', 'Font xlabel color', QgsPropertyDefinition.ColorWithAlpha),
-        PROPERTY_FONT_XTICKS_SIZE: QgsPropertyDefinition('font_xticks_size', 'Font xticks size', QgsPropertyDefinition.String),
-        PROPERTY_FONT_XTICKS_FAMILY: QgsPropertyDefinition('font_xticks_family', 'Font xticks family', QgsPropertyDefinition.String),
-        PROPERTY_FONT_XTICKS_COLOR: QgsPropertyDefinition('font_xticks_color', 'Font xticks color', QgsPropertyDefinition.ColorWithAlpha),
-        PROPERTY_FONT_YLABEL_SIZE: QgsPropertyDefinition('font_ylabel_size', 'Font ylabel size', QgsPropertyDefinition.String),
-        PROPERTY_FONT_YLABEL_FAMILY: QgsPropertyDefinition('font_ylabel_family', 'Font ylabel family', QgsPropertyDefinition.String),
-        PROPERTY_FONT_YLABEL_COLOR: QgsPropertyDefinition('font_ylabel_color', 'Font ylabel color', QgsPropertyDefinition.ColorWithAlpha),
-        PROPERTY_FONT_YTICKS_SIZE: QgsPropertyDefinition('font_yticks_size', 'Font yticks size', QgsPropertyDefinition.String),
-        PROPERTY_FONT_YTICKS_FAMILY: QgsPropertyDefinition('font_yticks_family', 'Font yticks family', QgsPropertyDefinition.String),
-        PROPERTY_FONT_YTICKS_COLOR: QgsPropertyDefinition('font_yticks_color', 'Font yticks color', QgsPropertyDefinition.ColorWithAlpha),
-        PROPERTY_X_TITLE: QgsPropertyDefinition('x_title', 'X title', QgsPropertyDefinition.String),
-        PROPERTY_Y_TITLE: QgsPropertyDefinition('y_title', 'Y title', QgsPropertyDefinition.String),
-        PROPERTY_Z_TITLE: QgsPropertyDefinition('z_title', 'Z title', QgsPropertyDefinition.String),
-        PROPERTY_X_MIN: QgsPropertyDefinition('x_min', 'X axis minimum', QgsPropertyDefinition.Double),
-        PROPERTY_X_MAX: QgsPropertyDefinition('x_max', 'X axis maximum', QgsPropertyDefinition.Double),
-        PROPERTY_Y_MIN: QgsPropertyDefinition('y_min', 'Y axis minimum', QgsPropertyDefinition.Double),
-        PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.Double)
+                                                     QgsPropertyDefinition.StandardPropertyTemplate.DoublePositive),
+        PROPERTY_TITLE: QgsPropertyDefinition('title', 'Plot title', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_LEGEND_TITLE: QgsPropertyDefinition('legend_title', 'Legend title', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_TITLE_SIZE: QgsPropertyDefinition('font_title_size', 'Font title size', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_TITLE_FAMILY: QgsPropertyDefinition('font_title_family', 'Font title family', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_TITLE_COLOR: QgsPropertyDefinition('font_title_color', 'Font title color', QgsPropertyDefinition.StandardPropertyTemplate.ColorWithAlpha),
+        PROPERTY_FONT_XLABEL_SIZE: QgsPropertyDefinition('font_xlabel_size', 'Font xlabel size', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_XLABEL_FAMILY: QgsPropertyDefinition('font_xlabel_family', 'Font xlabel family', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_XLABEL_COLOR: QgsPropertyDefinition('font_xlabel_color', 'Font xlabel color', QgsPropertyDefinition.StandardPropertyTemplate.ColorWithAlpha),
+        PROPERTY_FONT_XTICKS_SIZE: QgsPropertyDefinition('font_xticks_size', 'Font xticks size', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_XTICKS_FAMILY: QgsPropertyDefinition('font_xticks_family', 'Font xticks family', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_XTICKS_COLOR: QgsPropertyDefinition('font_xticks_color', 'Font xticks color', QgsPropertyDefinition.StandardPropertyTemplate.ColorWithAlpha),
+        PROPERTY_FONT_YLABEL_SIZE: QgsPropertyDefinition('font_ylabel_size', 'Font ylabel size', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_YLABEL_FAMILY: QgsPropertyDefinition('font_ylabel_family', 'Font ylabel family', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_YLABEL_COLOR: QgsPropertyDefinition('font_ylabel_color', 'Font ylabel color', QgsPropertyDefinition.StandardPropertyTemplate.ColorWithAlpha),
+        PROPERTY_FONT_YTICKS_SIZE: QgsPropertyDefinition('font_yticks_size', 'Font yticks size', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_YTICKS_FAMILY: QgsPropertyDefinition('font_yticks_family', 'Font yticks family', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_FONT_YTICKS_COLOR: QgsPropertyDefinition('font_yticks_color', 'Font yticks color', QgsPropertyDefinition.StandardPropertyTemplate.ColorWithAlpha),
+        PROPERTY_X_TITLE: QgsPropertyDefinition('x_title', 'X title', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_Y_TITLE: QgsPropertyDefinition('y_title', 'Y title', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_Z_TITLE: QgsPropertyDefinition('z_title', 'Z title', QgsPropertyDefinition.StandardPropertyTemplate.String),
+        PROPERTY_X_MIN: QgsPropertyDefinition('x_min', 'X axis minimum', QgsPropertyDefinition.StandardPropertyTemplate.Double),
+        PROPERTY_X_MAX: QgsPropertyDefinition('x_max', 'X axis maximum', QgsPropertyDefinition.StandardPropertyTemplate.Double),
+        PROPERTY_Y_MIN: QgsPropertyDefinition('y_min', 'Y axis minimum', QgsPropertyDefinition.StandardPropertyTemplate.Double),
+        PROPERTY_Y_MAX: QgsPropertyDefinition('y_max', 'Y axis maximum', QgsPropertyDefinition.StandardPropertyTemplate.Double)
     }
 
     # pylint: disable=too-many-arguments
@@ -313,7 +313,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         Reads the settings from an XML file
         """
         f = QFile(file_name)
-        if f.open(QIODevice.ReadOnly):
+        if f.open(QIODevice.OpenModeFlag.ReadOnly):
             document = QDomDocument()
             if document.setContent(f):
                 if self.read_xml(document.firstChildElement()):
