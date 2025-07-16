@@ -36,8 +36,9 @@ from qgis.PyQt.QtCore import (
     QObject,
     pyqtSignal,
     QDate,
-    QDateTime, Qt)
-# from qgis.PyQt import Qt
+    QDateTime,
+    Qt
+)
 from qgis.PyQt.QtGui import QColor
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
@@ -486,9 +487,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
         <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
         <script>
+            let bridge;
+
             new QWebChannel(qt.webChannelTransport, function(channel) {
-                window.pyReceiver = channel.objects.pyReceiver;
-                pyReceiver.getJSmessage("Messaggio da JS!");
+                bridge = channel.objects.bridge;
             });
         </script>
         <script>
@@ -514,7 +516,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         dds["tid"] = featureIdsTernary
             })
         //console.log(dds)
-        window.status = JSON.stringify(dds)
+        if (bridge) {
+            bridge.bridgeFunction(JSON.stringify(dds));
+        }
         })
 
         // clicking function
@@ -618,7 +622,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             }
 
             }
-        window.status = JSON.stringify(dd)
+        if (bridge) {
+            bridge.bridgeFunction(JSON.stringify(dd));
+        }
         });
         </script>"""
 

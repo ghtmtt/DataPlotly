@@ -46,19 +46,14 @@ from qgis.PyQt.QtCore import (
     pyqtSignal,
     QDir
 )
-# from qgis.PyQt.QtWebKit import QWebSettings
-# from qgis.PyQt.QtWebKitWidgets import (
-#     QWebView
-# )
 
 from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
 from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
-# from qgis.PyQt.QtWebChannel import QWebChannel
-from qgis.PyQt.QtCore import pyqtSlot
+from PyQt6.QtWebChannel import QWebChannel
+from qgis.PyQt.QtCore import pyqtSlot, QObject
 
 from qgis.core import (
     Qgis,
-    QgsNetworkAccessManager,
     QgsFeatureRequest,
     QgsMapLayerProxyModel,
     QgsProject,
@@ -83,6 +78,12 @@ from DataPlotly.gui.gui_utils import GuiUtils
 WIDGET, _ = uic.loadUiType(
     GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
 
+class Bridge(QObject):
+    messageReceived = pyqtSignal(str)
+
+    @pyqtSlot(str)
+    def bridgeFunction(self, msg):
+        self.messageReceived.emit(msg)
 
 class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,too-many-instance-attributes,too-many-public-methods
     """
@@ -243,24 +244,23 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.plot_view = QWebEngineView()
 
         settings = self.plot_view.settings()
-        settings.setAttribute(QWebEngineSettings.WebAttribute.WebGLEnabled, True)
+
+        settings.setAttribute(QWebEngineSettings.WebAttribute.PluginsEnabled, True)
+
+        self.channel = QWebChannel()
+        self.bridge = Bridge()
+        self.bridge.messageReceived.connect(self.getJSmessage)
+        self.channel.registerObject("bridge", self.bridge)
+        self.plot_view.page().setWebChannel(self.channel)
+
+        # following code is just to debug and having an inspector on another page
+        # self.inspector = QWebEngineView()
+        # self.inspector.setWindowTitle("Web Inspector")
+        # self.inspector.load(QUrl("http://127.0.0.1:5588"))
+        # self.plot_view.page().setDevToolsPage(self.inspector.page())
+        # self.inspector.show()
         # settings.setAttribute(QWebEngineSettings.WebAttribute.DeveloperExtrasEnabled, True)
-        settings.setAttribute(QWebEngineSettings.WebAttribute.Accelerated2dCanvasEnabled, True)
 
-        # self.channel = QWebChannel()
-        # self.channel.registerObject("pyReceiver", self)
-        # self.plot_view.page().setWebChannel(self.channel)
-
-        # self.plot_view = QWebView()
-        # self.plot_view.page().setNetworkAccessManager(
-        #     QgsNetworkAccessManager.instance())
-        # self.plot_view.statusBarMessage.connect(self.getJSmessage)
-        # plot_view_settings = self.plot_view.settings()
-        # plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
-        # plot_view_settings.setAttribute(
-        #     QWebSettings.DeveloperExtrasEnabled, True)
-        # plot_view_settings.setAttribute(
-        #     QWebSettings.Accelerated2dCanvasEnabled, True)
         self.layoutw.addWidget(self.plot_view)
 
         # get the plot type from the combobox
@@ -525,7 +525,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         self.plot_factories = {k: v for k, v in self.plot_factories.items() if
                                not v.source_layer or v.source_layer.id() != layer_id}
-    @pyqtSlot(str)
+
     def getJSmessage(self, status):
         """
         landing method for statusBarMessage signal coming from PLOT.js_callback
