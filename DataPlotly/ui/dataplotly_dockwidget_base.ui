@@ -320,9 +320,9 @@ QListWidget::item::selected {
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-270</y>
-                  <width>673</width>
-                  <height>989</height>
+                  <y>0</y>
+                  <width>666</width>
+                  <height>1395</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_9">
@@ -491,10 +491,10 @@ QListWidget::item::selected {
                    <layout class="QGridLayout" name="gridLayout_22">
                     <item row="14" column="1" colspan="5">
                      <widget class="QComboBox" name="combo_text_position"/>
-                      </item>
+                    </item>
                     <item row="1" column="5">
                      <widget class="QgsPropertyOverrideButton" name="size_defined_button">
-                        <property name="text">
+                      <property name="text">
                        <string>...</string>
                       </property>
                      </widget>
@@ -516,12 +516,12 @@ QListWidget::item::selected {
                       </property>
                       <property name="text">
                        <string>Include box plots</string>
-                        </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="19" column="0">
                      <widget class="QLabel" name="violinSideLabel">
                       <property name="text">
@@ -555,25 +555,25 @@ QListWidget::item::selected {
                     </item>
                     <item row="1" column="0">
                      <widget class="QLabel" name="in_color_lab">
-                        <property name="text">
+                      <property name="text">
                        <string>Marker color</string>
-                        </property>
-                       </widget>
-                      </item>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="2" column="0">
                      <widget class="QLabel" name="color_scale_data_defined_in_label">
                       <property name="text">
                        <string>Color scale</string>
-                        </property>
+                      </property>
                      </widget>
                     </item>
                     <item row="1" column="2">
                      <widget class="QgsPropertyOverrideButton" name="in_color_defined_button">
-                        <property name="text">
+                      <property name="text">
                        <string>...</string>
-                        </property>
-                       </widget>
-                      </item>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="5" column="1" colspan="5">
                      <widget class="QComboBox" name="marker_type_combo"/>
                     </item>
@@ -601,21 +601,21 @@ QListWidget::item::selected {
                       </item>
                       <item>
                        <widget class="QCheckBox" name="color_scale_data_defined_in_check">
-                      <property name="text">
+                        <property name="text">
                          <string>Visible</string>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
+                        </property>
+                        <property name="checked">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
                       <item>
                        <widget class="QCheckBox" name="color_scale_data_defined_in_invert_check">
-                      <property name="text">
+                        <property name="text">
                          <string>Invert color</string>
-                      </property>
-                     </widget>
-                    </item>
+                        </property>
+                       </widget>
+                      </item>
                      </layout>
                     </item>
                     <item row="18" column="0">
@@ -682,12 +682,12 @@ QListWidget::item::selected {
                        <widget class="QCheckBox" name="show_lines_check">
                         <property name="text">
                          <string>Show lines</string>
-                      </property>
+                        </property>
                         <property name="checked">
                          <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
+                        </property>
+                       </widget>
+                      </item>
                      </layout>
                     </item>
                     <item row="23" column="0" colspan="6">
@@ -697,21 +697,21 @@ QListWidget::item::selected {
                         <property name="enabled">
                          <bool>true</bool>
                         </property>
-                      <property name="text">
+                        <property name="text">
                          <string>Invert histogram direction</string>
-                      </property>
-                     </widget>
-                    </item>
+                        </property>
+                       </widget>
+                      </item>
                       <item>
                        <widget class="QCheckBox" name="cumulative_hist_check">
                         <property name="enabled">
                          <bool>true</bool>
                         </property>
-                      <property name="text">
+                        <property name="text">
                          <string>Cumulative histogram</string>
-                      </property>
-                     </widget>
-                    </item>
+                        </property>
+                       </widget>
+                      </item>
                      </layout>
                     </item>
                     <item row="4" column="5">
@@ -795,18 +795,18 @@ QListWidget::item::selected {
                     </item>
                     <item row="4" column="3">
                      <widget class="QLabel" name="marker_width_lab">
-                        <property name="text">
+                      <property name="text">
                        <string>Stroke width</string>
-                        </property>
-                       </widget>
-                      </item>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="17" column="0">
                      <widget class="QLabel" name="box_statistic_label">
-                        <property name="text">
+                      <property name="text">
                        <string>Show statistics</string>
-                        </property>
-                       </widget>
-                      </item>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="18" column="1" colspan="5">
                      <widget class="QComboBox" name="outliers_combo"/>
                     </item>
@@ -905,9 +905,9 @@ QListWidget::item::selected {
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
-                  <width>414</width>
-                  <height>583</height>
+                  <y>-293</y>
+                  <width>666</width>
+                  <height>1005</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0">
@@ -1231,7 +1231,7 @@ QListWidget::item::selected {
                        <bool>false</bool>
                       </property>
                       <property name="collapsed">
-                       <bool>true</bool>
+                       <bool>false</bool>
                       </property>
                       <layout class="QGridLayout" name="gridLayout_11">
                        <item row="6" column="0">
@@ -1556,6 +1556,107 @@ QListWidget::item::selected {
    <header>qgis.gui</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>plot_combo</tabstop>
+  <tabstop>scrollArea_5</tabstop>
+  <tabstop>layer_combo</tabstop>
+  <tabstop>selected_feature_check</tabstop>
+  <tabstop>visible_feature_check</tabstop>
+  <tabstop>feature_subset_defined_button</tabstop>
+  <tabstop>linked_map_combo</tabstop>
+  <tabstop>filter_by_map_check</tabstop>
+  <tabstop>filter_by_atlas_check</tabstop>
+  <tabstop>properties_group_box</tabstop>
+  <tabstop>legend_title</tabstop>
+  <tabstop>legend_title_defined_button</tabstop>
+  <tabstop>in_color_combo</tabstop>
+  <tabstop>in_color_defined_button</tabstop>
+  <tabstop>marker_size</tabstop>
+  <tabstop>size_defined_button</tabstop>
+  <tabstop>color_scale_data_defined_in</tabstop>
+  <tabstop>color_scale_data_defined_in_check</tabstop>
+  <tabstop>color_scale_data_defined_in_invert_check</tabstop>
+  <tabstop>out_color_combo</tabstop>
+  <tabstop>out_color_defined_button</tabstop>
+  <tabstop>marker_width</tabstop>
+  <tabstop>stroke_defined_button</tabstop>
+  <tabstop>marker_type_combo</tabstop>
+  <tabstop>point_combo</tabstop>
+  <tabstop>line_combo</tabstop>
+  <tabstop>contour_type_combo</tabstop>
+  <tabstop>show_lines_check</tabstop>
+  <tabstop>color_scale_combo</tabstop>
+  <tabstop>opacity_widget</tabstop>
+  <tabstop>info_combo</tabstop>
+  <tabstop>hover_as_text_check</tabstop>
+  <tabstop>combo_text_position</tabstop>
+  <tabstop>orientation_combo</tabstop>
+  <tabstop>hist_norm_combo</tabstop>
+  <tabstop>box_statistic_combo</tabstop>
+  <tabstop>outliers_combo</tabstop>
+  <tabstop>violinSideCombo</tabstop>
+  <tabstop>pie_hole</tabstop>
+  <tabstop>violinBox</tabstop>
+  <tabstop>showMeanCheck</tabstop>
+  <tabstop>invert_hist_check</tabstop>
+  <tabstop>cumulative_hist_check</tabstop>
+  <tabstop>bins_check</tabstop>
+  <tabstop>bins_value</tabstop>
+  <tabstop>subcombo</tabstop>
+  <tabstop>radio_columns</tabstop>
+  <tabstop>radio_rows</tabstop>
+  <tabstop>clear_btn</tabstop>
+  <tabstop>update_btn</tabstop>
+  <tabstop>draw_btn</tabstop>
+  <tabstop>configuration_btn</tabstop>
+  <tabstop>scrollArea_6</tabstop>
+  <tabstop>show_legend_check</tabstop>
+  <tabstop>orientation_legend_check</tabstop>
+  <tabstop>range_slider_combo</tabstop>
+  <tabstop>plot_title_line</tabstop>
+  <tabstop>plot_title_defined_button</tabstop>
+  <tabstop>x_axis_title</tabstop>
+  <tabstop>x_axis_title_defined_button</tabstop>
+  <tabstop>y_axis_title</tabstop>
+  <tabstop>y_axis_title_defined_button</tabstop>
+  <tabstop>z_axis_title</tabstop>
+  <tabstop>z_axis_title_defined_button</tabstop>
+  <tabstop>font_title_style</tabstop>
+  <tabstop>font_title_color</tabstop>
+  <tabstop>font_xlabel_style</tabstop>
+  <tabstop>font_xlabel_color</tabstop>
+  <tabstop>font_xticks_style</tabstop>
+  <tabstop>font_xticks_color</tabstop>
+  <tabstop>font_ylabel_style</tabstop>
+  <tabstop>font_ylabel_color</tabstop>
+  <tabstop>font_yticks_style</tabstop>
+  <tabstop>font_yticks_color</tabstop>
+  <tabstop>bar_mode_combo</tabstop>
+  <tabstop>bar_gap</tabstop>
+  <tabstop>invert_x_check</tabstop>
+  <tabstop>x_axis_mode_combo</tabstop>
+  <tabstop>invert_y_check</tabstop>
+  <tabstop>y_axis_mode_combo</tabstop>
+  <tabstop>x_axis_bounds_check</tabstop>
+  <tabstop>x_axis_min</tabstop>
+  <tabstop>x_axis_min_defined_button</tabstop>
+  <tabstop>x_axis_max</tabstop>
+  <tabstop>x_axis_max_defined_button</tabstop>
+  <tabstop>y_axis_bounds_check</tabstop>
+  <tabstop>y_axis_min</tabstop>
+  <tabstop>y_axis_min_defined_button</tabstop>
+  <tabstop>y_axis_max</tabstop>
+  <tabstop>y_axis_max_defined_button</tabstop>
+  <tabstop>layout_grid_axis_color</tabstop>
+  <tabstop>reload_btn</tabstop>
+  <tabstop>live_update_check</tabstop>
+  <tabstop>save_plot_html_btn</tabstop>
+  <tabstop>save_plot_btn</tabstop>
+  <tabstop>layout_configuration_box</tabstop>
+  <tabstop>listWidget</tabstop>
+  <tabstop>mGroupBox</tabstop>
+  <tabstop>raw_plot_text</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
