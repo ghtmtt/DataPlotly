@@ -53,11 +53,11 @@ def get_qgis_app(cleanup=True):
 
         # Note: QGIS_PREFIX_PATH is evaluated in QgsApplication -
         # no need to mess with it here.
-        QGISAPP = QgsApplication(argvb, myGuiFlag)
+        #QGISAPP = QgsApplication(argvb, myGuiFlag)
 
-        QGISAPP.initQgis()
-        s = QGISAPP.showSettings()
-        LOGGER.debug(s)
+        #QGISAPP.initQgis()
+        #s = QGISAPP.showSettings()
+        #LOGGER.debug(s)
 
         def debug_log_message(message, tag, level):
             """
@@ -69,23 +69,26 @@ def get_qgis_app(cleanup=True):
             """
             print(f'{tag}({level}): {message}')
 
-        QgsApplication.instance().messageLog().messageReceived.connect(
-            debug_log_message)
+        QGISAPP = QgsApplication.instance()
 
-        if cleanup:
-            @atexit.register
-            def exitQgis():  # pylint: disable=unused-variable
-                """
-                Gracefully closes the QgsApplication instance
-                """
-                try:
-                    QGISAPP.exitQgis()  # pylint: disable=used-before-assignment
-                    QGISAPP = None  # pylint: disable=redefined-outer-name
-                except NameError:
-                    pass
+        #QgsApplication.instance().messageLog().messageReceived.connect(
+        #    debug_log_message)
+
+        # XXX Don't cleanup twice
+        #if cleanup:
+        #    @atexit.register
+        #    def exitQgis():  # pylint: disable=unused-variable
+        #        """
+        #        Gracefully closes the QgsApplication instance
+        #        """
+        #        try:
+        #            QGISAPP.exitQgis()  # pylint: disable=used-before-assignment
+        #            QGISAPP = None  # pylint: disable=redefined-outer-name
+        #        except NameError:
+        #            pass
 
     if PARENT is None:
-        # noinspection PyPep8Naming
+       # # noinspection PyPep8Naming
         PARENT = QWidget()
 
     if CANVAS is None:

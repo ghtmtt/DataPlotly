@@ -3,7 +3,7 @@
 import os
 import json
 
-import processing
+from qgis import processing
 
 from qgis.core import QgsApplication, QgsVectorLayer
 from qgis.testing import unittest
