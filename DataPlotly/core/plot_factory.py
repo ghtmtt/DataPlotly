@@ -164,13 +164,13 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             self.settings.properties[
                 'z_name'] else (None, False, set())
         y_label_expression, _, y_label_attrs = add_source_field_or_expression(self.settings.properties['y_combo_radar_label']) if \
-            self.settings.properties[
-                'y_combo_radar_label'] else (None, False, set())
+            self.settings.properties.get(
+                'y_combo_radar_label') else (None, False, set())
         y_fields_expression = QgsExpression("array(" + ", ".join([f'"{field_name}"'
                                                                   for field_name in self.settings.properties['y_fields_combo'].split(", ")
                                                                   ]) + ")") if \
-            self.settings.properties[
-                    'y_fields_combo'] else None
+            self.settings.properties.get(
+                    'y_fields_combo') else None
         additional_info_expression, additional_needs_geom, additional_attrs = add_source_field_or_expression(
             self.settings.layout['additional_info_expression']) if self.settings.layout[
             'additional_info_expression'] else (None, False, set())
@@ -284,7 +284,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 y_radar_label = y_label_expression.evaluate(context)
                 if y_radar_label == NULL or y_radar_label is None:
                     continue
-            elif self.settings.properties['y_combo_radar_label']:
+            elif self.settings.properties.get('y_combo_radar_label'):
                 y_radar_label = f[self.settings.properties['y_combo_radar_label']]
                 if y_radar_label == NULL or y_radar_label is None:
                     continue
