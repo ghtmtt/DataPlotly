@@ -41,7 +41,7 @@ class RadarChartFactory(PlotType):
         x = settings.properties["y_fields_combo"].split(", ")
 
         # Sample colors from the color scale based on the length of settings.y_radar_values
-        colors_list = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y_radar_values[0])))
+        colors_list = pc.sample_colorscale(settings.properties['color_scale'], np.linspace(0, 1, len(settings.y_radar_values)))
         # List repeating the line type for each element in settings.y_radar_values
         line_type_list = [settings.properties['line_dash']] * len(settings.y_radar_values)
 
