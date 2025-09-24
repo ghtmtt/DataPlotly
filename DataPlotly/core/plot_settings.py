@@ -51,9 +51,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
     PROPERTY_FONT_YTICKS_SIZE = 27
     PROPERTY_FONT_YTICKS_FAMILY = 28
     PROPERTY_FONT_YTICKS_COLOR = 29
-    PROPERTY_FONT_LEGEND_SIZE = 27
-    PROPERTY_FONT_LEGEND_FAMILY = 28
-    PROPERTY_FONT_LEGEND_COLOR = 29
+    PROPERTY_FONT_LEGEND_SIZE = 30
+    PROPERTY_FONT_LEGEND_FAMILY = 31
+    PROPERTY_FONT_LEGEND_COLOR = 32
 
     DYNAMIC_PROPERTIES = {
         PROPERTY_FILTER: QgsPropertyDefinition('filter', 'Feature filter', QgsPropertyDefinition.Boolean),
