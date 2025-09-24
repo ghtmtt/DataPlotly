@@ -323,6 +323,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.font_xticks_color.setColor(QColor('#000000'))
         self.font_ylabel_color.setColor(QColor('#000000'))
         self.font_yticks_color.setColor(QColor('#000000'))
+        self.font_legend_color.setColor(QColor('#000000'))
 
         # default fonts
         self.font_title_style.setCurrentFont(QFont('Arial', 10))
@@ -330,6 +331,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.font_xticks_style.setCurrentFont(QFont('Arial', 10))
         self.font_ylabel_style.setCurrentFont(QFont('Arial', 10))
         self.font_yticks_style.setCurrentFont(QFont('Arial', 10))
+        self.font_legend_style.setCurrentFont(QFont('Arial', 10))
 
         # set range of axis min/max spin boxes
         self.x_axis_min.setRange(sys.float_info.max * -1, sys.float_info.max)
