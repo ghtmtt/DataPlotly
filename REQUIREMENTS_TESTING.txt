@@ -1,4 +1,5 @@
 # For tests execution:
+pytest
 deepdiff
 mock
 flake8

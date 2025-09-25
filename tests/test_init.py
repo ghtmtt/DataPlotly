@@ -12,6 +12,8 @@ import unittest
 import logging
 import configparser
 
+from importlib import resources
+
 LOGGER = logging.getLogger('QGIS')
 
 
@@ -41,9 +43,13 @@ class TestInit(unittest.TestCase):
             'email',
             'author']
 
-        file_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), os.pardir,
-            'metadata.txt'))
+        #file_path = os.path.abspath(os.path.join(
+        #    os.path.dirname(__file__), os.pardir,
+        #    'metadata.txt'))
+
+        file_path = resources.files("DataPlotly").joinpath("metadata.txt")
+        assert file_path.exists()
+
         LOGGER.info(file_path)
         metadata = []
         parser = configparser.ConfigParser()

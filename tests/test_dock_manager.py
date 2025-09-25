@@ -15,9 +15,10 @@ from qgis.PyQt.QtGui import QValidator
 from qgis.PyQt.QtXml import QDomDocument
 
 from DataPlotly.core.core_utils import restore, restore_safe_str_xml, safe_str_xml
-from DataPlotly.test.utilities import get_qgis_app
 from DataPlotly.gui.dock import (DataPlotlyDock, DataPlotlyDockManager)
 from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockIdValidator
+
+from .utilities import get_qgis_app
 
 QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 

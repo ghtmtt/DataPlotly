@@ -31,7 +31,8 @@ from DataPlotly.gui.layout_item_gui import PlotLayoutItemWidget
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
 from DataPlotly.layouts.plot_layout_item import PlotLayoutItem
 from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
-from DataPlotly.test.utilities import get_qgis_app
+
+from .utilities import get_qgis_app
 
 QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 
