@@ -106,7 +106,14 @@ class PlotType:
 
         layout = graph_objs.Layout(
             showlegend=settings.layout['legend'],
-            legend={'orientation': settings.layout['legend_orientation']},
+            legend={'orientation': settings.layout['legend_orientation'],
+                    'font': {
+                        'size': settings.layout.get('font_legend_size', 10),
+                        'color': settings.layout.get('font_legend_color', "#000"),
+                        'family': settings.layout.get('font_legend_family', "Arial"),
+                    }
+                    },
+
             title=title,
             xaxis={
                 'title': {

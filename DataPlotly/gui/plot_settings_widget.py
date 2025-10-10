@@ -323,6 +323,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.font_xticks_color.setColor(QColor('#000000'))
         self.font_ylabel_color.setColor(QColor('#000000'))
         self.font_yticks_color.setColor(QColor('#000000'))
+        self.font_legend_color.setColor(QColor('#000000'))
 
         # default fonts
         self.font_title_style.setCurrentFont(QFont('Arial', 10))
@@ -330,6 +331,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.font_xticks_style.setCurrentFont(QFont('Arial', 10))
         self.font_ylabel_style.setCurrentFont(QFont('Arial', 10))
         self.font_yticks_style.setCurrentFont(QFont('Arial', 10))
+        self.font_legend_style.setCurrentFont(QFont('Arial', 10))
 
         # set range of axis min/max spin boxes
         self.x_axis_min.setRange(sys.float_info.max * -1, sys.float_info.max)
@@ -929,20 +931,23 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.plot_title_line: ['all'],
             self.plot_title_defined_button: ['all'],
             self.font_title_label: ['all'],
-            self.font_xlabel_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
-            self.font_xticks_label: ['all'],
-            self.font_ylabel_label: ['all'],
-            self.font_yticks_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
+            self.font_xlabel_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
+            self.font_xticks_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
+            self.font_ylabel_label:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
+            self.font_yticks_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
+            self.font_legend_label: ['all'],
             self.font_title_style: ['all'],
-            self.font_xlabel_style:  ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
-            self.font_xticks_style: ['all'],
-            self.font_ylabel_style: ['all'],
-            self.font_yticks_style:  ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
+            self.font_xlabel_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram',  'violin'],
+            self.font_xticks_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar', 'radar', 'violin'],
+            self.font_ylabel_style:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
+            self.font_yticks_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
+            self.font_legend_style: ['all'],
             self.font_title_color: ['all'],
-            self.font_xlabel_color:  ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
-            self.font_xticks_color: ['all'],
-            self.font_ylabel_color: ['all'],
-            self.font_yticks_color:  ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar','ternary', 'contour', 'violin'],
+            self.font_xlabel_color:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
+            self.font_xticks_color:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
+            self.font_legend_color: ['all'],
+            self.font_ylabel_color: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
+            self.font_yticks_color: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
             self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
             self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
             self.x_axis_title_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
@@ -1197,6 +1202,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.font_yticks_style.currentFont().pointSize()),
             'font_yticks_family': self.font_yticks_style.currentFont().family(),
             'font_yticks_color': self.font_yticks_color.color().name(),
+            'font_legend_size': max(
+            self.font_legend_style.currentFont().pixelSize(),
+            self.font_legend_style.currentFont().pointSize()),
+            'font_legend_family': self.font_legend_style.currentFont().family(),
+            'font_legend_color': self.font_legend_color.color().name(),
             'x_title': self.x_axis_title.text(),
             'y_title': self.y_axis_title.text(),
             'z_title': self.z_axis_title.text(),
@@ -1315,6 +1325,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                   settings.layout.get('font_yticks_size', 10)))
         self.font_yticks_color.setColor(
             QColor(settings.layout.get('font_yticks_color', "#000000")))
+        self.font_legend_style.setCurrentFont(
+            QFont(settings.layout.get('font_legend_style', "Arial"),
+                  settings.layout.get('font_legend_size', 10)))
+        self.font_legend_color.setColor(
+            QColor(settings.layout.get('font_legend_color', "#000000")))
         self.font_ylabel_style.setCurrentFont(
             QFont(settings.layout.get('font_ylabel_family', "Arial"),
                   settings.layout.get('font_ylabel_size', 10)))

@@ -59,5 +59,20 @@ class PolarChartFactory(PlotType):
         layout = super(PolarChartFactory, PolarChartFactory).create_layout(settings)
 
         layout['polar'] = settings.layout['polar']
-
+        layout['polar'].update({
+                    'radialaxis': {
+                        'tickfont':{
+                            "size": settings.layout.get('font_xticks_size',30),
+                            "color": settings.layout.get('font_xticks_color',"#00000"),
+                            "family": settings.layout.get('font_xticks_family', "Arial"),
+                        }
+                    },
+                    'angularaxis':{
+                        'tickfont':{
+                            "size": settings.layout.get('font_yticks_size',30),
+                            "color": settings.layout.get('font_yticks_color',"#00000"),
+                            "family": settings.layout.get('font_yticks_family', "Arial")
+                        }
+                    }
+                })
         return layout
