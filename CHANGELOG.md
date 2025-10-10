@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 4.3.2 - 2025-10-10
+
+- Minor bug fixing thanks to @soaubier Oslandia
+
+- Fix regression when loading projects
+
 ## 4.3.1 - 2025-07-08
 
 - Fix regression when loading projects
