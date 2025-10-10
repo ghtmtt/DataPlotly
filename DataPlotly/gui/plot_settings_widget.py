@@ -877,7 +877,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.layer_combo: ['all'],
             self.feature_subset_defined_button: ['all'],
             self.x_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour'],
-            self.x_combo: ['scatter', 'bar', 'box','pie' '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour'],
+            self.x_combo: ['scatter', 'bar', 'box','pie', '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour'],
             self.y_fields_label: ['radar'],
             self.y_fields_combo: ['radar'],
             self.y_combo_radar_label: ['radar'],
