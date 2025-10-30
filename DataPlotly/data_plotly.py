@@ -141,7 +141,7 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.toolButton = QToolButton()
         self.toolButtonMenu = QMenu()
         self.toolButton.setMenu(self.toolButtonMenu)
-        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolButton.setPopupMode(QToolButton.ToolButtonPopupMode.MenuButtonPopup)
         self.toolBtnAction = self.iface.addToolBarWidget(self.toolButton)
         self.toolButton.setDefaultAction(self.show_dock_action)
 

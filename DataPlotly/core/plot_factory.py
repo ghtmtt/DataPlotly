@@ -36,9 +36,7 @@ from qgis.PyQt.QtCore import (
     QObject,
     pyqtSignal,
     QDate,
-    QDateTime
-)
-from qgis.PyQt.Qt import (
+    QDateTime,
     Qt
 )
 from qgis.PyQt.QtGui import QColor
@@ -79,7 +77,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     POLY_FILL_PATH = QUrl.fromLocalFile(
         os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
     PLOTLY_PATH = QUrl.fromLocalFile(
-        os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.52.2.min.js'))).toString()
+        os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-3.0.1.min.js'))).toString()
 
     PLOT_TYPES = {
         t.type_name(): t for t in PlotType.__subclasses__()
@@ -89,9 +87,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
     # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
     if not hasattr(QDate, 'isoformat'):
-        QDate.isoformat = lambda d: d.toString(Qt.ISODate)
+        QDate.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
     if not hasattr(QDateTime, 'isoformat'):
-        QDateTime.isoformat = lambda d: d.toString(Qt.ISODate)
+        QDateTime.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
 
     def __init__(self, settings: PlotSettings = None, context_generator: QgsExpressionContextGenerator = None,
                  visible_region: QgsReferencedRectangle = None, polygon_filter: FilterRegion = None):
@@ -193,7 +191,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         request.setSubsetOfAttributes(attrs, self.source_layer.fields())
 
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom and not self.settings.data_defined_properties.hasActiveProperties():
-            request.setFlags(QgsFeatureRequest.NoGeometry)
+            request.setFlags(QgsFeatureRequest.Flag.NoGeometry)
 
         visible_geom_engine = None
         if self.settings.properties.get('visible_features_only', False) and self.visible_region is not None:
@@ -519,7 +517,16 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         replaced in a second moment
         """
 
-        js_str = '''
+        js_str = """
+
+        <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+        <script>
+            let bridge;
+
+            new QWebChannel(qt.webChannelTransport, function(channel) {
+                bridge = channel.objects.bridge;
+            });
+        </script>
         <script>
         // additional js function to select and click on the data
         // returns the ids of the selected/clicked feature
@@ -543,7 +550,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         dds["tid"] = featureIdsTernary
             })
         //console.log(dds)
-        window.status = JSON.stringify(dds)
+        if (bridge) {
+            bridge.bridgeFunction(JSON.stringify(dds));
+        }
         })
 
         // clicking function
@@ -647,9 +656,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             }
 
             }
-        window.status = JSON.stringify(dd)
+        if (bridge) {
+            bridge.bridgeFunction(JSON.stringify(dd));
+        }
         });
-        </script>'''
+        </script>"""
 
         return js_str
 

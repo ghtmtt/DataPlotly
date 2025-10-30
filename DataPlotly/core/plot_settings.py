@@ -331,7 +331,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         Reads the settings from an XML file
         """
         f = QFile(file_name)
-        if f.open(QIODevice.ReadOnly):
+        if f.open(QIODevice.OpenModeFlag.ReadOnly):
             document = QDomDocument()
             if document.setContent(f):
                 if self.read_xml(document.firstChildElement()):

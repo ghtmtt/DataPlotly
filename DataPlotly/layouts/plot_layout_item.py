@@ -27,16 +27,18 @@ from qgis.core import (
     QgsGeometry,
     QgsPropertyCollection
 )
-from qgis.PyQt.QtWebKitWidgets import QWebPage
+# from qgis.PyQt.QtWebKitWidgets import QWebPage
+from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
+from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_factory import PlotFactory, FilterRegion
 from DataPlotly.gui.gui_utils import GuiUtils
 
-ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
+ITEM_TYPE = QgsLayoutItemRegistry.ItemType.PluginItem + 1337
 
 
-class LoggingWebPage(QWebPage):
+class LoggingWebPage(QWebEngineView):
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -49,7 +51,7 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def __init__(self, layout):
         super().__init__(layout)
-        self.setCacheMode(QGraphicsItem.NoCache)
+        self.setCacheMode(QGraphicsItem.CacheMode.NoCache)
         self.plot_settings = []
         self.plot_settings.append(PlotSettings())
         self.linked_map_uuid = ''
@@ -60,11 +62,11 @@ class PlotLayoutItem(QgsLayoutItem):
 
         # This makes the background transparent. (copied from QgsLayoutItemLabel)
         palette = self.web_page.palette()
-        palette.setBrush(QPalette.Base, Qt.transparent)
+        palette.setBrush(QPalette.ColorRole.Base, Qt.GlobalColor.transparent)
         self.web_page.setPalette(palette)
         self.web_page.mainFrame().setZoomFactor(10.0)
-        self.web_page.mainFrame().setScrollBarPolicy(Qt.Horizontal, Qt.ScrollBarAlwaysOff)
-        self.web_page.mainFrame().setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff)
+        self.web_page.mainFrame().setScrollBarPolicy(Qt.Orientation.Horizontal, Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.web_page.mainFrame().setScrollBarPolicy(Qt.Orientation.Vertical, Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
         self.web_page.loadFinished.connect(self.loading_html_finished)
         self.html_loaded = False

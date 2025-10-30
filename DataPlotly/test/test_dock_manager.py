@@ -32,7 +32,7 @@ def read_project(project_path):
         QDocument: document
     """
     xml_file = QFile(project_path)
-    if xml_file.open(QIODevice.ReadOnly):
+    if xml_file.open(QIODevice.OpenModeFlag.ReadOnly):
         xml_doc = QDomDocument()
         xml_doc.setContent(xml_file)
         xml_file.close()
@@ -172,13 +172,13 @@ class DataPlotlyDockManagerTest(unittest.TestCase):
         # Dockid is valid
         state, _, _ = validator.validate('NewDockId', None)
         self.assertEqual(
-            QValidator.Acceptable,
+            QValidator.State.Acceptable,
             state
         )
         # Dockid can not be empty / No underscore / Not already taken
         for bad_dock_id in ['', 'with_underscore', 'DataPlotly2']:
             state, _, _ = validator.validate(bad_dock_id, None)
-            self.assertEqual(QValidator.Intermediate, state)
+            self.assertEqual(QValidator.State.Intermediate, state)
 
 
 if __name__ == "__main__":
