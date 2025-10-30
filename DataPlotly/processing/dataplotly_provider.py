@@ -24,7 +24,11 @@ from DataPlotly.gui.gui_utils import GuiUtils
 
 try:
     # 🐼
-    from DataPlotly.processing.dataplotly_scatterplot import DataPlotlyProcessingScatterPlot
+    from DataPlotly.processing.barplot import DataPlotlyProcessingBarPlot
+    from DataPlotly.processing.boxplot import DataPlotlyProcessingBoxPlot
+    from DataPlotly.processing.histogram import DataPlotlyProcessingHistogramPlot
+    from DataPlotly.processing.scatterplot import DataPlotlyProcessingScatterPlot
+    from DataPlotly.processing.scatterplot_3d import DataPlotlyProcessingScatter3DPlot
     WITH_PANDAS = True
 except ImportError:
     WITH_PANDAS = False
@@ -86,4 +90,8 @@ class DataPlotlyProvider(QgsProcessingProvider):
         cleared before calling this method.
         """
         if WITH_PANDAS:
+            self.addAlgorithm(DataPlotlyProcessingBarPlot())
+            self.addAlgorithm(DataPlotlyProcessingBoxPlot())
+            self.addAlgorithm(DataPlotlyProcessingHistogramPlot())
             self.addAlgorithm(DataPlotlyProcessingScatterPlot())
+            self.addAlgorithm(DataPlotlyProcessingScatter3DPlot())
