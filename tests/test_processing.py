@@ -1,45 +1,54 @@
-"""Tests for processing algorithms."""
-
-import os
-import json
-
-from qgis import processing
-
-from qgis.core import QgsApplication, QgsVectorLayer
-from qgis.testing import unittest
-from qgis.PyQt.QtGui import QColor
-
-from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
+"""Tests for processing algorithms.
 
 __copyright__ = 'Copyright 2022, Faunalia'
 __license__ = 'GPL version 3'
 __email__ = 'info@faunalia.eu'
+"""
+import json
+import base64
+import array
+
+from pathlib import Path
+from typing import Any
+
+from qgis.core import (
+    QgsVectorLayer,
+    QgsProcessingContext,
+    QgsProcessingFeedback,
+)
+from qgis.PyQt.QtGui import QColor
+
+def decode_array_1d(spec: dict) -> array.array:
+    binary = base64.decodebytes(spec["bdata"].encode())
+    match spec["dtype"]:
+        case "i2":
+            return array.array("h", binary)
+        case "i4": 
+            return array.array("l", binary)
+        case "f8":
+            return array.array("d", binary)
+        case other: 
+            raise ValueError(f"Unhandled dtype {other}")
 
 
-class TestProcessing(unittest.TestCase):
-    """Tests for processing algorithms."""
+def test_scatterplot_figure(data: Path, output_dir: Path):
+    """Test for the Processing scatterplot"""
+    from qgis import processing
 
-    def setUp(self) -> None:
-        """Set up the processing tests."""
-        if not QgsApplication.processingRegistry().providers():
-            self.provider = DataPlotlyProvider(plugin_version='2.3')
-            QgsApplication.processingRegistry().addProvider(self.provider)
-        self.maxDiff = None
+    class Feedback(QgsProcessingFeedback):
+        def reportError(self, msg: str, fatalError: bool = False):
+            print("\n::test_scatterplot_figure::error", msg)
 
-    def test_scatterplot_figure(self):
-        """Test for the Processing scatterplot"""
+    layer_path = data.joinpath("test_layer.shp")
 
-        layer_path = os.path.join(
-            os.path.dirname(__file__), 'test_layer.shp')
+    vl = QgsVectorLayer(str(layer_path), "test_layer", "ogr")
 
-        vl = QgsVectorLayer(layer_path, 'test_layer', 'ogr')
+    context = QgsProcessingContext()
+    context.setTemporaryFolder(str(output_dir))
 
-        # plot_path = os.path.join(
-        #     os.path.dirname(__file__), 'scatterplot.json')
-        # with open(plot_path, 'r') as f:
-        #     template_dict = json.load(f)
-
-        plot_param = {
+    result = processing.run(
+        "DataPlotly:dataplotly_scatterplot",
+        {
             'INPUT': vl,
             'XEXPRESSION': '"so4"',
             'YEXPRESSION': '"ca"',
@@ -50,22 +59,16 @@ class TestProcessing(unittest.TestCase):
             'OFFLINE': False,
             'OUTPUT_HTML_FILE': 'TEMPORARY_OUTPUT',
             'OUTPUT_JSON_FILE': 'TEMPORARY_OUTPUT'
-        }
+        },
+        context=context,
+        feedback=Feedback(),
+    )
 
-        result = processing.run("DataPlotly:dataplotly_scatterplot", plot_param)
+    with open(result['OUTPUT_JSON_FILE']) as f:
+        result_dict = json.load(f)
 
-        with open(result['OUTPUT_JSON_FILE'], encoding='utf8') as f:
-            result_dict = json.load(f)
-
-        self.assertListEqual(
-            result_dict['data'][0]['x'],
-            [98, 88, 267, 329, 319, 137, 350, 151, 203]
-        )
-        self.assertListEqual(
-            result_dict['data'][0]['y'],
-            [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
-        )
-
-
-if __name__ == '__main__':
-    unittest.main()
+    x = decode_array_1d(result_dict['data'][0]['x'])
+    assert x.tolist() ==  [98, 88, 267, 329, 319, 137, 350, 151, 203]
+    
+    y = decode_array_1d(result_dict['data'][0]['y'])
+    assert y.tolist() == [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]

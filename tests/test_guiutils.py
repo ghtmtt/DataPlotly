@@ -5,44 +5,29 @@
      the Free Software Foundation; either version 2 of the License, or
      (at your option) any later version.
 
-"""
-
 __author__ = '(C) 2018 by Nyall Dawson'
 __date__ = '20/04/2018'
 __copyright__ = 'Copyright 2018, North Road'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
-import unittest
+"""
+
 from DataPlotly.gui.gui_utils import GuiUtils
-from .utilities import get_qgis_app
-
-QGIS_APP = get_qgis_app()
 
 
-class GuiUtilsTest(unittest.TestCase):
-    """Test GuiUtils work."""
-
-    def testGetIcon(self):
-        """
-        Tests get_icon
-        """
-        self.assertFalse(
-            GuiUtils.get_icon('dataplotly.svg').isNull())
-        self.assertTrue(GuiUtils.get_icon('not_an_icon.svg').isNull())
-
-    def testGetIconSvg(self):
-        """
-        Tests get_icon svg path
-        """
-        self.assertTrue(
-            GuiUtils.get_icon_svg('dataplotly.svg'))
-        self.assertIn('dataplotly.svg',
-                      GuiUtils.get_icon_svg('dataplotly.svg'))
-        self.assertFalse(GuiUtils.get_icon_svg('not_an_icon.svg'))
+def test_get_icon():
+    """
+    Tests get_icon
+    """
+    assert not GuiUtils.get_icon('dataplotly.svg').isNull()
+    assert GuiUtils.get_icon('not_an_icon.svg').isNull()
 
 
-if __name__ == "__main__":
-    suite = unittest.defaultTestLoader.loadTestsFromTestCase(GuiUtilsTest)
-    runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(suite)
+def test_get_icon_svg():
+    """
+    Tests get_icon svg path
+    """
+    assert GuiUtils.get_icon_svg('dataplotly.svg')
+    assert "dataplotly.svg" in GuiUtils.get_icon_svg('dataplotly.svg')
+    assert not GuiUtils.get_icon_svg('not_an_icon.svg')
