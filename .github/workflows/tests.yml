@@ -1,12 +1,12 @@
-name: Test plugin
+name: Tests
 
 on:
   push:
-    tags:
+    branches:
       - "*"
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   tests:

@@ -20,14 +20,14 @@ def test_get_icon():
     """
     Tests get_icon
     """
-    assert not GuiUtils.get_icon('dataplotly.svg').isNull()
-    assert GuiUtils.get_icon('not_an_icon.svg').isNull()
+    assert not GuiUtils.get_icon("dataplotly.svg").isNull()
+    assert GuiUtils.get_icon("not_an_icon.svg").isNull()
 
 
 def test_get_icon_svg():
     """
     Tests get_icon svg path
     """
-    assert GuiUtils.get_icon_svg('dataplotly.svg')
-    assert "dataplotly.svg" in GuiUtils.get_icon_svg('dataplotly.svg')
-    assert not GuiUtils.get_icon_svg('not_an_icon.svg')
+    assert GuiUtils.get_icon_svg("dataplotly.svg")
+    assert "dataplotly.svg" in GuiUtils.get_icon_svg("dataplotly.svg")
+    assert not GuiUtils.get_icon_svg("not_an_icon.svg")

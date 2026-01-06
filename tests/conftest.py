@@ -13,20 +13,19 @@ import pytest
 import semver
 
 from qgis.core import Qgis, QgsApplication
-from qgis.PyQt import Qt
 from qgis.gui import QgisInterface
+from qgis.PyQt import Qt
 
 
 def pytest_report_header(config):
     from osgeo import gdal
 
-    message = (
+    return (
         f"QGIS : {Qgis.QGIS_VERSION_INT}\n"
         f"Python GDAL : {gdal.VersionInfo('VERSION_NUM')}\n"
         f"Python : {sys.version}\n"
         f"QT : {Qt.QT_VERSION_STR}"
     )
-    return message
 
 
 @pytest.fixture(scope="session")
@@ -66,7 +65,7 @@ def pytest_sessionstart(session: pytest.Session):
 def _install_logger_hook():
     """Install message log hook"""
     logging.debug("Installing logger hook")
-    from qgis.core import Qgis, QgsApplication
+    from qgis.core import Qgis
 
     # Add a hook to qgis  message log
     def writelogmessage(message, tag, level):

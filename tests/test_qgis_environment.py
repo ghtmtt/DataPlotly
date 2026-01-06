@@ -11,10 +11,12 @@ __copyright__ = ('Copyright 2012, Australia Indonesia Facility for '
                  'Disaster Reduction')
 
 """
+
 from qgis.core import (
-    QgsProviderRegistry,
     QgsCoordinateReferenceSystem,
+    QgsProviderRegistry,
 )
+from qgis.gui import QgisInterface
 
 
 def test_qgis_environment():
@@ -22,21 +24,21 @@ def test_qgis_environment():
 
     r = QgsProviderRegistry.instance()
     providers = r.providerList()
-    assert 'gdal' in providers
-    assert 'ogr' in providers
-    assert 'postgres' in providers
+    assert "gdal" in providers
+    assert "ogr" in providers
+    assert "postgres" in providers
 
 
-def test_projection():
-    """Test that QGIS properly parses a wkt string.
-    """
+def test_projection(qgis_iface: QgisInterface):
+    """Test that QGIS properly parses a wkt string."""
     crs = QgsCoordinateReferenceSystem()
     wkt = (
         'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",'
         'SPHEROID["WGS_1984",6378137.0,298.257223563]],'
         'PRIMEM["Greenwich",0.0],UNIT["Degree",'
-        '0.0174532925199433]]')
+        "0.0174532925199433]]"
+    )
     crs.createFromWkt(wkt)
     auth_id = crs.authid()
-    expected_auth_id = 'EPSG:4326'
+    expected_auth_id = "EPSG:4326"
     assert auth_id == expected_auth_id

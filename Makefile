@@ -15,7 +15,7 @@ REQUIREMENTS_GROUPS= \
 
 REQUIREMENTS=$(patsubst %, requirements/%.txt, $(REQUIREMENTS_GROUPS))
 
-update-requirements: $(REQUIREMENS)
+update-requirements: $(REQUIREMENTS)
 
 requirements/%.txt: uv.lock
 	@echo "Updating requirements for '$*'"; \
@@ -33,18 +33,18 @@ requirements/%.txt: uv.lock
 LINT_TARGETS=$(PYTHON_MODULE) tests $(EXTRA_LINT_TARGETS)
 
 lint::
-	@ $(UV_RUN) ruff check --preview  --output-format=concise $(LINT_TARGETS)
+	@ruff check --preview  --output-format=concise $(LINT_TARGETS)
 
 lint:: typecheck
 
 lint-fix:
-	@ $(UV_RUN) ruff check --preview --fix $(LINT_TARGETS)
+	@ruff check --preview --fix $(LINT_TARGETS)
 
 format:
-	@ $(UV_RUN) ruff format $(LINT_TARGETS)
+	@ruff format $(LINT_TARGETS)
 
 typecheck:
-	@ $(UV_RUN) mypy $(LINT_TARGETS)
+	@mypy $(LINT_TARGETS)
 
 #
 # Tests
@@ -67,4 +67,19 @@ coverage: covtest
 	@echo "Building coverage report"
 	@ $(UV_RUN) coverage html
 
+#
+# Tests using docker image
+#
+QGIS_IMAGE_REPOSITORY ?=qgis/qgis
+QGIS_IMAGE_TAG ?= $(QGIS_IMAGE_REPOSITORY):$(QGIS_VERSION)
 
+export QGIS_VERSION
+export QGIS_IMAGE_TAG
+export UID=$(shell id -u)
+export GID=$(shell id -g)
+docker-test:
+	cd .docker && docker compose up \
+		--quiet-pull \
+		--abort-on-container-exit \
+		--exit-code-from qgis
+	cd .docker && docker compose down -v

@@ -9,18 +9,16 @@
 
 from pathlib import Path
 
-
 import pytest
 
 from qgis.gui import QgisInterface
-
 from qgis.PyQt.QtCore import QByteArray, QFile, QIODevice
 from qgis.PyQt.QtGui import QValidator
 from qgis.PyQt.QtXml import QDomDocument
 
 from DataPlotly.core.core_utils import restore, restore_safe_str_xml, safe_str_xml
-from DataPlotly.gui.dock import DataPlotlyDock, DataPlotlyDockManager
 from DataPlotly.gui.add_new_dock_dlg import DataPlotlyNewDockIdValidator
+from DataPlotly.gui.dock import DataPlotlyDock, DataPlotlyDockManager
 
 
 def read_project(project_path: Path) -> QDomDocument:
@@ -44,12 +42,10 @@ def read_project(project_path: Path) -> QDomDocument:
 @pytest.fixture(scope="module")
 def dock_manager(qgis_iface: QgisInterface) -> DataPlotlyDockManager:
     dock_widgets = {}
-    dock_manager = DataPlotlyDockManager(
+    return DataPlotlyDockManager(
         iface=qgis_iface,
         dock_widgets=dock_widgets,
     )
-
-    return dock_manager
 
 
 def test_002_add_new_dock(dock_manager: DataPlotlyDockManager):

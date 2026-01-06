@@ -9,7 +9,7 @@ keywords = [
     "QGIS", "plugin", "plots", "vector", "graphs", 
     "datavis", "dataviz", "dataplotly",
 ]
-license = {file = "LICENSE"}
+license-files = ["LICENSE"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
@@ -20,7 +20,9 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: GIS",
 ]
-version = "5.0.0"
+# Dummy version number required
+# not used for release
+version = "0.dev"
 
 [project.urls]
 homepage= "https://dataplotly-docs.readthedocs.io"
@@ -37,39 +39,19 @@ tests = [
     "pytest",
     "pytest-qgis",
     "semver",
-    "deepdiff",
-    "mock",
-    "plotly",
 ]
 lint = [
     "ruff",
     "mypy",
 ]
 packaging = [
-    "qgis-plugin-package-ci; python_full_version >= '3.12'",
-    "qgis-plugin-transifex-ci; python_full_version >= '3.12'",
+    "qgis-plugin-ci"
 ]
 
 
 [tool.uv.sources]
-qgis-plugin-package-ci = { git = "https://github.com/3liz/qgis-plugin-package-ci.git" }
-qgis-plugin-transifex-ci = { git = "https://github.com/3liz/qgis-plugin-transifex-ci.git" }
 pytest-qgis = { git = "https://github.com/3liz/pytest-qgis.git" }
 
-#
-# Package ci
-#
-
-[tool.package-ci]
-plugin_source = "DataPlotly"
-github_organization_slug = "ghtmtt"
-project_slug = "DataPlotly"
-
-[tool.qgis-transifex-ci]
-plugin_source = "DataPlotly"
-organization = "dataplotly"
-project = "dataplotly-ui"
-resource = "application"
 
 #
 # Ruff

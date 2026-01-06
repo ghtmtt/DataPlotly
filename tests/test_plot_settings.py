@@ -6,6 +6,7 @@
      (at your option) any later version.
 
 """
+
 from pathlib import Path
 
 import pytest
@@ -13,7 +14,9 @@ import pytest
 from qgis.core import QgsProject, QgsProperty
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
+
 from DataPlotly.core.plot_settings import PlotSettings
+
 
 # Work around undefined properties set empty strings
 def assert_properties_equals(left: dict, right: dict):
@@ -128,10 +131,10 @@ def test_readwrite():
 
     assert res.read_xml(elem)
     assert res.plot_type == original.plot_type
-    # NOTE res has undefined values set to empty strings 
+    # NOTE res has undefined values set to empty strings
     # while original as undefined values set to `None`
-    #assert res.properties == original.properties
-    #assert res.layout == original.layout
+    # assert res.properties == original.properties
+    # assert res.layout == original.layout
     assert_properties_equals(original.properties, res.properties)
     assert_properties_equals(original.layout, res.layout)
     assert res.data_defined_properties.property(
@@ -233,11 +236,11 @@ def test_read_write_project():
     res.read_from_project(doc)
     assert res.plot_type == original.plot_type
     # NOTE See above
-    #assert res.properties == original.properties
-    #assert res.layout == original.layout
+    # assert res.properties == original.properties
+    # assert res.layout == original.layout
     assert_properties_equals(original.properties, res.properties)
     assert_properties_equals(original.layout, res.layout)
- 
+
     assert res.data_defined_properties.property(
         PlotSettings.PROPERTY_FILTER
     ) == original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER)
@@ -363,11 +366,11 @@ def test_read_write_project2(output_dir: Path):
 
     assert res.plot_type == original.plot_type
     # NOTE see above
-    #assert res.properties == original.properties
-    #assert res.layout == original.layout
+    # assert res.properties == original.properties
+    # assert res.layout == original.layout
     assert_properties_equals(original.properties, res.properties)
     assert_properties_equals(original.layout, res.layout)
-    
+
     assert res.data_defined_properties.property(
         PlotSettings.PROPERTY_FILTER
     ) == original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER)
@@ -469,8 +472,8 @@ def test_read_write_file(output_dir: Path):
 
     assert res.plot_type == original.plot_type
     # NOTE see above
-    #assert res.properties == original.properties
-    #assert res.layout == original.layout
+    # assert res.properties == original.properties
+    # assert res.layout == original.layout
     assert res.data_defined_properties.property(
         PlotSettings.PROPERTY_FILTER
     ) == original.data_defined_properties.property(PlotSettings.PROPERTY_FILTER)

@@ -15,6 +15,6 @@ from qgis.PyQt.QtGui import QIcon
 
 def test_icon_png():
     """Test we can load resources."""
-    path = ':/plugins/DataPlotly/icon.png'
+    path = ":/plugins/DataPlotly/icon.png"
     icon = QIcon(path)
     assert not icon.isNull()

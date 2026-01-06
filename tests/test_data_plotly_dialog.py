@@ -14,23 +14,22 @@ from pathlib import Path
 
 import pytest
 
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtXml import QDomDocument
 from qgis.core import (
-    QgsProject,
-    QgsVectorLayer,
-    QgsProperty,
-    QgsPrintLayout,
-    QgsReadWriteContext,
     QgsApplication,
+    QgsPrintLayout,
+    QgsProject,
+    QgsProperty,
+    QgsReadWriteContext,
+    QgsVectorLayer,
 )
 from qgis.gui import QgisInterface
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtXml import QDomDocument
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.layout_item_gui import PlotLayoutItemWidget
 from DataPlotly.gui.plot_settings_widget import DataPlotlyPanelWidget
-from DataPlotly.layouts.plot_layout_item import PlotLayoutItem
-from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
+from DataPlotly.layouts.plot_layout_item import PlotLayoutItem, PlotLayoutItemMetadata
 
 plot_item_metadata = PlotLayoutItemMetadata()
 
@@ -78,7 +77,7 @@ def test_set_default_settings(qgis_iface: QgisInterface):
             "hover_label_text",
         ]:
             continue
-    
+
         assert dialog.get_settings().properties[k] == settings.properties[k], f"{k}"
 
     for k in settings.layout:
