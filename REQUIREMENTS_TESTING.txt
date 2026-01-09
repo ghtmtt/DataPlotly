@@ -1,8 +1,0 @@
-# For tests execution:
-deepdiff
-mock
-flake8
-pep257
-plotly
-pylint
-pandas

@@ -1,0 +1,3 @@
+"""
+DataPlotly test suite
+"""

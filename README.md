@@ -1,7 +1,7 @@
 # DataPlotly
 
 [![QGIS.org](https://img.shields.io/badge/QGIS.org-published-green)](https://plugins.qgis.org/plugins/DataPlotly/)
-[![Test plugin](https://github.com/ghtmtt/DataPlotly/actions/workflows/test_plugin.yaml/badge.svg)](https://github.com/ghtmtt/DataPlotly/actions/workflows/test_plugin.yaml)
+[![Test plugin](https://github.com/ghtmtt/DataPlotly/actions/workflows/tests.yaml/badge.svg)](https://github.com/ghtmtt/DataPlotly/actions/workflows/test_plugin.yaml)
 [![Transifex 🗺](https://github.com/ghtmtt/DataPlotly/actions/workflows/transifex.yml/badge.svg)](https://github.com/ghtmtt/DataPlotly/actions/workflows/transifex.yml)
 
 **Documentation: https://dataplotly-docs.readthedocs.io/en/latest/intro.html**

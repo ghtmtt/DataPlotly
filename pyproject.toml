@@ -1,0 +1,144 @@
+[project]
+name = "DataPlotly"
+description = "D3 Plots for QGIS"
+authors = [
+    { name = "Matteo Ghetta (Faunalia)", email = "matteo.ghetta@gmail.com" }
+]
+requires-python = ">=3.10"
+keywords = [
+    "QGIS", "plugin", "plots", "vector", "graphs", 
+    "datavis", "dataviz", "dataplotly",
+]
+license-files = ["LICENSE"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+# Dummy version number required
+# not used for release
+version = "0.dev"
+
+[project.urls]
+homepage= "https://dataplotly-docs.readthedocs.io"
+tracker = "https://github.com/ghtmtt/DataPlotly/issues"
+repository = "https://github.com/ghtmtt/DataPlotly"
+
+[dependency-groups]
+dev = [
+    "coverage[toml]",
+    {include-group = "tests"},
+    {include-group = "lint"},
+]
+tests = [
+    "pytest",
+    "pytest-qgis",
+    "semver",
+]
+lint = [
+    "ruff",
+    "mypy",
+]
+packaging = [
+    "qgis-plugin-ci"
+]
+
+
+[tool.uv.sources]
+pytest-qgis = { git = "https://github.com/3liz/pytest-qgis.git" }
+
+
+#
+# Ruff
+#
+# https://doc.astral.sh/ruff/configuration
+#
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+exclude = [
+    ".venv",
+    ".local",
+    "tests/fixtures",
+]
+
+[tool.ruff.format]
+indent-style = "space"
+
+[tool.ruff.lint]
+extend-select = [
+    "E", "F", "I", "ANN", "W", "T", "COM", "RUF",
+    "C4", "SIM", "TC", "RET",
+]
+# COM812 conflict with formatter
+ignore = [
+    "ANN002", 
+    "ANN003",
+    "ANN401", # Dynamically typed expressions (Any)
+    "RUF100", 
+    "RUF029", # Unused async,
+    "RET505", # Unnecessary `else` after `return` statement
+    "COM812", # Conflict with formatter
+    "SIM108", # Use ternary operator
+    "SIM102", # Use single if
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "T201",
+]
+
+[tool.ruff.lint.isort]
+lines-between-types = 1
+known-third-party = [
+    "qgis",
+]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.flake8-annotations]
+ignore-fully-untyped = true
+suppress-none-returning = true
+suppress-dummy-args = true
+
+#
+# Mypy
+#
+[tool.mypy]
+python_version = "3.10"
+exclude = [
+    "^tests/fixtures/*$",
+]
+
+[[tool.mypy.overrides]]
+module = [
+    "qgis.*",
+]
+ignore_missing_imports = true
+
+#
+# Coverage
+#
+[tool.coverage.run]
+source = ["DataPlotly"]
+branch = true
+relative_files = true
+
+[tool.coverage.report]
+precision = 2
+exclude_lines = [
+    "if TYPE_CHECKING",
+    '\(Protocol\):$',
+]
+

@@ -1,0 +1,27 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        qgis_version: [
+          "3.34",
+          "3.40",
+          "3.44",
+        ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Running tests
+        run: make docker-test QGIS_VERSION=${{ matrix.qgis_version }}

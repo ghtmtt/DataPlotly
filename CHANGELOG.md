@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Migrate environment settings to uv
+- Migrate linter to Ruff
+- Add typechecker support
+- Add test coverage
+
 ## 4.3.2 - 2025-10-10
 
 - Minor bug fixing thanks to @soaubier Oslandia
