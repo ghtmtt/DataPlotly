@@ -44,7 +44,8 @@ from qgis.PyQt.QtGui import (
 from qgis.PyQt.QtCore import (
     QUrl,
     pyqtSignal,
-    QDir
+    QDir,
+    Qt
 )
 
 from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
@@ -54,7 +55,6 @@ from qgis.PyQt.QtCore import pyqtSlot, QObject
 
 from qgis.core import (
     Qgis,
-    QgsNetworkAccessManager,
     QgsFeatureRequest,
     QgsMapLayerProxyModel,
     QgsProject,
