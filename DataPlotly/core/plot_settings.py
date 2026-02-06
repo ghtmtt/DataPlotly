@@ -130,6 +130,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'bins': 0,
             'selected_features_only': False,
             'visible_features_only': False,
+            'skip_nulls': True,
             'color_scale_data_defined_in_check': False,
             'color_scale_data_defined_in_invert_check': False,
             'marker_type_combo': 'Points',

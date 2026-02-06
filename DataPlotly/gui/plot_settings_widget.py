@@ -356,6 +356,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.subcombo_label.setVisible(False)
             self.visible_feature_check.setVisible(False)
             self.selected_feature_check.setVisible(False)
+            self.skip_null_values_check.setVisible(False)
         else:
             self.iface.mapCanvas().extentsChanged.connect(self.update_plot_visible_rect)
             self.label_linked_map.setVisible(False)
@@ -925,6 +926,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.contour_type_combo: ['contour'],
             self.show_lines_check: ['contour'],
             self.scatterline_gaps_check:['scatter'],
+            self.skip_null_values_check: ['scatter', 'bar', 'contour', 'polar', 'filledline'],
             # layout customization
             self.show_legend_check: ['all'],
             self.orientation_legend_check: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'pie', 'violin'],
@@ -1030,6 +1032,11 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.color_scale_data_defined_in_label.setVisible(False)
         self.color_scale_data_defined_in_check.setVisible(False)
         self.color_scale_data_defined_in_invert_check.setVisible(False)
+
+        # reset the default to skip Null-values
+        # so it is not unchecked in non using plottypes
+        self.skip_null_values_check.setChecked(True)
+
 
         self.refreshWidgets3()
 
@@ -1145,6 +1152,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'violin_box': self.violinBox.isChecked(),
                            'selected_features_only': self.selected_feature_check.isChecked(),
                            'visible_features_only': self.visible_feature_check.isChecked(),
+                           'skip_nulls': self.skip_null_values_check.isChecked(),
                            'color_scale_data_defined_in_check': False,
                            'color_scale_data_defined_in_invert_check': False,
                            'marker_type_combo': self.marker_type_combo.currentText(),
@@ -1261,6 +1269,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             settings.properties.get('selected_features_only', False))
         self.visible_feature_check.setChecked(
             settings.properties.get('visible_features_only', False))
+        self.skip_null_values_check.setChecked(
+            settings.properties.get('skip_nulls', True))
 
         self.data_defined_properties = settings.data_defined_properties
         buttons = self.findChildren(QgsPropertyOverrideButton)
