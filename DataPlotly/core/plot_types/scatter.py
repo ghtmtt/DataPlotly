@@ -62,6 +62,7 @@ class ScatterPlotFactory(PlotType):
                     },
             line={'width': settings.properties['marker_width'],
                   'dash': settings.properties['line_dash']},
+            connectgaps=settings.properties['connect_gaps'],
             opacity=settings.properties['opacity']
         )]
 

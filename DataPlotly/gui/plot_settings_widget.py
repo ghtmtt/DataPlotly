@@ -924,6 +924,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.contour_type_label: ['contour'],
             self.contour_type_combo: ['contour'],
             self.show_lines_check: ['contour'],
+            self.scatterline_gaps_check:['scatter'],
             # layout customization
             self.show_legend_check: ['all'],
             self.orientation_legend_check: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'pie', 'violin'],
@@ -1064,6 +1065,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_lab.setVisible(False)
             self.line_combo.setEnabled(False)
             self.line_combo.setVisible(False)
+            self.scatterline_gaps_check.setEnabled(False)
         elif self.marker_type_combo.currentText() == self.tr('Lines'):
             self.point_lab.setEnabled(False)
             self.point_lab.setVisible(False)
@@ -1073,6 +1075,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_lab.setVisible(True)
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
+            self.scatterline_gaps_check.setEnabled(True)
         else:
             self.point_lab.setEnabled(True)
             self.point_lab.setVisible(True)
@@ -1082,6 +1085,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_lab.setVisible(True)
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
+            self.scatterline_gaps_check.setEnabled(True)
 
     def setLegend(self):
         """
@@ -1157,7 +1161,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'line_dash_threshold':  self.line_types2[self.line_combo_threshold.currentText()],
                            'line_combo_threshold':  self.line_combo_threshold.currentText(),
                            'threshold_value': self.threshold_value.value(),
-                           'y_fields_combo': ', '.join(self.y_fields_combo.checkedItems())
+                           'y_fields_combo': ', '.join(self.y_fields_combo.checkedItems()),
+                           'connect_gaps': self.scatterline_gaps_check.isChecked()
                            }
 
         if self.in_color_defined_button.isActive():
@@ -1406,6 +1411,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.threshold.setChecked(settings.properties.get('threshold', True))
         self.threshold_value.setValue(settings.properties.get('threshold_value', 1))     
         self.fill.setChecked(settings.properties.get('fill', False))
+        self.scatterline_gaps_check.setChecked(settings.properties.get('connect_gaps',False))
 
     def create_plot_factory(self) -> PlotFactory:
         """
