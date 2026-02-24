@@ -320,9 +320,9 @@ QListWidget::item::selected {
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-479</y>
+                  <y>0</y>
                   <width>673</width>
-                  <height>1194</height>
+                  <height>1222</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_9">
@@ -360,12 +360,18 @@ QListWidget::item::selected {
                     <item row="10" column="1" colspan="2">
                      <widget class="QgsFieldExpressionWidget" name="y_combo"/>
                     </item>
-                    <item row="3" column="1">
-                     <widget class="QgsPropertyOverrideButton" name="feature_subset_defined_button">
-                      <property name="text">
-                       <string>...</string>
+                    <item row="0" column="1" colspan="2">
+                     <widget class="QgsMapLayerComboBox" name="layer_combo">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
                       </property>
                      </widget>
+                    </item>
+                    <item row="12" column="1" colspan="2">
+                     <widget class="QgsFieldExpressionWidget" name="z_combo"/>
                     </item>
                     <item row="4" column="0">
                      <widget class="QLabel" name="label_linked_map">
@@ -374,10 +380,71 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
+                    <item row="7" column="1" colspan="2">
+                     <widget class="QgsFieldExpressionWidget" name="x_combo"/>
+                    </item>
+                    <item row="11" column="1" colspan="2">
+                     <widget class="QgsCheckableComboBox" name="y_fields_combo"/>
+                    </item>
+                    <item row="6" column="1" colspan="2">
+                     <widget class="QCheckBox" name="filter_by_atlas_check">
+                      <property name="text">
+                       <string>Use only features inside atlas feature</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="11" column="0">
+                     <widget class="QLabel" name="y_fields_label">
+                      <property name="text">
+                       <string>Y fields</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="2">
+                     <widget class="QCheckBox" name="visible_feature_check">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="text">
+                       <string>Use only visible features</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="0">
+                     <widget class="QLabel" name="y_radar_label">
+                      <property name="text">
+                       <string>Y label</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="layer_label">
+                      <property name="text">
+                       <string>Layer</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="1" colspan="2">
+                     <widget class="QgsFieldExpressionWidget" name="y_combo_radar_label"/>
+                    </item>
+                    <item row="5" column="1" colspan="2">
+                     <widget class="QCheckBox" name="filter_by_map_check">
+                      <property name="text">
+                       <string>Use only features visible in map</string>
+                      </property>
+                     </widget>
+                    </item>
                     <item row="10" column="0">
                      <widget class="QLabel" name="y_label">
                       <property name="text">
                        <string>Y field</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="label_feature_subset">
+                      <property name="text">
+                       <string>Feature subset</string>
                       </property>
                      </widget>
                     </item>
@@ -391,22 +458,22 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="5" column="1" colspan="2">
-                     <widget class="QCheckBox" name="filter_by_map_check">
+                    <item row="12" column="0">
+                     <widget class="QLabel" name="z_label">
                       <property name="text">
-                       <string>Use only features visible in map</string>
+                       <string>Z field</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="2">
-                     <widget class="QCheckBox" name="visible_feature_check">
-                      <property name="enabled">
-                       <bool>true</bool>
-                      </property>
+                    <item row="3" column="1">
+                     <widget class="QgsPropertyOverrideButton" name="feature_subset_defined_button">
                       <property name="text">
-                       <string>Use only visible features</string>
+                       <string>...</string>
                       </property>
                      </widget>
+                    </item>
+                    <item row="4" column="1" colspan="2">
+                     <widget class="QgsLayoutItemComboBox" name="linked_map_combo"/>
                     </item>
                     <item row="7" column="0">
                      <widget class="QLabel" name="x_label">
@@ -433,72 +500,21 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="11" column="0">
-                     <widget class="QLabel" name="y_fields_label">
+                    <item row="13" column="1">
+                     <widget class="QCheckBox" name="skip_null_values_check">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="toolTip">
+                       <string>If unchecked, NULL values are passed to Plotly and may appear as gaps or missing values.</string>
+                      </property>
                       <property name="text">
-                       <string>Y fields</string>
+                       <string>Skip NULL-values</string>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
-                    </item>
-                    <item row="4" column="1" colspan="2">
-                     <widget class="QgsLayoutItemComboBox" name="linked_map_combo"/>
-                    </item>
-                    <item row="12" column="0">
-                     <widget class="QLabel" name="z_label">
-                      <property name="text">
-                       <string>Z field</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="x_combo"/>
-                    </item>
-                    <item row="11" column="1" colspan="2">
-                     <widget class="QgsCheckableComboBox" name="y_fields_combo"/>
-                    </item>
-                    <item row="3" column="0">
-                     <widget class="QLabel" name="label_feature_subset">
-                      <property name="text">
-                       <string>Feature subset</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="6" column="1" colspan="2">
-                     <widget class="QCheckBox" name="filter_by_atlas_check">
-                      <property name="text">
-                       <string>Use only features inside atlas feature</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="1" colspan="2">
-                     <widget class="QgsMapLayerComboBox" name="layer_combo">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="12" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="z_combo"/>
-                    </item>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="layer_label">
-                      <property name="text">
-                       <string>Layer</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="9" column="0">
-                     <widget class="QLabel" name="y_radar_label">
-                      <property name="text">
-                       <string>Y label</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="9" column="1" colspan="2">
-                     <widget class="QgsFieldExpressionWidget" name="y_combo_radar_label"/>
                     </item>
                    </layout>
                   </widget>
