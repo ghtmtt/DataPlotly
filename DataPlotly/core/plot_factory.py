@@ -174,7 +174,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         additional_info_expression, additional_needs_geom, additional_attrs = add_source_field_or_expression(
             self.settings.layout['additional_info_expression']) if self.settings.layout[
             'additional_info_expression'] else (None, False, set())
-
         attrs = set().union(self.settings.data_defined_properties.referencedFields(),
                             x_attrs,
                             y_attrs,
