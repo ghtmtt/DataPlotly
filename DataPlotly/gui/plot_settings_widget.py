@@ -943,6 +943,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.show_lines_check: ['contour'],
             self.scatterline_gaps_check: ['scatter'],
             self.skip_null_values_check: ['scatter', 'bar', 'contour', 'polar', 'filledline'],
+            self.scatterline_interpolation_label: ['scatter'],
             self.scatterline_interpolation_combo: ['scatter'],
             # layout customization
             self.show_legend_check: ['all'],
@@ -1451,7 +1452,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.threshold_value.setValue(settings.properties.get('threshold_value', 1))     
         self.fill.setChecked(settings.properties.get('fill', False))
         self.scatterline_gaps_check.setChecked(settings.properties.get('connect_gaps',False))
-        self.scatterline_interpolation_label.setCurrentText(settings.properties.get('interpolation_shape', 'linear'))
+        self.scatterline_interpolation_combo.setCurrentText(settings.properties.get('interpolation_shape', 'linear'))
 
     def create_plot_factory(self) -> PlotFactory:
         """
