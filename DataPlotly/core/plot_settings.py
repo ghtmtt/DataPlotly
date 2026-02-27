@@ -153,7 +153,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             #'line_dash_threshold': 'dash',
             'line_dash_threshold': 'dot',
             'threshold_value': 1,
-            'threshold': False
+            'threshold': False,
+            'connect_gaps': False
+
         }
 
         # layout nested dictionary
