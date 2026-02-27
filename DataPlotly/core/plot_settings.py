@@ -154,8 +154,8 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'line_dash_threshold': 'dot',
             'threshold_value': 1,
             'threshold': False,
-            'connect_gaps': False
-
+            'connect_gaps': False,
+            'interpolation_shape': 'linear'
         }
 
         # layout nested dictionary

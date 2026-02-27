@@ -759,6 +759,15 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         for k, v in self.contour_type.items():
             self.contour_type_combo.addItem(k, v)
 
+        # Scatterline interpolation type
+        self.scatterline_interpolation_combo.clear()
+        self.scatterline_interpolation_combo.addItem(self.tr('Linear'),'linear')
+        self.scatterline_interpolation_combo.addItem(self.tr('Smooth spline'),'spline')
+        self.scatterline_interpolation_combo.addItem(self.tr('Step-wise hv'),'hv')
+        self.scatterline_interpolation_combo.addItem(self.tr('Step-wise vh'),'vh')
+        self.scatterline_interpolation_combo.addItem(self.tr('Step-wise hvh'),'hvh')
+        self.scatterline_interpolation_combo.addItem(self.tr('Step-wise vhv'),'vhv')
+
         # Contour Plot color scale and Data Defined Color scale
 
         scale_color_dict = {'Grey Scale': 'Greys',
@@ -932,8 +941,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.contour_type_label: ['contour'],
             self.contour_type_combo: ['contour'],
             self.show_lines_check: ['contour'],
-            self.scatterline_gaps_check:['scatter'],
+            self.scatterline_gaps_check: ['scatter'],
             self.skip_null_values_check: ['scatter', 'bar', 'contour', 'polar', 'filledline'],
+            self.scatterline_interpolation_combo: ['scatter'],
             # layout customization
             self.show_legend_check: ['all'],
             self.orientation_legend_check: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'pie', 'violin','filledline'],
@@ -1080,6 +1090,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_combo.setEnabled(False)
             self.line_combo.setVisible(False)
             self.scatterline_gaps_check.setEnabled(False)
+            self.scatterline_interpolation_label.setEnabled(False)
+            self.scatterline_interpolation_combo.setEnabled(False)
         elif self.marker_type_combo.currentText() == self.tr('Lines'):
             self.point_lab.setEnabled(False)
             self.point_lab.setVisible(False)
@@ -1090,6 +1102,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
             self.scatterline_gaps_check.setEnabled(True)
+            self.scatterline_interpolation_label.setEnabled(True)
+            self.scatterline_interpolation_combo.setEnabled(True)
         else:
             self.point_lab.setEnabled(True)
             self.point_lab.setVisible(True)
@@ -1100,6 +1114,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
             self.scatterline_gaps_check.setEnabled(True)
+            self.scatterline_interpolation_label.setEnabled(True)
+            self.scatterline_interpolation_combo.setEnabled(True)
 
     def setLegend(self):
         """
@@ -1182,7 +1198,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'line_combo_threshold':  self.line_combo_threshold.currentText(),
                            'threshold_value': self.threshold_value.value(),
                            'y_fields_combo': ', '.join(self.y_fields_combo.checkedItems()),
-                           'connect_gaps': self.scatterline_gaps_check.isChecked()
+                           'connect_gaps': self.scatterline_gaps_check.isChecked(),
+                           'interpolation_shape': self.scatterline_interpolation_combo.currentData()
                            }
 
         if self.in_color_defined_button.isActive():
@@ -1434,6 +1451,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.threshold_value.setValue(settings.properties.get('threshold_value', 1))     
         self.fill.setChecked(settings.properties.get('fill', False))
         self.scatterline_gaps_check.setChecked(settings.properties.get('connect_gaps',False))
+        self.scatterline_interpolation_label.setCurrentText(settings.properties.get('interpolation_shape', 'linear'))
 
     def create_plot_factory(self) -> PlotFactory:
         """
