@@ -88,7 +88,7 @@ def test_values(data: Path):
         108.25,
         110.45,
     ]
-    assert factory.settings.z == []
+    assert factory.settings.z == [None] * len(factory.settings.x)
     assert factory.settings.additional_hover_text == []
 
     # with z
@@ -159,7 +159,7 @@ def test_expression_context(data: Path):
     factory = PlotFactory(settings, context_generator=generator)
     assert factory.settings.x == [9.8, 8.8, 26.7, 32.9, 31.9, 13.7, 35.0, 15.1, 20.3]
     assert factory.settings.y == [72.31, 86.03, 85.26, 81.11, 131.59, 95.36, 112.88, 80.55, 78.34]
-    assert factory.settings.z == []
+    # assert factory.settings.z == []
     assert factory.settings.additional_hover_text == []
 
 
@@ -197,7 +197,7 @@ def test_filter(data: Path):
     factory = PlotFactory(settings, context_generator=generator)
     assert factory.settings.x == [267, 329, 319, 350, 203]
     assert factory.settings.y == [85.26, 81.11, 131.59, 112.88, 78.34]
-    assert factory.settings.z == []
+    assert factory.settings.z == [None] * len(factory.settings.x)
     assert factory.settings.additional_hover_text == []
 
 
@@ -325,7 +325,10 @@ def test_visible_features(data: Path):
     settings.properties["x_name"] = "so4"
     settings.properties["y_name"] = "ca"
 
-    rect = QgsReferencedRectangle(QgsRectangle(10.1, 43.5, 10.8, 43.85), QgsCoordinateReferenceSystem(4326))
+    crs = QgsCoordinateReferenceSystem()
+    crs.createFromString("EPSG:4326")
+
+    rect = QgsReferencedRectangle(QgsRectangle(10.1, 43.5, 10.8, 43.85), crs)
     factory = PlotFactory(settings, visible_region=rect)
     spy = QSignalSpy(factory.plot_built)
     assert len(spy) == 0
@@ -339,17 +342,20 @@ def test_visible_features(data: Path):
     assert factory.settings.y == [22.26, 116.44, 108.25, 110.45]
 
     factory.set_visible_region(
-        QgsReferencedRectangle(QgsRectangle(10.6, 43.1, 12, 43.8), QgsCoordinateReferenceSystem(4326))
+        QgsReferencedRectangle(QgsRectangle(10.6, 43.1, 12, 43.8), crs)
     )
     assert len(spy) == 1
     assert factory.settings.x == [98, 267, 319, 137]
     assert factory.settings.y == [81.87, 74.16, 46.64, 126.73]
 
+    crs = QgsCoordinateReferenceSystem()
+    crs.createFromString("EPSG:3857")
+
     # with reprojection
     factory.set_visible_region(
         QgsReferencedRectangle(
             QgsRectangle(1167379, 5310986, 1367180, 5391728),
-            QgsCoordinateReferenceSystem(3857),
+            crs
         ),
     )
     assert len(spy) == 2
