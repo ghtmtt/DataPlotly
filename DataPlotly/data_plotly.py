@@ -270,6 +270,9 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         # unregister the function
         QgsExpression.unregisterFunction('get_symbol_colors')
 
+        # TODO QGIS 4
+        # QgsGui.layoutItemGuiRegistry().removeLayoutItemGuiMetadata(self.plot_item_gui_metadata)
+
         # disconnect signals for easy dev when using plugin reloader
         QgsProject.instance().cleared.disconnect(self.dock_manager.removeDocks)
         QgsProject.instance().readProject.disconnect(

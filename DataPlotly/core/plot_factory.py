@@ -722,7 +722,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         match = re.search(r'Plotly.newPlot\(\s*[\'"](.+?)[\'"]', raw_plot)
         substr = match.group(1)
         raw_plot = raw_plot.replace('ReplaceTheDiv', substr)
-        return raw_plot
+        return raw_plot, fig
 
     def build_figure(self) -> str:
         """
@@ -753,9 +753,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             'modeBarButtonsToRemove': ['toImage', 'sendDataToCloud', 'editInChartStudio']
         }
 
+        raw_plot, fig = self.build_html(config)
+
         with open(self.plot_path, "w", encoding="utf8") as f:
-            f.write(self.build_html(config))
-        return self.plot_path
+            f.write(raw_plot)
+        return self.plot_path, fig
 
     def build_figures(self, plot_type, ptrace, config=None) -> str:
         """
@@ -819,7 +821,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.raw_plot)
 
-        return self.plot_path
+        return self.plot_path, figures
 
     def build_sub_plots(self, grid, row, column, ptrace):  # pylint:disable=too-many-arguments
         """
@@ -877,7 +879,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.raw_plot)
 
-        return self.plot_path
+        return self.plot_path, fig
 
     def build_plot_dict(self) -> dict:
         """
