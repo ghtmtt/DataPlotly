@@ -2,15 +2,20 @@
 
 ## Unreleased
 
-- Migrate environment settings to uv
-- Migrate linter to Ruff
-- Add typechecker support
-- Add test coverage
+## 4.4.0 - 2026-13-10
+
+- New filled lines plot type thanks to @goettlic
+- Interpolation schemas for scatter lines thanks to @goettlic
+- Fix NULL values for some plot types thanks to @goettlic
+- Connect gaps in scatter lines thanks to @goettlic
+- Migrate environment settings to uv thanks to @dmarteau
+- Migrate linter to Ruff thanks to @dmarteau
+- Add typechecker support thanks to @dmarteau
+- Add test coverage thanks to @dmarteau
 
 ## 4.3.2 - 2025-10-10
 
 - Minor bug fixing thanks to @soaubier Oslandia
-
 - Fix regression when loading projects
 
 ## 4.3.1 - 2025-07-08
