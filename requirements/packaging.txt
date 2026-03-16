@@ -15,7 +15,7 @@ idna==3.11
 parsimonious==0.11.0
 pycparser==2.23 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy'
 pygithub==2.5.0
-pyjwt==2.10.1
+pyjwt==2.12.0
 pynacl==1.6.2
 pyqt5==5.15.11
 pyqt5-qt5==5.15.18
