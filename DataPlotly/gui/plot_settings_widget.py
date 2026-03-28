@@ -37,8 +37,6 @@ from qgis.PyQt.QtXml import QDomDocument
 
 from qgis.PyQt.QtGui import (
     QFont,
-    QImage,
-    QPainter,
     QColor
 )
 from qgis.PyQt.QtCore import (
@@ -1591,15 +1589,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         plot_file = QgsFileUtils.ensureFileNameHasExtension(plot_file, ['png'])
 
-        frame = self.plot_view.page().mainFrame()
-        self.plot_view.page().setViewportSize(frame.contentsSize())
-        # render image
-        image = QImage(self.plot_view.page().viewportSize(),
-                       QImage.Format.Format_ARGB32)
-        painter = QPainter(image)
-        frame.render(painter)
-        painter.end()
-        image.save(plot_file)
+        self.plot_view.grab().save(plot_file)
         if self.message_bar:
             self.message_bar.pushSuccess(self.tr('DataPlotly'),
                                          self.tr('Plot saved to <a href="{}">{}</a>').format(

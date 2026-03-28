@@ -9,27 +9,21 @@ the Free Software Foundation; either version 2 of the License, or
 from qgis.PyQt.QtCore import (
     Qt,
     QCoreApplication,
-    QRectF,
     QSize,
     QUrl,
-    QEventLoop,
-    QTimer
 )
-from qgis.PyQt.QtGui import QPalette
 from qgis.PyQt.QtWidgets import QGraphicsItem
 
 from qgis.core import (
     QgsLayoutItem,
     QgsLayoutItemRegistry,
     QgsLayoutItemAbstractMetadata,
-    QgsNetworkAccessManager,
     QgsMessageLog,
     QgsGeometry,
     QgsPropertyCollection
 )
-# from qgis.PyQt.QtWebKitWidgets import QWebPage
 from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
-from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
+from qgis.PyQt.QtWebEngineCore import QWebEnginePage
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_factory import PlotFactory, FilterRegion
@@ -38,12 +32,12 @@ from DataPlotly.gui.gui_utils import GuiUtils
 ITEM_TYPE = QgsLayoutItemRegistry.ItemType.PluginItem + 1337
 
 
-class LoggingWebPage(QWebEngineView):
+class LoggingWebPage(QWebEnginePage):
 
     def __init__(self, parent=None):
         super().__init__(parent)
 
-    def javaScriptConsoleMessage(self, message, lineNumber, source):
+    def javaScriptConsoleMessage(self, level, message, lineNumber, source):
         QgsMessageLog.logMessage(f'{source}:{lineNumber} {message}', 'DataPlotly')
 
 
@@ -58,15 +52,13 @@ class PlotLayoutItem(QgsLayoutItem):
         self.linked_map = None
 
         self.web_page = LoggingWebPage(self)
-        self.web_page.setNetworkAccessManager(QgsNetworkAccessManager.instance())
+        self.web_page.setBackgroundColor(Qt.GlobalColor.transparent)
 
-        # This makes the background transparent. (copied from QgsLayoutItemLabel)
-        palette = self.web_page.palette()
-        palette.setBrush(QPalette.ColorRole.Base, Qt.GlobalColor.transparent)
-        self.web_page.setPalette(palette)
-        self.web_page.mainFrame().setZoomFactor(10.0)
-        self.web_page.mainFrame().setScrollBarPolicy(Qt.Orientation.Horizontal, Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.web_page.mainFrame().setScrollBarPolicy(Qt.Orientation.Vertical, Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.web_view = QWebEngineView()
+        self.web_view.setPage(self.web_page)
+        self.web_view.setAttribute(Qt.WidgetAttribute.WA_DontShowOnScreen)
+        self.web_view.setZoomFactor(10.0)
+        self.web_view.show()
 
         self.web_page.loadFinished.connect(self.loading_html_finished)
         self.html_loaded = False
@@ -164,14 +156,13 @@ class PlotLayoutItem(QgsLayoutItem):
                 while not self.html_loaded:
                     QCoreApplication.processEvents()
 
-        # almost a direct copy from QgsLayoutItemLabel!
         painter = context.renderContext().painter()
         painter.save()
 
-        # painter is scaled to dots, so scale back to layout units
-        painter.scale(context.renderContext().scaleFactor() / self.html_units_to_layout_units,
-                      context.renderContext().scaleFactor() / self.html_units_to_layout_units)
-        self.web_page.mainFrame().render(painter)
+        pixmap = self.web_view.grab()
+        scale = context.renderContext().scaleFactor() / self.html_units_to_layout_units
+        painter.scale(scale, scale)
+        painter.drawPixmap(0, 0, pixmap)
         painter.restore()
 
     def create_plot(self):
@@ -220,9 +211,9 @@ class PlotLayoutItem(QgsLayoutItem):
     def load_content(self):
         self.html_loaded = False
         base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
-        self.web_page.setViewportSize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
-                                            int(self.rect().height()) * self.html_units_to_layout_units))
-        self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
+        self.web_view.resize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
+                                   int(self.rect().height()) * self.html_units_to_layout_units))
+        self.web_page.setHtml(self.create_plot(), base_url)
 
     def writePropertiesToElement(self, element, document, _) -> bool:
         for plot_setting in self.plot_settings:
@@ -262,6 +253,7 @@ class PlotLayoutItem(QgsLayoutItem):
                 self.set_linked_map(map)
 
     def loading_html_finished(self):
+        self.web_page.runJavaScript("document.documentElement.style.overflow='hidden'")
         self.html_loaded = True
         self.invalidateCache()
         self.update()
