@@ -26,7 +26,7 @@ python-slugify==8.0.4
 pyyaml==6.0.3
 qgis-plugin-ci==2.8.10
 regex==2025.11.3
-requests==2.32.5
+requests==2.33.0
 six==1.17.0
 smmap==5.0.2
 text-unidecode==1.3
