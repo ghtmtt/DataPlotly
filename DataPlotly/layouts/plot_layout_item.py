@@ -10,6 +10,7 @@ from qgis.PyQt.QtCore import (
     Qt,
     QCoreApplication,
     QSize,
+    QTimer,
     QUrl,
 )
 from qgis.PyQt.QtWidgets import QGraphicsItem
@@ -254,6 +255,28 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def loading_html_finished(self):
         self.web_page.runJavaScript("document.documentElement.style.overflow='hidden'")
+        self._render_retries = 0
+        self._wait_for_plotly_render()
+
+    def _wait_for_plotly_render(self):
+        """Poll until Plotly has finished rendering the plot."""
+        js = """(function() {
+            var plot = document.querySelector('.js-plotly-plot');
+            if (!plot) return true;
+            return plot.querySelector('.plot-container') !== null;
+        })()"""
+        self.web_page.runJavaScript(js, self._on_plotly_render_check)
+
+    def _on_plotly_render_check(self, ready):
+        self._render_retries += 1
+        if ready or self._render_retries >= 100:
+            # Plotly DOM is ready, but the WebEngine compositor still needs
+            # a short delay to rasterize the frame before grab() can capture it
+            QTimer.singleShot(100, self._on_compositor_ready)
+        else:
+            QTimer.singleShot(50, self._wait_for_plotly_render)
+
+    def _on_compositor_ready(self):
         self.html_loaded = True
         self.invalidateCache()
         self.update()
