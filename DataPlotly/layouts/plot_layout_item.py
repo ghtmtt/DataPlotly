@@ -180,7 +180,8 @@ class PlotLayoutItem(QgsLayoutItem):
         if len(self.plot_settings) == 1:
             plot_factory = PlotFactory(self.plot_settings[0], self, polygon_filter=polygon_filter)
             self.plot_settings[0].properties['visible_features_only'] = visible_features_only
-            return plot_factory.build_html(config)
+            raw_plot, _ = plot_factory.build_html(config)
+            return raw_plot
 
         # to plot many plots in the same figure
         elif len(self.plot_settings) > 1:
@@ -194,7 +195,7 @@ class PlotLayoutItem(QgsLayoutItem):
                 factory = PlotFactory(plot_setting, self, polygon_filter=polygon_filter)
                 pl.append(factory.trace[0])
 
-            plot_path = plot_factory.build_figures(self.plot_settings[0].plot_type, pl, config=config)
+            plot_path, _ = plot_factory.build_figures(self.plot_settings[0].plot_type, pl, config=config)
             with open(plot_path) as myfile:
                 return myfile.read()
 

@@ -208,12 +208,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.z_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.create_plot)
-        self.update_btn.clicked.connect(self.UpdatePlot)
+        self.update_btn.clicked.connect(self.updatePlot)
         self.clear_btn.clicked.connect(self.clearPlotView)
         self.save_plot_btn.clicked.connect(self.save_plot_as_image)
         self.save_plot_html_btn.clicked.connect(self.save_plot_as_html)
+        self.save_plot_json_btn.clicked.connect(self.save_plot_as_json)
         self.save_plot_btn.setIcon(GuiUtils.get_icon('save_as_image.svg'))
         self.save_plot_html_btn.setIcon(GuiUtils.get_icon('save_as_html.svg'))
+        self.save_plot_json_btn.setIcon(GuiUtils.get_icon('save_as_json.svg'))
 
         # initialize the empty dictionary of plots
         self.plot_factories = {}
@@ -1496,7 +1498,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         Refreshes the plot built by the specified factory
         """
-        self.plot_path = factory.build_figure()
+        self.plot_path, _ = factory.build_figure()
         self.refreshPlotView()
 
     def create_plot(self):
@@ -1519,7 +1521,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
             # plot single plot, check the object dictionary length
             if len(self.plot_factories) <= 1 or self.ptype == 'radar':
-                self.plot_path = plot_factory.build_figure()
+                self.plot_path, self.fig = plot_factory.build_figure()
 
             # to plot many plots in the same figure
             else:
@@ -1527,7 +1529,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 pl = []
                 for _, v in self.plot_factories.items():
                     pl.append(v.trace[0])
-                self.plot_path = plot_factory.build_figures(self.ptype, pl)
+                self.plot_path, self.fig = plot_factory.build_figures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox
         elif self.subcombo.currentData() == 'subplots':
@@ -1541,13 +1543,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 # plot in single row and many columns
                 if self.radio_rows.isChecked():
 
-                    self.plot_path = plot_factory.build_sub_plots(
+                    self.plot_path, self.fig = plot_factory.build_sub_plots(
                         'row', 1, gr, pl)
 
                 # plot in single column and many rows
                 elif self.radio_columns.isChecked():
 
-                    self.plot_path = plot_factory.build_sub_plots(
+                    self.plot_path, self.fig = plot_factory.build_sub_plots(
                         'col', gr, 1, pl)
             except:  # pylint: disable=bare-except  # noqa: F401
                 if self.message_bar:
@@ -1559,7 +1561,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # connect to a simple function that reloads the view
         self.refreshPlotView()
 
-    def UpdatePlot(self):
+    def updatePlot(self):
         """
         updates only the LAST plot created
         get the key of the last plot created and delete it from the plot container
@@ -1642,7 +1644,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
 
         plot_file, _ = QFileDialog.getSaveFileName(
-            self, self.tr("Save Plot"), "", "*.html")
+            self, self.tr("Save Plot as HTML"), "", "*.html")
         if not plot_file:
             return
 
@@ -1650,6 +1652,29 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                                                             'html'])
 
         copyfile(self.plot_path, plot_file)
+        if self.message_bar:
+            self.message_bar.pushSuccess(self.tr('DataPlotly'),
+                                         self.tr('Saved plot to <a href="{}">{}</a>').format(
+                                             QUrl.fromLocalFile(
+                                                 plot_file).toString(),
+                                             QDir.toNativeSeparators(plot_file)))
+
+    def save_plot_as_json(self):
+        """
+        Saves the plot as a local json file. The whole plot canvas is saves,
+        even if there are stacked plots or different subplots
+        """
+
+        plot_file, _ = QFileDialog.getSaveFileName(
+            self, self.tr("Save Plot as JSON"), "", "*.json")
+        if not plot_file:
+            return
+
+        plot_file = QgsFileUtils.ensureFileNameHasExtension(plot_file, [
+                                                            'json'])
+
+        self.fig.write_json(plot_file, validate=True, pretty=True)
+
         if self.message_bar:
             self.message_bar.pushSuccess(self.tr('DataPlotly'),
                                          self.tr('Saved plot to <a href="{}">{}</a>').format(
@@ -1720,7 +1745,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # create Plot instance
         factory = PlotFactory(settings)
 
-        standalone_plot_path = factory.build_figure()
+        standalone_plot_path, _ = factory.build_figure()
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
 
         self.plot_view.load(standalone_plot_url)

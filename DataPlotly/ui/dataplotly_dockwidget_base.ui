@@ -320,9 +320,9 @@ QListWidget::item::selected {
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-537</y>
-                  <width>673</width>
-                  <height>1252</height>
+                  <y>0</y>
+                  <width>666</width>
+                  <height>1666</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_9">
@@ -1012,8 +1012,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>406</width>
-                  <height>803</height>
+                  <width>477</width>
+                  <height>1043</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0">
@@ -1504,7 +1504,24 @@ QListWidget::item::selected {
          </property>
          <item row="0" column="0">
           <layout class="QGridLayout" name="gridLayout_28">
-           <item row="0" column="0" colspan="6">
+           <item row="2" column="0">
+            <widget class="QPushButton" name="reload_btn">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QPushButton" name="save_plot_html_btn">
+             <property name="toolTip">
+              <string>Export as html</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="7">
             <widget class="QWidget" name="plot_qview" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1514,20 +1531,7 @@ QListWidget::item::selected {
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="4" colspan="2">
+           <item row="2" column="5" colspan="2">
             <widget class="QPushButton" name="save_plot_btn">
              <property name="toolTip">
               <string>Export as image</string>
@@ -1546,22 +1550,18 @@ QListWidget::item::selected {
              </property>
             </widget>
            </item>
-           <item row="2" column="3">
-            <widget class="QPushButton" name="save_plot_html_btn">
-             <property name="toolTip">
-              <string>Export as html</string>
+           <item row="2" column="2">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
-             <property name="text">
-              <string/>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
              </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="reload_btn">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
+            </spacer>
            </item>
            <item row="2" column="1">
             <widget class="QCheckBox" name="live_update_check">
@@ -1570,6 +1570,16 @@ QListWidget::item::selected {
              </property>
              <property name="checked">
               <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QPushButton" name="save_plot_json_btn">
+             <property name="toolTip">
+              <string>Export as json</string>
+             </property>
+             <property name="text">
+              <string/>
              </property>
             </widget>
            </item>
