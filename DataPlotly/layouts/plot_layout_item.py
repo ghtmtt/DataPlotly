@@ -261,16 +261,24 @@ class PlotLayoutItem(QgsLayoutItem):
     def loading_html_finished(self):
         self.web_page.runJavaScript("document.documentElement.style.overflow='hidden'")
         self._render_retries = 0
+        js = """(function() {
+            var plot = document.querySelector('.js-plotly-plot');
+            if (plot && typeof Plotly !== 'undefined' && plot.data) {
+                Plotly.react(plot, plot.data, plot.layout).then(function() {
+                    window._plotlyRenderComplete = true;
+                });
+            } else {
+                window._plotlyRenderComplete = true;
+            }
+        })()"""
+        self.web_page.runJavaScript(js)
         self._wait_for_plotly_render()
 
     def _wait_for_plotly_render(self):
         """Poll until Plotly has finished rendering the plot."""
-        js = """(function() {
-            var plot = document.querySelector('.js-plotly-plot');
-            if (!plot) return false;
-            return plot.querySelector('.plot-container') !== null;
-        })()"""
-        self.web_page.runJavaScript(js, self._on_plotly_render_check)
+        self.web_page.runJavaScript(
+            'window._plotlyRenderComplete === true',
+            self._on_plotly_render_check)
 
     def _on_plotly_render_check(self, ready):
         self._render_retries += 1
