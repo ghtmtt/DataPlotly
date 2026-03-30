@@ -2,7 +2,11 @@
 
 ## Unreleased
 
-## 4.4.0 - 2026-13-10
+## 4.4.1 - 2026-30-03
+
+- Export plot canvas as JSON file. Sponsored by GIS3W
+
+## 4.4.0 - 2026-13-03
 
 - New filled lines plot type thanks to @goettlic
 - Interpolation schemas for scatter lines thanks to @goettlic
