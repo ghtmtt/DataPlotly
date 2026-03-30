@@ -210,11 +210,14 @@ class PlotLayoutItem(QgsLayoutItem):
         return polygon_filter, visible_features_only
 
     def load_content(self):
+        import tempfile
         self.html_loaded = False
-        base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
         self.web_view.resize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
                                    int(self.rect().height()) * self.html_units_to_layout_units))
-        self.web_page.setHtml(self.create_plot(), base_url)
+        self._tmp_file = tempfile.NamedTemporaryFile(suffix='.html', delete=False)
+        self._tmp_file.write(self.create_plot().encode('utf-8'))
+        self._tmp_file.close()
+        self.web_page.load(QUrl.fromLocalFile(self._tmp_file.name))
 
     def writePropertiesToElement(self, element, document, _) -> bool:
         for plot_setting in self.plot_settings:
@@ -262,7 +265,7 @@ class PlotLayoutItem(QgsLayoutItem):
         """Poll until Plotly has finished rendering the plot."""
         js = """(function() {
             var plot = document.querySelector('.js-plotly-plot');
-            if (!plot) return true;
+            if (!plot) return false;
             return plot.querySelector('.plot-container') !== null;
         })()"""
         self.web_page.runJavaScript(js, self._on_plotly_render_check)
