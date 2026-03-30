@@ -63,6 +63,7 @@ class PlotLayoutItem(QgsLayoutItem):
 
         self.web_page.loadFinished.connect(self.loading_html_finished)
         self.html_loaded = False
+        self._loading = False
         self.html_units_to_layout_units = self.calculate_html_units_to_layout_units()
 
         self.sizePositionChanged.connect(self.refresh)
@@ -148,7 +149,7 @@ class PlotLayoutItem(QgsLayoutItem):
             self.invalidateCache()
 
     def draw(self, context):
-        if not self.html_loaded:
+        if not self.html_loaded and not self._loading:
             self.load_content()
 
             if not self.layout().renderContext().isPreviewRender():
@@ -211,6 +212,7 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def load_content(self):
         import tempfile
+        self._loading = True
         self.html_loaded = False
         self.web_view.resize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
                                    int(self.rect().height()) * self.html_units_to_layout_units))
@@ -280,6 +282,7 @@ class PlotLayoutItem(QgsLayoutItem):
             QTimer.singleShot(50, self._wait_for_plotly_render)
 
     def _on_compositor_ready(self):
+        self._loading = False
         self.html_loaded = True
         self.invalidateCache()
         self.update()
