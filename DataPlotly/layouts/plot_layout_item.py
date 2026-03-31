@@ -9,62 +9,96 @@ the Free Software Foundation; either version 2 of the License, or
 from qgis.PyQt.QtCore import (
     Qt,
     QCoreApplication,
-    QRectF,
     QSize,
+    QTimer,
     QUrl,
-    QEventLoop,
-    QTimer
 )
-from qgis.PyQt.QtGui import QPalette
 from qgis.PyQt.QtWidgets import QGraphicsItem
 
 from qgis.core import (
+    Qgis,
     QgsLayoutItem,
     QgsLayoutItemRegistry,
     QgsLayoutItemAbstractMetadata,
-    QgsNetworkAccessManager,
     QgsMessageLog,
     QgsGeometry,
     QgsPropertyCollection
 )
-from qgis.PyQt.QtWebKitWidgets import QWebPage
+
+if Qgis.versionInt() >= 40000:
+    from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
+    from qgis.PyQt.QtWebEngineCore import QWebEnginePage
+else:
+    from qgis.PyQt.QtGui import QPalette
+    from qgis.PyQt.QtWebKitWidgets import QWebPage
+    from qgis.core import QgsNetworkAccessManager
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_factory import PlotFactory, FilterRegion
 from DataPlotly.gui.gui_utils import GuiUtils
 
-ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
+if Qgis.versionInt() >= 40000:
+    ITEM_TYPE = QgsLayoutItemRegistry.ItemType.PluginItem + 1337
+else:
+    ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
 
 
-class LoggingWebPage(QWebPage):
+if Qgis.versionInt() >= 40000:
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    class LoggingWebPage(QWebEnginePage):
 
-    def javaScriptConsoleMessage(self, message, lineNumber, source):
-        QgsMessageLog.logMessage(f'{source}:{lineNumber} {message}', 'DataPlotly')
+        def __init__(self, parent=None):
+            super().__init__(parent)
+
+        def javaScriptConsoleMessage(self, level, message, lineNumber, source):
+            QgsMessageLog.logMessage(f'{source}:{lineNumber} {message}', 'DataPlotly')
+
+else:
+
+    class LoggingWebPage(QWebPage):
+
+        def __init__(self, parent=None):
+            super().__init__(parent)
+
+        def javaScriptConsoleMessage(self, message, lineNumber, source):
+            QgsMessageLog.logMessage(f'{source}:{lineNumber} {message}', 'DataPlotly')
 
 
 class PlotLayoutItem(QgsLayoutItem):
 
     def __init__(self, layout):
         super().__init__(layout)
-        self.setCacheMode(QGraphicsItem.NoCache)
+        if Qgis.versionInt() >= 40000:
+            self.setCacheMode(QGraphicsItem.CacheMode.NoCache)
+        else:
+            self.setCacheMode(QGraphicsItem.NoCache)
         self.plot_settings = []
         self.plot_settings.append(PlotSettings())
         self.linked_map_uuid = ''
         self.linked_map = None
+        self._loading = False
+        self._captured_pixmap = None
 
-        self.web_page = LoggingWebPage(self)
-        self.web_page.setNetworkAccessManager(QgsNetworkAccessManager.instance())
+        if Qgis.versionInt() >= 40000:
+            self.web_page = LoggingWebPage(self)
+            self.web_page.setBackgroundColor(Qt.GlobalColor.transparent)
 
-        # This makes the background transparent. (copied from QgsLayoutItemLabel)
-        palette = self.web_page.palette()
-        palette.setBrush(QPalette.Base, Qt.transparent)
-        self.web_page.setPalette(palette)
-        self.web_page.mainFrame().setZoomFactor(10.0)
-        self.web_page.mainFrame().setScrollBarPolicy(Qt.Horizontal, Qt.ScrollBarAlwaysOff)
-        self.web_page.mainFrame().setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff)
+            self.web_view = QWebEngineView()
+            self.web_view.setPage(self.web_page)
+            self.web_view.setAttribute(Qt.WidgetAttribute.WA_DontShowOnScreen)
+            self.web_view.setZoomFactor(10.0)
+            self.web_view.show()
+        else:
+            self.web_page = LoggingWebPage(self)
+            self.web_page.setNetworkAccessManager(QgsNetworkAccessManager.instance())
+
+            # This makes the background transparent. (copied from QgsLayoutItemLabel)
+            palette = self.web_page.palette()
+            palette.setBrush(QPalette.Base, Qt.transparent)
+            self.web_page.setPalette(palette)
+            self.web_page.mainFrame().setZoomFactor(10.0)
+            self.web_page.mainFrame().setScrollBarPolicy(Qt.Horizontal, Qt.ScrollBarAlwaysOff)
+            self.web_page.mainFrame().setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff)
 
         self.web_page.loadFinished.connect(self.loading_html_finished)
         self.html_loaded = False
@@ -85,6 +119,8 @@ class PlotLayoutItem(QgsLayoutItem):
         # Hm - why is this? Something internal in Plotly which is auto-scaling the html content?
         # we may need to expose this as a "scaling" setting
 
+        if Qgis.versionInt() >= 40000:
+            return 8
         return 72
 
     def set_linked_map(self, map):
@@ -153,7 +189,7 @@ class PlotLayoutItem(QgsLayoutItem):
             self.invalidateCache()
 
     def draw(self, context):
-        if not self.html_loaded:
+        if not self.html_loaded and not self._loading:
             self.load_content()
 
             if not self.layout().renderContext().isPreviewRender():
@@ -162,14 +198,21 @@ class PlotLayoutItem(QgsLayoutItem):
                 while not self.html_loaded:
                     QCoreApplication.processEvents()
 
-        # almost a direct copy from QgsLayoutItemLabel!
         painter = context.renderContext().painter()
         painter.save()
 
-        # painter is scaled to dots, so scale back to layout units
-        painter.scale(context.renderContext().scaleFactor() / self.html_units_to_layout_units,
-                      context.renderContext().scaleFactor() / self.html_units_to_layout_units)
-        self.web_page.mainFrame().render(painter)
+        if Qgis.versionInt() >= 40000:
+            if self._captured_pixmap and not self._captured_pixmap.isNull():
+                sx = self.rect().width() * context.renderContext().scaleFactor() / self._captured_pixmap.width()
+                sy = self.rect().height() * context.renderContext().scaleFactor() / self._captured_pixmap.height()
+                painter.scale(sx, sy)
+                painter.drawPixmap(0, 0, self._captured_pixmap)
+        else:
+            # almost a direct copy from QgsLayoutItemLabel!
+            painter.scale(context.renderContext().scaleFactor() / self.html_units_to_layout_units,
+                          context.renderContext().scaleFactor() / self.html_units_to_layout_units)
+            self.web_page.mainFrame().render(painter)
+
         painter.restore()
 
     def create_plot(self):
@@ -218,10 +261,21 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def load_content(self):
         self.html_loaded = False
-        base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
-        self.web_page.setViewportSize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
-                                            int(self.rect().height()) * self.html_units_to_layout_units))
-        self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
+
+        if Qgis.versionInt() >= 40000:
+            import tempfile
+            self._loading = True
+            self.web_view.resize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
+                                       int(self.rect().height()) * self.html_units_to_layout_units))
+            self._tmp_file = tempfile.NamedTemporaryFile(suffix='.html', delete=False)
+            self._tmp_file.write(self.create_plot().encode('utf-8'))
+            self._tmp_file.close()
+            self.web_page.load(QUrl.fromLocalFile(self._tmp_file.name))
+        else:
+            base_url = QUrl.fromLocalFile(self.layout().project().absoluteFilePath())
+            self.web_page.setViewportSize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
+                                                int(self.rect().height()) * self.html_units_to_layout_units))
+            self.web_page.mainFrame().setHtml(self.create_plot(), base_url)
 
     def writePropertiesToElement(self, element, document, _) -> bool:
         for plot_setting in self.plot_settings:
@@ -261,6 +315,54 @@ class PlotLayoutItem(QgsLayoutItem):
                 self.set_linked_map(map)
 
     def loading_html_finished(self):
+        if Qgis.versionInt() >= 40000:
+            self.web_page.runJavaScript("document.documentElement.style.overflow='hidden'")
+            self._render_retries = 0
+            js = """(function() {
+                var plot = document.querySelector('.js-plotly-plot');
+                if (plot && typeof Plotly !== 'undefined') {
+                    Plotly.toImage(plot, {format: 'png', scale: 2}).then(function(dataUrl) {
+                        window._capturedImage = dataUrl;
+                    }).catch(function() {
+                        window._capturedImage = '';
+                    });
+                } else {
+                    window._capturedImage = '';
+                }
+            })()"""
+            self.web_page.runJavaScript(js)
+            self._wait_for_image_capture()
+        else:
+            self.html_loaded = True
+            self.invalidateCache()
+            self.update()
+
+    def _wait_for_image_capture(self):
+        """Poll until Plotly.toImage() has produced the image."""
+        self.web_page.runJavaScript(
+            'typeof window._capturedImage === "string"',
+            self._on_image_capture_check)
+
+    def _on_image_capture_check(self, ready):
+        self._render_retries += 1
+        if ready or self._render_retries >= 100:
+            self.web_page.runJavaScript(
+                'window._capturedImage || ""',
+                self._on_image_data_received)
+        else:
+            QTimer.singleShot(50, self._wait_for_image_capture)
+
+    def _on_image_data_received(self, data_url):
+        import base64
+        from qgis.PyQt.QtGui import QPixmap
+        if data_url and data_url.startswith('data:image'):
+            base64_data = data_url.split(',', 1)[1]
+            image_bytes = base64.b64decode(base64_data)
+            self._captured_pixmap = QPixmap()
+            self._captured_pixmap.loadFromData(image_bytes)
+        else:
+            self._captured_pixmap = None
+        self._loading = False
         self.html_loaded = True
         self.invalidateCache()
         self.update()

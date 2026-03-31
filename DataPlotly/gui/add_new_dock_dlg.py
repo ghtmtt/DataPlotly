@@ -6,6 +6,8 @@ from qgis.PyQt.QtCore import pyqtSignal
 from qgis.PyQt.QtGui import QValidator
 from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox
 
+from qgis.core import Qgis
+
 from DataPlotly.core.core_utils import uuid_suffix
 from DataPlotly.gui.gui_utils import GuiUtils
 
@@ -13,6 +15,7 @@ WIDGET, _ = uic.loadUiType(GuiUtils.get_ui_file_path('add_dock_dlg.ui'))
 
 
 class DataPlotlyNewDockDialog(QDialog, WIDGET):
+
     """Dialog to add new dock"""
 
     def __init__(self, dock_widgets=None, parent=None):
@@ -28,8 +31,12 @@ class DataPlotlyNewDockDialog(QDialog, WIDGET):
 
     def update_dlg(self, state, msg):
         """validator slot"""
-        is_valid = state != QValidator.Intermediate
-        self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(is_valid)
+        if Qgis.versionInt() >= 40000:
+            is_valid = state != QValidator.State.Intermediate
+            self.buttonBox.button(QDialogButtonBox.StandardButton.Ok).setEnabled(is_valid)
+        else:
+            is_valid = state != QValidator.Intermediate
+            self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(is_valid)
         label = self.DockIdInformationLabel
         lineEdit = self.DockIdLineEdit
         style_border = ""
@@ -68,19 +75,31 @@ class DataPlotlyNewDockIdValidator(QValidator):
 
     def validate(self, dock_id, pos):
         """Checks if dock_id is not empty and not is already present"""
-        state = QValidator.Acceptable
+        if Qgis.versionInt() >= 40000:
+            state = QValidator.State.Acceptable
+        else:
+            state = QValidator.Acceptable
         msg = None
 
         if dock_id == "":
-            state = QValidator.Intermediate
+            if Qgis.versionInt() >= 40000:
+                state = QValidator.State.Intermediate
+            else:
+                state = QValidator.Intermediate
             msg = self.tr('DockId can not be empty')
 
         if dock_id in self.dock_widgets:
-            state = QValidator.Intermediate
+            if Qgis.versionInt() >= 40000:
+                state = QValidator.State.Intermediate
+            else:
+                state = QValidator.Intermediate
             msg = self.tr(f'DockId {dock_id} is already taken')
 
         if '_' in dock_id:
-            state = QValidator.Intermediate
+            if Qgis.versionInt() >= 40000:
+                state = QValidator.State.Intermediate
+            else:
+                state = QValidator.Intermediate
             msg = self.tr('The underscore _ is not allowed')
 
         self.validationChanged.emit(state, msg)

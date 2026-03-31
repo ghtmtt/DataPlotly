@@ -37,8 +37,6 @@ from qgis.PyQt.QtXml import QDomDocument
 
 from qgis.PyQt.QtGui import (
     QFont,
-    QImage,
-    QPainter,
     QColor
 )
 from qgis.PyQt.QtCore import (
@@ -47,14 +45,11 @@ from qgis.PyQt.QtCore import (
     QDir,
     Qt
 )
-from qgis.PyQt.QtWebKit import QWebSettings
-from qgis.PyQt.QtWebKitWidgets import (
-    QWebView
-)
+
+from qgis.PyQt.QtCore import pyqtSlot, QObject
 
 from qgis.core import (
     Qgis,
-    QgsNetworkAccessManager,
     QgsFeatureRequest,
     QgsMapLayerProxyModel,
     QgsProject,
@@ -72,6 +67,16 @@ from qgis.gui import (
 )
 from qgis.utils import iface
 
+if Qgis.versionInt() >= 40000:
+    from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
+    from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
+    from PyQt6.QtWebChannel import QWebChannel
+else:
+    from qgis.core import QgsNetworkAccessManager
+    from qgis.PyQt.QtWebKit import QWebSettings
+    from qgis.PyQt.QtWebKitWidgets import QWebView
+
+
 from DataPlotly.core.core_utils import DOC_URL
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
@@ -79,6 +84,18 @@ from DataPlotly.gui.gui_utils import GuiUtils
 
 WIDGET, _ = uic.loadUiType(
     GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
+
+class Bridge(QObject):
+    """
+    custom bridge class to catch the message from QWebEngine.
+
+    NOTE: useful for QGIS >= 4, useless for QGIS 3
+    """
+    messageReceived = pyqtSignal(str)
+
+    @pyqtSlot(str)
+    def bridgeFunction(self, msg):
+        self.messageReceived.emit(msg)
 
 class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many-lines,too-many-instance-attributes,too-many-public-methods
     """
@@ -200,7 +217,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.refreshWidgets3)
 
         # fill the layer combobox with vector layers
-        self.layer_combo.setFilters(QgsMapLayerProxyModel.VectorLayer)
+        self.layer_combo.setFilters(QgsMapLayerProxyModel.Filter.VectorLayer)
 
         # connect the combo boxes to the setLegend function
         self.x_combo.fieldChanged.connect(self.setLegend)
@@ -226,7 +243,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layouth = QVBoxLayout()
         self.layouth.setContentsMargins(0, 0, 0, 0)
         self.help_widget.setLayout(self.layouth)
-        self.help_view = QWebView()
+        if Qgis.versionInt() >= 40000:
+            self.help_view = QWebEngineView()
+        else:
+            self.help_view = QWebView()
         self.layouth.addWidget(self.help_view)
         self.helpPage()
 
@@ -234,16 +254,40 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layoutw = QVBoxLayout()
         self.layoutw.setContentsMargins(0, 0, 0, 0)
         self.plot_qview.setLayout(self.layoutw)
-        self.plot_view = QWebView()
-        self.plot_view.page().setNetworkAccessManager(
-            QgsNetworkAccessManager.instance())
-        self.plot_view.statusBarMessage.connect(self.getJSmessage)
-        plot_view_settings = self.plot_view.settings()
-        plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
-        plot_view_settings.setAttribute(
-            QWebSettings.DeveloperExtrasEnabled, True)
-        plot_view_settings.setAttribute(
-            QWebSettings.Accelerated2dCanvasEnabled, True)
+
+        if Qgis.versionInt() >= 40000:
+            self.plot_view = QWebEngineView()
+
+            settings = self.plot_view.settings()
+
+            settings.setAttribute(QWebEngineSettings.WebAttribute.PluginsEnabled, True)
+
+            self.channel = QWebChannel()
+            self.bridge = Bridge()
+            self.bridge.messageReceived.connect(self.getJSmessage)
+            self.channel.registerObject("bridge", self.bridge)
+            self.plot_view.page().setWebChannel(self.channel)
+
+            # following code is just to debug and having an inspector on another page
+            # self.inspector = QWebEngineView()
+            # self.inspector.setWindowTitle("Web Inspector")
+            # self.inspector.load(QUrl("http://127.0.0.1:5588"))
+            # self.plot_view.page().setDevToolsPage(self.inspector.page())
+            # self.inspector.show()
+            # settings.setAttribute(QWebEngineSettings.WebAttribute.DeveloperExtrasEnabled, True)
+
+        else:
+            self.plot_view = QWebView()
+            self.plot_view.page().setNetworkAccessManager(
+                QgsNetworkAccessManager.instance())
+            self.plot_view.statusBarMessage.connect(self.getJSmessage)
+            plot_view_settings = self.plot_view.settings()
+            plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
+            plot_view_settings.setAttribute(
+                QWebSettings.DeveloperExtrasEnabled, True)
+            plot_view_settings.setAttribute(
+                QWebSettings.Accelerated2dCanvasEnabled, True)
+
         self.layoutw.addWidget(self.plot_view)
 
         # get the plot type from the combobox
@@ -435,7 +479,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Sets the print layout linked with the widget, if in print layout mode
         """
         self.linked_map_combo.setCurrentLayout(print_layout)
-        self.linked_map_combo.setItemType(QgsLayoutItemRegistry.LayoutMap)
+        if Qgis.versionInt() >= 40000:
+            self.linked_map_combo.setItemType(QgsLayoutItemRegistry.ItemType.LayoutMap)
+        else:
+            self.linked_map_combo.setItemType(QgsLayoutItemRegistry.LayoutMap)
 
     def set_plot_type(self, plot_type: str):
         """
@@ -786,7 +833,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                             'DeepblueBlueWhite': 'YlGnBu', # fix from https://github.com/plotly/graphing-library-docs/issues/14
                             'BlueWhitePurple': 'Picnic'}
 
-     
         self.color_scale_combo.clear()
         self.color_scale_data_defined_in.clear()
 
@@ -823,13 +869,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             ff = QFont()
             ff.setPointSizeF(8)
             self.x_label.setFont(ff)
-            #self.x_label.setFixedWidth(100)
+            # self.x_label.setFixedWidth(100)
         elif self.ptype == 'pie':
             self.x_label.setText(self.tr('Grouping field'))
             ff = QFont()
             ff.setPointSizeF(8)
             self.x_label.setFont(ff)
-            #self.x_label.setFixedWidth(80)
+            # self.x_label.setFixedWidth(80)
         else:
             self.x_label.setText(self.tr('X field'))
             self.x_label.setFont(self.font())
@@ -890,7 +936,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.marker_size.setClearValue(10.0)
             self.marker_size.setToolTip('')
 
-         # dictionary with all the widgets and the plot they belong to
+        # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
             # plot properties
             self.layer_combo: ['all'],
@@ -1058,7 +1104,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # uncommenting causes that the point_combo and label is visible everywhere!
         # is that needed in radar plot?
-        #self.refreshWidgets3()
+        # self.refreshWidgets3()
 
     def refreshWidgets2(self):
         """
@@ -1621,15 +1667,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         plot_file = QgsFileUtils.ensureFileNameHasExtension(plot_file, ['png'])
 
-        frame = self.plot_view.page().mainFrame()
-        self.plot_view.page().setViewportSize(frame.contentsSize())
-        # render image
-        image = QImage(self.plot_view.page().viewportSize(),
-                       QImage.Format_ARGB32)
-        painter = QPainter(image)
-        frame.render(painter)
-        painter.end()
-        image.save(plot_file)
+        self.plot_view.grab().save(plot_file)
         if self.message_bar:
             self.message_bar.pushSuccess(self.tr('DataPlotly'),
                                          self.tr('Plot saved to <a href="{}">{}</a>').format(

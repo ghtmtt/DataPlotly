@@ -1,14 +1,14 @@
 [general]
 name=Data Plotly
 qgisMinimumVersion=3.28
-qgisMaximumVersion=3.99
+qgisMaximumVersion=4.0
 description=D3 Plots for QGIS
 author=Matteo Ghetta (Faunalia)
 email=matteo.ghetta@gmail.com
 
 about=Draw D3 plots in QGIS
 
-homepage=https://dataplotly-docs.readthedocs.io
+homepage=https://github.com/ghtmtt/DataPlotly/blob/master/README.md
 tracker=https://github.com/ghtmtt/DataPlotly/issues
 repository=https://github.com/ghtmtt/DataPlotly
 # End of mandatory metadata
@@ -36,3 +36,5 @@ deprecated=False
 
 hasProcessingProvider=yes
 server=True
+
+supportsQt6=True

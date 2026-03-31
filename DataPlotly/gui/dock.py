@@ -8,7 +8,7 @@ the Free Software Foundation; either version 2 of the License, or
 from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
 
-from qgis.core import QgsXmlUtils
+from qgis.core import QgsXmlUtils, Qgis
 from qgis.gui import (
     QgsDockWidget,
     QgsPanelWidgetStack
@@ -60,16 +60,26 @@ class DataPlotlyDockManager():
     def addNewDockFromDlg(self):
         """ Open a dlg and add dock"""
         dlg = DataPlotlyNewDockDialog(self.dock_widgets)
-        if dlg.exec_():
-            dock_title, dock_id = dlg.get_params()
-            self.addNewDock(dock_title, dock_id, False)
+        if Qgis.versionInt() >= 40000:
+            if dlg.exec():
+                dock_title, dock_id = dlg.get_params()
+                self.addNewDock(dock_title, dock_id, False)
+        else:
+            if dlg.exec_():
+                dock_title, dock_id = dlg.get_params()
+                self.addNewDock(dock_title, dock_id, False)
 
     def removeDockFromDlg(self):
         """ Open a dlg to remove a dock"""
         dlg = DataPlotlyRemoveDockDialog(self.dock_widgets)
-        if dlg.exec_():
-            dock_id = dlg.get_param()
-            self.removeDock(dock_id)
+        if Qgis.versionInt() >= 40000:
+            if dlg.exec():
+                dock_id = dlg.get_param()
+                self.removeDock(dock_id)
+            else:
+                if dlg.exec_():
+                    dock_id = dlg.get_param()
+                    self.removeDock(dock_id)
 
     def addNewDock(self, dock_title='DataPlotly', dock_id='DataPlotly',  # pylint: disable=too-many-arguments
                    hide=True, message_bar=None, project=None):
@@ -86,7 +96,10 @@ class DataPlotlyDockManager():
         dock = DataPlotlyDock(
             dock_title=dock_title, message_bar=message_bar, dock_id=dock_id, project=project, override_iface=self.iface)
         self.dock_widgets[dock_id] = dock
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, dock)
+        if Qgis.versionInt() >= 40000:
+            self.iface.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, dock)
+        else:
+            self.iface.addDockWidget(Qt.RightDockWidgetArea, dock)
         if hide:
             dock.hide()
         return dock
