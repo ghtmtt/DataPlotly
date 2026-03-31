@@ -266,7 +266,7 @@ class PlotLayoutItem(QgsLayoutItem):
         js = """(function() {
             var plot = document.querySelector('.js-plotly-plot');
             if (plot && typeof Plotly !== 'undefined') {
-                Plotly.toImage(plot, {format: 'png', scale: 10}).then(function(dataUrl) {
+                Plotly.toImage(plot, {format: 'png', scale: 1}).then(function(dataUrl) {
                     window._capturedImage = dataUrl;
                 }).catch(function() {
                     window._capturedImage = '';
