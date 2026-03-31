@@ -29,7 +29,8 @@ from qgis.core import (
     QgsReferencedGeometryBase,
     QgsGeometry,
     QgsCsException,
-    QgsSymbolLayerUtils
+    QgsSymbolLayerUtils,
+    Qgis
 )
 from qgis.PyQt.QtCore import (
     QUrl,
@@ -43,6 +44,12 @@ from qgis.PyQt.QtGui import QColor
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
+
+qgis_version = None
+if Qgis.versionInt() >= 40000:
+    qgis_version = 4
+else:
+    qgis_version = 3
 
 
 class FilterRegion(QgsReferencedGeometryBase):  # pylint: disable=too-few-public-methods
@@ -76,8 +83,12 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     # create fixed class variables as paths for local javascript files
     POLY_FILL_PATH = QUrl.fromLocalFile(
         os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
-    PLOTLY_PATH = QUrl.fromLocalFile(
-        os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-3.0.1.min.js'))).toString()
+    if qgis_version == 4:
+        PLOTLY_PATH = QUrl.fromLocalFile(
+            os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-3.0.1.min.js'))).toString()
+    else:
+        PLOTLY_PATH = QUrl.fromLocalFile(
+            os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.52.2.min.js'))).toString()
 
     PLOT_TYPES = {
         t.type_name(): t for t in PlotType.__subclasses__()
@@ -85,11 +96,17 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
     plot_built = pyqtSignal()
 
-    # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
-    if not hasattr(QDate, 'isoformat'):
-        QDate.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
-    if not hasattr(QDateTime, 'isoformat'):
-        QDateTime.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
+    if qgis_version == 4:
+        # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
+        if not hasattr(QDate, 'isoformat'):
+            QDate.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
+        if not hasattr(QDateTime, 'isoformat'):
+            QDateTime.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
+    else:
+        if not hasattr(QDate, 'isoformat'):
+            QDate.isoformat = lambda d: d.toString(Qt.ISODate)
+        if not hasattr(QDateTime, 'isoformat'):
+            QDateTime.isoformat = lambda d: d.toString(Qt.ISODate)
 
     def __init__(self, settings: PlotSettings = None, context_generator: QgsExpressionContextGenerator = None,
                  visible_region: QgsReferencedRectangle = None, polygon_filter: FilterRegion = None):
@@ -191,7 +208,10 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         request.setSubsetOfAttributes(attrs, self.source_layer.fields())
 
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom and not self.settings.data_defined_properties.hasActiveProperties():
-            request.setFlags(QgsFeatureRequest.Flag.NoGeometry)
+            if qgis_version == 4:
+                request.setFlags(QgsFeatureRequest.Flag.NoGeometry)
+            else:
+                request.setFlags(QgsFeatureRequest.NoGeometry)
 
         visible_geom_engine = None
         if self.settings.properties.get('visible_features_only', False) and self.visible_region is not None:
@@ -517,150 +537,287 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         replaced in a second moment
         """
 
-        js_str = """
+        if qgis_version == 4:
+            js_str = """
 
-        <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
-        <script>
-            let bridge;
+            <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
+            <script>
+                let bridge;
 
-            new QWebChannel(qt.webChannelTransport, function(channel) {
-                bridge = channel.objects.bridge;
-            });
-        </script>
-        <script>
-        // additional js function to select and click on the data
-        // returns the ids of the selected/clicked feature
+                new QWebChannel(qt.webChannelTransport, function(channel) {
+                    bridge = channel.objects.bridge;
+                });
+            </script>
+            <script>
+            // additional js function to select and click on the data
+            // returns the ids of the selected/clicked feature
 
-        var plotly_div = document.getElementById('ReplaceTheDiv')
-        var plotly_data = plotly_div.data
+            var plotly_div = document.getElementById('ReplaceTheDiv')
+            var plotly_data = plotly_div.data
 
-        // selecting function
-        plotly_div.on('plotly_selected', function(data){
-        var dds = {};
-        dds["mode"] = 'selection'
-        dds["type"] = data.points[0].data.type
+            // selecting function
+            plotly_div.on('plotly_selected', function(data){
+            var dds = {};
+            dds["mode"] = 'selection'
+            dds["type"] = data.points[0].data.type
 
-        featureIds = [];
-        featureIdsTernary = [];
-
-        data.points.forEach(function(pt){
-        featureIds.push(parseInt(pt.id))
-        featureIdsTernary.push(parseInt(pt.pointNumber))
-        dds["id"] = featureIds
-        dds["tid"] = featureIdsTernary
-            })
-        //console.log(dds)
-        if (bridge) {
-            bridge.bridgeFunction(JSON.stringify(dds));
-        }
-        })
-
-        // clicking function
-        plotly_div.on('plotly_click', function(data){
-        var featureIds = [];
-        var dd = {};
-        dd["fidd"] = data.points[0].id
-        dd["mode"] = 'clicking'
-
-        // loop and create dictionary depending on plot type
-        for(var i=0; i < data.points.length; i++){
-
-        // scatter plot
-        if(data.points[i].data.type == 'scatter'){
-            dd["uid"] = data.points[i].data.uid
-            dd["type"] = data.points[i].data.type
+            featureIds = [];
+            featureIdsTernary = [];
 
             data.points.forEach(function(pt){
-            dd["fid"] = pt.id
+            featureIds.push(parseInt(pt.id))
+            featureIdsTernary.push(parseInt(pt.pointNumber))
+            dds["id"] = featureIds
+            dds["tid"] = featureIdsTernary
+                })
+            //console.log(dds)
+            if (bridge) {
+                bridge.bridgeFunction(JSON.stringify(dds));
+            }
             })
-        }
 
-        // pie
+            // clicking function
+            plotly_div.on('plotly_click', function(data){
+            var featureIds = [];
+            var dd = {};
+            dd["fidd"] = data.points[0].id
+            dd["mode"] = 'clicking'
 
-        else if(data.points[i].data.type == 'pie'){
-          dd["type"] = data.points[i].data.type
-          dd["label"] = data.points[i].label
-          dd["field"] = data.points[i].data.name
-          console.log(data.points[i].label)
-          console.log(data.points[i])
-        }
+            // loop and create dictionary depending on plot type
+            for(var i=0; i < data.points.length; i++){
 
-        // histogram
-        else if(data.points[i].data.type == 'histogram'){
+            // scatter plot
+            if(data.points[i].data.type == 'scatter'){
+                dd["uid"] = data.points[i].data.uid
+                dd["type"] = data.points[i].data.type
+
+                data.points.forEach(function(pt){
+                dd["fid"] = pt.id
+                })
+            }
+
+            // pie
+
+            else if(data.points[i].data.type == 'pie'){
             dd["type"] = data.points[i].data.type
-            dd["uid"] = data.points[i].data.uid
+            dd["label"] = data.points[i].label
             dd["field"] = data.points[i].data.name
-
-            // correct axis orientation
-            if(data.points[i].data.orientation == 'v'){
-                dd["id"] = data.points[i].x
-                dd["bin_step"] = data.points[i].fullData.xbins.size
+            console.log(data.points[i].label)
+            console.log(data.points[i])
             }
-            else {
-                dd["id"] = data.points[i].y
-                dd["bin_step"] = data.points[i].fullData.ybins.size
-            }
-        }
 
-        // box plot
-        else if(data.points[i].data.type == 'box'){
-            dd["uid"] = data.points[i].data.uid
-            dd["type"] = data.points[i].data.type
-            dd["field"] = data.points[i].data.customdata[0]
+            // histogram
+            else if(data.points[i].data.type == 'histogram'){
+                dd["type"] = data.points[i].data.type
+                dd["uid"] = data.points[i].data.uid
+                dd["field"] = data.points[i].data.name
 
                 // correct axis orientation
                 if(data.points[i].data.orientation == 'v'){
                     dd["id"] = data.points[i].x
+                    dd["bin_step"] = data.points[i].fullData.xbins.size
                 }
                 else {
                     dd["id"] = data.points[i].y
+                    dd["bin_step"] = data.points[i].fullData.ybins.size
                 }
             }
 
-        // violin plot
-        else if(data.points[i].data.type == 'violin'){
-            dd["uid"] = data.points[i].data.uid
-            dd["type"] = data.points[i].data.type
-            dd["field"] = data.points[i].data.customdata[0]
+            // box plot
+            else if(data.points[i].data.type == 'box'){
+                dd["uid"] = data.points[i].data.uid
+                dd["type"] = data.points[i].data.type
+                dd["field"] = data.points[i].data.customdata[0]
 
-                // correct axis orientation (for violin is viceversa)
-                if(data.points[i].data.orientation == 'v'){
-                    dd["id"] = data.points[i].x
+                    // correct axis orientation
+                    if(data.points[i].data.orientation == 'v'){
+                        dd["id"] = data.points[i].x
+                    }
+                    else {
+                        dd["id"] = data.points[i].y
+                    }
                 }
-                else {
-                    dd["id"] = data.points[i].y
+
+            // violin plot
+            else if(data.points[i].data.type == 'violin'){
+                dd["uid"] = data.points[i].data.uid
+                dd["type"] = data.points[i].data.type
+                dd["field"] = data.points[i].data.customdata[0]
+
+                    // correct axis orientation (for violin is viceversa)
+                    if(data.points[i].data.orientation == 'v'){
+                        dd["id"] = data.points[i].x
+                    }
+                    else {
+                        dd["id"] = data.points[i].y
+                    }
                 }
-            }
 
-        // bar plot
-        else if(data.points[i].data.type == 'bar'){
-            dd["uid"] = data.points[i].data.uid
-            dd["type"] = data.points[i].data.type
-            dd["field"] = data.points[i].data.customdata[0]
+            // bar plot
+            else if(data.points[i].data.type == 'bar'){
+                dd["uid"] = data.points[i].data.uid
+                dd["type"] = data.points[i].data.type
+                dd["field"] = data.points[i].data.customdata[0]
 
-                // correct axis orientation
-                if(data.points[i].data.orientation == 'v'){
-                    dd["id"] = data.points[i].x
+                    // correct axis orientation
+                    if(data.points[i].data.orientation == 'v'){
+                        dd["id"] = data.points[i].x
+                    }
+                    else {
+                        dd["id"] = data.points[i].y
+                    }
                 }
-                else {
-                    dd["id"] = data.points[i].y
+
+            // ternary
+            else if(data.points[i].data.type == 'scatterternary'){
+                dd["uid"] = data.points[i].data.uid
+                dd["type"] = data.points[i].data.type
+                dd["field"] = data.points[i].data.customdata
+                dd["fid"] = data.points[i].pointNumber
                 }
-            }
 
-        // ternary
-        else if(data.points[i].data.type == 'scatterternary'){
-            dd["uid"] = data.points[i].data.uid
-            dd["type"] = data.points[i].data.type
-            dd["field"] = data.points[i].data.customdata
-            dd["fid"] = data.points[i].pointNumber
+                }
+            if (bridge) {
+                bridge.bridgeFunction(JSON.stringify(dd));
             }
+            });
+            </script>"""
 
-            }
-        if (bridge) {
-            bridge.bridgeFunction(JSON.stringify(dd));
-        }
-        });
-        </script>"""
+        else:
+
+            js_str = '''
+                    <script>
+                    // additional js function to select and click on the data
+                    // returns the ids of the selected/clicked feature
+
+                    var plotly_div = document.getElementById('ReplaceTheDiv')
+                    var plotly_data = plotly_div.data
+
+                    // selecting function
+                    plotly_div.on('plotly_selected', function(data){
+                    var dds = {};
+                    dds["mode"] = 'selection'
+                    dds["type"] = data.points[0].data.type
+
+                    featureIds = [];
+                    featureIdsTernary = [];
+
+                    data.points.forEach(function(pt){
+                    featureIds.push(parseInt(pt.id))
+                    featureIdsTernary.push(parseInt(pt.pointNumber))
+                    dds["id"] = featureIds
+                    dds["tid"] = featureIdsTernary
+                        })
+                    //console.log(dds)
+                    window.status = JSON.stringify(dds)
+                    })
+
+                    // clicking function
+                    plotly_div.on('plotly_click', function(data){
+                    var featureIds = [];
+                    var dd = {};
+                    dd["fidd"] = data.points[0].id
+                    dd["mode"] = 'clicking'
+
+                    // loop and create dictionary depending on plot type
+                    for(var i=0; i < data.points.length; i++){
+
+                    // scatter plot
+                    if(data.points[i].data.type == 'scatter'){
+                        dd["uid"] = data.points[i].data.uid
+                        dd["type"] = data.points[i].data.type
+
+                        data.points.forEach(function(pt){
+                        dd["fid"] = pt.id
+                        })
+                    }
+
+                    // pie
+
+                    else if(data.points[i].data.type == 'pie'){
+                    dd["type"] = data.points[i].data.type
+                    dd["label"] = data.points[i].label
+                    dd["field"] = data.points[i].data.name
+                    console.log(data.points[i].label)
+                    console.log(data.points[i])
+                    }
+
+                    // histogram
+                    else if(data.points[i].data.type == 'histogram'){
+                        dd["type"] = data.points[i].data.type
+                        dd["uid"] = data.points[i].data.uid
+                        dd["field"] = data.points[i].data.name
+
+                        // correct axis orientation
+                        if(data.points[i].data.orientation == 'v'){
+                            dd["id"] = data.points[i].x
+                            dd["bin_step"] = data.points[i].fullData.xbins.size
+                        }
+                        else {
+                            dd["id"] = data.points[i].y
+                            dd["bin_step"] = data.points[i].fullData.ybins.size
+                        }
+                    }
+
+                    // box plot
+                    else if(data.points[i].data.type == 'box'){
+                        dd["uid"] = data.points[i].data.uid
+                        dd["type"] = data.points[i].data.type
+                        dd["field"] = data.points[i].data.customdata[0]
+
+                            // correct axis orientation
+                            if(data.points[i].data.orientation == 'v'){
+                                dd["id"] = data.points[i].x
+                            }
+                            else {
+                                dd["id"] = data.points[i].y
+                            }
+                        }
+
+                    // violin plot
+                    else if(data.points[i].data.type == 'violin'){
+                        dd["uid"] = data.points[i].data.uid
+                        dd["type"] = data.points[i].data.type
+                        dd["field"] = data.points[i].data.customdata[0]
+
+                            // correct axis orientation (for violin is viceversa)
+                            if(data.points[i].data.orientation == 'v'){
+                                dd["id"] = data.points[i].x
+                            }
+                            else {
+                                dd["id"] = data.points[i].y
+                            }
+                        }
+
+                    // bar plot
+                    else if(data.points[i].data.type == 'bar'){
+                        dd["uid"] = data.points[i].data.uid
+                        dd["type"] = data.points[i].data.type
+                        dd["field"] = data.points[i].data.customdata[0]
+
+                            // correct axis orientation
+                            if(data.points[i].data.orientation == 'v'){
+                                dd["id"] = data.points[i].x
+                            }
+                            else {
+                                dd["id"] = data.points[i].y
+                            }
+                        }
+
+                    // ternary
+                    else if(data.points[i].data.type == 'scatterternary'){
+                        dd["uid"] = data.points[i].data.uid
+                        dd["type"] = data.points[i].data.type
+                        dd["field"] = data.points[i].data.customdata
+                        dd["fid"] = data.points[i].pointNumber
+                        }
+
+                        }
+                    window.status = JSON.stringify(dd)
+                    });
+                    </script>'''
+
+
 
         return js_str
 

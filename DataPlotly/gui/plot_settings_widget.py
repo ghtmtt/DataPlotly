@@ -46,9 +46,6 @@ from qgis.PyQt.QtCore import (
     Qt
 )
 
-from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
-from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
-from PyQt6.QtWebChannel import QWebChannel
 from qgis.PyQt.QtCore import pyqtSlot, QObject
 
 from qgis.core import (
@@ -70,6 +67,20 @@ from qgis.gui import (
 )
 from qgis.utils import iface
 
+qgis_version = None
+
+if Qgis.versionInt() >= 40000:
+    qgis_version = 4
+    from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
+    from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
+    from PyQt6.QtWebChannel import QWebChannel
+else:
+    qgis_version = 3
+    from qgis.core import QgsNetworkAccessManager
+    from qgis.PyQt.QtWebKit import QWebSettings
+    from qgis.PyQt.QtWebKitWidgets import QWebView
+
+
 from DataPlotly.core.core_utils import DOC_URL
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
@@ -79,6 +90,11 @@ WIDGET, _ = uic.loadUiType(
     GuiUtils.get_ui_file_path('dataplotly_dockwidget_base.ui'))
 
 class Bridge(QObject):
+    """
+    custom bridge class to catch the message from QWebEngine.
+
+    NOTE: useful for QGIS >= 4, useless for QGIS 3
+    """
     messageReceived = pyqtSignal(str)
 
     @pyqtSlot(str)
@@ -229,8 +245,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layouth = QVBoxLayout()
         self.layouth.setContentsMargins(0, 0, 0, 0)
         self.help_widget.setLayout(self.layouth)
-        self.help_view = QWebEngineView()
-        # self.help_view = QWebView()
+        if qgis_version == 4:
+            self.help_view = QWebEngineView()
+        else:
+            self.help_view = QWebView()
         self.layouth.addWidget(self.help_view)
         self.helpPage()
 
@@ -239,25 +257,38 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layoutw.setContentsMargins(0, 0, 0, 0)
         self.plot_qview.setLayout(self.layoutw)
 
-        self.plot_view = QWebEngineView()
+        if qgis_version == 4:
+            self.plot_view = QWebEngineView()
 
-        settings = self.plot_view.settings()
+            settings = self.plot_view.settings()
 
-        settings.setAttribute(QWebEngineSettings.WebAttribute.PluginsEnabled, True)
+            settings.setAttribute(QWebEngineSettings.WebAttribute.PluginsEnabled, True)
 
-        self.channel = QWebChannel()
-        self.bridge = Bridge()
-        self.bridge.messageReceived.connect(self.getJSmessage)
-        self.channel.registerObject("bridge", self.bridge)
-        self.plot_view.page().setWebChannel(self.channel)
+            self.channel = QWebChannel()
+            self.bridge = Bridge()
+            self.bridge.messageReceived.connect(self.getJSmessage)
+            self.channel.registerObject("bridge", self.bridge)
+            self.plot_view.page().setWebChannel(self.channel)
 
-        # following code is just to debug and having an inspector on another page
-        # self.inspector = QWebEngineView()
-        # self.inspector.setWindowTitle("Web Inspector")
-        # self.inspector.load(QUrl("http://127.0.0.1:5588"))
-        # self.plot_view.page().setDevToolsPage(self.inspector.page())
-        # self.inspector.show()
-        # settings.setAttribute(QWebEngineSettings.WebAttribute.DeveloperExtrasEnabled, True)
+            # following code is just to debug and having an inspector on another page
+            # self.inspector = QWebEngineView()
+            # self.inspector.setWindowTitle("Web Inspector")
+            # self.inspector.load(QUrl("http://127.0.0.1:5588"))
+            # self.plot_view.page().setDevToolsPage(self.inspector.page())
+            # self.inspector.show()
+            # settings.setAttribute(QWebEngineSettings.WebAttribute.DeveloperExtrasEnabled, True)
+
+        else:
+            self.plot_view = QWebView()
+            self.plot_view.page().setNetworkAccessManager(
+                QgsNetworkAccessManager.instance())
+            self.plot_view.statusBarMessage.connect(self.getJSmessage)
+            plot_view_settings = self.plot_view.settings()
+            plot_view_settings.setAttribute(QWebSettings.WebGLEnabled, True)
+            plot_view_settings.setAttribute(
+                QWebSettings.DeveloperExtrasEnabled, True)
+            plot_view_settings.setAttribute(
+                QWebSettings.Accelerated2dCanvasEnabled, True)
 
         self.layoutw.addWidget(self.plot_view)
 
@@ -449,7 +480,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Sets the print layout linked with the widget, if in print layout mode
         """
         self.linked_map_combo.setCurrentLayout(print_layout)
-        self.linked_map_combo.setItemType(QgsLayoutItemRegistry.ItemType.LayoutMap)
+        if qgis_version == 4:
+            self.linked_map_combo.setItemType(QgsLayoutItemRegistry.ItemType.LayoutMap)
+        else:
+            self.linked_map_combo.setItemType(QgsLayoutItemRegistry.LayoutMap)
 
     def set_plot_type(self, plot_type: str):
         """
@@ -834,28 +868,50 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.x_label.setFont(ff)
             self.x_label.setFixedWidth(80)
             # Register button again with more specific help text
-            self.in_color_defined_button.init(
-                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
-                    PlotSettings.PROPERTY_COLOR),
-                QgsPropertyDefinition(
-                    'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
-                    "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
-                    "or an array of such strings"
-                ), None, False
-            )
+            if qgis_version == 4:
+                self.in_color_defined_button.init(
+                    PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
+                        PlotSettings.PROPERTY_COLOR),
+                    QgsPropertyDefinition(
+                        'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
+                        "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
+                        "or an array of such strings"
+                    ), None, False
+                )
+            else:
+                self.in_color_defined_button.init(
+                    PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
+                        PlotSettings.PROPERTY_COLOR),
+                    QgsPropertyDefinition(
+                        'color', QgsPropertyDefinition.DataTypeString, 'Color Array',
+                        "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
+                        "or an array of such strings"
+                    ), None, False
+                )
             self.in_color_defined_button.changed.connect(self._update_property)
 
         elif self.ptype == 'histogram':
             # Register button again with more specific help text
-            self.in_color_defined_button.init(
-                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
-                    PlotSettings.PROPERTY_COLOR),
-                QgsPropertyDefinition(
-                    'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
-                    "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
-                    "or an array of such strings"
-                ), None, False
-            )
+            if qgis_version == 4:
+                self.in_color_defined_button.init(
+                    PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
+                        PlotSettings.PROPERTY_COLOR),
+                    QgsPropertyDefinition(
+                        'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
+                        "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
+                        "or an array of such strings"
+                    ), None, False
+                )
+            else:
+                self.in_color_defined_button.init(
+                    PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
+                        PlotSettings.PROPERTY_COLOR),
+                    QgsPropertyDefinition(
+                        'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
+                        "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
+                        "or an array of such strings"
+                    ), None, False
+                )
 
         # change the label and the spin box value when the bar plot is chosen
         if self.ptype == 'bar':

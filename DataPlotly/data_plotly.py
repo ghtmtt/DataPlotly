@@ -25,7 +25,7 @@ from functools import partial
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
-from qgis.core import QgsApplication, QgsExpression, QgsProject
+from qgis.core import QgsApplication, QgsExpression, QgsProject, Qgis
 from qgis.gui import QgsGui
 
 # Help
@@ -141,7 +141,10 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         self.toolButton = QToolButton()
         self.toolButtonMenu = QMenu()
         self.toolButton.setMenu(self.toolButtonMenu)
-        self.toolButton.setPopupMode(QToolButton.ToolButtonPopupMode.MenuButtonPopup)
+        if Qgis.versionInt() >= 40000:
+            self.toolButton.setPopupMode(QToolButton.ToolButtonPopupMode.MenuButtonPopup)
+        else:
+            self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
         self.toolBtnAction = self.iface.addToolBarWidget(self.toolButton)
         self.toolButton.setDefaultAction(self.show_dock_action)
 

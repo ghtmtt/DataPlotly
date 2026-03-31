@@ -9,7 +9,7 @@ the Free Software Foundation; either version 2 of the License, or
 from copy import deepcopy
 from qgis.PyQt.QtCore import QFile, QIODevice
 from qgis.PyQt.QtXml import QDomDocument, QDomElement
-from qgis.core import QgsXmlUtils, QgsPropertyCollection, QgsPropertyDefinition
+from qgis.core import QgsXmlUtils, QgsPropertyCollection, QgsPropertyDefinition, Qgis
 
 def _pc_deepcopy(self, memo):
     return QgsPropertyCollection(self)
@@ -331,10 +331,17 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         Reads the settings from an XML file
         """
         f = QFile(file_name)
-        if f.open(QIODevice.OpenModeFlag.ReadOnly):
-            document = QDomDocument()
-            if document.setContent(f):
-                if self.read_xml(document.firstChildElement()):
-                    return True
+        if Qgis.versionInt() >= 40000:
+            if f.open(QIODevice.OpenModeFlag.ReadOnly):
+                document = QDomDocument()
+                if document.setContent(f):
+                    if self.read_xml(document.firstChildElement()):
+                        return True
+        else:
+            if f.open(QIODevice.ReadOnly):
+                document = QDomDocument()
+                if document.setContent(f):
+                    if self.read_xml(document.firstChildElement()):
+                        return True
 
         return False
