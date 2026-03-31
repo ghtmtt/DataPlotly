@@ -163,8 +163,9 @@ class PlotLayoutItem(QgsLayoutItem):
         painter.save()
 
         if self._captured_pixmap and not self._captured_pixmap.isNull():
-            scale = context.renderContext().scaleFactor() / self.html_units_to_layout_units
-            painter.scale(scale, scale)
+            sx = self.rect().width() * context.renderContext().scaleFactor() / self._captured_pixmap.width()
+            sy = self.rect().height() * context.renderContext().scaleFactor() / self._captured_pixmap.height()
+            painter.scale(sx, sy)
             painter.drawPixmap(0, 0, self._captured_pixmap)
         painter.restore()
 
@@ -264,10 +265,8 @@ class PlotLayoutItem(QgsLayoutItem):
         self._render_retries = 0
         js = """(function() {
             var plot = document.querySelector('.js-plotly-plot');
-            var w = document.documentElement.clientWidth;
-            var h = document.documentElement.clientHeight;
             if (plot && typeof Plotly !== 'undefined') {
-                Plotly.toImage(plot, {format: 'png', width: w, height: h, scale: 10}).then(function(dataUrl) {
+                Plotly.toImage(plot, {format: 'png', scale: 10}).then(function(dataUrl) {
                     window._capturedImage = dataUrl;
                 }).catch(function() {
                     window._capturedImage = '';
