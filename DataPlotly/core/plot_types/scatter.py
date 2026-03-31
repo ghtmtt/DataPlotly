@@ -61,7 +61,10 @@ class ScatterPlotFactory(PlotType):
                              'width': settings.data_defined_stroke_widths if settings.data_defined_stroke_widths else settings.properties['marker_width']}
                     },
             line={'width': settings.properties['marker_width'],
-                  'dash': settings.properties['line_dash']},
+                  'dash': settings.properties['line_dash'],
+                  'shape': settings.properties['interpolation_shape']
+                  },
+            connectgaps=settings.properties['connect_gaps'],
             opacity=settings.properties['opacity']
         )]
 

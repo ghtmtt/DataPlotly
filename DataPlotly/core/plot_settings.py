@@ -130,6 +130,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'bins': 0,
             'selected_features_only': False,
             'visible_features_only': False,
+            'skip_nulls': True,
             'color_scale_data_defined_in_check': False,
             'color_scale_data_defined_in_invert_check': False,
             'marker_type_combo': 'Points',
@@ -146,9 +147,15 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'pie_hole': 0,
             'fill': False,
             'line_combo_threshold': 'Dot Line',
-            'line_dash_threshold': 'dash',
+            # Be consistent with the value of line_combo_threshold 
+            # since the value of 'line_dash_threshold is set from 
+            # the combo value
+            #'line_dash_threshold': 'dash',
+            'line_dash_threshold': 'dot',
             'threshold_value': 1,
-            'threshold': False
+            'threshold': False,
+            'connect_gaps': False,
+            'interpolation_shape': 'linear'
         }
 
         # layout nested dictionary

@@ -18,3 +18,4 @@ from .radar import RadarChartFactory
 from .scatter import ScatterPlotFactory
 from .ternary import TernaryFactory
 from .violin import ViolinFactory
+from .filledline import FilledLineFactory

@@ -229,12 +229,14 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.z_combo.fieldChanged.connect(self.setLegend)
 
         self.draw_btn.clicked.connect(self.create_plot)
-        self.update_btn.clicked.connect(self.UpdatePlot)
+        self.update_btn.clicked.connect(self.updatePlot)
         self.clear_btn.clicked.connect(self.clearPlotView)
         self.save_plot_btn.clicked.connect(self.save_plot_as_image)
         self.save_plot_html_btn.clicked.connect(self.save_plot_as_html)
+        self.save_plot_json_btn.clicked.connect(self.save_plot_as_json)
         self.save_plot_btn.setIcon(GuiUtils.get_icon('save_as_image.svg'))
         self.save_plot_html_btn.setIcon(GuiUtils.get_icon('save_as_html.svg'))
+        self.save_plot_json_btn.setIcon(GuiUtils.get_icon('save_as_json.svg'))
 
         # initialize the empty dictionary of plots
         self.plot_factories = {}
@@ -312,7 +314,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.register_data_defined_button(
             self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
         self.in_color_defined_button.registerEnabledWidget(
-            self.in_color_combo, natural=False)
+            self. in_color_combo, natural=False)
         self.in_color_defined_button.changed.connect(
             self.data_defined_color_updated)
         self.register_data_defined_button(
@@ -404,6 +406,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.subcombo_label.setVisible(False)
             self.visible_feature_check.setVisible(False)
             self.selected_feature_check.setVisible(False)
+            self.skip_null_values_check.setVisible(False)
         else:
             self.iface.mapCanvas().extentsChanged.connect(self.update_plot_visible_rect)
             self.label_linked_map.setVisible(False)
@@ -759,6 +762,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         for k, v in self.point_types.items():
             self.point_combo.addItem(k, '', v)
 
+        # Line types
         self.line_types = OrderedDict([
             (GuiUtils.get_icon('solid.png'), self.tr('Solid Line')),
             (GuiUtils.get_icon('dot.png'), self.tr('Dot Line')),
@@ -782,8 +786,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         for k, v in self.line_types.items():
             self.line_combo.addItem(k, v)
             self.line_combo_threshold.addItem(k,v)
-
-
 
         # BarPlot bar mode
         self.bar_mode_combo.clear()
@@ -810,6 +812,15 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         for k, v in self.contour_type.items():
             self.contour_type_combo.addItem(k, v)
 
+        # Scatterline interpolation type
+        self.scatterline_interpolation_combo.clear()
+        self.scatterline_interpolation_combo.addItem(self.tr('Linear'),'linear')
+        self.scatterline_interpolation_combo.addItem(self.tr('Smooth spline'),'spline')
+        self.scatterline_interpolation_combo.addItem(self.tr('Step-wise hv'),'hv')
+        self.scatterline_interpolation_combo.addItem(self.tr('Step-wise vh'),'vh')
+        self.scatterline_interpolation_combo.addItem(self.tr('Step-wise hvh'),'hvh')
+        self.scatterline_interpolation_combo.addItem(self.tr('Step-wise vhv'),'vhv')
+
         # Contour Plot color scale and Data Defined Color scale
 
         scale_color_dict = {'Grey Scale': 'Greys',
@@ -834,97 +845,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.color_scale_combo.addItem(k, v)
             self.color_scale_data_defined_in.addItem(k, v)
 
-        # according to the plot type, change the label names
-
-        # BoxPlot
-        if self.ptype in ('box', 'violin'):
-            self.x_label.setText(self.tr('Grouping field \n(optional)'))
-            # set the horizontal and vertical size of the label and reduce the label font size
-            ff = QFont()
-            ff.setPointSizeF(8)
-            self.x_label.setFont(ff)
-            self.x_label.setFixedWidth(100)
-            self.orientation_label.setText(self.tr('Box orientation'))
-            self.in_color_lab.setText(self.tr('Box color'))
-            self.register_data_defined_button(
-                self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
-
-        elif self.ptype in ('scatter', 'ternary', 'bar', '2dhistogram', 'contour', 'polar','radar'):
-            self.x_label.setText(self.tr('X field'))
-            self.x_label.setFont(self.font())
-
-            if self.ptype in ('scatter', 'ternary'):
-                self.in_color_lab.setText(self.tr('Marker color'))
-            elif self.ptype == 'bar':
-                self.orientation_label.setText(self.tr('Bar orientation'))
-                self.in_color_lab.setText(self.tr('Bar color'))
-            self.register_data_defined_button(
-                self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
-
-        elif self.ptype == 'pie':
-            self.x_label.setText(self.tr('Grouping field'))
-            ff = QFont()
-            ff.setPointSizeF(8.5)
-            self.x_label.setFont(ff)
-            self.x_label.setFixedWidth(80)
-            # Register button again with more specific help text
-            if qgis_version == 4:
-                self.in_color_defined_button.init(
-                    PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
-                        PlotSettings.PROPERTY_COLOR),
-                    QgsPropertyDefinition(
-                        'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
-                        "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
-                        "or an array of such strings"
-                    ), None, False
-                )
-            else:
-                self.in_color_defined_button.init(
-                    PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
-                        PlotSettings.PROPERTY_COLOR),
-                    QgsPropertyDefinition(
-                        'color', QgsPropertyDefinition.DataTypeString, 'Color Array',
-                        "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
-                        "or an array of such strings"
-                    ), None, False
-                )
-            self.in_color_defined_button.changed.connect(self._update_property)
-
-        elif self.ptype == 'histogram':
-            # Register button again with more specific help text
-            if qgis_version == 4:
-                self.in_color_defined_button.init(
-                    PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
-                        PlotSettings.PROPERTY_COLOR),
-                    QgsPropertyDefinition(
-                        'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
-                        "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
-                        "or an array of such strings"
-                    ), None, False
-                )
-            else:
-                self.in_color_defined_button.init(
-                    PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
-                        PlotSettings.PROPERTY_COLOR),
-                    QgsPropertyDefinition(
-                        'color', QgsPropertyDefinition.DataType.DataTypeString, 'Color Array',
-                        "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
-                        "or an array of such strings"
-                    ), None, False
-                )
-
-        # change the label and the spin box value when the bar plot is chosen
-        if self.ptype == 'bar':
-            self.marker_size_lab.setText(self.tr('Bar width'))
-            self.marker_size.setValue(0.0)
-            self.marker_size.setClearValue(0.0, self.tr('Auto'))
-            self.marker_size.setToolTip(self.tr('Set to Auto to automatically resize the bar width'))
-
-        # change the label and the spin box value when the scatter plot is chosen
-        if self.ptype == 'scatter':
-            self.marker_size_lab.setText(self.tr('Marker size'))
-            self.marker_size.setValue(10)
-
         # info combo for data hovering
         self.info_combo.clear()
         self.info_combo.addItem(self.tr('All Values'), 'all')
@@ -944,29 +864,106 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.violinSideCombo.addItem(self.tr('Only Left'), 'negative')
         self.violinSideCombo.addItem(self.tr('Only right'), 'positive')
 
-        # dictionary with all the widgets and the plot they belong to
+        # according to the plot type, change the label names or settings
+        # for each change, one complete if-clause with closing else-statement to avoid wrong names/settings in some plottypes
+
+        # x_label
+        if self.ptype in ('box', 'violin'):
+            self.x_label.setText(self.tr('Grouping field \n(optional)'))
+            # set the horizontal and vertical size of the label and reduce the label font size
+            ff = QFont()
+            ff.setPointSizeF(8)
+            self.x_label.setFont(ff)
+            #self.x_label.setFixedWidth(100)
+        elif self.ptype == 'pie':
+            self.x_label.setText(self.tr('Grouping field'))
+            ff = QFont()
+            ff.setPointSizeF(8)
+            self.x_label.setFont(ff)
+            #self.x_label.setFixedWidth(80)
+        else:
+            self.x_label.setText(self.tr('X field'))
+            self.x_label.setFont(self.font())
+
+        # y_label
+        if self.ptype in ('filledline'):
+            self.y_label.setText(self.tr('Upper Y field'))
+        else:
+            self.y_label.setText(self.tr('Y field'))
+
+        # z_label
+        if self.ptype in ('filledline'):
+            self.z_label.setText(self.tr('Lower Y field'))
+        else:
+            self.z_label.setText(self.tr('Z field'))
+
+        # in_color_label
+        if  self.ptype in ('box', 'violin'):
+            self.in_color_lab.setText(self.tr('Box color'))
+        elif self.ptype in ('bar'):
+            self.in_color_lab.setText(self.tr('Bar color'))
+        elif self.ptype in ('filledlines'):
+            self.in_color_lab.setText(self.tr('Fill color'))
+        else:
+            self.in_color_lab.setText(self.tr('Marker color'))
+
+        # in_color_defined_button
+        if self.ptype in ('histogram', 'pie'):
+            self.in_color_defined_button.init(
+                PlotSettings.PROPERTY_COLOR, self.data_defined_properties.property(
+                    PlotSettings.PROPERTY_COLOR),
+                QgsPropertyDefinition(
+                    'color', QgsPropertyDefinition.DataTypeString, 'Color Array',
+                    "string [<b>r,g,b,a</b>] as int 0-255 or #<b>AARRGGBB</b> as hex or <b>color</b> as color's name, "
+                    "or an array of such strings"
+                ), None, False
+            )
+            self.in_color_defined_button.changed.connect(self._update_property)
+        else:
+            self.register_data_defined_button(
+                self.in_color_defined_button, PlotSettings.PROPERTY_COLOR)
+
+        # Orientation label
+        if self.ptype in ('box', 'violin'):
+            self.orientation_label.setText(self.tr('Box orientation'))
+        else:
+            self.orientation_label.setText(self.tr('Bar orientation'))
+
+        # marker_size label and settings
+        if self.ptype == 'bar':
+            self.marker_size_lab.setText(self.tr('Bar width'))
+            self.marker_size.setValue(0.0)
+            self.marker_size.setClearValue(0.0, self.tr('Auto'))
+            self.marker_size.setToolTip(self.tr('Set to Auto to automatically resize the bar width'))
+        else:
+            self.marker_size_lab.setText(self.tr('Marker size'))
+            self.marker_size.setValue(10)
+            self.marker_size.setClearValue(10.0)
+            self.marker_size.setToolTip('')
+
+         # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
             # plot properties
             self.layer_combo: ['all'],
             self.feature_subset_defined_button: ['all'],
-            self.x_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour'],
-            self.x_combo: ['scatter', 'bar', 'box','pie', '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour'],
+            self.x_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour', 'filledline'],
+            self.x_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram','histogram', 'polar', 'ternary', 'violin', 'contour', 'filledline'],
             self.y_fields_label: ['radar'],
             self.y_fields_combo: ['radar'],
             self.y_combo_radar_label: ['radar'],
             self.y_radar_label: ['radar'],
-            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin'],
-            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin'],
-            self.z_label: ['ternary'],
-            self.z_combo: ['ternary'],
+            self.y_label: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin', 'filledline'],
+            self.y_combo: ['scatter', 'bar', 'box', 'pie', '2dhistogram', 'polar', 'ternary', 'contour', 'violin', 'filledline'],
+            self.z_label: ['ternary', 'filledline'],
+            self.z_combo: ['ternary', 'filledline'],
             self.info_label: ['scatter'],
             self.info_combo: ['scatter'],
-            self.in_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
-            self.in_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
-            self.in_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary'],
-            self.color_scale_data_defined_in: ['scatter', 'bar', 'pie', 'histogram', 'ternary'],
-            self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary'],
-            self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary'],
+            self.in_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin', 'filledline'],
+            self.in_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin', 'filledline'],
+            self.in_color_defined_button: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'filledline'],
+            self.color_scale_data_defined_in: ['scatter', 'bar', 'pie', 'histogram', 'ternary', 'filledline'],
+            self.color_scale_data_defined_in_label: ['scatter', 'bar', 'ternary', 'filledline'],
+            self.color_scale_data_defined_in_check: ['scatter', 'bar', 'ternary', 'filledline'],
             self.color_scale_data_defined_in_invert_check: ['bar', 'ternary'],
             self.out_color_lab: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
             self.out_color_combo: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'ternary', 'violin'],
@@ -977,12 +974,12 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.marker_size_lab: ['scatter', 'polar', 'ternary', 'bar', 'radar'],
             self.marker_size: ['scatter', 'polar', 'ternary', 'bar', 'radar'],
             self.size_defined_button: ['scatter', 'polar','ternary', 'bar'],
-            self.marker_type_lab: ['scatter', 'polar','radar'],
-            self.marker_type_combo: ['scatter', 'polar','radar'],
+            self.marker_type_lab: ['scatter', 'polar', 'radar'],
+            self.marker_type_combo: ['scatter', 'polar', 'radar'],
             self.alpha_lab: ['scatter', 'bar', 'box', 'histogram', 'polar','radar', 'ternary', 'violin', 'contour'],
             self.opacity_widget: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'radar','ternary', 'violin', 'contour'],
             self.properties_group_box: ['scatter', 'bar', 'box', 'pie', 'histogram', 'polar', 'radar','ternary', 'contour', '2dhistogram',
-                                        'violin'],
+                                        'violin', 'filledline'],
             self.bar_mode_lab: ['bar', 'histogram'],
             self.bar_mode_combo: ['bar', 'histogram'],
             self.legend_label: ['all'],
@@ -997,59 +994,63 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.contour_type_label: ['contour'],
             self.contour_type_combo: ['contour'],
             self.show_lines_check: ['contour'],
+            self.scatterline_gaps_check: ['scatter'],
+            self.skip_null_values_check: ['scatter', 'bar', 'contour', 'polar', 'filledline'],
+            self.scatterline_interpolation_label: ['scatter'],
+            self.scatterline_interpolation_combo: ['scatter'],
             # layout customization
             self.show_legend_check: ['all'],
-            self.orientation_legend_check: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'pie', 'violin'],
+            self.orientation_legend_check: ['scatter', 'bar', 'box', 'histogram', 'ternary', 'pie', 'violin','filledline'],
             self.plot_title_lab: ['all'],
             self.plot_title_line: ['all'],
             self.plot_title_defined_button: ['all'],
             self.font_title_label: ['all'],
-            self.font_xlabel_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.font_xticks_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
-            self.font_ylabel_label:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.font_yticks_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
+            self.font_xlabel_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.font_xticks_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin','filledline'],
+            self.font_ylabel_label:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.font_yticks_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin','filledline'],
             self.font_legend_label: ['all'],
             self.font_title_style: ['all'],
-            self.font_xlabel_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram',  'violin'],
-            self.font_xticks_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar', 'radar', 'violin'],
-            self.font_ylabel_style:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.font_yticks_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
+            self.font_xlabel_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram',  'violin','filledline'],
+            self.font_xticks_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar', 'radar', 'violin','filledline'],
+            self.font_ylabel_style:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.font_yticks_style: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin','filledline'],
             self.font_legend_style: ['all'],
             self.font_title_color: ['all'],
-            self.font_xlabel_color:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.font_xticks_color:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
+            self.font_xlabel_color:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.font_xticks_color:  ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin','filledline'],
             self.font_legend_color: ['all'],
-            self.font_ylabel_color: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.font_yticks_color: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin'],
-            self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
-            self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
-            self.x_axis_title_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
-            self.y_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
-            self.y_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
-            self.y_axis_title_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin'],
+            self.font_ylabel_color: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.font_yticks_color: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'polar','radar', 'violin','filledline'],
+            self.x_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin','filledline'],
+            self.x_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin','filledline'],
+            self.x_axis_title_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin','filledline'],
+            self.y_axis_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin','filledline'],
+            self.y_axis_title: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin','filledline'],
+            self.y_axis_title_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'ternary', 'violin','filledline'],
             self.z_axis_label: ['ternary'],
             self.z_axis_title: ['ternary'],
             self.z_axis_title_defined_button: ['ternary'],
-            self.x_axis_mode_label: ['scatter', 'box'],
-            self.y_axis_mode_label: ['scatter', 'box'],
-            self.x_axis_mode_combo: ['scatter', 'box'],
-            self.y_axis_mode_combo: ['scatter', 'box'],
-            self.invert_x_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
-            self.invert_y_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram'],
-            self.x_axis_bounds_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.x_axis_min_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.x_axis_max_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.x_axis_min: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.x_axis_max: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.x_axis_min_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.x_axis_max_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.y_axis_bounds_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.y_axis_min_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.y_axis_max_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.y_axis_min: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.y_axis_max: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.y_axis_min_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
-            self.y_axis_max_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin'],
+            self.x_axis_mode_label: ['scatter', 'box','filledline'],
+            self.y_axis_mode_label: ['scatter', 'box','filledline'],
+            self.x_axis_mode_combo: ['scatter', 'box','filledline'],
+            self.y_axis_mode_combo: ['scatter', 'box','filledline'],
+            self.invert_x_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram','filledline'],
+            self.invert_y_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram','filledline'],
+            self.x_axis_bounds_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.x_axis_min_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.x_axis_max_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.x_axis_min: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.x_axis_max: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.x_axis_min_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.x_axis_max_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.y_axis_bounds_check: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.y_axis_min_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.y_axis_max_label: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.y_axis_min: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.y_axis_max: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.y_axis_min_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
+            self.y_axis_max_defined_button: ['scatter', 'bar', 'box', 'histogram', '2dhistogram', 'violin','filledline'],
             self.orientation_label: ['bar', 'box', 'histogram', 'violin'],
             self.orientation_combo: ['bar', 'box', 'histogram', 'violin'],
             self.box_statistic_label: ['box'],
@@ -1060,8 +1061,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.range_slider_combo: ['scatter'],
             self.hist_norm_label: ['histogram'],
             self.hist_norm_combo: ['histogram'],
-            self.additional_info_label: ['scatter', 'ternary', 'bar'],
-            self.additional_info_combo: ['scatter', 'ternary', 'bar'],
+            self.additional_info_label: ['scatter', 'ternary', 'bar','filledline'],
+            self.additional_info_combo: ['scatter', 'ternary', 'bar','filledline'],
             self.hover_as_text_check: ['scatter'],
             self.label_text_position: ['bar'],
             self.combo_text_position: ['bar'],
@@ -1082,7 +1083,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_threshold_value: ['radar'],
             self.line_combo_threshold: ['radar'],
             self.threshold_value_label: ['radar']
-
         }
         # enable the widget according to the plot type
         for k, v in self.widgetType.items():
@@ -1103,7 +1103,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.color_scale_data_defined_in_check.setVisible(False)
         self.color_scale_data_defined_in_invert_check.setVisible(False)
 
-        self.refreshWidgets3()
+        # reset the default to skip Null-values
+        # so it is not unchecked in non using plottypes
+        self.skip_null_values_check.setChecked(True)
+
+        # uncommenting causes that the point_combo and label is visible everywhere!
+        # is that needed in radar plot?
+        #self.refreshWidgets3()
 
     def refreshWidgets2(self):
         """
@@ -1137,6 +1143,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_lab.setVisible(False)
             self.line_combo.setEnabled(False)
             self.line_combo.setVisible(False)
+            self.scatterline_gaps_check.setEnabled(False)
+            self.scatterline_interpolation_label.setEnabled(False)
+            self.scatterline_interpolation_combo.setEnabled(False)
         elif self.marker_type_combo.currentText() == self.tr('Lines'):
             self.point_lab.setEnabled(False)
             self.point_lab.setVisible(False)
@@ -1146,6 +1155,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_lab.setVisible(True)
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
+            self.scatterline_gaps_check.setEnabled(True)
+            self.scatterline_interpolation_label.setEnabled(True)
+            self.scatterline_interpolation_combo.setEnabled(True)
         else:
             self.point_lab.setEnabled(True)
             self.point_lab.setVisible(True)
@@ -1155,6 +1167,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.line_lab.setVisible(True)
             self.line_combo.setEnabled(True)
             self.line_combo.setVisible(True)
+            self.scatterline_gaps_check.setEnabled(True)
+            self.scatterline_interpolation_label.setEnabled(True)
+            self.scatterline_interpolation_combo.setEnabled(True)
 
     def setLegend(self):
         """
@@ -1164,7 +1179,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.legend_title.setText(self.y_combo.currentText())
         elif self.ptype == 'histogram':
             self.legend_title.setText(self.x_combo.currentText())
-
+        elif self.ptype == 'filledline':
+            legend_title_string = (
+                f'{self.y_combo.currentText()} - {self.z_combo.currentText()}')
+            self.legend_title.setText(legend_title_string)
         else:
             legend_title_string = (
                 f'{self.x_combo.currentText()} - {self.y_combo.currentText()}')
@@ -1179,7 +1197,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # if colorscale should be visible or not
         color_scale_visible = self.color_scale_data_defined_in_check.isVisible(
         ) and self.color_scale_data_defined_in_check.isChecked()
-
+        # get the Qcolor class once
+        color = self.in_color_combo.color()
         # dictionary of all the plot properties
         plot_properties = {'custom': [self.x_combo.currentText()],
                            'hover_text': self.info_combo.currentData(),
@@ -1189,6 +1208,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'y_name': self.y_combo.currentText(),
                            'z_name': self.z_combo.currentText(),
                            'in_color': self.in_color_combo.color().name(),
+                           'fill_color': f"rgba({color.red()},{color.green()},{color.blue()},{color.alphaF()})",
                            'show_colorscale_legend': color_scale_visible,
                            'invert_color_scale': self.color_scale_data_defined_in_invert_check.isChecked(),
                            'out_color': self.out_color_combo.color().name(),
@@ -1214,6 +1234,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'violin_box': self.violinBox.isChecked(),
                            'selected_features_only': self.selected_feature_check.isChecked(),
                            'visible_features_only': self.visible_feature_check.isChecked(),
+                           'skip_nulls': self.skip_null_values_check.isChecked(),
                            'color_scale_data_defined_in_check': False,
                            'color_scale_data_defined_in_invert_check': False,
                            'marker_type_combo': self.marker_type_combo.currentText(),
@@ -1230,7 +1251,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'line_dash_threshold':  self.line_types2[self.line_combo_threshold.currentText()],
                            'line_combo_threshold':  self.line_combo_threshold.currentText(),
                            'threshold_value': self.threshold_value.value(),
-                           'y_fields_combo': ', '.join(self.y_fields_combo.checkedItems())
+                           'y_fields_combo': ', '.join(self.y_fields_combo.checkedItems()),
+                           'connect_gaps': self.scatterline_gaps_check.isChecked(),
+                           'interpolation_shape': self.scatterline_interpolation_combo.currentData()
                            }
 
         if self.in_color_defined_button.isActive():
@@ -1329,6 +1352,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             settings.properties.get('selected_features_only', False))
         self.visible_feature_check.setChecked(
             settings.properties.get('visible_features_only', False))
+        self.skip_null_values_check.setChecked(
+            settings.properties.get('skip_nulls', True))
 
         self.data_defined_properties = settings.data_defined_properties
         buttons = self.findChildren(QgsPropertyOverrideButton)
@@ -1479,6 +1504,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.threshold.setChecked(settings.properties.get('threshold', True))
         self.threshold_value.setValue(settings.properties.get('threshold_value', 1))     
         self.fill.setChecked(settings.properties.get('fill', False))
+        self.scatterline_gaps_check.setChecked(settings.properties.get('connect_gaps',False))
+        self.scatterline_interpolation_combo.setCurrentText(settings.properties.get('interpolation_shape', 'linear'))
 
     def create_plot_factory(self) -> PlotFactory:
         """
@@ -1522,7 +1549,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
         Refreshes the plot built by the specified factory
         """
-        self.plot_path = factory.build_figure()
+        self.plot_path, _ = factory.build_figure()
         self.refreshPlotView()
 
     def create_plot(self):
@@ -1545,7 +1572,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
             # plot single plot, check the object dictionary length
             if len(self.plot_factories) <= 1 or self.ptype == 'radar':
-                self.plot_path = plot_factory.build_figure()
+                self.plot_path, self.fig = plot_factory.build_figure()
 
             # to plot many plots in the same figure
             else:
@@ -1553,7 +1580,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 pl = []
                 for _, v in self.plot_factories.items():
                     pl.append(v.trace[0])
-                self.plot_path = plot_factory.build_figures(self.ptype, pl)
+                self.plot_path, self.fig = plot_factory.build_figures(self.ptype, pl)
 
         # choice to draw subplots instead depending on the combobox
         elif self.subcombo.currentData() == 'subplots':
@@ -1567,13 +1594,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                 # plot in single row and many columns
                 if self.radio_rows.isChecked():
 
-                    self.plot_path = plot_factory.build_sub_plots(
+                    self.plot_path, self.fig = plot_factory.build_sub_plots(
                         'row', 1, gr, pl)
 
                 # plot in single column and many rows
                 elif self.radio_columns.isChecked():
 
-                    self.plot_path = plot_factory.build_sub_plots(
+                    self.plot_path, self.fig = plot_factory.build_sub_plots(
                         'col', gr, 1, pl)
             except:  # pylint: disable=bare-except  # noqa: F401
                 if self.message_bar:
@@ -1585,7 +1612,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # connect to a simple function that reloads the view
         self.refreshPlotView()
 
-    def UpdatePlot(self):
+    def updatePlot(self):
         """
         updates only the LAST plot created
         get the key of the last plot created and delete it from the plot container
@@ -1660,7 +1687,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
 
         plot_file, _ = QFileDialog.getSaveFileName(
-            self, self.tr("Save Plot"), "", "*.html")
+            self, self.tr("Save Plot as HTML"), "", "*.html")
         if not plot_file:
             return
 
@@ -1668,6 +1695,29 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                                                             'html'])
 
         copyfile(self.plot_path, plot_file)
+        if self.message_bar:
+            self.message_bar.pushSuccess(self.tr('DataPlotly'),
+                                         self.tr('Saved plot to <a href="{}">{}</a>').format(
+                                             QUrl.fromLocalFile(
+                                                 plot_file).toString(),
+                                             QDir.toNativeSeparators(plot_file)))
+
+    def save_plot_as_json(self):
+        """
+        Saves the plot as a local json file. The whole plot canvas is saves,
+        even if there are stacked plots or different subplots
+        """
+
+        plot_file, _ = QFileDialog.getSaveFileName(
+            self, self.tr("Save Plot as JSON"), "", "*.json")
+        if not plot_file:
+            return
+
+        plot_file = QgsFileUtils.ensureFileNameHasExtension(plot_file, [
+                                                            'json'])
+
+        self.fig.write_json(plot_file, validate=True, pretty=True)
+
         if self.message_bar:
             self.message_bar.pushSuccess(self.tr('DataPlotly'),
                                          self.tr('Saved plot to <a href="{}">{}</a>').format(
@@ -1738,7 +1788,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         # create Plot instance
         factory = PlotFactory(settings)
 
-        standalone_plot_path = factory.build_figure()
+        standalone_plot_path, _ = factory.build_figure()
         standalone_plot_url = QUrl.fromLocalFile(standalone_plot_path)
 
         self.plot_view.load(standalone_plot_url)

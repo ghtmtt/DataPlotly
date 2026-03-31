@@ -1,0 +1,11 @@
+services:
+  qgis:
+    user: ${UID}:${GID}
+    image: ${QGIS_IMAGE_TAG}
+    network_mode: host
+    container_name: DataPlotly-tests
+    environment:
+        QGIS_VERSION: ${QGIS_VERSION}
+    volumes:
+      - ..:/src
+    command: bash /src/.docker/run-tests.sh

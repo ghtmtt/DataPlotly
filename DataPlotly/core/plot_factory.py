@@ -189,7 +189,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         additional_info_expression, additional_needs_geom, additional_attrs = add_source_field_or_expression(
             self.settings.layout['additional_info_expression']) if self.settings.layout[
             'additional_info_expression'] else (None, False, set())
-
         attrs = set().union(self.settings.data_defined_properties.referencedFields(),
                             x_attrs,
                             y_attrs,
@@ -249,6 +248,9 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         aggregating = self.settings.plot_type in ['box', 'histogram']
         executed = False
 
+        #
+        skip_nulls = self.settings.properties.get('skip_nulls',True)
+
         xx = []
         yy = []
         zz = []
@@ -264,39 +266,39 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             if visible_geom_engine and not visible_geom_engine.intersects(f.geometry().constGet()):
                 continue
 
-            self.settings.feature_ids.append(f.id())
             context.setFeature(f)
 
+            # X
             x = None
             if x_expression:
                 x = x_expression.evaluate(context)
-                if x == NULL or x is None:
-                    continue
-            elif self.settings.properties['x_name']:
+            elif self.settings.properties.get('x_name'):
                 x = f[self.settings.properties['x_name']]
-                if x == NULL or x is None:
-                    continue
+            # normalize QGIS-Null
+            if x == NULL:
+                x = None
 
+            # Y
             y = None
             if y_expression:
                 y = y_expression.evaluate(context)
-                if y == NULL or y is None:
-                    continue
-            elif self.settings.properties['y_name']:
+            elif self.settings.properties.get('y_name'):
                 y = f[self.settings.properties['y_name']]
-                if y == NULL or y is None:
-                    continue
+            # normalize QGIS-Null
+            if y == NULL:
+                y = None
 
+            # Z
             z = None
             if z_expression:
                 z = z_expression.evaluate(context)
-                if z == NULL or z is None:
-                    continue
-            elif self.settings.properties['z_name']:
+            elif self.settings.properties.get('z_name'):
                 z = f[self.settings.properties['z_name']]
-                if z == NULL or z is None:
-                    continue
+            # normalize QGIS-Null
+            if z == NULL:
+                z = None
 
+            # keep the radar plot
             y_radar_label = None
             if y_label_expression:
                 y_radar_label = y_label_expression.evaluate(context)
@@ -313,23 +315,43 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                 if y_radar_value == NULL or y_radar_value is None:
                     continue
 
+            # check if the x,y,z fields used
+            required_values = []
+
+            # X is always required
+            required_values.append(x)
+
+            # Y
+            if self.settings.properties.get('y_name') or y_expression:
+                required_values.append(y)
+
+            # Z
+            if self.settings.properties.get('z_name') or z_expression:
+                required_values.append(z)
+
+            # Skip logic
+            if skip_nulls and any(v is None for v in required_values):
+                continue
+
+            # append all values, no check again!
+            xx.append(x)
+            yy.append(y)
+            zz.append(z)
+
+            if y_radar_label is not None:
+                y_radar_labels.append(y_radar_label)
+            if y_radar_value is not None:
+                y_radar_values.append(y_radar_value)
+
+            # keep the index aligned and feature IDs still match, do not do that before skipping
+            self.settings.feature_ids.append(f.id())
+
             if additional_info_expression:
                 additional_hover_text.append(
                     additional_info_expression.evaluate(context))
             elif self.settings.layout['additional_info_expression']:
                 additional_hover_text.append(
                     f[self.settings.layout['additional_info_expression']])
-
-            if x is not None:
-                xx.append(x)
-            if y is not None:
-                yy.append(y)
-            if z is not None:
-                zz.append(z)
-            if y_radar_label is not None:
-                y_radar_labels.append(y_radar_label)
-            if y_radar_value is not None:
-                y_radar_values.append(y_radar_value)
 
             if self.settings.data_defined_properties.isActive(PlotSettings.PROPERTY_MARKER_SIZE):
                 default_value = self.settings.properties['marker_size']
@@ -868,7 +890,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         match = re.search(r'Plotly.newPlot\(\s*[\'"](.+?)[\'"]', raw_plot)
         substr = match.group(1)
         raw_plot = raw_plot.replace('ReplaceTheDiv', substr)
-        return raw_plot
+        return raw_plot, fig
 
     def build_figure(self) -> str:
         """
@@ -899,9 +921,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
             'modeBarButtonsToRemove': ['toImage', 'sendDataToCloud', 'editInChartStudio']
         }
 
+        raw_plot, fig = self.build_html(config)
+
         with open(self.plot_path, "w", encoding="utf8") as f:
-            f.write(self.build_html(config))
-        return self.plot_path
+            f.write(raw_plot)
+        return self.plot_path, fig
 
     def build_figures(self, plot_type, ptrace, config=None) -> str:
         """
@@ -965,7 +989,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.raw_plot)
 
-        return self.plot_path
+        return self.plot_path, figures
 
     def build_sub_plots(self, grid, row, column, ptrace):  # pylint:disable=too-many-arguments
         """
@@ -1023,7 +1047,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         with open(self.plot_path, "w", encoding="utf8") as f:
             f.write(self.raw_plot)
 
-        return self.plot_path
+        return self.plot_path, fig
 
     def build_plot_dict(self) -> dict:
         """
