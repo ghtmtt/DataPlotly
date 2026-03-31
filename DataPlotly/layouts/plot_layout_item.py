@@ -82,7 +82,7 @@ class PlotLayoutItem(QgsLayoutItem):
         # Hm - why is this? Something internal in Plotly which is auto-scaling the html content?
         # we may need to expose this as a "scaling" setting
 
-        return 72
+        return 8
 
     def set_linked_map(self, map):
         """
@@ -266,7 +266,7 @@ class PlotLayoutItem(QgsLayoutItem):
         js = """(function() {
             var plot = document.querySelector('.js-plotly-plot');
             if (plot && typeof Plotly !== 'undefined') {
-                Plotly.toImage(plot, {format: 'png', scale: 1}).then(function(dataUrl) {
+                Plotly.toImage(plot, {format: 'png', scale: 2}).then(function(dataUrl) {
                     window._capturedImage = dataUrl;
                 }).catch(function() {
                     window._capturedImage = '';
