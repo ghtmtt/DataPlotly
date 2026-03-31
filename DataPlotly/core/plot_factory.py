@@ -45,12 +45,6 @@ from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
 
-qgis_version = None
-if Qgis.versionInt() >= 40000:
-    qgis_version = 4
-else:
-    qgis_version = 3
-
 
 class FilterRegion(QgsReferencedGeometryBase):  # pylint: disable=too-few-public-methods
     """
@@ -83,7 +77,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     # create fixed class variables as paths for local javascript files
     POLY_FILL_PATH = QUrl.fromLocalFile(
         os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
-    if qgis_version == 4:
+    if Qgis.versionInt() >= 40000:
         PLOTLY_PATH = QUrl.fromLocalFile(
             os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-3.0.1.min.js'))).toString()
     else:
@@ -96,7 +90,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
     plot_built = pyqtSignal()
 
-    if qgis_version == 4:
+    if Qgis.versionInt() >= 40000:
         # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
         if not hasattr(QDate, 'isoformat'):
             QDate.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
@@ -207,7 +201,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         request.setSubsetOfAttributes(attrs, self.source_layer.fields())
 
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom and not self.settings.data_defined_properties.hasActiveProperties():
-            if qgis_version == 4:
+            if Qgis.versionInt() >= 40000:
                 request.setFlags(QgsFeatureRequest.Flag.NoGeometry)
             else:
                 request.setFlags(QgsFeatureRequest.NoGeometry)
@@ -559,7 +553,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         replaced in a second moment
         """
 
-        if qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             js_str = """
 
             <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
@@ -838,8 +832,6 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                     window.status = JSON.stringify(dd)
                     });
                     </script>'''
-
-
 
         return js_str
 

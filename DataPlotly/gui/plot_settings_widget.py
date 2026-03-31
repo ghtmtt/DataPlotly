@@ -67,15 +67,11 @@ from qgis.gui import (
 )
 from qgis.utils import iface
 
-qgis_version = None
-
 if Qgis.versionInt() >= 40000:
-    qgis_version = 4
     from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
     from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
     from PyQt6.QtWebChannel import QWebChannel
 else:
-    qgis_version = 3
     from qgis.core import QgsNetworkAccessManager
     from qgis.PyQt.QtWebKit import QWebSettings
     from qgis.PyQt.QtWebKitWidgets import QWebView
@@ -247,7 +243,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layouth = QVBoxLayout()
         self.layouth.setContentsMargins(0, 0, 0, 0)
         self.help_widget.setLayout(self.layouth)
-        if qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             self.help_view = QWebEngineView()
         else:
             self.help_view = QWebView()
@@ -259,7 +255,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layoutw.setContentsMargins(0, 0, 0, 0)
         self.plot_qview.setLayout(self.layoutw)
 
-        if qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             self.plot_view = QWebEngineView()
 
             settings = self.plot_view.settings()
@@ -483,7 +479,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Sets the print layout linked with the widget, if in print layout mode
         """
         self.linked_map_combo.setCurrentLayout(print_layout)
-        if qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             self.linked_map_combo.setItemType(QgsLayoutItemRegistry.ItemType.LayoutMap)
         else:
             self.linked_map_combo.setItemType(QgsLayoutItemRegistry.LayoutMap)
@@ -837,7 +833,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                             'DeepblueBlueWhite': 'YlGnBu', # fix from https://github.com/plotly/graphing-library-docs/issues/14
                             'BlueWhitePurple': 'Picnic'}
 
-     
         self.color_scale_combo.clear()
         self.color_scale_data_defined_in.clear()
 
@@ -874,13 +869,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             ff = QFont()
             ff.setPointSizeF(8)
             self.x_label.setFont(ff)
-            #self.x_label.setFixedWidth(100)
+            # self.x_label.setFixedWidth(100)
         elif self.ptype == 'pie':
             self.x_label.setText(self.tr('Grouping field'))
             ff = QFont()
             ff.setPointSizeF(8)
             self.x_label.setFont(ff)
-            #self.x_label.setFixedWidth(80)
+            # self.x_label.setFixedWidth(80)
         else:
             self.x_label.setText(self.tr('X field'))
             self.x_label.setFont(self.font())
@@ -941,7 +936,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.marker_size.setClearValue(10.0)
             self.marker_size.setToolTip('')
 
-         # dictionary with all the widgets and the plot they belong to
+        # dictionary with all the widgets and the plot they belong to
         self.widgetType = {
             # plot properties
             self.layer_combo: ['all'],
@@ -1109,7 +1104,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
 
         # uncommenting causes that the point_combo and label is visible everywhere!
         # is that needed in radar plot?
-        #self.refreshWidgets3()
+        # self.refreshWidgets3()
 
     def refreshWidgets2(self):
         """

@@ -16,13 +16,6 @@ WIDGET, _ = uic.loadUiType(GuiUtils.get_ui_file_path('add_dock_dlg.ui'))
 
 class DataPlotlyNewDockDialog(QDialog, WIDGET):
 
-    qgis_version = None
-
-    if Qgis.versionInt() >= 40000:
-        qgis_version = 4
-    else:
-        qgis_version = 3
-
     """Dialog to add new dock"""
 
     def __init__(self, dock_widgets=None, parent=None):
@@ -38,7 +31,7 @@ class DataPlotlyNewDockDialog(QDialog, WIDGET):
 
     def update_dlg(self, state, msg):
         """validator slot"""
-        if qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             is_valid = state != QValidator.State.Intermediate
             self.buttonBox.button(QDialogButtonBox.StandardButton.Ok).setEnabled(is_valid)
         else:
@@ -75,13 +68,6 @@ class DataPlotlyNewDockIdValidator(QValidator):
     """Custom validator to prevent some users action"""
     validationChanged = pyqtSignal(QValidator.State, str)
 
-    qgis_version = None
-
-    if Qgis.versionInt() >= 40000:
-        qgis_version = 4
-    else:
-        qgis_version = 3
-
     def __init__(self, parent=None, dock_widgets=None):
         """Constructor."""
         super().__init__(parent)
@@ -89,28 +75,28 @@ class DataPlotlyNewDockIdValidator(QValidator):
 
     def validate(self, dock_id, pos):
         """Checks if dock_id is not empty and not is already present"""
-        if qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             state = QValidator.State.Acceptable
         else:
             state = QValidator.Acceptable
         msg = None
 
         if dock_id == "":
-            if qgis_version == 4:
+            if Qgis.versionInt() >= 40000:
                 state = QValidator.State.Intermediate
             else:
                 state = QValidator.Intermediate
             msg = self.tr('DockId can not be empty')
 
         if dock_id in self.dock_widgets:
-            if qgis_version == 4:
+            if Qgis.versionInt() >= 40000:
                 state = QValidator.State.Intermediate
             else:
                 state = QValidator.Intermediate
             msg = self.tr(f'DockId {dock_id} is already taken')
 
         if '_' in dock_id:
-            if qgis_version == 4:
+            if Qgis.versionInt() >= 40000:
                 state = QValidator.State.Intermediate
             else:
                 state = QValidator.Intermediate

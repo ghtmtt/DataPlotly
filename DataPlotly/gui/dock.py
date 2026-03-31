@@ -24,13 +24,6 @@ class DataPlotlyDock(QgsDockWidget):  # pylint: disable=too-few-public-methods
     Plot settings dock widget
     """
 
-    qgis_version = None
-
-    if Qgis.versionInt() >= 40000:
-        qgis_version = 4
-    else:
-        qgis_version = 3
-
     def __init__(self, parent=None, message_bar=None,  # pylint: disable=too-many-arguments
                  dock_title: str = 'DataPlotly', dock_id: str = 'DataPlotly',
                  project: QDomDocument = None, override_iface=None):
@@ -53,13 +46,6 @@ class DataPlotlyDockManager():
     Manager to add multiple docks
     """
 
-    qgis_version = None
-
-    if Qgis.versionInt() >= 40000:
-        qgis_version = 4
-    else:
-        qgis_version = 3
-
     def __init__(self, iface, dock_widgets):
         self.iface = iface
         self.dock_widgets = dock_widgets
@@ -74,7 +60,7 @@ class DataPlotlyDockManager():
     def addNewDockFromDlg(self):
         """ Open a dlg and add dock"""
         dlg = DataPlotlyNewDockDialog(self.dock_widgets)
-        if self.qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             if dlg.exec():
                 dock_title, dock_id = dlg.get_params()
                 self.addNewDock(dock_title, dock_id, False)
@@ -86,7 +72,7 @@ class DataPlotlyDockManager():
     def removeDockFromDlg(self):
         """ Open a dlg to remove a dock"""
         dlg = DataPlotlyRemoveDockDialog(self.dock_widgets)
-        if self.qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             if dlg.exec():
                 dock_id = dlg.get_param()
                 self.removeDock(dock_id)
@@ -110,7 +96,7 @@ class DataPlotlyDockManager():
         dock = DataPlotlyDock(
             dock_title=dock_title, message_bar=message_bar, dock_id=dock_id, project=project, override_iface=self.iface)
         self.dock_widgets[dock_id] = dock
-        if self.qgis_version == 4:
+        if Qgis.versionInt() >= 40000:
             self.iface.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, dock)
         else:
             self.iface.addDockWidget(Qt.RightDockWidgetArea, dock)
