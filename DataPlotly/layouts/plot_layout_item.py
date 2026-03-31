@@ -64,6 +64,7 @@ class PlotLayoutItem(QgsLayoutItem):
         self.web_page.loadFinished.connect(self.loading_html_finished)
         self.html_loaded = False
         self._loading = False
+        self._captured_pixmap = None
         self.html_units_to_layout_units = self.calculate_html_units_to_layout_units()
 
         self.sizePositionChanged.connect(self.refresh)
@@ -161,10 +162,10 @@ class PlotLayoutItem(QgsLayoutItem):
         painter = context.renderContext().painter()
         painter.save()
 
-        pixmap = self.web_view.grab()
-        scale = context.renderContext().scaleFactor() / self.html_units_to_layout_units
-        painter.scale(scale, scale)
-        painter.drawPixmap(0, 0, pixmap)
+        if self._captured_pixmap and not self._captured_pixmap.isNull():
+            scale = context.renderContext().scaleFactor() / self.html_units_to_layout_units
+            painter.scale(scale, scale)
+            painter.drawPixmap(0, 0, self._captured_pixmap)
         painter.restore()
 
     def create_plot(self):
@@ -263,33 +264,44 @@ class PlotLayoutItem(QgsLayoutItem):
         self._render_retries = 0
         js = """(function() {
             var plot = document.querySelector('.js-plotly-plot');
-            if (plot && typeof Plotly !== 'undefined' && plot.data) {
-                Plotly.react(plot, plot.data, plot.layout).then(function() {
-                    window._plotlyRenderComplete = true;
+            if (plot && typeof Plotly !== 'undefined') {
+                Plotly.toImage(plot, {format: 'png', scale: 10}).then(function(dataUrl) {
+                    window._capturedImage = dataUrl;
+                }).catch(function() {
+                    window._capturedImage = '';
                 });
             } else {
-                window._plotlyRenderComplete = true;
+                window._capturedImage = '';
             }
         })()"""
         self.web_page.runJavaScript(js)
-        self._wait_for_plotly_render()
+        self._wait_for_image_capture()
 
-    def _wait_for_plotly_render(self):
-        """Poll until Plotly has finished rendering the plot."""
+    def _wait_for_image_capture(self):
+        """Poll until Plotly.toImage() has produced the image."""
         self.web_page.runJavaScript(
-            'window._plotlyRenderComplete === true',
-            self._on_plotly_render_check)
+            'typeof window._capturedImage === "string"',
+            self._on_image_capture_check)
 
-    def _on_plotly_render_check(self, ready):
+    def _on_image_capture_check(self, ready):
         self._render_retries += 1
         if ready or self._render_retries >= 100:
-            # Plotly DOM is ready, but the WebEngine compositor still needs
-            # a short delay to rasterize the frame before grab() can capture it
-            QTimer.singleShot(100, self._on_compositor_ready)
+            self.web_page.runJavaScript(
+                'window._capturedImage || ""',
+                self._on_image_data_received)
         else:
-            QTimer.singleShot(50, self._wait_for_plotly_render)
+            QTimer.singleShot(50, self._wait_for_image_capture)
 
-    def _on_compositor_ready(self):
+    def _on_image_data_received(self, data_url):
+        import base64
+        from qgis.PyQt.QtGui import QPixmap
+        if data_url and data_url.startswith('data:image'):
+            base64_data = data_url.split(',', 1)[1]
+            image_bytes = base64.b64decode(base64_data)
+            self._captured_pixmap = QPixmap()
+            self._captured_pixmap.loadFromData(image_bytes)
+        else:
+            self._captured_pixmap = None
         self._loading = False
         self.html_loaded = True
         self.invalidateCache()
