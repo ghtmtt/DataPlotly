@@ -264,8 +264,10 @@ class PlotLayoutItem(QgsLayoutItem):
         self._render_retries = 0
         js = """(function() {
             var plot = document.querySelector('.js-plotly-plot');
+            var w = document.documentElement.clientWidth;
+            var h = document.documentElement.clientHeight;
             if (plot && typeof Plotly !== 'undefined') {
-                Plotly.toImage(plot, {format: 'png', scale: 10}).then(function(dataUrl) {
+                Plotly.toImage(plot, {format: 'png', width: w, height: h, scale: 10}).then(function(dataUrl) {
                     window._capturedImage = dataUrl;
                 }).catch(function() {
                     window._capturedImage = '';
