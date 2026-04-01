@@ -4,9 +4,9 @@
                                  A QGIS plugin
  D3 Plots for QGIS
                               -------------------
-        begin                : 2022-08-20
+        begin                : 2024-10-29
         git sha              : $Format:%H$
-        copyright            : (C) 2022 by matteo ghetta
+        copyright            : (C) 2024 by matteo ghetta
         email                : matteo.ghetta@gmail.com
  ***************************************************************************/
 /***************************************************************************
@@ -19,7 +19,6 @@
  ***************************************************************************/
 """
 
-
 from qgis.PyQt.QtGui import QIcon
 
 import os
@@ -27,20 +26,19 @@ import os
 from .dataplotly_generic_plot import DataPlotlyProcessingPlot
 
 
-class DataPlotlyProcessingScatterPlot(DataPlotlyProcessingPlot):
+class DataPlotlyProcessingBarPlot(DataPlotlyProcessingPlot):
     """
-    Create a scatter with DataPlotly plugin
+    Create a bar with DataPlotly plugin
     """
 
-    # constructor
-    def __init__(self, ):
-        super().__init__(plot_type='scatter')
+    def __init__(self):
+        super().__init__(plot_type="bar")
 
     def name(self):
-        return 'scatterplot'
+        return "barplot"
 
     def displayName(self):
-        return 'Scatter Plot'
+        return "Bar Plot"
 
     def icon(self):
         return QIcon(
@@ -50,12 +48,12 @@ class DataPlotlyProcessingScatterPlot(DataPlotlyProcessingPlot):
                 "core",
                 "plot_types",
                 "icons",
-                "scatterplot.svg",
+                "barplot.svg",
             )
         )
 
     def createInstance(self):
-        return DataPlotlyProcessingScatterPlot()
+        return DataPlotlyProcessingBarPlot()
 
     def initAlgorithm(self, config=None):
 
