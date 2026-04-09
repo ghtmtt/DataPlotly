@@ -25,6 +25,7 @@ from DataPlotly.gui.gui_utils import GuiUtils
 try:
     # 🐼
     from DataPlotly.processing.dataplotly_scatterplot import DataPlotlyProcessingScatterPlot
+    from DataPlotly.processing.dataplotly_barplot import DataPlotlyProcessingBarPlot
     WITH_PANDAS = True
 except ImportError:
     WITH_PANDAS = False
@@ -87,3 +88,4 @@ class DataPlotlyProvider(QgsProcessingProvider):
         """
         if WITH_PANDAS:
             self.addAlgorithm(DataPlotlyProcessingScatterPlot())
+            self.addAlgorithm(DataPlotlyProcessingBarPlot())
