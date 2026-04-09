@@ -36,5 +36,3 @@ deprecated=False
 
 hasProcessingProvider=yes
 server=True
-
-supportsQt6=True
