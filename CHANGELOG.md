@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 4.5.0 - 2026-04-09
+
+* [feature] compatibility with QGIS 4 thanks to @bruno-portfolio
+* [feature] refactoring Processing plots
+
 ## 4.4.1 - 2026-30-03
 
 - Export plot canvas as JSON file. Sponsored by GIS3W
