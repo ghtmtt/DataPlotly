@@ -6,7 +6,7 @@ iniconfig==2.3.0
 packaging==25.0
 pluggy==1.6.0
 pygments==2.20.0
-pytest==9.0.2
+pytest==9.0.3
 pytest-qgis @ git+https://github.com/3liz/pytest-qgis.git@555b184158a58f6922e0dfb6df25ad90b2cc8c24
 semver==3.0.4
 tomli==2.3.0 ; python_full_version < '3.11'
