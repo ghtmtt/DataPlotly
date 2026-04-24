@@ -20,7 +20,8 @@ the QGIS map canvas:
 ![Plot interactions](img/plot_interaction_box.gif)
 
 ## Usage
-DataPlotly works **only with QGIS 3**. No additional libraries are necessary.
+DataPlotly works with both QGIS 3 and QGIS 4. To use the Processing algorithms
+you need to install `pandas` (if not already installed).
 
 ## Gallery
 
