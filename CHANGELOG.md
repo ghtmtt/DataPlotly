@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 4.5.1 - 2026-04-24
+
+* [bugfix] fix plot title in print layout
+
 ## 4.5.0 - 2026-04-09
 
 * [feature] compatibility with QGIS 4 thanks to @bruno-portfolio
