@@ -479,10 +479,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         Sets the print layout linked with the widget, if in print layout mode
         """
         self.linked_map_combo.setCurrentLayout(print_layout)
-        if Qgis.versionInt() >= 40000:
-            self.linked_map_combo.setItemType(QgsLayoutItemRegistry.ItemType.LayoutMap)
-        else:
-            self.linked_map_combo.setItemType(QgsLayoutItemRegistry.LayoutMap)
+        self.linked_map_combo.setItemType(QgsLayoutItemRegistry.ItemType.LayoutMap)
 
     def set_plot_type(self, plot_type: str):
         """

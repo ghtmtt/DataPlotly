@@ -78,11 +78,12 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     POLY_FILL_PATH = QUrl.fromLocalFile(
         os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/polyfill.min.js'))).toString()
     if Qgis.versionInt() >= 40000:
-        PLOTLY_PATH = QUrl.fromLocalFile(
-            os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-3.0.1.min.js'))).toString()
+        plotly_version = "3.0.1"
     else:
-        PLOTLY_PATH = QUrl.fromLocalFile(
-            os.path.realpath(os.path.join(os.path.dirname(__file__), '..', 'jsscripts/plotly-1.52.2.min.js'))).toString()
+        plotly_version = "1.52.2"
+
+    PLOTLY_PATH = QUrl.fromLocalFile(
+        os.path.realpath(os.path.join(os.path.dirname(__file__), '..', f'jsscripts/plotly-{plotly_version}.min.js'))).toString()
 
     PLOT_TYPES = {
         t.type_name(): t for t in PlotType.__subclasses__()
@@ -90,17 +91,11 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
 
     plot_built = pyqtSignal()
 
-    if Qgis.versionInt() >= 40000:
-        # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
-        if not hasattr(QDate, 'isoformat'):
-            QDate.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
-        if not hasattr(QDateTime, 'isoformat'):
-            QDateTime.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
-    else:
-        if not hasattr(QDate, 'isoformat'):
-            QDate.isoformat = lambda d: d.toString(Qt.ISODate)
-        if not hasattr(QDateTime, 'isoformat'):
-            QDateTime.isoformat = lambda d: d.toString(Qt.ISODate)
+    # Add function to QDate and QDateTime classes that the PlotlyJSONEncoder expects from date objects
+    if not hasattr(QDate, 'isoformat'):
+        QDate.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
+    if not hasattr(QDateTime, 'isoformat'):
+        QDateTime.isoformat = lambda d: d.toString(Qt.DateFormat.ISODate)
 
     def __init__(self, settings: PlotSettings = None, context_generator: QgsExpressionContextGenerator = None,
                  visible_region: QgsReferencedRectangle = None, polygon_filter: FilterRegion = None):
@@ -201,10 +196,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         request.setSubsetOfAttributes(attrs, self.source_layer.fields())
 
         if not x_needs_geom and not y_needs_geom and not z_needs_geom and not additional_needs_geom and not self.settings.data_defined_properties.hasActiveProperties():
-            if Qgis.versionInt() >= 40000:
-                request.setFlags(QgsFeatureRequest.Flag.NoGeometry)
-            else:
-                request.setFlags(QgsFeatureRequest.NoGeometry)
+            request.setFlags(QgsFeatureRequest.Flag.NoGeometry)
 
         visible_geom_engine = None
         if self.settings.properties.get('visible_features_only', False) and self.visible_region is not None:

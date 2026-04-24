@@ -338,17 +338,10 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
         Reads the settings from an XML file
         """
         f = QFile(file_name)
-        if Qgis.versionInt() >= 40000:
-            if f.open(QIODevice.OpenModeFlag.ReadOnly):
-                document = QDomDocument()
-                if document.setContent(f):
-                    if self.read_xml(document.firstChildElement()):
-                        return True
-        else:
-            if f.open(QIODevice.ReadOnly):
-                document = QDomDocument()
-                if document.setContent(f):
-                    if self.read_xml(document.firstChildElement()):
-                        return True
+        if f.open(QIODevice.OpenModeFlag.ReadOnly):
+            document = QDomDocument()
+            if document.setContent(f):
+                if self.read_xml(document.firstChildElement()):
+                    return True
 
         return False
