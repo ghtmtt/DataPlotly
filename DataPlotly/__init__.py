@@ -46,7 +46,4 @@ def serverClassFactory(server_iface):
     from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
 
     QgsApplication.layoutItemRegistry().addLayoutItemType(PlotLayoutItemMetadata())
-    if Qgis.versionInt() >= 40000:
-        QgsMessageLog.logMessage("Custom DataPlotly layout item loaded", "DataPlotly", Qgis.MessageLevel.Info)
-    else:
-        QgsMessageLog.logMessage("Custom DataPlotly layout item loaded", "DataPlotly", Qgis.Info)
+    QgsMessageLog.logMessage("Custom DataPlotly layout item loaded", "DataPlotly", Qgis.MessageLevel.Info)

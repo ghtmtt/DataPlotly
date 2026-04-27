@@ -37,10 +37,7 @@ from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_factory import PlotFactory, FilterRegion
 from DataPlotly.gui.gui_utils import GuiUtils
 
-if Qgis.versionInt() >= 40000:
-    ITEM_TYPE = QgsLayoutItemRegistry.ItemType.PluginItem + 1337
-else:
-    ITEM_TYPE = QgsLayoutItemRegistry.PluginItem + 1337
+ITEM_TYPE = QgsLayoutItemRegistry.ItemType.PluginItem + 1337
 
 
 if Qgis.versionInt() >= 40000:
@@ -68,10 +65,7 @@ class PlotLayoutItem(QgsLayoutItem):
 
     def __init__(self, layout):
         super().__init__(layout)
-        if Qgis.versionInt() >= 40000:
-            self.setCacheMode(QGraphicsItem.CacheMode.NoCache)
-        else:
-            self.setCacheMode(QGraphicsItem.NoCache)
+        self.setCacheMode(QGraphicsItem.CacheMode.NoCache)
         self.plot_settings = []
         self.plot_settings.append(PlotSettings())
         self.linked_map_uuid = ''

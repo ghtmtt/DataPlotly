@@ -23,10 +23,7 @@ class DataPlotlyRemoveDockDialog(QDialog, WIDGET):
         dock_ids = [dock_id for dock_id in dock_widgets.keys() if dock_id != 'DataPlotly']
         self.DockIdsComboBox.addItems(dock_ids)
         for i, dock_id in enumerate(dock_ids):
-            if Qgis.versionInt() >= 40000:
-                self.DockIdsComboBox.setItemData(i, dock_widgets[dock_id].title, Qt.ItemDataRole.ToolTipRole)
-            else:
-                self.DockIdsComboBox.setItemData(i, dock_widgets[dock_id].title, Qt.ToolTipRole)
+            self.DockIdsComboBox.setItemData(i, dock_widgets[dock_id].title, Qt.ItemDataRole.ToolTipRole)
 
     def get_param(self):
         """Return the dock_id to delete"""
