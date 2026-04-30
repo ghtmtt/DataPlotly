@@ -1,8 +1,8 @@
 # This repository adheres to the publiccode.yml standard by including this 
 # metadata file that makes public software easily discoverable.
-# More info at https://github.com/italia/publiccode.yml
+# More info at https://github.com/publiccodeyml/publiccode.yml
 
-publiccodeYmlVersion: '0.2'
+publiccodeYmlVersion: '0'
 name: DataPlotly
 applicationSuite: QGIS
 url: 'https://github.com/ghtmtt/DataPlotly'
@@ -25,7 +25,7 @@ dependsOn:
     - name: QGIS
       versionMin: '3.4'
       versionMax: '3.99'
-      optional: no
+      optional: false
 maintenance:
   type: internal
   contacts:
@@ -33,9 +33,8 @@ maintenance:
       email: matteo.ghetta@faunalia.eu
       affiliation: Faunalia
 legal:
-  license: GPL-2.0
+  license: GPL-2.0-only
   mainCopyrightOwner: Matteo Ghetta
-  repoOwner: Faunalia
 intendedAudience:
   scope:
     - science-and-technology
@@ -43,7 +42,7 @@ intendedAudience:
     - infrastructures
     - environment
 localisation:
-  localisationReady: yes
+  localisationReady: true
   availableLanguages:
     - en
     - it
@@ -53,7 +52,6 @@ localisation:
 description:
   en:
     localisedName: DataPlotly
-    genericName: DataPlotly
     shortDescription: >
       DataPlotly is a QGIS plugin that allows the user to create interactive D3
       like charts based on vector data.
@@ -77,7 +75,6 @@ description:
       - img/plot_scatter.png
   it:
     localisedName: DataPlotly
-    genericName: DataPlotly
     shortDescription: >
       DataPlotly è un plugin di QGIS che permette di creare grafici interattivi
       in stile D3 di dati vettoriali.
