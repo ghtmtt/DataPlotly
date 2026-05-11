@@ -11,7 +11,7 @@ packaging==25.0
 pathspec==1.0.1
 pluggy==1.6.0
 pygments==2.20.0
-pytest==9.0.2
+pytest==9.0.3
 pytest-qgis @ git+https://github.com/3liz/pytest-qgis.git@555b184158a58f6922e0dfb6df25ad90b2cc8c24
 ruff==0.14.10
 semver==3.0.4
