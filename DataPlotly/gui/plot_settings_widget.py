@@ -58,7 +58,8 @@ from qgis.core import (
     QgsExpressionContextGenerator,
     QgsPropertyCollection,
     QgsLayoutItemRegistry,
-    QgsPropertyDefinition
+    QgsPropertyDefinition,
+    QgsTextFormat
 )
 from qgis.gui import (
     QgsPanelWidget,
@@ -378,6 +379,9 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.font_ylabel_style.setCurrentFont(QFont('Arial', 10))
         self.font_yticks_style.setCurrentFont(QFont('Arial', 10))
         self.font_legend_style.setCurrentFont(QFont('Arial', 10))
+        default_text_format = QgsTextFormat()
+        default_text_format.setFont(QFont('Arial', 10))
+        self.font_plot_style.setTextFormat(default_text_format)
 
         # set range of axis min/max spin boxes
         self.x_axis_min.setRange(sys.float_info.max * -1, sys.float_info.max)
