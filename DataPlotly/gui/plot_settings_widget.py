@@ -1069,6 +1069,8 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             self.violinBox: ['violin'],
             self.pie_hole_label : ['pie'],
             self.pie_hole : ['pie'],
+            self.font_plot_label: ['pie'],
+            self.font_plot_style: ['pie'],
             self.fill : ['radar'],
             self.threshold: ['radar'],
             self.threshold_value: ['radar'],
@@ -1245,7 +1247,10 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
                            'threshold_value': self.threshold_value.value(),
                            'y_fields_combo': ', '.join(self.y_fields_combo.checkedItems()),
                            'connect_gaps': self.scatterline_gaps_check.isChecked(),
-                           'interpolation_shape': self.scatterline_interpolation_combo.currentData()
+                           'interpolation_shape': self.scatterline_interpolation_combo.currentData(),
+                           'font_plot_size': self.font_plot_style.textFormat().size(),
+                           'font_plot_family': self.font_plot_style.textFormat().font().family(),
+                           'font_plot_color': self.font_plot_style.textFormat().color().name()
                            }
 
         if self.in_color_defined_button.isActive():

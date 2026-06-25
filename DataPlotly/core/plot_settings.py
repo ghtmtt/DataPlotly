@@ -147,6 +147,9 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'pie_hole': 0,
             'fill': False,
             'line_combo_threshold': 'Dot Line',
+            'font_plot_family': 'Arial',
+            'font_plot_size': 30,
+            'font_plot_color': '#000000',
             # Be consistent with the value of line_combo_threshold 
             # since the value of 'line_dash_threshold is set from 
             # the combo value
