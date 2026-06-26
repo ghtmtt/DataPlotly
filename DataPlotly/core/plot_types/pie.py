@@ -39,7 +39,12 @@ class PieChartFactory(PlotType):
                     'colors': settings.data_defined_colors if settings.data_defined_colors else [settings.properties['in_color']]
                 },
                 name=settings.properties['custom'][0],
-                hole=settings.properties.get('pie_hole', 0)
+                hole=settings.properties.get('pie_hole', 0),
+                textfont={
+                    'size': settings.properties.get('font_plot_size', 30),
+                    'color': settings.properties.get('font_plot_color', '#000000'),
+                    'family': settings.properties.get('font_plot_family', 'Arial')
+                }
                 )]
 
     @staticmethod
