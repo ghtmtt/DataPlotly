@@ -52,6 +52,7 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
     INPUT = "INPUT"
     XEXPRESSION = "XEXPRESSION"
     YEXPRESSION = "YEXPRESSION"
+    ZEXPRESSION = "ZEXPRESSION"
     OFFLINE = "OFFLINE"
     COLOR = "COLOR"
     SIZE = "SIZE"
@@ -117,6 +118,11 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
             self.tr("Y Field"),
             parentLayerParameterName=self.INPUT,
         )
+        z_field = QgsProcessingParameterExpression(
+            self.ZEXPRESSION,
+            self.tr("Z Field"),
+            parentLayerParameterName=self.INPUT,
+        )
 
         offline_param = QgsProcessingParameterBoolean(
             self.OFFLINE, self.tr("Complete offline usage"), defaultValue=False
@@ -125,7 +131,7 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
 
         output_html = QgsProcessingParameterFileDestination(
             self.OUTPUT_HTML_FILE,
-            self.tr("Scatter Plot"),
+            self.tr(f"{self.plot_type.title()} Plot"),
             self.tr("HTML files (*.html)"),
         )
 
@@ -195,17 +201,19 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
         plot_types_dict[plot_type].append(input_layer)
         plot_types_dict[plot_type].append(x_field)
         plot_types_dict[plot_type].append(y_field)
+        if plot_type in ("scatter_3d",):
+            plot_types_dict[plot_type].append(z_field)
+        plot_types_dict[plot_type].append(color_param)
+        if plot_type in ("scatter",):
+            plot_types_dict[plot_type].append(size_param)
         plot_types_dict[plot_type].append(offline_param)
         plot_types_dict[plot_type].append(output_html)
         plot_types_dict[plot_type].append(output_json)
-        plot_types_dict[plot_type].append(color_param)
-        plot_types_dict[plot_type].append(facet_row)
-        plot_types_dict[plot_type].append(facet_col)
-        plot_types_dict[plot_type].append(show_legend)
+        if self.plot_type in ('scatter', 'bar'):
+            plot_types_dict[plot_type].append(facet_row)
+            plot_types_dict[plot_type].append(facet_col)
+            plot_types_dict[plot_type].append(show_legend)
 
-        # add the parameter depending on the plot type
-        if plot_type in ("scatter"):
-            plot_types_dict[plot_type].append(size_param)
 
         return plot_types_dict[plot_type]
 
@@ -276,6 +284,14 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
             y_expression.prepare(expressionContext)
             raise QgsProcessingException(y_expression.parserErrorString())
 
+        if parameters.get(self.ZEXPRESSION):
+            z_expression = self.parameterAsString(parameters, self.ZEXPRESSION, context)
+            z_expression = QgsExpression(z_expression)
+
+            if z_expression.hasParserError():
+                z_expression.prepare(expressionContext)
+                raise QgsProcessingException(z_expression.parserErrorString())
+
         size = self.parameterAsDouble(parameters, self.SIZE, context)
         size_property = None
         if QgsProcessingParameters.isDynamic(parameters, "SIZE"):
@@ -301,7 +317,7 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
             raise QgsProcessingException(facet_col_expression.parserErrorString())
 
         offline = self.parameterAsBool(parameters, self.OFFLINE, context)
-        if offline is not True:
+        if not offline:
             offline = "cdn"
 
         show_legend = self.parameterAsBool(parameters, self.SHOW_LEGEND, context)
@@ -316,7 +332,10 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
         )
 
         # start building the object to create the pandas dataframe
-        colnames = ["x", "y", "customdata"]
+        colnames = ["x", "y"]
+        if self.plot_type in ('scatter_3d',):
+            colnames.append('z')
+        colnames.append("customdata")
         data = []
 
         request = QgsFeatureRequest()
@@ -337,6 +356,11 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
 
             tl.append(x_val)
             tl.append(y_val)
+
+            if self.plot_type in ('scatter_3d',):
+                z_val = z_expression.evaluate(expressionContext)
+                tl.append(z_val)
+
             tl.append(ids)
 
             if facet_row:
@@ -380,23 +404,28 @@ class DataPlotlyProcessingPlot(QgsProcessingAlgorithm):
         plot_params = {
             "x": "x",
             "y": "y",
-            "color": "color" if color_property else None,
-            "facet_row": "facet_row" if facet_row else None,
-            "facet_col": "facet_col" if facet_col else None,
+            "color": "color" if color_property else None
         }
 
         # initialize the updating dictionary (different depending on the plot parameters)
         fig_update_params = defaultdict(dict)
 
         # only if scatter
-        if self.plot_type in ('scatter'):
+        if self.plot_type in ('scatter',):
             if size_property:
                 plot_params["size"] = "size"
             else:
                 fig_update_params[self.plot_type]["marker_size"] = size
 
+        if self.plot_type in ('scatter_3d',):
+            plot_params['z'] = 'z'
+
         if color_property is None:
             fig_update_params[self.plot_type]["marker_color"] = color.name()
+
+        if self.plot_type in ('scatter', 'bar'):
+            plot_params["facet_row"] = "facet_row" if facet_row else None
+            plot_params["facet_col"] = "facet_col" if facet_col else None
 
         # call the methods to create and update the figure
         fig = self.create_plot(self.plot_type, df, plot_params)
