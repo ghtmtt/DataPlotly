@@ -72,10 +72,10 @@ def test_scatterplot_figure(data: Path, output_dir: Path):
         result_dict = json.load(f)
 
     x = decode_array_1d(result_dict["data"][0]["x"])
-    assert x.tolist() == [98, 88, 267, 329, 319, 137, 350, 151, 203]
+    assert x == [98, 88, 267, 329, 319, 137, 350, 151, 203]
 
     y = decode_array_1d(result_dict["data"][0]["y"])
-    assert y.tolist() == [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
+    assert y == [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
 
 def test_barplot_figure(data: Path, output_dir: Path):
     """Test for the Processing scatterplot"""
@@ -117,4 +117,4 @@ def test_barplot_figure(data: Path, output_dir: Path):
     assert x == ['s', 'd', 's', 's', 'd', 's', 'd', 's', 'd']
 
     y = decode_array_1d(result_dict["data"][0]["y"])
-    assert y.tolist() == [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
+    assert y == [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
