@@ -83,7 +83,7 @@ def test_barplot_figure(data: Path, output_dir: Path):
 
     class Feedback(QgsProcessingFeedback):
         def reportError(self, msg: str, fatalError: bool = False):
-            print("\n::test_scatterplot_figure::error", msg)
+            print("\n::test_barplot_figure::error", msg)
 
     layer_path = data.joinpath("test_layer.shp")
 
