@@ -5,8 +5,6 @@
 
 set -e
 
-apt-get update && apt-get install -y git
-
 cd  /src
 
 VENV=/src/.docker-venv-$QGIS_VERSION
