@@ -865,7 +865,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                        self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # set some configurations
         # call the plot method without all the javascript code
-        raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False,
+        raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, 
                                         config=config)
         # insert callback for javascript events
         raw_plot += self.js_callback(raw_plot)
@@ -960,7 +960,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                         '</script><script src="{}"></script></head>'.format(
                             self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False, show_link=False,
+        self.raw_plot += plotly.offline.plot(figures, output_type='div', include_plotlyjs=False, 
                                              config=config)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
@@ -1018,7 +1018,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
                         '<script src="{}"></script></head>'.format(
                             self.POLY_FILL_PATH, self.PLOTLY_PATH)
         # call the plot method without all the javascript code
-        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, show_link=False,
+        self.raw_plot += plotly.offline.plot(fig, output_type='div', include_plotlyjs=False, 
                                              config=config)
         # insert callback for javascript events
         self.raw_plot += self.js_callback(self.raw_plot)
