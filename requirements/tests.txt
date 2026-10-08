@@ -11,3 +11,4 @@ pytest-qgis @ git+https://github.com/3liz/pytest-qgis.git@555b184158a58f6922e0df
 semver==3.0.4
 tomli==2.3.0 ; python_full_version < '3.11'
 typing-extensions==4.15.0 ; python_full_version < '3.11'
+pandas

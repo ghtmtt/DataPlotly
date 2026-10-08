@@ -26,6 +26,7 @@ try:
     # 🐼
     from DataPlotly.processing.dataplotly_scatterplot import DataPlotlyProcessingScatterPlot
     from DataPlotly.processing.dataplotly_barplot import DataPlotlyProcessingBarPlot
+    from DataPlotly.processing.dataplotly_scatter3d import DataPlotlyProcessingScatter3D
     WITH_PANDAS = True
 except ImportError:
     WITH_PANDAS = False
@@ -89,3 +90,4 @@ class DataPlotlyProvider(QgsProcessingProvider):
         if WITH_PANDAS:
             self.addAlgorithm(DataPlotlyProcessingScatterPlot())
             self.addAlgorithm(DataPlotlyProcessingBarPlot())
+            self.addAlgorithm(DataPlotlyProcessingScatter3D())

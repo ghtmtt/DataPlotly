@@ -20,6 +20,8 @@ from qgis.PyQt.QtGui import QColor
 
 
 def decode_array_1d(spec: dict) -> array.array:
+    if isinstance(spec, list):
+        return spec
     binary = base64.decodebytes(spec["bdata"].encode())
     match spec["dtype"]:
         case "i2":
@@ -47,10 +49,8 @@ def test_scatterplot_figure(data: Path, output_dir: Path):
     context = QgsProcessingContext()
     context.setTemporaryFolder(str(output_dir))
 
-    return
-
     result = processing.run(
-        "DataPlotly:dataplotly_scatterplot",
+        "DataPlotly:scatterplot",
         {
             "INPUT": vl,
             "XEXPRESSION": '"so4"',
@@ -58,8 +58,9 @@ def test_scatterplot_figure(data: Path, output_dir: Path):
             "SIZE": 10,
             "COLOR": QColor(142, 186, 217),
             "FACET_COL": "",
-            "FACET_ROW": "",
             "OFFLINE": False,
+            "SHOW_LEGEND": True,
+            "FACET_ROW": "",
             "OUTPUT_HTML_FILE": "TEMPORARY_OUTPUT",
             "OUTPUT_JSON_FILE": "TEMPORARY_OUTPUT",
         },
@@ -71,7 +72,49 @@ def test_scatterplot_figure(data: Path, output_dir: Path):
         result_dict = json.load(f)
 
     x = decode_array_1d(result_dict["data"][0]["x"])
-    assert x.tolist() == [98, 88, 267, 329, 319, 137, 350, 151, 203]
+    assert x == [98, 88, 267, 329, 319, 137, 350, 151, 203]
 
     y = decode_array_1d(result_dict["data"][0]["y"])
-    assert y.tolist() == [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
+    assert y == [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
+
+def test_barplot_figure(data: Path, output_dir: Path):
+    """Test for the Processing scatterplot"""
+    from qgis import processing
+
+    class Feedback(QgsProcessingFeedback):
+        def reportError(self, msg: str, fatalError: bool = False):
+            print("\n::test_barplot_figure::error", msg)
+
+    layer_path = data.joinpath("test_layer.shp")
+
+    vl = QgsVectorLayer(str(layer_path), "test_layer", "ogr")
+
+    context = QgsProcessingContext()
+    context.setTemporaryFolder(str(output_dir))
+
+    result = processing.run(
+        "DataPlotly:barplot",
+        {
+            "INPUT": vl,
+            "XEXPRESSION": '"profo"',
+            "YEXPRESSION": '"ca"',
+            "COLOR": QColor(142, 186, 217),
+            "FACET_COL": "",
+            "FACET_ROW": "",
+            "OFFLINE": False,
+            "SHOW_LEGEND": True,
+            "OUTPUT_HTML_FILE": "TEMPORARY_OUTPUT",
+            "OUTPUT_JSON_FILE": "TEMPORARY_OUTPUT",
+        },
+        context=context,
+        feedback=Feedback(),
+    )
+
+    with open(result["OUTPUT_JSON_FILE"]) as f:
+        result_dict = json.load(f)
+
+    x = decode_array_1d(result_dict["data"][0]["x"])
+    assert x == ['s', 'd', 's', 's', 'd', 's', 'd', 's', 'd']
+
+    y = decode_array_1d(result_dict["data"][0]["y"])
+    assert y == [81.87, 22.26, 74.16, 35.05, 46.64, 126.73, 116.44, 108.25, 110.45]
