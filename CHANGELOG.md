@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 4.6.0 - 2026-10-08
+
+* [feature] scatter 3D in Processing
+* remove polyfill and use more modern API to write html file
+* [bugfix] fix show_link TypeError thanks to @Jah-yee
+* [feature] customize pie chart label style
+
 ## 4.5.1 - 2026-04-24
 
 * [bugfix] fix plot title in print layout
