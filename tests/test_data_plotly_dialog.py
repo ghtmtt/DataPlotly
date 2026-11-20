@@ -154,7 +154,7 @@ def test_settings_round_trip(data: Path, qgis_iface: QgisInterface):
     settings.layout["bargaps"] = 0.8
     settings.layout["additional_info_expression"] = "1+2"
     settings.layout["bins_check"] = True
-    settings.layout["gridcolor"] = "rgba( 189, 191, 192, 1.00 )"
+    settings.layout["gridcolor"] = "rgba(0, 0, 0, 1.0)"
 
     settings.data_defined_properties.setProperty(
         PlotSettings.PROPERTY_FILTER, QgsProperty.fromExpression('"ap">50')
