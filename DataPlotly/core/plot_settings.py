@@ -203,7 +203,7 @@ class PlotSettings:  # pylint: disable=too-many-instance-attributes
             'polar': {'angularaxis': {'direction': 'clockwise'}},
             'additional_info_expression': '',
             'bins_check': False,
-            'gridcolor': '#bdbfc0'
+            'gridcolor': "rgba( 189, 191, 192, 1.00 )"
         }
 
         self.plot_base_dic = {

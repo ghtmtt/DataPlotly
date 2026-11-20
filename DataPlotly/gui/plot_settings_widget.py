@@ -1493,7 +1493,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.bar_gap.setValue(settings.layout.get('bargaps', 0))
         self.show_legend_check.setChecked(settings.layout.get('legend', True))
         self.layout_grid_axis_color.setColor(
-            QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
+            QColor(settings.layout.get('gridcolor') or 'rgba( 189, 191, 192, 1.00 )'))
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
         if settings.properties.get('y_fields_combo'):
             for name in settings.properties.get('y_fields_combo', '').split(", "):
