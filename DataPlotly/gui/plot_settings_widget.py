@@ -1321,7 +1321,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             'bargaps': self.bar_gap.value(),
             'additional_info_expression': self.additional_info_combo.expression(),
             'bins_check': self.bins_check.isChecked(),
-            'gridcolor': self.layout_grid_axis_color.color().name()}
+            'gridcolor': f"rgba({self.layout_grid_axis_color.color().red()}, {self.layout_grid_axis_color.color().green()}, {self.layout_grid_axis_color.color().blue()}, {self.layout_grid_axis_color.color().alphaF()})"}
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
                                 source_layer_id=self.layer_combo.currentLayer().id(
                                 ) if self.layer_combo.currentLayer() else None,
