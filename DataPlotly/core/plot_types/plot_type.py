@@ -131,8 +131,8 @@ class PlotType:
                     "color": settings.layout.get('font_xticks_color', "#000"),
                     "family": settings.layout.get('font_xticks_family', "Arial"),
                 },
-                'gridcolor': settings.layout.get('gridcolor', '#bdbfc0'),
-                'zerolinecolor': settings.layout.get('gridcolor', '#bdbfc0')
+                'gridcolor': settings.layout.get('gridcolor', 'rgba( 189, 191, 192, 1.00 )'),
+                'zerolinecolor': settings.layout.get('gridcolor', 'rgba( 189, 191, 192, 1.00 )')
             },
             yaxis={
                 'title': {
@@ -150,8 +150,8 @@ class PlotType:
                     "color": settings.layout.get('font_yticks_color', "#000"),
                     "family": settings.layout.get('font_yticks_family', "Arial"),
                 },
-                'gridcolor': settings.layout.get('gridcolor', '#bdbfc0'),
-                'zerolinecolor': settings.layout.get('gridcolor', '#bdbfc0')
+                'gridcolor': settings.layout.get('gridcolor', 'rgba( 189, 191, 192, 1.00 )'),
+                'zerolinecolor': settings.layout.get('gridcolor', 'rgba( 189, 191, 192, 1.00 )')
             },
             paper_bgcolor=bg_color,
             plot_bgcolor=bg_color

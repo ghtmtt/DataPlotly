@@ -1321,7 +1321,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
             'bargaps': self.bar_gap.value(),
             'additional_info_expression': self.additional_info_combo.expression(),
             'bins_check': self.bins_check.isChecked(),
-            'gridcolor': self.layout_grid_axis_color.color().name()}
+            'gridcolor': f"rgba({self.layout_grid_axis_color.color().red()}, {self.layout_grid_axis_color.color().green()}, {self.layout_grid_axis_color.color().blue()}, {self.layout_grid_axis_color.color().alphaF()})"}
         settings = PlotSettings(plot_type=self.ptype, properties=plot_properties, layout=layout_properties,
                                 source_layer_id=self.layer_combo.currentLayer().id(
                                 ) if self.layer_combo.currentLayer() else None,
@@ -1493,7 +1493,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.bar_gap.setValue(settings.layout.get('bargaps', 0))
         self.show_legend_check.setChecked(settings.layout.get('legend', True))
         self.layout_grid_axis_color.setColor(
-            QColor(settings.layout.get('gridcolor') or '#bdbfc0'))
+            QColor(settings.layout.get('gridcolor') or 'rgba( 189, 191, 192, 1.00 )'))
         self.pie_hole.setValue(settings.properties.get('pie_hole', 0))
         if settings.properties.get('y_fields_combo'):
             for name in settings.properties.get('y_fields_combo', '').split(", "):
