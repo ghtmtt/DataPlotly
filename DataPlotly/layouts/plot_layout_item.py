@@ -7,6 +7,7 @@ the Free Software Foundation; either version 2 of the License, or
 """
 
 from qgis.PyQt.QtCore import (
+    PYQT_VERSION_STR,
     Qt,
     QCoreApplication,
     QSize,
@@ -16,7 +17,6 @@ from qgis.PyQt.QtCore import (
 from qgis.PyQt.QtWidgets import QGraphicsItem
 
 from qgis.core import (
-    Qgis,
     QgsLayoutItem,
     QgsLayoutItemRegistry,
     QgsLayoutItemAbstractMetadata,
@@ -25,9 +25,14 @@ from qgis.core import (
     QgsPropertyCollection
 )
 
-if Qgis.versionInt() >= 40000:
+from DataPlotly.core.web_backend import USE_WEBENGINE
+
+if USE_WEBENGINE:
     from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
-    from qgis.PyQt.QtWebEngineCore import QWebEnginePage
+    if PYQT_VERSION_STR.startswith('5.'):
+        from qgis.PyQt.QtWebEngineWidgets import QWebEnginePage
+    else:
+        from qgis.PyQt.QtWebEngineCore import QWebEnginePage
 else:
     from qgis.PyQt.QtGui import QPalette
     from qgis.PyQt.QtWebKitWidgets import QWebPage
@@ -40,7 +45,7 @@ from DataPlotly.gui.gui_utils import GuiUtils
 ITEM_TYPE = QgsLayoutItemRegistry.ItemType.PluginItem + 1337
 
 
-if Qgis.versionInt() >= 40000:
+if USE_WEBENGINE:
 
     class LoggingWebPage(QWebEnginePage):
 
@@ -73,7 +78,7 @@ class PlotLayoutItem(QgsLayoutItem):
         self._loading = False
         self._captured_pixmap = None
 
-        if Qgis.versionInt() >= 40000:
+        if USE_WEBENGINE:
             self.web_page = LoggingWebPage(self)
             self.web_page.setBackgroundColor(Qt.GlobalColor.transparent)
 
@@ -113,7 +118,7 @@ class PlotLayoutItem(QgsLayoutItem):
         # Hm - why is this? Something internal in Plotly which is auto-scaling the html content?
         # we may need to expose this as a "scaling" setting
 
-        if Qgis.versionInt() >= 40000:
+        if USE_WEBENGINE:
             return 8
         return 72
 
@@ -195,7 +200,7 @@ class PlotLayoutItem(QgsLayoutItem):
         painter = context.renderContext().painter()
         painter.save()
 
-        if Qgis.versionInt() >= 40000:
+        if USE_WEBENGINE:
             if self._captured_pixmap and not self._captured_pixmap.isNull():
                 sx = self.rect().width() * context.renderContext().scaleFactor() / self._captured_pixmap.width()
                 sy = self.rect().height() * context.renderContext().scaleFactor() / self._captured_pixmap.height()
@@ -256,7 +261,7 @@ class PlotLayoutItem(QgsLayoutItem):
     def load_content(self):
         self.html_loaded = False
 
-        if Qgis.versionInt() >= 40000:
+        if USE_WEBENGINE:
             import tempfile
             self._loading = True
             self.web_view.resize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
@@ -309,7 +314,7 @@ class PlotLayoutItem(QgsLayoutItem):
                 self.set_linked_map(map)
 
     def loading_html_finished(self):
-        if Qgis.versionInt() >= 40000:
+        if USE_WEBENGINE:
             self.web_page.runJavaScript("document.documentElement.style.overflow='hidden'")
             self._render_retries = 0
             js = """(function() {

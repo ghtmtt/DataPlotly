@@ -46,7 +46,7 @@ from qgis.PyQt.QtCore import (
     Qt
 )
 
-from qgis.PyQt.QtCore import pyqtSlot, QObject
+from qgis.PyQt.QtCore import pyqtSlot, QObject, PYQT_VERSION_STR
 
 from qgis.core import (
     Qgis,
@@ -68,10 +68,16 @@ from qgis.gui import (
 )
 from qgis.utils import iface
 
-if Qgis.versionInt() >= 40000:
+from DataPlotly.core.web_backend import USE_WEBENGINE
+
+if USE_WEBENGINE:
     from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
-    from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
-    from PyQt6.QtWebChannel import QWebChannel
+    if PYQT_VERSION_STR.startswith('5.'):
+        from qgis.PyQt.QtWebEngineWidgets import QWebEngineSettings
+        from PyQt5.QtWebChannel import QWebChannel
+    else:
+        from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
+        from PyQt6.QtWebChannel import QWebChannel
 else:
     from qgis.core import QgsNetworkAccessManager
     from qgis.PyQt.QtWebKit import QWebSettings
@@ -90,7 +96,7 @@ class Bridge(QObject):
     """
     custom bridge class to catch the message from QWebEngine.
 
-    NOTE: useful for QGIS >= 4, useless for QGIS 3
+    NOTE: used only with QtWebEngine, QtWebKit relies on statusBarMessage
     """
     messageReceived = pyqtSignal(str)
 
@@ -244,7 +250,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layouth = QVBoxLayout()
         self.layouth.setContentsMargins(0, 0, 0, 0)
         self.help_widget.setLayout(self.layouth)
-        if Qgis.versionInt() >= 40000:
+        if USE_WEBENGINE:
             self.help_view = QWebEngineView()
         else:
             self.help_view = QWebView()
@@ -256,7 +262,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.layoutw.setContentsMargins(0, 0, 0, 0)
         self.plot_qview.setLayout(self.layoutw)
 
-        if Qgis.versionInt() >= 40000:
+        if USE_WEBENGINE:
             self.plot_view = QWebEngineView()
 
             settings = self.plot_view.settings()
