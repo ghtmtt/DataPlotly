@@ -390,7 +390,7 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         self.y_axis_max.setRange(sys.float_info.max * -1, sys.float_info.max)
 
         # default gridaxis color
-        self.layout_grid_axis_color.setColor(QColor('#bdbfc0'))
+        self.layout_grid_axis_color.setColor(QColor(189, 191, 192, 1))
 
         self.pid = None
         self.plot_path = None
