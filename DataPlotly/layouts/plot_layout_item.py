@@ -14,6 +14,7 @@ from qgis.PyQt.QtCore import (
     QTimer,
     QUrl,
 )
+from qgis.PyQt.QtGui import QPainter
 from qgis.PyQt.QtWidgets import QGraphicsItem
 
 from qgis.core import (
@@ -202,10 +203,17 @@ class PlotLayoutItem(QgsLayoutItem):
 
         if USE_WEBENGINE:
             if self._captured_pixmap and not self._captured_pixmap.isNull():
-                sx = self.rect().width() * context.renderContext().scaleFactor() / self._captured_pixmap.width()
-                sy = self.rect().height() * context.renderContext().scaleFactor() / self._captured_pixmap.height()
-                painter.scale(sx, sy)
-                painter.drawPixmap(0, 0, self._captured_pixmap)
+                width = self.rect().width() * context.renderContext().scaleFactor()
+                height = self.rect().height() * context.renderContext().scaleFactor()
+                ratio = painter.device().devicePixelRatioF()
+                pixmap = self._captured_pixmap
+                if width * ratio < pixmap.width():
+                    pixmap = pixmap.scaled(max(1, round(width * ratio)), max(1, round(height * ratio)),
+                                           Qt.AspectRatioMode.IgnoreAspectRatio,
+                                           Qt.TransformationMode.SmoothTransformation)
+                painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
+                painter.scale(width / pixmap.width(), height / pixmap.height())
+                painter.drawPixmap(0, 0, pixmap)
         else:
             # almost a direct copy from QgsLayoutItemLabel!
             painter.scale(context.renderContext().scaleFactor() / self.html_units_to_layout_units,
