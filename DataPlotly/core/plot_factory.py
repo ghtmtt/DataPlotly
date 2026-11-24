@@ -29,8 +29,7 @@ from qgis.core import (
     QgsReferencedGeometryBase,
     QgsGeometry,
     QgsCsException,
-    QgsSymbolLayerUtils,
-    Qgis
+    QgsSymbolLayerUtils
 )
 from qgis.PyQt.QtCore import (
     QUrl,
@@ -43,6 +42,7 @@ from qgis.PyQt.QtCore import (
 from qgis.PyQt.QtGui import QColor
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_types.plot_type import PlotType
+from DataPlotly.core.web_backend import USE_WEBENGINE
 from DataPlotly.core.plot_types import *  # pylint: disable=W0401,W0614
 
 
@@ -75,7 +75,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
     """
 
     # create fixed class variables as paths for local javascript files
-    if Qgis.versionInt() >= 40000:
+    if USE_WEBENGINE:
         plotly_version = "3.0.1"
     else:
         plotly_version = "1.52.2"
@@ -543,7 +543,7 @@ class PlotFactory(QObject):  # pylint:disable=too-many-instance-attributes
         replaced in a second moment
         """
 
-        if Qgis.versionInt() >= 40000:
+        if USE_WEBENGINE:
             js_str = """
 
             <script src="qrc:///qtwebchannel/qwebchannel.js"></script>
