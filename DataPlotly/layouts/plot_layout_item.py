@@ -317,10 +317,15 @@ class PlotLayoutItem(QgsLayoutItem):
         if USE_WEBENGINE:
             self.web_page.runJavaScript("document.documentElement.style.overflow='hidden'")
             self._render_retries = 0
+            # without an explicit size, Plotly.toImage() uses Plotly's default 700x450 px
+            width = self.web_view.width()
+            height = self.web_view.height()
+            scale = min(2, 4096 / max(width, height, 1))
             js = """(function() {
                 var plot = document.querySelector('.js-plotly-plot');
                 if (plot && typeof Plotly !== 'undefined') {
-                    Plotly.toImage(plot, {format: 'png', scale: 2}).then(function(dataUrl) {
+                    var options = {format: 'png', width: %d, height: %d, scale: %f};
+                    Plotly.toImage(plot, options).then(function(dataUrl) {
                         window._capturedImage = dataUrl;
                     }).catch(function() {
                         window._capturedImage = '';
@@ -328,7 +333,7 @@ class PlotLayoutItem(QgsLayoutItem):
                 } else {
                     window._capturedImage = '';
                 }
-            })()"""
+            })()""" % (width, height, scale)
             self.web_page.runJavaScript(js)
             self._wait_for_image_capture()
         else:
