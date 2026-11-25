@@ -42,7 +42,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install documentation dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements/docs.txt
 
       - name: Install sphinx-intl
         run: pip install sphinx-intl
