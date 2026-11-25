@@ -106,7 +106,7 @@ html_context['languages'] = languages
 
 # just to test the build on local machine
 # TODO path should be replaced by the final url
-path = 'https://ghtmtt.dataplotly.io/doc-example'
+path = 'https://ghtmtt.github.io/DataPlotly'
 
 # get the link of the documentation for every language
 html_context['supported_languages'] = [[l, path + '/' + l] for l in languages]
