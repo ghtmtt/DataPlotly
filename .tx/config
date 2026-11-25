@@ -1,0 +1,143 @@
+[main]
+host = https://app.transifex.com
+
+[o:dataplotly:p:dataplotly-manual:r:2dhistogram]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/2dhistogram.po
+source_file            = docs/locale/en/LC_MESSAGES/2dhistogram.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = 2dhistogram
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:bar]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/bar.po
+source_file            = docs/locale/en/LC_MESSAGES/bar.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = bar
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:basic_usage]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/basic_usage.po
+source_file            = docs/locale/en/LC_MESSAGES/basic_usage.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = basic_usage
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:box]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/box.po
+source_file            = docs/locale/en/LC_MESSAGES/box.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = box
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:contour]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/contour.po
+source_file            = docs/locale/en/LC_MESSAGES/contour.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = contour
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:from_console]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/from_console.po
+source_file            = docs/locale/en/LC_MESSAGES/from_console.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = from_console
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:histogram]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/histogram.po
+source_file            = docs/locale/en/LC_MESSAGES/histogram.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = histogram
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:index]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/index.po
+source_file            = docs/locale/en/LC_MESSAGES/index.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = index
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:intro]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/intro.po
+source_file            = docs/locale/en/LC_MESSAGES/intro.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = intro
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:pie]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/pie.po
+source_file            = docs/locale/en/LC_MESSAGES/pie.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = pie
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:polar]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/polar.po
+source_file            = docs/locale/en/LC_MESSAGES/polar.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = polar
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:scatter]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/scatter.po
+source_file            = docs/locale/en/LC_MESSAGES/scatter.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = scatter
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:ternary]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/ternary.po
+source_file            = docs/locale/en/LC_MESSAGES/ternary.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = ternary
+replace_edited_strings = false
+keep_translations      = false
+
+[o:dataplotly:p:dataplotly-manual:r:violin]
+file_filter            = docs/locale/<lang>/LC_MESSAGES/violin.po
+source_file            = docs/locale/en/LC_MESSAGES/violin.po
+source_lang            = en
+type                   = PO
+minimum_perc           = 0
+resource_name          = violin
+replace_edited_strings = false
+keep_translations      = false
+
