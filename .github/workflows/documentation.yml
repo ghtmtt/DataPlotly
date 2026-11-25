@@ -1,0 +1,77 @@
+
+name: documentation
+
+on:
+  pull_request:
+  workflow_run:
+    workflows: ["Transifex 🗺"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install sphinx-intl
+
+      - name: Extract documentation strings
+        run: sphinx-build -b gettext docs docs/target/gettext
+
+      - name: Initialize translation catalogs
+        run: |
+          for lang in it es fr nl sv; do
+            sphinx-intl update \
+              -p docs/target/gettext \
+              -d docs/locale \
+              -l "$lang" -j 1
+          done
+
+      - name: Pull translations from Transifex
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: transifex/cli-action@v2
+        with:
+          token: ${{ secrets.TRANSIFEX_TOKEN }}
+          args: pull --force
+
+      - name: Compile translations
+        run: sphinx-intl build -d docs/locale
+
+      - name: Sphinx build
+        run: |
+          for lang in en es fr it nl sv; do
+            sphinx-build -b html \
+              -D language=$lang \
+              docs docs/target/html/$lang
+          done
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: >-
+          (github.event_name == 'workflow_run' &&
+           github.event.workflow_run.head_branch == 'master') ||
+          (github.event_name == 'workflow_dispatch' &&
+           github.ref == 'refs/heads/master')
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/target/html/
+          force_orphan: true
