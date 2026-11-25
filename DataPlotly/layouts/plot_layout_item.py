@@ -14,7 +14,7 @@ from qgis.PyQt.QtCore import (
     QTimer,
     QUrl,
 )
-from qgis.PyQt.QtGui import QPainter
+from qgis.PyQt.QtGui import QPaintEngine, QPainter
 from qgis.PyQt.QtWidgets import QGraphicsItem
 
 from qgis.core import (
@@ -44,6 +44,7 @@ from DataPlotly.core.plot_factory import PlotFactory, FilterRegion
 from DataPlotly.gui.gui_utils import GuiUtils
 
 ITEM_TYPE = QgsLayoutItemRegistry.ItemType.PluginItem + 1337
+PAGE_MARGIN = 8  # px, default body margin of the page, kept by QtWebKit
 
 
 if USE_WEBENGINE:
@@ -120,7 +121,7 @@ class PlotLayoutItem(QgsLayoutItem):
         # we may need to expose this as a "scaling" setting
 
         if USE_WEBENGINE:
-            return 8
+            return 7.2
         return 72
 
     def set_linked_map(self, map):
@@ -203,15 +204,19 @@ class PlotLayoutItem(QgsLayoutItem):
 
         if USE_WEBENGINE:
             if self._captured_pixmap and not self._captured_pixmap.isNull():
-                width = self.rect().width() * context.renderContext().scaleFactor()
-                height = self.rect().height() * context.renderContext().scaleFactor()
-                ratio = painter.device().devicePixelRatioF()
+                scale = context.renderContext().scaleFactor()
+                margin = PAGE_MARGIN / self.html_units_to_layout_units * scale
+                width = max(self.rect().width() * scale - 2 * margin, 0)
+                height = max(self.rect().height() * scale - 2 * margin, 0)
+                # shrink to twice the target size, the painter does the last step
+                ratio = 2 * painter.device().devicePixelRatioF()
                 pixmap = self._captured_pixmap
-                if width * ratio < pixmap.width():
+                if painter.paintEngine().type() == QPaintEngine.Type.Raster and width * ratio < pixmap.width():
                     pixmap = pixmap.scaled(max(1, round(width * ratio)), max(1, round(height * ratio)),
                                            Qt.AspectRatioMode.IgnoreAspectRatio,
                                            Qt.TransformationMode.SmoothTransformation)
                 painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
+                painter.translate(margin, margin)
                 painter.scale(width / pixmap.width(), height / pixmap.height())
                 painter.drawPixmap(0, 0, pixmap)
         else:
@@ -272,8 +277,8 @@ class PlotLayoutItem(QgsLayoutItem):
         if USE_WEBENGINE:
             import tempfile
             self._loading = True
-            self.web_view.resize(QSize(int(self.rect().width()) * self.html_units_to_layout_units,
-                                       int(self.rect().height()) * self.html_units_to_layout_units))
+            self.web_view.resize(QSize(round(self.rect().width() * self.html_units_to_layout_units),
+                                       round(self.rect().height() * self.html_units_to_layout_units)))
             self._tmp_file = tempfile.NamedTemporaryFile(suffix='.html', delete=False)
             self._tmp_file.write(self.create_plot().encode('utf-8'))
             self._tmp_file.close()
@@ -326,9 +331,9 @@ class PlotLayoutItem(QgsLayoutItem):
             self.web_page.runJavaScript("document.documentElement.style.overflow='hidden'")
             self._render_retries = 0
             # without an explicit size, Plotly.toImage() uses Plotly's default 700x450 px
-            width = self.web_view.width()
-            height = self.web_view.height()
-            scale = min(2, 4096 / max(width, height, 1))
+            width = max(self.web_view.width() - 2 * PAGE_MARGIN, 1)
+            height = max(self.web_view.height() - 2 * PAGE_MARGIN, 1)
+            scale = min(3, 4096 / max(width, height))
             js = """(function() {
                 var plot = document.querySelector('.js-plotly-plot');
                 if (plot && typeof Plotly !== 'undefined') {
