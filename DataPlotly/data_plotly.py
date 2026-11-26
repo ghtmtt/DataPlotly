@@ -20,27 +20,30 @@
  ***************************************************************************/
 """
 import os.path
+
 from functools import partial
 
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QUrl
+import requests
+
+from qgis.core import QgsApplication, QgsExpression, QgsProject
+from qgis.gui import QgsGui
+from qgis.PyQt.QtCore import QCoreApplication, QSettings, QTranslator, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu, QToolButton
-from qgis.core import QgsApplication, QgsExpression, QgsProject, Qgis
-from qgis.gui import QgsGui
 
 # Help
-from DataPlotly.core.core_utils import DOC_URL
+from DataPlotly.core.core_utils import help_doc_url
 
 # Import the code for the dialog
 from DataPlotly.gui.dock import DataPlotlyDockManager
 from DataPlotly.gui.gui_utils import GuiUtils
-
-# import processing provider
-from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
+from DataPlotly.gui.layout_item_gui import PlotLayoutItemGuiMetadata
 
 # import layout classes
 from DataPlotly.layouts.plot_layout_item import PlotLayoutItemMetadata
-from DataPlotly.gui.layout_item_gui import PlotLayoutItemGuiMetadata
+
+# import processing provider
+from DataPlotly.processing.dataplotly_provider import DataPlotlyProvider
 
 # import custom expressions
 from .core.plot_expressions import get_symbol_colors
@@ -74,6 +77,9 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
             self.plugin_dir,
             'i18n',
             f'application_{locale}.qm')
+
+        # create the manual help url
+        self.DOC_URL = help_doc_url(locale)
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -284,10 +290,9 @@ class DataPlotly:  # pylint: disable=too-many-instance-attributes
         for dock in self.dock_widgets.values():
             self.iface.removeDockWidget(dock)
 
-    @staticmethod
-    def open_help():
+    def open_help(self):
         """ Open the online help. """
-        QDesktopServices.openUrl(QUrl(DOC_URL))
+        QDesktopServices.openUrl(QUrl(self.DOC_URL))
 
     def loadPlotFromDic(self, plot_dic, dock_id='DataPlotly'):
         """

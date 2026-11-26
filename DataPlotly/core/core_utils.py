@@ -6,9 +6,25 @@ the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
 """
 import uuid
+
+import requests
+
 from qgis.PyQt.QtCore import QByteArray
 
-DOC_URL = "https://dataplotly-docs.readthedocs.io"
+DOC_URL = "https://ghtmtt.github.io/DataPlotly/"
+
+def help_doc_url(locale):
+    """return the correct help url with locale
+    """
+    generic_url = f"https://ghtmtt.github.io/DataPlotly/{locale}/"
+    response = requests.get(generic_url)
+
+    # fallback to en if there are no translations
+    if response.status_code != 200:
+        print('vaffanculo')
+        return "https://ghtmtt.github.io/DataPlotly/en/"
+    else:
+        return generic_url
 
 def safe_str_xml(s):
     """ replaces spaces by .
