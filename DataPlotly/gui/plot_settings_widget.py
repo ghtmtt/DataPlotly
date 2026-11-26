@@ -21,51 +21,31 @@
 """
 
 import json
-from collections import OrderedDict
-from shutil import copyfile
-from functools import partial
 import sys
 
-from qgis.PyQt import uic
-from qgis.PyQt.QtWidgets import (
-    QListWidgetItem,
-    QVBoxLayout,
-    QFileDialog,
-    QMenu
-)
-from qgis.PyQt.QtXml import QDomDocument
-
-from qgis.PyQt.QtGui import (
-    QFont,
-    QColor
-)
-from qgis.PyQt.QtCore import (
-    QUrl,
-    pyqtSignal,
-    QDir,
-    Qt
-)
-
-from qgis.PyQt.QtCore import pyqtSlot, QObject, PYQT_VERSION_STR
+from collections import OrderedDict
+from functools import partial
+from shutil import copyfile
 
 from qgis.core import (
     Qgis,
+    QgsExpressionContextGenerator,
     QgsFeatureRequest,
+    QgsFileUtils,
+    QgsLayoutItemRegistry,
     QgsMapLayerProxyModel,
     QgsProject,
-    QgsFileUtils,
-    QgsReferencedRectangle,
-    QgsExpressionContextGenerator,
     QgsPropertyCollection,
-    QgsLayoutItemRegistry,
     QgsPropertyDefinition,
-    QgsTextFormat
+    QgsReferencedRectangle,
+    QgsTextFormat,
 )
-from qgis.gui import (
-    QgsPanelWidget,
-    QgsMessageBar,
-    QgsPropertyOverrideButton
-)
+from qgis.gui import QgsMessageBar, QgsPanelWidget, QgsPropertyOverrideButton
+from qgis.PyQt import uic
+from qgis.PyQt.QtCore import PYQT_VERSION_STR, QDir, QObject, QSettings, Qt, QUrl, pyqtSignal, pyqtSlot
+from qgis.PyQt.QtGui import QColor, QFont
+from qgis.PyQt.QtWidgets import QFileDialog, QListWidgetItem, QMenu, QVBoxLayout
+from qgis.PyQt.QtXml import QDomDocument
 from qgis.utils import iface
 
 from DataPlotly.core.web_backend import USE_WEBENGINE
@@ -73,18 +53,18 @@ from DataPlotly.core.web_backend import USE_WEBENGINE
 if USE_WEBENGINE:
     from qgis.PyQt.QtWebEngineWidgets import QWebEngineView
     if PYQT_VERSION_STR.startswith('5.'):
-        from qgis.PyQt.QtWebEngineWidgets import QWebEngineSettings
         from PyQt5.QtWebChannel import QWebChannel
+        from qgis.PyQt.QtWebEngineWidgets import QWebEngineSettings
     else:
-        from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
         from PyQt6.QtWebChannel import QWebChannel
+        from qgis.PyQt.QtWebEngineCore import QWebEngineSettings
 else:
     from qgis.core import QgsNetworkAccessManager
     from qgis.PyQt.QtWebKit import QWebSettings
     from qgis.PyQt.QtWebKitWidgets import QWebView
 
 
-from DataPlotly.core.core_utils import DOC_URL
+from DataPlotly.core.core_utils import help_doc_url
 from DataPlotly.core.plot_factory import PlotFactory
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.gui.gui_utils import GuiUtils
@@ -644,11 +624,13 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         the language (looks for translations)
         """
 
-        # locale = QSettings().value('locale/userLocale', 'en_US')[0:2]
+        locale = QSettings().value('locale/userLocale', 'en_US')[0:2]
+        print(locale)
 
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)
-        help_url = QUrl(f'{DOC_URL}/en/latest/{self.ptype}.html')
+        DOC_URL = help_doc_url(locale)
+        help_url = QUrl(f'{DOC_URL}{self.ptype}.html')
         self.help_view.load(help_url)
 
     def resizeEvent(self, event):
