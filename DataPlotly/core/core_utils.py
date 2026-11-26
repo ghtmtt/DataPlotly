@@ -21,7 +21,6 @@ def help_doc_url(locale):
 
     # fallback to en if there are no translations
     if response.status_code != 200:
-        print('vaffanculo')
         return "https://ghtmtt.github.io/DataPlotly/en/"
     else:
         return generic_url
