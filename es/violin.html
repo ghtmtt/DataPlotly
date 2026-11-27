@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Violin Plot &mdash; documentación de DataPlotly - </title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=e2bb6099"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=f85f4cfb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Radar Plot" href="radar.html" />
+    <link rel="prev" title="Contour Plot" href="contour.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DataPlotly
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Basic Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Scatter Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Box Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Bar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Pie Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Polar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Ternary Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contour Plot</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Violin Plot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">Radar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Call the plugin from the python console (BETA!)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DataPlotly</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Violin Plot</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/violin.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="violin-plot">
+<span id="violin"></span><h1>Violin Plot<a class="headerlink" href="#violin-plot" title="Link to this heading"></a></h1>
+<p>Here you will find the guide to every parameter of the violin plot. If you
+need more generic information please the <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Basic Usage</span></a>.</p>
+<a class="reference internal image-reference" href="_images/violin.png"><img alt="_images/violin.png" src="_images/violin.png" style="width: 274.0px; height: 281.0px;" />
+</a>
+<section id="plot-properties">
+<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Layer</span></code>: the combobox will display all the vector layers loaded in QGIS</p>
+<p><code class="docutils literal notranslate"><span class="pre">Grouping</span> <span class="pre">Field</span> <span class="pre">(Optional)</span></code>: the grouping field. If no field is added, a generic
+violin plot for the Y value will be displayed</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field</p>
+<p><code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Color</span></code>: color of the violin</p>
+<p><code class="docutils literal notranslate"><span class="pre">Stroke</span> <span class="pre">Color</span></code>: border color</p>
+<p><code class="docutils literal notranslate"><span class="pre">Stroke</span> <span class="pre">Width</span></code>: the width of the border</p>
+<p><code class="docutils literal notranslate"><span class="pre">Transparency</span></code>: transparency level of the violin</p>
+</section>
+<section id="plot-customizations">
+<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
+<p><code class="docutils literal notranslate"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>: check if you want to have an horizontal legend</p>
+<p><code class="docutils literal notranslate"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
+<p><code class="docutils literal notranslate"><span class="pre">Legend</span> <span class="pre">Title</span></code>: the title of the legend</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">Label</span></code>: X label text</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">Label</span></code>: Y Label text</p>
+<p><code class="docutils literal notranslate"><span class="pre">Box</span> <span class="pre">Orientation</span></code>: the orientation of the violin, either <em>Horizontal</em> or <em>Vertical</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">Outliers</span></code>: show also the outliers (or all the points) next to the box. Some
+example in the following picture:</p>
+<a class="reference internal image-reference" href="_images/violin-outlier.png"><img alt="_images/violin-outlier.png" src="_images/violin-outlier.png" style="width: 321.5px; height: 453.5px;" />
+</a>
+<p><code class="docutils literal notranslate"><span class="pre">Violin</span> <span class="pre">side</span></code>: if the violin plot should be both sides, only right or only left</p>
+<p><code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Mean</span> <span class="pre">Line</span></code>: uncheck to not show a line corresponding to the mean</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="contour.html" class="btn btn-neutral float-left" title="Contour Plot" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="radar.html" class="btn btn-neutral float-right" title="Radar Plot" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2017 - 2026, Matteo Ghetta.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+    <dl>
+        <dt>Languages</dt>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/en/violin.html">en</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/it/violin.html">it</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/es/violin.html">es</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/fr/violin.html">fr</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/nl/violin.html">nl</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/sv/violin.html">sv</a></dd>
+        
+    </dl>
+      
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

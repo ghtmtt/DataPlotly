@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="nl" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taartdiagram &mdash; DataPlotly  documentatie</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=db5089cf"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=e4d38c6a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Zoeken" href="search.html" />
+    <link rel="next" title="2D Histogram" href="2dhistogram.html" />
+    <link rel="prev" title="Histogram" href="histogram.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DataPlotly
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Zoek in documentatie" aria-label="Zoek in documentatie" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigatiemenu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">DataPlotly Standaard gebruik</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Spreidingsdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Boxplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Staafdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Histogram</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Taartdiagram</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Diagram eigenschappen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Diagram aanpassingen</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">2D Histogram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Polair diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Driehoeksdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Contourdiagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Violin Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">Radar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Roep de plugin aan vanaf de python console (BETA!)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Navigatiemenu voor mobiel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DataPlotly</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Paginanavigatie">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Taartdiagram</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/pie.rst.txt" rel="nofollow"> Bekijk paginabron</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pie-plot">
+<span id="pie"></span><h1>Taartdiagram<a class="headerlink" href="#pie-plot" title="Link to this heading"></a></h1>
+<p>Hier kun je de handleiding voor iedere parameter van het taartdiagram vinden. Indien je meer generieke informatie zoekt, zie <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">DataPlotly Standaard gebruik</span></a></p>
+<a class="reference internal image-reference" href="_images/pie.png"><img alt="_images/pie.png" src="_images/pie.png" style="width: 383.0px; height: 440.5px;" />
+</a>
+<section id="plot-properties">
+<h2>Diagram eigenschappen<a class="headerlink" href="#plot-properties" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Layer</span></code>: de keuzelijst toont alle in QGIS ingeladen vector lagen</p>
+<p><code class="docutils literal notranslate"><span class="pre">Grouping</span></code>: features with the same value in the Grouping field are assigned
+to the same pie segment</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">Field</span></code>: the Y field determines the size of the pie segment. If features
+are assigned to the same pie segment because they have the same value in the
+Grouping field the corresponding values in the Y field are summed up to
+determine the size of the pie segment. To create a pie chart displaying the
+number of features belonging to each pie segment enter a <cite>1</cite> instead of a
+field name</p>
+<p><code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">color</span></code>: the color used for filling the first pie segment. Subsequent
+pie segments are filled using the default Plotly color scale.</p>
+<p>To control the color of the individual pie segments use an expression yielding
+color strings depending on the value in the Grouping field.</p>
+<p>For example, to create a pie chart showing the population in each continent
+using the <a class="reference external" href="https://www.naturalearthdata.com/">Natural Earth</a>
+<cite>ne_110m_admin_0_countries</cite> layer, choose <cite>CONTINENT</cite> as the Grouping field and
+<cite>POP_EST</cite> as the Y field. Then, to set the colors for the pie segments use the
+following expression in the Marker color field:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">map_get</span><span class="p">(</span>
+  <span class="nb">map</span><span class="p">(</span>
+    <span class="s1">'Asia'</span><span class="p">,</span> <span class="s1">'#8dd3c7'</span><span class="p">,</span>
+    <span class="s1">'Europe'</span><span class="p">,</span> <span class="s1">'#ffffb3'</span><span class="p">,</span>
+    <span class="s1">'North America'</span><span class="p">,</span> <span class="s1">'#bebada'</span><span class="p">,</span>
+    <span class="s1">'South America'</span><span class="p">,</span> <span class="s1">'#fb8072'</span><span class="p">,</span>
+    <span class="s1">'Africa'</span><span class="p">,</span> <span class="s1">'#80b1d3'</span><span class="p">,</span>
+    <span class="s1">'Oceania'</span><span class="p">,</span> <span class="s1">'#fdb462'</span><span class="p">,</span>
+    <span class="s1">'Antarctica'</span><span class="p">,</span> <span class="s1">'#b3de69'</span><span class="p">,</span>
+    <span class="s1">'Seven seas (open ocean)'</span><span class="p">,</span><span class="s1">'#fccde5'</span>
+  <span class="p">),</span> <span class="s2">"CONTINENT"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="plot-customizations">
+<h2>Diagram aanpassingen<a class="headerlink" href="#plot-customizations" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Legend</span></code>: toon de legenda van het huidige diagram</p>
+<p><code class="docutils literal notranslate"><span class="pre">Legend</span> <span class="pre">Title</span></code>: de titel van de legenda</p>
+<p><code class="docutils literal notranslate"><span class="pre">Horizontal</span> <span class="pre">Legend</span></code>:  vink aan voor een horizontale legenda</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Voettekst">
+        <a href="histogram.html" class="btn btn-neutral float-left" title="Histogram" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Vorige</a>
+        <a href="2dhistogram.html" class="btn btn-neutral float-right" title="2D Histogram" accesskey="n" rel="next">Volgende <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017 - 2026, Matteo Ghetta.</p>
+  </div>
+
+  Gebouwd met <a href="https://www.sphinx-doc.org/">Sphinx</a> met een
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thema</a>
+    geleverd door <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+    <dl>
+        <dt>Languages</dt>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/en/pie.html">en</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/it/pie.html">it</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/es/pie.html">es</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/fr/pie.html">fr</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/nl/pie.html">nl</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/sv/pie.html">sv</a></dd>
+        
+    </dl>
+      
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

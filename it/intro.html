@@ -1,0 +1,193 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Plotly &mdash; Documentazione DataPlotly  </title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=3fd72285"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=45930005"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Utilizzo basico di DataPlotly" href="basic_usage.html" />
+    <link rel="prev" title="Benvenuto nella documentazione di DataPlotly!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DataPlotly
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" aria-label="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Plotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Utilizzo basico di DataPlotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Grafico a dispersione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Grafico a scatola e baffi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Grafico a Barre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Istogramma</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Grafico a torta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">Istogramma 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Grafico a contorno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Grafico a violino</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">Radar Plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Usare il plugin da console (BETA!)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DataPlotly</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Plotly</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/intro.rst.txt" rel="nofollow"> Visualizza sorgente pagina</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-plotly">
+<span id="intro"></span><h1>Data Plotly<a class="headerlink" href="#data-plotly" title="Link to this heading"></a></h1>
+<p>Data Plotly è un plugin di QGIS sctitto in python che permette la creazione di sofisticati grafici in stile <a class="reference external" href="https://d3js.org/">D3</a> grazie alla <a class="reference external" href="https://plot.ly/">libreria Plotly</a> e alle sue API di python.</p>
+<p>I grafici sono completamente <strong>dinamici</strong> in modo che tu possa interagire con il grafico ad esempio ingrandendo/rimpicciolendo oppure ricavando informazioni con il solo passaggio del mouse.</p>
+<p>Inoltre, i grafici e la mappa di QGIS sono <strong>connessi</strong> fra di loro, ovvero puoi selezionare gli elementi del grafico e vedere quali sono gli oggetti corrispondenti sulla mappa:</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/plot_interaction_scatter_box.gif"><img alt="_images/plot_interaction_scatter_box.gif" src="_images/plot_interaction_scatter_box.gif" style="width: 600.0px; height: 314.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Grafico e interazione con la mappa</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Per ogni grafico sono disponibili tantissime personalizzazioni</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/scatter_example.png"><img alt="_images/scatter_example.png" src="_images/scatter_example.png" style="width: 1651.0px; height: 888.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">semplice esempio di grafico</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Con DataPlotly puoi creare molti grafici, anche tipologie di grafici diversi, sovrapporli sullo stesso grafico oppure caricarli in grafici diversi:</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/example_overlay.png"><img alt="_images/example_overlay.png" src="_images/example_overlay.png" style="width: 1651.0px; height: 888.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">tipologie di grafici differenti sovrapposti</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/example_subplots.png"><img alt="_images/example_subplots.png" src="_images/example_subplots.png" style="width: 1651.0px; height: 888.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">tipologie di grafici diversi separati</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Ogni grafico ha la sua configurazione e personalizzazione che ti permetteranno di scegliere la migliore soluzione per le tue necessità.</p>
+<p>Oltre all’interattività del grafico, i grafici possono essere esportati come immagini <cite>png</cite> statiche oppure come file <cite>html</cite>. I file <cite>html</cite> mantengono l”<em>interattività</em> del grafico.</p>
+<p>Infine, il <strong>codice del grafico</strong> può essere copiato e incollato dovunque tu voglia, per esempio in una cornice html del compositore di stampe di QGIS o in un sito web.</p>
+<p>Il codice javascript della <a class="reference external" href="https://plot.ly/">libreria Plotly</a> viene salvato nella tua cartella locale del plugin. In questo modo il plugin è utilizzabile anche senza una connessione internet.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Piè di pagina">
+        <a href="index.html" class="btn btn-neutral float-left" title="Benvenuto nella documentazione di DataPlotly!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Precedente</a>
+        <a href="basic_usage.html" class="btn btn-neutral float-right" title="Utilizzo basico di DataPlotly" accesskey="n" rel="next">Prossimo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017 - 2026, Matteo Ghetta.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+    <dl>
+        <dt>Languages</dt>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/en/intro.html">en</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/it/intro.html">it</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/es/intro.html">es</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/fr/intro.html">fr</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/nl/intro.html">nl</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/sv/intro.html">sv</a></dd>
+        
+    </dl>
+      
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

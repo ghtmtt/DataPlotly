@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="it" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radar Plot &mdash; Documentazione DataPlotly  </title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=3fd72285"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=45930005"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="Usare il plugin da console (BETA!)" href="from_console.html" />
+    <link rel="prev" title="Grafico a violino" href="violin.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DataPlotly
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Cerca documenti" aria-label="Cerca documenti" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu di navigazione">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Data Plotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_usage.html">Utilizzo basico di DataPlotly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scatter.html">Grafico a dispersione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="box.html">Grafico a scatola e baffi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bar.html">Grafico a Barre</a></li>
+<li class="toctree-l1"><a class="reference internal" href="histogram.html">Istogramma</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pie.html">Grafico a torta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2dhistogram.html">Istogramma 2D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polar.html">Grafico polare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ternary.html">Grafico ternario</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contour.html">Grafico a contorno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="violin.html">Grafico a violino</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Radar Plot</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-properties">Plot Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plot-customizations">Plot Customizations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="from_console.html">Usare il plugin da console (BETA!)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu navigazione dispositivi mobili" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DataPlotly</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Naviga tra le pagine">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Radar Plot</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/radar.rst.txt" rel="nofollow"> Visualizza sorgente pagina</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="radar-plot">
+<span id="radarplot"></span><h1>Radar Plot<a class="headerlink" href="#radar-plot" title="Link to this heading"></a></h1>
+<p>Here you will find the guide to every parameter of the radar plot. If you need
+more generic information please see <a class="reference internal" href="basic_usage.html#basic-usage"><span class="std std-ref">Utilizzo basico di DataPlotly</span></a>.</p>
+<p>This plot does not behave like other DataPlotly plots in the way that each layer feature
+will generate an entire trace (not only one point) built with the <code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">fields</span></code> values (see below).</p>
+<a class="reference internal image-reference" href="_images/radar.png"><img alt="_images/radar.png" src="_images/radar.png" style="width: 404.0px; height: 451.0px;" />
+</a>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/radar-threshold.png"><img alt="_images/radar-threshold.png" src="_images/radar-threshold.png" style="width: 406.40999999999997px; height: 498.17999999999995px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">radar plot with a threshold enabled (value=2, line type=dash)</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="plot-properties">
+<h2>Plot Properties<a class="headerlink" href="#plot-properties" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Layer</span></code>: the combobox will display all the vector layers loaded in QGIS</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">label</span></code>: the field that will be the label for each radar branch</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">fields</span></code>: the fields that will be the radar plot branches</p>
+<p><code class="docutils literal notranslate"><span class="pre">Legend</span> <span class="pre">title</span></code>: the title of the legend</p>
+<p><code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">size</span></code>: the size of the marker</p>
+<p><code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">type</span></code>: choose between <strong>Points</strong>, <strong>Lines</strong> or <strong>Points and Lines</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">Fill</span></code>: choose if the radar polygons are filled or not</p>
+<p><code class="docutils literal notranslate"><span class="pre">Threshold</span></code>: choose to add a constant value line in the plot</p>
+<p><code class="docutils literal notranslate"><span class="pre">Threshold</span> <span class="pre">line</span> <span class="pre">type</span></code>: if <code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">type</span></code> is <strong>Lines</strong> or <strong>Points and Lines</strong>, the line type for the Threshold line</p>
+<p><code class="docutils literal notranslate"><span class="pre">Threshold</span> <span class="pre">value</span></code>: the constant value for the threshold</p>
+<p><code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Type</span></code> or <code class="docutils literal notranslate"><span class="pre">Line</span> <span class="pre">Type</span></code> depending on the <code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">Type</span></code> chosen</p>
+<p><code class="docutils literal notranslate"><span class="pre">Color</span> <span class="pre">scale</span></code>: if <code class="docutils literal notranslate"><span class="pre">Marker</span> <span class="pre">type</span></code> is <strong>Lines</strong> or <strong>Points and Lines</strong>, the color scale for the lines</p>
+<p><code class="docutils literal notranslate"><span class="pre">Opacity</span></code>: transparency level of all the points/lines</p>
+</section>
+<section id="plot-customizations">
+<h2>Plot Customizations<a class="headerlink" href="#plot-customizations" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Show</span> <span class="pre">Legend</span></code>: show the legend of the current plot</p>
+<p><code class="docutils literal notranslate"><span class="pre">Plot</span> <span class="pre">Title</span></code>: the plot title</p>
+<p><code class="docutils literal notranslate"><span class="pre">Title</span> <span class="pre">font</span></code>: the title font</p>
+<p><code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">ticks</span> <span class="pre">font</span></code>: the font along the value axis</p>
+<p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">label</span> <span class="pre">font</span></code>: the font of the branches labels</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Piè di pagina">
+        <a href="violin.html" class="btn btn-neutral float-left" title="Grafico a violino" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Precedente</a>
+        <a href="from_console.html" class="btn btn-neutral float-right" title="Usare il plugin da console (BETA!)" accesskey="n" rel="next">Prossimo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017 - 2026, Matteo Ghetta.</p>
+  </div>
+
+  Realizzato con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornito da <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+    <dl>
+        <dt>Languages</dt>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/en/radar.html">en</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/it/radar.html">it</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/es/radar.html">es</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/fr/radar.html">fr</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/nl/radar.html">nl</a></dd>
+        
+        <dd><a href="https://ghtmtt.github.io/DataPlotly/sv/radar.html">sv</a></dd>
+        
+    </dl>
+      
+      
+      
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+ 
+    </div>
+  </div>
+
+ <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
