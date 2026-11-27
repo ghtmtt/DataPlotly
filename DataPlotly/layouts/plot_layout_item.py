@@ -10,11 +10,14 @@ from qgis.PyQt.QtCore import (
     PYQT_VERSION_STR,
     Qt,
     QCoreApplication,
+    QPointF,
+    QRect,
+    QRectF,
     QSize,
     QTimer,
     QUrl,
 )
-from qgis.PyQt.QtGui import QPaintEngine, QPainter
+from qgis.PyQt.QtGui import QPaintEngine, QPainter, QPicture
 from qgis.PyQt.QtWidgets import QGraphicsItem
 
 from qgis.core import (
@@ -38,6 +41,13 @@ else:
     from qgis.PyQt.QtGui import QPalette
     from qgis.PyQt.QtWebKitWidgets import QWebPage
     from qgis.core import QgsNetworkAccessManager
+
+try:
+    from qgis.core import QgsPainting, QgsPdfRenderer, QgsWebEnginePage
+except ImportError:
+    VECTOR_EXPORT = False
+else:
+    VECTOR_EXPORT = hasattr(QgsWebEnginePage, 'renderBlocking') and QgsPdfRenderer.isAvailable()
 
 from DataPlotly.core.plot_settings import PlotSettings
 from DataPlotly.core.plot_factory import PlotFactory, FilterRegion
@@ -79,6 +89,8 @@ class PlotLayoutItem(QgsLayoutItem):
         self.linked_map = None
         self._loading = False
         self._captured_pixmap = None
+        self._vector_key = None
+        self._vector_picture = None
 
         if USE_WEBENGINE:
             self.web_page = LoggingWebPage(self)
@@ -190,6 +202,11 @@ class PlotLayoutItem(QgsLayoutItem):
             self.invalidateCache()
 
     def draw(self, context):
+        # raster outputs keep the image, the text of a replayed picture is not antialiased there
+        engine = context.renderContext().painter().paintEngine().type()
+        if VECTOR_EXPORT and engine != QPaintEngine.Type.Raster and self.draw_vector(context):
+            return
+
         if not self.html_loaded and not self._loading:
             self.load_content()
 
@@ -226,6 +243,44 @@ class PlotLayoutItem(QgsLayoutItem):
             self.web_page.mainFrame().render(painter)
 
         painter.restore()
+
+    def draw_vector(self, context):
+        size = QSize(round(self.rect().width() * self.html_units_to_layout_units) - 2 * PAGE_MARGIN,
+                     round(self.rect().height() * self.html_units_to_layout_units) - 2 * PAGE_MARGIN)
+        if min(size.width(), size.height()) < 10:
+            return False
+        html = self.create_plot()
+        if self._vector_key != (html, size):
+            self._vector_picture = self.render_picture(html, size)
+            self._vector_key = (html, size)
+        if self._vector_picture is None:
+            return False
+
+        painter = context.renderContext().painter()
+        scale = context.renderContext().scaleFactor()
+        margin = PAGE_MARGIN / self.html_units_to_layout_units * scale
+        painter.save()
+        painter.translate(margin, margin)
+        painter.scale((self.rect().width() * scale - 2 * margin) / size.width(),
+                      (self.rect().height() * scale - 2 * margin) / size.height())
+        QgsPainting.drawPicture(painter, QPointF(0, 0), self._vector_picture)
+        painter.restore()
+        return True
+
+    def render_picture(self, html, size):
+        style = ('<style>html, body { margin: 0; overflow: hidden; } '
+                 f'.plotly-graph-div {{ width: {size.width()}px !important; '
+                 f'height: {size.height()}px !important; }}</style>')
+        picture = QPicture()
+        painter = QPainter(picture)
+        ok, error, _ = QgsWebEnginePage.renderBlocking(style + html, painter,
+                                                       QRectF(0, 0, size.width(), size.height()))
+        painter.end()
+        if not ok:
+            QgsMessageLog.logMessage(error, 'DataPlotly')
+            return None
+        picture.setBoundingRect(QRect(0, 0, size.width(), size.height()))
+        return picture
 
     def create_plot(self):
         polygon_filter, visible_features_only = self.get_polygon_filter(0)
