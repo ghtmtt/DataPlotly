@@ -625,7 +625,6 @@ class DataPlotlyPanelWidget(QgsPanelWidget, WIDGET):  # pylint: disable=too-many
         """
 
         locale = QSettings().value('locale/userLocale', 'en_US')[0:2]
-        print(locale)
 
         self.help_view.load(QUrl(''))
         self.layouth.addWidget(self.help_view)
